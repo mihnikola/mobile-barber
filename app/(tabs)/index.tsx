@@ -1,11 +1,9 @@
 import OnboardingComponent from "@/components/OnboardingComponent";
-import axios from "axios";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import {
-  Button,
   Image,
   Platform,
   ScrollView,
@@ -114,6 +112,9 @@ export default function App() {
       responseListener.remove();
     };
   }, []);
+
+
+
 
     const openYosemite = createOpenLink(yosemite);
 

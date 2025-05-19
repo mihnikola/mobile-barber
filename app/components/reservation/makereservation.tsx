@@ -8,47 +8,47 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 const makereservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const navigation = useNavigation();
-  const { employer, service, timeData, dateReservation } = reservation;
-  console.log("reservationreservation",reservation);
   
-  const submitReservationHandler =  async () => {
+
+  const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });
   };
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
-      <Image
-        source={require("@/assets/images/logoImage.png")}
-        style={styles.coverLogo}
-      />
-      <View style={styles.coverContent}>
-        <Text style={styles.timeData}>
-          {timeData?.value} -{" "}
-          {addMinutesToTime(timeData?.value, service?.duration)}
-        </Text>
-        <Text style={styles.dateData}>
-          {convertDate(dateReservation?.dateString)}
-        </Text>
-      </View>
-      <View style={styles.whiteLine} />
+  if (reservation) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={require("@/assets/images/coverImage.jpg")}
+          style={styles.coverImage}
+        />
+        <Image
+          source={require("@/assets/images/logoImage.png")}
+          style={styles.coverLogo}
+        />
+        <View style={styles.coverContent}>
+          <Text style={styles.timeData}>
+            {reservation?.timeData?.value} -{" "}
+            {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.duration)}
+          </Text>
+          <Text style={styles.dateData}>
+            {convertDate(reservation?.dateReservation?.dateString)}
+          </Text>
+        </View>
+        <View style={styles.whiteLine} />
 
-      <View style={{ display: "flex", flexDirection: "column" }}>
-        <View style={{ display: "flex" }}>
-          <Text style={styles.message}>Your appointment is successfully booked!</Text>
-        </View>
+        <View style={{ display: "flex", flexDirection: "column" }}>
+          <View style={{ display: "flex" }}>
+            <Text style={styles.message}>
+              Your appointment is successfully booked!
+            </Text>
+          </View>
           <View style={styles.reservation}>
-            <Button
-              text="Ok"
-              onPress={submitReservationHandler}
-            />
+            <Button text="Ok" onPress={submitReservationHandler} />
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 export default makereservation;
@@ -56,9 +56,9 @@ export default makereservation;
 const styles = StyleSheet.create({
   coverLogo: {
     position: "absolute",
-    display: 'flex',
-    alignSelf:'center',
-    marginTop:20,
+    display: "flex",
+    alignSelf: "center",
+    marginTop: 20,
   },
   checkbox: {
     marginRight: 10, // Space between checkbox and label
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   coverContent: {
     alignItems: "center",
-    position: 'absolute',
+    position: "absolute",
     top: 250,
     width: "100%",
   },

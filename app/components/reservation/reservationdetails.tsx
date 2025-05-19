@@ -14,17 +14,18 @@ import {
 import useFetchReservation from "./hooks/useFetchReservation";
 import useReservationCancellationAlert from "./hooks/useReservationCancellationAlert";
 import useCancelReservation from "./hooks/useCancelReservation";
+import { useNavigation } from "@react-navigation/native";
 const ReservationDetails = () => {
-  const { reservation } = useContext(ReservationContext);
-  const { reservationItem } = reservation;
-  const reservationId = reservationItem?._id;
+  const navigation = useNavigation();
+  const { itemId } = route.params;
+
   const { reservationData, isLoading, error, refetch } =
-    useFetchReservation(reservationId);
+    useFetchReservation(itemId);
   const { isCanceling, cancelError, cancelReservation } =
     useCancelReservation();
   const { showAlert } = useReservationCancellationAlert(() => {
-    if (reservationId) {
-      cancelReservation(reservationId);
+    if (itemId) {
+      cancelReservation(itemId);
     } else {
       console.error("Reservation ID is missing for cancellation.");
       // Optionally show an error message to the user
@@ -32,7 +33,7 @@ const ReservationDetails = () => {
   });
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
   // if (error) {
@@ -111,10 +112,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlign: "center",
     marginBottom: 8,
-},
+  },
   disabledButton: {
     opacity: 0.5,
-},
+  },
   containerWrapper: {
     display: "flex",
     flexDirection: "row",

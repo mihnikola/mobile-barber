@@ -1,43 +1,44 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { addMinutesToTime, convertToDay, convertToMonthName } from "@/helpers";
-import ReservationContext from "@/context/ReservationContext";
 import { useNavigation } from "@react-navigation/native";
 
 const CardFutureReservation = ({ reservations }) => {
   const navigator = useNavigation();
-  const {updateReservation,reservation} = useContext(ReservationContext);
-  const detailsReservation = (data) =>{
-    updateReservation({...reservation, reservationItem: data});
-    navigator.navigate('components/reservation/reservationdetails');
-    
-
-  }
+  const detailsReservation = (item) => {
+    navigator.navigate("components/reservation/reservationdetails", {
+      itemId: item.id,
+    });
+  };
   return (
     <>
-      {reservations?.length > 0 && reservations.map((item) => (
-        
-        <TouchableOpacity style={styles.cardReservation} key={item._id} onPress={()=>detailsReservation(item)}>
-          <View style={styles.dateContainer}>
-            <Text style={styles.captureDate}>
-              {convertToMonthName(item?.date)}
-            </Text>
-            <Text style={styles.captureDateBold}>
-              {convertToDay(item?.date)}
-            </Text>
-            <Text style={styles.captureDate}>{item?.time}</Text>
-          </View>
-          <View style={styles.infoContainer}>
-            <Text style={styles.captureDateBold}>{item.service?.name}</Text>
-            <Text style={styles.captureDate}>
-              {item?.time} -{" "}
-              {addMinutesToTime(item?.time, item?.service?.duration)}
-            </Text>
+      {reservations?.length > 0 &&
+        reservations.map((item) => (
+          <TouchableOpacity
+            style={styles.cardReservation}
+            key={item._id}
+            onPress={() => detailsReservation(item)}
+          >
+            <View style={styles.dateContainer}>
+              <Text style={styles.captureDate}>
+                {convertToMonthName(item?.date)}
+              </Text>
+              <Text style={styles.captureDateBold}>
+                {convertToDay(item?.date)}
+              </Text>
+              <Text style={styles.captureDate}>{item?.time}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.captureDateBold}>{item.service?.name}</Text>
+              <Text style={styles.captureDate}>
+                {item?.time} -{" "}
+                {addMinutesToTime(item?.time, item?.service?.duration)}
+              </Text>
 
-            <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
+              <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
     </>
   );
 };

@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Image, Button, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import ButtonComponent from "@/shared-components/Button";
@@ -9,47 +17,50 @@ import useSubmitReservation from "./hooks/useSubmitReservation";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
-  const { employer, service, timeData, dateReservation } = reservation;
   const { submitReservationHandler, isLoading, error } = useSubmitReservation();
-  return (
-    <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
-      <View style={styles.coverContent}>
-        <Text style={styles.timeData}>
-          {timeData?.value} -{" "}
-          {addMinutesToTime(timeData?.value, service?.duration)}
-        </Text>
-        <Text style={styles.dateData}>
-          {convertDate(dateReservation?.dateString)}
-        </Text>
-        <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
-      </View>
-      <View style={{ display: "flex", padding: 10 }}>
-        <View>
-          {reservation && <Details data={reservation} />}
-          <Note />
+  if (reservation) {
+    return (
+      <ScrollView style={styles.container}>
+        <Image
+          source={require("@/assets/images/coverImage.jpg")}
+          style={styles.coverImage}
+        />
+        <View style={styles.coverContent}>
+          <Text style={styles.timeData}>
+            {reservation && reservation?.timeData?.value} -{" "}
+            {reservation &&
+              addMinutesToTime(
+                reservation?.timeData?.value,
+                reservation?.service?.duration
+              )}
+          </Text>
+          <Text style={styles.dateData}>
+            {convertDate(reservation?.dateReservation?.dateString)}
+          </Text>
+          <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
+        </View>
+        <View style={{ display: "flex", padding: 10 }}>
+          <View>
+            {reservation && <Details data={reservation} />}
+            <Note />
 
-          <View style={styles.reservation}>
-            {isLoading ? (
-             <TouchableOpacity style={styles.button}> 
-             <Text style={styles.buttonText}>
-                 Booking...
-             </Text>
-          </TouchableOpacity >
-            ) : (
-              <ButtonComponent
-                text="Book"
-                onPress={submitReservationHandler}
-              />
-            )}
+            <View style={styles.reservation}>
+              {isLoading ? (
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>Booking...</Text>
+                </TouchableOpacity>
+              ) : (
+                <ButtonComponent
+                  text="Book"
+                  onPress={submitReservationHandler}
+                />
+              )}
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
+  }
 };
 
 export default Reservation;

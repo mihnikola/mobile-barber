@@ -1,8 +1,8 @@
 // src/hooks/useRegisterForm.js
 import { useState } from 'react';
-import { useNavigation } from 'expo-router';
 import axios from 'axios';
 import { ToastAndroid } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const showToast = (text) => {
   ToastAndroid.show(text, ToastAndroid.SHORT);

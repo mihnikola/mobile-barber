@@ -1,21 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import Loader from "@/components/Loader";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
-import CalendarComponent from "../components/reservation/CalendarComponent";
+import { useEffect, useState } from "react";
 import SignForm from "../components/SignForm/SignForm";
 import InfoComponent from "@/shared-components/InfoComponent";
-import ReservationContext from "@/context/ReservationContext";
+import Loader from "@/components/Loader";
+import NotificationComponent from "../components/notifications/NotificationComponent";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Explore() {
+export default function NotificationLayout() {
+
   const [isLoading, setIsLoading] = useState(false);
-  const { reservation, updateReservation } = useContext(ReservationContext);
+
   const [token, setToken] = useState(null);
 
   const isFocused = useIsFocused(); // useIsFocused hook
   // Function to check for token in AsyncStorage
   const checkToken = async () => {
-    updateReservation(null);
     setIsLoading(true);
     try {
       const storedToken = await AsyncStorage.getItem("token");
@@ -30,27 +29,23 @@ export default function Explore() {
       console.error("Error reading token:", error);
     }
   };
-  // useEffect that runs when the screen is focused
-  useEffect(() => {
+   useEffect(() => {
     if (isFocused) {
       // Check token only when this screen/tab is focused
       checkToken();
       setIsLoading(false);
     }
   }, [isFocused]); // Dependency on isFocused to trigger the effect
-
-
-
   return (
     <>
-      {!isLoading && token && <CalendarComponent />}
+      {!isLoading && token && <NotificationComponent />}
       {!isLoading && !token && (
         <>
           <SignForm />
-          <InfoComponent title="Sign in to see your calendar appointments" />
+          <InfoComponent title="Sign in to see your notifications" />
         </>
       )}
-      {isLoading && !token && <Loader />}
+      {isLoading && <Loader />}
     </>
   );
 }
