@@ -1,5 +1,5 @@
 import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
@@ -11,8 +11,6 @@ const Employers = () => {
   const navigation = useNavigation();
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
-
-
 
   const redirectHandler = useCallback(
     (employer) => {
@@ -26,6 +24,7 @@ const Employers = () => {
     return <Loader />;
   }
 
+
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -36,7 +35,11 @@ const Employers = () => {
       {!isLoading && (
         <View style={styles.contentContainer}>
           {emplData?.map((item) => (
-            <EmployerItem key={item.id} data={item} redirectHandler={redirectHandler} />
+            <EmployerItem
+              key={item.id}
+              data={item}
+              redirectHandler={redirectHandler}
+            />
           ))}
         </View>
       )}

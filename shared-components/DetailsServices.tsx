@@ -14,14 +14,13 @@ interface DetailsServicesProps {
   };
 }
 const DetailsServices: React.FC<DetailsServicesProps> = ({ data }) => {
-  const { image, name, price, duration } = data;
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{uri: image}} />
+      <Image style={styles.image} source={{uri: data?.image}} />
       <View style={styles.info}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.duration}>{duration} MIN</Text>
-        <Text style={styles.price}>{price} RSD</Text>
+        <Text style={styles.title}>{data?.name}</Text>
+        <Text style={styles.duration}>{data?.duration} MIN</Text>
+        <Text style={styles.price}>{data?.price} RSD</Text>
       </View>
     </View>
   );

@@ -1,9 +1,9 @@
 // src/hooks/useAuth.js
 import { useState } from 'react';
-import { useNavigation } from 'expo-router';
 import {saveStorage} from '../../../../helpers/index'
 import { ToastAndroid } from 'react-native';
 import { post } from '../../../../api/apiService';
+import { useNavigation } from '@react-navigation/native';
 // import { pushTokenFunc } from '../../../../helpers/pushToken';
 
 const showToast = (text) => {

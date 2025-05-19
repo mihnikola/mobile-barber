@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
-import { useNavigation } from "expo-router";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
@@ -11,6 +10,7 @@ import Details from "@/shared-components/Details"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme } from "@/helpers";
+import { useNavigation } from "@react-navigation/native";
 
 // Set up locale for Serbian language
 // LocaleConfig.locales["srb"] = {
@@ -90,6 +90,7 @@ const DateComponent = () => {
       navigation.navigate("components/reservation/index");
     }
   };
+
 
   return (
     <ScrollView style={styles.container}>
