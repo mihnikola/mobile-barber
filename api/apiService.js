@@ -29,9 +29,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("Response Interceptor Error:", error);
+    // console.error("Response Interceptor Error:", error);
     if (error.response && error.response.data && error.response.data.message) {
-      console.error("Server Error Message:", error.response.data.message);
+      // console.error("Server Error Message:", error.response.data.message);
     }
     return Promise.reject(error);
   }

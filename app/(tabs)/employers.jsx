@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     height: 200,
     opacity: 0.2,
   },
-
   contentContainer: {
     display: "flex",
     justifyContent: "center",

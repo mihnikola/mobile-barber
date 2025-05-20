@@ -20,7 +20,6 @@ const NotificationComponent = () => {
   const getNotificationData = async () => {
     try {
       const response = await getData("/notifications", { check });
-      console.log("responseNotifications", response);
       setNotifications(response);
     } catch (error) {
       console.log("getNotificationData", error);
@@ -38,22 +37,24 @@ const NotificationComponent = () => {
           style={[styles.capture, !check && styles.active]}
           onPress={checkUnreadNotifications}
         >
-          Nepročitane
+          Unread
         </Text>
         <Text
           style={[styles.capture, check && styles.active]}
           onPress={checkReadNotifications}
         >
-          Pročitane
+          Read
         </Text>
       </View>
       <View style={styles.greyLine} />
 
       <View style={{ display: "flex" }}>
-        {notifications &&
+        {notifications && notifications.length > 0 ?
           notifications.map((item) => {
             return <NotificationActive key={item.id} data={item} />;
-          })}
+          }) : notifications.length === 0 && (
+             <NotificationNon />
+          )}
       </View>
     </ScrollView>
   );
