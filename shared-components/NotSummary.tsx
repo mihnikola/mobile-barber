@@ -14,7 +14,7 @@ const NotSummary = () => {
           borderRadius: 20,
         }}
       >
-        Book your appointment
+        No available appointments
       </Text>
     </View>
   );

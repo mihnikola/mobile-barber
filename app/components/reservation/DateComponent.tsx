@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import { CalendarList, LocaleConfig } from "react-native-calendars";
+import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
@@ -12,65 +12,7 @@ import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme } from "@/helpers";
 import { useNavigation } from "@react-navigation/native";
 
-// Set up locale for Serbian language
-// LocaleConfig.locales["srb"] = {
-//   monthNames: [
-//     "Januar",
-//     "Februar",
-//     "Mart",
-//     "April",
-//     "Maj",
-//     "Jun",
-//     "Jul",
-//     "Avgust",
-//     "Septembar",
-//     "Oktobar",
-//     "Novembar",
-//     "Decembar",
-//   ],
-//   dayNames: [
-//     "Nedelja",
-//     "Ponedeljak",
-//     "Utorak",
-//     "Sreda",
-//     "Četvrtak",
-//     "Petak",
-//     "Subota",
-//   ],
-//   dayNamesShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-// };
-// LocaleConfig.defaultLocale = "srb";
-
-LocaleConfig.locales["en"] = {
-  monthNames: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-  dayNames: [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ],
-  dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-};
-LocaleConfig.defaultLocale = "en";
-
 const DateComponent = () => {
-  
   const currentDate = new Date();
   const formattedDate = currentDate?.toISOString()?.split("T")[0];
   const { reservation, updateReservation } = useContext(ReservationContext)!;
@@ -86,11 +28,25 @@ const DateComponent = () => {
   const reportHandler = () => {
     const { employer, service } = reservation;
     if (employer && service && selectedItem && selectedDate) {
-      updateReservation({...reservation, dateReservation: selectedDate, timeData: selectedItem  })
+      updateReservation({
+        ...reservation,
+        dateReservation: selectedDate,
+        timeData: selectedItem,
+      });
       navigation.navigate("components/reservation/index");
     }
   };
 
+  useEffect(() => {
+    const dateObject = {
+      dateString: selectedDate,
+      day: 21,
+      month: 5,
+      timestamp: 1747785600000,
+      year: 2025,
+    };
+    handleDayPress(dateObject);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -102,7 +58,7 @@ const DateComponent = () => {
           current={formattedDate}
           futureScrollRange={2}
           markedDates={{
-            [selectedDate?.dateString || ""]: {
+            [selectedDate?.dateString || formattedDate]: {
               selected: true,
             },
           }}
