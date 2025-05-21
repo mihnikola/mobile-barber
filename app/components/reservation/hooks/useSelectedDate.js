@@ -9,8 +9,8 @@ const useSelectedDate = (initialDate) => {
       setSelectedDate(day);
     }
   }, []);
-
   return { selectedDate, handleDayPress };
 };
+
 
 export default useSelectedDate;
