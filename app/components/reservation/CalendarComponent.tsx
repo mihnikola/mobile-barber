@@ -12,7 +12,7 @@ import CardNoReservation from "@/app/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
 
 const CalendarComponent = () => {
-  const { reservations, isLoading, checkReservationHandler, check } = useReservations();
+  const { reservations, isLoading, checkPastHandler, checkFutureHandler, check } = useReservations();
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -22,13 +22,13 @@ const CalendarComponent = () => {
       <View style={styles.containerCapture}>
         <Text
           style={[styles.capture, check && styles.active]}
-          onPress={checkReservationHandler}
+          onPress={checkFutureHandler}
         >
           Future
         </Text>
         <Text
           style={[styles.capture, !check && styles.active]}
-          onPress={checkReservationHandler}
+          onPress={checkPastHandler}
         >
           Past
         </Text>

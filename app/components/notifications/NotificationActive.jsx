@@ -1,26 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
-import { addMinutesToTime, convertToDay, convertToMonthName } from "@/helpers";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 const NotificationActive = ({ data }) => {
-  const { text, date } = data;
+  const { text, capture } = data;
+
 
   return (
     <View style={styles.cardReservation}>
-      <View style={styles.dateContainer}>
-        <Text style={styles.captureDate}>
-          {convertToMonthName(date)}
-        </Text>
-        <Text style={styles.captureDateBold}>
-          {convertToDay(date)}
-        </Text>
-        {/* ovo ces da odcepas od datuma koji dobijes za tacno vreme */}
-        <Text style={styles.captureDate}>12:40</Text>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("@/assets/images/logoImage.png")}
+          style={styles.reactLogo}
+        />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.captureDateBold}>Obavestenje</Text>
+        <Text style={styles.capture}>{capture}</Text>
         <Text style={styles.text}>{text}</Text>
-        
-        <Text style={styles.captureAddress}>Cara Lazara 85 a</Text>
       </View>
     </View>
   );
@@ -29,52 +23,42 @@ const NotificationActive = ({ data }) => {
 export default NotificationActive;
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 50,
+    padding: 2,
+  },
+  capture: {
+    color: 'white',
+    fontSize: 15
+  },
+  reactLogo: {
+    height: 70,
+    width: 70,
+  },
   cardReservation: {
-    backgroundColor: "white",
+    backgroundColor: "black",
     display: "flex",
     flexDirection: "row",
     width: "100%",
     marginTop: 20,
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "white",
     padding: 10,
     gap: 20,
     height: 100,
   },
-  captureAddress:{
-    fontSize: 17,
-    fontWeight: '300',
-    paddingTop: 5
-  },
-  dateContainer: {
-    borderWidth: 1,
-    borderColor: "#000",
-    borderLeftWidth: 5,
-    borderLeftColor: "green",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  captureDate: {
-    fontSize: 18,
-    color: "grey",
-    textAlign: "center",
-    fontWeight: "500",
-  },
-
-  captureDateBold: {
-    fontSize: 20,
-    color: "black",
-    fontWeight: "900",
-  },
-    text: {
+  text: {
     fontSize: 14,
-    color: "black",
+    color: "white",
     fontWeight: "400",
   },
   infoContainer: {
     display: "flex",
     flexDirection: "column",
+    gap: 10,
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },

@@ -1,5 +1,5 @@
 // src/hooks/useReservations.js
-import {  getData } from "@/api/apiService";
+import { getData } from "@/api/apiService";
 import { useState, useEffect, useCallback } from "react";
 
 const useReservations = () => {
@@ -8,8 +8,11 @@ const useReservations = () => {
   const [error, setError] = useState(null);
   const [check, setCheck] = useState(true);
 
-  const checkReservationHandler = () => {
-    setCheck(!check);
+  const checkPastHandler = () => {
+    setCheck(false);
+  };
+  const checkFutureHandler = () => {
+    setCheck(true);
   };
 
   const getReservationsData = useCallback(async () => {
@@ -41,7 +44,8 @@ const useReservations = () => {
     isLoading,
     error,
     getReservationsData,
-    checkReservationHandler,
+    checkPastHandler,
+    checkFutureHandler,
     check,
   };
 };

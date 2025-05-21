@@ -42,6 +42,11 @@ const Register = ({ change }) => {
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
   const handleRegister = () => {
+    console.log("zxczxczxxzc",password,confirmPassword);
+    if(confirmPassword !== password){
+      ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
+      return;
+    }
     if (emailError || passwordError || passwordConfirmError) {
       ToastAndroid.show("Please fix the validation errors", ToastAndroid.SHORT);
       return;
@@ -71,7 +76,7 @@ const Register = ({ change }) => {
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />
-        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+        {email.length > 3 && emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -91,7 +96,7 @@ const Register = ({ change }) => {
               color="gray"
             />
           </TouchableOpacity>
-          {passwordError ? (
+          {password.length > 3 && passwordError ? (
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
         </View>
@@ -113,9 +118,7 @@ const Register = ({ change }) => {
               color="gray"
             />
           </TouchableOpacity>
-          {passwordConfirmError ? (
-            <Text style={styles.errorText}>{passwordConfirmError}</Text>
-          ) : null}
+          
         </View>
 
         <TouchableOpacity onPress={handleRegister} disabled={loading}>

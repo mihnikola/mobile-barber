@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 export const NotificationNon = () => {
   return (
     <View style={styles.cardReservationPast}>
-      <Text style={styles.noReservation}> Pročitali ste sve notifikacije </Text>
+      <Text style={styles.noReservation}>Your read all notifications </Text>
       <Text style={styles.description}>
-        Čestitamo, držite sve konce u rukama!
+        Congratulations, you have everything under control!
       </Text>
     </View>
   );

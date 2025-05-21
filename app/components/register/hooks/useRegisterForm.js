@@ -23,17 +23,17 @@ const useRegisterForm = () => {
         userData
       );
 
-      if (result.status === 201) {
-        showToast("User created successfully!");
+      if(result.status === 202){
+        showToast(result.data.message);
+      }else if (result.status === 201) {
+        showToast(result.data.message);
         setTimeout(() => {
           navigation.navigate("components/login/index");
         }, 1000);
       } else {
-        setError(`Registration failed with status code: ${result.status}`);
         showToast(`Registration failed: ${result.status}`);
       }
     } catch (errorx) {
-      setError(errorx.message || "An unexpected error occurred.");
       showToast(`Registration error: ${errorx.message || "An unexpected error occurred."}`);
     } finally {
       setLoading(false);
