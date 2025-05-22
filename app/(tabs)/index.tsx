@@ -19,6 +19,7 @@ import { MAIN_DATA } from "@/constants";
 import FlatButton from "@/shared-components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { createOpenLink } from "react-native-open-maps";
+import { saveExpoTokenStorage } from "@/helpers";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -82,8 +83,7 @@ async function registerForPushNotificationsAsync() {
 }
 
 export default function App() {
-    const navigation = useNavigation();
-
+  const navigation = useNavigation();
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
@@ -114,9 +114,13 @@ export default function App() {
   }, []);
 
 
+  useEffect(()=> {
+    if(expoPushToken){
+      saveExpoTokenStorage(expoPushToken);
+    }
+  },[expoPushToken])
 
-
-    const openYosemite = createOpenLink(yosemite);
+  const openYosemite = createOpenLink(yosemite);
 
   const openYosemiteZoomedOut = createOpenLink({ ...openYosemite, zoom: 300 });
   return (
