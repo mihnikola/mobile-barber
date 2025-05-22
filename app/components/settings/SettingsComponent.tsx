@@ -13,9 +13,11 @@ const SettingsComponent = () => {
     if (data === "2") {
       navigation.navigate("components/infoapp/aboutapplication");
     }
+    if(data === "4"){
+      navigation.navigate("components/infoapp/privacypolicy");
+    }
     if (data === "6") {
       alertMessageHandler();
-      // navigation.navigate("components/settings/aboutapplication");
     }
   };
 
@@ -34,7 +36,7 @@ const SettingsComponent = () => {
       },
     ]);
   };
- 
+
   const logoutHandler = async () => {
     removeStorage().then((s) => {
       navigation.navigate("(tabs)", { screen: "index" });
@@ -56,20 +58,11 @@ const SettingsComponent = () => {
         />
 
         <SettingItem
-          title="Notifications"
-          icon="notifications.fill"
-          handlePress={() => onPressHandler("3")}
-        />
-        <SettingItem
           title="Privacy policy"
           icon="lock"
           handlePress={() => onPressHandler("4")}
         />
-        <SettingItem
-          title="Using Conditions"
-          icon="file"
-          handlePress={() => onPressHandler("5")}
-        />
+
         <SettingItem
           title="About application"
           icon="info"

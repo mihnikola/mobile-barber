@@ -1,8 +1,7 @@
 import Loader from "@/components/Loader";
-import ReservationContext from "@/context/ReservationContext";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import Details from "@/shared-components/Details";
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import {
   Image,
   ScrollView,
@@ -13,16 +12,33 @@ import {
 } from "react-native";
 import useFetchReservation from "./hooks/useFetchReservation";
 import useReservationCancellationAlert from "./hooks/useReservationCancellationAlert";
+import useReservationRateAlert from "./hooks/useReservationRateAlert";
 import useCancelReservation from "./hooks/useCancelReservation";
-import { useNavigation } from "@react-navigation/native";
+import useRateReservation from "./hooks/useRateReservation";
+import { useRoute } from "@react-navigation/native";
+import StarRating from "./StarRateComponent";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 const ReservationDetails = () => {
-  const navigation = useNavigation();
-  const { itemId } = route.params;
+  const route = useRoute(); // Get the route object
+  const { itemId, check } = route.params;
+  const [userFeedbackRating, setUserFeedbackRating] = useState(0);
 
   const { reservationData, isLoading, error, refetch } =
     useFetchReservation(itemId);
   const { isCanceling, cancelError, cancelReservation } =
     useCancelReservation();
+  const { isRating, rateCancelError, rateReservation } = useRateReservation();
+
+  const { rateAlert } = useReservationRateAlert(() => {
+    if (itemId) {
+      rateReservation(itemId, userFeedbackRating);
+    } else {
+      console.error("Reservation ID is missing for rate.");
+      // Optionally show an error message to the user
+    }
+  });
+  console.log("reservationData+++", reservationData);
+
   const { showAlert } = useReservationCancellationAlert(() => {
     if (itemId) {
       cancelReservation(itemId);
@@ -31,6 +47,12 @@ const ReservationDetails = () => {
       // Optionally show an error message to the user
     }
   });
+
+  const handleUserRatingChange = (rating: number) => {
+    console.log("User selected rating:", rating);
+    setUserFeedbackRating(rating);
+    // Here you would typically send this rating to your backend
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -51,6 +73,18 @@ const ReservationDetails = () => {
     // You might want to display a separate error message for cancellation
     console.error("Cancellation Error:", cancelError);
   }
+  if (rateCancelError) {
+    // You might want to display a separate error message for cancellation
+    console.error("Rating Error:", cancelError);
+  }
+
+  const myArray = [
+    { arrx: "10000" },
+    { arrx: "1111110" },
+    { arrx: "232222" },
+    { arrx: "4545453" },
+    { arrx: "asdasdasd" },
+  ];
 
   return (
     <ScrollView style={styles.container}>
@@ -88,17 +122,65 @@ const ReservationDetails = () => {
           <View style={styles.containerWrapper}>
             <Details data={reservationData} />
           </View>
-          <TouchableOpacity
-            onPress={showAlert} // Use the showAlert function from the hook
-            style={styles.containerBtn}
-            disabled={isCanceling}
-          >
-            <Text
-              style={[styles.btnSubmit, isCanceling && styles.disabledButton]}
+          {!check && !reservationData?.rate && (
+            <StarRating onRatingChange={handleUserRatingChange} />
+          )}
+          {!check && !reservationData?.rate && (
+            <TouchableOpacity
+              onPress={rateAlert} // Use the showAlert function from the hook
+              style={styles.containerBtn}
+              disabled={isRating}
             >
-              {isCanceling ? "Otkazivanje..." : "Otkaži"}
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[styles.btnSubmit, isRating && styles.disabledButton]}
+              >
+                {isRating ? "Rating..." : "Rate us"}
+              </Text>
+            </TouchableOpacity>
+          )}
+          {!check && reservationData?.rate && (
+            <View style={{ alignItems: "center", marginTop: 40, padding: 20 }}>
+              <Text style={{ color: "white", fontSize: 20 }}>
+                You rated this appointment
+              </Text>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 40 }}>
+                  {myArray?.map((item, index) => {
+                    if (index < reservationData?.rate) {
+                      return (
+                        <IconSymbol
+                          key={item.arrx}
+                          name="star"
+                          color="gold"
+                          size={40}
+                        />
+                      );
+                    }
+                  })}
+                </Text>
+              </View>
+            </View>
+          )}
+          {check && (
+            <TouchableOpacity
+              onPress={showAlert} // Use the showAlert function from the hook
+              style={styles.containerBtn}
+              disabled={isCanceling}
+            >
+              <Text
+                style={[styles.btnSubmit, isCanceling && styles.disabledButton]}
+              >
+                {isCanceling ? "Otkazivanje..." : "Otkaži"}
+              </Text>
+            </TouchableOpacity>
+          )}
         </>
       )}
     </ScrollView>

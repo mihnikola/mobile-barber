@@ -7,6 +7,7 @@ import { getData } from "@/api/apiService";
 const NotificationComponent = () => {
   const [check, setCheck] = useState(true);
   const [notifications, setNotifications] = useState([]);
+  const [notification, setNotification] = useState(null);
   const checkUnreadNotifications = () => {
     setCheck(false);
   };
@@ -26,38 +27,76 @@ const NotificationComponent = () => {
     }
   };
 
-  return (
-    <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImageNotification.jpg")}
-        style={styles.coverImage}
-      />
-      <View style={styles.containerCapture}>
-        <Text
-          style={[styles.capture, !check && styles.active]}
-          onPress={checkUnreadNotifications}
-        >
-          Unread
-        </Text>
-        <Text
-          style={[styles.capture, check && styles.active]}
-          onPress={checkReadNotifications}
-        >
-          Read
-        </Text>
-      </View>
-      <View style={styles.greyLine} />
+  const detailHandler = async (data) => {
+    console.log("detailHandler+++")
+    try {
+      const response = await getData(`/notifications/{data._id}`,{params: {id: data._id}});
+      setNotification(response);
+    } catch (error) {
+      console.log("getNotificationData", error);
+    }
+  };
 
-      <View style={{ display: "flex" }}>
-        {notifications && notifications.length > 0 ?
-          notifications.map((item) => {
-            return <NotificationActive key={item.id} data={item} />;
-          }) : notifications.length === 0 && (
-             <NotificationNon />
-          )}
-      </View>
-    </ScrollView>
-  );
+  if (notification) {
+    return (
+    <ScrollView style={styles.container}>
+        <Image
+          source={require("@/assets/images/coverImageNotification.jpg")}
+          style={styles.coverImage}
+        />
+      
+        <View style={styles.greyLine} />
+
+        <View style={{ display: "flex" }}>
+          <View>
+            <Text></Text>
+          </View>
+          <View>
+            <Text style={{color: 'white'}}>{notification?.text}</Text>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
+  if (!notification) {
+    return (
+      <ScrollView style={styles.container}>
+        <Image
+          source={require("@/assets/images/coverImageNotification.jpg")}
+          style={styles.coverImage}
+        />
+        <View style={styles.containerCapture}>
+          <Text
+            style={[styles.capture, !check && styles.active]}
+            onPress={checkUnreadNotifications}
+          >
+            Unread
+          </Text>
+          <Text
+            style={[styles.capture, check && styles.active]}
+            onPress={checkReadNotifications}
+          >
+            Read
+          </Text>
+        </View>
+        <View style={styles.greyLine} />
+
+        <View style={{ display: "flex" }}>
+          {notifications && notifications.length > 0
+            ? notifications.map((item) => {
+                return (
+                  <NotificationActive
+                    key={item.id}
+                    data={item}
+                    showNotification={detailHandler}
+                  />
+                );
+              })
+            : notifications.length === 0 && <NotificationNon />}
+        </View>
+      </ScrollView>
+    );
+  }
 };
 
 export default NotificationComponent;

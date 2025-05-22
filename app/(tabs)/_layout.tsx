@@ -10,32 +10,10 @@ import { BackHandler, Platform } from "react-native";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const [tabHistory, setTabHistory] = useState(['index']); // Start with the initial tab
-  const navigation = useNavigation();
-  const route = useRouter();
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', (e) => {
-      if (tabHistory[tabHistory.length - 1] !== e.target.name) {
-        setTabHistory(prev => [...prev, e.target.name]);
-      }
-    });
-    return unsubscribe;
-  }, [navigation, tabHistory]);
 
-  const handleBackButton = useCallback(() => {
-    if (tabHistory.length > 1) {
-      const previousTab = tabHistory[tabHistory.length - 2];
-      setTabHistory(prev => prev.slice(0, -1)); // Remove the current tab
-      navigation.navigate(previousTab);
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default behavior if only one tab in history
-  }, [navigation, tabHistory, setTabHistory]);
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
-  }, [handleBackButton]);
+
+
 
   return (
     <Tabs
@@ -81,15 +59,7 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          title: "Notifications",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="notifications.fill" color={color} />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="settings"
         options={{
