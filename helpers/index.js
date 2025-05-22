@@ -97,6 +97,35 @@ export const saveStorage = async (value) => {
   }
 };
 
+export const saveExpoTokenStorage = async (value) => {
+  try {
+    await AsyncStorage.setItem("tokenExpo", value);
+  } catch (e) {
+    // saving error
+  }
+};
+export const getExpoTokenStorage = async () => {
+
+  try {
+   const token = await AsyncStorage.getItem("tokenExpo").then((resToken) => {
+      return resToken;
+    });
+    return token;
+  } catch (e) {
+    // error reading value
+  }
+};
+export const removeExpoTokenStorage = async () => {
+  try {
+    await AsyncStorage.removeItem("tokenExpo").then((resToken) => {
+      return resToken;
+    });
+  } catch (e) {
+    // saving error
+  }
+};
+
+
 export const removeStorage = async () => {
   try {
     await AsyncStorage.removeItem("token").then((resToken) => {
