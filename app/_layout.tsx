@@ -67,6 +67,18 @@ export default function RootLayout() {
               name="components/reservation/reservationdetails"
               options={{ title: "", headerShown: false }}
             />
+             <Stack.Screen
+              name="components/infoapp/userprofile"
+              options={{ title: "", headerShown: false }}
+            />
+            <Stack.Screen
+              name="components/infoapp/aboutapplication"
+              options={{ title: "", headerShown: false }}
+            />
+             <Stack.Screen
+              name="components/infoapp/privacypolicy"
+              options={{ title: "", headerShown: false }}
+            />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>

@@ -3,11 +3,12 @@ import React from "react";
 import { addMinutesToTime, convertToDay, convertToMonthName } from "@/helpers";
 import { useNavigation } from "@react-navigation/native";
 
-const CardFutureReservation = ({ reservations }) => {
+const CardFutureReservation = ({ check, reservations }) => {
   const navigator = useNavigation();
   const detailsReservation = (item) => {
     navigator.navigate("components/reservation/reservationdetails", {
-      itemId: item.id,
+      itemId: item._id,
+      check
     });
   };
   return (

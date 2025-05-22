@@ -1,11 +1,14 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const NotificationActive = ({ data }) => {
+const NotificationActive = ({ data, showNotification }) => {
   const { text, capture } = data;
 
+  const pressHandler = (valueData) => {
+    showNotification(valueData);
+  }
 
   return (
-    <View style={styles.cardReservation}>
+    <TouchableOpacity style={styles.cardReservation} onPress={() => pressHandler(data)}>
       <View style={styles.imageContainer}>
         <Image
           source={require("@/assets/images/logoImage.png")}
@@ -16,7 +19,7 @@ const NotificationActive = ({ data }) => {
         <Text style={styles.capture}>{capture}</Text>
         <Text style={styles.text}>{text}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

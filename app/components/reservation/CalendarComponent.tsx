@@ -10,9 +10,11 @@ import Loader from "@/components/Loader";
 import CardFutureReservation from "@/app/components/reservation/CardFutureReservation";
 import CardNoReservation from "@/app/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
+import CardPastReservation from "./CardPastReservation";
 
 const CalendarComponent = () => {
   const { reservations, isLoading, checkPastHandler, checkFutureHandler, check } = useReservations();
+
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -39,12 +41,12 @@ const CalendarComponent = () => {
       ) : (
         <View style={{ display: "flex" }}>
           {check && reservations?.length > 0 ? (
-            <CardFutureReservation reservations={reservations} />
+            <CardFutureReservation check={check} reservations={reservations} />
           ) : (
             check && reservations?.length === 0 && <CardNoReservation />
           )}
           {!check && reservations?.length > 0 ? (
-            <CardFutureReservation reservations={reservations} />
+            <CardPastReservation check={check} reservations={reservations} />
           ) : (
             !check && reservations?.length === 0 && <CardNoReservation />
           )}
