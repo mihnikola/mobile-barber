@@ -1,10 +1,9 @@
 // src/hooks/useAuth.js
 import { useState } from "react";
-import { saveStorage } from "../../../../helpers/index";
+import { getExpoTokenStorage, removeExpoTokenStorage, saveStorage } from "../../../../helpers/index";
 import { ToastAndroid } from "react-native";
 import { post } from "../../../../api/apiService";
 import { useNavigation } from "@react-navigation/native";
-// import { pushTokenFunc } from '../../../../helpers/pushToken';
 
 const showToast = (text) => {
   ToastAndroid.show(text, ToastAndroid.SHORT);
@@ -34,23 +33,55 @@ const useLoginForm = () => {
         showToast(responseData.message);
       }
       if (responseData.status === 200) {
-        console.log("first",responseData);
         setData(responseData);
         saveStorage(responseData.token);
-        // pushTokenFunc(responseData.token);
-        setPending(false);
-        showToast("Login Successful!");
-        navigation.navigate("(tabs)", { screen: "index" });
+        // You would typically get the userId from the response here
+        // For example, if your responseData has a user object with an id:
+        const userId = responseData.userId;
+        const expoToken = await getExpoTokenStorage(); // Assuming this function exists
+        if (expoToken && userId) {
+          saveToken(userId, expoToken);
+        } else if (responseData.status === 200) {
+          setPending(false);
+          removeExpoTokenStorage();
+          showToast("Login Successful!");
+          navigation.navigate("(tabs)", { screen: "index" });
+        }
       }
     } catch (err) {
-      // setError(err.message || err);
       console.log("errorcina", err.message);
       setPending(false);
       showToast(`Login Error: ${err.message || err}`);
     }
   };
 
-  return { data, pending, error, login };
+  const saveToken = async (userId, dataTokenExpo) => {
+    setPending(true); // Set pending state when saving token
+    try {
+      const responseData = await post("/api/saveToken", {
+        tokenExpo: dataTokenExpo,
+        tokenUser: userId,
+      });
+      console.log("saveToken+++",responseData)
+
+      if (responseData.status === 200) {
+        console.log("Token saved successfully");
+        setPending(false);
+        removeExpoTokenStorage();
+        showToast("Login Successful!");
+        navigation.navigate("(tabs)", { screen: "index" });
+      } else {
+        setPending(false);
+        showToast(`Failed to save token: ${responseData?.message || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.log("Error saving token:", err.message);
+      setPending(false);
+      showToast(`Error saving token: ${err.message || err}`);
+    }
+  };
+
+  return { data, pending, error, login, saveToken }; // Return saveToken
 };
 
 export default useLoginForm;
