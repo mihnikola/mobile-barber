@@ -42,7 +42,10 @@ const Register = ({ change }) => {
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
   const handleRegister = () => {
-    console.log("zxczxczxxzc",password,confirmPassword);
+    if(!userName || !confirmPassword || !password || !email){
+      ToastAndroid.show("You need to fill all data!", ToastAndroid.SHORT);
+      return;
+    }
     if(confirmPassword !== password){
       ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
       return;
@@ -65,13 +68,13 @@ const Register = ({ change }) => {
       </View>
       <View style={styles.formContent}>
         <TextInput
-          placeholder="Unesi ime i prezime "
+          placeholder="Enter your name"
           value={userName}
           onChangeText={setUserName}
           style={styles.textInput}
         />
         <TextInput
-          placeholder="Unesi email "
+          placeholder="Enter your email"
           value={email}
           onChangeText={handleEmailChange}
           style={styles.textInput}

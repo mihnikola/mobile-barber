@@ -1,21 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import CalendarComponent from "../components/reservation/CalendarComponent";
 import SignForm from "../components/SignForm/SignForm";
-import InfoComponent from "@/shared-components/InfoComponent";
-import ReservationContext from "@/context/ReservationContext";
+import { BackHandler } from "react-native";
 
 export default function Explore() {
+    const navigation = useNavigation();
+  
   const [isLoading, setIsLoading] = useState(false);
-  const { reservation, updateReservation } = useContext(ReservationContext);
   const [token, setToken] = useState(null);
-
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick
+      );
+    };
+  }, []);
   const isFocused = useIsFocused(); // useIsFocused hook
   // Function to check for token in AsyncStorage
   const checkToken = async () => {
-    updateReservation(null);
     setIsLoading(true);
     try {
       const storedToken = await AsyncStorage.getItem("token");
@@ -39,15 +50,12 @@ export default function Explore() {
     }
   }, [isFocused]); // Dependency on isFocused to trigger the effect
 
-
-
   return (
     <>
       {!isLoading && token && <CalendarComponent />}
       {!isLoading && !token && (
         <>
-          <SignForm />
-          <InfoComponent title="Sign in to see your calendar appointments" />
+          <SignForm options="calendar appointments" />
         </>
       )}
       {isLoading && !token && <Loader />}

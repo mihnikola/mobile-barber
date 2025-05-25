@@ -1,5 +1,5 @@
 // app/menuservices.tsx
-import React, { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
@@ -9,14 +9,16 @@ import ServiceItem from "./ServiceItem";
 
 const MenuServices = () => {
   const navigation = useNavigation();
-  const { updateReservation, reservation } = useContext(ReservationContext); // Access context  const route = useRoute();
-  const { serviceData, isLoading } = useFetchServices(); // Use the custom hook
+  const { updateReservation, reservation } = useContext(ReservationContext); 
+  const { serviceData, isLoading } = useFetchServices(); 
 
-  const funcDateTimeReservation = (service) => {
-    updateReservation({ ...reservation, service });
-    navigation.navigate("components/reservation/datereservation");
-  };
-
+  const funcDateTimeReservation = useCallback(
+    (service) => {
+      updateReservation({ ...reservation, service });
+      navigation.navigate("components/reservation/datereservation");
+    },
+    [navigation, reservation, updateReservation]
+  );
   if (serviceData.length === 0 && isLoading) {
     return <Loader />;
   }

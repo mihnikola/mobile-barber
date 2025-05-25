@@ -9,8 +9,6 @@ const NotSummary = () => {
           color: "white",
           textAlign: "center",
           padding: 20,
-          borderColor: "grey",
-          borderWidth: 1,
           borderRadius: 20,
         }}
       >

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignForm from "../components/SignForm/SignForm";
-import InfoComponent from "@/shared-components/InfoComponent";
 import SettingsComponent from "../components/settings/SettingsComponent";
+import { BackHandler } from "react-native";
 
 export default function Settings() {
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
   const [token, setToken] = useState<string | null>(null);
 
   const isFocused = useIsFocused(); // useIsFocused hook
@@ -36,16 +37,25 @@ export default function Settings() {
       setIsLoading(false);
     }
   }, [isFocused]); // Dependency on isFocused to trigger the effect
-
-  
-
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick
+      );
+    };
+  }, []);
   return (
     <>
       {!isLoading && token && <SettingsComponent />}
       {!isLoading && !token && (
         <>
-          <SignForm />
-          <InfoComponent title="Sign in to see your settings" />
+          <SignForm options="settings" />
         </>
       )}
       {isLoading && <Loader />}
