@@ -1,4 +1,4 @@
-import { ScrollView, Image, StyleSheet, View } from "react-native";
+import { ScrollView, Image, StyleSheet, View, BackHandler } from "react-native";
 import { useCallback, useContext, useEffect } from "react";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -11,7 +11,15 @@ const Employers = () => {
   const navigation = useNavigation();
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
-
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick3
+      );
+    };
+  }, []);
   const redirectHandler = useCallback(
     (employer) => {
       updateReservation({ ...reservation, employer });
@@ -24,7 +32,20 @@ const Employers = () => {
     return <Loader />;
   }
 
+  function handleBackButtonClick3() {
+    navigation.goBack();
+    return true;
+  }
 
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>
+          Error loading employers: {error.message || "Unknown error"}
+        </Text>
+      </View>
+    );
+  }
   return (
     <ScrollView style={styles.container}>
       <Image

@@ -2,8 +2,10 @@ import OnboardingComponent from "@/components/OnboardingComponent";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
+  Alert,
+  BackHandler,
   Image,
   Platform,
   ScrollView,
@@ -12,12 +14,11 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import ToastManager, { Toast } from "toastify-react-native";
 import ListAboutUs from "../components/home/ListAboutUs";
 import AboutUsInfo from "../components/home/AboutUsInfo";
 import { MAIN_DATA } from "@/constants";
 import FlatButton from "@/shared-components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { createOpenLink } from "react-native-open-maps";
 import { saveExpoTokenStorage } from "@/helpers";
 
@@ -88,9 +89,24 @@ export default function App() {
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
   >(undefined);
+
   const nextPage = () => {
     navigation.navigate("(tabs)", { screen: "employers" });
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? ""))
@@ -113,12 +129,11 @@ export default function App() {
     };
   }, []);
 
-
-  useEffect(()=> {
-    if(expoPushToken){
+  useEffect(() => {
+    if (expoPushToken) {
       saveExpoTokenStorage(expoPushToken);
     }
-  },[expoPushToken])
+  }, [expoPushToken]);
 
   const openYosemite = createOpenLink(yosemite);
 

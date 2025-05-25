@@ -90,8 +90,7 @@ const useSubmitReservation = () => {
             },
           });
           setResponseData(response);
-          console.log("setResponseData", response);
-          navigation.navigate("components/reservation/makereservation"); // Make sure this path is correct
+          navigation.navigate("components/reservation/makereservation",{responseData: response}); // Make sure this path is correct
           setIsLoading(false);
         } catch (err) {
           console.error("Error submitting reservation:", err);

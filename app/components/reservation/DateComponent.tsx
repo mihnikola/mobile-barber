@@ -19,7 +19,7 @@ const DateComponent = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const navigation = useNavigation();
-  const { selectedDate, handleDayPress } = useSelectedDate(formattedDate);
+  const { selectedDate, handleDayPress, isSundayData } = useSelectedDate(formattedDate);
   const { timesData, isLoading, error } = useFetchTimes(
     selectedDate,
     reservation
@@ -40,10 +40,6 @@ const DateComponent = () => {
   useEffect(() => {
     const dateObject = {
       dateString: selectedDate,
-      day: 21,
-      month: 5,
-      timestamp: 1747785600000,
-      year: 2025,
     };
     handleDayPress(dateObject);
   }, []);
@@ -73,7 +69,7 @@ const DateComponent = () => {
       </View>
 
       <View style={styles.timesAndDetails}>
-        {isLoading && <Loader />}
+        {!isSundayData && isLoading && <Loader />}
         {!isLoading && !error && timesData.length > 0 && (
           <Summary
             data={timesData}
@@ -81,7 +77,7 @@ const DateComponent = () => {
             selectedItem={selectedItem}
           />
         )}
-        {timesData.length === 0 && <NotSummary />}
+        {isSundayData && timesData.length === 0 && <NotSummary />}
 
         {reservation && <Details data={reservation} />}
       </View>

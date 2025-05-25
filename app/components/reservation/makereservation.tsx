@@ -2,19 +2,25 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Button from "@/shared-components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { addMinutesToTime, convertDate } from "@/helpers";
 
 const makereservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const navigation = useNavigation();
-  
+   const route = useRoute(); // Get the route object
+    const { responseData } = route.params;
+    console.log("makereservation",responseData)
 
   const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });
+    
   };
+  if(!responseData){
+    return navigation.navigate("(tabs)", { screen: "explore" });
+  }
 
-  if (reservation) {
+  if (reservation && responseData) {
     return (
       <View style={styles.container}>
         <Image

@@ -11,10 +11,16 @@ import {
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePassword from "../login/hooks/usePassword";
 import useEmail from "../login/hooks/useEmail";
+import InfoComponent from "@/shared-components/InfoComponent";
 
-const LoginScreen = ({ change }) => {
+const LoginScreen = ({ change,title }) => {
   const { email, handleEmailChange } = useEmail(); // Use useEmail
-  const { password, handlePasswordChange, togglePasswordVisibility, isPasswordVisible } = usePassword(); // Use useEmail
+  const {
+    password,
+    handlePasswordChange,
+    togglePasswordVisibility,
+    isPasswordVisible,
+  } = usePassword(); // Use useEmail
   const { pending, login } = useLoginForm();
 
   const handleLogin = () => {
@@ -67,13 +73,12 @@ const LoginScreen = ({ change }) => {
           <Text style={styles.text}>Register </Text>
         </View>
         <View style={styles.textContainer}>
-          <TouchableOpacity
-            onPress={change}
-          >
+          <TouchableOpacity onPress={change}>
             <Text style={styles.linkText}>here.</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <InfoComponent title={title} />
     </ScrollView>
   );
 };
