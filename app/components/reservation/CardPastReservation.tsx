@@ -5,10 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const CardPastReservation = ({ reservations, check }) => {
   const navigator = useNavigation();
+
   const detailsReservation = (item) => {
     navigator.navigate("components/reservation/reservationdetails", {
       itemId: item._id,
-      check
+      check,
     });
   };
   return (
@@ -29,14 +30,21 @@ const CardPastReservation = ({ reservations, check }) => {
               </Text>
               <Text style={styles.captureDate}>{item?.time}</Text>
             </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.captureDateBold}>{item.service?.name}</Text>
-              <Text style={styles.captureDate}>
-                {item?.time} -{" "}
-                {addMinutesToTime(item?.time, item?.service?.duration)}
-              </Text>
+            <View style={styles.centerContainer}>
+              <View style={styles.infoContainer}>
+                <Text style={styles.captureDateBold}>{item.service?.name}</Text>
+                <Text style={styles.captureDate}>
+                  {item?.time} -{" "}
+                  {addMinutesToTime(item?.time, item?.service?.duration)}
+                </Text>
 
-              <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
+                <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
+              </View>
+              <View>
+                <Text style={styles.rating}>
+                  {!item.rate ? "Rate us" : "Rated"}
+                </Text>
+              </View>
             </View>
           </TouchableOpacity>
         ))}
@@ -44,6 +52,15 @@ const CardPastReservation = ({ reservations, check }) => {
   );
 };
 const styles = StyleSheet.create({
+  centerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "68%",
+  },
+  rating: {
+    fontStyle: "italic",
+  },
   active: {
     color: "#fff",
     fontWeight: "bold",
@@ -107,7 +124,7 @@ const styles = StyleSheet.create({
 
   cardPastReservation: {
     backgroundColor: "white",
-    opacity: .7,
+    opacity: 0.7,
     display: "flex",
     flexDirection: "row",
     width: "100%",

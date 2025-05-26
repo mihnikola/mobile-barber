@@ -1,12 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/api/apiService";
+import { convertAmPmTo24HourFormat } from "@/helpers";
 
-const convertDateRequest = (dateObj) => {
-  const date = new Date(dateObj.timestamp);
-  date.setHours(2);
-  date.setMinutes(40);
-  return date.toISOString();
-};
 
 const useFetchTimes = (date, reservation) => {
   const [timesData, setTimesData] = useState([]);
@@ -21,7 +16,6 @@ const useFetchTimes = (date, reservation) => {
         setIsLoading(false);
         return; // Don't fetch if no date is selected
       }
-
       const { employer, service } = reservation;
 
       if (!employer || !service) {
@@ -33,21 +27,24 @@ const useFetchTimes = (date, reservation) => {
       }
 
       const serviceData = {
-        id: service._id,
+        id: service.id,
         duration: service.duration,
       };
       const employerData = {
         id: employer.id,
       };
-      const dateValue = convertDateRequest(selectedDate);
 
+      const {dateString} = selectedDate;
 
+      const dateValue = new Date();
+      const qwerttqwqew = `${dateString || selectedDate}T` + dateValue.toLocaleTimeString();
+      const adasdda = convertAmPmTo24HourFormat(qwerttqwqew);
+      const dateValueData = adasdda.fullDateTime24Hour;
       try {
-        
         const response = await getData("/times", {
-            date: dateValue,
-            employer: employerData,
-            service: serviceData,
+          date: dateValueData,
+          employer: employerData,
+          service: serviceData,
         });
 
         setTimesData(response);
@@ -61,10 +58,8 @@ const useFetchTimes = (date, reservation) => {
     [reservation]
   ); // Dependencies for useCallback
 
-
   useEffect(() => {
     if (date) {
-
       fetchTimes(date);
     }
   }, [date, fetchTimes]);

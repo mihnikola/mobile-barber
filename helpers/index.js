@@ -135,3 +135,47 @@ export const removeStorage = async () => {
     // saving error
   }
 };
+
+export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
+  // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"
+
+  // Split the string into date part, time part, and AM/PM indicator
+  const parts = dateTimeAmPmString.split('T');
+  if (parts.length < 2) {
+    console.error("Invalid input format: Missing 'T' separator.");
+    return null;
+  }
+  const datePart = parts[0]; // "2025-05-26"
+
+  const timeAndAmPm = parts[1].split(' ');
+  if (timeAndAmPm.length < 1) {
+    console.error("Invalid input format: Missing AM/PM indicator or space after time.");
+    return null;
+  }
+  const timePart12Hour = timeAndAmPm[0]; // "9:39:20"
+  const ampm = timeAndAmPm[1]; // "AM" or "PM"
+
+  // Split the 12-hour time into hours, minutes, and seconds
+  let [hour, minute, second] = timePart12Hour.split(':').map(Number);
+
+  // Perform AM/PM conversion
+  if (ampm === 'PM' && hour < 12) {
+    hour += 12; // Add 12 for PM hours (e.g., 1 PM becomes 13)
+  } else if (ampm === 'AM' && hour === 12) {
+    hour = 0; // 12 AM (midnight) becomes 00
+  }
+
+  // Format hours, minutes, and seconds to always be two digits
+  const formattedHour = String(hour).padStart(2, '0');
+  const formattedMinute = String(minute).padStart(2, '0');
+  const formattedSecond = String(second).padStart(2, '0');
+
+  // Reconstruct the date-time string in 24-hour format
+  const outputTime24Hour = `${formattedHour}:${formattedMinute}:10`;
+  const fullOutput = `${datePart}T${outputTime24Hour}`; // Or just outputTime24Hour if only time is needed
+
+  return {
+    fullDateTime24Hour: fullOutput,
+    time24Hour: outputTime24Hour
+  };
+}

@@ -1,8 +1,9 @@
 import Loader from "@/components/Loader";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import Details from "@/shared-components/Details";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
+  BackHandler,
   Image,
   ScrollView,
   StyleSheet,
@@ -15,10 +16,12 @@ import useReservationCancellationAlert from "./hooks/useReservationCancellationA
 import useReservationRateAlert from "./hooks/useReservationRateAlert";
 import useCancelReservation from "./hooks/useCancelReservation";
 import useRateReservation from "./hooks/useRateReservation";
-import { useRoute } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import StarRating from "./StarRateComponent";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 const ReservationDetails = () => {
+    const navigator = useNavigation();
+  
   const route = useRoute(); // Get the route object
   const { itemId, check } = route.params;
   const [userFeedbackRating, setUserFeedbackRating] = useState(0);
@@ -47,6 +50,20 @@ const ReservationDetails = () => {
       // Optionally show an error message to the user
     }
   });
+
+   useFocusEffect(
+        useCallback(() => {
+          const onBackPress = () => {
+            // Return true to disable the default back button behavior
+            navigator.goBack();
+            return true;
+          };
+          BackHandler.addEventListener("hardwareBackPress", onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+        }, [])
+      );
 
   const handleUserRatingChange = (rating: number) => {
     console.log("User selected rating:", rating);
