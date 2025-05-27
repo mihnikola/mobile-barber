@@ -11,6 +11,7 @@ const MAPPING = {
   // See MaterialIcons here: https://icons.expo.fyi
   // See SF Symbols in the SF Symbols app on Mac.
   "star":"star",
+  "image":"image",
   "house.fill": "home",
   "check.cirle": "check-circle-outline",
   "notifications.fill": "notifications",
