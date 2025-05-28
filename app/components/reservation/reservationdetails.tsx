@@ -24,7 +24,7 @@ const ReservationDetails = () => {
   
   const route = useRoute(); // Get the route object
   const { itemId, check } = route.params;
-  const [userFeedbackRating, setUserFeedbackRating] = useState(0);
+  const [userFeedbackRating, setUserFeedbackRating] = useState(5);
 
   const { reservationData, isLoading, error, refetch } =
     useFetchReservation(itemId);
