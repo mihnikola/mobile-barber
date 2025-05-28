@@ -16,9 +16,12 @@ import usePassword from "../register/hooks/usePassword";
 import useConfirmPassword from "../register/hooks/useConfirmPassword";
 import useRegisterForm from "../register/hooks/useRegisterForm";
 import { LABEL_VALUES } from "@/constants";
+import { useNavigation } from "@react-navigation/native";
 
-const Register = ({ change }) => {
+const Register = () => {
   const [userName, setUserName] = useState("");
+  const navigation = useNavigation();
+
   const {
     loading,
     error,
@@ -42,20 +45,22 @@ const Register = ({ change }) => {
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
   const handleRegister = () => {
-    if(!userName || !confirmPassword || !password || !email){
-      ToastAndroid.show("You need to fill all data!", ToastAndroid.SHORT);
+    if (!userName || !confirmPassword || !password || !email) {
+      ToastAndroid.show(
+        "Name, email, password and confirm password are required.",
+        ToastAndroid.SHORT
+      );
       return;
     }
-    if(confirmPassword !== password){
+    if (confirmPassword !== password) {
       ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
       return;
     }
-    if (emailError || passwordError || passwordConfirmError) {
-      ToastAndroid.show("Please fix the validation errors", ToastAndroid.SHORT);
-      return;
-    }
-
     handleRegistration({ name: userName, email, password });
+  };
+
+  const checka = () => {
+    navigation.navigate("components/login/index");
   };
   return (
     <ScrollView style={styles.form}>
@@ -79,7 +84,9 @@ const Register = ({ change }) => {
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />
-        {email.length > 3 && emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+        {email.length > 3 && emailError ? (
+          <Text style={styles.errorText}>{emailError}</Text>
+        ) : null}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -121,7 +128,6 @@ const Register = ({ change }) => {
               color="gray"
             />
           </TouchableOpacity>
-          
         </View>
 
         <TouchableOpacity onPress={handleRegister} disabled={loading}>
@@ -133,15 +139,14 @@ const Register = ({ change }) => {
         </TouchableOpacity>
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
-
-      <View style={styles.container}>
+      <View style={styles.containerRegister}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            You have account? Click{" "}
-            <TouchableOpacity onPress={change} style={{ marginTop: 7 }}>
-              <Text style={styles.linkText}>here.</Text>
-            </TouchableOpacity>
-          </Text>
+          <Text style={styles.text}>Already have a account. </Text>
+        </View>
+        <View style={styles.textContainer}>
+          <TouchableOpacity onPress={checka}>
+            <Text style={styles.linkText}> Sign here.</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -236,7 +241,7 @@ const styles = StyleSheet.create({
   linkText: {
     textAlign: "center", // Default alignment for smaller screens
     color: "white",
-    textDecorationLine: "underline",
     cursor: "pointer", // While this doesn't do exactly the same thing as cursor:pointer in web, it works for touch events in React Native
+    padding: 2,
   },
 });
