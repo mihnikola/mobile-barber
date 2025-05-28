@@ -11,8 +11,10 @@ import {
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePassword from "../login/hooks/usePassword";
 import useEmail from "../login/hooks/useEmail";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const { email, handleEmailChange } = useEmail(); // Use useEmail
   const {
     password,
@@ -26,6 +28,9 @@ const LoginScreen = () => {
     login(email, password);
   };
 
+  const checka = () => {
+    navigation.navigate("components/register/index");
+  };
   return (
     <View style={styles.form} keyboardShouldPersistTaps="handled">
       <Image
@@ -66,8 +71,21 @@ const LoginScreen = () => {
           </Text>
         </View>
       </TouchableOpacity>
-
-     
+      <View style={styles.containerRegister}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Register </Text>
+        </View>
+        <View style={styles.textContainer}>
+          <TouchableOpacity onPress={checka}>
+            <Text style={styles.linkText}>here.</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
+          Sign in to see more features in app
+        </Text>
+      </View>
     </View>
   );
 };

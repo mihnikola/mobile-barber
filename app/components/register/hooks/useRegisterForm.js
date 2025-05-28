@@ -2,18 +2,18 @@
 import { useState } from "react";
 import axios from "axios";
 import { ToastAndroid } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const showToast = (text) => {
   ToastAndroid.show(text, ToastAndroid.SHORT);
 };
 
-const useRegisterForm = ({change}) => {
+const useRegisterForm = () => {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  const changeToLogin = () => {
-    change(true);
-  }
+ 
   const handleSubmit = async (userData) => {
     setLoading(true);
     setError(null);
@@ -29,8 +29,7 @@ const useRegisterForm = ({change}) => {
         showToast(result.data.message);
       } else if (result.status === 201) {
         showToast(result.data.message);
-        // navigation.navigate("components/login/index");
-        changeToLogin();
+        navigation.navigate("components/login/index");
       } else {
         showToast(`Registration failed: ${result.status}`);
       }

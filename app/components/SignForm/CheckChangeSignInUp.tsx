@@ -1,18 +1,30 @@
+import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-const CheckChangeSignInUp = ({ check }) => {
-  return (
-    <View style={styles.containerRegister}>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>Register </Text>
+const CheckChangeSignInUp = ({ check, title, link }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(";");
+      setIsLoading(false);
+    }, 100);
+  }, []);
+
+  if (!isLoading) {
+    return (
+      <View style={styles.containerRegister}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{title} </Text>
+        </View>
+        <View style={styles.textContainer}>
+          <TouchableOpacity onPress={check}>
+            <Text style={styles.linkText}>{link}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.textContainer}>
-        <TouchableOpacity onPress={check}>
-          <Text style={styles.linkText}>here.</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  }
 };
 const styles = StyleSheet.create({
   containerRegister: {
