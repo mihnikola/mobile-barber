@@ -121,7 +121,7 @@ const ReservationDetails = () => {
                   : styles.statusContentRejected,
               ]}
             >
-              {reservationData?.status === 0 ? "Potvrđen" : "Odbijen"}
+              {reservationData?.status === 0 ? "Approved" : "Rejected"}
             </Text>
 
             <Text style={styles.timeData}>
@@ -134,7 +134,7 @@ const ReservationDetails = () => {
             <Text style={styles.dateData}>
               {convertDate(reservationData?.date)}
             </Text>
-            <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
+            <Text style={styles.dateData}>Barber Studio - Gentleman</Text>
           </View>
           <View style={styles.containerWrapper}>
             <Details data={reservationData} />
