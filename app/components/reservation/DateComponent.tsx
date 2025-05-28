@@ -19,7 +19,8 @@ const DateComponent = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const navigation = useNavigation();
-  const { selectedDate, handleDayPress, isSundayData } = useSelectedDate(formattedDate);
+  const { selectedDate, handleDayPress, isSundayData } =
+    useSelectedDate(formattedDate);
   const { timesData, isLoading, error } = useFetchTimes(
     selectedDate,
     reservation
@@ -77,13 +78,15 @@ const DateComponent = () => {
             selectedItem={selectedItem}
           />
         )}
-        {isSundayData && timesData.length === 0 && <NotSummary />}
+        {!isSundayData && timesData.length === 0 && <NotSummary />}
 
         {reservation && <Details data={reservation} />}
       </View>
-      <View style={styles.buttonContainer}>
-        <FlatButton text="Continue" onPress={reportHandler} />
-      </View>
+      {selectedItem && (
+        <View style={styles.buttonContainer}>
+          <FlatButton text="Continue" onPress={reportHandler} />
+        </View>
+      )}
     </ScrollView>
   );
 };
