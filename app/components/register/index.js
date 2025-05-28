@@ -23,7 +23,7 @@ const Register = ({ change }) => {
     loading,
     error,
     handleSubmit: handleRegistration,
-  } = useRegisterForm();
+  } = useRegisterForm(change);
   const { email, emailError, handleEmailChange } = useEmail();
 
   const {
@@ -42,19 +42,17 @@ const Register = ({ change }) => {
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
   const handleRegister = () => {
-    if(!userName || !confirmPassword || !password || !email){
-      ToastAndroid.show("You need to fill all data!", ToastAndroid.SHORT);
+    if (!userName || !confirmPassword || !password || !email) {
+      ToastAndroid.show(
+        "Name, email, password and confirm password are required.",
+        ToastAndroid.SHORT
+      );
       return;
     }
-    if(confirmPassword !== password){
+    if (confirmPassword !== password) {
       ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
       return;
     }
-    if (emailError || passwordError || passwordConfirmError) {
-      ToastAndroid.show("Please fix the validation errors", ToastAndroid.SHORT);
-      return;
-    }
-
     handleRegistration({ name: userName, email, password });
   };
   return (
@@ -79,7 +77,9 @@ const Register = ({ change }) => {
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />
-        {email.length > 3 && emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+        {email.length > 3 && emailError ? (
+          <Text style={styles.errorText}>{emailError}</Text>
+        ) : null}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -121,7 +121,6 @@ const Register = ({ change }) => {
               color="gray"
             />
           </TouchableOpacity>
-          
         </View>
 
         <TouchableOpacity onPress={handleRegister} disabled={loading}>

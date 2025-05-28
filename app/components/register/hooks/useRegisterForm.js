@@ -1,18 +1,19 @@
 // src/hooks/useRegisterForm.js
-import { useState } from 'react';
-import axios from 'axios';
-import { ToastAndroid } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useState } from "react";
+import axios from "axios";
+import { ToastAndroid } from "react-native";
 
 const showToast = (text) => {
   ToastAndroid.show(text, ToastAndroid.SHORT);
 };
 
-const useRegisterForm = () => {
+const useRegisterForm = ({change}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigation = useNavigation();
-
+  
+  const changeToLogin = () => {
+    change(true);
+  }
   const handleSubmit = async (userData) => {
     setLoading(true);
     setError(null);
@@ -22,19 +23,23 @@ const useRegisterForm = () => {
         `${process.env.EXPO_PUBLIC_API_URL}/users`,
         userData
       );
-
-      if(result.status === 202){
+      if (result.status === 400) {
         showToast(result.data.message);
-      }else if (result.status === 201) {
+      } else if (result.status === 202) {
         showToast(result.data.message);
-        setTimeout(() => {
-          navigation.navigate("components/login/index");
-        }, 1000);
+      } else if (result.status === 201) {
+        showToast(result.data.message);
+        // navigation.navigate("components/login/index");
+        changeToLogin();
       } else {
         showToast(`Registration failed: ${result.status}`);
       }
     } catch (errorx) {
-      showToast(`Registration error: ${errorx.message || "An unexpected error occurred."}`);
+      if (err.message.includes("404")) {
+        showToast(` Not found endpoint`);
+      } else {
+        showToast(`Something Went Wrong, Please Try Again`);
+      }
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,10 @@
 // src/hooks/useAuth.js
 import { useState } from "react";
-import { getExpoTokenStorage, removeExpoTokenStorage, saveStorage } from "../../../../helpers/index";
+import {
+  getExpoTokenStorage,
+  removeExpoTokenStorage,
+  saveStorage,
+} from "../../../../helpers/index";
 import { ToastAndroid } from "react-native";
 import { post } from "../../../../api/apiService";
 import { useNavigation } from "@react-navigation/native";
@@ -39,19 +43,21 @@ const useLoginForm = () => {
         // For example, if your responseData has a user object with an id:
         const userId = responseData.userId;
         const expoToken = await getExpoTokenStorage(); // Assuming this function exists
-        if (expoToken && userId) {
+        if (responseData.status === 200 && expoToken && userId) {
           saveToken(userId, expoToken);
-        } else if (responseData.status === 200) {
-          setPending(false);
           removeExpoTokenStorage();
+          setPending(false);
           showToast("Login Successful!");
           navigation.navigate("(tabs)", { screen: "index" });
         }
       }
     } catch (err) {
-      console.log("errorcina", err.message);
+      if (err.message.includes("404")) {
+        showToast(` Not found endpoint`);
+      } else {
+        showToast(`Something Went Wrong, Please Try Again`);
+      }
       setPending(false);
-      showToast(`Login Error: ${err.message || err}`);
     }
   };
 
@@ -62,7 +68,7 @@ const useLoginForm = () => {
         tokenExpo: dataTokenExpo,
         tokenUser: userId,
       });
-      console.log("saveToken+++",responseData)
+      console.log("saveToken+++", responseData);
 
       if (responseData.status === 200) {
         console.log("Token saved successfully");
@@ -72,7 +78,9 @@ const useLoginForm = () => {
         navigation.navigate("(tabs)", { screen: "index" });
       } else {
         setPending(false);
-        showToast(`Failed to save token: ${responseData?.message || 'Unknown error'}`);
+        showToast(
+          `Failed to save token: ${responseData?.message || "Unknown error"}`
+        );
       }
     } catch (err) {
       console.log("Error saving token:", err.message);

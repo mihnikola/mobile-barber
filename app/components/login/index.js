@@ -11,9 +11,8 @@ import {
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePassword from "../login/hooks/usePassword";
 import useEmail from "../login/hooks/useEmail";
-import InfoComponent from "@/shared-components/InfoComponent";
 
-const LoginScreen = ({ change,title }) => {
+const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail(); // Use useEmail
   const {
     password,
@@ -28,7 +27,7 @@ const LoginScreen = ({ change,title }) => {
   };
 
   return (
-    <ScrollView style={styles.form} keyboardShouldPersistTaps="handled">
+    <View style={styles.form} keyboardShouldPersistTaps="handled">
       <Image
         source={require("@/assets/images/logoImage.png")}
         style={styles.reactLogo}
@@ -68,18 +67,8 @@ const LoginScreen = ({ change,title }) => {
         </View>
       </TouchableOpacity>
 
-      <View style={styles.containerRegister}>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Register </Text>
-        </View>
-        <View style={styles.textContainer}>
-          <TouchableOpacity onPress={change}>
-            <Text style={styles.linkText}>here.</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <InfoComponent title={title} />
-    </ScrollView>
+     
+    </View>
   );
 };
 const styles = StyleSheet.create({
