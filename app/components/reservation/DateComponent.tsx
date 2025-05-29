@@ -14,7 +14,18 @@ import { useNavigation } from "@react-navigation/native";
 
 const DateComponent = () => {
   const currentDate = new Date();
-  const formattedDate = currentDate?.toISOString()?.split("T")[0];
+const isoString = currentDate.toISOString(); // "2025-05-29T11:55:52.123Z" (ISO string je uvek u UTC vremenu)
+const formattedDateData = new Date(isoString); // Kreira novi Date objekat iz ISO stringa
+const formattedDate = formattedDateData.toLocaleString('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false // Da bi se koristio 24-časovni format
+});
+
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
 
