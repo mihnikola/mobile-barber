@@ -45,6 +45,9 @@ const Register = () => {
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
   const handleRegister = () => {
+    if (emailError || passwordConfirmError || passwordError) {
+      return;
+    }
     if (!userName || !confirmPassword || !password || !email) {
       ToastAndroid.show(
         "Name, email, password and confirm password are required.",
