@@ -35,7 +35,7 @@ const Reservation = () => {
               )}
           </Text>
           <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString)}
+            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
