@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/api/apiService";
-import { convertAmPmTo24HourFormat } from "@/helpers";
 
 
-const useFetchTimes = (date, reservation) => {
+const useFetchTimes = (date, reservation,isSunday) => {
   const [timesData, setTimesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,15 +33,10 @@ const useFetchTimes = (date, reservation) => {
         id: employer.id,
       };
 
-      const {dateString} = selectedDate;
-
-      const dateValue = new Date();
-      const qwerttqwqew = `${dateString || selectedDate}T` + dateValue.toLocaleTimeString();
-      const adasdda = convertAmPmTo24HourFormat(qwerttqwqew);
-      const dateValueData = adasdda.fullDateTime24Hour;
+  
       try {
         const response = await getData("/times", {
-          date: dateValueData,
+          date: selectedDate,
           employer: employerData,
           service: serviceData,
         });
@@ -59,7 +53,8 @@ const useFetchTimes = (date, reservation) => {
   ); // Dependencies for useCallback
 
   useEffect(() => {
-    if (date) {
+
+    if (date && !isSunday) {
       fetchTimes(date);
     }
   }, [date, fetchTimes]);

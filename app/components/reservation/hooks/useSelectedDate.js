@@ -1,18 +1,21 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 const useSelectedDate = (initialDate) => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
-  const [isSundayData, setIsSundayData] = useState(false);
+  const [isSunday, setIsSunday] = useState(false);
   const handleDayPress = useCallback((day) => {
-    const isSunday = new Date(day.dateString).getDay() === 0;
-    if (!isSunday) {
-      setSelectedDate(day);
+    const { dateString } = day;
+
+    setSelectedDate(dateString || day);
+
+    const isSun = new Date(dateString || day).getDay() === 0;
+    if (isSun) {
+      setIsSunday(true);
     }else{
-      setIsSundayData(true);
+      setIsSunday(false);
     }
   }, []);
-  return { selectedDate, handleDayPress, isSundayData };
+  return { selectedDate, handleDayPress, isSunday };
 };
-
 
 export default useSelectedDate;
