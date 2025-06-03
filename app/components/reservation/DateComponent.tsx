@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
@@ -9,32 +9,22 @@ import Summary from "@/shared-components/Summary"; // Adjust the path
 import Details from "@/shared-components/Details"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
-import { calendarTheme } from "@/helpers";
+import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { useNavigation } from "@react-navigation/native";
 
 const DateComponent = () => {
   const currentDate = new Date();
-const isoString = currentDate.toISOString(); // "2025-05-29T11:55:52.123Z" (ISO string je uvek u UTC vremenu)
-const formattedDateData = new Date(isoString); // Kreira novi Date objekat iz ISO stringa
-const formattedDate = formattedDateData.toLocaleString('en-GB', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false // Da bi se koristio 24-časovni format
-});
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
 
   const navigation = useNavigation();
-  const { selectedDate, handleDayPress, isSundayData } =
-    useSelectedDate(formattedDate);
+  const { selectedDate, handleDayPress, isSunday } =
+    useSelectedDate(currentDate);
   const { timesData, isLoading, error } = useFetchTimes(
     selectedDate,
-    reservation
+    reservation,
+    isSunday
   );
 
   const reportHandler = () => {
@@ -50,12 +40,10 @@ const formattedDate = formattedDateData.toLocaleString('en-GB', {
   };
 
   useEffect(() => {
-    const dateObject = {
-      dateString: selectedDate,
-    };
-    handleDayPress(dateObject);
+    const dateValue = selectedDate.toLocaleString("en-GB");
+    const valueInitialData = convertDayInitalValue(dateValue);
+    handleDayPress(valueInitialData);
   }, []);
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.calendarContainer}>
@@ -63,10 +51,10 @@ const formattedDate = formattedDateData.toLocaleString('en-GB', {
           style={styles.calendar}
           theme={calendarTheme}
           onVisibleMonthsChange={(months) => {}}
-          current={formattedDate}
+          current={currentDate.toDateString()}
           futureScrollRange={2}
           markedDates={{
-            [selectedDate?.dateString || formattedDate]: {
+            [selectedDate]: {
               selected: true,
             },
           }}
@@ -75,21 +63,30 @@ const formattedDate = formattedDateData.toLocaleString('en-GB', {
           pastScrollRange={0}
           horizontal
           pagingEnabled
-          minDate={formattedDate}
+          minDate={currentDate.toDateString()}
           hideExtraDays
         />
       </View>
 
       <View style={styles.timesAndDetails}>
-        {!isSundayData && isLoading && <Loader />}
-        {!isLoading && !error && timesData.length > 0 && (
-          <Summary
-            data={timesData}
-            setSelectedItem={setSelectedItem}
-            selectedItem={selectedItem}
-          />
+        {!isSunday && (
+          <>
+            {isLoading && <Loader />}
+            {!isLoading && !error && timesData.length > 0 && (
+              <Summary
+                data={timesData}
+                setSelectedItem={setSelectedItem}
+                selectedItem={selectedItem}
+              />
+            )}
+            {!isLoading && timesData.length === 0 && <NotSummary />}
+          </>
         )}
-        {!isSundayData && timesData.length === 0 && <NotSummary />}
+        {isSunday && (
+          <View style={styles.notWorkingDays}>
+            <Text style={styles.notWorkingDaysContent}>Nedeljom ne radimo</Text>
+          </View>
+        )}
 
         {reservation && <Details data={reservation} />}
       </View>
@@ -103,6 +100,17 @@ const formattedDate = formattedDateData.toLocaleString('en-GB', {
 };
 
 const styles = StyleSheet.create({
+  notWorkingDays: {
+    display: "flex",
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+  },
+  notWorkingDaysContent: {
+    fontSize: 20,
+    color: "white",
+    padding: 20
+  },
   container: {
     flex: 1,
     display: "flex",

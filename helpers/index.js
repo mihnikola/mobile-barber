@@ -42,6 +42,14 @@ export function convertToMonthName(dateString) {
   return monthName; // Output: January
 }
 
+
+export function convertDayInitalValue(data){
+  const dataValue = data.split(",")[0];
+  const [day,month,year] = dataValue.split("/");
+  const result = `${year}-${month}-${day}`;
+  return result;
+}
+
 export function convertToDay(dateString) {
   // Convert the string to a Date object
   const date = new Date(dateString);
