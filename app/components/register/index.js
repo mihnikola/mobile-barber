@@ -83,6 +83,7 @@ const Register = () => {
         />
         <TextInput
           placeholder="Enter your email"
+          keyboardType="email-address"
           value={email}
           onChangeText={handleEmailChange}
           style={styles.textInput}

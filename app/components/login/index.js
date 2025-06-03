@@ -41,6 +41,7 @@ const LoginScreen = () => {
       <TextInput
         placeholder="Email"
         value={email}
+        keyboardType="email-address"
         onChangeText={handleEmailChange}
         style={styles.textInput}
       />
