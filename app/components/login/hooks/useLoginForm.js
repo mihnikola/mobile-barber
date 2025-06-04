@@ -1,5 +1,5 @@
 // src/hooks/useAuth.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getExpoTokenStorage,
   removeExpoTokenStorage,
@@ -18,6 +18,7 @@ const useLoginForm = () => {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
+  const [expoToken, setExpoToken] = useState(null);
 
   const login = async (email, password) => {
     if (!email || !password) {
@@ -35,21 +36,14 @@ const useLoginForm = () => {
       if (responseData.status === 202) {
         setPending(false);
         showToast(responseData.message);
+        return;
       }
       if (responseData.status === 200) {
-        setData(responseData);
         saveStorage(responseData.token);
-        // You would typically get the userId from the response here
-        // For example, if your responseData has a user object with an id:
-        const userId = responseData.userId;
-        const expoToken = await getExpoTokenStorage(); // Assuming this function exists
-        if (responseData.status === 200 && expoToken && userId) {
-          saveToken(userId, expoToken);
-          removeExpoTokenStorage();
-          setPending(false);
-          showToast("Login Successful!");
-          navigation.navigate("(tabs)", { screen: "index" });
-        }
+        const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
+        setExpoToken(expoTokenData);
+
+        setData(responseData);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -61,6 +55,12 @@ const useLoginForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (data) {
+      saveToken(data.userId, expoToken);
+    }
+  }, [data]);
+
   const saveToken = async (userId, dataTokenExpo) => {
     setPending(true); // Set pending state when saving token
     try {
@@ -68,7 +68,6 @@ const useLoginForm = () => {
         tokenExpo: dataTokenExpo,
         tokenUser: userId,
       });
-      console.log("saveToken+++", responseData);
 
       if (responseData.status === 200) {
         console.log("Token saved successfully");
