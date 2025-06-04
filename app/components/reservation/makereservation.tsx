@@ -37,7 +37,7 @@ const makereservation = () => {
             {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.duration)}
           </Text>
           <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString)}
+            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
           </Text>
         </View>
         <View style={styles.whiteLine} />
@@ -52,6 +52,7 @@ const makereservation = () => {
             <Button text="Ok" onPress={submitReservationHandler} />
           </View>
         </View>
+        
       </View>
     );
   }
