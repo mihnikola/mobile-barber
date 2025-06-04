@@ -1,5 +1,6 @@
 // src/hooks/useReservations.js
 import { getData } from "@/api/apiService";
+import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 import { useState, useEffect, useCallback } from "react";
 
 const useReservations = () => {
@@ -18,10 +19,12 @@ const useReservations = () => {
   const getReservationsData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
+    const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
 
     try {
       const response = await getData("/reservations", {
         check,
+        dateTimeStampValue
       });
       setReservations(response);
       setIsLoading(false);

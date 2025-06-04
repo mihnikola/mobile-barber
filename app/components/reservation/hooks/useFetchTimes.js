@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/api/apiService";
+import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 
 
 const useFetchTimes = (date, reservation,isSunday) => {
@@ -32,13 +33,13 @@ const useFetchTimes = (date, reservation,isSunday) => {
       const employerData = {
         id: employer.id,
       };
-
-  
+      const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
       try {
         const response = await getData("/times", {
           date: selectedDate,
           employer: employerData,
           service: serviceData,
+          dateTimeStampValue 
         });
 
         setTimesData(response);
