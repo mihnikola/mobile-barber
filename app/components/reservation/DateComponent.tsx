@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
@@ -19,7 +19,7 @@ const DateComponent = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const navigation = useNavigation();
-  const { selectedDate, handleDayPress, isSunday } =
+  const { selectedDate, handleDayPress, isSunday, markedDates } =
     useSelectedDate(currentDate);
   const { timesData, isLoading, error } = useFetchTimes(
     selectedDate,
@@ -44,6 +44,7 @@ const DateComponent = () => {
     const valueInitialData = convertDayInitalValue(dateValue);
     handleDayPress(valueInitialData);
   }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.calendarContainer}>
@@ -53,11 +54,7 @@ const DateComponent = () => {
           onVisibleMonthsChange={(months) => {}}
           current={currentDate.toDateString()}
           futureScrollRange={2}
-          markedDates={{
-            [selectedDate]: {
-              selected: true,
-            },
-          }}
+          markedDates={markedDates}
           onDayPress={handleDayPress}
           showScrollIndicator
           pastScrollRange={0}
@@ -84,7 +81,9 @@ const DateComponent = () => {
         )}
         {isSunday && (
           <View style={styles.notWorkingDays}>
-            <Text style={styles.notWorkingDaysContent}>Nedeljom ne radimo</Text>
+            <Text style={styles.notWorkingDaysContent}>
+              We don't work on Sundays
+            </Text>
           </View>
         )}
 
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
   notWorkingDaysContent: {
     fontSize: 20,
     color: "white",
-    padding: 20
+    padding: 20,
   },
   container: {
     flex: 1,
