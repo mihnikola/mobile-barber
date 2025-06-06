@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
@@ -39,7 +39,56 @@ const DateComponent = () => {
     }
   };
 
+  const markedDates = {
+    "2025-06-06": {
+      selected: true,
+    },
+    "2025-06-08": {
+      disabled: true,
+    },
+    "2025-06-15": {
+      disabled: true,
+    },
+  };
+
+  function getSundaysInMonth(year, monthIndex) {
+    const sundays = [];
+    // Create a Date object for the first day of the given month
+    // monthIndex is 0-based (0 for January, 5 for June)
+    const firstDayOfMonth = new Date(year, monthIndex, 1);
+    let currentDay = firstDayOfMonth;
+
+    // Iterate through the days until we move to the next month
+    while (currentDay.getMonth() === monthIndex) {
+      // Check if the current day is Sunday (getDay() returns 0 for Sunday)
+      if (currentDay.getDay() === 0) {
+        // 0 represents Sunday
+        sundays.push(new Date(currentDay)); // Push a copy of the date
+      }
+      // Move to the next day
+      currentDay.setDate(currentDay.getDate() + 1);
+    }
+    return sundays;
+  }
+  const getDisabledDays = () => {
+    const sun = new Date().getFullYear();
+    const mon = new Date().getMonth();
+    const sundaysInJune2025 = getSundaysInMonth(sun, mon);
+
+    let disabledDays = [];
+    sundaysInJune2025.forEach((sunday) => {
+      disabledDays.push(sunday.toDateString());
+    });
+    return disabledDays;
+  };
+
+  const marketsData = useMemo(()=>{
+    getDisabledDays();
+  })
+
   useEffect(() => {
+   
+
     const dateValue = selectedDate.toLocaleString("en-GB");
     const valueInitialData = convertDayInitalValue(dateValue);
     handleDayPress(valueInitialData);
@@ -53,11 +102,7 @@ const DateComponent = () => {
           onVisibleMonthsChange={(months) => {}}
           current={currentDate.toDateString()}
           futureScrollRange={2}
-          markedDates={{
-            [selectedDate]: {
-              selected: true,
-            },
-          }}
+          markedDates={markedDates}
           onDayPress={handleDayPress}
           showScrollIndicator
           pastScrollRange={0}
@@ -84,7 +129,9 @@ const DateComponent = () => {
         )}
         {isSunday && (
           <View style={styles.notWorkingDays}>
-            <Text style={styles.notWorkingDaysContent}>Nedeljom ne radimo</Text>
+            <Text style={styles.notWorkingDaysContent}>
+              We don't work on Sundays
+            </Text>
           </View>
         )}
 
@@ -109,7 +156,7 @@ const styles = StyleSheet.create({
   notWorkingDaysContent: {
     fontSize: 20,
     color: "white",
-    padding: 20
+    padding: 20,
   },
   container: {
     flex: 1,
