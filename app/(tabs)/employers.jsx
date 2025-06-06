@@ -28,24 +28,13 @@ const Employers = () => {
     [navigation, reservation, updateReservation]
   );
 
-  if (isLoading) {
-    return <Loader />;
-  }
+
 
   function handleBackButtonClick3() {
     navigation.goBack();
     return true;
   }
 
-  if (error) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>
-          Error loading employers: {error.message || "Unknown error"}
-        </Text>
-      </View>
-    );
-  }
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -53,6 +42,7 @@ const Employers = () => {
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Choose your barber</Text>
+      {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
           {emplData?.map((item) => (
@@ -62,6 +52,13 @@ const Employers = () => {
               redirectHandler={redirectHandler}
             />
           ))}
+        </View>
+      )}
+      {!isLoading && error && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
+            Error employers: {error || "Unknown error"}
+          </Text>
         </View>
       )}
     </ScrollView>
@@ -96,4 +93,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  errorContainer: {
+    display:'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+    alignSelf: 'center',
+    alignContent:'center',
+    height: 500
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'gray'
+  }
+
 });
