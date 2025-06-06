@@ -7,8 +7,9 @@ import {
   TextInput,
   ScrollView,
   ToastAndroid,
+  BackHandler,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 
 import useEmail from "../register/hooks/useEmail";
@@ -44,19 +45,38 @@ const Register = () => {
     togglePasswordConfirmVisibility,
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
-  const handleRegister = () => {
-    if (emailError || passwordConfirmError || passwordError) {
-      return;
-    }
-    if (!userName || !confirmPassword || !password || !email) {
-      ToastAndroid.show(
-        "Name, email, password and confirm password are required.",
-        ToastAndroid.SHORT
+  const showToast = (text) => {
+    ToastAndroid.show(text, ToastAndroid.SHORT);
+  };
+  function handleBackButtonClick3() {
+    navigation.goBack();
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick3
       );
+    };
+  }, []);
+
+  const handleRegister = () => {
+    if (!userName || !confirmPassword || !password || !email) {
+      showToast("Please fill out all fields.");
       return;
     }
+
     if (confirmPassword !== password) {
-      ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
+      showToast("Your passwords does not match");
+      return;
+    }
+    if (emailError) {
+      showToast(emailError);
+      return;
+    }
+    if (passwordError) {
       return;
     }
     handleRegistration({ name: userName, email, password });
@@ -88,9 +108,6 @@ const Register = () => {
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />
-        {email.length > 3 && emailError ? (
-          <Text style={styles.errorText}>{emailError}</Text>
-        ) : null}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -100,6 +117,7 @@ const Register = () => {
             placeholder="Enter your password"
             secureTextEntry={!isPasswordVisible}
           />
+
           <TouchableOpacity
             onPress={togglePasswordVisibility}
             style={styles.iconContainer}
@@ -141,15 +159,14 @@ const Register = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
       <View style={styles.containerRegister}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>Already have a account. </Text>
+          <Text style={styles.text}>Already have account? </Text>
         </View>
         <View style={styles.textContainer}>
           <TouchableOpacity onPress={checka}>
-            <Text style={styles.linkText}> Sign here.</Text>
+            <Text style={styles.linkText}> Sign in here.</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -246,6 +263,8 @@ const styles = StyleSheet.create({
     textAlign: "center", // Default alignment for smaller screens
     color: "white",
     cursor: "pointer", // While this doesn't do exactly the same thing as cursor:pointer in web, it works for touch events in React Native
-    padding: 2,
+  },
+  containerRegister: {
+    padding: 20,
   },
 });

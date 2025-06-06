@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const { email, handleEmailChange } = useEmail(); // Use useEmail
+  const { email, emailError, handleEmailChange } = useEmail(); // Use useEmail
   const {
     password,
     handlePasswordChange,
@@ -25,6 +25,9 @@ const LoginScreen = () => {
   const { pending, login } = useLoginForm();
 
   const handleLogin = () => {
+    if (emailError) {
+      return;
+    }
     login(email, password);
   };
 
@@ -38,13 +41,17 @@ const LoginScreen = () => {
         style={styles.reactLogo}
       />
       <Text style={styles.title}>Sign In</Text>
+
       <TextInput
-        placeholder="Email"
-        value={email}
+        placeholder="Enter your email"
         keyboardType="email-address"
+        value={email}
         onChangeText={handleEmailChange}
         style={styles.textInput}
       />
+      {email.length > 3 && emailError ? (
+        <Text style={styles.errorText}>{emailError}</Text>
+      ) : null}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -74,11 +81,11 @@ const LoginScreen = () => {
       </TouchableOpacity>
       <View style={styles.containerRegister}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>Register </Text>
+          <Text style={styles.text}>You don't have account?</Text>
         </View>
         <View style={styles.textContainer}>
           <TouchableOpacity onPress={checka}>
-            <Text style={styles.linkText}>here.</Text>
+            <Text style={styles.linkText}> Register here.</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -102,10 +109,11 @@ const styles = StyleSheet.create({
     top: 10, // Centers the icon vertically inside the input
   },
   containerRegister: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
+
     padding: 30,
   },
   form: {
@@ -163,7 +171,6 @@ const styles = StyleSheet.create({
   },
   linkText: {
     color: "white",
-    textDecorationLine: "underline",
     cursor: "pointer", // While this doesn't do exactly the same thing as cursor:pointer in web, it works for touch events in React Native
   },
   reactLogo: {

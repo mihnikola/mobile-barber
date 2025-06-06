@@ -22,9 +22,9 @@ const useFetchEmployers = () => {
         }
       } catch (err) {
         if (err.message.includes("404")) {
-          showToast(` Not found endpoint`);
+          setError(`Not found endpoint`);
         } else {
-          showToast(`Something Went Wrong, Please Try Again`);
+          setError(`Something Went Wrong, Please Try Again`);
         }
         setIsLoading(false);
       }
