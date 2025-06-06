@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const { email, handleEmailChange } = useEmail(); // Use useEmail
+  const { email, emailError, handleEmailChange } = useEmail(); // Use useEmail
   const {
     password,
     handlePasswordChange,
@@ -25,6 +25,9 @@ const LoginScreen = () => {
   const { pending, login } = useLoginForm();
 
   const handleLogin = () => {
+    if (emailError) {
+      return;
+    }
     login(email, password);
   };
 
@@ -38,13 +41,17 @@ const LoginScreen = () => {
         style={styles.reactLogo}
       />
       <Text style={styles.title}>Sign In</Text>
+
       <TextInput
-        placeholder="Email"
-        value={email}
+        placeholder="Enter your email"
         keyboardType="email-address"
+        value={email}
         onChangeText={handleEmailChange}
         style={styles.textInput}
       />
+      {email.length > 3 && emailError ? (
+        <Text style={styles.errorText}>{emailError}</Text>
+      ) : null}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
