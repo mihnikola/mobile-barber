@@ -5,7 +5,7 @@ const usePassword = () => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$/;
+  const strongPasswordRegex =  /^(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]).{8,}$/;
 
   const handlePasswordChange = useCallback((text) => {
     const trimmedPass = text.trim();
@@ -13,7 +13,7 @@ const usePassword = () => {
     setTimeout(() => {
       if (!strongPasswordRegex.test(trimmedPass)) {
         setPasswordError(
-          "At least 8 characters long, one uppercase letter, one number, and one special character."
+          "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character."
         );
       } else {
         setPasswordError("");
