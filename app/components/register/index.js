@@ -44,19 +44,24 @@ const Register = () => {
     togglePasswordConfirmVisibility,
   } = useConfirmPassword(password); // Use the useConfirmPassword hook, passing the 'password' state
 
+  const showToast = (text) => {
+    ToastAndroid.show(text, ToastAndroid.SHORT);
+  };
   const handleRegister = () => {
-    if (emailError || passwordConfirmError || passwordError) {
-      return;
-    }
     if (!userName || !confirmPassword || !password || !email) {
-      ToastAndroid.show(
-        "Name, email, password and confirm password are required.",
-        ToastAndroid.SHORT
-      );
+      showToast("Please fill out all fields.");
       return;
     }
+
     if (confirmPassword !== password) {
-      ToastAndroid.show("Your passwords does not match", ToastAndroid.SHORT);
+      showToast("Your passwords does not match");
+      return;
+    }
+    if (emailError) {
+      showToast(emailError);
+      return;
+    }
+    if (passwordError) {
       return;
     }
     handleRegistration({ name: userName, email, password });
@@ -88,9 +93,6 @@ const Register = () => {
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />
-        {email.length > 3 && emailError ? (
-          <Text style={styles.errorText}>{emailError}</Text>
-        ) : null}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -100,6 +102,7 @@ const Register = () => {
             placeholder="Enter your password"
             secureTextEntry={!isPasswordVisible}
           />
+
           <TouchableOpacity
             onPress={togglePasswordVisibility}
             style={styles.iconContainer}
@@ -141,7 +144,6 @@ const Register = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
       <View style={styles.containerRegister}>
         <View style={styles.textContainer}>
