@@ -18,7 +18,6 @@ const useLoginForm = () => {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
-  const [expoToken, setExpoToken] = useState(null);
 
   const login = async (email, password) => {
     if (!email || !password) {
@@ -40,8 +39,6 @@ const useLoginForm = () => {
       }
       if (responseData.status === 200) {
         saveStorage(responseData.token);
-        const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
-        setExpoToken(expoTokenData);
 
         setData(responseData);
       }
@@ -57,23 +54,26 @@ const useLoginForm = () => {
 
   useEffect(() => {
     if (data) {
-      saveToken(data.userId, expoToken);
+      saveToken(data.userId);
     }
   }, [data]);
 
-  const saveToken = async (userId, dataTokenExpo) => {
+  const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token
+    const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
+
     try {
       const responseData = await post("/api/saveToken", {
-        tokenExpo: dataTokenExpo,
+        tokenExpo: expoTokenData,
         tokenUser: userId,
       });
 
       if (responseData.status === 200) {
         console.log("Token saved successfully");
         setPending(false);
-        removeExpoTokenStorage();
         showToast("Login Successful!");
+        removeExpoTokenStorage();
+
         navigation.navigate("(tabs)", { screen: "index" });
       } else {
         setPending(false);
