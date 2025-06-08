@@ -28,8 +28,6 @@ const Employers = () => {
     [navigation, reservation, updateReservation]
   );
 
-
-
   function handleBackButtonClick3() {
     navigation.goBack();
     return true;
@@ -57,7 +55,7 @@ const Employers = () => {
       {!isLoading && error && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>
-            Error employers: {error || "Unknown error"}
+            Something went wrong, please try again later
           </Text>
         </View>
       )}
@@ -94,17 +92,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   errorContainer: {
-    display:'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-    alignSelf: 'center',
-    alignContent:'center',
-    height: 500
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000",
+    alignSelf: "center",
+    alignContent: "center",
+    height: 500,
   },
   errorText: {
+    marginhorizontal: 40,
     fontSize: 16,
-    color: 'gray'
-  }
-
+    textAlign: 'center',
+    color: "gray",
+  },
 });
