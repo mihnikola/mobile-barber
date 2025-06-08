@@ -128,7 +128,7 @@ const Register = () => {
               color="gray"
             />
           </TouchableOpacity>
-          {password.length > 3 && passwordError ? (
+          {password.length > 0 && passwordError ? (
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
         </View>

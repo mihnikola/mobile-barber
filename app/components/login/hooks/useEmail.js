@@ -7,7 +7,7 @@ const useEmail = () => {
 
   const handleEmailChange = useCallback((text) => {
     const trimmedEmail = text.trim().toLowerCase();
-    if (trimmedEmail.include(" ") || !emailRegex.test(trimmedEmail)) {
+    if (trimmedEmail.includes(" ") || !emailRegex.test(trimmedEmail)) {
       setEmailError("Please enter a valid email address.");
     } else {
       setEmailError(""); // No errors
