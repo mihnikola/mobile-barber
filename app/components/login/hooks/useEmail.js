@@ -6,8 +6,7 @@ const useEmail = () => {
   const [emailError, setEmailError] = useState("");
 
   const handleEmailChange = useCallback((text) => {
-    const trimmedEmail = text.trim().toLowerCase();
-    setEmail(trimmedEmail);
+    setEmail(text);
   }, []);
 
   return { email, emailError, handleEmailChange, setEmail };

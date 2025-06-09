@@ -105,6 +105,7 @@ const Register = () => {
           placeholder="Enter your email"
           keyboardType="email-address"
           value={email}
+          autoCapitalize="none"
           onChangeText={handleEmailChange}
           style={styles.textInput}
         />

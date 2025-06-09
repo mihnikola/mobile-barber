@@ -7,8 +7,8 @@ const useEmail = () => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const handleEmailChange = useCallback((text) => {
+    setEmail(text);
     const trimmedEmail = text.trim().toLowerCase();
-      setEmail(trimmedEmail);
 
     if (trimmedEmail.includes(" ") || !emailRegex.test(trimmedEmail)) {
       setEmailError("Please enter a valid email address.");
