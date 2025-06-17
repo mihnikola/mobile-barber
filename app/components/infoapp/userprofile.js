@@ -8,55 +8,121 @@ import {
   ScrollView,
 } from "react-native";
 import ImageCompress from "../../../shared-components/ImageCompress";
+import useUser from "./hooks/useUser";
+import Loader from "@/components/Loader";
+import useUserChange from "./hooks/useUserChange";
+import { SuccessToast } from "toastify-react-native";
+import usePhoneNumber from "./hooks/usePhoneNumber";
+import useName from "./hooks/useName";
+import { useState } from "react";
 
 const userprofile = () => {
-  return (
-    <ScrollView styles={styles.container}>
-      <View>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("@/assets/images/settingsImage.jpg")}
-            style={styles.headerImage}
-            resizeMode="cover"
-          />
-          <View style={styles.imageContainerImage}>
-            <ImageCompress />
+  const { userData, isLoading, error } = useUser();
+  const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(
+    userData?.phoneNumber
+  );
+  const [changedImg, setChangedImg] = useState(null);
+  const { name, handleNameChange } = useName(userData?.name);
+  const { message, isLoadingChange, errorChange, handleChangeUser } =
+    useUserChange();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const selectedImgHandler = (imgData) => {
+    if (imgData) {
+      setChangedImg(imgData);
+    }
+  };
+
+  const submitChanges = () => {
+    const data = {
+      phoneNumber,
+      name,
+      image: changedImg,
+    };
+    console.log("submitChanges+++", data);
+
+    handleChangeUser(data);
+  };
+  if (!isLoading) {
+    return (
+      <ScrollView styles={styles.container}>
+        <View>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require("@/assets/images/settingsImage.jpg")}
+              style={styles.headerImage}
+              resizeMode="cover"
+            />
+            <View style={styles.imageContainerImage}>
+              <ImageCompress
+                handlePickImage={selectedImgHandler}
+                imageValue={userData?.image}
+              />
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.userData}>
-        <View>
-          <TextInput
-            style={styles.textInput}
-            defaultValue="mihaola993@gmail.com"
-            editable={false}
-            selectTextOnFocus={false}
-          />
+        <View style={styles.userDataContainer}>
+          <View>
+            <TextInput
+              style={styles.textInput}
+              defaultValue={userData?.email}
+              editable={false}
+              selectTextOnFocus={false}
+            />
+          </View>
+          <View>
+            <TextInput
+              style={styles.textInput}
+              value={phoneNumber}
+              onChangeText={handlePhoneNumberChange}
+              placeholder="Enter your phone number"
+              keyboardType="phone-pad" // or "numeric"
+            />
+          </View>
+          <View>
+            <TextInput
+              placeholder="Enter your name"
+              value={name}
+              onChangeText={handleNameChange}
+              style={styles.textInput}
+            />
+          </View>
+
+          <TouchableOpacity onPress={submitChanges}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View>
-          <TextInput style={styles.textInput} defaultValue="+3927564654564" />
-        </View>
-        <View>
-          <TextInput defaultValue="+Predrag Kolica" style={styles.textInput} />
-        </View>
-        <TouchableOpacity>
-          <Text style={styles.submitBtn}>Sacuvaj</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  );
+        {message ? <SuccessToast text1={message} duration={1000}/> : null}
+      </ScrollView>
+    );
+  }
 };
+
 const styles = StyleSheet.create({
-  submitBtn: {
-    color: "white",
-    backgroundColor: "gray",
-    fontSize: 20,
-    padding: 40,
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    padding: 10,
+    textAlign: "center",
   },
+  button: {
+    padding: 5,
+    backgroundColor: "gray",
+    borderColor: "#000",
+    borderWidth: 1,
+    textAlign: "center",
+  },
+
   container: {
     width: "100%",
   },
-  userData: {
+  userDataContainer: {
     margin: 20,
     display: "flex",
     gap: 20,

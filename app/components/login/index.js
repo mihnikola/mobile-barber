@@ -15,13 +15,13 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const { email, emailError, handleEmailChange } = useEmail(); // Use useEmail
+  const { email, emailError, handleEmailChange } = useEmail(); 
   const {
     password,
     handlePasswordChange,
     togglePasswordVisibility,
     isPasswordVisible,
-  } = usePassword(); // Use useEmail
+  } = usePassword(); 
   const { pending, login } = useLoginForm();
 
   const handleLogin = () => {
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: "center",
   },
+  
   inputContainer: {
     position: "relative",
     borderBottomWidth: 1,
