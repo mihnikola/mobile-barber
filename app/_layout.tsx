@@ -1,5 +1,6 @@
 // /app/layout/RootLayout.tsx
 import { ReservationProvider } from "@/context/ReservationContext";
+import SplashScreen from "@/shared-components/SplashScreen";
 import {
   DarkTheme,
   DefaultTheme,
@@ -7,43 +8,48 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
+import { BooleanProvider } from "@/context/BooleanContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   if (!loaded) {
     return null;
   }
 
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
-    <ReservationProvider>
+    <BooleanProvider>
+      <ReservationProvider>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
-             <Stack.Screen
+            <Stack.Screen
               name="components/services/index"
               options={{ title: "" }}
             />
-          <Stack.Screen
+            <Stack.Screen
               name="components/login/index"
               options={{ title: "", headerShown: false }}
             />
@@ -51,7 +57,7 @@ export default function RootLayout() {
               name="components/register/index"
               options={{ title: "", headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="components/reservation/index"
               options={{ title: "" }}
             />
@@ -67,7 +73,7 @@ export default function RootLayout() {
               name="components/reservation/reservationdetails"
               options={{ title: "", headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="components/infoapp/userprofile"
               options={{ title: "", headerShown: false }}
             />
@@ -75,7 +81,7 @@ export default function RootLayout() {
               name="components/infoapp/aboutapplication"
               options={{ title: "", headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="components/infoapp/privacypolicy"
               options={{ title: "", headerShown: false }}
             />
@@ -83,5 +89,6 @@ export default function RootLayout() {
           <StatusBar style="auto" />
         </ThemeProvider>
       </ReservationProvider>
+    </BooleanProvider>
   );
 }

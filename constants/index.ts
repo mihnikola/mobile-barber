@@ -17,7 +17,26 @@ export const ABOUT_DATA = {
   textTwo: "Thank you for your trust and for taking care of yourself.",
   textThree: "Yours truly, Gentleman Hair Studio",
 };
-
+export const INITIAL_DATA = [
+  {
+    id: 1,
+    image: bradicaImage,
+    title: "General Dental Care",
+    text: "Our services include routine/preventative care, teeth whitening, root canals, dental implants, extractions, Same Day dentures and partials and more.",
+  },
+  {
+    id: 2,
+    image: bradicaImage,
+    title: "How to Get Rid of Cavities",
+    text: "While home treatments including fluoride toothpaste won’t get rid of existing cavities, they may help prevent new ones. You’ll need to see a dentist to remove a cavity.",
+  },
+  {
+    id: 3,
+    image: bradicaImage,
+    title: "Teeth Braces",
+    text: "Braces can correct a wide range of dental issues, including crooked, gapped, rotated or crowded teeth. There are several types of braces, including traditional metal braces, ceramic braces and clear aligners. Braces improve your smile’s health, function and appearance.",
+  },
+];
 export const LABEL_VALUES = {
   REGISTER: "Submit",
 };
