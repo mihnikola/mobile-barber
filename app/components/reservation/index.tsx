@@ -6,18 +6,38 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  BackHandler,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import ButtonComponent from "@/shared-components/Button";
 import Details from "@/shared-components/Details";
 import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
+import { useFocusEffect } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { submitReservationHandler, isLoading, error } = useSubmitReservation();
+  const navigation = useNavigation();
+
+   useFocusEffect(
+        useCallback(() => {
+          const onBackPress = () => {
+            // Return true to disable the default back button behavior
+            console.log("object")
+           navigation.navigate("components/reservation/datereservation");
+           return true;
+  
+          };
+          BackHandler.addEventListener("hardwareBackPress", onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+        }, [])
+      );
   if (reservation) {
     return (
       <ScrollView style={styles.container}>

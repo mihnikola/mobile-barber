@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  BackHandler,
 } from "react-native";
 import ImageCompress from "../../../shared-components/ImageCompress";
 import useUser from "./hooks/useUser";
@@ -14,9 +15,13 @@ import useUserChange from "./hooks/useUserChange";
 import { SuccessToast } from "toastify-react-native";
 import usePhoneNumber from "./hooks/usePhoneNumber";
 import useName from "./hooks/useName";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 const userprofile = () => {
+    const navigation = useNavigation();
+  
   const { userData, isLoading, error } = useUser();
   const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(
     userData?.phoneNumber
@@ -25,6 +30,20 @@ const userprofile = () => {
   const { name, handleNameChange } = useName(userData?.name);
   const { message, isLoadingChange, errorChange, handleChangeUser } =
     useUserChange();
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        navigation.navigate("(tabs)", { screen: "settings" });
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   if (isLoading) {
     return <Loader />;
@@ -97,7 +116,7 @@ const userprofile = () => {
             </View>
           </TouchableOpacity>
         </View>
-        {message ? <SuccessToast text1={message} duration={1000}/> : null}
+        {message ? <SuccessToast text1={message} duration={1000} /> : null}
       </ScrollView>
     );
   }
