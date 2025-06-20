@@ -41,7 +41,7 @@ export default function RootLayout() {
             <Stack.Screen name="+not-found" />
              <Stack.Screen
               name="components/services/index"
-              options={{ title: "" }}
+              options={{ title: "", headerShown: false  }}
             />
           <Stack.Screen
               name="components/login/index"

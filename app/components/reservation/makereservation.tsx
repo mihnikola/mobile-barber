@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useContext } from "react";
+import { View, Text, StyleSheet, Image, BackHandler } from "react-native";
+import React, { useCallback, useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Button from "@/shared-components/Button";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import { addMinutesToTime, convertDate } from "@/helpers";
 
 const makereservation = () => {
@@ -19,6 +19,18 @@ const makereservation = () => {
   if(!responseData){
     return navigation.navigate("(tabs)", { screen: "explore" });
   }
+    useFocusEffect(
+      useCallback(() => {
+        const onBackPress = () => {
+          // Return true to disable the default back button behavior
+          return true;
+        };
+        BackHandler.addEventListener("hardwareBackPress", onBackPress);
+  
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      }, [])
+    );
 
   if (reservation && responseData) {
     return (

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { View, StyleSheet, ScrollView, Text, BackHandler } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
@@ -10,7 +10,7 @@ import Details from "@/shared-components/Details"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -26,7 +26,20 @@ const DateComponent = () => {
     reservation,
     isSunday
   );
-
+useFocusEffect(
+      useCallback(() => {
+        const onBackPress = () => {
+          // Return true to disable the default back button behavior
+         navigation.navigate('components/services/index');
+         return true;
+         
+        };
+        BackHandler.addEventListener("hardwareBackPress", onBackPress);
+  
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      }, [])
+    );
   const reportHandler = () => {
     const { employer, service } = reservation;
     if (employer && service && selectedItem && selectedDate) {
