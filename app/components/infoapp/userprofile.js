@@ -7,7 +7,6 @@ import {
   Text,
   ScrollView,
   BackHandler,
-  Alert,
 } from "react-native";
 import ImageCompress from "../../../shared-components/ImageCompress";
 import useUser from "./hooks/useUser";
@@ -19,17 +18,18 @@ import useName from "./hooks/useName";
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 
 const userprofile = () => {
   const navigation = useNavigation();
 
   const { userData, isLoading, error } = useUser();
-  const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(
-    userData?.phoneNumber
-  );
+  const { phoneNumber, handlePhoneNumberChange, isValidPhoneNumber } =
+    usePhoneNumber(userData?.phoneNumber);
   const [changedImg, setChangedImg] = useState(null);
   const { name, handleNameChange } = useName(userData?.name);
-  const { message, isLoadingChange, errorChange, handleChangeUser } = useUserChange();
+  const { message, isLoadingChange, errorChange, handleChangeUser } =
+    useUserChange();
   const [isValidated, setIsValidated] = useState(false);
 
   useEffect(() => {
@@ -76,10 +76,9 @@ const userprofile = () => {
       name,
       image: changedImg,
     };
-    
-
-    handleChangeUser(data);
-
+    if (isValidPhoneNumber || phoneNumber.length === 0) {
+      handleChangeUser(data);
+    }
   };
   if (!isLoading) {
     return (
@@ -108,13 +107,31 @@ const userprofile = () => {
               selectTextOnFocus={false}
             />
           </View>
-          <View>
+          <View style={styles.phoneNumberContainer}>
             <TextInput
-              style={styles.textInput}
-              value={phoneNumber}
+              style={styles.input}
               onChangeText={handlePhoneNumberChange}
-              placeholder="Enter your phone number"
-              keyboardType="phone-pad" // or "numeric"
+              value={phoneNumber}
+              placeholder="Enter phone number"
+              keyboardType="phone-pad" // Suggests numeric keyboard
+            />
+            <IconSymbol
+              style={styles.icon}
+              name={
+                isValidPhoneNumber
+                  ? "ok"
+                  : phoneNumber.length > 0
+                  ? "error"
+                  : null
+              }
+              size={30}
+              color={
+                isValidPhoneNumber
+                  ? "rgb(0, 200, 160)"
+                  : phoneNumber.length > 0
+                  ? "rgb(201, 52, 33)"
+                  : null
+              }
             />
           </View>
           <View>
@@ -149,6 +166,30 @@ const userprofile = () => {
 };
 
 const styles = StyleSheet.create({
+  phoneNumberContainer: {
+    backgroundColor: "white",
+    flexDirection: "row",
+  },
+  icon: {
+    marginRight: 5,
+    alignSelf: "flex-end",
+  },
+  input: {
+    color: "black",
+    fontSize: 14,
+    width: "90%",
+    minWidth: '60%',
+    alignSelf: "center",
+    alignItems: "center",
+    paddingBottom: 10
+  },
+  validInput: {
+    borderColor: "green",
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    backgroundColor: "white",
+    padding: 10,
+  },
   unbutton: {
     padding: 5,
     backgroundColor: "gray",
