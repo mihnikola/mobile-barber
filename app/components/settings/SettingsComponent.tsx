@@ -13,8 +13,11 @@ const SettingsComponent = () => {
     if (data === "2") {
       navigation.navigate("components/infoapp/aboutapplication");
     }
-    if(data === "4"){
+    if (data === "4") {
       navigation.navigate("components/infoapp/privacypolicy");
+    }
+    if (data === "69") {
+      navigation.navigate("components/infoapp/termsofservice");
     }
     if (data === "6") {
       alertMessageHandler();
@@ -56,7 +59,11 @@ const SettingsComponent = () => {
           icon="person.outline"
           handlePress={() => onPressHandler("1")}
         />
-
+        <SettingItem
+          title="Terms of Service"
+          icon="lock"
+          handlePress={() => onPressHandler("69")}
+        />
         <SettingItem
           title="Privacy policy"
           icon="lock"

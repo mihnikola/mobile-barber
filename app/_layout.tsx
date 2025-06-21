@@ -33,55 +33,57 @@ export default function RootLayout() {
 
   return (
     <ReservationProvider>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-             <Stack.Screen
-              name="components/services/index"
-              options={{ title: "", headerShown: false  }}
-            />
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
           <Stack.Screen
-              name="components/login/index"
-              options={{ title: "", headerShown: false }}
-            />
-            <Stack.Screen
-              name="components/register/index"
-              options={{ title: "", headerShown: false }}
-            />
-             <Stack.Screen
-              name="components/reservation/index"
-              options={{ title: "" }}
-            />
-            <Stack.Screen
-              name="components/reservation/datereservation"
-              options={{ title: "", headerShown: false }}
-            />
-            <Stack.Screen
-              name="components/reservation/makereservation"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="components/reservation/reservationdetails"
-              options={{ title: "", headerShown: false }}
-            />
-             <Stack.Screen
-              name="components/infoapp/userprofile"
-              options={{ title: "", headerShown: false }}
-            />
-            <Stack.Screen
-              name="components/infoapp/aboutapplication"
-              options={{ title: "", headerShown: false }}
-            />
-             <Stack.Screen
-              name="components/infoapp/privacypolicy"
-              options={{ title: "", headerShown: false }}
-            />
-          </Stack>
-          <StatusBar style="auto" />
-        </ThemeProvider>
-      </ReservationProvider>
+            name="components/services/index"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/login/index"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/register/index"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/reservation/index"
+            options={{ title: "" }}
+          />
+          <Stack.Screen
+            name="components/reservation/datereservation"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/reservation/makereservation"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/reservation/reservationdetails"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/infoapp/userprofile"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/infoapp/aboutapplication"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/infoapp/privacypolicy"
+            options={{ title: "", headerShown: false }}
+          />
+          <Stack.Screen
+            name="components/infoapp/termsofservice"
+            options={{ title: "", headerShown: false }}
+          />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </ReservationProvider>
   );
 }
