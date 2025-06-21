@@ -1,40 +1,59 @@
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePickImage from "../app/components/infoapp/hooks/usePickImage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (selectedImageUri) {
       handlePickImage(selectedImageUri);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   }, [selectedImageUri]);
 
-  return (
-    <View style={styles.container}>
-      {!selectedImageUri && (
-        <Image
-          source={require("@/assets/images/defaultImgAvatar.png")}
-          style={styles.defaultImgAvatar}
-          resizeMode="cover"
-        />
-      )}
-      {selectedImageUri && (
-        <View style={styles.defaultImgAvatar}>
-          <Image source={{ uri: selectedImageUri }} style={styles.image} />
-        </View>
-      )}
-      <TouchableOpacity
-        style={[!selectedImageUri ? styles.buttonPlaceholder : styles.button]}
-        onPress={pickImage}
-        disabled={uploading}
-      >
-        <IconSymbol size={50} name="image" color="white" />
-      </TouchableOpacity>
-    </View>
-  );
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator style={styles.activityIndicator} size={100} />
+      </View>
+    );
+  }
+  if (!loading) {
+    return (
+      <View style={styles.container}>
+        {!loading && !selectedImageUri && (
+          <Image
+            source={require("@/assets/images/defaultImgAvatar.png")}
+            style={styles.defaultImgAvatar}
+            resizeMode="cover"
+          />
+        )}
+
+        {!loading && selectedImageUri && (
+          <View style={styles.defaultImgAvatar}>
+            <Image source={{ uri: selectedImageUri }} style={styles.image} />
+          </View>
+        )}
+        {!loading && (
+          <TouchableOpacity
+            style={[
+              !selectedImageUri ? styles.buttonPlaceholder : styles.button,
+            ]}
+            onPress={pickImage}
+            disabled={uploading}
+          >
+            <IconSymbol size={50} name="image" color="white" />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -64,5 +83,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 170,
     top: 180,
+  },
+  activityIndicator: {
+    position: "absolute",
+    top: 100,
+    left: 60,
+    zIndex: 9999,
   },
 });
