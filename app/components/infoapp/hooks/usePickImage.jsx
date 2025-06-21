@@ -1,107 +1,81 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
+import * as FileSystem from 'expo-file-system';
+import * as ImageManipulator from 'expo-image-manipulator';
 import { Alert } from "react-native";
 
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
+
 const usePickImage = (imageValue) => {
-    const [selectedImageUri, setSelectedImageUri] = useState(imageValue || null);
-    const [uploading, setUploading] = useState(false);
-    const [statusMessage, setStatusMessage] = useState('');
+  const [selectedImageUri, setSelectedImageUri] = useState(imageValue || null);
+  const [uploading, setUploading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
 
+  const compressImageUntilUnder1MB = async (uri) => {
+    let quality = 0.9;
+    let resizedUri = uri;
+    let sizeOk = false;
 
-    const pickImage = useCallback(async () => {
-        try {
-            // Request media library permissions
-            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== 'granted') {
-                Alert.alert('Permission required', 'Please grant media library permissions to select an image.');
-                return;
-            }
-
-            // Launch the image library to select an image
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images, // Only allow images
-                allowsEditing: true, // Allow user to crop/edit the image
-                aspect: [4, 3], // Set aspect ratio for editing (e.g., 4:3)
-                quality: 1, // Request highest quality image
-            });
-
-            // If the user did not cancel the image selection
-            if (!result.canceled) {
-                setSelectedImageUri(result.assets[0].uri); // Set the URI of the selected image
-
-                setStatusMessage(''); // Clear any previous status messages
-            } else {
-                setStatusMessage('Image selection cancelled.');
-            }
-        } catch (error) {
-            console.error('Error picking image:', error);
-            setStatusMessage('Failed to pick image.');
+    while (quality > 0.1 && !sizeOk) {
+      const result = await ImageManipulator.manipulateAsync(
+        resizedUri,
+        [{ resize: { width: 1000 } }], // Optional resizing
+        {
+          compress: quality,
+          format: ImageManipulator.SaveFormat.JPEG,
         }
-    });
+      );
 
-    // const uploadImage = useCallback(async () => {
-    //     if (!selectedImageUri) {
-    //         Alert.alert('No image selected', 'Please pick an image first.');
-    //         return;
-    //     }
+      const fileInfo = await FileSystem.getInfoAsync(result.uri);
+      if (fileInfo.size < MAX_FILE_SIZE) {
+        sizeOk = true;
+        return result.uri;
+      }
 
-    //     setUploading(true); // Set uploading state to true to show activity indicator
-    //     setStatusMessage('Uploading...');
+      resizedUri = result.uri;
+      quality -= 0.1; // Keep reducing quality
+    }
 
-    //     // Extract filename from the URI
-    //     const filename = selectedImageUri.split('/').pop();
-    //     // Attempt to determine the MIME type based on file extension, default to JPEG
-    //     // In a real app, you might use a library like 'mime-types' or more robust logic
-    //     const fileType = filename.split('.').pop() === 'png' ? 'image/png' : 'image/jpeg';
+    return resizedUri; // Return even if >1MB (best effort)
+  };
 
-    //     // Create FormData object to prepare the file for multipart/form-data upload
-    //     const formData = new FormData();
-    //     formData.append('image', { // 'image' is the field name that the Node.js backend (Multer) expects
-    //         uri: selectedImageUri,
-    //         name: filename,
-    //         type: fileType,
+  const pickImage = useCallback(async () => {
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission required', 'Please grant access to media library.');
+        return;
+      }
 
-    //     });
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1, // Start with full quality
+      });
 
-    //     try {
-            
-    //         const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/upload`, formData, { 
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data', // Axios might need this explicitly for FormData, depending on setup
-    //             },
-    //             // Optional: add a timeout
-    //             timeout: 120000, // 2 minutes timeout for large files
-    //         });
+      if (result.canceled) {
+        setStatusMessage('Image selection cancelled.');
+        return;
+      }
 
-    //         // Axios automatically parses JSON responses
-    //         const data = response.data; // Access response data directly from response.data
+      let originalUri = result.assets[0].uri;
+      const compressedUri = await compressImageUntilUnder1MB(originalUri);
 
-    //         if (response.status >= 200 && response.status < 300) { // Check if the HTTP status code indicates success
-    //             setStatusMessage(`Upload successful! ${data.message || ''}\nURL: ${data.blobUrl}`);
-    //             setSelectedImageUri(null); // Clear the selected image after successful upload
-    //         } else {
-    //             // This block might not be reached if axios throws an error for non-2xx responses by default
-    //             setStatusMessage(`Upload failed: ${data.message || 'Unknown error'}`);
-    //             console.error('Backend error response (non-2xx status):', data);
-    //         }
-    //     } catch (error) {
-    //         // Axios error handling is more centralized
-    //         if (axios.isAxiosError(error)) {
-    //             // Handle Axios-specific errors (e.g., network error, 4xx/5xx responses)
-    //             console.error('Axios error during upload:', error.response ? error.response.data : error.message);
-    //             setStatusMessage(`Upload failed: ${error.response?.data?.message || error.message}`);
-    //         } else {
-    //             // Handle other unexpected errors
-    //             console.error('General error during upload:', error);
-    //             setStatusMessage(`Upload failed: ${error.message}`);
-    //         }
-    //     } finally {
-    //         setUploading(false); // Reset uploading state regardless of success or failure
-    //     }
-    // });
+      const compressedInfo = await FileSystem.getInfoAsync(compressedUri);
 
-    return { pickImage, selectedImageUri, uploading, statusMessage };
+      if (compressedInfo.size > MAX_FILE_SIZE) {
+        Alert.alert("Warning", "Couldn't compress below 1MB. Best effort applied.");
+      }
+
+      setSelectedImageUri(compressedUri);
+      setStatusMessage('');
+    } catch (error) {
+      console.error('Error picking image:', error);
+      setStatusMessage('Failed to pick image.');
+    }
+  }, []);
+
+  return { pickImage, selectedImageUri, uploading, statusMessage };
 };
 
 export default usePickImage;
