@@ -16,6 +16,8 @@ const MAPPING = {
   "check.cirle": "check-circle-outline",
   "notifications.fill": "notifications",
   "miscellaneous.services": "miscellaneous-services",
+  "apple":"apple",
+  "logo-google":"logo-google",
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
@@ -60,7 +62,7 @@ export function IconSymbol({
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
-  if (MAPPING[name] === "logo-whatsapp" || MAPPING[name] === 'logo-instagram') {
+  if (MAPPING[name] === "logo-whatsapp" || MAPPING[name] === "logo-google" || MAPPING[name] === 'logo-instagram') {
     return <Ionicons name={MAPPING[name]} size={size} color={color} style={style} />;
   }
   if (MAPPING[name] !== "logo-whatsapp" || MAPPING[name] === 'logo-instagram') {

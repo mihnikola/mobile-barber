@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
+    backgroundColor: "black",
   },
   calendarContainer: {
     marginTop: 50,

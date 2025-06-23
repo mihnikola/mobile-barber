@@ -20,7 +20,11 @@ const OnboardingScreen = () => {
   const flatListIndex = useSharedValue(0);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
-    if (viewableItems[0]?.index === 0 || viewableItems[0]?.index > 0 || viewableItems[0]?.index < 3) {
+    if (
+      viewableItems[0]?.index === 0 ||
+      viewableItems[0]?.index > 0 ||
+      viewableItems[0]?.index < 3
+    ) {
       flatListIndex.value = viewableItems[0]?.index;
     }
   };
@@ -137,13 +141,13 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#558cf0",
+    backgroundColor: "black",
   },
   itemContainer: {
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#558cf0",
+    backgroundColor: "black",
   },
   itemTitle: {
     textAlign: "center",

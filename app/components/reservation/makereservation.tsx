@@ -116,6 +116,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor:"black"
+
   },
   coverImage: {
     width: "100%",

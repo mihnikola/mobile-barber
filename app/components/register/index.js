@@ -8,21 +8,24 @@ import {
   ScrollView,
   ToastAndroid,
   BackHandler,
+  StatusBar,
+  Platform,
+  Dimensions,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import { useEffect, useState } from "react";
 
 import useEmail from "../register/hooks/useEmail";
 import usePassword from "../register/hooks/usePassword";
 import useConfirmPassword from "../register/hooks/useConfirmPassword";
 import useRegisterForm from "../register/hooks/useRegisterForm";
-import { LABEL_VALUES } from "@/constants";
+import { useRouter } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
+const { width } = Dimensions.get("window");
 
-const Register = () => {
-  const [userName, setUserName] = useState("");
+export const Register = () => {
   const navigation = useNavigation();
-
+  const [userName, setUserName] = useState("");
+  const router = useRouter();
   const {
     loading,
     error,
@@ -82,92 +85,88 @@ const Register = () => {
     handleRegistration({ name: userName, email, password });
   };
 
-  const checka = () => {
-    navigation.navigate("components/login/index");
+  const navigateToLogin = () => {
+    navigation.navigate("components/login/index"); // Use replace to clear the auth stack
   };
   return (
-    <ScrollView style={styles.form}>
-      <Image
-        source={require("@/assets/images/logoImage.png")}
-        style={styles.logoImageImg}
-      />
-      <View>
-        <Text style={styles.title}>Sign up</Text>
-      </View>
-      <View style={styles.formContent}>
+    <ScrollView style={styles.safeArea}>
+      <StatusBar style="dark" />
+      <View style={styles.container}>
+        <Image
+          source={require("../../../assets/images/logoFamilyImg.png")}
+          style={styles.logo}
+        />
+
+        <Text style={styles.mainTitle}>Register your account</Text>
+        <Text style={styles.subtitle}>Enter your information below</Text>
+        <Text style={styles.inputLabel}>Name</Text>
+
         <TextInput
           placeholder="Enter your name"
           value={userName}
           onChangeText={setUserName}
-          style={styles.textInput}
+          style={styles.input}
         />
+
+        <Text style={styles.inputLabel}>Email Address</Text>
         <TextInput
           placeholder="Enter your email"
           keyboardType="email-address"
           value={email}
           autoCapitalize="none"
           onChangeText={handleEmailChange}
-          style={styles.textInput}
+          style={styles.input}
         />
-
-        <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Password</Text>
+        <View style={styles.passwordInputContainer}>
           <TextInput
-            style={styles.textInput}
+            style={styles.passwordInput}
             value={password}
             onChangeText={handlePasswordChange}
             placeholder="Enter your password"
             secureTextEntry={!isPasswordVisible}
           />
-
           <TouchableOpacity
+            style={styles.passwordToggle}
             onPress={togglePasswordVisibility}
-            style={styles.iconContainer}
           >
-            <IconSymbol
-              name={isPasswordVisible ? "visible" : "not.visible"}
-              size={25}
-              color="gray"
-            />
+            <Text style={{ color: "#888" }}>
+              {isPasswordVisible ? "Hide" : "Show"}
+            </Text>
           </TouchableOpacity>
-          {password.length > 0 && passwordError ? (
+          
+        </View>
+         {password.length > 0 && passwordError ? (
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
-        </View>
-        <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Re-Enter Password</Text>
+
+        <View style={styles.passwordInputContainer}>
           <TextInput
-            style={styles.textInput}
+            style={styles.passwordInput}
             value={confirmPassword}
             onChangeText={handleConfirmPasswordChange}
             placeholder="Confirm your password"
             secureTextEntry={!isPasswordConfirmVisible}
           />
           <TouchableOpacity
+            style={styles.passwordToggle}
             onPress={togglePasswordConfirmVisibility}
-            style={styles.iconContainer}
           >
-            <IconSymbol
-              name={isPasswordConfirmVisible ? "visible" : "not.visible"}
-              size={25}
-              color="gray"
-            />
+            <Text style={{ color: "#888" }}>
+              {isPasswordConfirmVisible ? "Hide" : "Show"}
+            </Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={handleRegister} disabled={loading}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>
-              {loading ? "Submitting..." : LABEL_VALUES.REGISTER}
-            </Text>
-          </View>
+        <TouchableOpacity style={styles.loginButton} disabled={loading} onPress={handleRegister}>
+          <Text style={styles.loginButtonText}>{loading ? "Loading..." : "Register"}</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.containerRegister}>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Already have account? </Text>
-        </View>
-        <View style={styles.textContainer}>
-          <TouchableOpacity onPress={checka}>
-            <Text style={styles.linkText}> Sign in here.</Text>
+
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>Already have an account? </Text>
+          <TouchableOpacity onPress={navigateToLogin}>
+            <Text style={styles.registerLink}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -178,94 +177,184 @@ const Register = () => {
 export default Register;
 
 const styles = StyleSheet.create({
-  errorText: {
-    color: "green",
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  formContent: {
-    display: "flex",
-    gap: 5,
-  },
-  form: {
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-  input: {
+  safeArea: {
     flex: 1,
-    height: 40,
-    paddingLeft: 10,
-    fontSize: 16,
-    color: "black",
+    backgroundColor: "#0A0B0E", // Dark background color
   },
-  inputContainer: {
-    position: "relative",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+  iconStyle: {
+    width: 30, // Set your desired width
+    height: 30, // Set your desired height (maintain aspect ratio for best results)
+    resizeMode: "cover", // or 'cover', 'stretch', etc. 'contain' is usually good for icons
   },
-  iconContainer: {
-    position: "absolute",
-    right: 10, // Aligns the icon to the right of the TextInput
-    top: 10, // Centers the icon vertically inside the input
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-    padding: 10,
-    textAlign: "center",
-  },
-  button: {
-    margin: 10,
-    backgroundColor: "gray",
-    borderColor: "#000",
-    borderWidth: 1,
-    textAlign: "center",
-  },
-  title: {
-    fontSize: 30,
-    color: "#fff",
-    // marginBottom: 20,
-    // marginTop: 5,
-    marginVertical: 10,
-    textAlign: "center",
-  },
-  logoImageImg: {
-    height: 220,
-    width: 250,
-    margin: "auto",
-    marginTop: 40,
-  },
-  textInput: {
-    margin: "auto",
-    width: "100%",
-    padding: 10,
-    borderBottomWidth: 1,
-    backgroundColor: "white",
-    color: "black",
+  errorText:{
+    color: 'red'
   },
   container: {
-    marginTop: 10,
-    flexDirection: "column", // This is similar to flex-col in Tailwind
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: "#0A0B0E", // Dark background color
+    paddingTop: Platform.OS === "android" ? 40 : 0, // Add padding for Android status bar
+  },
+  logo: {
+    width: 200, // Adjust size as needed
+    height: 80, // Adjust size as needed
+    resizeMode: "cover",
+    alignSelf: "flex-start", // Aligns to the left as in the image
+    marginLeft: -50,
+    marginBottom: 20,
+  },
+  mainTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 5,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#ccc",
+    marginBottom: 2,
+  },
+  socialButtonsContainer: {
+    flexDirection: "row",
     justifyContent: "space-between",
-    gap: 10, // React Native doesn't have a gap utility like Tailwind, but you can achieve spacing using margin or padding
+    marginBottom: 30,
   },
-  textContainer: {
-    alignItems: "center", // For centering the text on smaller screens
-    flexDirection: "row", // Flex row for larger screens (equivalent to md:flex-row in Tailwind)
+  socialButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: width / 2 - 30, // Approx half screen width minus padding
+    paddingVertical: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#333",
+  },
+  googleButton: {
+    backgroundColor: "#1C1C1E", // Darker background for Google
+  },
+  appleButton: {
+    backgroundColor: "#1C1C1E", // Darker background for Apple
+  },
+  socialIcon: {
+    marginRight: 10,
+  },
+  socialButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#333",
+  },
+  dividerText: {
+    color: "#888",
+    marginHorizontal: 10,
+    fontSize: 14,
+  },
+  inputLabel: {
+    color: "#ccc",
+    fontSize: 14,
+    marginBottom: 8,
+    marginTop: 15,
+  },
+  input: {
+    backgroundColor: "#1C1C1E", // Dark input background
+    color: "#fff",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#333",
+  },
+  passwordInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1C1C1E",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#333",
+  },
+  passwordInput: {
+    flex: 1,
+    color: "#fff",
+    padding: 15,
+    fontSize: 16,
+  },
+  passwordToggle: {
+    padding: 10,
+  },
+  rowBetween: {
+    flexDirection: "row",
     justifyContent: "space-between",
-    alignSelf: "center",
+    alignItems: "center",
+    marginVertical: 20,
   },
-  text: {
-    color: "#6B7280", // Equivalent to text-neutral-500
-    textAlign: "center", // Default alignment for smaller screens
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  linkText: {
-    textAlign: "center", // Default alignment for smaller screens
-    color: "white",
-    cursor: "pointer", // While this doesn't do exactly the same thing as cursor:pointer in web, it works for touch events in React Native
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#666",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
   },
-  containerRegister: {
-    padding: 20,
+  checkboxChecked: {
+    backgroundColor: "#007AFF", // Blue color for checked state
+    borderColor: "#007AFF",
+  },
+  checkmark: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  checkboxLabel: {
+    color: "#ccc",
+    fontSize: 14,
+  },
+  forgotPasswordText: {
+    color: "#007AFF", // Blue color for link
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  loginButton: {
+    backgroundColor: "#2596be", // Blue login button
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  loginButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  registerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "auto", // Pushes to the bottom
+    marginBottom: 20,
+  },
+  registerText: {
+    color: "#ccc",
+    fontSize: 14,
+  },
+  registerLink: {
+    color: "#2596be", // Blue color for link
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

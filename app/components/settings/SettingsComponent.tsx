@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, StyleSheet, Alert } from "react-native";
+import { View, Text, Image, Pressable, StyleSheet, Alert, ScrollView } from "react-native";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { removeStorage } from "@/helpers";
 import { useNavigation } from "@react-navigation/native";
@@ -44,7 +44,7 @@ const SettingsComponent = () => {
   };
 
   return (
-    <View>
+    <ScrollView style={styles.container} >
       <Image
         source={require("@/assets/images/settingsImage.jpg")}
         style={styles.headerImage}
@@ -74,13 +74,17 @@ const SettingsComponent = () => {
           handlePress={() => onPressHandler("6")}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 export default SettingsComponent;
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor:"black"
+
+  },
   containerInfo: {
     marginTop: 20,
     flexDirection: "column",

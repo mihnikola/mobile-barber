@@ -9,7 +9,9 @@ export const ksImage = require("@/assets/images/ks.jpg");
 export const fadeImage = require("@/assets/images/fade.jpg");
 export const brImage = require("@/assets/images/njega-brade-615.jpg");
 export const faadeImg = require("@/assets/images/faaade.jpg");
-export const bradicaImage = require("@/assets/images/bradicaImage.jpg");
+export const bradicaImage = require("@/assets/images/onBoard1.jpg");
+export const bradicaImage2 = require("@/assets/images/onBoard2.jpg");
+export const bradicaImage3 = require("@/assets/images/onBoard3.jpg");
 
 export const ABOUT_DATA = {
   title: "Who are we?",
@@ -21,20 +23,20 @@ export const INITIAL_DATA = [
   {
     id: 1,
     image: bradicaImage,
-    title: "General Dental Care",
-    text: "Our services include routine/preventative care, teeth whitening, root canals, dental implants, extractions, Same Day dentures and partials and more.",
+    title: "Effortless Bookings, Always on Time!",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
   },
   {
     id: 2,
-    image: bradicaImage,
-    title: "How to Get Rid of Cavities",
-    text: "While home treatments including fluoride toothpaste won’t get rid of existing cavities, they may help prevent new ones. You’ll need to see a dentist to remove a cavity.",
+    image: bradicaImage2,
+    title: "Style Inspiration, Just a Tap Away",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
   },
   {
     id: 3,
-    image: bradicaImage,
-    title: "Teeth Braces",
-    text: "Braces can correct a wide range of dental issues, including crooked, gapped, rotated or crowded teeth. There are several types of braces, including traditional metal braces, ceramic braces and clear aligners. Braces improve your smile’s health, function and appearance.",
+    image: bradicaImage3,
+    title: "Exclusive Offers with Best Discounts",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
   },
 ];
 export const LABEL_VALUES = {
@@ -83,7 +85,6 @@ export const REVIEW_DATA = [
     image: testimonialImg,
   },
 ];
-
 
 export const MAIN_DATA = {
   review: "Reviews",

@@ -9,8 +9,8 @@ import ServiceItem from "./ServiceItem";
 
 const MenuServices = () => {
   const navigation = useNavigation();
-  const { updateReservation, reservation } = useContext(ReservationContext); 
-  const { serviceData, isLoading } = useFetchServices(); 
+  const { updateReservation, reservation } = useContext(ReservationContext);
+  const { serviceData, isLoading } = useFetchServices();
 
   const funcDateTimeReservation = useCallback(
     (service) => {
@@ -19,17 +19,16 @@ const MenuServices = () => {
     },
     [navigation, reservation, updateReservation]
   );
-  if (serviceData.length === 0 && isLoading) {
-    return <Loader />;
-  }
-  if (serviceData.length > 0 && !isLoading) {
-    return (
-      <ScrollView style={styles.container}>
-        <Image
-          source={require("@/assets/images/coverImage.jpg")}
-          style={styles.coverImage}
-        />
-        <Text style={styles.capture}>Pricing & Services</Text>
+
+  return (
+    <ScrollView style={styles.container}>
+      <Image
+        source={require("@/assets/images/coverImage.jpg")}
+        style={styles.coverImage}
+      />
+      <Text style={styles.capture}>Pricing & Services</Text>
+      {isLoading && <Loader />}
+      {!isLoading && (
         <View style={{ display: "flex" }}>
           {serviceData?.map((item) => (
             <ServiceItem
@@ -39,9 +38,9 @@ const MenuServices = () => {
             />
           ))}
         </View>
-      </ScrollView>
-    );
-  }
+      )}
+    </ScrollView>
+  );
 };
 
 export default MenuServices;
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     padding: 5,
+    backgroundColor: "black",
   },
   coverImage: {
     width: "100%",

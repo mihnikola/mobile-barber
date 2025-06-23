@@ -17,6 +17,7 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 
   return `${updatedHours}:${updatedMinutes}`;
 }
+
 export const calendarTheme = {
   monthTextColor: "white",
   backgroundColor: "white",
@@ -48,7 +49,14 @@ export function convertDayInitalValue(data) {
   const result = `${year}-${month}-${day}`;
   return result;
 }
-
+export const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("token");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
 export function convertToDay(dateString) {
   // Convert the string to a Date object
   const date = new Date(dateString);
@@ -89,36 +97,35 @@ export function getTimeForUTCOffset(offsetHours) {
 
   let targetDate;
 
-  if(offsetHours.includes("-")){
-// 2. Create a *new* Date object to represent the time at the specific UTC offset.
-  // We start with the UTC time of 'now' and apply the offset.
-  targetDate = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours() - offsetHoursV, // Apply the offset directly to UTC hours
-      now.getUTCMinutes(),
-      now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
-  );
-  }else{
+  if (offsetHours.includes("-")) {
     // 2. Create a *new* Date object to represent the time at the specific UTC offset.
-  // We start with the UTC time of 'now' and apply the offset.
-  targetDate = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours() + offsetHoursV, // Apply the offset directly to UTC hours
-      now.getUTCMinutes(),
-      now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
-  );
+    // We start with the UTC time of 'now' and apply the offset.
+    targetDate = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours() - offsetHoursV, // Apply the offset directly to UTC hours
+        now.getUTCMinutes(),
+        now.getUTCSeconds(),
+        now.getUTCMilliseconds()
+      )
+    );
+  } else {
+    // 2. Create a *new* Date object to represent the time at the specific UTC offset.
+    // We start with the UTC time of 'now' and apply the offset.
+    targetDate = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours() + offsetHoursV, // Apply the offset directly to UTC hours
+        now.getUTCMinutes(),
+        now.getUTCSeconds(),
+        now.getUTCMilliseconds()
+      )
+    );
   }
-  
 
   // 3. Format the date components from the manipulated UTC date object.
   const year = targetDate.getUTCFullYear();
@@ -178,6 +185,20 @@ export const saveStorage = async (value) => {
   }
 };
 
+export const getInitialToken = async () => {
+  try {
+    return await AsyncStorage.getItem("initialToken");
+  } catch (e) {
+    // geting error
+  }
+};
+export const storeInitialToken = async () => {
+  try {
+    await AsyncStorage.setItem("initialToken", "1");
+  } catch (e) {
+    // saving error
+  }
+};
 export const saveExpoTokenStorage = async (value) => {
   try {
     await AsyncStorage.setItem("tokenExpo", value);

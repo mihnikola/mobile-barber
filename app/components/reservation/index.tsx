@@ -116,9 +116,12 @@ const styles = StyleSheet.create({
   data: {
     display: "flex",
     flexDirection: "column",
+    backgroundColor:"black"
   },
   container: {
     flex: 1,
+    backgroundColor:"black"
+
   },
   coverImage: {
     width: "100%",
