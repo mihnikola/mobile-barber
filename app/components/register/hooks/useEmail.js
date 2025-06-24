@@ -19,7 +19,7 @@ const useEmail = () => {
 
   }, []);
 
-  return { email, emailError, handleEmailChange, setEmail };
+  return { email, emailError, handleEmailChange };
 };
 
 export default useEmail;

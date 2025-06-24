@@ -1,11 +1,13 @@
 // src/hooks/usePassword.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 const usePassword = () => {
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const strongPasswordRegex =  /^(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]).{8,}$/;
+  const strongPasswordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]).{8,}$/;
+  const [isFocusPassword, setIsFocusPassword] = useState(false);
 
   const handlePasswordChange = useCallback((text) => {
     const trimmedPass = text.trim();
@@ -32,6 +34,8 @@ const usePassword = () => {
     handlePasswordChange,
     togglePasswordVisibility,
     setPassword,
+    isFocusPassword,
+    setIsFocusPassword,
   };
 };
 

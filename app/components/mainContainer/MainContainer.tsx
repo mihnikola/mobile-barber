@@ -1,17 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BooleanContext } from "@/context/BooleanContext";
 import { Stack } from "expo-router";
 import { NavigationIndependentTree } from "@react-navigation/native";
 import OnboardingScreen from "../initalComponents/InitialComponent";
 import { StatusBar } from "react-native";
+import SplashScreen from "@/shared-components/SplashScreen";
 
 const MainContainer = () => {
   const { initialToken, getInitialTokenData, getTokenData, isToken } =
     useContext(BooleanContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (initialToken) {
       getTokenData();
+      setIsLoading(false);
     }
   }, [initialToken, isToken]);
 
@@ -19,17 +23,21 @@ const MainContainer = () => {
     getInitialTokenData();
   }, []);
 
+   if (isLoading) {
+    return <SplashScreen />;
+  }
+
   return (
     <NavigationIndependentTree>
-      {!initialToken && <OnboardingScreen />}
-      {initialToken && (
+      {!initialToken && !isLoading && <OnboardingScreen />}
+      {initialToken && !isLoading && (
         <Stack>
           <StatusBar backgroundColor="black" />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
           <Stack.Screen
             name="components/services/index"
-            options={{ title: "",headerShown: false }}
+            options={{ title: "", headerShown: false }}
           />
           <Stack.Screen
             name="components/login/index"

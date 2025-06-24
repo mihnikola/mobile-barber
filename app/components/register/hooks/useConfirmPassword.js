@@ -1,37 +1,35 @@
 // src/hooks/useConfirmPassword.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 const useConfirmPassword = (password) => {
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordConfirmError, setPasswordConfirmError] = useState('');
-  const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState(false);
-  const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$/;
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordConfirmError, setPasswordConfirmError] = useState("");
+  const strongPasswordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$/;
 
-  const handleConfirmPasswordChange = useCallback((text) => {
-    const trimmedPass = text.trim();
-    setConfirmPassword(trimmedPass);
-    setTimeout(() => {
-      if (password !== text) {
-        setPasswordConfirmError("Passwords do not match.");
-      } else if (!strongPasswordRegex.test(text)) {
-        setPasswordConfirmError("At least 8 characters long, one uppercase letter, one number, and one special character.");
-      } else {
-        setPasswordConfirmError("");
-      }
-    }, 500);
-  }, [password]);
-
-  const togglePasswordConfirmVisibility = useCallback(() => {
-    setIsPasswordConfirmVisible(!isPasswordConfirmVisible);
-  }, [isPasswordConfirmVisible]);
+  const handleConfirmPasswordChange = useCallback(
+    (text) => {
+      const trimmedPass = text.trim();
+      setConfirmPassword(trimmedPass);
+      setTimeout(() => {
+        if (password !== text) {
+          setPasswordConfirmError("Passwords do not match.");
+        } else if (!strongPasswordRegex.test(text)) {
+          setPasswordConfirmError(
+            "At least 8 characters long, one uppercase letter, one number, and one special character."
+          );
+        } else {
+          setPasswordConfirmError("");
+        }
+      }, 500);
+    },
+    [password]
+  );
 
   return {
     confirmPassword,
     passwordConfirmError,
-    isPasswordConfirmVisible,
     handleConfirmPasswordChange,
-    togglePasswordConfirmVisibility,
-    setConfirmPassword,
   };
 };
 

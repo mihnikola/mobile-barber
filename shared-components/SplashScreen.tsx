@@ -6,12 +6,12 @@ import { LinearGradient } from "expo-linear-gradient";
 const SplashScreen = () => {
   return (
     <LinearGradient
-      colors={["#E0E0E0", "#A0A0A0", "#606060"]}
+      colors={["#404040", "#f0f0f0", "#000000"]} // Darker shades of grey to black
       style={styles.container}
     >
       <View style={{ height: 320, aspectRatio: 1 }}>
         <LottieView
-          style={{ flex: 1 }}
+          style={{ flex: 1, animationFillMode:"#000000" }}
           source={require("../assets/images/Animation - 1750340339988.json")}
           autoPlay
           loop

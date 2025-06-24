@@ -9,11 +9,10 @@ import { ToastAndroid } from "react-native";
 import { post } from "../../../../api/apiService";
 import { useNavigation } from "@react-navigation/native";
 
-const showToast = (text) => {
-  ToastAndroid.show(text, ToastAndroid.SHORT);
-};
-
 const useLoginForm = () => {
+  const showToast = (text) => {
+    ToastAndroid.show(text, ToastAndroid.SHORT);
+  };
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);

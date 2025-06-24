@@ -9,7 +9,7 @@ export const BooleanContext = createContext();
 // Provider component
 export const BooleanProvider = ({ children }) => {
   // Initialize the state with the default value of false
-  const [initialToken, setInitialToken] = useState(null);
+  const [initialToken, setInitialToken] = useState(false);
   const [isToken, setIsToken] = useState(null);
   const [doctorId, setDoctorId] = useState(null);
 
