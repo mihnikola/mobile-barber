@@ -1,15 +1,12 @@
 // src/hooks/useFetchEmployers.js
 import { get } from "@/api/apiService";
 import { useState, useEffect } from "react";
-import { ToastAndroid } from "react-native";
 
 const useFetchEmployers = () => {
   const [emplData, setEmplData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const showToast = (text) => {
-    ToastAndroid.show(text, ToastAndroid.SHORT);
-  };
+  
   useEffect(() => {
     const fetchAllEmployees = async () => {
       setIsLoading(true);

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     gap: 20,
     alignSelf: "center",
     position: "absolute",
-    top: 240,
+    top: 150,
   },
   greyLine: {
     width: "100%",
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   coverImage: {
     width: "100%",
-    height: 300,
+    height: 200,
     opacity: 0.2,
   },
   capture: {

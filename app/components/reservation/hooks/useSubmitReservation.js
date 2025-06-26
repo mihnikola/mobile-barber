@@ -77,7 +77,6 @@ const useSubmitReservation = () => {
         return;
       }
       
-
       try {
         const response = await post('/reservations', {
             params: {

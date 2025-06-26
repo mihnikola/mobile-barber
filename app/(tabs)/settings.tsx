@@ -55,7 +55,7 @@ export default function Settings() {
       {!isLoading && token && <SettingsComponent />}
       {!isLoading && !token && (
         <>
-          <SignForm options="settings" />
+          <SignForm />
         </>
       )}
       {isLoading && <Loader />}

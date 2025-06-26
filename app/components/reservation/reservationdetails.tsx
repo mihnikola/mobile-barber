@@ -16,12 +16,16 @@ import useReservationCancellationAlert from "./hooks/useReservationCancellationA
 import useReservationRateAlert from "./hooks/useReservationRateAlert";
 import useCancelReservation from "./hooks/useCancelReservation";
 import useRateReservation from "./hooks/useRateReservation";
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import StarRating from "./StarRateComponent";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 const ReservationDetails = () => {
-    const navigator = useNavigation();
-  
+  const navigator = useNavigation();
+
   const route = useRoute(); // Get the route object
   const { itemId, check } = route.params;
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
@@ -40,7 +44,6 @@ const ReservationDetails = () => {
       // Optionally show an error message to the user
     }
   });
-  console.log("reservationData+++", reservationData);
 
   const { showAlert } = useReservationCancellationAlert(() => {
     if (itemId) {
@@ -51,19 +54,19 @@ const ReservationDetails = () => {
     }
   });
 
-   useFocusEffect(
-        useCallback(() => {
-          const onBackPress = () => {
-            // Return true to disable the default back button behavior
-            navigator.goBack();
-            return true;
-          };
-          BackHandler.addEventListener("hardwareBackPress", onBackPress);
-    
-          return () =>
-            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-        }, [])
-      );
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        navigator.goBack();
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   const handleUserRatingChange = (rating: number) => {
     console.log("User selected rating:", rating);
@@ -240,8 +243,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor:"black"
-
+    backgroundColor: "black",
   },
   coverContent: {
     padding: 8,

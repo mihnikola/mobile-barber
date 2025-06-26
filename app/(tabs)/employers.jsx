@@ -4,8 +4,8 @@ import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
-import EmployerItem from "../components/employers/EmployerItem";
 import useFetchEmployers from "../components/employers/hooks/useFetchEmployers";
+import SharedItem from "@/shared-components/SharedItem";
 
 const Employers = () => {
   const navigation = useNavigation();
@@ -36,18 +36,20 @@ const Employers = () => {
   return (
     <ScrollView style={styles.container}>
       <Image
-        source={require("@/assets/images/coverImage.jpg")}
+        source={require("@/assets/images/team.jpg")}
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Choose your barber</Text>
+      <View style={styles.greyLine} />
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
           {emplData?.map((item) => (
-            <EmployerItem
+            <SharedItem
               key={item.id}
               data={item}
               redirectHandler={redirectHandler}
+
             />
           ))}
         </View>
@@ -70,6 +72,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     opacity: 0.2,
+  },
+  greyLine: {
+    width: "100%",
+    height: 4, // Adjust the height for the thickness of the line
+    backgroundColor: "grey", // Set the line color to white
+    marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
   contentContainer: {
     display: "flex",

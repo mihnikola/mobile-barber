@@ -12,6 +12,7 @@ const MAPPING = {
   // See SF Symbols in the SF Symbols app on Mac.
   "star":"star",
   "image":"image",
+  "price-change":"price-change",
   "house.fill": "home",
   "check.cirle": "check-circle-outline",
   "notifications.fill": "notifications",

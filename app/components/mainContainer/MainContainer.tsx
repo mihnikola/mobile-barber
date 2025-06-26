@@ -13,19 +13,19 @@ const MainContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (initialToken) {
+
+    console.log("initialToken",initialToken)
       getTokenData();
       setIsLoading(false);
-    }
   }, [initialToken, isToken]);
 
   useEffect(() => {
     getInitialTokenData();
   }, []);
 
-   if (isLoading) {
-    return <SplashScreen />;
-  }
+  //  if (isLoading) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <NavigationIndependentTree>

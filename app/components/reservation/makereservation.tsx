@@ -8,15 +8,14 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 const makereservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const navigation = useNavigation();
-   const route = useRoute(); // Get the route object
-    const { responseData } = route.params;
-    console.log("makereservation",responseData)
+  const route = useRoute(); // Get the route object
+  const { responseData } = route.params;
+  console.log("makereservation", responseData);
 
   const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });
-    
   };
-  if(!responseData){
+  if (!responseData) {
     return navigation.navigate("(tabs)", { screen: "explore" });
   }
 
@@ -28,16 +27,22 @@ const makereservation = () => {
           style={styles.coverImage}
         />
         <Image
-          source={require("@/assets/images/logoImage.png")}
+          source={require("@/assets/images/logoBaber.png")}
           style={styles.coverLogo}
         />
         <View style={styles.coverContent}>
           <Text style={styles.timeData}>
             {reservation?.timeData?.value} -{" "}
-            {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.duration)}
+            {addMinutesToTime(
+              reservation?.timeData?.value,
+              reservation?.service?.duration
+            )}
           </Text>
           <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
+            {convertDate(
+              reservation?.dateReservation?.dateString ||
+                reservation?.dateReservation
+            )}
           </Text>
         </View>
         <View style={styles.whiteLine} />
@@ -52,7 +57,6 @@ const makereservation = () => {
             <Button text="Ok" onPress={submitReservationHandler} />
           </View>
         </View>
-        
       </View>
     );
   }
@@ -65,7 +69,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: "flex",
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 50,
+    width: 140,
+    height: 200,
   },
   checkbox: {
     marginRight: 10, // Space between checkbox and label
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
   coverContent: {
     alignItems: "center",
     position: "absolute",
-    top: 250,
+    top: 220,
     width: "100%",
   },
   dateData: {
@@ -116,11 +122,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor:"black"
-
+    backgroundColor: "black",
   },
   coverImage: {
     width: "100%",
+    height: 300,
     opacity: 0.25,
   },
   whiteLine: {

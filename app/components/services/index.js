@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
-import ServiceItem from "./ServiceItem";
+import SharedItem from "../../../shared-components/SharedItem";
 
 const MenuServices = () => {
   const navigation = useNavigation();
@@ -27,14 +27,16 @@ const MenuServices = () => {
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Pricing & Services</Text>
+      <View style={styles.greyLine} />
+
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={{ display: "flex" }}>
           {serviceData?.map((item) => (
-            <ServiceItem
+            <SharedItem
               key={item.id}
               data={item}
-              date={funcDateTimeReservation}
+              redirectHandler={funcDateTimeReservation}
             />
           ))}
         </View>
@@ -46,6 +48,12 @@ const MenuServices = () => {
 export default MenuServices;
 
 const styles = StyleSheet.create({
+  greyLine: {
+    width: "100%",
+    height: 4, // Adjust the height for the thickness of the line
+    backgroundColor: "grey", // Set the line color to white
+    marginTop: -1, // Optional: You can adjust this to fine-tune the position
+  },
   container: {
     flex: 0,
     padding: 5,

@@ -17,6 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
+import { FontAwesome } from "@expo/vector-icons";
+import { SharedMessage } from "@/shared-components/SharedMessage";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -24,11 +26,10 @@ const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
 
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login } = useLoginForm();
+  const { pending, login, success, setIsMessage, isMessage,error } = useLoginForm();
   const handleLogin = () => {
     login(email, password);
   };
-
   const navigateToRegister = () => {
     navigation.navigate("components/register/index"); // Navigate to app/(auth)/register.tsx
   };
@@ -111,6 +112,21 @@ const LoginScreen = () => {
           question="Don't have an account?"
           text="Register Now"
         />
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={() => setIsMessage(false)}
+            icon={
+              <FontAwesome
+                name={error ? "close":"check-circle-o"} // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title={error || success} // Title of the modal
+            buttonText="Ok" // Text for the action button
+          />
+        )}
       </View>
     </ScrollView>
   );

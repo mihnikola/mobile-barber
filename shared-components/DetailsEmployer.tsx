@@ -9,7 +9,7 @@ import {
 
 const DetailsEmployer = ({ data }) => {
   
-  const { _id, image, name,id } = data;
+  const { _id, image, name } = data;
 
   return (
     <View style={styles.container} key={_id}>
