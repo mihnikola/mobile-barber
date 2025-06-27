@@ -1,5 +1,5 @@
 // src/api/apiService.js
-import { getStorage } from "@/helpers";
+import { getStorage } from "@/helpers/token";
 import axios from "axios";
 
 const instance = axios.create({

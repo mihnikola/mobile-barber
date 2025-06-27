@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   const [hours, minutes] = inputTime?.split(":").map(Number);
@@ -49,14 +47,7 @@ export function convertDayInitalValue(data) {
   const result = `${year}-${month}-${day}`;
   return result;
 }
-export const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem("token");
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    // error reading value
-  }
-};
+
 export function convertToDay(dateString) {
   // Convert the string to a Date object
   const date = new Date(dateString);
@@ -167,74 +158,6 @@ export const convertDate = (item) => {
   return `${dayOfWeek} ${day}-${month}-${year}`;
 };
 
-export const getStorage = async () => {
-  try {
-    const token = await AsyncStorage.getItem("token").then((resToken) => {
-      return resToken;
-    });
-    return token;
-  } catch (e) {
-    // error reading value
-  }
-};
-export const saveStorage = async (value) => {
-  try {
-    await AsyncStorage.setItem("token", value);
-  } catch (e) {
-    // saving error
-  }
-};
-
-export const getInitialToken = async () => {
-  try {
-    return await AsyncStorage.getItem("initialToken");
-  } catch (e) {
-    // geting error
-  }
-};
-export const storeInitialToken = async () => {
-  try {
-    await AsyncStorage.setItem("initialToken", "1");
-  } catch (e) {
-    // saving error
-  }
-};
-export const saveExpoTokenStorage = async (value) => {
-  try {
-    await AsyncStorage.setItem("tokenExpo", value);
-  } catch (e) {
-    // saving error
-  }
-};
-export const getExpoTokenStorage = async () => {
-  try {
-    const token = await AsyncStorage.getItem("tokenExpo").then((resToken) => {
-      return resToken;
-    });
-    return token;
-  } catch (e) {
-    // error reading value
-  }
-};
-export const removeExpoTokenStorage = async () => {
-  try {
-    await AsyncStorage.removeItem("tokenExpo").then((resToken) => {
-      return resToken;
-    });
-  } catch (e) {
-    // saving error
-  }
-};
-
-export const removeStorage = async () => {
-  try {
-    await AsyncStorage.removeItem("token").then((resToken) => {
-      return resToken;
-    });
-  } catch (e) {
-    // saving error
-  }
-};
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"

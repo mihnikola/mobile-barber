@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStorage } from "@/helpers";
+import { getStorage } from "@/helpers/token";
 import LoginScreen from "../login";
 import DateComponent from "./DateComponent";
 import Loader from "@/components/Loader";

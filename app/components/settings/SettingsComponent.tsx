@@ -1,11 +1,23 @@
-import { View, Text, Image, Pressable, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  StyleSheet,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { removeStorage } from "@/helpers";
+import { removeStorage } from "@/helpers/token";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { FontAwesome } from "@expo/vector-icons";
 
 const SettingsComponent = () => {
   const navigation = useNavigation();
 
+  const [isMessage, setIsMessage] = useState(false);
   const onPressHandler = (data) => {
     if (data === "1") {
       navigation.navigate("components/infoapp/userprofile");
@@ -13,28 +25,13 @@ const SettingsComponent = () => {
     if (data === "2") {
       navigation.navigate("components/infoapp/aboutapplication");
     }
-    if(data === "4"){
+    if (data === "4") {
       navigation.navigate("components/infoapp/privacypolicy");
     }
     if (data === "6") {
-      alertMessageHandler();
+      setIsMessage(true);
+      // alertMessageHandler();
     }
-  };
-
-  const alertMessageHandler = () => {
-    Alert.alert("Info", "Are you sure want to log out?", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "Ok",
-        onPress: () => {
-          logoutHandler();
-        },
-      },
-    ]);
   };
 
   const logoutHandler = async () => {
@@ -44,7 +41,7 @@ const SettingsComponent = () => {
   };
 
   return (
-    <ScrollView style={styles.container} >
+    <ScrollView style={styles.container}>
       <Image
         source={require("@/assets/images/settingsImage.jpg")}
         style={styles.headerImage}
@@ -74,6 +71,23 @@ const SettingsComponent = () => {
           handlePress={() => onPressHandler("6")}
         />
       </View>
+      {isMessage && (
+        <SharedQuestion
+          isOpen={isMessage}
+          onClose={() => setIsMessage(false)}
+          onLogOut={logoutHandler}
+          icon={
+            <FontAwesome
+              name="question-circle-o" // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title="Are you sure you want to sign out from application?" // Title of the modal
+          buttonTextYes="Ok" // Text for the action button
+          buttonTextNo="Cancel"
+        />
+      )}
     </ScrollView>
   );
 };
@@ -81,9 +95,8 @@ const SettingsComponent = () => {
 export default SettingsComponent;
 
 const styles = StyleSheet.create({
-  container:{
-    backgroundColor:"black"
-
+  container: {
+    backgroundColor: "black",
   },
   containerInfo: {
     marginTop: 20,

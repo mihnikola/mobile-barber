@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -13,7 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { INITIAL_DATA } from "@/constants";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
-const OnboardingScreen = () => {
+import { removeInitialToken } from "@/helpers/initialToken";
+
+const InitialComponent = ({ addToken }) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
@@ -103,6 +105,7 @@ const OnboardingScreen = () => {
     );
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.FlatList
@@ -127,6 +130,7 @@ const OnboardingScreen = () => {
       <View style={styles.bottomContainer}>
         <Pagination data={INITIAL_DATA} x={x} screenWidth={SCREEN_WIDTH} />
         <CustomButton
+          addToken={addToken}
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
           dataLength={INITIAL_DATA.length}
@@ -136,7 +140,7 @@ const OnboardingScreen = () => {
   );
 };
 
-export default OnboardingScreen;
+export default InitialComponent;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,12 +1,13 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
 import {
-  getExpoTokenStorage,
-  removeExpoTokenStorage,
+  getStorage,
+  removeStorage,
   saveStorage,
-} from "../../../../helpers/index";
+} from "../../../../helpers/token";
 import { post } from "../../../../api/apiService";
 import { useNavigation } from "@react-navigation/native";
+import { getExpoTokenStorage, removeExpoTokenStorage } from "@/helpers/expoToken";
 
 const useLoginForm = () => {
   const [data, setData] = useState(null);
@@ -42,6 +43,7 @@ const useLoginForm = () => {
         setData(responseData);
       }
     } catch (err) {
+      console.log("first",err)
       if (err.message.includes("404")) {
         setIsMessage(true);
 

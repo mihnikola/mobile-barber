@@ -23,7 +23,7 @@ import { MAIN_DATA } from "@/constants";
 import FlatButton from "@/shared-components/Button";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { createOpenLink } from "react-native-open-maps";
-import { saveExpoTokenStorage } from "@/helpers";
+import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { PulsingButton } from "@/components/PulsingButton";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-
     backgroundColor: "#000000",
   },
 

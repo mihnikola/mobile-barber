@@ -1,6 +1,11 @@
 // BooleanContext.js
 
-import { getData, getInitialToken, removeData, storeData, storeInitialToken } from '@/helpers';
+import { getInitialToken, storeInitialToken } from '@/helpers/initialToken';
+// import { removeExpoTokenStorage, saveExpoTokenStorage, getExpoTokenStorage } from '@/helpers/expoToken';
+import { getStorage, saveStorage, removeStorage } from '@/helpers/token';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 import React, { createContext, useState } from 'react';
 
 // Create the context with a default value of false
@@ -9,7 +14,7 @@ export const BooleanContext = createContext();
 // Provider component
 export const BooleanProvider = ({ children }) => {
   // Initialize the state with the default value of false
-  const [initialToken, setInitialToken] = useState(false);
+  const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
   const [doctorId, setDoctorId] = useState(null);
 
@@ -17,23 +22,20 @@ export const BooleanProvider = ({ children }) => {
     setDoctorId(data);
   }
 
-  const addInitialToken = () => {
-    storeInitialToken().then((result) => {
-      if (result) {
-        setInitialToken();
-      }
-    });
+  //initial token data
+
+  const addInitialTokenData = async () => {
+    const valueToStore = { name: 'John Doe', age: 30 };
+    await AsyncStorage.setItem('initialToken', JSON.stringify(valueToStore));
+    setInitialToken(valueToStore);
   }
-  const getInitialTokenData = () => {
-    getInitialToken().then((result) => {
-      if (result) {
-        setInitialToken(result);
-      }
-    });
+  const getInitialTokenData = async () => {
+    return await AsyncStorage.getItem("initialToken");
   }
 
+  //token data
   const addTokenData = (value) => {
-    storeData(value).then((res) => {
+    saveStorage(value).then((res) => {
       if (res) {
         setIsToken(res);
       }
@@ -41,7 +43,7 @@ export const BooleanProvider = ({ children }) => {
   }
 
   const getTokenData = () => {
-    getData().then((res) => {
+    getStorage().then((res) => {
       if (res) {
         setIsToken(res);
       }
@@ -49,7 +51,7 @@ export const BooleanProvider = ({ children }) => {
   }
 
   const removeTokenData = () => {
-    removeData().then((res) => {
+    removeStorage().then((res) => {
       if (res) {
         setIsToken(null);
       }
@@ -58,19 +60,21 @@ export const BooleanProvider = ({ children }) => {
 
 
   return (
-      <BooleanContext.Provider value={{
-        initialToken,
-        addInitialToken,
-        getInitialTokenData,
-        addTokenData,
-        getTokenData,
-        isToken,
-        changeDoctorId,
-        doctorId,
-        removeTokenData
-      }}>
-        {children}
-      </BooleanContext.Provider>
+    <BooleanContext.Provider value={{
+      getInitialTokenData,
+      addInitialTokenData,
+      initialToken,
+
+      addTokenData,
+      getTokenData,
+      removeTokenData,
+      isToken,
+
+      changeDoctorId,
+      doctorId,
+    }}>
+      {children}
+    </BooleanContext.Provider>
   );
 };
 

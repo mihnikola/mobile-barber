@@ -7,11 +7,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { BooleanContext } from "@/context/BooleanContext";
 
-import getStartedIcon from '../../../assets/images/ArrowIcon.png';
+import getStartedIcon from "../../../assets/images/ArrowIcon.png";
 
-const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
-  const { addInitialToken } = useContext(BooleanContext);
-
+const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
+ 
   const buttonAnimationStyle = useAnimatedStyle(() => {
     return {
       width:
@@ -58,7 +57,7 @@ const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current.scrollToIndex({ index: flatListIndex.value + 1 });
         } else {
-          addInitialToken();
+          addToken("approved");
         }
       }}
     >
