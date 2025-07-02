@@ -192,7 +192,40 @@ export default function App() {
           },
         ]}
       >
-          <PulsingButton Icon={<FontAwesome name="bookmark" size={32} color="gray" />} title="Booking" onPress={nextPage} />
+        <PulsingButton
+          Icon={<FontAwesome name="bookmark" size={32} color="gray" />}
+          title="Booking"
+          onPress={nextPage}
+        />
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.boxHome,
+          {
+            transform: [{ translateY: slideAnimBook }],
+          },
+        ]}
+      >
+        <PulsingButton
+          Icon={<FontAwesome name="home" size={32} color="gray" />}
+          title="About us"
+          onPress={nextPage}
+        />
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.location,
+          {
+            transform: [{ translateY: slideAnimBook }],
+          },
+        ]}
+      >
+        <PulsingButton
+          Icon={<FontAwesome name="location-arrow" size={32} color="gray" />}
+          title="Location"
+          onPress={nextPage}
+          
+        />
       </Animated.View>
 
       {/* 
@@ -232,8 +265,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     alignSelf: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 100,
     fontSize: 30,
     fontWeight: 900,
     fontStyle: "italic",
@@ -260,8 +291,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     position: "absolute",
-    left: 60,
+    left: 50,
+    bottom: 50,
+  },
+  boxHome: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    position: "absolute",
+    left: 50,
     bottom: 100,
+  },
+  location: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    position: "absolute",
+    left: 50,
+    bottom: 0,
   },
   backImage: {
     width: windowWidth,

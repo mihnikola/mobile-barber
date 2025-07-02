@@ -7,17 +7,16 @@ import Animated, {
 } from "react-native-reanimated";
 import { BooleanContext } from "@/context/BooleanContext";
 
-import getStartedIcon from "../../../assets/images/ArrowIcon.png";
+import getStartedIcon from "../../../assets/images/arrowImg.png";
 
 const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
- 
   const buttonAnimationStyle = useAnimatedStyle(() => {
     return {
       width:
         flatListIndex.value === dataLength - 1
           ? withSpring(140)
           : withSpring(60),
-      height: 60,
+      height: 60
     };
   });
   const arrowAnimationStyle = useAnimatedStyle(() => {
@@ -28,6 +27,7 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
         flatListIndex.value === dataLength - 1 ? withTiming(0) : withTiming(1),
       transform: [
         {
+          
           translateX:
             flatListIndex.value === dataLength - 1
               ? withTiming(100)
@@ -38,6 +38,7 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
   });
   const textAnimationStyle = useAnimatedStyle(() => {
     return {
+
       opacity:
         flatListIndex.value === dataLength - 1 ? withTiming(1) : withTiming(0),
       transform: [
@@ -78,8 +79,9 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: "#2596be",
     padding: 10,
+    width:200,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   textButton: {
-    color: "black",
+    color: "white",
     fontSize: 18,
     fontWeight: "800",
     position: "absolute",

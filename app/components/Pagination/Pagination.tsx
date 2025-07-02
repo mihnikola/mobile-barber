@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   dots: {
     height: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#2596be',
     marginHorizontal: 10,
     borderRadius: 5,
   },

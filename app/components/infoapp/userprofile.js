@@ -9,11 +9,13 @@ import {
 } from "react-native";
 import ImageCompress from "../../../shared-components/ImageCompress";
 import useUser from "./hooks/useUser";
+import usePhoneNumber from "./hooks/usePhoneNumber";
+
 import Loader from "@/components/Loader";
 import useUserChange from "./hooks/useUserChange";
-import { SuccessToast } from "toastify-react-native";
-import usePhoneNumber from "./hooks/usePhoneNumber";
 import useName from "./hooks/useName";
+
+import { SuccessToast } from "toastify-react-native";
 import { useState } from "react";
 
 const userprofile = () => {

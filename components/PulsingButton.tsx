@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     flexDirection: "row",
     gap: 22,
-    height: HEIGHT,
+    // height: HEIGHT,
     justifyContent: "center",
     paddingHorizontal: 70,
   },
