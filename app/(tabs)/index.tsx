@@ -224,7 +224,6 @@ export default function App() {
           Icon={<FontAwesome name="location-arrow" size={32} color="gray" />}
           title="Location"
           onPress={nextPage}
-          
         />
       </Animated.View>
 

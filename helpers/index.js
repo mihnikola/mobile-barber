@@ -22,7 +22,7 @@ export const calendarTheme = {
   calendarBackground: "black",
   textSectionTitleColor: "white",
   selectedDayBackgroundColor: "white",
-  selectedDayTextColor: "black",
+  selectedDayTextColor: "white",
   todayTextColor: "white",
   dayTextColor: "white",
   textMonthFontWeight: "bold",

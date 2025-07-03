@@ -2,14 +2,15 @@ import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/api/apiService";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 
-
-const useFetchTimes = (date, reservation,isSunday) => {
+const useFetchTimes = (date, reservation, isSunday) => {
   const [timesData, setTimesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [resetError, setResetError] = useState(false);
 
   const fetchTimes = useCallback(
     async (selectedDate) => {
+      setResetError(false);
       setIsLoading(true);
       setError(null);
       if (!selectedDate) {
@@ -34,19 +35,26 @@ const useFetchTimes = (date, reservation,isSunday) => {
         id: employer.id,
       };
       const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
-      try {
-        const response = await getData("/times", {
-          date: selectedDate,
-          employer: employerData,
-          service: serviceData,
-          dateTimeStampValue 
-        });
 
-        setTimesData(response);
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Error fetching times:", err);
-        setError(err.message || "An unexpected error occurred.");
+      if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
+        try {
+          const response = await getData("/times", {
+            date: selectedDate,
+            employer: employerData,
+            service: serviceData,
+            dateTimeStampValue,
+          });
+
+          setTimesData(response);
+          setIsLoading(false);
+        } catch (err) {
+          console.error("Error fetching times:", err);
+          setError(err.message || "An unexpected error occurred.");
+          setIsLoading(false);
+        }
+      } else {
+        setTimesData([]);
+        setResetError(true);
         setIsLoading(false);
       }
     },
@@ -54,13 +62,12 @@ const useFetchTimes = (date, reservation,isSunday) => {
   ); // Dependencies for useCallback
 
   useEffect(() => {
-
     if (date && !isSunday) {
       fetchTimes(date);
     }
   }, [date, fetchTimes]);
 
-  return { timesData, isLoading, error, fetchTimes };
+  return { timesData, isLoading, error, fetchTimes, resetError };
 };
 
 export default useFetchTimes;

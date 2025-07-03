@@ -32,7 +32,6 @@ export default function Explore() {
       const storedToken = await AsyncStorage.getItem("token");
       if (storedToken) {
         setToken(storedToken);
-        console.log("Token exists:", storedToken);
       } else {
         setToken(null);
         console.log("No token found");

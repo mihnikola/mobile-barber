@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, GestureResponderEvent } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  GestureResponderEvent,
+} from "react-native";
 
 // Define the types for the props
 interface FlatButtonProps {
@@ -19,15 +25,16 @@ const FlatButton: React.FC<FlatButtonProps> = ({ text, onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#2596be", // Green background when selected
+    borderColor: "grey", // Darker border when selected
     borderRadius: 20,
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
     fontStyle: "italic",

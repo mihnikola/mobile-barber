@@ -27,9 +27,7 @@ const MainContainer = () => {
       try {
         const x = await getInitialTokenData();
 
-        console.log("initialTokeninitialTokeninitialToken", initialToken);
       } catch (e) {
-        console.log("initialTokeninitialTokeninitialToken", initialToken);
       }
     }, 1000);
   }, [initialToken]);

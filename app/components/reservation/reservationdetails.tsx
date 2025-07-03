@@ -12,7 +12,6 @@ import {
   View,
 } from "react-native";
 import useFetchReservation from "./hooks/useFetchReservation";
-import useReservationCancellationAlert from "./hooks/useReservationCancellationAlert";
 import useReservationRateAlert from "./hooks/useReservationRateAlert";
 import useCancelReservation from "./hooks/useCancelReservation";
 import useRateReservation from "./hooks/useRateReservation";
@@ -23,17 +22,28 @@ import {
 } from "@react-navigation/native";
 import StarRating from "./StarRateComponent";
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { FontAwesome } from "@expo/vector-icons";
+import { SharedMessage } from "@/shared-components/SharedMessage";
 const ReservationDetails = () => {
   const navigator = useNavigation();
 
   const route = useRoute(); // Get the route object
   const { itemId, check } = route.params;
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
+  const { reservationData, isLoading, error, refetch } =  useFetchReservation(itemId);
 
-  const { reservationData, isLoading, error, refetch } =
-    useFetchReservation(itemId);
-  const { isCanceling, cancelError, cancelReservation } =
-    useCancelReservation();
+  const {
+    isCanceling,
+    cancelError,
+    cancelReservation,
+    setIsCanceling,
+    cancelSuccess,
+    setCancelSuccessFlag,
+    cancelSuccessFlag
+  } = useCancelReservation();
+
+
   const { isRating, rateCancelError, rateReservation } = useRateReservation();
 
   const { rateAlert } = useReservationRateAlert(() => {
@@ -45,14 +55,7 @@ const ReservationDetails = () => {
     }
   });
 
-  const { showAlert } = useReservationCancellationAlert(() => {
-    if (itemId) {
-      cancelReservation(itemId);
-    } else {
-      console.error("Reservation ID is missing for cancellation.");
-      // Optionally show an error message to the user
-    }
-  });
+
 
   useFocusEffect(
     useCallback(() => {
@@ -78,17 +81,6 @@ const ReservationDetails = () => {
     return <Loader />;
   }
 
-  // if (error) {
-  //   return (
-  //     <View style={styles.errorContainer}>
-  //       <Text style={styles.errorText}>{error}</Text>
-  //       <TouchableOpacity onPress={refetch}>
-  //         <Text style={styles.retryButton}>Pokušaj ponovo</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
-
   if (cancelError) {
     // You might want to display a separate error message for cancellation
     console.error("Cancellation Error:", cancelError);
@@ -106,6 +98,16 @@ const ReservationDetails = () => {
     { arrx: "asdasdasd" },
   ];
 
+  const cancelReservationHandler = () => {
+    setCancelSuccessFlag(true);
+  };
+
+  const sharedQuestionHandler = () => {
+    setCancelSuccessFlag(false);
+    cancelReservation(itemId);
+  }
+
+  console.log("cancelSuccess",cancelSuccess)
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -116,17 +118,11 @@ const ReservationDetails = () => {
       {reservationData && (
         <>
           <View style={styles.coverContent}>
-            <Text
-              style={[
-                styles.statusContent,
-                reservationData?.status === 0
-                  ? styles.statusContentConfirm
-                  : styles.statusContentRejected,
-              ]}
-            >
-              {reservationData?.status === 0 ? "Approved" : "Rejected"}
-            </Text>
-
+            {reservationData?.status === 0 ? (
+              <IconSymbol size={38} name="check.cirle" color="green" />
+            ) : (
+              <IconSymbol size={38} name="disturb" color="red" />
+            )}
             <Text style={styles.timeData}>
               {reservationData?.time} -{" "}
               {addMinutesToTime(
@@ -190,18 +186,52 @@ const ReservationDetails = () => {
           )}
           {check && (
             <TouchableOpacity
-              onPress={showAlert} // Use the showAlert function from the hook
+              // onPress={showAlert} // Use the showAlert function from the hook
+              onPress={cancelReservationHandler} // Use the showAlert function from the hook
               style={styles.containerBtn}
-              disabled={isCanceling}
+              // disabled={isCanceling}
             >
               <Text
                 style={[styles.btnSubmit, isCanceling && styles.disabledButton]}
               >
-                {isCanceling ? "Otkazivanje..." : "Otkaži"}
+                Cancel
               </Text>
             </TouchableOpacity>
           )}
         </>
+      )}
+      {cancelSuccessFlag && (
+        <SharedQuestion
+          isOpen={cancelSuccessFlag}
+          onClose={() => setCancelSuccessFlag(false)}
+          onLogOut={sharedQuestionHandler}
+          icon={
+            <FontAwesome
+              name="question-circle-o" // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title="Are you sure you want to cancel this reservation?" // Title of the modal
+          buttonTextYes="Yes" // Text for the action button
+          buttonTextNo="No"
+        />
+      )}
+
+      {isCanceling && cancelSuccess && (
+        <SharedMessage
+          isOpen={isCanceling}
+          onClose={() => setIsCanceling(false)}
+          icon={
+            <FontAwesome
+              name={cancelError ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={cancelError || cancelSuccess} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
       )}
     </ScrollView>
   );
@@ -220,12 +250,11 @@ const styles = StyleSheet.create({
   },
   containerWrapper: {
     display: "flex",
-    flexDirection: "row",
   },
   containerBtn: {
+    display: "flex",
+    justifyContent: "center",
     alignItems: "center",
-    position: "relative",
-    top: 100,
   },
   dateData: {
     fontSize: 25,
@@ -236,8 +265,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
     fontWeight: 900,
-    borderColor: "white",
+    borderColor: "gray",
+    backgroundColor: "#2596be",
+    borderRadius: 20,
     padding: 20,
+    top: 50,
     borderWidth: 1,
     alignItems: "center",
   },

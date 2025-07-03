@@ -10,7 +10,6 @@ const makereservation = () => {
   const navigation = useNavigation();
   const route = useRoute(); // Get the route object
   const { responseData } = route.params;
-  console.log("makereservation", responseData);
 
   const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });
@@ -30,6 +29,8 @@ const makereservation = () => {
           source={require("@/assets/images/logoBaber.png")}
           style={styles.coverLogo}
         />
+
+        <View style={styles.whiteLine} />
         <View style={styles.coverContent}>
           <Text style={styles.timeData}>
             {reservation?.timeData?.value} -{" "}
@@ -45,8 +46,6 @@ const makereservation = () => {
             )}
           </Text>
         </View>
-        <View style={styles.whiteLine} />
-
         <View style={{ display: "flex", flexDirection: "column" }}>
           <View style={{ display: "flex" }}>
             <Text style={styles.message}>
@@ -107,8 +106,7 @@ const styles = StyleSheet.create({
   },
   coverContent: {
     alignItems: "center",
-    position: "absolute",
-    top: 220,
+    marginTop: 20,
     width: "100%",
   },
   dateData: {

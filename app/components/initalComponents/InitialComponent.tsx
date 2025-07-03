@@ -62,8 +62,9 @@ const InitialComponent = ({ addToken }) => {
       );
       return {
         opacity: opacityAnimation,
-        width: SCREEN_WIDTH * 0.8,
-        height: SCREEN_WIDTH * 0.8,
+        width: SCREEN_WIDTH * 1.1,
+        height: SCREEN_WIDTH * 1.1,
+        borderRadius: 50,
         transform: [{ translateY: translateYAnimation }],
       };
     });

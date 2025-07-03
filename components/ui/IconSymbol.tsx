@@ -36,7 +36,8 @@ const MAPPING = {
   "logo.whatsapp": "logo-whatsapp",
   "logo.instagram": "logo-instagram",
   "not.visible":"visibility-off",
-  "visible":"visibility"
+  "visible":"visibility",
+  "disturb":"do-disturb"
 } as Partial<
   Record<
     import("expo-symbols").SymbolViewProps["name"],

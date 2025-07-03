@@ -25,22 +25,28 @@ const Reservation = () => {
           source={require("@/assets/images/coverImage.jpg")}
           style={styles.coverImage}
         />
-        <View style={styles.coverContent}>
-          <Text style={styles.timeData}>
-            {reservation && reservation?.timeData?.value} -{" "}
-            {reservation &&
-              addMinutesToTime(
-                reservation?.timeData?.value,
-                reservation?.service?.duration
-              )}
-          </Text>
-          <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
-          </Text>
-          <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
-        </View>
+        <Text style={styles.capture}>Confirm Booking</Text>
+        <View style={styles.greyLine} />
         <View style={{ display: "flex", padding: 10 }}>
           <View>
+            <View style={styles.coverContent}>
+              <Text style={styles.timeData}>
+                {reservation && reservation?.timeData?.value} -{" "}
+                {reservation &&
+                  addMinutesToTime(
+                    reservation?.timeData?.value,
+                    reservation?.service?.duration
+                  )}
+              </Text>
+              <Text style={styles.dateData}>
+                {convertDate(
+                  reservation?.dateReservation?.dateString ||
+                    reservation?.dateReservation
+                )}
+              </Text>
+              <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
+            </View>
+
             {reservation && <Details data={reservation} />}
             <Note />
 
@@ -66,16 +72,23 @@ const Reservation = () => {
 export default Reservation;
 
 const styles = StyleSheet.create({
+  greyLine: {
+    width: "100%",
+    height: 4, // Adjust the height for the thickness of the line
+    backgroundColor: "grey", // Set the line color to white
+    marginTop: -1, // Optional: You can adjust this to fine-tune the position
+  },
   button: {
     display: "flex",
     justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#2596be",
     borderRadius: 20,
+    
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: 16,
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
   reservation: {
     display: "flex",
     flexDirection: "column",
-    height: 300,
+    height: 100,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -100,12 +113,10 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
-    position: "absolute",
+    position: "fixed",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    top: 80,
-    left: 50,
     padding: 20,
   },
   dateData: {
@@ -116,12 +127,11 @@ const styles = StyleSheet.create({
   data: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor:"black"
+    backgroundColor: "black",
   },
   container: {
     flex: 1,
-    backgroundColor:"black"
-
+    backgroundColor: "black",
   },
   coverImage: {
     width: "100%",
@@ -135,7 +145,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
     position: "absolute",
-    top: 150,
-    left: 50,
+    left: 80,
+    top: 150
   },
 });

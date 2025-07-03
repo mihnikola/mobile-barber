@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 30, // Corresponds to text-3xl
+    fontSize: 16, // Corresponds to text-3xl
     fontWeight: "bold", // Corresponds to font-bold
     marginBottom: 16, // Corresponds to mb-4
     textAlign: "center",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   actionButtonText: {
     color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 18, // Corresponds to text-lg
+    fontSize: 22, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",
   },
