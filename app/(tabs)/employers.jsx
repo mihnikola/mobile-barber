@@ -40,7 +40,6 @@ const Employers = () => {
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Choose your barber</Text>
-      <View style={styles.greyLine} />
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
@@ -73,13 +72,9 @@ const styles = StyleSheet.create({
     height: 200,
     opacity: 0.2,
   },
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "grey", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
+ 
   contentContainer: {
+    marginTop: 10,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

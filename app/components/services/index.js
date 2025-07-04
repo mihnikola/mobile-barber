@@ -27,11 +27,10 @@ const MenuServices = () => {
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Pricing & Services</Text>
-      <View style={styles.greyLine} />
 
       {isLoading && <Loader />}
       {!isLoading && (
-        <View style={{ display: "flex" }}>
+        <View style={styles.contentContainer}>
           {serviceData?.map((item) => (
             <SharedItem
               key={item.id}
@@ -48,11 +47,12 @@ const MenuServices = () => {
 export default MenuServices;
 
 const styles = StyleSheet.create({
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "grey", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
+  contentContainer: {
+    marginTop: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
   },
   container: {
     flex: 0,

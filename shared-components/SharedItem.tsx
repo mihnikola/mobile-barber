@@ -71,6 +71,7 @@ const SharedItem = (props: any) => {
             {!price && <Text style={styles.reviewText}>(25 Review)</Text>}
           </View>
         </View>
+        <FontAwesome name={"chevron-right"} size={32} color="gray" />
       </TouchableOpacity>
     );
   }
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
     elevation: 5, // For Android shadow
   },
   profileImage: {
-    width: 60,
-    height: 60,
+    width: 90,
+    height: 90,
     borderRadius: 30, // Makes it circular
     marginRight: 15,
     borderWidth: 1, // Optional: for a subtle border around the image

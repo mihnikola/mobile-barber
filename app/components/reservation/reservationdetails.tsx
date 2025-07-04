@@ -224,13 +224,13 @@ const ReservationDetails = () => {
           onClose={() => setIsCanceling(false)}
           icon={
             <FontAwesome
-              name={cancelError ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
+              name={cancelError ? "close" : "check-circle-o"} 
+              size={64} 
+              color="white" 
             />
           }
-          title={cancelError || cancelSuccess} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          title={cancelError || cancelSuccess} 
+          buttonText="Ok" 
         />
       )}
     </ScrollView>

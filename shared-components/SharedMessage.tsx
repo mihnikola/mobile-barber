@@ -23,89 +23,61 @@ export const SharedMessage = ({ isOpen, onClose, icon, title, buttonText }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1, // Takes up the whole screen
-    backgroundColor: "#1F2937", // Corresponds to bg-gray-900
-    alignItems: "center", // Centers content horizontally
-    justifyContent: "center", // Centers content vertically
-    padding: 16,
-  },
-  openButton: {
-    paddingHorizontal: 24, // Corresponds to px-6
-    paddingVertical: 12, // Corresponds to py-3
-    backgroundColor: "#2563EB", // Corresponds to bg-blue-600
-    borderRadius: 8, // Corresponds to rounded-lg
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 8, // For Android shadow
-  },
-  openButtonText: {
-    color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 16,
-    fontWeight: "600", // Corresponds to font-semibold
-  },
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)", // Corresponds to bg-black bg-opacity-75
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#374151", // Corresponds to bg-gray-800
-    borderRadius: 12, // Corresponds to rounded-xl
+    backgroundColor: "#374151", 
+    borderRadius: 12, 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
-    elevation: 15, // For Android shadow
-    padding: 32, // Corresponds to p-8
-    maxWidth: 384, // Corresponds to max-w-sm
-    width: "100%", // Corresponds to w-full
-    alignItems: "center", // Centers text and icon
+    elevation: 15,
+    padding: 32, 
+    maxWidth: 384,
+    width: "100%",
+    alignItems: "center", 
   },
+
   iconContainer: {
-    width: 96, // Corresponds to w-24
-    height: 96, // Corresponds to h-24
-    backgroundColor: "#2596be", // Corresponds to bg-blue-900 bg-opacity-30
-    borderRadius: 9999, // Corresponds to rounded-full
+    width: 96, 
+    height: 96, 
+    backgroundColor: "#2596be",
+    borderRadius: 9999,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24, // Corresponds to mb-6
+    marginBottom: 24, 
     borderWidth: 2,
-    borderColor: "#2563EB", // Corresponds to border-blue-600
+    borderColor: "#2563EB",
   },
   modalTitle: {
-    color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 16, // Corresponds to text-3xl
-    fontWeight: "bold", // Corresponds to font-bold
-    marginBottom: 16, // Corresponds to mb-4
+    color: "#FFFFFF",
+    fontSize: 16, 
+    fontWeight: "bold", 
+    marginBottom: 16,
     textAlign: "center",
-    lineHeight: 36, // Corresponds to leading-tight
-  },
-  modalDescription: {
-    color: "#9CA3AF", // Corresponds to text-gray-400
-    fontSize: 18, // Corresponds to text-lg
-    marginBottom: 32, // Corresponds to mb-8
-    textAlign: "center",
+    lineHeight: 36,
   },
   actionButton: {
-    width: "100%", // Corresponds to w-full
-    backgroundColor: "#2596be", // Corresponds to bg-blue-600
-    paddingVertical: 16, // Corresponds to py-4
-    borderRadius: 8, // Corresponds to rounded-lg
+    width: "100%", 
+    backgroundColor: "#2596be",
+    paddingVertical: 16, 
+    borderRadius: 8, 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+    elevation: 5, 
   },
   actionButtonText: {
-    color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 22, // Corresponds to text-lg
-    fontWeight: "600", // Corresponds to font-semibold
+    color: "#FFFFFF",
+    fontSize: 22, 
+    fontWeight: "600", 
     textAlign: "center",
   },
 });

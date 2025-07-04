@@ -192,39 +192,21 @@ export default function App() {
           },
         ]}
       >
-        <PulsingButton
-          Icon={<FontAwesome name="bookmark" size={32} color="gray" />}
-          title="Booking"
-          onPress={nextPage}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.boxHome,
-          {
-            transform: [{ translateY: slideAnimBook }],
-          },
-        ]}
-      >
-        <PulsingButton
-          Icon={<FontAwesome name="home" size={32} color="gray" />}
-          title="About us"
-          onPress={nextPage}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.location,
-          {
-            transform: [{ translateY: slideAnimBook }],
-          },
-        ]}
-      >
-        <PulsingButton
-          Icon={<FontAwesome name="location-arrow" size={32} color="gray" />}
-          title="Location"
-          onPress={nextPage}
-        />
+        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+          <FontAwesome name="calendar" size={28} color="white" />
+          <Text style={styles.title}>Booking</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+          <FontAwesome name="home" size={28} color="white" />
+          <Text style={styles.title}>About us</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+          <FontAwesome name="location-arrow" size={28} color="white" />
+          <Text style={styles.title}>Location</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
       </Animated.View>
 
       {/* 
@@ -258,6 +240,18 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontWeight: 500,
+    color: "white",
+  },
+  btnContent: {
+    width: 300,
+    backgroundColor: "#222224",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    padding: 15,
+  },
   contentBtn: {
     backgroundColor: "white",
     display: "flex",
@@ -286,31 +280,15 @@ const styles = StyleSheet.create({
   },
   boxBook: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     alignContent: "center",
     position: "absolute",
+    gap: 20,
     left: 50,
     bottom: 50,
   },
-  boxHome: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-    position: "absolute",
-    left: 50,
-    bottom: 100,
-  },
-  location: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-    position: "absolute",
-    left: 50,
-    bottom: 0,
-  },
+
   backImage: {
     width: windowWidth,
     height: windowHeight - 30,
@@ -320,74 +298,4 @@ const styles = StyleSheet.create({
     width: 200,
     height: 300,
   },
-  // buttonga: {
-  //   alignItems: "center",
-  //   backgroundColor: "blue",
-  //   padding: 10,
-  // },
-  // input: {
-  //   width: "80%",
-  //   height: 40,
-  //   borderColor: "#ccc",
-  //   borderWidth: 1,
-  //   marginBottom: 16,
-  //   paddingHorizontal: 8,
-  //   backgroundColor: "white",
-  //   color: "black",
-  // },
-  // mapImage: {
-  //   width: 400,
-  //   height: 200,
-  // },
-  // mapContainer: {
-  //   flex: 3,
-  // },
-  // map: {
-  //   width: 500,
-  //   height: 200,
-  //   marginBottom: 20,
-  //   marginTop: 10,
-  // },
-
-  // reviewContent: {
-  //   margin: 0,
-  // },
-  // mapCapture: {
-  //   color: "#ffffff",
-  //   fontSize: 40,
-  //   marginBottom: 10,
-  //   marginTop: 20,
-  //   fontWeight: "bold",
-  //   textAlign: "center",
-  // },
-  // text: {
-  //   fontSize: 20,
-  //   color: "#ffff",
-  //   margin: 5,
-  // },
-  // reviewCapture: {
-  //   color: "#ffffff",
-  //   fontSize: 40,
-  //   marginBottom: 20,
-  //   fontWeight: "bold",
-  //   textAlign: "center",
-  // },
-  // aboutUs: {
-  //   flexGrow: 1,
-  // },
-  // item: {
-  //   backgroundColor: "#f9c2ff",
-  //   color: "#ffff",
-  // },
-  // itemText: {
-  //   backgroundColor: "#f9c2ff",
-  //   color: "#ffff",
-  // },
-  // content: {
-  //   flexGrow: 2,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   padding: 2,
-  //   backgroundColor: "black",
-  // },
 });
