@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStorage } from "@/helpers";
-import LoginScreen from "../login";
+import { getStorage } from "@/helpers/token";
 import DateComponent from "./DateComponent";
 import Loader from "@/components/Loader";
 import SignForm from "../SignForm/SignForm";
@@ -18,7 +17,6 @@ const DateReservation: React.FC = () => {
     await getStorage("token")
       .then((res) => {
         if (res) {
-          console.log(":::::::::::",res)
           setIsLoggedIn(res);
           setIsLoading(false);
         } else {

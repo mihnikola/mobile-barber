@@ -12,10 +12,13 @@ const MAPPING = {
   // See SF Symbols in the SF Symbols app on Mac.
   "star":"star",
   "image":"image",
+  "price-change":"price-change",
   "house.fill": "home",
   "check.cirle": "check-circle-outline",
   "notifications.fill": "notifications",
   "miscellaneous.services": "miscellaneous-services",
+  "apple":"apple",
+  "logo-google":"logo-google",
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
@@ -34,8 +37,7 @@ const MAPPING = {
   "logo.instagram": "logo-instagram",
   "not.visible":"visibility-off",
   "visible":"visibility",
-  "ok":"expand-circle-down",
-  "error":"error-outline"
+  "disturb":"do-disturb"
 } as Partial<
   Record<
     import("expo-symbols").SymbolViewProps["name"],
@@ -62,7 +64,7 @@ export function IconSymbol({
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
-  if (MAPPING[name] === "logo-whatsapp" || MAPPING[name] === 'logo-instagram') {
+  if (MAPPING[name] === "logo-whatsapp" || MAPPING[name] === "logo-google" || MAPPING[name] === 'logo-instagram') {
     return <Ionicons name={MAPPING[name]} size={size} color={color} style={style} />;
   }
   if (MAPPING[name] !== "logo-whatsapp" || MAPPING[name] === 'logo-instagram') {

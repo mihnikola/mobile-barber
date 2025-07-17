@@ -6,84 +6,45 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import { BooleanProvider } from "@/context/BooleanContext";
+import MainContainer from "./components/mainContainer/MainContainer";
+import SplashScreen from "@/shared-components/SuccessScreen";
 
 export default function RootLayout() {
+  const [isLoading, setIsLoading] = useState(true);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   if (!loaded) {
     return null;
   }
 
-  return (
-    <ReservationProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-          <Stack.Screen
-            name="components/services/index"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/login/index"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/register/index"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/reservation/index"
-            options={{ title: "" }}
-          />
-          <Stack.Screen
-            name="components/reservation/datereservation"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/reservation/makereservation"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/reservation/reservationdetails"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/infoapp/userprofile"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/infoapp/aboutapplication"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/infoapp/privacypolicy"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="components/infoapp/termsofservice"
-            options={{ title: "", headerShown: false }}
-          />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </ReservationProvider>
-  );
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+          // </ThemeProvider> ako treba light dark
+
+
+  if (!isLoading) {
+    return (
+      <BooleanProvider>
+        <ReservationProvider>
+            <MainContainer />
+            <StatusBar style="auto" />
+        </ReservationProvider>
+      </BooleanProvider>
+    );
+  }
 }

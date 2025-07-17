@@ -1,7 +1,7 @@
 // Custom hook for handling the reservation submission
 import { post } from "@/api/apiService";
 import ReservationContext from "@/context/ReservationContext";
-import { getStorage } from "@/helpers";
+import { getStorage } from "@/helpers/token";
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";

@@ -1,72 +1,38 @@
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import React from "react";
-import { Modal, View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Animated, Image, View } from "react-native";
+import React, { useEffect, useRef } from "react";
 
-interface SuccessModalProps {
-  isVisible: boolean;
-  onClose: () => void;
-}
+const SplashScreen = () => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
-const SuccessModal: React.FC<SuccessModalProps> = ({ isVisible, onClose }) => {
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose} // Handle closing on Android back press
+    <View
+      style={{
+        backgroundColor: "black",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContainer}>
-          {/* Success message */}
-          <IconSymbol size={50} name="check.cirle" color="black" />
-
-          <Text style={styles.successMessage}>Rezervacija je uspešno poslata!</Text>
-
-          {/* Close button */}
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>U redu</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+      <Animated.View
+        style={{
+          opacity: fadeAnim,
+        }}
+      >
+        <Image
+          source={require("./../assets/images/homeSplash.png")}
+          style={{ resizeMode: "contain", width: 350 }}
+        />
+      </Animated.View>
+    </View>
   );
 };
 
-// Styles
-const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(84, 84, 84, 0.95)", // Semi-transparent overlay
-  },
-  modalContainer: {
-    width: 300,
-    padding: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    gap:20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  successMessage: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "black",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  closeButton: {
-    backgroundColor: "black",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  closeButtonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-});
-
-export default SuccessModal;
+export default SplashScreen;

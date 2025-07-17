@@ -15,7 +15,7 @@ const CardPastReservation = ({ reservations, check }) => {
   return (
     <>
       {reservations?.length > 0 &&
-        reservations.map((item) => (
+        reservations.map((item: any) => (
           <TouchableOpacity
             style={styles.cardPastReservation}
             key={item._id}
@@ -38,7 +38,7 @@ const CardPastReservation = ({ reservations, check }) => {
                   {addMinutesToTime(item?.time, item?.service?.duration)}
                 </Text>
 
-                <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
+                <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
               </View>
               <View>
                 <Text style={styles.rating}>
@@ -60,71 +60,15 @@ const styles = StyleSheet.create({
   },
   rating: {
     fontStyle: "italic",
+    color: 'gray'
   },
-  active: {
-    color: "#fff",
-    fontWeight: "bold",
+  captureDateLocation: {
+    color: "#FFD790",
+    fontSize: 17,
+    fontWeight: 800,
   },
-  container: {
-    flex: 1,
-  },
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  containerCapture: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: 250,
-    left: 100,
-    gap: 30,
-  },
-  wrapper: {
-    display: "flex",
-    width: "100%",
-    borderRadius: 20,
-    padding: 10,
-    overflowY: "scroll",
-  },
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "grey", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
-  coverImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.2,
-  },
-  content: {
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: 20,
-    padding: 10,
-    gap: 20,
-  },
-  capture: {
-    fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    fontStyle: "italic",
-  },
-
   cardPastReservation: {
-    backgroundColor: "white",
-    opacity: 0.7,
+    backgroundColor: "#1E1E1E",
     display: "flex",
     flexDirection: "row",
     width: "100%",
@@ -136,7 +80,7 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "gray",
     borderLeftWidth: 5,
     borderLeftColor: "green",
     display: "flex",
@@ -152,7 +96,7 @@ const styles = StyleSheet.create({
   },
   captureDateBold: {
     fontSize: 20,
-    color: "black",
+    color: "gray",
     fontWeight: "900",
   },
   infoContainer: {
@@ -160,23 +104,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-  },
-  cardReservationPast: {
-    marginTop: 20,
-    padding: 10,
-    flex: 1,
-  },
-  noReservation: {
-    fontSize: 24,
-    textAlign: "center",
-    padding: 10,
-    fontWeight: "900",
-    color: "white",
-  },
-  description: {
-    fontSize: 18,
-    color: "grey",
-    textAlign: "center",
   },
 });
 

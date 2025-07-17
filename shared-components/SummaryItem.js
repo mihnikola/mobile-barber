@@ -32,23 +32,25 @@ const styles = StyleSheet.create({
   content: {
     width: 100,
     height: 50,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "black",
     justifyContent: "center",
     borderColor: "grey",
+    color:"white",
     alignItems: "center",
     borderWidth: 1, // Ensure the border is visible
   },
   selectedTime: {
-    color: "white",
+    color: "black",
   },
   selectedContent: {
-    backgroundColor: "black", // Green background when selected
-    borderColor: "grey", // Darker border when selected
+    backgroundColor: "white", // Green background when selected
+    borderColor: "black", // Darker border when selected
+
   },
   time: {
     display: "flex",
     fontSize: 16,
-    color: "black",
+    color: "white",
     fontWeight: "800",
   },
 });

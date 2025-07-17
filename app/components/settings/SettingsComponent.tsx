@@ -1,12 +1,31 @@
-import { View, Text, Image, Pressable, StyleSheet, Alert } from "react-native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import { removeStorage } from "@/helpers";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import { removeStorage } from "@/helpers/token";
 import { useNavigation } from "@react-navigation/native";
-
+import { useState } from "react";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MenuItem } from "./MenuItem";
+import useUser from "./../infoapp/hooks/useUser";
+import Loader from "@/components/Loader";
 const SettingsComponent = () => {
   const navigation = useNavigation();
+  const [isMessage, setIsMessage] = useState(false);
+  const { userData, isLoading, error } = useUser();
 
-  const onPressHandler = (data) => {
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const onPressHandler = (data: any) => {
     if (data === "1") {
       navigation.navigate("components/infoapp/userprofile");
     }
@@ -16,28 +35,9 @@ const SettingsComponent = () => {
     if (data === "4") {
       navigation.navigate("components/infoapp/privacypolicy");
     }
-    if (data === "69") {
-      navigation.navigate("components/infoapp/termsofservice");
-    }
     if (data === "6") {
-      alertMessageHandler();
+      setIsMessage(true);
     }
-  };
-
-  const alertMessageHandler = () => {
-    Alert.alert("Info", "Are you sure want to log out?", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "Ok",
-        onPress: () => {
-          logoutHandler();
-        },
-      },
-    ]);
   };
 
   const logoutHandler = async () => {
@@ -47,90 +47,169 @@ const SettingsComponent = () => {
   };
 
   return (
-    <View>
-      <Image
-        source={require("@/assets/images/settingsImage.jpg")}
-        style={styles.headerImage}
-        resizeMode="cover"
-      />
-      <View style={styles.containerInfo}>
-        <SettingItem
-          title="User profile"
-          icon="person.outline"
-          handlePress={() => onPressHandler("1")}
-        />
-        <SettingItem
-          title="Terms of Service"
-          icon="lock"
-          handlePress={() => onPressHandler("69")}
-        />
-        <SettingItem
-          title="Privacy policy"
-          icon="lock"
-          handlePress={() => onPressHandler("4")}
+    <View style={styles.container}>
+      {/* Status Bar style adjustment for dark background */}
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a1a" />
+
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>My Profile</Text>
+      </View>
+
+      {/* Profile Section */}
+      <View style={styles.profileSection}>
+        <Image source={{ uri: userData?.image }} style={styles.profileImage} />
+        <View style={styles.profileInfo}>
+          <Text style={styles.profileName}>{userData?.name}</Text>
+          <Text style={styles.profileEmail}>{userData?.email}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => onPressHandler("1")}
+        >
+          <MaterialCommunityIcons name="pencil" size={20} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Menu Items */}
+      <ScrollView style={styles.menuContainer}>
+        <MenuItem
+          iconName="location-enter"
+          title="My location"
+          onPress={() => console.log("My Bookings pressed")}
         />
 
-        <SettingItem
-          title="About application"
-          icon="info"
-          handlePress={() => onPressHandler("2")}
+        <MenuItem
+          iconName="contacts"
+          title="About Application"
+          onPress={() => console.log("Settings pressed")}
         />
-        <SettingItem
-          title="Log out"
-          icon="logout"
-          handlePress={() => onPressHandler("6")}
+
+        <MenuItem
+          iconName="file-document"
+          title="Privacy Policy"
+          onPress={() => console.log("Privacy Policy pressed")}
         />
-      </View>
+        <MenuItem
+          iconName="file-document-outline"
+          title="Terms & Conditions"
+          onPress={() => console.log("Terms & Conditions pressed")}
+        />
+        <MenuItem
+          iconName="logout"
+          title="Logout"
+          onPress={() => onPressHandler("6")}
+          isLogout={true}
+        />
+        {isMessage && (
+          <SharedQuestion
+            isOpen={isMessage}
+            onClose={() => setIsMessage(false)}
+            onLogOut={logoutHandler}
+            icon={
+              <FontAwesome
+                name="question-circle-o" // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title="Are you sure you want to sign out from application?" // Title of the modal
+            buttonTextYes="Ok" // Text for the action button
+            buttonTextNo="Cancel"
+          />
+        )}
+      </ScrollView>
     </View>
   );
 };
 
 export default SettingsComponent;
-
 const styles = StyleSheet.create({
-  containerInfo: {
-    marginTop: 20,
-    flexDirection: "column",
-    gap: 10,
+  container: {
+    flex: 1,
+    backgroundColor: "black", // Dark background as per image
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, // Adjust for Android status bar
   },
-  headerImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.3,
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#333333", // Darker border for separation
   },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  item: {
-    padding: 10,
-    display: "flex",
-    flexDirection: "row",
-    gap: 20,
-  },
-  title: {
-    fontSize: 18,
+  headerTitle: {
+    fontSize: 28,
     fontWeight: "bold",
-    color: "white",
+    color: "#FFFFFF", // White text
   },
-  content: {
-    fontSize: 16,
-    display: "flex",
+  profileSection: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "85%",
     alignItems: "center",
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#333333",
+    marginBottom: 10,
+  },
+  profileImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 15,
+    borderWidth: 2,
+    borderColor: "#4a4a4a", // Subtle border around image
+  },
+  profileInfo: {
+    flex: 1,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#FFFFFF",
+    marginBottom: 2,
+  },
+  profileEmail: {
+    fontSize: 14,
+    color: "#B0B0B0", // Light gray for email
+  },
+  editButton: {
+    backgroundColor: "black", // Darker background for button
+    borderRadius: 20,
+    padding: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menuContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#333333",
+  },
+  logoutMenuItem: {
+    borderBottomWidth: 0, // No border for logout
+    marginTop: 20, // Add some space above logout
+  },
+  menuItemIcon: {
+    marginRight: 15,
+  },
+  menuItemText: {
+    flex: 1, // Allows text to take up available space
+    fontSize: 16,
+    color: "#FFFFFF",
+  },
+  logoutText: {
+    color: "#E57373", // Red for logout text
+    fontWeight: "600",
+  },
+  menuItemArrow: {
+    marginLeft: 10,
+  },
+  menuItemToggle: {
+    // Specific styles for the Switch component if needed
+    transform: Platform.OS === "ios" ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [], // Adjust size for iOS
   },
 });
-
-const SettingItem = ({ title, icon, handlePress }) => {
-  return (
-    <View style={styles.item}>
-      <IconSymbol color="white" name={icon} size={32} />
-      <Pressable style={styles.content} onPress={handlePress}>
-        <Text style={styles.title}>{title}</Text>
-        <IconSymbol color="white" name="arrow.right" size={32} />
-      </Pressable>
-    </View>
-  );
-};

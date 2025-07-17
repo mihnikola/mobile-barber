@@ -4,8 +4,8 @@ import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
-import EmployerItem from "../components/employers/EmployerItem";
 import useFetchEmployers from "../components/employers/hooks/useFetchEmployers";
+import SharedItem from "@/shared-components/SharedItem";
 
 const Employers = () => {
   const navigation = useNavigation();
@@ -36,7 +36,7 @@ const Employers = () => {
   return (
     <ScrollView style={styles.container}>
       <Image
-        source={require("@/assets/images/coverImage.jpg")}
+        source={require("@/assets/images/team.jpg")}
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Choose your barber</Text>
@@ -44,10 +44,11 @@ const Employers = () => {
       {!isLoading && (
         <View style={styles.contentContainer}>
           {emplData?.map((item) => (
-            <EmployerItem
+            <SharedItem
               key={item.id}
               data={item}
               redirectHandler={redirectHandler}
+
             />
           ))}
         </View>
@@ -71,7 +72,9 @@ const styles = StyleSheet.create({
     height: 200,
     opacity: 0.2,
   },
+ 
   contentContainer: {
+    marginTop: 10,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: "black"
   },
   errorContainer: {
     display: "flex",

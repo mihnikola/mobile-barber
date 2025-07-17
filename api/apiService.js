@@ -1,5 +1,5 @@
 // src/api/apiService.js
-import { getStorage } from "@/helpers";
+import { getStorage } from "@/helpers/token";
 import axios from "axios";
 
 const instance = axios.create({
@@ -50,7 +50,7 @@ const getData = async (url, data, config = {}) => {
   try {
     const response = await instance.get(url, {
       ...config,
-      params: data, // Pass data as query params
+      params: data, 
     });
     return response.data;
   } catch (error) {

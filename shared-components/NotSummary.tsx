@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-const NotSummary = () => {
+const NotSummary = ({text}) => {
   return (
     <View style={{ borderWidth: 20 }}>
       <Text
@@ -12,7 +12,7 @@ const NotSummary = () => {
           borderRadius: 20,
         }}
       >
-       No appointments for the chosen date
+       {text}
       </Text>
     </View>
   );

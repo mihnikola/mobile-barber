@@ -4,7 +4,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignForm from "../components/SignForm/SignForm";
 import SettingsComponent from "../components/settings/SettingsComponent";
-import { BackHandler } from "react-native";
+import { BackHandler, View } from "react-native";
 
 export default function Settings() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,6 @@ export default function Settings() {
       const storedToken = await AsyncStorage.getItem("token");
       if (storedToken) {
         setToken(storedToken);
-        console.log("Token exists:", storedToken);
       } else {
         setToken(null);
         console.log("No token found");
@@ -55,7 +54,7 @@ export default function Settings() {
       {!isLoading && token && <SettingsComponent />}
       {!isLoading && !token && (
         <>
-          <SignForm options="settings" />
+          <SignForm />
         </>
       )}
       {isLoading && <Loader />}

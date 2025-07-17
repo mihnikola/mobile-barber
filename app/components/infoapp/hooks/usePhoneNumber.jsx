@@ -1,28 +1,46 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const usePhoneNumber = (phoneNumberValue) => {
-  const [phoneNumber, setPhoneNumber] = useState(phoneNumberValue || "");
-const phoneNumberRegex = /^\+?(\d{1,3})?[-.\s]?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{4}$/;
 
-const [isValidPhoneNumber, setIsValid] = useState(true);
-  // Update state when phoneNumberValue becomes available
-  useEffect(() => {
-    if (phoneNumberValue) {
-      setPhoneNumber(phoneNumberValue);
+  
+  const [phoneNumber, setPhoneNumber] = useState(phoneNumberValue?.slice(4) || "");
+  const [isValid, setIsValid] = useState(true);
+  const [errorPhoneNumber, setErrorPhoneNumber] = useState("");
+
+  const serbianPhoneRegex = /^(?:6\d|1\d|2\d|3\d|4\d|5\d)\d{6,9}$/;
+
+
+ 
+
+  const validateSerbianPhoneNumber = (number) => {
+    const cleanedNumber = number.replace(/[^\d+]/g, "");
+
+    if (cleanedNumber.length === 0) {
+      setIsValid(true);
+      setErrorPhoneNumber("");
+      return true;
     }
-  }, [phoneNumberValue]);
+    if (serbianPhoneRegex.test(cleanedNumber)) {
+      setIsValid(true);
+      setErrorPhoneNumber("");
+      return true;
+    } else {
+      setIsValid(false);
+      setErrorPhoneNumber("Please enter a valid phone number.");
+      return false;
+    }
+  };
 
+  const handlePhoneNumberChange = (text) => {
+    setPhoneNumber(text);
+    validateSerbianPhoneNumber(text);
+  };
 
-const handlePhoneNumberChange = (text) => {
-  setPhoneNumber(text);
-  if (phoneNumberRegex.test(text)) {
-    setIsValid(true);
-  } else {
-    setIsValid(false);
-  }
-};
-
-  return { phoneNumber, handlePhoneNumberChange, setPhoneNumber, isValidPhoneNumber };
+  return {
+    handlePhoneNumberChange,
+    phoneNumber,
+    errorPhoneNumber,
+  };
 };
 
 export default usePhoneNumber;
