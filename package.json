@@ -43,7 +43,8 @@
     "react-native-web": "~0.19.13",
     "toastify-react-native": "^7.2.0",
     "expo-image-manipulator": "~13.0.6",
-    "expo-file-system": "~18.0.12"
+    "expo-file-system": "~18.0.12",
+    "expo-location": "~18.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

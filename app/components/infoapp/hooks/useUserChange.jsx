@@ -1,24 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 const useUserChange = () => {
-  const navigation = useNavigation();
   const [isLoadingChange, setIsLoadingChange] = useState(false);
   const [errorChange, setErrorChange] = useState(null);
   const [message, setMessage] = useState(null);
+  const [isMessage, setIsMessage] = useState(false);
 
-  useEffect(() => {
-    if (message) {
-      setTimeout(() => {
-        setMessage(null);
-        navigation.navigate("(tabs)", { screen: "settings" });
-      }, 3000);
-    }
-  }, [message]);
+
 
   const handleChangeUser = useCallback(async (userData) => {
+
+    console.log("handleChangeUser",userData)
     setIsLoadingChange(true);
     setErrorChange(null);
 
@@ -54,18 +48,25 @@ const useUserChange = () => {
       );
 
       if (response.status >= 200 && response.status < 300) {
+        setIsMessage(true);
+        console.log("res",response.data);
+
         setMessage(response.data.message);
+
       } else {
+        setIsMessage(true);
+
         setMessage(
           `Upload failed: ${response.data.message || "Unknown error"}`
         );
       }
     } catch (error) {
       console.log("error++++", error);
+      setIsMessage(true);
       if (err.message.includes("404")) {
         setErrorChange(`Not found endpoint`);
       } else {
-        setErrorChange(`Something Went Wrong, Please Try Again`);
+        setMessage(`Something Went Wrong, Please Try Again`);
       }
       setIsLoadingChange(false);
     } finally {
@@ -73,7 +74,7 @@ const useUserChange = () => {
     }
   }, []);
 
-  return { message, isLoadingChange, errorChange, handleChangeUser };
+  return { message, isLoadingChange, errorChange, handleChangeUser, setIsMessage, isMessage };
 };
 
 export default useUserChange;

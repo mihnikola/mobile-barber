@@ -16,20 +16,21 @@ import {
   Dimensions,
   View,
   TouchableOpacity,
+  Linking,
 } from "react-native";
-import ListAboutUs from "../components/home/ListAboutUs";
-import AboutUsInfo from "../components/home/AboutUsInfo";
-import { MAIN_DATA } from "@/constants";
+
 import FlatButton from "@/shared-components/Button";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { createOpenLink } from "react-native-open-maps";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { PulsingButton } from "@/components/PulsingButton";
 import { FontAwesome } from "@expo/vector-icons";
+import useOpenGoogleMaps from "../components/location/hooks/useOpenGoogleMaps";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const { height } = Dimensions.get("window");
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldPlaySound: true,
@@ -94,12 +95,21 @@ async function registerForPushNotificationsAsync() {
 export default function App() {
   const navigation = useNavigation();
   const [expoPushToken, setExpoPushToken] = useState("");
+
+  const destinationLat = 48.8584;
+  const destinationLon = 2.2945;
+  const destinationName = "Eiffel Tower, Paris";
+  const { openGoogleMapsRoute } = useOpenGoogleMaps();
+
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
   >(undefined);
 
   const nextPage = () => {
     navigation.navigate("(tabs)", { screen: "employers" });
+  };
+  const onAboutUs = () => {
+    navigation.navigate("components/aboutUs/index");
   };
 
   const slideAnim = useRef(new Animated.Value(-height)).current;
@@ -161,10 +171,6 @@ export default function App() {
     }
   }, [expoPushToken]);
 
-  const openYosemite = createOpenLink(yosemite);
-
-  const openYosemiteZoomedOut = createOpenLink({ ...openYosemite, zoom: 300 });
-
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -197,12 +203,17 @@ export default function App() {
           <Text style={styles.title}>Booking</Text>
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+        <TouchableOpacity onPress={onAboutUs} style={styles.btnContent}>
           <FontAwesome name="home" size={28} color="white" />
           <Text style={styles.title}>About us</Text>
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+        <TouchableOpacity
+          onPress={() =>
+            openGoogleMapsRoute(destinationLat, destinationLon, destinationName)
+          }
+          style={styles.btnContent}
+        >
           <FontAwesome name="location-arrow" size={28} color="white" />
           <Text style={styles.title}>Location</Text>
           <FontAwesome name="chevron-right" size={28} color="white" />

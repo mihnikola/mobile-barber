@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const usePhoneNumber = (phoneNumberValue) => {
 
   
-  const [phoneNumber, setPhoneNumber] = useState(phoneNumberValue?.slice(4) || "");
+  const [phoneNumber, setPhoneNumber] = useState(phoneNumberValue?.slice(4) || null);
   const [isValid, setIsValid] = useState(true);
   const [errorPhoneNumber, setErrorPhoneNumber] = useState("");
 
   const serbianPhoneRegex = /^(?:6\d|1\d|2\d|3\d|4\d|5\d)\d{6,9}$/;
 
-
+console.log("usePhoneNumber",phoneNumber)
+console.log("phoneNumberValue",phoneNumberValue)
  
 
   const validateSerbianPhoneNumber = (number) => {
@@ -32,6 +33,7 @@ const usePhoneNumber = (phoneNumberValue) => {
   };
 
   const handlePhoneNumberChange = (text) => {
+
     setPhoneNumber(text);
     validateSerbianPhoneNumber(text);
   };
@@ -40,6 +42,7 @@ const usePhoneNumber = (phoneNumberValue) => {
     handlePhoneNumberChange,
     phoneNumber,
     errorPhoneNumber,
+    isValid
   };
 };
 

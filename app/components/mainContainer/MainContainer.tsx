@@ -58,6 +58,10 @@ const MainContainer = () => {
             name="components/register/index"
             options={{ title: "", headerShown: false }}
           />
+           <Stack.Screen
+            name="components/aboutUs/index"
+            options={{ title: "",headerShown: false }}
+          />
           <Stack.Screen
             name="components/reservation/index"
             options={{ title: "", headerShown: false }}

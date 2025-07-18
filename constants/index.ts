@@ -48,11 +48,6 @@ export const CONTACT_DATA = [
     image: phone,
     title: "+381123459987",
   },
-  {
-    id: 2,
-    image: igImage,
-    title: "@gentleman_kv",
-  },
 ];
 
 export const REVIEW_DATA = [

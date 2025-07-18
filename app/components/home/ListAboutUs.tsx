@@ -5,6 +5,9 @@ import { CONTACT_DATA } from "@/constants/index";
 const ListAboutUs = () => {
   return (
     <>
+    <View>
+      <Text style={styles.titleContant}>Contact</Text>
+    </View>
       {CONTACT_DATA.map((item) => (
         <View key={item.id} style={styles.contactItem}>
           <Image source={item.image} style={styles.image} />
@@ -19,10 +22,17 @@ const styles = StyleSheet.create({
   container: {
     padding: 20, // optional padding around the content
   },
+  titleContant:{
+    fontWeight:'800',
+    color: 'white',
+    fontSize: 30,
+    textAlign:'center',
+    marginBottom:21
+  },
   contactItem: {
-    marginBottom: 20,
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: 'center',
     padding: 10,
     gap: 10,
   },

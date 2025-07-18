@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  ScrollView,
   BackHandler,
   StatusBar,
   Button,
@@ -18,38 +17,55 @@ import usePhoneNumber from "./hooks/usePhoneNumber";
 import useName from "./hooks/useName";
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import SharedInput from "@/shared-components/SharedInput";
+import { SharedMessage } from "@/shared-components/SharedMessage";
+import { FontAwesome } from "@expo/vector-icons";
 
 const userprofile = () => {
   const navigation = useNavigation();
 
   const { userData, isLoading, error } = useUser();
-  const {phoneNumber:pn} = userData;
 
-  const [changedImg, setChangedImg] = useState(null);
+  const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
-  const { message, isLoadingChange, errorChange, handleChangeUser } =
-    useUserChange();
+  const {
+    message,
+    isLoadingChange,
+    errorChange,
+    handleChangeUser,
+    isMessage,
+    setIsMessage,
+  } = useUserChange();
   const [isValidated, setIsValidated] = useState(false);
-  const { phoneNumber, handlePhoneNumberChange, errorPhoneNumber } =
-    usePhoneNumber(pn);
-
-
+  const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
+    usePhoneNumber(userData?.phoneNumber);
 
   useEffect(() => {
     setIsValidated(validationFields);
   }, [phoneNumber, name, changedImg]);
 
   const validationFields = () => {
-    if (
-      phoneNumber !== userData?.phoneNumber ||
-      name !== userData?.name ||
-      changedImg !== userData?.image
-    ) {
-      return true;
-    } else {
+    if (!isValid) {
       return false;
+    }
+
+    if (phoneNumber === null) {
+      if (name !== userData?.name || changedImg !== userData?.image) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (phoneNumber !== null) {
+      if (
+        phoneNumber !== userData?.phoneNumber ||
+        name !== userData?.name ||
+        changedImg !== userData?.image
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
   useFocusEffect(
@@ -75,18 +91,21 @@ const userprofile = () => {
     }
   };
 
+  const messageHandler = () => {
+    setIsMessage(false);
+    navigation.navigate("(tabs)", { screen: "settings" });
+  };
+
   const submitChanges = () => {
     const data = {
-      phoneNumber,
+      phoneNumber: "+381" + phoneNumber || userData?.phoneNumber,
       name,
       image: changedImg,
     };
-    if (isValidPhoneNumber || phoneNumber.length === 0) {
-      handleChangeUser(data);
-    }
+
+    handleChangeUser(data);
   };
 
-  console.log("phoneNumber+++++++",phoneNumber)
   if (!isLoading) {
     return (
       <View style={styles.container}>
@@ -102,7 +121,7 @@ const userprofile = () => {
           <View>
             <Text style={styles.inputLabel}>Your Email</Text>
             <TextInput
-              style={styles.input}
+              style={styles.inputDisabled}
               defaultValue={userData?.email}
               editable={false}
               selectTextOnFocus={false}
@@ -115,7 +134,11 @@ const userprofile = () => {
               placeholderTextColor="#888"
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
-              value={phoneNumber}
+              value={
+                phoneNumber !== null
+                  ? phoneNumber
+                  : userData?.phoneNumber?.slice(4)
+              }
               onChangeText={handlePhoneNumberChange}
               stylePassword={styles.phoneNumberInputContainer}
               style={styles.phoneNumberInput}
@@ -135,21 +158,35 @@ const userprofile = () => {
 
           {!isValidated && (
             <View style={styles.unbutton}>
-              <Button disabled={!isValidated} color="black" title="Submit" />
+              <Text style={styles.unButtonText}>Submit</Text>
             </View>
           )}
           {isValidated && (
             <TouchableOpacity onPress={submitChanges}>
               <View style={styles.button}>
-                <Text
-                  style={isValidated ? styles.buttonText : styles.unButtonText}
-                >
+                <Text style={styles.buttonText}>
                   {isLoadingChange ? "Submiting..." : "Submit"}
                 </Text>
               </View>
             </TouchableOpacity>
           )}
         </View>
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={messageHandler}
+            onConfirm={messageHandler}
+            icon={
+              <FontAwesome
+                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title={message} // Title of the modal
+            buttonText="Ok" // Text for the action button
+          />
+        )}
         <StatusBar backgroundColor="black" />
       </View>
     );
@@ -202,16 +239,29 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "white",
   },
+  inputDisabled: {
+    backgroundColor: "grey", // Dark input background
+    color: "black",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
+  },
   unbutton: {
     textAlign: "center",
     marginVertical: 30,
     backgroundColor: "black",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "grey",
   },
   unButtonText: {
-    color: "black",
+    color: "grey",
     fontSize: 16,
     padding: 10,
     textAlign: "center",
+    backgroundColor: "black",
   },
   button: {
     padding: 5,

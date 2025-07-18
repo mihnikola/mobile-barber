@@ -73,11 +73,7 @@ const SettingsComponent = () => {
 
       {/* Menu Items */}
       <ScrollView style={styles.menuContainer}>
-        <MenuItem
-          iconName="location-enter"
-          title="My location"
-          onPress={() => console.log("My Bookings pressed")}
-        />
+       
 
         <MenuItem
           iconName="contacts"
