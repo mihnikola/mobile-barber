@@ -26,9 +26,7 @@ const MainContainer = () => {
     setTimeout(async () => {
       try {
         const x = await getInitialTokenData();
-
-      } catch (e) {
-      }
+      } catch (e) {}
     }, 1000);
   }, [initialToken]);
 
@@ -55,12 +53,42 @@ const MainContainer = () => {
             options={{ title: "", headerShown: false }}
           />
           <Stack.Screen
+            name="components/forgotPass/index"
+            options={{
+              title: "",
+              headerTintColor: "white", 
+              headerStyle: {
+                backgroundColor: "black",
+              },
+            }}
+          />
+           <Stack.Screen
+            name="components/otpCode/index"
+            options={{
+              title: "",
+              headerTintColor: "white", 
+              headerStyle: {
+                backgroundColor: "black",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="components/changePass/index"
+            options={{
+              title: "",
+              headerTintColor: "white", 
+              headerStyle: {
+                backgroundColor: "black",
+              },
+            }}
+          />
+          <Stack.Screen
             name="components/register/index"
             options={{ title: "", headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="components/aboutUs/index"
-            options={{ title: "",headerShown: false }}
+            options={{ title: "", headerShown: false }}
           />
           <Stack.Screen
             name="components/reservation/index"
