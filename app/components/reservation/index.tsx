@@ -23,21 +23,20 @@ const Reservation = () => {
   const { submitReservationHandler, isLoading, error } = useSubmitReservation();
   const navigation = useNavigation();
 
-   useFocusEffect(
-        useCallback(() => {
-          const onBackPress = () => {
-            // Return true to disable the default back button behavior
-            console.log("object")
-           navigation.navigate("components/reservation/datereservation");
-           return true;
-  
-          };
-          BackHandler.addEventListener("hardwareBackPress", onBackPress);
-    
-          return () =>
-            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-        }, [])
-      );
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        console.log("object");
+        navigation.navigate("components/reservation/datereservation");
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
   if (reservation) {
     return (
       <ScrollView style={styles.container}>
@@ -55,7 +54,10 @@ const Reservation = () => {
               )}
           </Text>
           <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
+            {convertDate(
+              reservation?.dateReservation?.dateString ||
+                reservation?.dateReservation
+            )}
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
@@ -91,11 +93,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: "#ffffff",
+    backgroundColor: "black",
     borderRadius: 20,
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: 16,
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
   reservation: {
     display: "flex",
     flexDirection: "column",
-    height: 300,
+    height: 100,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -120,12 +122,10 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
-    position: "absolute",
+    position: "fixed",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    top: 80,
-    left: 50,
     padding: 20,
   },
   dateData: {
@@ -136,9 +136,11 @@ const styles = StyleSheet.create({
   data: {
     display: "flex",
     flexDirection: "column",
+    backgroundColor: "black",
   },
   container: {
     flex: 1,
+    backgroundColor: "black",
   },
   coverImage: {
     width: "100%",
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
     position: "absolute",
+    left: 80,
     top: 150,
-    left: 50,
   },
 });

@@ -1,27 +1,26 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
 import {
-  getExpoTokenStorage,
-  removeExpoTokenStorage,
+  getStorage,
+  removeStorage,
   saveStorage,
-} from "../../../../helpers/index";
-import { ToastAndroid } from "react-native";
+} from "../../../../helpers/token";
 import { post } from "../../../../api/apiService";
 import { useNavigation } from "@react-navigation/native";
-
-const showToast = (text) => {
-  ToastAndroid.show(text, ToastAndroid.SHORT);
-};
+import { getExpoTokenStorage, removeExpoTokenStorage } from "@/helpers/expoToken";
 
 const useLoginForm = () => {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [isMessage, setIsMessage] = useState(false);
   const navigation = useNavigation();
 
   const login = async (email, password) => {
     if (!email || !password) {
-      showToast("Please enter both email and password");
+      setIsMessage(true);
+      setError("Please enter both email and password");
       return;
     }
 
@@ -34,7 +33,8 @@ const useLoginForm = () => {
 
       if (responseData.status === 202) {
         setPending(false);
-        showToast(responseData.message);
+        setIsMessage(true);
+        setSuccess(responseData.message);
         return;
       }
       if (responseData.status === 200) {
@@ -43,10 +43,15 @@ const useLoginForm = () => {
         setData(responseData);
       }
     } catch (err) {
+      console.log("first",err)
       if (err.message.includes("404")) {
-        showToast(` Not found endpoint`);
+        setIsMessage(true);
+
+        setError(` Not found endpoint`);
       } else {
-        showToast(`Something Went Wrong, Please Try Again`);
+        setIsMessage(true);
+
+        setError(`Something Went Wrong, Please Try Again`);
       }
       setPending(false);
     }
@@ -71,24 +76,38 @@ const useLoginForm = () => {
       if (responseData.status === 200) {
         console.log("Token saved successfully");
         setPending(false);
-        showToast("Login Successful!");
-        removeExpoTokenStorage();
+        setIsMessage(true);
 
-        navigation.navigate("(tabs)", { screen: "index" });
+        setSuccess("Login Successful!");
+        removeExpoTokenStorage();
+        
       } else {
         setPending(false);
-        showToast(
+        setIsMessage(true);
+
+        setError(
           `Failed to save token: ${responseData?.message || "Unknown error"}`
         );
       }
     } catch (err) {
       console.log("Error saving token:", err.message);
       setPending(false);
-      showToast(`Error saving token: ${err.message || err}`);
+      setIsMessage(true);
+
+      setError(`Error saving token: ${err.message || err}`);
     }
   };
 
-  return { data, pending, error, login, saveToken }; // Return saveToken
+  return {
+    data,
+    pending,
+    error,
+    login,
+    saveToken,
+    success,
+    setIsMessage,
+    isMessage,
+  };
 };
 
 export default useLoginForm;

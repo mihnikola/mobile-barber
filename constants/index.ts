@@ -9,7 +9,9 @@ export const ksImage = require("@/assets/images/ks.jpg");
 export const fadeImage = require("@/assets/images/fade.jpg");
 export const brImage = require("@/assets/images/njega-brade-615.jpg");
 export const faadeImg = require("@/assets/images/faaade.jpg");
-export const bradicaImage = require("@/assets/images/bradicaImage.jpg");
+export const bradicaImage = require("@/assets/images/onBoard1.jpg");
+export const bradicaImage2 = require("@/assets/images/onBoard2.jpg");
+export const bradicaImage3 = require("@/assets/images/onBoard3.jpg");
 
 export const ABOUT_DATA = {
   title: "Who are we?",
@@ -17,7 +19,26 @@ export const ABOUT_DATA = {
   textTwo: "Thank you for your trust and for taking care of yourself.",
   textThree: "Yours truly, Gentleman Hair Studio",
 };
-
+export const INITIAL_DATA = [
+  {
+    id: 1,
+    image: bradicaImage,
+    title: "Effortless Bookings, Always on Time!",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
+  },
+  {
+    id: 2,
+    image: bradicaImage2,
+    title: "Style Inspiration, Just a Tap Away",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
+  },
+  {
+    id: 3,
+    image: bradicaImage3,
+    title: "Exclusive Offers with Best Discounts",
+    text: "It is a long established fact that a render will be distracted by the readable content.",
+  },
+];
 export const LABEL_VALUES = {
   REGISTER: "Submit",
 };
@@ -26,11 +47,6 @@ export const CONTACT_DATA = [
     id: 1,
     image: phone,
     title: "+381123459987",
-  },
-  {
-    id: 2,
-    image: igImage,
-    title: "@gentleman_kv",
   },
 ];
 
@@ -64,7 +80,6 @@ export const REVIEW_DATA = [
     image: testimonialImg,
   },
 ];
-
 
 export const MAIN_DATA = {
   review: "Reviews",

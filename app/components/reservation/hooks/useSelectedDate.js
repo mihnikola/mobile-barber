@@ -5,6 +5,9 @@ const useSelectedDate = (initialDate) => {
   const [isSunday, setIsSunday] = useState(false);
   const [markedDates, setMarkedDates] = useState();
   const handleDayPress = useCallback((day) => {
+    if(!day){
+      return null;
+    }
     const { dateString } = day;
 
     setSelectedDate(dateString || day);
@@ -25,7 +28,7 @@ const useSelectedDate = (initialDate) => {
     if (selectedDateString) {
       markedDates[selectedDateString] = {
         selected: true,
-        selectedColor: "#ffffff",
+        selectedColor: "white",
       }; // You can customize selectedColor
     }
 

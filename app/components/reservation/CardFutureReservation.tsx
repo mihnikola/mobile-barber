@@ -5,10 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const CardFutureReservation = ({ check, reservations }) => {
   const navigator = useNavigation();
+  
   const detailsReservation = (item) => {
     navigator.navigate("components/reservation/reservationdetails", {
       itemId: item._id,
-      check
+      check,
     });
   };
   return (
@@ -36,7 +37,7 @@ const CardFutureReservation = ({ check, reservations }) => {
                 {addMinutesToTime(item?.time, item?.service?.duration)}
               </Text>
 
-              <Text style={styles.captureDateBold}>Cara Lazara 85 a</Text>
+              <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -44,69 +45,8 @@ const CardFutureReservation = ({ check, reservations }) => {
   );
 };
 const styles = StyleSheet.create({
-  active: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  container: {
-    flex: 1,
-  },
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  containerCapture: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: 250,
-    left: 100,
-    gap: 30,
-  },
-  wrapper: {
-    display: "flex",
-    width: "100%",
-    borderRadius: 20,
-    padding: 10,
-    overflowY: "scroll",
-  },
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "grey", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
-  coverImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.2,
-  },
-  content: {
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: 20,
-    padding: 10,
-    gap: 20,
-  },
-  capture: {
-    fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    fontStyle: "italic",
-  },
-
   cardReservation: {
-    backgroundColor: "white",
+    backgroundColor: "#1E1E1E", // Dark background from your image
     display: "flex",
     flexDirection: "row",
     width: "100%",
@@ -118,7 +58,7 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "white",
     borderLeftWidth: 5,
     borderLeftColor: "green",
     display: "flex",
@@ -126,15 +66,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  captureDateLocation: {
+    color: "#FFD700",
+    fontSize: 17,
+    fontWeight: 800,
+  },
   captureDate: {
     fontSize: 18,
-    color: "grey",
+    color: "white",
     textAlign: "center",
     fontWeight: "500",
   },
   captureDateBold: {
     fontSize: 20,
-    color: "black",
+    color: "white",
     fontWeight: "900",
   },
   infoContainer: {
@@ -142,23 +87,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-  },
-  cardReservationPast: {
-    marginTop: 20,
-    padding: 10,
-    flex: 1,
-  },
-  noReservation: {
-    fontSize: 24,
-    textAlign: "center",
-    padding: 10,
-    fontWeight: "900",
-    color: "white",
-  },
-  description: {
-    fontSize: 18,
-    color: "grey",
-    textAlign: "center",
   },
 });
 

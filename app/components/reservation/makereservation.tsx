@@ -40,7 +40,7 @@ const makereservation = () => {
           style={styles.coverImage}
         />
         <Image
-          source={require("@/assets/images/logoImage.png")}
+          source={require("@/assets/images/logoBaber.png")}
           style={styles.coverLogo}
         />
         <View style={styles.coverContent}>
@@ -52,7 +52,6 @@ const makereservation = () => {
             {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
           </Text>
         </View>
-        <View style={styles.whiteLine} />
 
         <View style={{ display: "flex", flexDirection: "column" }}>
           <View style={{ display: "flex" }}>
@@ -77,7 +76,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: "flex",
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 50,
+    width: 140,
+    height: 200,
   },
   checkbox: {
     marginRight: 10, // Space between checkbox and label
@@ -113,8 +114,7 @@ const styles = StyleSheet.create({
   },
   coverContent: {
     alignItems: "center",
-    position: "absolute",
-    top: 250,
+    marginTop: 20,
     width: "100%",
   },
   dateData: {
@@ -128,9 +128,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: "black",
   },
   coverImage: {
     width: "100%",
+    height: 300,
     opacity: 0.25,
   },
   whiteLine: {

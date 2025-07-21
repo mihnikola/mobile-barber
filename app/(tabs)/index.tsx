@@ -2,7 +2,7 @@ import OnboardingComponent from "@/components/OnboardingComponent";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Alert,
   BackHandler,
@@ -12,15 +12,24 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  Animated,
+  Dimensions,
   View,
+  TouchableOpacity,
+  Linking,
 } from "react-native";
-import ListAboutUs from "../components/home/ListAboutUs";
-import AboutUsInfo from "../components/home/AboutUsInfo";
-import { MAIN_DATA } from "@/constants";
+
 import FlatButton from "@/shared-components/Button";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { createOpenLink } from "react-native-open-maps";
-import { saveExpoTokenStorage } from "@/helpers";
+import { saveExpoTokenStorage } from "@/helpers/expoToken";
+import { PulsingButton } from "@/components/PulsingButton";
+import { FontAwesome } from "@expo/vector-icons";
+import useOpenGoogleMaps from "../components/location/hooks/useOpenGoogleMaps";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const { height } = Dimensions.get("window");
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -32,7 +41,7 @@ Notifications.setNotificationHandler({
 });
 const yosemite = { latitude: 43.724943, longitude: 20.6952 };
 
-function handleRegistrationError(errorMessage) {
+function handleRegistrationError(errorMessage: any) {
   alert(errorMessage);
   throw new Error(errorMessage);
 }
@@ -86,6 +95,12 @@ async function registerForPushNotificationsAsync() {
 export default function App() {
   const navigation = useNavigation();
   const [expoPushToken, setExpoPushToken] = useState("");
+
+  const destinationLat = 48.8584;
+  const destinationLon = 2.2945;
+  const destinationName = "Eiffel Tower, Paris";
+  const { openGoogleMapsRoute } = useOpenGoogleMaps();
+
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
   >(undefined);
@@ -93,6 +108,27 @@ export default function App() {
   const nextPage = () => {
     navigation.navigate("(tabs)", { screen: "employers" });
   };
+  const onAboutUs = () => {
+    navigation.navigate("components/aboutUs/index");
+  };
+
+  const slideAnim = useRef(new Animated.Value(-height)).current;
+  const slideAnimBook = useRef(new Animated.Value(height)).current;
+
+  useEffect(() => {
+    Animated.timing(slideAnim, {
+      toValue: 0, // Animate to translateY: 0 (its natural position in the center)
+      duration: 1000, // Animation duration
+      useNativeDriver: true, // Use native driver for better performance
+    }).start();
+    setTimeout(() => {
+      Animated.timing(slideAnimBook, {
+        toValue: 0, // Animate to translateY: 0 (its natural position in the center)
+        duration: 1000, // Animation duration
+        useNativeDriver: true, // Use native driver for better performance
+      }).start();
+    }, 400);
+  }, [slideAnim]);
 
   useFocusEffect(
     useCallback(() => {
@@ -135,20 +171,56 @@ export default function App() {
     }
   }, [expoPushToken]);
 
-  const openYosemite = createOpenLink(yosemite);
-
-  const openYosemiteZoomedOut = createOpenLink({ ...openYosemite, zoom: 300 });
   return (
     <ScrollView style={styles.container}>
       <Image
-        source={require("@/assets/images/logoImage.png")}
-        style={styles.reactLogo}
+        source={require("@/assets/images/homeImage.jpg")}
+        style={styles.backImage}
       />
+      <Animated.View
+        style={[
+          styles.box,
+          {
+            transform: [{ translateY: slideAnim }],
+          },
+        ]}
+      >
+        <Image
+          source={require("@/assets/images/logoBaber.png")}
+          style={styles.logoImage}
+        />
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.boxBook,
+          {
+            transform: [{ translateY: slideAnimBook }],
+          },
+        ]}
+      >
+        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+          <FontAwesome name="calendar" size={28} color="white" />
+          <Text style={styles.title}>Booking</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onAboutUs} style={styles.btnContent}>
+          <FontAwesome name="home" size={28} color="white" />
+          <Text style={styles.title}>About us</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            openGoogleMapsRoute(destinationLat, destinationLon, destinationName)
+          }
+          style={styles.btnContent}
+        >
+          <FontAwesome name="location-arrow" size={28} color="white" />
+          <Text style={styles.title}>Location</Text>
+          <FontAwesome name="chevron-right" size={28} color="white" />
+        </TouchableOpacity>
+      </Animated.View>
 
-      <View style={styles.contentBtn}>
-        <FlatButton text="Book" onPress={nextPage} />
-      </View>
-
+      {/* 
       <AboutUsInfo />
       <View style={styles.content}>
         <ListAboutUs />
@@ -173,95 +245,68 @@ export default function App() {
             style={styles.mapImage}
           />
         </TouchableHighlight>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonga: {
-    alignItems: "center",
-    backgroundColor: "blue",
-    padding: 10,
+  title: {
+    fontSize: 24,
+    fontWeight: 500,
+    color: "white",
   },
-  input: {
-    width: "80%",
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-    backgroundColor: "white",
-    color: "black",
-  },
-  mapImage: {
-    width: 400,
-    height: 200,
-  },
-  mapContainer: {
-    flex: 3,
-  },
-  map: {
-    width: 500,
-    height: 200,
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  reactLogo: {
-    height: 300,
-    width: 320,
-    margin: "auto",
-    marginTop: 40,
-  },
-  reviewContent: {
-    margin: 0,
-  },
-  mapCapture: {
-    color: "#ffffff",
-    fontSize: 40,
-    marginBottom: 10,
-    marginTop: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  text: {
-    fontSize: 20,
-    color: "#ffff",
-    margin: 5,
-  },
-  reviewCapture: {
-    color: "#ffffff",
-    fontSize: 40,
-    marginBottom: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  aboutUs: {
-    flexGrow: 1,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    color: "#ffff",
-  },
-  itemText: {
-    backgroundColor: "#f9c2ff",
-    color: "#ffff",
-  },
-  content: {
-    flexGrow: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 2,
-    backgroundColor: "black",
+  btnContent: {
+    width: 300,
+    backgroundColor: "#222224",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    padding: 15,
   },
   contentBtn: {
+    backgroundColor: "white",
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: "#000000",
+    alignContent: "center",
+    alignSelf: "center",
+    fontSize: 30,
+    fontWeight: 900,
+    fontStyle: "italic",
+    borderRadius: 300,
   },
   container: {
     flex: 1,
+    backgroundColor: "#000000",
+  },
+
+  box: {
+    width: 400,
+    height: 400,
+    borderRadius: 10,
+    top: 100,
+    left: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+  },
+  boxBook: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignContent: "center",
+    position: "absolute",
+    gap: 20,
+    left: 50,
+    bottom: 50,
+  },
+
+  backImage: {
+    width: windowWidth,
+    height: windowHeight - 30,
+    opacity: 0.6,
+  },
+  logoImage: {
+    width: 200,
+    height: 300,
   },
 });

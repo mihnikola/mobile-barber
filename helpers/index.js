@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   const [hours, minutes] = inputTime?.split(":").map(Number);
@@ -17,6 +15,7 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 
   return `${updatedHours}:${updatedMinutes}`;
 }
+
 export const calendarTheme = {
   monthTextColor: "white",
   backgroundColor: "white",
@@ -89,36 +88,35 @@ export function getTimeForUTCOffset(offsetHours) {
 
   let targetDate;
 
-  if(offsetHours.includes("-")){
-// 2. Create a *new* Date object to represent the time at the specific UTC offset.
-  // We start with the UTC time of 'now' and apply the offset.
-  targetDate = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours() - offsetHoursV, // Apply the offset directly to UTC hours
-      now.getUTCMinutes(),
-      now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
-  );
-  }else{
+  if (offsetHours.includes("-")) {
     // 2. Create a *new* Date object to represent the time at the specific UTC offset.
-  // We start with the UTC time of 'now' and apply the offset.
-  targetDate = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours() + offsetHoursV, // Apply the offset directly to UTC hours
-      now.getUTCMinutes(),
-      now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
-  );
+    // We start with the UTC time of 'now' and apply the offset.
+    targetDate = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours() - offsetHoursV, // Apply the offset directly to UTC hours
+        now.getUTCMinutes(),
+        now.getUTCSeconds(),
+        now.getUTCMilliseconds()
+      )
+    );
+  } else {
+    // 2. Create a *new* Date object to represent the time at the specific UTC offset.
+    // We start with the UTC time of 'now' and apply the offset.
+    targetDate = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours() + offsetHoursV, // Apply the offset directly to UTC hours
+        now.getUTCMinutes(),
+        now.getUTCSeconds(),
+        now.getUTCMilliseconds()
+      )
+    );
   }
-  
 
   // 3. Format the date components from the manipulated UTC date object.
   const year = targetDate.getUTCFullYear();
@@ -160,60 +158,6 @@ export const convertDate = (item) => {
   return `${dayOfWeek} ${day}-${month}-${year}`;
 };
 
-export const getStorage = async () => {
-  try {
-    const token = await AsyncStorage.getItem("token").then((resToken) => {
-      return resToken;
-    });
-    return token;
-  } catch (e) {
-    // error reading value
-  }
-};
-export const saveStorage = async (value) => {
-  try {
-    await AsyncStorage.setItem("token", value);
-  } catch (e) {
-    // saving error
-  }
-};
-
-export const saveExpoTokenStorage = async (value) => {
-  try {
-    await AsyncStorage.setItem("tokenExpo", value);
-  } catch (e) {
-    // saving error
-  }
-};
-export const getExpoTokenStorage = async () => {
-  try {
-    const token = await AsyncStorage.getItem("tokenExpo").then((resToken) => {
-      return resToken;
-    });
-    return token;
-  } catch (e) {
-    // error reading value
-  }
-};
-export const removeExpoTokenStorage = async () => {
-  try {
-    await AsyncStorage.removeItem("tokenExpo").then((resToken) => {
-      return resToken;
-    });
-  } catch (e) {
-    // saving error
-  }
-};
-
-export const removeStorage = async () => {
-  try {
-    await AsyncStorage.removeItem("token").then((resToken) => {
-      return resToken;
-    });
-  } catch (e) {
-    // saving error
-  }
-};
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"

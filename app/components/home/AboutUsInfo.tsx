@@ -15,7 +15,7 @@ const AboutUsInfo = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000000",
+    marginVertical: 10,
     padding: 20,
     position: 'relative'
   },
