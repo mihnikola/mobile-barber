@@ -29,9 +29,7 @@ export const BooleanProvider = ({ children }) => {
 
 
   useEffect(() => {
-    if (initialToken) {
       setIsLoading(false);
-    }
   }, [initialToken]);
 
   useEffect(() => {
