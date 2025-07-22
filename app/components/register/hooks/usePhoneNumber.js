@@ -8,14 +8,13 @@ const usePhoneNumber = () => {
   const serbianPhoneRegex = /^\d{8,9}$/;
 
   const validateSerbianPhoneNumber = (number) => {
-    const cleanedNumber = number.replace(/[^\d+]/g, "");
 
-    if (cleanedNumber.length === 0) {
+    if (number.length === 0) {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;
     }
-    if (serbianPhoneRegex.test(cleanedNumber)) {
+    if (serbianPhoneRegex.test(number)) {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;

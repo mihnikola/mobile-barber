@@ -51,6 +51,10 @@ const LoginScreen = () => {
     setIsMessage(false);
     navigation.navigate("(tabs)", { screen: "index" });
   }
+  const forgotHandler = () => {
+        {/* components/forgotPass/index */}
+    navigation.navigate("components/forgotPass/index");
+  }
 
   return (
     <ScrollView style={styles.safeArea}>
@@ -113,6 +117,9 @@ const LoginScreen = () => {
           style={styles.passwordInput}
           stylePassword={styles.passwordInputContainer}
         />
+    <TouchableOpacity onPress={forgotHandler} style={{paddingTop: 20}}>
+      <Text style={{color: 'white',textAlign: 'right' }}>Forgot password?</Text>
+    </TouchableOpacity>
 
         <SharedButton loading={pending} onPress={handleLogin} text="Login" />
         <SharedRedirect
