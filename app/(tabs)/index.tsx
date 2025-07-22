@@ -1,29 +1,21 @@
-import OnboardingComponent from "@/components/OnboardingComponent";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Alert,
   BackHandler,
   Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   Animated,
   Dimensions,
-  View,
   TouchableOpacity,
-  Linking,
 } from "react-native";
 
-import FlatButton from "@/shared-components/Button";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { createOpenLink } from "react-native-open-maps";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
-import { PulsingButton } from "@/components/PulsingButton";
 import { FontAwesome } from "@expo/vector-icons";
 import useOpenGoogleMaps from "../components/location/hooks/useOpenGoogleMaps";
 
@@ -39,7 +31,6 @@ Notifications.setNotificationHandler({
     shouldShowList: true,
   }),
 });
-const yosemite = { latitude: 43.724943, longitude: 20.6952 };
 
 function handleRegistrationError(errorMessage: any) {
   alert(errorMessage);

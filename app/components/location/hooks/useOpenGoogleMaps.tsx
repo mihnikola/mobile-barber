@@ -66,4 +66,3 @@ const useOpenGoogleMaps = () => {
 };
 
 export default useOpenGoogleMaps;
-

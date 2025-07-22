@@ -1,4 +1,4 @@
-import { Animated, Image, View } from "react-native";
+import { Animated, Image, StatusBar, View } from "react-native";
 import React, { useEffect, useRef } from "react";
 
 const SplashScreen = () => {
@@ -21,6 +21,7 @@ const SplashScreen = () => {
         justifyContent: "center",
       }}
     >
+      <StatusBar backgroundColor="black" barStyle={"dark-content"} />
       <Animated.View
         style={{
           opacity: fadeAnim,
