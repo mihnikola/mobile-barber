@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BooleanContext } from "@/context/BooleanContext";
 import { Stack } from "expo-router";
 import { NavigationIndependentTree } from "@react-navigation/native";
@@ -9,28 +9,9 @@ import SplashScreen from "@/shared-components/SplashScreen";
 const MainContainer = () => {
   const {
     initialToken,
-    getInitialTokenData,
-    getTokenData,
-    isToken,
+    isLoading,
     addInitialTokenData,
   } = useContext(BooleanContext);
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    getTokenData();
-    setIsLoading(false);
-  }, [initialToken, isToken]);
-
-  useEffect(() => {
-    setTimeout(async () => {
-      try {
-        const x = await getInitialTokenData();
-
-      } catch (e) {
-      }
-    }, 1000);
-  }, [initialToken]);
 
   if (isLoading) {
     return <SplashScreen />;
@@ -58,9 +39,9 @@ const MainContainer = () => {
             name="components/register/index"
             options={{ title: "", headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="components/aboutUs/index"
-            options={{ title: "",headerShown: false }}
+            options={{ title: "", headerShown: false }}
           />
           <Stack.Screen
             name="components/reservation/index"

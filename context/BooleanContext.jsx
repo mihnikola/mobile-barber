@@ -1,12 +1,8 @@
-// BooleanContext.js
-
-import { getInitialToken, storeInitialToken } from '@/helpers/initialToken';
-// import { removeExpoTokenStorage, saveExpoTokenStorage, getExpoTokenStorage } from '@/helpers/expoToken';
 import { getStorage, saveStorage, removeStorage } from '@/helpers/token';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 // Create the context with a default value of false
 export const BooleanContext = createContext();
@@ -17,12 +13,32 @@ export const BooleanProvider = ({ children }) => {
   const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
   const [doctorId, setDoctorId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const changeDoctorId = (data) => {
     setDoctorId(data);
   }
 
+  useEffect(() => {
+    getInitialTokenData();
+    getTokenData();
+  }, [initialToken, isToken]);
+
   //initial token data
+
+
+  useEffect(() => {
+    if (initialToken) {
+      setIsLoading(false);
+    }
+  }, [initialToken]);
+
+  useEffect(() => {
+    if (isToken) {
+      setIsLoading(false);
+    }
+  }, [isToken]);
 
   const addInitialTokenData = async () => {
     const valueToStore = { name: 'John Doe', age: 30 };
@@ -30,7 +46,11 @@ export const BooleanProvider = ({ children }) => {
     setInitialToken(valueToStore);
   }
   const getInitialTokenData = async () => {
-    return await AsyncStorage.getItem("initialToken");
+    await AsyncStorage.getItem("initialToken").then((res) => {
+      if (res) {
+        setInitialToken(res)
+      }
+    });
   }
 
   //token data
@@ -64,12 +84,11 @@ export const BooleanProvider = ({ children }) => {
       getInitialTokenData,
       addInitialTokenData,
       initialToken,
-
+      isLoading,
       addTokenData,
       getTokenData,
       removeTokenData,
       isToken,
-
       changeDoctorId,
       doctorId,
     }}>

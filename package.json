@@ -13,11 +13,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^14.0.2",
+    "@expo/vector-icons": "~14.0.4",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^7.0.14",
     "axios": "^1.9.0",
-    "expo": "~52.0.46",
+    "expo": "~52.0.47",
     "expo-constants": "~17.0.8",
     "expo-device": "~7.0.3",
     "expo-doctor": "^1.13.3",
