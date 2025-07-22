@@ -17,7 +17,7 @@ import {
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
-import useOpenGoogleMaps from "../components/location/hooks/useOpenGoogleMaps";
+import { useOpenGoogleMaps } from "../components/location/hooks/useOpenGoogleMaps";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -201,7 +201,7 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            openGoogleMapsRoute(destinationLat, destinationLon, destinationName)
+            openGoogleMapsRoute(destinationLat, destinationLon)
           }
           style={styles.btnContent}
         >
