@@ -1,16 +1,15 @@
 // src/hooks/useRegisterForm.js
 import { useState } from "react";
 import axios from "axios";
-import { ToastAndroid } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const useRegisterForm = () => {
-  const showToast = (text) => {
-    ToastAndroid.show(text, ToastAndroid.SHORT);
-  };
+
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [isMessage, setIsMessage] = useState(false);
 
   const handleSubmit = async (userData) => {
     const {
@@ -24,21 +23,15 @@ const useRegisterForm = () => {
     } = userData;
 
     if (!name || !confirmPassword || !password || !email || !phoneNumber) {
-      showToast("Please fill out all fields.");
+      setIsMessage(true);
+      setError("Please fill out all fields.");
       return;
     }
 
     if (confirmPassword !== password) {
-      showToast("Your passwords does not match");
-      return;
-    }
+      setIsMessage(true);
 
-    if (emailError) {
-      showToast(emailError);
-      return;
-    }
-    if (passwordError) {
-      showToast(passwordError);
+      setError("Your passwords does not match");
       return;
     }
 
@@ -46,7 +39,7 @@ const useRegisterForm = () => {
       name,
       email,
       password,
-      phoneNumber: "+381"+phoneNumber,
+      phoneNumber: "+381" + phoneNumber,
     };
 
     setLoading(true);
@@ -58,27 +51,37 @@ const useRegisterForm = () => {
         sendUserData
       );
       if (result.status === 400) {
-        showToast(result.data.message);
+        setIsMessage(true);
+        setSuccess(result.data.message);
       } else if (result.status === 202) {
-        showToast(result.data.message);
+        setIsMessage(true);
+
+        setSuccess(result.data.message);
       } else if (result.status === 201) {
-        showToast(result.data.message);
-        navigation.navigate("components/login/index");
+        setIsMessage(true);
+
+        setSuccess(result.data.message);
       } else {
-        showToast(`Registration failed: ${result.status}`);
+        setIsMessage(true);
+
+        setError(`Registration failed: ${result.status}`);
       }
     } catch (errorx) {
       if (err.message.includes("404")) {
-        showToast(` Not found endpoint`);
+        setIsMessage(true);
+
+        setError(` Not found endpoint`);
       } else {
-        showToast(`Something Went Wrong, Please Try Again`);
+        setIsMessage(true);
+
+        setError(`Something Went Wrong, Please Try Again`);
       }
     } finally {
       setLoading(false);
     }
   };
 
-  return { loading, error, handleSubmit };
+  return { loading, error, handleSubmit, success, setIsMessage, isMessage };
 };
 
 export default useRegisterForm;

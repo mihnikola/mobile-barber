@@ -5,7 +5,7 @@ const usePhoneNumber = () => {
   const [isValid, setIsValid] = useState(true);
   const [errorPhoneNumber, setErrorPhoneNumber] = useState("");
 
-  const serbianPhoneRegex = /^(?:6\d|1\d|2\d|3\d|4\d|5\d)\d{6,9}$/;
+  const serbianPhoneRegex = /^\d{8,9}$/;
 
   const validateSerbianPhoneNumber = (number) => {
     const cleanedNumber = number.replace(/[^\d+]/g, "");

@@ -18,18 +18,22 @@ import useEmail from "../register/hooks/useEmail";
 import usePassword from "../register/hooks/usePassword";
 import useConfirmPassword from "../register/hooks/useConfirmPassword";
 import useRegisterForm from "../register/hooks/useRegisterForm";
-import { LABEL_VALUES } from "@/constants";
+import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useNavigation } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
+import { FontAwesome } from "@expo/vector-icons";
 const Register = () => {
   const navigation = useNavigation();
   const [userName, setUserName] = useState("");
   const {
     loading,
     error,
+    isMessage,
+    setIsMessage,
+    success,
     handleSubmit: handleRegistration,
   } = useRegisterForm();
   const { email, emailError, handleEmailChange } = useEmail();
@@ -39,7 +43,6 @@ const Register = () => {
   const { confirmPassword, handleConfirmPasswordChange } =
     useConfirmPassword(password);
 
-    
   function handleBackButtonClick3() {
     navigation.goBack();
     return true;
@@ -67,6 +70,10 @@ const Register = () => {
   };
 
   const navigateToLogin = () => {
+    navigation.navigate("components/login/index");
+  };
+  const confirmHandler = () => {
+    setIsMessage(false);
     navigation.navigate("components/login/index");
   };
   return (
@@ -142,6 +149,22 @@ const Register = () => {
           question="Already have an account?"
           text="Login"
         />
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={confirmHandler}
+            onConfirm={confirmHandler}
+            icon={
+              <FontAwesome
+                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title={error || success} // Title of the modal
+            buttonText="Ok" // Text for the action button
+          />
+        )}
       </View>
     </ScrollView>
   );

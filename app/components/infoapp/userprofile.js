@@ -26,6 +26,8 @@ const userprofile = () => {
 
   const { userData, isLoading, error } = useUser();
 
+  console.log("userprofile",userData)
+
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
   const {
@@ -97,12 +99,13 @@ const userprofile = () => {
   };
 
   const submitChanges = () => {
+    const phone = phoneNumber || userData?.phoneNumber?.slice(4);
     const data = {
-      phoneNumber: "+381" + phoneNumber || userData?.phoneNumber,
+      phoneNumber: "+381" + phone,
       name,
       image: changedImg,
     };
-
+    // console.log("object",data)
     handleChangeUser(data);
   };
 
