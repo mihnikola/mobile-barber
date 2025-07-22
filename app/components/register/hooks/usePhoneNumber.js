@@ -18,6 +18,7 @@ const usePhoneNumber = () => {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;
+      
     } else {
       setIsValid(false);
       setErrorPhoneNumber("Please enter a valid phone number.");
