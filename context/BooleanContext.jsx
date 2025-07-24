@@ -19,35 +19,24 @@ export const BooleanProvider = ({ children }) => {
   const changeDoctorId = (data) => {
     setDoctorId(data);
   }
-
   useEffect(() => {
     getInitialTokenData();
     getTokenData();
-  }, [initialToken, isToken]);
-
-  //initial token data
-
-
-  useEffect(() => {
-      setIsLoading(false);
-  }, [initialToken]);
-
-  useEffect(() => {
-    if (isToken) {
-      setIsLoading(false);
-    }
-  }, [isToken]);
+  }, []);
 
   const addInitialTokenData = async () => {
     const valueToStore = { name: 'John Doe', age: 30 };
     await AsyncStorage.setItem('initialToken', JSON.stringify(valueToStore));
     setInitialToken(valueToStore);
+
   }
   const getInitialTokenData = async () => {
     await AsyncStorage.getItem("initialToken").then((res) => {
       if (res) {
         setInitialToken(res)
       }
+      setIsLoading(false);
+
     });
   }
 
@@ -65,6 +54,8 @@ export const BooleanProvider = ({ children }) => {
       if (res) {
         setIsToken(res);
       }
+      setIsLoading(false);
+
     })
   }
 
