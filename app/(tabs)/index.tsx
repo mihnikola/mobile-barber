@@ -12,6 +12,7 @@ import {
   Animated,
   Dimensions,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
@@ -89,7 +90,7 @@ export default function App() {
 
   const destinationLat = 48.8584;
   const destinationLon = 2.2945;
-  const destinationName = "Eiffel Tower, Paris";
+  
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
 
   const [notification, setNotification] = useState<
@@ -200,52 +201,38 @@ export default function App() {
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() =>
-            openGoogleMapsRoute(destinationLat, destinationLon)
-          }
-          style={styles.btnContent}
+          onPress={() => openGoogleMapsRoute(destinationLat, destinationLon)}
+          style={styles.btnLocationContent}
         >
           <FontAwesome name="location-arrow" size={28} color="white" />
-          <Text style={styles.title}>Location</Text>
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>Location</Text>
+            <Text style={styles.address}>Adresa Dositejeva 27</Text>
+          </View>
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
       </Animated.View>
-
-      {/* 
-      <AboutUsInfo />
-      <View style={styles.content}>
-        <ListAboutUs />
-      </View>
-      <View style={styles.reviewContent}>
-        <Text style={styles.reviewCapture}> {MAIN_DATA.review} </Text>
-        <OnboardingComponent />
-      </View>
-
-      <View style={styles.content}>
-        <Text style={styles.reviewCapture}>{MAIN_DATA.contact}</Text>
-        <Text style={styles.text}>{MAIN_DATA.workDays}</Text>
-        <Text style={styles.text}>{MAIN_DATA.workSaturday}</Text>
-        <Text style={styles.text}>{MAIN_DATA.sunday}</Text>
-      </View>
-
-      <View style={styles.mapContainer}>
-        <Text style={styles.mapCapture}> Location </Text>
-        <TouchableHighlight onPress={openYosemiteZoomedOut}>
-          <Image
-            source={require("../../assets/images/mapimage.jpg")}
-            style={styles.mapImage}
-          />
-        </TouchableHighlight>
-      </View> */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 500,
     color: "white",
+    paddingHorizontal: 50
+
+  },
+  address: {
+    fontStyle: "italic",
+    fontSize: 15,
+    color: "grey",
+  },
+  titleLocation: {
+    fontSize: 22,
+    color: "white",
+    textAlign:'center'
   },
   btnContent: {
     width: 300,
@@ -254,16 +241,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
   },
-  contentBtn: {
-    backgroundColor: "white",
-    display: "flex",
-    alignItems: "center",
-    alignContent: "center",
-    alignSelf: "center",
-    fontSize: 30,
-    fontWeight: 900,
-    fontStyle: "italic",
-    borderRadius: 300,
+  btnLocationContent:{
+    width: 300,
+    backgroundColor: "#222224",
+    justifyContent: "space-around",
+    alignContent: 'center',
+    alignItems: 'center',
+    flexDirection: "row",
+    padding: 5,
+  },
+  locationContent: {
+    flexDirection: "column",
   },
   container: {
     flex: 1,

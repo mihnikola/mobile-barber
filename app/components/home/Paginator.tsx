@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, Animated, useWindowDimensions, View } from "react-native";
 
 const Paginator = ({ data, scrollX }) => {

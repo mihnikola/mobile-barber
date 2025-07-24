@@ -76,7 +76,7 @@ export const REVIEW_DATA = [
     id: "4",
     title: "Michael",
     description:
-      "I’ve always been searching for a good haircut, and I’m glad I finally found a place where I feel like I’m in the hands of true professionals.",
+      "I’ve always been searching for a good haircut",
     image: testimonialImg,
   },
 ];

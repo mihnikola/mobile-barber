@@ -1,6 +1,6 @@
 import { REVIEW_DATA } from "@/constants";
 import React, { useRef, useState } from "react";
-import { FlatList, StyleSheet, View, Animated } from "react-native";
+import { FlatList, StyleSheet, View, Animated, Text } from "react-native";
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 
@@ -33,6 +33,9 @@ const OnboardingComponent = () => {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text style={styles.title}>Review</Text>
+      </View>
       <View style={{flex: 3}}>
         <FlatList
           data={REVIEW_DATA}
@@ -66,6 +69,14 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
+  title:{
+    marginTop: 20,
+    marginBottom: 15,
+    fontWeight: "800",
+
+    fontSize: 29,
+    color:"white"
+  }
 });
 
 export default OnboardingComponent;
