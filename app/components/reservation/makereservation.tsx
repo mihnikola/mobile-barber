@@ -10,7 +10,6 @@ const makereservation = () => {
   const navigation = useNavigation();
    const route = useRoute(); // Get the route object
     const { responseData } = route.params;
-    console.log("makereservation",responseData)
 
   const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });

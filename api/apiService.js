@@ -58,6 +58,8 @@ const getData = async (url, data, config = {}) => {
   }
 };
 
+
+
 const post = async (url, data, config = {}) => {
   try {
     const response = await instance.post(url, data, config);
