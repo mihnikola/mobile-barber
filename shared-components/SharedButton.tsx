@@ -4,8 +4,8 @@ import React from "react";
 const SharedButton = (props: any) => {
   return (
     <TouchableOpacity
-      style={styles.btn}
-      disabled={props.loading}
+      style={[styles.btn, props.disabled && styles.btnDisabled]}
+      disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
       <Text style={styles.btnText}>
@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  btnDisabled:{
+    borderColor: "grey",
+    backgroundColor: "grey",
+    color: 'black'
   },
   btn: {
     backgroundColor: "#1C1C1E",
