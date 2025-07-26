@@ -15,8 +15,7 @@ const AboutUsInfo = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    padding: 20,
+    flex:1
       
   },
   title: {

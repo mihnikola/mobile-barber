@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-const OtpInput = ({ code, setCode, maxLength = 4 }) => {
+const OtpInput = ({ code, setCode, maxLength = 6 }) => {
   const inputs = useRef([]);
 
   const handleChange = (text, index) => {
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     color: '#fff',
     borderRadius: 10,
-    width: 80,
-    height: 70,
+    width: 45,
+    height: 60,
     fontSize: 24,
     textAlign: "center",
   },

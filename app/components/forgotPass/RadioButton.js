@@ -1,9 +1,18 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 
 const RadioButton = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} style={[styles.container, props.active && styles.active]}>
+    <View
+      // onPress={props.onPress}
+      style={[styles.container, props.active && styles.active]}
+    >
       <View style={[styles.iconContainer, props.active && styles.active]}>
         <IconSymbol name={props.icon} color={props.color} size={32} />
       </View>
@@ -12,10 +21,10 @@ const RadioButton = (props) => {
           <Text style={styles.label}>{props.title}</Text>
         </View>
         <View>
-          <Text style={styles.value}>{props.value}</Text>
+          <TextInput keyboardType="email-address" autoCapitalize="none" style={styles.value} value={props.value} onChangeText={props.onChangeText} placeholder="Enter a email" placeholderTextColor="black" />
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -25,17 +34,19 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderRadius: 20,
     flexDirection: "row",
+    marginBottom: 30
   },
   active: {
-    borderColor:"white",
+    borderColor: "white",
   },
   label: {
     color: "grey",
     padding: 5,
   },
   value: {
-    color: "white",
-    padding: 5,
+    color: "black",
+    backgroundColor: "white",
+    padding: 10,
   },
   iconContainer: {
     marginVertical: 20,

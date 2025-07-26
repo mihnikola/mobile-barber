@@ -90,7 +90,7 @@ export default function App() {
 
   const destinationLat = 48.8584;
   const destinationLon = 2.2945;
-  
+
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
 
   const [notification, setNotification] = useState<
@@ -190,14 +190,22 @@ export default function App() {
           },
         ]}
       >
-        <TouchableOpacity onPress={nextPage} style={styles.btnContent}>
+        <TouchableOpacity onPress={nextPage} style={styles.btnLocationContent}>
           <FontAwesome name="calendar" size={28} color="white" />
-          <Text style={styles.title}>Booking</Text>
+
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>Booking</Text>
+            <Text style={styles.address}>Book Your Spot</Text>
+          </View>
+
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onAboutUs} style={styles.btnContent}>
+        <TouchableOpacity onPress={onAboutUs} style={styles.btnLocationContent}>
           <FontAwesome name="home" size={28} color="white" />
-          <Text style={styles.title}>About us</Text>
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>About us</Text>
+            <Text style={styles.address}>Our Story</Text>
+          </View>
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -207,7 +215,7 @@ export default function App() {
           <FontAwesome name="location-arrow" size={28} color="white" />
           <View style={styles.locationContent}>
             <Text style={styles.titleLocation}>Location</Text>
-            <Text style={styles.address}>Adresa Dositejeva 27</Text>
+            <Text style={styles.address}>Where Am I?</Text>
           </View>
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
@@ -217,13 +225,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    fontWeight: 500,
-    color: "white",
-    paddingHorizontal: 50
-
-  },
   address: {
     fontStyle: "italic",
     fontSize: 15,
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
   titleLocation: {
     fontSize: 22,
     color: "white",
-    textAlign:'center'
+    textAlign: "center",
   },
   btnContent: {
     width: 300,
@@ -241,17 +242,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
   },
-  btnLocationContent:{
+  btnLocationContent: {
     width: 300,
     backgroundColor: "#222224",
     justifyContent: "space-around",
-    alignContent: 'center',
-    alignItems: 'center',
+    alignContent: "center",
+    alignItems: "center",
     flexDirection: "row",
     padding: 5,
   },
   locationContent: {
     flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     flex: 1,

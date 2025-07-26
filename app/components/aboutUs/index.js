@@ -11,7 +11,7 @@ const { height: screenHeight } = Dimensions.get("window");
 const aboutUs = () => {
   return (
     <ScrollView style={styles.container}>
-      <View style={{ flex: 1, marginVertical: 100 }}>
+      <View style={{ flex: 1 }}>
         <Image
           source={require("../../../assets/images/logoBaber.png")}
           style={styles.backImage}
@@ -31,18 +31,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-    position: "relative",
   },
 
   infoContainer: {
-    marginVertical: 20,
     flex: 2,
     position: "absolute",
     height: screenHeight,
   },
   backImage: {
     opacity: 0.2,
-    position: "relative",
   },
 });
 export default aboutUs;
