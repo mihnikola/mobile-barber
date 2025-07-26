@@ -14,6 +14,7 @@ const useSubmitOtpCode = () => {
 
     try {
       const response = await getData("/users/otpcode", { params: { email,otpCode } });
+      
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(response.message);
