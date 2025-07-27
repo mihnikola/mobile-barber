@@ -19,7 +19,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const ForgotPassword = () => {
   const navigation = useNavigation();
   const [active, setActive] = useState("email");
-  const [email, setEmail] = useState("mihaola993@gmail.com");
+  const [email, setEmail] = useState(null);
   const {
     checkEmailValidation,
     error,
