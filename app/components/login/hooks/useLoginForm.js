@@ -1,12 +1,9 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
 import {
-  getStorage,
-  removeStorage,
   saveStorage,
 } from "../../../../helpers/token";
 import { post } from "../../../../api/apiService";
-import { useNavigation } from "@react-navigation/native";
 import { getExpoTokenStorage, removeExpoTokenStorage } from "@/helpers/expoToken";
 
 const useLoginForm = () => {
@@ -15,7 +12,6 @@ const useLoginForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
-  const navigation = useNavigation();
 
   const login = async (email, password) => {
     if (!email || !password) {
@@ -30,11 +26,12 @@ const useLoginForm = () => {
 
     try {
       const responseData = await post("/users/login", { email, password });
-
+      console.log("re",responseData)
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
-        setSuccess(responseData.message);
+        // setSuccess(responseData.message);
+        setError(responseData.message);
         return;
       }
       if (responseData.status === 200) {

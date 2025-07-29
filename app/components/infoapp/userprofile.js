@@ -95,7 +95,7 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    navigation.navigate("(tabs)", { screen: "settings" });
+    // navigation.navigate("(tabs)", { screen: "settings" });
   };
 
   const submitChanges = () => {

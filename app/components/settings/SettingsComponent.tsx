@@ -41,6 +41,7 @@ const SettingsComponent = () => {
   };
 
   const logoutHandler = async () => {
+    setIsMessage(false);
     removeStorage().then((s) => {
       navigation.navigate("(tabs)", { screen: "index" });
     });

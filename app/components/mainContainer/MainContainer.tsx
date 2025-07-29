@@ -58,6 +58,23 @@ const MainContainer = () => {
               headerTintColor: "white", // This sets the color of the title text and back button arrow
             }}
           />
+           <Stack.Screen
+            name="components/otpCodeRegister/index"
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "black", // Replace with your desired color
+              },
+              headerTintColor: "white", // This sets the color of the title text and back button arrow
+            }}
+          />
+           <Stack.Screen
+            name="components/changePass/index"
+            options={{
+              title: "",
+              headerShown: false 
+            }}
+          />
           <Stack.Screen
             name="components/aboutUs/index"
             options={{

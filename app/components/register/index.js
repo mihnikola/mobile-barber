@@ -44,7 +44,7 @@ const Register = () => {
     useConfirmPassword(password);
 
   function handleBackButtonClick3() {
-    navigation.goBack();
+    navigation.navigate("components/login/index");
     return true;
   }
   useEffect(() => {
@@ -74,8 +74,13 @@ const Register = () => {
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("components/login/index");
+    navigation.navigate("components/otpCodeRegister/index", { data: email });
   };
+
+  const confirmHandler2 = () => {
+    setIsMessage(false);
+  };
+
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar style="dark" />
@@ -103,6 +108,7 @@ const Register = () => {
           autoCapitalize="none"
           onChangeText={handleEmailChange}
           style={styles.input}
+          error={emailError}
         />
 
         <SharedInput
@@ -139,6 +145,11 @@ const Register = () => {
         />
 
         <SharedButton
+          disabled={
+            emailError.length > 0 ||
+            passwordError.length > 0 ||
+            errorPhoneNumber.length > 0
+          }
           loading={loading}
           onPress={handleRegister}
           text="Register"
@@ -152,8 +163,8 @@ const Register = () => {
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
-            onClose={confirmHandler}
-            onConfirm={confirmHandler}
+            onClose={!error ? confirmHandler : confirmHandler2}
+            onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
               <FontAwesome
                 name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
@@ -194,6 +205,7 @@ const styles = StyleSheet.create({
 
   safeArea: {
     flex: 1,
+    paddingVertical: 20,
     backgroundColor: "#0A0B0E", // Dark background color
   },
   container: {

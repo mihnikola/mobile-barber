@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   buttonContainer: {
-    marginTop: 5,
+    marginVertical:10,
+    marginHorizontal: 10,
   },
 });
 

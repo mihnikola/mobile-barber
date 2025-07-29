@@ -1,11 +1,9 @@
 // src/hooks/useRegisterForm.js
 import { useState } from "react";
 import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
 
 const useRegisterForm = () => {
 
-  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -54,9 +52,10 @@ const useRegisterForm = () => {
         setIsMessage(true);
         setSuccess(result.data.message);
       } else if (result.status === 202) {
+
         setIsMessage(true);
 
-        setSuccess(result.data.message);
+        setError(result.data.message);
       } else if (result.status === 201) {
         setIsMessage(true);
 

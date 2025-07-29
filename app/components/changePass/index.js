@@ -6,14 +6,24 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import { ScrollView } from "react-native";
 import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
+import { useEffect } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import { SharedMessage } from "@/shared-components/SharedMessage";
 
 const changePass = () => {
+  const navigation = useNavigation();
+  const route = useRoute(); // Get the route object
+  const { data } = route.params;
+
   const {
     password,
     passwordError,
@@ -27,11 +37,36 @@ const changePass = () => {
     isPasswordConfirmVisible,
     setIsPasswordConfirmVisible,
   } = useConfirmPassword(password);
-  const submitChanges = () => {
-    if(password !== confirmPassword){
-        return;
-    }
 
+  const { handlePatchUser, message, isMessage, setIsMessage, error } =
+    useChangePasswordHandler();
+  const submitChanges = () => {
+    if (password !== confirmPassword) {
+      return;
+    }
+    handlePatchUser(data, password);
+  };
+
+  function handleBackButtonClick3() {
+    navigation.navigate("components/login/index");
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick3
+      );
+    };
+  }, []);
+
+  const confirmHandler = () => {
+    setIsMessage(false);
+    navigation.navigate("components/login/index");
+  };
+  const confirmHandler2 = () => {
+    setIsMessage(false);
   };
 
   return (
@@ -102,6 +137,22 @@ const changePass = () => {
       <View style={styles.btnFooter}>
         <SharedButton text="Submit" onPress={submitChanges} />
       </View>
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          onClose={!error ? confirmHandler : confirmHandler2}
+          onConfirm={!error ? confirmHandler : confirmHandler2}
+          icon={
+            <FontAwesome
+              name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={error || message} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
+      )}
     </ScrollView>
   );
 };
@@ -156,7 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 5,
+    marginVertical: 20,
   },
   subtitle: {
     fontSize: 13,

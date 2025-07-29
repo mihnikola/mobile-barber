@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TextInput,
   StatusBar,
   StyleSheet,
   Platform,
@@ -15,27 +14,38 @@ import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
+import { FontAwesome } from "@expo/vector-icons";
+import { SharedMessage } from "@/shared-components/SharedMessage";
 
 const otpCode = () => {
-  const nav = useNavigation();
   const route = useRoute(); // Get the route object
   const { data } = route.params;
+    const navigation = useNavigation();
+  
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
-  const { checkOtpCodeValidation, message, error } = useSubmitOtpCode();
-
+  const { checkOtpCodeValidation, message, setIsMessage, isMessage, error } =
+    useSubmitOtpCode();
   const handleVerify = () => {
     const otp = code.join("");
     if (otp.length === 6) {
       //   Alert.alert("OTP Entered", otp);
       // You can send OTP to backend here
       checkOtpCodeValidation(data, otp);
-      console.log("::checkOtpCodeValidation",message);
       // if (message) {
       //   nav.navigate("components/changePass/index");
       // }
     } else {
       Alert.alert("Incomplete OTP", "Please enter all 6 digits.");
     }
+  };
+
+  const confirmHandler = () => {
+    setIsMessage(false);
+    navigation.navigate("components/changePass/index",{data});
+  };
+
+  const confirmHandler2 = () => {
+    setIsMessage(false);
   };
 
   return (
@@ -66,6 +76,22 @@ const otpCode = () => {
           onPress={handleVerify}
         />
       </View>
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          onClose={!error ? confirmHandler : confirmHandler2}
+          onConfirm={!error ? confirmHandler : confirmHandler2}
+          icon={
+            <FontAwesome
+              name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={error || message} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
+      )}
     </ScrollView>
   );
 };

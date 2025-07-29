@@ -1,5 +1,6 @@
 import useLoginForm from "./hooks/useLoginForm";
 import {
+  BackHandler,
   Dimensions,
   Image,
   Platform,
@@ -19,6 +20,7 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import { useEffect } from "react";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -26,11 +28,24 @@ const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
 
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login, success, setIsMessage, isMessage,error } = useLoginForm();
+  const { pending, login, success, setIsMessage, isMessage, error } =
+    useLoginForm();
+    
+  function handleBackButtonClick3() {
+    navigation.navigate("(tabs)",{screen: 'index'});
+    return true;
+  }
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
+    return () => {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick3
+      );
+    };
+  }, []);
+
   const handleLogin = () => {
-    if(error){
-      return;
-    }
     login(email, password);
   };
   const navigateToRegister = () => {
@@ -46,15 +61,19 @@ const LoginScreen = () => {
     console.log("Apple Login");
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
-
+  const confirmHandler2 = () => {
+    setIsMessage(false);
+  };
   const confirmHandler = () => {
     setIsMessage(false);
     navigation.navigate("(tabs)", { screen: "index" });
-  }
+  };
   const forgotHandler = () => {
-        {/* components/forgotPass/index */}
+    {
+      /* components/forgotPass/index */
+    }
     navigation.navigate("components/forgotPass/index");
-  }
+  };
 
   return (
     <ScrollView style={styles.safeArea}>
@@ -117,11 +136,17 @@ const LoginScreen = () => {
           style={styles.passwordInput}
           stylePassword={styles.passwordInputContainer}
         />
-    <TouchableOpacity onPress={forgotHandler} style={{paddingTop: 20}}>
-      <Text style={{color: 'white',textAlign: 'right' }}>Forgot password?</Text>
-    </TouchableOpacity>
+        <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
+          <Text style={{ color: "white", textAlign: "right" }}>
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
 
-        <SharedButton loading={pending} onPress={handleLogin} text="Login" />
+        <SharedButton
+          loading={pending}
+          onPress={handleLogin}
+          text={pending ? "Loading" : "Login"}
+        />
         <SharedRedirect
           onPress={navigateToRegister}
           question="Don't have an account?"
@@ -130,11 +155,11 @@ const LoginScreen = () => {
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
-            onClose={confirmHandler}
-            onConfirm={confirmHandler}
+            onClose={!error ? confirmHandler : confirmHandler2}
+            onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
               <FontAwesome
-                name={error ? "close":"check-circle-o"} // The specific FontAwesome icon to use
+                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
                 size={64} // Size of the icon
                 color="white" // Corresponds to text-blue-500
               />
@@ -149,6 +174,7 @@ const LoginScreen = () => {
 };
 const styles = StyleSheet.create({
   safeArea: {
+    paddingVertical: 20,
     flex: 1,
     backgroundColor: "#0A0B0E", // Dark background color
   },
@@ -160,6 +186,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingVertical: 20,
     backgroundColor: "#0A0B0E", // Dark background color
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
@@ -191,7 +218,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: width / 2 - 30, 
+    width: width / 2 - 30,
     paddingVertical: 12,
     borderRadius: 8,
     borderWidth: 1,
