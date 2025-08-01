@@ -23,7 +23,7 @@ const otpCode = () => {
     const navigation = useNavigation();
   
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
-  const { checkOtpCodeValidation, message, setIsMessage, isMessage, error } =
+  const { checkOtpCodeValidation, isLoading, message, setIsMessage, isMessage, error,setError } =
     useSubmitOtpCode();
   const handleVerify = () => {
     const otp = code.join("");
@@ -35,7 +35,9 @@ const otpCode = () => {
       //   nav.navigate("components/changePass/index");
       // }
     } else {
-      Alert.alert("Incomplete OTP", "Please enter all 6 digits.");
+      setIsMessage(true);
+      setError("Please enter all 6 digits.");
+     
     }
   };
 
@@ -46,6 +48,7 @@ const otpCode = () => {
 
   const confirmHandler2 = () => {
     setIsMessage(false);
+    setError(null);
   };
 
   return (
@@ -71,8 +74,8 @@ const otpCode = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={code.join("").length < 6}
-          text="Submit"
+          disabled={isLoading}
+          text={isLoading ? "Submitting..." :"Submit"}
           onPress={handleVerify}
         />
       </View>

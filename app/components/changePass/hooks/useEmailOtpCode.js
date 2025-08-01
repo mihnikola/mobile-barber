@@ -12,8 +12,17 @@ const useEmailOtpCode = () => {
     setIsLoading(true);
     setError(null);
 
+
+     if(email.length === 0){
+      setIsMessage(true);
+      setError("Please enter your email");
+      setIsLoading(false);
+      return;
+     }
     try {
       const response = await getData("/users/email", { params: { email } });
+
+      console.log("dasdsa", response)
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(response.message);
@@ -26,14 +35,12 @@ const useEmailOtpCode = () => {
         setIsLoading(false);
       }
     } catch (err) {
+      setIsLoading(false);
+      setError(`Not valid email`);
+
       setIsMessage(true);
 
-      if (err.status.includes("404")) {
-        setError(`Not found endpoint`);
-      } else {
-        setError(`Something Went Wrong, Please Try Again`);
-      }
-      setIsLoading(false);
+    
     }
   });
 
@@ -42,6 +49,7 @@ const useEmailOtpCode = () => {
     setMessage,
     isLoading,
     error,
+    setError,
     checkEmailValidation,
     isMessage,
     setIsMessage,

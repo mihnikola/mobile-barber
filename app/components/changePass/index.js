@@ -38,13 +38,11 @@ const changePass = () => {
     setIsPasswordConfirmVisible,
   } = useConfirmPassword(password);
 
-  const { handlePatchUser, message, isMessage, setIsMessage, error } =
+  const { handlePatchUser, message, isMessage, setIsMessage, error, isLoading } =
     useChangePasswordHandler();
   const submitChanges = () => {
-    if (password !== confirmPassword) {
-      return;
-    }
-    handlePatchUser(data, password);
+    
+    handlePatchUser(data, password,confirmPassword);
   };
 
   function handleBackButtonClick3() {
@@ -75,9 +73,7 @@ const changePass = () => {
       <View>
         <Text style={styles.mainTitle}>Enter New Password</Text>
       </View>
-      <View>
-        <Text style={styles.subtitle}>Please enter new password</Text>
-      </View>
+
       <View style={styles.textinputContainer}>
         <Text style={{ color: "white", fontSize: 14, marginTop: 10 }}>
           Password
@@ -135,7 +131,7 @@ const changePass = () => {
       </View>
 
       <View style={styles.btnFooter}>
-        <SharedButton text="Submit" onPress={submitChanges} />
+        <SharedButton text={isLoading ? "Submitting...":"Submit"} disabled={isLoading} onPress={submitChanges} />
       </View>
       {isMessage && (
         <SharedMessage

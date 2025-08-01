@@ -24,7 +24,7 @@ const otpCodeRegister = () => {
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   const navigation = useNavigation();
         <Text style={styles.mainTitle}>Enter OTP Code</Text>
-  const { checkOtpCodeValidation, message, setIsMessage, isMessage, error } =
+  const { checkOtpCodeValidation, message, setIsMessage, isMessage, error, isLoading } =
     useSubmitOtpCode();
 
   const handleVerify = () => {
@@ -75,8 +75,8 @@ const otpCodeRegister = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={code.join("").length < 6}
-          text="Submit"
+          disabled={code.join("").length < 6 || isLoading}
+          text={isLoading ? "Submitting...":"Submit"}
           onPress={handleVerify}
         />
       </View>
