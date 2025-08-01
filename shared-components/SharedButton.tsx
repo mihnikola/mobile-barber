@@ -8,7 +8,7 @@ const SharedButton = (props: any) => {
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      <Text style={styles.btnText}>
+      <Text style={[styles.btnText, props.disabled && styles.btnTextDisabled]}>
         {props.loading ? "Loading..." : props.text}
       </Text>
     </TouchableOpacity>
@@ -16,6 +16,11 @@ const SharedButton = (props: any) => {
 };
 
 const styles = StyleSheet.create({
+  btnTextDisabled:{
+  color: "#3f3f3fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   btnText: {
     color: "#fff",
     fontSize: 18,
@@ -23,8 +28,8 @@ const styles = StyleSheet.create({
   },
   btnDisabled:{
     borderColor: "grey",
-    backgroundColor: "grey",
-    color: 'black'
+    backgroundColor: "#8b8b8bff",
+    color: '#3f3f3fff'
   },
   btn: {
     backgroundColor: "#1C1C1E",

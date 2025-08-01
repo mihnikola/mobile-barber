@@ -73,9 +73,7 @@ const changePass = () => {
       <View>
         <Text style={styles.mainTitle}>Enter New Password</Text>
       </View>
-      <View>
-        <Text style={styles.subtitle}>Please enter new password</Text>
-      </View>
+
       <View style={styles.textinputContainer}>
         <Text style={{ color: "white", fontSize: 14, marginTop: 10 }}>
           Password
