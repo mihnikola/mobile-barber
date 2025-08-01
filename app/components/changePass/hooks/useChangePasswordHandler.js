@@ -8,9 +8,22 @@ const useChangePasswordHandler = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
 
-  const handlePatchUser = useCallback(async (email, password) => {
+  const handlePatchUser = useCallback(async (email, password, confirmPassword) => {
     setIsLoading(true);
     setError(null);
+
+    if (password.length === 0 || confirmPassword.length === 0) {
+      setIsMessage(true);
+      setError("Please fill out all fields.");
+      setIsLoading(false);
+      return;
+    }
+    if (password !== confirmPassword) {
+      setIsMessage(true);
+      setError("Your passwords do not match.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await put(`/users/${email}/changePassword`, {
@@ -27,14 +40,9 @@ const useChangePasswordHandler = () => {
         setIsLoading(false);
       }
     } catch (err) {
-      setIsMessage(true);
-
-      if (err.status.includes("404")) {
-        setError(`Not found endpoint`);
-      } else {
-        setError(`Something Went Wrong, Please Try Again`);
-      }
       setIsLoading(false);
+      setError("Something went wrong")
+      setIsMessage(true);
     }
   });
 

@@ -15,14 +15,18 @@ import { useNavigation } from "@react-navigation/native";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
+import SharedInput from "@/shared-components/SharedInput";
+import useEmail from "./hooks/useEmail";
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
   const [active, setActive] = useState("email");
-  const [email, setEmail] = useState(null);
+  const { email, emailError, handleEmailChange } = useEmail();
+
   const {
     checkEmailValidation,
     error,
+    setError,
     isLoading,
     message,
     setMessage,
@@ -30,13 +34,20 @@ const ForgotPassword = () => {
     setIsMessage,
   } = useEmailOtpCode();
   const navHandler = () => {
+   
+
     checkEmailValidation(email);
+    
   };
   const confirmHandler = () => {
     setIsMessage(false);
     setMessage(null);
     navigation.navigate("components/otpCode/index", {data: email});
   };
+  const confirmHandler2 = () => {
+    setIsMessage(false);
+    setError(null);
+  }
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -64,7 +75,7 @@ const ForgotPassword = () => {
           onPress={() => setActive("sms")}
           active={active === "sms"}
         /> */}
-        <RadioButton
+        {/* <RadioButton
           icon="email"
           color="white"
           title="Send OTP via Email"
@@ -72,14 +83,26 @@ const ForgotPassword = () => {
           onPress={() => setActive("email")}
           onChangeText={setEmail}
           active={active === "email"}
+        /> */}
+         <SharedInput
+          label="Email Address"
+          value={email}
+          onChangeText={handleEmailChange}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          style={styles.input}
+          error={emailError}
+
         />
+
       </View>
-      <SharedButton loading={isLoading}  onPress={navHandler} text={isLoading ? `Sending...` : `Send OTP`} />
+      <SharedButton disabled={emailError.length > 0 || isLoading}  onPress={navHandler} text={isLoading ? `Sending...` : `Send code`} />
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
+          onClose={error ? confirmHandler2 : confirmHandler}
+          onConfirm={error ? confirmHandler2 : confirmHandler}
           icon={
             <FontAwesome
               name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
@@ -125,6 +148,15 @@ const styles = StyleSheet.create({
     width: 290,
     height: 290,
     resizeMode: "cover",
+  },
+    input: {
+    backgroundColor: "white", // Dark input background
+    color: "black",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
   },
   mainTitle: {
     fontSize: 22,

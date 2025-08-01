@@ -27,14 +27,12 @@ const useSubmitOtpCode = () => {
         setIsLoading(false);
       }
     } catch (err) {
+      setIsLoading(false);
+      setError(`Not valid otp code`);
+
       setIsMessage(true);
 
-      if (err.status.includes("404")) {
-        setError(`Not found endpoint`);
-      } else {
-        setError(`Something Went Wrong, Please Try Again`);
-      }
-      setIsLoading(false);
+    
     }
   });
 
@@ -43,6 +41,7 @@ const useSubmitOtpCode = () => {
     setMessage,
     isLoading,
     error,
+    setError,
     checkOtpCodeValidation,
     isMessage,
     setIsMessage,
