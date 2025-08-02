@@ -9,48 +9,89 @@ import {
 import { ScrollView } from "react-native";
 import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
-import { Alert } from "react-native";
 import OtpInput from "./OtpCodeInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
+import useSendEmailVerification from "./hooks/useSendEmailVerification";
 
 const otpCodeRegister = () => {
   const route = useRoute(); // Get the route object
-  const { data } = route.params;
+  const { data, loginData } = route.params;
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
+
   const navigation = useNavigation();
-        <Text style={styles.mainTitle}>Enter OTP Code</Text>
-  const { checkOtpCodeValidation, message, setIsMessage, isMessage, error, isLoading } =
-    useSubmitOtpCode();
+  <Text style={styles.mainTitle}>Enter OTP Code</Text>;
+  const {
+    checkOtpCodeValidation,
+    checkOtpCodeVerification,
+    message,
+    setIsMessage,
+    isMessage,
+    error,
+    isLoading,
+    isVerified,
+    setIsVerified,
+  } = useSubmitOtpCode();
+
+  console.log("useSubmitOtpCode++", message, isMessage, isLoading);
+
+  console.log(
+    "error || errorVerification || messageVerification || message",
+    error,
+    errorVerification,
+    messageVerification,
+    message
+  );
+
+  const {
+    verificationOTPCode,
+    isMessageVerification,
+    isLoadingVerification,
+    setIsMessageVerification,
+    errorVerification,
+    messageVerification,
+    setErrorVerification,
+  } = useSendEmailVerification();
+
+  useEffect(() => {
+    if (loginData) {
+      verificationOTPCode(loginData);
+    }
+  }, [loginData]);
 
   const handleVerify = () => {
     const otp = code.join("");
     if (otp.length === 6) {
-      //   Alert.alert("OTP Entered", otp);
-      // You can send OTP to backend here
-      checkOtpCodeValidation(data, otp);
-      //   console.log("::checkOtpCodeValidation",message);
-      // if (message) {
-      //   nav.navigate("components/changePass/index");
-      // }
+      if (loginData) {
+        checkOtpCodeVerification(loginData?.email, loginData?.password, otp);
+      } else {
+        checkOtpCodeValidation(data, otp);
+      }
     } else {
-      Alert.alert("Incomplete OTP", "Please enter all 6 digits.");
+      setIsMessage(true);
+      setError("Please enter all 6 digits.");
     }
   };
 
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("components/login/index");
-  }
+    setIsMessageVerification(false);
+    if (!loginData) {
+      navigation.navigate("components/login/index");
+    }
+    if (isVerified && loginData) {
+      navigation.navigate("(tabs)", { screen: "index" });
+    }
+  };
 
   const confirmHandler2 = () => {
     setIsMessage(false);
-
-  }
+    setIsMessageVerification(false);
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -59,13 +100,15 @@ const otpCodeRegister = () => {
         <Text style={styles.mainTitle}>Enter OTP Code</Text>
       </View>
       <View>
-        <Text style={styles.subtitle}>OTP code has been sent to {data}.</Text>
+        <Text style={styles.subtitle}>
+          OTP code has been sent to {!loginData ? data : loginData?.email}.
+        </Text>
         <Text style={styles.subtitle}>
           If you didn't find it, check your SPAM mailbox.
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
-      <ResendOtpCodeTimer email={data} />
+      <ResendOtpCodeTimer email={!loginData ? data : loginData?.email} />
       <View style={styles.imageContainer}>
         <Image
           source={require("../../../assets/images/fgtPass.png")}
@@ -75,12 +118,14 @@ const otpCodeRegister = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={code.join("").length < 6 || isLoading}
-          text={isLoading ? "Submitting...":"Submit"}
+          disabled={
+            code.join("").length < 6 || isLoading || isLoadingVerification
+          }
+          text={isLoading || isLoadingVerification ? "Submitting..." : "Submit"}
           onPress={handleVerify}
         />
       </View>
-      {isMessage && (
+      {isMessage && !isMessageVerification && (
         <SharedMessage
           isOpen={isMessage}
           onClose={!error ? confirmHandler : confirmHandler2}
@@ -93,6 +138,22 @@ const otpCodeRegister = () => {
             />
           }
           title={error || message} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
+      )}
+      {isMessageVerification && !isMessage && (
+        <SharedMessage
+          isOpen={isMessageVerification}
+          onClose={!errorVerification ? confirmHandler : confirmHandler2}
+          onConfirm={!errorVerification ? confirmHandler : confirmHandler2}
+          icon={
+            <FontAwesome
+              name={errorVerification ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={errorVerification || messageVerification} // Title of the modal
           buttonText="Ok" // Text for the action button
         />
       )}
