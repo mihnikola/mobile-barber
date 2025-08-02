@@ -54,28 +54,28 @@ export const REVIEW_DATA = [
   {
     id: "1",
     title: "Nick",
-    description:
+    text:
       "I really appreciate the attention to detail—this haircut suits me perfectly.",
     image: testimonialImg,
   },
   {
     id: "2",
     title: "Chris",
-    description:
+    text:
       "Everything was professional. I highly recommend Gentleman Hair Salon.",
     image: testimonialImg,
   },
   {
     id: "3",
     title: "John",
-    description:
+    text:
       "The haircut was really well done, I feel like I got exactly what I needed.",
     image: testimonialImg,
   },
   {
     id: "4",
     title: "Michael",
-    description:
+    text:
       "I’ve always been searching for a good haircut",
     image: testimonialImg,
   },
