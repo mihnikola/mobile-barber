@@ -119,6 +119,7 @@ const userprofile = () => {
   if (!isLoading) {
     return (
       <View style={styles.container}>
+
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
             <ImageCompress
