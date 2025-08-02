@@ -26,8 +26,6 @@ const userprofile = () => {
 
   const { userData, isLoading, error } = useUser();
 
-  console.log("userprofile",userData)
-
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
   const {
@@ -45,7 +43,6 @@ const userprofile = () => {
   useEffect(() => {
     setIsValidated(validationFields);
   }, [phoneNumber, name, changedImg]);
-
   const validationFields = () => {
     if (!isValid) {
       return false;
@@ -60,7 +57,7 @@ const userprofile = () => {
     }
     if (phoneNumber !== null) {
       if (
-        phoneNumber !== userData?.phoneNumber ||
+        phoneNumber !== userData?.phoneNumber?.slice(4) ||
         name !== userData?.name ||
         changedImg !== userData?.image
       ) {
@@ -95,20 +92,30 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("(tabs)", { screen: "settings" });
+    navigation.navigate("(tabs)", { screen: "settings" });
   };
 
   const submitChanges = () => {
     const phone = phoneNumber || userData?.phoneNumber?.slice(4);
+    console.log("phoneNumber", phoneNumber, userData.phoneNumber);
+
     const data = {
-      phoneNumber: "+381" + phone,
-      name,
-      image: changedImg,
+      phoneNumber:
+        phoneNumber !== userData?.phoneNumber?.slice(4) &&
+        phoneNumber !== userData?.phoneNumber &&
+        phoneNumber !== null &&
+        phoneNumber !== "null"
+          ? "+381" + phone
+          : null,
+      name: name !== userData?.name ? name : null,
+      image: changedImg === userData?.image ? null : changedImg,
     };
-    // console.log("object",data)
     handleChangeUser(data);
   };
 
+  const messageHandler2 = () => {
+    setIsMessage(false);
+  };
   if (!isLoading) {
     return (
       <View style={styles.container}>
@@ -177,16 +184,16 @@ const userprofile = () => {
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
-            onClose={messageHandler}
-            onConfirm={messageHandler}
+            onClose={!errorChange ? messageHandler : messageHandler2}
+            onConfirm={!errorChange ? messageHandler : messageHandler2}
             icon={
               <FontAwesome
-                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
                 size={64} // Size of the icon
                 color="white" // Corresponds to text-blue-500
               />
             }
-            title={message} // Title of the modal
+            title={errorChange || message} // Title of the modal
             buttonText="Ok" // Text for the action button
           />
         )}
