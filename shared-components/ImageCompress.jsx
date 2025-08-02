@@ -12,7 +12,6 @@ import { ActivityIndicator } from 'react-native';
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
     const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
-
     useEffect(() => {
         if (selectedImageUri) {
             handlePickImage(selectedImageUri);

@@ -46,7 +46,6 @@ const SettingsComponent = () => {
       navigation.navigate("(tabs)", { screen: "index" });
     });
   };
-
   return (
     <View style={styles.container}>
       {/* Status Bar style adjustment for dark background */}

@@ -8,11 +8,8 @@ const useUserChange = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
 
-
-
   const handleChangeUser = useCallback(async (userData) => {
-
-    console.log("handleChangeUser",userData)
+    console.log("handleChangeUser", userData);
     setIsLoadingChange(true);
     setErrorChange(null);
 
@@ -47,12 +44,12 @@ const useUserChange = () => {
         }
       );
 
+      console.log("axios.put", response);
       if (response.status >= 200 && response.status < 300) {
         setIsMessage(true);
-        console.log("res",response.data);
+        console.log("res", response.data);
 
         setMessage(response.data.message);
-
       } else {
         setIsMessage(true);
 
@@ -61,20 +58,22 @@ const useUserChange = () => {
         );
       }
     } catch (error) {
-      console.log("error++++", error);
       setIsMessage(true);
-      if (err.message.includes("404")) {
-        setErrorChange(`Not found endpoint`);
-      } else {
-        setMessage(`Something Went Wrong, Please Try Again`);
-      }
+      setErrorChange(`Something Went Wrong, Please Try Again`);
       setIsLoadingChange(false);
     } finally {
       setIsLoadingChange(false);
     }
   }, []);
 
-  return { message, isLoadingChange, errorChange, handleChangeUser, setIsMessage, isMessage };
+  return {
+    message,
+    isLoadingChange,
+    errorChange,
+    handleChangeUser,
+    setIsMessage,
+    isMessage,
+  };
 };
 
 export default useUserChange;
