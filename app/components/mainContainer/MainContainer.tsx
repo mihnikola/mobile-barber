@@ -89,9 +89,17 @@ const MainContainer = () => {
             name="components/reservation/index"
             options={{ title: "", headerShown: false }}
           />
+         
+         
           <Stack.Screen
-            name="components/reservation/datereservation"
-            options={{ title: "", headerShown: false }}
+            name="components/infoapp/helpSupport"
+             options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "black", // Replace with your desired color
+              },
+              headerTintColor: "white", // This sets the color of the title text and back button arrow
+            }}
           />
           <Stack.Screen
             name="components/reservation/makereservation"
@@ -107,11 +115,23 @@ const MainContainer = () => {
           />
           <Stack.Screen
             name="components/infoapp/aboutapplication"
-            options={{ title: "", headerShown: false }}
+            options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "black", // Replace with your desired color
+              },
+              headerTintColor: "white", // This sets the color of the title text and back button arrow
+            }}
           />
           <Stack.Screen
             name="components/infoapp/privacypolicy"
-            options={{ title: "", headerShown: false }}
+             options={{
+              title: "",
+              headerStyle: {
+                backgroundColor: "black", // Replace with your desired color
+              },
+              headerTintColor: "white", // This sets the color of the title text and back button arrow
+            }}
           />
         </Stack>
       )}

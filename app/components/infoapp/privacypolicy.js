@@ -5,6 +5,9 @@ import {
   StyleSheet,
   BackHandler,
   ScrollView,
+  TouchableOpacity,
+  Linking,
+  StatusBar,
 } from "react-native";
 import { useCallback } from "react";
 import { useFocusEffect } from "expo-router";
@@ -12,6 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 
 const privacypolicy = () => {
   const navigation = useNavigation();
+  const supportEmail = "support@fta.com";
+  const privacyPolicyURL = "[Link to your Privacy Policy]"; // IMPORTANT!
+  const termsOfServiceURL = "[Link to your Terms of Service]"; // IMPORTANT!
+  const developerName = "FusionTech Agency"; 
 
   useFocusEffect(
     useCallback(() => {
@@ -25,62 +32,77 @@ const privacypolicy = () => {
         BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     }, [])
   );
+  const openLink = async (url) => {
+    console.log("url", url);
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        alert(`Don't know how to open this URL: ${url}`);
+      }
+    } catch (error) {
+      console.error('An error occurred while opening the link:', error);
+      alert('Could not open the link.');
+    }
+  };
   return (
     <ScrollView style={styles.container}>
+            <StatusBar backgroundColor="black" barStyle="dark-content" />
+      
       <Image
         source={require("@/assets/images/settingsImage.jpg")}
         style={styles.headerImage}
         resizeMode="cover"
       />
       <Text style={styles.header}># Privacy Policy for Barber Demo App</Text>
-      <Text style={styles.text}>
-        **Last Updated:** June 21, 2025
-      </Text>
+      <Text style={styles.text}>**Last Updated:** June 21, 2025</Text>
       {/* ... the rest of your Privacy Policy text goes here, each section preferably in its own Text component or parsed markdown */}
       <Text style={styles.paragraph}>
-        This Privacy Policy describes how FusionTech Agency. We collects, uses, and discloses
-        your information in connection with your use of our mobile application,
-        Barber App. By using the App, you agree to the collection and use of
-        information in accordance with this policy. 1. Information We Collect We
-        collect various types of information to provide and improve our App and
-        its features. 1.1. Information You Provide Directly to Us When you use
-        our App, you may provide us with certain personal information, including
-        but not limited to: Account Information: Your name, email address,
-        username, password, and other registration details. Profile Information:
-        Profile picture, biography, preferences, or other details you choose to
-        add to your profile. Communications: Information you provide when you
-        contact us for support, send us feedback, or participate in surveys.
-        User Content: Any content you create, upload, or share within the App
-        (e.g., photos, videos, text, comments, task descriptions, messages).
-        1.2. Information We Collect Automatically When you access and use the
-        App, we may automatically collect certain information about your device
-        and your usage patterns, including: Device Information: Device model,
-        operating system version, unique device identifiers (e.g., UDID,
-        advertising ID), mobile network information. Usage Data: Information
-        about how you interact with the App, such as features accessed, screens
-        viewed, time spent on features, crashes, and other performance data. Log
-        Data: Server logs may include your device's IP address, access dates and
-        times, app features or pages viewed, and other system activity. Location
-        Information: Precise Location: With your explicit permission, we may
-        collect precise location data from your device's GPS, Wi-Fi, or cellular
-        network. This is used for [e.g., location-based services, showing nearby
-        content, providing navigation]. You can disable this in your device
-        settings. Approximate Location: We may infer your approximate location
-        from your IP address or device settings. Analytics Information: We may
-        use third-party analytics tools (e.g., Google Analytics for Firebase,
-        Mixpanel) to help us measure traffic and usage trends for the App. These
-        tools collect information sent by your device, including the pages you
-        visit and other information that assists us in improving the App. 1.3.
-        Information from Third-Party Services (if applicable) If you link,
-        connect, or log in to the App using a third-party service (e.g., Google,
-        Facebook), the third-party service may send us information such as your
-        registration and profile information from that service. The information
-        we receive depends on your privacy settings with the third-party
-        service. [List specific third-party services, e.g., Google Sign-In,
-        Facebook Login] 2. How We Use Your Information We use the information we
-        collect for various purposes, including: To Provide and Maintain the
-        App: To operate, deliver, maintain, and improve the functionality of the
-        App. To Personalize Your Experience: To tailor content, features, and
+        This Privacy Policy describes how FusionTech Agency. We collects, uses,
+        and discloses your information in connection with your use of our mobile
+        application, Barber App. By using the App, you agree to the collection
+        and use of information in accordance with this policy. 1. Information We
+        Collect We collect various types of information to provide and improve
+        our App and its features. 1.1. Information You Provide Directly to Us
+        When you use our App, you may provide us with certain personal
+        information, including but not limited to: Account Information: Your
+        name, email address, username, password, and other registration details.
+        Profile Information: Profile picture, biography, preferences, or other
+        details you choose to add to your profile. Communications: Information
+        you provide when you contact us for support, send us feedback, or
+        participate in surveys. User Content: Any content you create, upload, or
+        share within the App (e.g., photos, videos, text, comments, task
+        descriptions, messages). 1.2. Information We Collect Automatically When
+        you access and use the App, we may automatically collect certain
+        information about your device and your usage patterns, including: Device
+        Information: Device model, operating system version, unique device
+        identifiers (e.g., UDID, advertising ID), mobile network information.
+        Usage Data: Information about how you interact with the App, such as
+        features accessed, screens viewed, time spent on features, crashes, and
+        other performance data. Log Data: Server logs may include your device's
+        IP address, access dates and times, app features or pages viewed, and
+        other system activity. Location Information: Precise Location: With your
+        explicit permission, we may collect precise location data from your
+        device's GPS, Wi-Fi, or cellular network. This is used for [e.g.,
+        location-based services, showing nearby content, providing navigation].
+        You can disable this in your device settings. Approximate Location: We
+        may infer your approximate location from your IP address or device
+        settings. Analytics Information: We may use third-party analytics tools
+        (e.g., Google Analytics for Firebase, Mixpanel) to help us measure
+        traffic and usage trends for the App. These tools collect information
+        sent by your device, including the pages you visit and other information
+        that assists us in improving the App. 1.3. Information from Third-Party
+        Services (if applicable) If you link, connect, or log in to the App
+        using a third-party service (e.g., Google, Facebook), the third-party
+        service may send us information such as your registration and profile
+        information from that service. The information we receive depends on
+        your privacy settings with the third-party service. [List specific
+        third-party services, e.g., Google Sign-In, Facebook Login] 2. How We
+        Use Your Information We use the information we collect for various
+        purposes, including: To Provide and Maintain the App: To operate,
+        deliver, maintain, and improve the functionality of the App. To
+        Personalize Your Experience: To tailor content, features, and
         advertisements to your interests. To Process Transactions: If the App
         involves purchases or payments. To Send Notifications: To send push
         notifications, alerts, and other messages relevant to your use of the
@@ -161,6 +183,29 @@ const privacypolicy = () => {
         Contact Us If you have any questions about this Privacy Policy.
       </Text>
       {/* ... Continue with other sections ... */}
+      {supportEmail && (
+        <View style={styles.section}>
+          <Text style={styles.label}>Support:</Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL(`mailto:${supportEmail}`)}
+          >
+            <Text style={styles.linkText}>{supportEmail}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      <View style={styles.legalSection}>
+        <TouchableOpacity onPress={() => openLink(privacyPolicyURL)}>
+          <Text style={styles.linkText}>Privacy Policy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => openLink(termsOfServiceURL)}>
+          <Text style={styles.linkText}>Terms of Service</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.copyright}>
+        © 2025 {developerName}. All rights reserved.
+      </Text>
     </ScrollView>
   );
 };
@@ -173,10 +218,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: 'white'
+    color: "white",
   },
   text: {
-    color: 'white',
+    color: "white",
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -184,11 +229,76 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 10,
   },
+    linkText: {
+    fontSize: 16,
+    color: "#007bff",
+    textDecorationLine: "underline",
+    marginBottom: 5,
+  },
+   section: {
+    marginBottom: 15,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: 'space-between'
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: 'white',
+    marginBottom: 5,
+  },
+  legalSection: {
+    marginTop: 30,
+    marginBottom: 20,
+    alignItems: "center",
+  },
   paragraph: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 15,
-    color: 'white'
+    color: "white",
+  },
+  headerImage: {
+    width: "100%",
+    height: 300,
+    opacity: 0.3,
+  },
+    container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "black",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: 'white',
+    marginBottom: 30,
+    textAlign: "center",
+  },
+  section: {
+    marginBottom: 15,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: 'space-between'
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: 'white',
+    marginBottom: 5,
+  },
+  value: {
+    fontSize: 16,
+    color: 'white',
+    lineHeight: 24,
+  },
+
+  copyright: {
+    fontSize: 14,
+    color: 'white',
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 50
   },
   headerImage: {
     width: "100%",

@@ -29,11 +29,14 @@ const SettingsComponent = () => {
     if (data === "1") {
       navigation.navigate("components/infoapp/userprofile");
     }
-    if (data === "2") {
+    if (data === "100") {
       navigation.navigate("components/infoapp/aboutapplication");
     }
-    if (data === "4") {
+    if (data === "200") {
       navigation.navigate("components/infoapp/privacypolicy");
+    }
+    if (data === "900") {
+      navigation.navigate("components/infoapp/helpSupport");
     }
     if (data === "6") {
       setIsMessage(true);
@@ -78,19 +81,20 @@ const SettingsComponent = () => {
         <MenuItem
           iconName="contacts"
           title="About Application"
-          onPress={() => console.log("Settings pressed")}
+          onPress={() => onPressHandler("100")}
         />
-
-        <MenuItem
+          <MenuItem
           iconName="file-document"
-          title="Privacy Policy"
-          onPress={() => console.log("Privacy Policy pressed")}
+          title="Legal & Policy"
+          onPress={() => onPressHandler("200")}
         />
-        <MenuItem
-          iconName="file-document-outline"
-          title="Terms & Conditions"
-          onPress={() => console.log("Terms & Conditions pressed")}
+ <MenuItem
+          iconName="face-agent"
+          title="Help & Support"
+          onPress={() => onPressHandler("900")}
         />
+      
+        
         <MenuItem
           iconName="logout"
           title="Logout"
