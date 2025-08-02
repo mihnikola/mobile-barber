@@ -28,7 +28,7 @@ const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
 
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login, success, setIsMessage, isMessage, error } =
+  const { pending, login, setStatus, status, success, setIsMessage, isMessage, error } =
     useLoginForm();
     
   function handleBackButtonClick3() {
@@ -63,6 +63,9 @@ const LoginScreen = () => {
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
+    if(status===606){
+      navigation.navigate("components/otpCodeRegister/index",{loginData: {email, password}})
+    }
   };
   const confirmHandler = () => {
     setIsMessage(false);

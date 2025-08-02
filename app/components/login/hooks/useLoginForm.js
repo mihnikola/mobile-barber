@@ -9,6 +9,7 @@ import { getExpoTokenStorage, removeExpoTokenStorage } from "@/helpers/expoToken
 const useLoginForm = () => {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
+  const [status, setStatus] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
@@ -26,11 +27,17 @@ const useLoginForm = () => {
 
     try {
       const responseData = await post("/users/login", { email, password });
-      console.log("re",responseData)
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
         // setSuccess(responseData.message);
+        setError(responseData.message);
+        return;
+      }
+       if (responseData.status === 606) {
+        setPending(false);
+        setIsMessage(true);
+        setStatus(responseData.status);
         setError(responseData.message);
         return;
       }
@@ -102,6 +109,8 @@ const useLoginForm = () => {
     login,
     saveToken,
     success,
+    status,
+    setStatus,
     setIsMessage,
     isMessage,
   };
