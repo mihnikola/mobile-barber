@@ -3,7 +3,7 @@ import Loader from "@/components/Loader";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignForm from "../components/SignForm/SignForm";
-import SettingsComponent from "../components/settings/SettingsComponent";
+import SettingsComponent from "../components/infoapp/SettingsComponent";
 import { BackHandler, View } from "react-native";
 
 export default function Settings() {

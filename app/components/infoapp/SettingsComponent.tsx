@@ -14,7 +14,7 @@ import { useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
-import useUser from "./../infoapp/hooks/useUser";
+import useUser from "./hooks/useUser";
 import Loader from "@/components/Loader";
 const SettingsComponent = () => {
   const navigation = useNavigation();
