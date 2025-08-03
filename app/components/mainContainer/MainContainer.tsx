@@ -105,6 +105,10 @@ const MainContainer = () => {
             name="components/reservation/makereservation"
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+            name="components/reservation/datereservation"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="components/reservation/reservationdetails"
             options={{ title: "", headerShown: false }}
