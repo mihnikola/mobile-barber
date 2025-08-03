@@ -24,6 +24,7 @@ import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SharedButton from "@/shared-components/SharedButton";
+import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -91,7 +92,11 @@ const DateComponent = () => {
           current={currentDate.toDateString()}
           futureScrollRange={2}
           markedDates={markedDates}
-          onDayPress={handleDayPress}
+          onDayPress={(months) => {
+            handleDayPress(months);
+
+            setSelectedItem(null);
+          }}
           showScrollIndicator
           pastScrollRange={0}
           horizontal
@@ -129,10 +134,11 @@ const DateComponent = () => {
       {selectedItem && (
         <View style={styles.buttonContainer}>
           {/* <FlatButton text="Continue" onPress={reportHandler} /> */}
-          <SharedButton
+          <SharedButtonDateReservation
             loading={isLoading}
+            disabled={isLoading}
             onPress={reportHandler}
-            text={isLoading ? "Please wait" : "Continue"}
+            text={"Continue"}
           />
         </View>
       )}
