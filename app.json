@@ -4,10 +4,12 @@
     "slug": "barber-app-ver2",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/images/homeSplash.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
+      "image": "./assets/images/homeSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -16,6 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/images/homeSplash.png",
         "backgroundColor": "#000000"
       },
       "package": "com.mihailovic93.barberappver2",
@@ -23,7 +26,8 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static"
+      "output": "static",
+      "favicon": "./assets/images/homeSplash.png"
     },
     "plugins": [
       "expo-router"
