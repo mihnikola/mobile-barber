@@ -17,6 +17,7 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import { useFocusEffect } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
+import SharedButton from "@/shared-components/SharedButton";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -61,24 +62,18 @@ const Reservation = () => {
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
-        <View style={{ display: "flex", padding: 10 }}>
+        <View style={{ display: "flex" }}>
           <View>
             {reservation && <Details data={reservation} />}
             <Note />
-
-            <View style={styles.reservation}>
-              {isLoading ? (
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}>Booking...</Text>
-                </TouchableOpacity>
-              ) : (
-                <ButtonComponent
-                  text="Book"
-                  onPress={submitReservationHandler}
-                />
-              )}
-            </View>
           </View>
+        </View>
+        <View style={{ display: "flex", paddingHorizontal: 10 }}>
+          <SharedButton
+            loading={isLoading}
+            onPress={submitReservationHandler}
+            text={isLoading ? "Booking..." : "Book"}
+          />
         </View>
       </ScrollView>
     );
@@ -103,13 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  reservation: {
-    display: "flex",
-    flexDirection: "column",
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   timeData: {
     fontSize: 20,
     color: "#fff",

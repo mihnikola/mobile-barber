@@ -15,20 +15,12 @@ import SplashScreen from "@/shared-components/SuccessScreen";
 
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
   }, []);
-
-  if (!loaded) {
-    return null;
-  }
 
   if (isLoading) {
     return <SplashScreen />;

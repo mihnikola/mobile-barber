@@ -42,7 +42,7 @@ const MenuServices = () => {
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <Text style={styles.capture}>Pricing & Services</Text>
+      <Text style={styles.capture}>Pricing and Services</Text>
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length > 0 && !isLoading && (
@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   container: {
-    flex: 0,
-    padding: 5,
+    flex: 1,
     backgroundColor: "black",
   },
   coverImage: {
@@ -83,12 +82,11 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    fontStyle: "italic",
+    color: "white",
+    fontWeight: "500",
     position: "absolute",
-    top: 150,
-    left: 50,
+    display: 'flex',
+    alignSelf: 'center',
+    paddingVertical: 150
   },
 });

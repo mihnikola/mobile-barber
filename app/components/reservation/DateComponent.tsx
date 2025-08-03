@@ -1,5 +1,18 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { View, StyleSheet, ScrollView, Text, Image, BackHandler } from "react-native";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Image,
+  BackHandler,
+} from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
@@ -10,6 +23,7 @@ import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import SharedButton from "@/shared-components/SharedButton";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -44,20 +58,20 @@ const DateComponent = () => {
     handleDayPress(valueInitialData);
   }, []);
 
-   useFocusEffect(
-      useCallback(() => {
-        const onBackPress = () => {
-          // Return true to disable the default back button behavior
-          console.log("object");
-          navigation.navigate("components/services/index");
-          return true;
-        };
-        BackHandler.addEventListener("hardwareBackPress", onBackPress);
-  
-        return () =>
-          BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-      }, [])
-    );
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        console.log("object");
+        navigation.navigate("components/services/index");
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -114,7 +128,12 @@ const DateComponent = () => {
       </View>
       {selectedItem && (
         <View style={styles.buttonContainer}>
-          <FlatButton text="Continue" onPress={reportHandler} />
+          {/* <FlatButton text="Continue" onPress={reportHandler} /> */}
+          <SharedButton
+            loading={isLoading}
+            onPress={reportHandler}
+            text={isLoading ? "Please wait" : "Continue"}
+          />
         </View>
       )}
     </ScrollView>
@@ -124,14 +143,12 @@ const DateComponent = () => {
 const styles = StyleSheet.create({
   capture: {
     fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    margin: 5,
-    fontStyle: "italic",
+    color: "white",
+    fontWeight: "500",
     position: "absolute",
-    top: 150,
-    left: 70,
+    display: "flex",
+    alignSelf: "center",
+    paddingVertical: 150,
   },
   coverImage: {
     width: "100%",
@@ -176,7 +193,7 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   buttonContainer: {
-    marginVertical:10,
+    marginVertical: 10,
     marginHorizontal: 10,
   },
 });

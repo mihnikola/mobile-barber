@@ -2,34 +2,38 @@ import { View, Text, StyleSheet, Image, BackHandler } from "react-native";
 import React, { useCallback, useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Button from "@/shared-components/Button";
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { addMinutesToTime, convertDate } from "@/helpers";
+import SharedButton from "@/shared-components/SharedButton";
 
 const makereservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const navigation = useNavigation();
-   const route = useRoute(); // Get the route object
-    const { responseData } = route.params;
+  const route = useRoute(); // Get the route object
+  const { responseData } = route.params;
 
   const submitReservationHandler = async () => {
     navigation.navigate("(tabs)", { screen: "explore" });
-    
   };
-  if(!responseData){
+  if (!responseData) {
     return navigation.navigate("(tabs)", { screen: "explore" });
   }
-    useFocusEffect(
-      useCallback(() => {
-        const onBackPress = () => {
-          // Return true to disable the default back button behavior
-          return true;
-        };
-        BackHandler.addEventListener("hardwareBackPress", onBackPress);
-  
-        return () =>
-          BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-      }, [])
-    );
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   if (reservation && responseData) {
     return (
@@ -45,10 +49,16 @@ const makereservation = () => {
         <View style={styles.coverContent}>
           <Text style={styles.timeData}>
             {reservation?.timeData?.value} -{" "}
-            {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.duration)}
+            {addMinutesToTime(
+              reservation?.timeData?.value,
+              reservation?.service?.duration
+            )}
           </Text>
           <Text style={styles.dateData}>
-            {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation)}
+            {convertDate(
+              reservation?.dateReservation?.dateString ||
+                reservation?.dateReservation
+            )}
           </Text>
         </View>
 
@@ -58,11 +68,10 @@ const makereservation = () => {
               Your appointment is successfully booked!
             </Text>
           </View>
-          <View style={styles.reservation}>
-            <Button text="Ok" onPress={submitReservationHandler} />
-          </View>
         </View>
-        
+        <View style={{ display: "flex", paddingHorizontal: 10 }}>
+          <SharedButton onPress={submitReservationHandler} text="OK" />
+        </View>
       </View>
     );
   }
