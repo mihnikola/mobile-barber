@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 5,
+    marginTop:10,
   },
   locationContent: {
     flexDirection: "column",
@@ -264,22 +265,17 @@ const styles = StyleSheet.create({
   box: {
     width: 400,
     height: 400,
-    borderRadius: 10,
-    top: 100,
-    left: 0,
-    justifyContent: "center",
-    alignItems: "center",
     position: "absolute",
+    alignItems:"center",
+    alignSelf:'center',
+    paddingTop: 100
   },
   boxBook: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    alignContent: "center",
     position: "absolute",
-    gap: 20,
-    left: 50,
-    bottom: 50,
+    alignSelf:'center',
+    justifyContent:'center',
+    height: '100%',
+    paddingTop:330
   },
 
   backImage: {

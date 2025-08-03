@@ -81,15 +81,13 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   capture: {
-    fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    margin: 5,
-    fontStyle: "italic",
+     fontSize: 32,
+    color: "white",
+    fontWeight: "500",
     position: "absolute",
-    top: 150,
-    left: 60,
+    display: 'flex',
+    alignSelf: 'center',
+    paddingVertical: 150
   },
   container: {
     flex: 1,

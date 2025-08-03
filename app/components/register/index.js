@@ -83,7 +83,7 @@ const Register = () => {
 
   return (
     <ScrollView style={styles.safeArea}>
-      <StatusBar style="dark" />
+            <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <Image
           source={require("../../../assets/images/logoFamilyImg.png")}
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "#333",
+    borderColor: "white",
   },
   passwordInputContainer: {
     flexDirection: "row",
