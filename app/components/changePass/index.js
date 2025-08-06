@@ -131,7 +131,7 @@ const changePass = () => {
       </View>
 
       <View style={styles.btnFooter}>
-        <SharedButton text={isLoading ? "Submitting...":"Submit"} disabled={isLoading} onPress={submitChanges} />
+        <SharedButton text={isLoading ? "Submitting...":"Submit"} disabled={isLoading || passwordError.length > 0} onPress={submitChanges} />
       </View>
       {isMessage && (
         <SharedMessage
