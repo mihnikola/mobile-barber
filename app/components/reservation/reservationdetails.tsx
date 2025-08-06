@@ -1,5 +1,3 @@
-
-  
 import Loader from "@/components/Loader";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import Details from "@/shared-components/Details";
@@ -26,6 +24,8 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import SharedButton from "@/shared-components/SharedButton";
+import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 const ReservationDetails = () => {
   const navigator = useNavigation();
 
@@ -60,19 +60,19 @@ const ReservationDetails = () => {
     setRateSuccessFlag(true);
   };
 
-   useFocusEffect(
-        useCallback(() => {
-          const onBackPress = () => {
-            // Return true to disable the default back button behavior
-            navigator.goBack();
-            return true;
-          };
-          BackHandler.addEventListener("hardwareBackPress", onBackPress);
-    
-          return () =>
-            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-        }, [])
-      );
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Return true to disable the default back button behavior
+        navigator.goBack();
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   const handleUserRatingChange = (rating: number) => {
     console.log("User selected rating:", rating);
@@ -153,17 +153,11 @@ const ReservationDetails = () => {
             <StarRating onRatingChange={handleUserRatingChange} />
           )}
           {!check && !reservationData?.rate && (
-            <TouchableOpacity
-              onPress={rateAlert} // Use the showAlert function from the hook
-              style={styles.containerBtn}
-              disabled={isRating}
-            >
-              <Text
-                style={[styles.btnSubmit, isRating && styles.disabledButton]}
-              >
-                {isRating ? "Rating..." : "Rate us"}
-              </Text>
-            </TouchableOpacity>
+            <SharedButtonDateReservation
+              loading={isRating}
+              onPress={rateAlert}
+              text="Rate us"
+            />
           )}
           {!check && reservationData?.rate && (
             <View style={{ alignItems: "center", marginTop: 40, padding: 20 }}>
@@ -196,18 +190,11 @@ const ReservationDetails = () => {
             </View>
           )}
           {check && (
-            <TouchableOpacity
-              // onPress={showAlert} // Use the showAlert function from the hook
-              onPress={cancelReservationHandler} // Use the showAlert function from the hook
-              style={styles.containerBtn}
-              // disabled={isCanceling}
-            >
-              <Text
-                style={[styles.btnSubmit, isCanceling && styles.disabledButton]}
-              >
-                Cancel
-              </Text>
-            </TouchableOpacity>
+            <SharedButtonDateReservation
+              onPress={cancelReservationHandler}
+              loading={isCanceling}
+              text="Cancel"
+            />
           )}
         </>
       )}
@@ -318,6 +305,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
   },
+  //   btn: {
+  //   backgroundColor: "#1C1C1E",
+  //   paddingVertical: 15,
+  //   borderRadius: 8,
+  //   borderWidth: 1,
+  //   borderColor: "white",
+  //   alignItems: "center",
+  //   marginTop: 20,
+  //   marginBottom: 30,
+  // },
   container: {
     flex: 1,
     backgroundColor: "black",

@@ -52,7 +52,7 @@ const SettingsComponent = () => {
   return (
     <View style={styles.container}>
       {/* Status Bar style adjustment for dark background */}
-      <StatusBar barStyle="light-content" backgroundColor="#1a1a1a" />
+      <StatusBar barStyle="dark-content" backgroundColor="black" />
 
       {/* Header */}
       <View style={styles.header}>
