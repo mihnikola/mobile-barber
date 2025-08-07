@@ -142,13 +142,21 @@ export default function App() {
 
     const notificationListener = Notifications.addNotificationReceivedListener(
       (notification) => {
+        console.log("notificationListener", notification);
+
         setNotification(notification);
       }
     );
 
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.log("responseListener", response);
+        const notificationData = response.notification.request.content.data;
+
+        // You can now access properties of the notificationData object.
+        console.log("Data from notification:", notificationData);
+
+        //ovde mora da ide redirect 
       });
 
     return () => {
@@ -250,7 +258,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 5,
-    marginTop:10,
+    marginTop: 10,
   },
   locationContent: {
     flexDirection: "column",
@@ -266,16 +274,16 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     position: "absolute",
-    alignItems:"center",
-    alignSelf:'center',
-    paddingTop: 100
+    alignItems: "center",
+    alignSelf: "center",
+    paddingTop: 100,
   },
   boxBook: {
     position: "absolute",
-    alignSelf:'center',
-    justifyContent:'center',
-    height: '100%',
-    paddingTop:330
+    alignSelf: "center",
+    justifyContent: "center",
+    height: "100%",
+    paddingTop: 330,
   },
 
   backImage: {
