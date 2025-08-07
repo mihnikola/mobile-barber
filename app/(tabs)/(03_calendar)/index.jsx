@@ -5,6 +5,7 @@ import { useIsFocused } from "@react-navigation/native";
 import CalendarComponent from "../../../components/reservation/CalendarComponent";
 import SignForm from "../../../components/SignForm/SignForm";
 import { BackHandler } from "react-native";
+import { router } from "expo-router";
 
 export default function Explore() {
   // const navigation = useNavigation();
@@ -29,12 +30,16 @@ export default function Explore() {
   const checkToken = async () => {
     setIsLoading(true);
     try {
+  console.log("Sdakjashdksjahdkjasdhkjasdhjks")
+
       const storedToken = await AsyncStorage.getItem("token");
+        console.log("Token exists:", storedToken);
+
       if (storedToken) {
         setToken(storedToken);
-        console.log("Token exists:", storedToken);
       } else {
         setToken(null);
+        router.push("/(tabs)/(04_settings)/login")
         console.log("No token found");
       }
     } catch (error) {

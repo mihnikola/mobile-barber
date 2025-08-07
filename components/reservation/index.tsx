@@ -15,21 +15,22 @@ import Details from "@/shared-components/Details";
 import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 import SharedButton from "@/shared-components/SharedButton";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { submitReservationHandler, isLoading, error } = useSubmitReservation();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
         // Return true to disable the default back button behavior
         console.log("object");
-        navigation.navigate("components/reservation/datereservation");
+        // navigation.navigate("components/reservation/datereservation");
+        router.push('/(tabs)/(02_barbers)/reservation')
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);

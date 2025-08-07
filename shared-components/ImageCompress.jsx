@@ -5,7 +5,7 @@ import {
     Image,
 } from 'react-native';
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import usePickImage from '../app/components/infoapp/hooks/usePickImage';
+import usePickImage from '@/components/infoapp/hooks/usePickImage';
 import { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
@@ -52,15 +52,15 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     image: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         borderRadius: 100,
         resizeMode: 'cover', // Ensures image fits within the bounds without distortion
     },
     button: {
         position: "absolute",
-        left: 180,
-        top: 200
+        left: 130,
+        top: 150
     },
     buttonPlaceholder: {
         position: "absolute",

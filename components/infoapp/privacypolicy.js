@@ -14,7 +14,7 @@ import { useFocusEffect } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 const privacypolicy = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const supportEmail = "support@fta.com";
   const privacyPolicyURL = "[Link to your Privacy Policy]"; // IMPORTANT!
   const termsOfServiceURL = "[Link to your Terms of Service]"; // IMPORTANT!
@@ -23,7 +23,7 @@ const privacypolicy = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate("(tabs)", { screen: "settings" });
+        // navigation.navigate("(tabs)", { screen: "settings" });
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);

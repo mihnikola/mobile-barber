@@ -15,7 +15,6 @@ const ResendOtpCodeTimer = ({ email }) => {
   const confirmHandler = () => {
     setIsMessage(false);
     setMessage(null);
-    // navigation.navigate("components/otpCode/index", { data: email });
   };
   const handleResendCode = () => {
     if (!canResend) return;

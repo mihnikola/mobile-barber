@@ -17,9 +17,10 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
+import { router } from "expo-router";
 
 const ForgotPassword = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [active, setActive] = useState("email");
   const { email, emailError, handleEmailChange } = useEmail();
 
@@ -34,20 +35,21 @@ const ForgotPassword = () => {
     setIsMessage,
   } = useEmailOtpCode();
   const navHandler = () => {
-   
-
     checkEmailValidation(email);
-    
   };
   const confirmHandler = () => {
     setIsMessage(false);
     setMessage(null);
-    navigation.navigate("components/otpCode/index", {data: email});
+    // navigation.navigate("components/otpCode/index", {data: email});
+    router.push({
+      pathname: "/(tabs)/(04_settings)/otpCode",
+      params: { data: email },
+    });
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
     setError(null);
-  }
+  };
   return (
     <ScrollView style={styles.container}>
       <StatusBar />
@@ -57,12 +59,11 @@ const ForgotPassword = () => {
       <View>
         <Text style={styles.subtitle}>
           Select which contact details should we use to reset your password
-          
         </Text>
       </View>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../../assets/images/fgtPass.png")}
+          source={require("@/assets/images/fgtPass.png")}
           style={styles.image}
         />
       </View>
@@ -84,7 +85,7 @@ const ForgotPassword = () => {
           onChangeText={setEmail}
           active={active === "email"}
         /> */}
-         <SharedInput
+        <SharedInput
           label="Email Address"
           value={email}
           onChangeText={handleEmailChange}
@@ -93,11 +94,13 @@ const ForgotPassword = () => {
           autoCapitalize="none"
           style={styles.input}
           error={emailError}
-
         />
-
       </View>
-      <SharedButton disabled={emailError.length > 0 || isLoading}  onPress={navHandler} text={isLoading ? `Sending...` : `Send code`} />
+      <SharedButton
+        disabled={emailError.length > 0 || isLoading}
+        onPress={navHandler}
+        text={isLoading ? `Sending...` : `Send code`}
+      />
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     height: 290,
     resizeMode: "cover",
   },
-    input: {
+  input: {
     backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,

@@ -15,7 +15,7 @@ const MenuServices = () => {
   const funcDateTimeReservation = useCallback(
     (service) => {
       updateReservation({ ...reservation, service });
-      router.push("calendar");
+      router.push("/(tabs)/(02_barbers)/calendar");
     },
     [router, reservation, updateReservation]
   );
@@ -24,7 +24,7 @@ const MenuServices = () => {
       useCallback(() => {
         const onBackPress = () => {
           // Return true to disable the default back button behavior
-         router.push("(02_barbers)")
+         router.push("/(tabs)/(02_barbers)")
          return true;
 
         };

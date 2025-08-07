@@ -6,12 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
-import axios from "axios";
-
-import {
-  getExpoPushTokenAsync,
-  requestPermissionsAsync,
-} from "expo-notifications";
 
 // Handle background notifications using Expo's background handler
 Notifications.setNotificationHandler({
@@ -28,7 +22,6 @@ const useSubmitReservation = () => {
   const navigation = useNavigation();
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
-  const [successData, setSuccessData] = useState(false);
 
   Notifications.addNotificationReceivedListener((notification) => {
     console.log("Background notification received:", notification);
@@ -61,52 +54,48 @@ const useSubmitReservation = () => {
 
   // Send the push token to your server (Node.js backend) ok
 
-  const submitReservation = useCallback(
-    async (tokenData) => {
-      setIsLoading(true);
-      setError(null);
-      const { employer, service, timeData, dateReservation } = reservation;
+  const submitReservation = async (tokenData) => {
+    setIsLoading(true);
+    setError(null);
+    const { employer, service, timeData, dateReservation } = reservation;
 
-      if (!employer || !service || !timeData || !dateReservation) {
-        setError("Missing reservation details. Please check your selection.");
-        setIsLoading(false);
-        return;
-      }
+    if (!employer || !service || !timeData || !dateReservation) {
+      setError("Missing reservation details. Please check your selection.");
+      setIsLoading(false);
+      return;
+    }
 
-      try {
-        const response = await post("/reservations", {
-          params: {
-            employerId: employer.id,
-            service_id: service.id,
-            time: timeData.value,
-            date: dateReservation,
-            customer: "", //  Where is this data coming from?
-            token: tokenData,
-          },
-        });
-        setResponseData(response);
-        // router.push("reservationSuccess");
-        router.push({
-          pathname: "reservationSuccess",
-          params: {
-            responseData: response,
-          },
-        });
-      
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Error submitting reservation:", err);
-        setError(
-          err.message ||
-            "An unexpected error occurred while submitting your reservation."
-        );
-        setIsLoading(false);
-      }
+    try {
+      const response = await post("/reservations", {
+        params: {
+          employerId: employer.id,
+          service_id: service.id,
+          time: timeData.value,
+          date: dateReservation,
+          customer: "", //  Where is this data coming from?
+          token: tokenData,
+        },
+      });
+      setResponseData(response);
+      router.push({
+        pathname: "/(tabs)/(02_barbers)/reservationSuccess",
+        params: {
+          responseData: response,
+        },
+      });
 
       setIsLoading(false);
-    },
-    [navigation, reservation]
-  );
+    } catch (err) {
+      console.error("Error submitting reservation:", err);
+      setError(
+        err.message ||
+          "An unexpected error occurred while submitting your reservation."
+      );
+      setIsLoading(false);
+    }
+
+    setIsLoading(false);
+  };
 
   const submitReservationHandler = useCallback(async () => {
     try {

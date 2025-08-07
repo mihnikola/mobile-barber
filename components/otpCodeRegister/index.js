@@ -11,19 +11,18 @@ import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
 import { useEffect, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import useSendEmailVerification from "./hooks/useSendEmailVerification";
+import { router, useLocalSearchParams } from "expo-router";
 
 const otpCodeRegister = () => {
-  const route = useRoute(); // Get the route object
-  const { data, loginData } = route.params;
+  const params = useLocalSearchParams(); // Get the route object
+  const { data, loginData } = params;
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
 
-  const navigation = useNavigation();
   <Text style={styles.mainTitle}>Enter OTP Code</Text>;
   const {
     checkOtpCodeValidation,
@@ -36,16 +35,6 @@ const otpCodeRegister = () => {
     isVerified,
     setIsVerified,
   } = useSubmitOtpCode();
-
-  console.log("useSubmitOtpCode++", message, isMessage, isLoading);
-
-  console.log(
-    "error || errorVerification || messageVerification || message",
-    error,
-    errorVerification,
-    messageVerification,
-    message
-  );
 
   const {
     verificationOTPCode,
@@ -81,10 +70,14 @@ const otpCodeRegister = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
     if (!loginData) {
-      navigation.navigate("components/login/index");
+      // navigation.navigate("components/login/index");
+      router.push("/(tabs)/(04_settings)/login")
     }
     if (isVerified && loginData) {
-      navigation.navigate("(tabs)", { screen: "index" });
+      // navigation.navigate("(tabs)", { screen: "index" });
+      router.push("/(tabs)/(01_home)")
+
+
     }
   };
 
@@ -111,7 +104,7 @@ const otpCodeRegister = () => {
       <ResendOtpCodeTimer email={!loginData ? data : loginData?.email} />
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../../assets/images/fgtPass.png")}
+          source={require("@/assets/images/fgtPass.png")}
           style={styles.image}
         />
       </View>

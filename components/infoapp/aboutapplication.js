@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
   View,
@@ -8,8 +8,6 @@ import {
   ScrollView,
   StyleSheet,
   BackHandler,
-  TouchableOpacity,
-  Linking,
   Image,
   Switch,
   Platform,
@@ -21,7 +19,7 @@ const aboutapplication = () => {
   const appVersion = "1.0.2";
   const developerName = "FusionTech Agency";
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   // State to manage the switch's value. 'true' for Serbian, 'false' for English.
   const [isSerbian, setIsSerbian] = useState("en");
 
@@ -34,7 +32,9 @@ const aboutapplication = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate("(tabs)", { screen: "settings" });
+        // navigation.navigate("(tabs)", { screen: "settings" });
+        router.push("/(tabs)/(04_settings)");
+
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);

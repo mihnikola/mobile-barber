@@ -25,14 +25,15 @@ import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import {router} from 'expo-router';
+import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const DateComponent = () => {
   const currentDate = new Date();
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const { selectedDate, handleDayPress, isSunday, markedDates } =
     useSelectedDate(currentDate);
   const { timesData, isLoading, error, resetError } = useFetchTimes(
@@ -49,25 +50,25 @@ const DateComponent = () => {
         dateReservation: selectedDate,
         timeData: selectedItem,
       });
-      // navigation.navigate("components/reservation/index");
-      router.push("reservation");
-      
-
+      router.push("/(tabs)/(02_barbers)/reservation");
     }
   };
 
   useEffect(() => {
-    const dateValue = selectedDate.toLocaleString("en-GB");
-    const valueInitialData = convertDayInitalValue(dateValue);
-    handleDayPress(valueInitialData);
-  }, []);
 
+      const dateValue = selectedDate.toLocaleString("en-GB");
+      const valueInitialData = convertDayInitalValue(dateValue);
+      handleDayPress(valueInitialData);
+
+  }, []);
+ 
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
         // Return true to disable the default back button behavior
         console.log("object");
-        navigation.navigate("components/services/index");
+        // navigation.navigate("components/services/index");
+        router.push("/(tabs)/(02_barbers)/services");
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);

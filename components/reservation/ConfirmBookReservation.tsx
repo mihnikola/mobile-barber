@@ -15,10 +15,10 @@ const ConfirmBookReservation = () => {
 
   const submitReservationHandler = async () => {
     router.dismissAll();
-    router.push("(03_calendar)");
+    router.push("/(tabs)/(03_calendar)");
   };
   if (!responseData) {
-    return router.push("(03_calendar)");
+    return router.push("/(tabs)/(03_calendar)");
   }
   useFocusEffect(
     useCallback(() => {
