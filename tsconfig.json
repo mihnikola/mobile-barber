@@ -3,20 +3,19 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "app/(tabs)/employers.jsx",
-    "app/(tabs)/explore.jsx",
-    "app/(tabs)/index.tsx",
+    "app/(tabs)/(02_barbers)/1_index.jsx",
+    "app/(tabs)/(03_calendar)/index.jsx",
+    "app/(tabs)/(01_home)/index.jsx",
     "app/(tabs)/notifications.jsx",
     "context/ReservationContext.jsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/(tabs)/(04_settings)/index.jsx"
   ]
 }
