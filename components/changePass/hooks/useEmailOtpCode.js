@@ -1,6 +1,6 @@
 // src/hooks/useEmailOtpCode.js
 import { useState, useCallback } from "react";
-import { getData } from "../../../../api/apiService";
+import { getData } from "@/api/apiService";
 
 const useEmailOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);

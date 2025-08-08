@@ -11,7 +11,7 @@ const useReservations = () => {
   const [check, setCheck] = useState(true);
   const detailsReservation = (item) => {
     router.push({
-      pathname: "/modalReservation",
+      pathname: "/(tabs)/(03_calendar)/modalReservation",
       params: { itemId: item._id, check },
     });
   };

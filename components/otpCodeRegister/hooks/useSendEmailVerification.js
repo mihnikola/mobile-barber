@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { getData } from "../../../../api/apiService";
+import { getData } from "@/api/apiService";
 
 const useSendEmailVerification = () => {
   const [isLoadingVerification, setIsLoadingVerification] = useState(false);
@@ -8,7 +8,6 @@ const useSendEmailVerification = () => {
   const [isMessageVerification, setIsMessageVerification] = useState(false);
 
   const verificationOTPCode = useCallback(async (paramsData) => {
-    console.log("object", paramsData);
     const { email, password } = paramsData;
     setIsLoadingVerification(true);
     setErrorVerification(null);

@@ -25,8 +25,9 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
 import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 const Register = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [userName, setUserName] = useState("");
   const {
     loading,
@@ -44,7 +45,9 @@ const Register = () => {
     useConfirmPassword(password);
 
   function handleBackButtonClick3() {
-    navigation.navigate("components/login/index");
+    // navigation.navigate("components/login/index");
+        router.push("/(tabs)/(04_settings)/login");
+
     return true;
   }
   useEffect(() => {
@@ -70,11 +73,14 @@ const Register = () => {
   };
 
   const navigateToLogin = () => {
-    navigation.navigate("components/login/index");
+    // navigation.navigate("components/login/index");
+    router.push("/(tabs)/(04_settings)/login");
+
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("components/otpCodeRegister/index", { data: email });
+    // navigation.navigate("components/otpCodeRegister/index", { data: email });
+    router.push({ pathname: "/(tabs)/(04_settings)/otpCodeRegister", params: { data: email } });
   };
 
   const confirmHandler2 = () => {
@@ -83,10 +89,10 @@ const Register = () => {
 
   return (
     <ScrollView style={styles.safeArea}>
-            <StatusBar backgroundColor="black" barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <Image
-          source={require("../../../assets/images/logoFamilyImg.png")}
+          source={require("@/assets/images/logoFamilyImg.png")}
           style={styles.logo}
         />
 

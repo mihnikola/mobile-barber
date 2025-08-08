@@ -9,15 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { removeStorage } from "@/helpers/token";
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
 import useUser from "./hooks/useUser";
 import Loader from "@/components/Loader";
+import { router } from "expo-router";
 const SettingsComponent = () => {
-  const navigation = useNavigation();
   const [isMessage, setIsMessage] = useState(false);
   const { userData, isLoading, error } = useUser();
 
@@ -27,16 +26,19 @@ const SettingsComponent = () => {
 
   const onPressHandler = (data: any) => {
     if (data === "1") {
-      navigation.navigate("components/infoapp/userprofile");
+      router.push("/(tabs)/(04_settings)/infoUserProfile");
     }
     if (data === "100") {
-      navigation.navigate("components/infoapp/aboutapplication");
+      router.push("/(tabs)/(04_settings)/infoApp");
+
     }
     if (data === "200") {
-      navigation.navigate("components/infoapp/privacypolicy");
+      router.push("/(tabs)/(04_settings)/infoPrivacy");
+
     }
     if (data === "900") {
-      navigation.navigate("components/infoapp/helpSupport");
+      router.push("/(tabs)/(04_settings)/infoHelpCenter");
+
     }
     if (data === "6") {
       setIsMessage(true);
@@ -46,7 +48,7 @@ const SettingsComponent = () => {
   const logoutHandler = async () => {
     setIsMessage(false);
     removeStorage().then((s) => {
-      navigation.navigate("(tabs)", { screen: "index" });
+      router.push("/(tabs)/(01_home)");
     });
   };
   return (

@@ -99,10 +99,10 @@ export default function App() {
   
 
   const nextPage = () => {
-    router.push("(02_barbers)");
+    router.push("/(tabs)/(02_barbers)");
   };
   const onAboutUs = () => {
-    router.push("whoWeAre");
+    router.push("/(tabs)/(01_home)/whoWeAre");
 
   };
 

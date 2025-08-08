@@ -1,49 +1,50 @@
-import {
-  View,
-  Text,
-  StatusBar,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
 import { ScrollView } from "react-native";
 import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
-import { Alert } from "react-native";
 import OtpInput from "./OtpCodeInput";
 import { useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import { router, useLocalSearchParams } from "expo-router";
 
 const otpCode = () => {
-  const route = useRoute(); // Get the route object
-  const { data } = route.params;
-    const navigation = useNavigation();
-  
+  const params = useLocalSearchParams();
+  const { data } = params;
+
+  // const navigation = useNavigation();
+
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
-  const { checkOtpCodeValidation, isLoading, message, setIsMessage, isMessage, error,setError } =
-    useSubmitOtpCode();
+  const {
+    checkOtpCodeValidation,
+    isLoading,
+    message,
+    setIsMessage,
+    isMessage,
+    error,
+    setError,
+  } = useSubmitOtpCode();
   const handleVerify = () => {
     const otp = code.join("");
     if (otp.length === 6) {
       //   Alert.alert("OTP Entered", otp);
       // You can send OTP to backend here
       checkOtpCodeValidation(data, otp);
-      // if (message) {
-      //   nav.navigate("components/changePass/index");
-      // }
     } else {
       setIsMessage(true);
       setError("Please enter all 6 digits.");
-     
     }
   };
 
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("components/changePass/index",{data});
+    // navigation.navigate("components/changePass/index",{data});
+    router.push({
+      pathname: "/(tabs)/(04_settings)/changePassword",
+      params: { data },
+    });
   };
 
   const confirmHandler2 = () => {
@@ -67,7 +68,7 @@ const otpCode = () => {
       <ResendOtpCodeTimer email={data} />
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../../assets/images/fgtPass.png")}
+          source={require("@/assets/images/fgtPass.png")}
           style={styles.image}
         />
       </View>
@@ -75,7 +76,7 @@ const otpCode = () => {
       <View style={styles.btnFooter}>
         <SharedButton
           disabled={isLoading}
-          text={isLoading ? "Submitting..." :"Submit"}
+          text={isLoading ? "Submitting..." : "Submit"}
           onPress={handleVerify}
         />
       </View>

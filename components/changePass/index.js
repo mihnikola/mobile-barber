@@ -13,16 +13,16 @@ import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
 import { useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import { router, useLocalSearchParams } from "expo-router";
 
 const changePass = () => {
-  const navigation = useNavigation();
-  const route = useRoute(); // Get the route object
-  const { data } = route.params;
+  // const navigation = useNavigation();
+  const params = useLocalSearchParams();
+  const { data } = params;
 
   const {
     password,
@@ -38,15 +38,22 @@ const changePass = () => {
     setIsPasswordConfirmVisible,
   } = useConfirmPassword(password);
 
-  const { handlePatchUser, message, isMessage, setIsMessage, error, isLoading } =
-    useChangePasswordHandler();
+  const {
+    handlePatchUser,
+    message,
+    isMessage,
+    setIsMessage,
+    error,
+    isLoading,
+  } = useChangePasswordHandler();
   const submitChanges = () => {
-    
-    handlePatchUser(data, password,confirmPassword);
+    handlePatchUser(data, password, confirmPassword);
   };
 
   function handleBackButtonClick3() {
-    navigation.navigate("components/login/index");
+    // navigation.navigate("components/login/index");
+    router.push("/(tabs)/(04_settings)/login");
+
     return true;
   }
   useEffect(() => {
@@ -61,7 +68,10 @@ const changePass = () => {
 
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("components/login/index");
+    // navigation.navigate("components/login/index");
+       router.push("/(tabs)/(04_settings)/login");
+
+
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
@@ -125,13 +135,17 @@ const changePass = () => {
 
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../../assets/images/fgtPass.png")}
+          source={require("@/assets/images/fgtPass.png")}
           style={styles.image}
         />
       </View>
 
       <View style={styles.btnFooter}>
-        <SharedButton text={isLoading ? "Submitting...":"Submit"} disabled={isLoading || passwordError.length > 0} onPress={submitChanges} />
+        <SharedButton
+          text={isLoading ? "Submitting..." : "Submit"}
+          disabled={isLoading || passwordError.length > 0}
+          onPress={submitChanges}
+        />
       </View>
       {isMessage && (
         <SharedMessage

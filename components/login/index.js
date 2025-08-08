@@ -21,10 +21,11 @@ import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useEffect } from "react";
+import { router } from "expo-router";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const { email, handleEmailChange } = useEmail();
 
   const { password, handlePasswordChange } = usePassword();
@@ -32,7 +33,8 @@ const LoginScreen = () => {
     useLoginForm();
     
   function handleBackButtonClick3() {
-    navigation.navigate("(tabs)",{screen: 'index'});
+    // navigation.navigate("(tabs)",{screen: 'index'});
+    router.push("/(tabs)/(01_home)");
     return true;
   }
   useEffect(() => {
@@ -49,7 +51,9 @@ const LoginScreen = () => {
     login(email, password);
   };
   const navigateToRegister = () => {
-    navigation.navigate("components/register/index"); // Navigate to app/(auth)/register.tsx
+    // navigation.navigate("components/register/index"); // Navigate to app/(auth)/register.tsx
+    router.push("(tabs)/(04_settings)/register");
+
   };
 
   const handleGoogleLogin = () => {
@@ -64,18 +68,23 @@ const LoginScreen = () => {
   const confirmHandler2 = () => {
     setIsMessage(false);
     if(status===606){
-      navigation.navigate("components/otpCodeRegister/index",{loginData: {email, password}})
+      // navigation.navigate("components/otpCodeRegister/index",{loginData: {email, password}})
+      router.push({pathname: "/(tabs)/(04_settings)/otpCodeRegister",params: {loginData: {email, password}}});
     }
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    navigation.navigate("(tabs)", { screen: "index" });
+    // navigation.navigate("(tabs)", { screen: "index" });
+    router.push("/(tabs)/(01_home)");
+    
   };
   const forgotHandler = () => {
     {
       /* components/forgotPass/index */
     }
-    navigation.navigate("components/forgotPass/index");
+    // navigation.navigate("components/forgotPass/index");
+    router.push("/(tabs)/(04_settings)/forgotPass");
+
   };
 
   return (
@@ -175,6 +184,7 @@ const LoginScreen = () => {
     </ScrollView>
   );
 };
+export default LoginScreen;
 const styles = StyleSheet.create({
   safeArea: {
     paddingVertical: 20,
@@ -281,4 +291,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;

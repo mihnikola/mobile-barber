@@ -1,11 +1,11 @@
 // src/hooks/useEmailOtpCode.js
 import { useState, useCallback } from "react";
-import { getData, post } from "../../../../api/apiService";
-import { saveStorage } from "../../../../helpers/token";
+import { getData, post } from "@/api/apiService";
+import { saveStorage } from "@/helpers/token";
 import {
   getExpoTokenStorage,
   removeExpoTokenStorage,
-} from "./../../../../helpers/expoToken";
+} from "@/helpers/expoToken";
 
 const useSubmitOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,6 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { put } from "@/api/apiService";
-import { useNavigation } from "@react-navigation/native";
 
 const useCancelReservation = () => {
   const [isCanceling, setIsCanceling] = useState(false);
@@ -8,29 +7,24 @@ const useCancelReservation = () => {
   const [cancelMessage, setCancelMessage] = useState(null);
   const [cancelSuccess, setCancelSuccess] = useState(null);
   const [cancelSuccessFlag, setCancelSuccessFlag] = useState(false);
-  const navigation = useNavigation();
 
-  const cancelReservation = useCallback(
-    async (reservationId) => {
-      if (!reservationId) {
-        setCancelError("Reservation ID is missing.");
-        return false;
-      }
-      setIsCanceling(true);
-      setCancelError(null);
-      try {
-        const response = await put(`/reservations/${reservationId}`, {
-          status: 1,
-        }); // Assuming status 1 is for cancellation
-        setCancelSuccess(response.message || "Successfully canceled.");
-    
-      } catch (err) {
-        setCancelError(err.message || "Failed to cancel reservation.");
-        console.error("Error canceling reservation:", err);
-      }
-    },
-    [navigation]
-  );
+  const cancelReservation = async (reservationId) => {
+    if (!reservationId) {
+      setCancelError("Reservation ID is missing.");
+      return false;
+    }
+    setIsCanceling(true);
+    setCancelError(null);
+    try {
+      const response = await put(`/reservations/${reservationId}`, {
+        status: 1,
+      }); // Assuming status 1 is for cancellation
+      setCancelSuccess(response.message || "Successfully canceled.");
+    } catch (err) {
+      setCancelError(err.message || "Failed to cancel reservation.");
+      console.error("Error canceling reservation:", err);
+    }
+  };
 
   return {
     isCanceling,

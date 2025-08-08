@@ -19,7 +19,7 @@ const companyInfo = {
 };
 
 const HelpSupportScreen = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   // Function to open the email app with a pre-filled recipient
   const handleEmailPress = () => {

@@ -1,6 +1,6 @@
 // src/hooks/useChangePasswordHandler.js
 import { useState, useCallback } from "react";
-import { put } from "../../../../api/apiService";
+import { put } from "@/api/apiService";
 
 const useChangePasswordHandler = () => {
   const [isLoading, setIsLoading] = useState(false);

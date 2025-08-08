@@ -9,20 +9,21 @@ import {
   StatusBar,
   Button,
 } from "react-native";
-import ImageCompress from "../../shared-components/ImageCompress";
-import useUser from "./hooks/useUser";
+import ImageCompress from "@/shared-components/ImageCompress";
+import useUser from "@/components/infoapp/hooks/useUser";
 import Loader from "@/components/Loader";
-import useUserChange from "./hooks/useUserChange";
-import usePhoneNumber from "./hooks/usePhoneNumber";
-import useName from "./hooks/useName";
+import useUserChange from "@/components/infoapp/hooks/useUserChange";
+import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
+import useName from "@/components/infoapp/hooks/useName";
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const userprofile = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const { userData, isLoading, error } = useUser();
 
@@ -70,7 +71,7 @@ const userprofile = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate("(tabs)", { screen: "settings" });
+        // navigation.navigate("(tabs)", { screen: "settings" });
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -92,7 +93,8 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    navigation.navigate("(tabs)", { screen: "settings" });
+    // navigation.navigate("(tabs)", { screen: "settings" });
+    router.push("(tabs)/(04_settings)/index");
   };
 
   const submitChanges = () => {

@@ -112,7 +112,7 @@ const ReservationDetails = () => {
     setIsRateSuccess(false);
     setIsCanceling(false);
 
-    router.push("(03_calendar)");
+    router.push("/(tabs)/(03_calendar)");
   };
   return (
     <ScrollView style={styles.container}>
