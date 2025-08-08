@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   coverImage: {
     width: "100%",
-    height: 200,
+    height: 180,
     opacity: 0.2,
   },
 
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: 'flex',
     alignSelf: 'center',
-    paddingVertical: 150
+    paddingVertical: 130
   },
 });

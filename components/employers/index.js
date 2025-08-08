@@ -25,8 +25,7 @@ const Employers = () => {
     router.push("/(tabs)/(02_barbers)/services");
   };
   function handleBackButtonClick3() {
-    // navigation.goBack();
-    // return true;
+    return true;
   }
 
   return (

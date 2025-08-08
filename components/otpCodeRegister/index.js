@@ -70,11 +70,9 @@ const otpCodeRegister = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
     if (!loginData) {
-      // navigation.navigate("components/login/index");
       router.push("/(tabs)/(04_settings)/login")
     }
     if (isVerified && loginData) {
-      // navigation.navigate("(tabs)", { screen: "index" });
       router.push("/(tabs)/(01_home)")
 
 

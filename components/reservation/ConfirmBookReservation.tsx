@@ -12,10 +12,10 @@ const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
    const params = useLocalSearchParams();
     const { responseData } = params;
-
+console.log("ConfirmBookReservation+++",responseData)
   const submitReservationHandler = async () => {
     router.dismissAll();
-    router.push("/(tabs)/(03_calendar)");
+    router.push({pathname:"/(tabs)/(03_calendar)", params: {reevalueted: 1}});
   };
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");

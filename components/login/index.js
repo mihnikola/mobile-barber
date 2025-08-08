@@ -14,27 +14,27 @@ import {
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePassword from "./hooks/usePassword";
 import useEmail from "./hooks/useEmail";
-import { useNavigation } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useEffect } from "react";
-import { router } from "expo-router";
+import { useCallback, useEffect } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
-  // const navigation = useNavigation();
+  const params = useLocalSearchParams();
+  const { data } = params;
   const { email, handleEmailChange } = useEmail();
-
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login, setStatus, status, success, setIsMessage, isMessage, error } =
+  const { pending, login, status, success, setIsMessage, isMessage, error } =
     useLoginForm();
-    
+
   function handleBackButtonClick3() {
-    // navigation.navigate("(tabs)",{screen: 'index'});
-    router.push("/(tabs)/(01_home)");
+  
     return true;
   }
   useEffect(() => {
@@ -51,9 +51,7 @@ const LoginScreen = () => {
     login(email, password);
   };
   const navigateToRegister = () => {
-    // navigation.navigate("components/register/index"); // Navigate to app/(auth)/register.tsx
     router.push("(tabs)/(04_settings)/register");
-
   };
 
   const handleGoogleLogin = () => {
@@ -67,29 +65,61 @@ const LoginScreen = () => {
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
-    if(status===606){
-      // navigation.navigate("components/otpCodeRegister/index",{loginData: {email, password}})
-      router.push({pathname: "/(tabs)/(04_settings)/otpCodeRegister",params: {loginData: {email, password}}});
+    if (status === 606) {
+      router.push({
+        pathname: "/(tabs)/(04_settings)/otpCodeRegister",
+        params: { loginData: { email, password } },
+      });
     }
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("(tabs)", { screen: "index" });
-    router.push("/(tabs)/(01_home)");
-    
+    redirectValidation();
+  };
+  const redirectValidation = () => {
+    if (data === "1") {
+      router.push({
+        pathname: "/(tabs)/(02_barbers)/calendar",
+        params: { reevaluted: true },
+      });
+      console.log("/(tabs)/(02_barbers)/calendar-", data);
+    } else if (data === "2") {
+      router.push({
+        pathname: "/(tabs)/(03_calendar)",
+        params: { reevaluted: true },
+      });
+      console.log("/(tabs)/(03_calendar)-", data);
+    } else {
+      router.push({
+        pathname: "/(tabs)/(04_settings)",
+        params: { reevaluted: true },
+      });
+      console.log("/(tabs)/(04_settings)-", data);
+    }
   };
   const forgotHandler = () => {
-    {
-      /* components/forgotPass/index */
-    }
-    // navigation.navigate("components/forgotPass/index");
     router.push("/(tabs)/(04_settings)/forgotPass");
-
   };
+
+  const getToken = async () => {
+    const storedToken = await AsyncStorage.getItem("token");
+    if (storedToken) {
+      console.log("getToken async");
+
+      redirectValidation();
+    }
+  };
+  useFocusEffect(
+    useCallback(() => {
+      console.log("getToken");
+
+      getToken();
+    }, [])
+  );
 
   return (
     <ScrollView style={styles.safeArea}>
-            <StatusBar backgroundColor="black" barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <Image
           source={require("@/assets/images/logoFamilyImg.png")}
@@ -290,4 +320,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-

@@ -14,7 +14,6 @@ const otpCode = () => {
   const params = useLocalSearchParams();
   const { data } = params;
 
-  // const navigation = useNavigation();
 
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   const {

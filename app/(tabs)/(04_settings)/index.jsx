@@ -1,31 +1,10 @@
-import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import SettingsComponent from "@/components/infoapp/SettingsComponent";
+import SettingsComponent from "@/components/settings/SettingsComponent";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function Settings() {
-  const [check, setCheck] = useState(false);
-  const checkToken = async () => {
-    try {
-      const storedToken = await AsyncStorage.getItem("token");
+const Settings = () => {
 
-      if (storedToken) {
-        setCheck(true);
-      } else {
-        // router.push("/(tabs)/(04_settings)/login");
-        router.dismissAll();
-        router.push("/(tabs)/(04_settings)/login");
-      }
-    } catch (error) {
-      console.error("Error reading token:", error);
-      router.dismissAll();
-      router.push("/(tabs)/(04_settings)/login");
-    }
-  };
-  // useEffect that runs when the screen is focused
-  useEffect(() => {
-    checkToken();
-  }, []); // Dependency on isFocused to trigger the effect
-  if (check) {
+    const isFocused = useIsFocused(); // useIsFocused hook
+    console.log("Settings isFocused", isFocused)
     return <SettingsComponent />;
-  }
 }
+export default Settings;

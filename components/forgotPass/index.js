@@ -20,7 +20,6 @@ import useEmail from "./hooks/useEmail";
 import { router } from "expo-router";
 
 const ForgotPassword = () => {
-  // const navigation = useNavigation();
   const [active, setActive] = useState("email");
   const { email, emailError, handleEmailChange } = useEmail();
 

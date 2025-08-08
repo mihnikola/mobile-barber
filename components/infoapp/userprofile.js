@@ -1,6 +1,5 @@
 import {
   View,
-  Image,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -16,15 +15,13 @@ import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
 import { useCallback, useEffect, useState } from "react";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 
 const userprofile = () => {
-  // const navigation = useNavigation();
-
   const { userData, isLoading, error } = useUser();
 
   const [changedImg, setChangedImg] = useState(undefined);
@@ -71,7 +68,6 @@ const userprofile = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        // navigation.navigate("(tabs)", { screen: "settings" });
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -93,8 +89,7 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("(tabs)", { screen: "settings" });
-    router.push("(tabs)/(04_settings)/index");
+    router.push("(tabs)/(04_settings)");
   };
 
   const submitChanges = () => {
@@ -121,7 +116,6 @@ const userprofile = () => {
   if (!isLoading) {
     return (
       <View style={styles.container}>
-
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
             <ImageCompress
@@ -295,8 +289,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
   },
   textInput: {
     marginBottom: 10,
@@ -306,6 +298,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: "black",
   },
   containerInfo: {

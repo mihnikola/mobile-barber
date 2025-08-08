@@ -43,24 +43,23 @@ const styles = StyleSheet.create({
     defaultImgAvatar: {
         width: 200,
         height: 200,
-        marginVertical: 30,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        padding: 10,
     },
     image: {
-        width: 150,
-        height: 150,
+        width: 200,
+        height: 200,
         borderRadius: 100,
         resizeMode: 'cover', // Ensures image fits within the bounds without distortion
     },
     button: {
         position: "absolute",
-        left: 130,
-        top: 150
+        left: 160,
+        top: 160
     },
     buttonPlaceholder: {
         position: "absolute",

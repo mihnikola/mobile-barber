@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import {
@@ -33,7 +32,6 @@ const DateComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // const navigation = useNavigation();
   const { selectedDate, handleDayPress, isSunday, markedDates } =
     useSelectedDate(currentDate);
   const { timesData, isLoading, error, resetError } = useFetchTimes(
@@ -67,7 +65,6 @@ const DateComponent = () => {
       const onBackPress = () => {
         // Return true to disable the default back button behavior
         console.log("object");
-        // navigation.navigate("components/services/index");
         router.push("/(tabs)/(02_barbers)/services");
         return true;
       };
@@ -158,11 +155,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: "flex",
     alignSelf: "center",
-    paddingVertical: 150,
+    paddingVertical: 110,
   },
   coverImage: {
     width: "100%",
-    height: 200,
+    height: 150,
     opacity: 0.2,
   },
   notWorkingDays: {

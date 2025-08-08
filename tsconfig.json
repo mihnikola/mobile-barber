@@ -17,5 +17,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/(tabs)/(04_settings)/index.jsx"
-  ]
+, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx"  ]
 }

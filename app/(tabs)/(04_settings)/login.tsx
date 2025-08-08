@@ -1,4 +1,4 @@
-import LoginScreenComponent from '@/components/login/index';
+import LoginScreenComponent from "@/components/login/index";
 
 const LoginComponent = () => {
   return <LoginScreenComponent />;

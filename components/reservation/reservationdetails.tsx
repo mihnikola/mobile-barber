@@ -8,7 +8,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import useFetchReservation from "./hooks/useFetchReservation";
@@ -58,7 +57,6 @@ const ReservationDetails = () => {
     useCallback(() => {
       const onBackPress = () => {
         // Return true to disable the default back button behavior
-        // navigator.goBack();
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -111,8 +109,7 @@ const ReservationDetails = () => {
   const confirmHandler = () => {
     setIsRateSuccess(false);
     setIsCanceling(false);
-
-    router.push("/(tabs)/(03_calendar)");
+    router.push({pathname: "/(tabs)/(03_calendar)", params: {data: 2}});
   };
   return (
     <ScrollView style={styles.container}>
@@ -299,16 +296,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
   },
-  //   btn: {
-  //   backgroundColor: "#1C1C1E",
-  //   paddingVertical: 15,
-  //   borderRadius: 8,
-  //   borderWidth: 1,
-  //   borderColor: "white",
-  //   alignItems: "center",
-  //   marginTop: 20,
-  //   marginBottom: 30,
-  // },
   container: {
     flex: 1,
     backgroundColor: "black",
@@ -316,7 +303,7 @@ const styles = StyleSheet.create({
   coverContent: {
     padding: 8,
     position: "absolute",
-    top: 150,
+    top: 50,
   },
   statusContentPending: {
     color: "white",
@@ -344,7 +331,7 @@ const styles = StyleSheet.create({
   },
   coverImage: {
     width: "100%",
-    height: 300,
+    height: 200,
     opacity: 0.2,
   },
   greyLine: {

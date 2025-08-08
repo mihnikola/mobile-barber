@@ -3,42 +3,21 @@ import {
   Text,
   StyleSheet,
   Image,
-  Button,
-  TouchableOpacity,
   ScrollView,
-  BackHandler,
 } from "react-native";
-import React, { useCallback, useContext } from "react";
+import React, {  useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
-import ButtonComponent from "@/shared-components/Button";
 import Details from "@/shared-components/Details";
 import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
-import { router, useFocusEffect } from "expo-router";
-import { useNavigation } from "@react-navigation/native";
 import SharedButton from "@/shared-components/SharedButton";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { submitReservationHandler, isLoading, error } = useSubmitReservation();
-  // const navigation = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        // Return true to disable the default back button behavior
-        console.log("object");
-        // navigation.navigate("components/reservation/datereservation");
-        router.push('/(tabs)/(02_barbers)/reservation')
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
   if (reservation) {
     return (
       <ScrollView style={styles.container}>
@@ -112,11 +91,10 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
-    position: "fixed",
-    display: "flex",
-    flexDirection: "column",
+    position: "absolute",
     alignItems: "center",
-    padding: 20,
+    alignSelf: "center",
+    top:50
   },
   dateData: {
     fontSize: 20,
@@ -134,17 +112,8 @@ const styles = StyleSheet.create({
   },
   coverImage: {
     width: "100%",
-    height: 200,
+    height: 180,
     opacity: 0.2,
   },
-  capture: {
-    fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    fontStyle: "italic",
-    position: "absolute",
-    left: 80,
-    top: 150,
-  },
+
 });

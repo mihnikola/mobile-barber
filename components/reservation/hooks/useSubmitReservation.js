@@ -2,7 +2,6 @@
 import { post } from "@/api/apiService";
 import ReservationContext from "@/context/ReservationContext";
 import { getStorage } from "@/helpers/token";
-import { useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
@@ -19,7 +18,6 @@ Notifications.setNotificationHandler({
 const useSubmitReservation = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigation = useNavigation();
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
 

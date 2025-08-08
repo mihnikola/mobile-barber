@@ -27,7 +27,6 @@ import usePhoneNumber from "./hooks/usePhoneNumber";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 const Register = () => {
-  // const navigation = useNavigation();
   const [userName, setUserName] = useState("");
   const {
     loading,
@@ -45,7 +44,6 @@ const Register = () => {
     useConfirmPassword(password);
 
   function handleBackButtonClick3() {
-    // navigation.navigate("components/login/index");
         router.push("/(tabs)/(04_settings)/login");
 
     return true;
@@ -73,13 +71,11 @@ const Register = () => {
   };
 
   const navigateToLogin = () => {
-    // navigation.navigate("components/login/index");
     router.push("/(tabs)/(04_settings)/login");
 
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("components/otpCodeRegister/index", { data: email });
     router.push({ pathname: "/(tabs)/(04_settings)/otpCodeRegister", params: { data: email } });
   };
 

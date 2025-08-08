@@ -26,7 +26,7 @@ const DateReservation: React.FC = () => {
           setIsLoading(false);
         } else {
           console.log("unproved")
-          router.push("/(tabs)/(04_settings)/login")
+          router.push({pathname :"/(tabs)/(04_settings)/login", params: {data: 1}})
           setIsLoading(false);
         }
       })

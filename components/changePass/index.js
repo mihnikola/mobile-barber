@@ -20,7 +20,6 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 
 const changePass = () => {
-  // const navigation = useNavigation();
   const params = useLocalSearchParams();
   const { data } = params;
 
@@ -51,7 +50,6 @@ const changePass = () => {
   };
 
   function handleBackButtonClick3() {
-    // navigation.navigate("components/login/index");
     router.push("/(tabs)/(04_settings)/login");
 
     return true;
@@ -68,7 +66,6 @@ const changePass = () => {
 
   const confirmHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("components/login/index");
        router.push("/(tabs)/(04_settings)/login");
 
 

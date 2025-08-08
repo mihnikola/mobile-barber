@@ -9,7 +9,6 @@ const useUserChange = () => {
   const [isMessage, setIsMessage] = useState(false);
 
   const handleChangeUser = useCallback(async (userData) => {
-    console.log("handleChangeUser", userData);
     setIsLoadingChange(true);
     setErrorChange(null);
 
