@@ -13,11 +13,14 @@ const useFetchReservation = (reservationId) => {
             setError("Reservation ID is not provided.");
             return;
         }
+            console.log("useFetchReservation",reservationId)
 
         setIsLoading(true);
         setError(null);
         try {
             const data = await get(`/reservations/${reservationId}`);
+            console.log("useFetchReservation response data",data)
+
             setReservationData(data);
         } catch (err) {
             setError(err.message || "Failed to fetch reservation details.");

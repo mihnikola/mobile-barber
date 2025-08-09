@@ -19,6 +19,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../components/location/hooks/useOpenGoogleMaps";
+import { router } from "expo-router";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -140,15 +141,35 @@ export default function App() {
       .then((token) => setExpoPushToken(token ?? ""))
       .catch((error) => setExpoPushToken(`${error}`));
 
+    //kada je aplikacija ubijena
+    Notifications.getLastNotificationResponseAsync().then((response) => {
+      if (response?.notification?.request?.content?.data?.someData?.url) {
+        const reservationIdValue =
+          response?.notification?.request?.content?.data?.someData?.url;
+
+        navigation.navigate("components/reservation/reservationdetails", {
+          itemId: reservationIdValue,
+          check: true,
+        });
+      }
+    });
+    //kada sam u aplikaciji
     const notificationListener = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
+      (notificationData) => {
+        const notificationDatax = notificationData?.request?.content?.data;
+        console.log("joj notification data:", notificationDatax);
+        setNotification(notificationData);
       }
     );
-
+    //kada sam van aplikacije
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        const notificationData = response.notification.request.content.data;
+        navigation.navigate("components/reservation/reservationdetails", {
+          itemId: notificationData.someData.reservationId,
+          check: true,
+        });
       });
 
     return () => {
@@ -250,7 +271,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 5,
-    marginTop:10,
+    marginTop: 10,
   },
   locationContent: {
     flexDirection: "column",
@@ -266,16 +287,16 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     position: "absolute",
-    alignItems:"center",
-    alignSelf:'center',
-    paddingTop: 100
+    alignItems: "center",
+    alignSelf: "center",
+    paddingTop: 100,
   },
   boxBook: {
     position: "absolute",
-    alignSelf:'center',
-    justifyContent:'center',
-    height: '100%',
-    paddingTop:330
+    alignSelf: "center",
+    justifyContent: "center",
+    height: "100%",
+    paddingTop: 330,
   },
 
   backImage: {
