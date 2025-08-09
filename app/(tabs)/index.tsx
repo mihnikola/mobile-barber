@@ -159,12 +159,14 @@ export default function App() {
         const notificationDatax = notificationData?.request?.content?.data;
         console.log("joj notification data:", notificationDatax);
         setNotification(notificationData);
-      (notification) => {
-        console.log("notificationListener", notification);
+        (notification) => {
+          console.log("notificationListener", notification);
 
-        setNotification(notification);
+          setNotification(notification);
+        };
       }
     );
+
     //kada sam van aplikacije
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
