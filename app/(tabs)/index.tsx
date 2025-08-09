@@ -19,6 +19,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../components/location/hooks/useOpenGoogleMaps";
+import { router } from "expo-router";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -140,23 +141,39 @@ export default function App() {
       .then((token) => setExpoPushToken(token ?? ""))
       .catch((error) => setExpoPushToken(`${error}`));
 
+    //kada je aplikacija ubijena
+    Notifications.getLastNotificationResponseAsync().then((response) => {
+      if (response?.notification?.request?.content?.data?.someData?.url) {
+        const reservationIdValue =
+          response?.notification?.request?.content?.data?.someData?.url;
+
+        navigation.navigate("components/reservation/reservationdetails", {
+          itemId: reservationIdValue,
+          check: true,
+        });
+      }
+    });
+    //kada sam u aplikaciji
     const notificationListener = Notifications.addNotificationReceivedListener(
+      (notificationData) => {
+        const notificationDatax = notificationData?.request?.content?.data;
+        console.log("joj notification data:", notificationDatax);
+        setNotification(notificationData);
       (notification) => {
         console.log("notificationListener", notification);
 
         setNotification(notification);
       }
     );
-
+    //kada sam van aplikacije
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log("responseListener", response);
+        console.log(response);
         const notificationData = response.notification.request.content.data;
-
-        // You can now access properties of the notificationData object.
-        console.log("Data from notification:", notificationData);
-
-        //ovde mora da ide redirect 
+        navigation.navigate("components/reservation/reservationdetails", {
+          itemId: notificationData.someData.reservationId,
+          check: true,
+        });
       });
 
     return () => {
