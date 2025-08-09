@@ -18,7 +18,8 @@
     },
     "android": {
       "notification": {
-        "icon": "./assets/images/barber-shop.png"
+        "icon": "./assets/images/moustache.png",
+        "color": "#ffffff"
       },
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/homeSplash.png"
@@ -35,7 +36,8 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/barber-shop.png"
+          "icon": "./assets/images/moustache.png",
+          "color": "#ffffff"
         }
       ],
       "expo-router"
