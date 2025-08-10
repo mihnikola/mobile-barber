@@ -11,7 +11,6 @@ import { Platform } from "react-native";
 import RadioButton from "./RadioButton";
 import SharedButton from "@/shared-components/SharedButton";
 import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";

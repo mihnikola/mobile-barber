@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -14,18 +9,15 @@ import {
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
-import FlatButton from "@/shared-components/Button"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
 import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import SharedButton from "@/shared-components/SharedButton";
+import { useFocusEffect } from "@react-navigation/native";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 const DateComponent = () => {
   const currentDate = new Date();
 
@@ -53,18 +45,14 @@ const DateComponent = () => {
   };
 
   useEffect(() => {
-
-      const dateValue = selectedDate.toLocaleString("en-GB");
-      const valueInitialData = convertDayInitalValue(dateValue);
-      handleDayPress(valueInitialData);
-
+    const dateValue = selectedDate.toLocaleString("en-GB");
+    const valueInitialData = convertDayInitalValue(dateValue);
+    handleDayPress(valueInitialData);
   }, []);
- 
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        // Return true to disable the default back button behavior
-        console.log("object");
         router.push("/(tabs)/(02_barbers)/services");
         return true;
       };

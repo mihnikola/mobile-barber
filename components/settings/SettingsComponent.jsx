@@ -19,7 +19,7 @@ import LoginScreen from "../login";
 import { useIsFocused } from "@react-navigation/native";
 
 const SettingsComponent = () => {
-  const { userData, isLoading, error, isValid, tokenData, fetchUserData, logoutHandler, onPressHandler, isMessage, setIsMessage } = useUser();
+  const { userData, isLoading, error, isValid, tokenData, fetchUserData, logoutFromFIrebase, onPressHandler, isMessage, setIsMessage } = useUser();
   const params = useLocalSearchParams();
   const reevaluted = params;
 
@@ -91,7 +91,7 @@ const SettingsComponent = () => {
             <SharedQuestion
               isOpen={isMessage}
               onClose={() => setIsMessage(false)}
-              onLogOut={logoutHandler}
+              onLogOut={logoutFromFIrebase}
               icon={
                 <FontAwesome
                   name="question-circle-o" // The specific FontAwesome icon to use

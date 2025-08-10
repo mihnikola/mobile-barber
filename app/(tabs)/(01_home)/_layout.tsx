@@ -4,7 +4,7 @@ export default function RootLayoutHome() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="(01_home)"
+        name="index"
         options={{ title: "", headerShown: false }}
       />
       <Stack.Screen

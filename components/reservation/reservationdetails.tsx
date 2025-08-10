@@ -23,11 +23,11 @@ import SharedButtonDateReservation from "@/shared-components/SharedButtonDateRes
 import { router, useLocalSearchParams } from "expo-router";
 
 const ReservationDetails = () => {
-  const  params  = useLocalSearchParams();
-  const { itemId, check } = params;
+  const params = useLocalSearchParams();
+  const { itemId, check, pushNotification } = params;
 
-  console.log("ReservationDetails++")
-  console.log("useRoute++",itemId, check)
+  console.log("ReservationDetails++");
+  console.log("useRoute++", itemId, check, pushNotification);
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const { reservationData, isLoading, error, refetch } =
     useFetchReservation(itemId);
@@ -58,8 +58,14 @@ const ReservationDetails = () => {
 
   useFocusEffect(
     useCallback(() => {
+      console.log("useFocusEffect+++")
       const onBackPress = () => {
         // Return true to disable the default back button behavior
+        if (pushNotification) {
+          router.push("/(tabs)/(03_calendar)");
+        } else {
+          router.back();
+        }
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -112,7 +118,7 @@ const ReservationDetails = () => {
   const confirmHandler = () => {
     setIsRateSuccess(false);
     setIsCanceling(false);
-    router.push({pathname: "/(tabs)/(03_calendar)", params: {data: 2}});
+    router.push({ pathname: "/(tabs)/(03_calendar)", params: { data: 2 } });
   };
   return (
     <ScrollView style={styles.container}>
@@ -183,7 +189,7 @@ const ReservationDetails = () => {
               </View>
             </View>
           )}
-          {check ==="true" && (
+          {check === "true" && (
             <SharedButtonDateReservation
               onPress={cancelReservationHandler}
               loading={isCanceling}

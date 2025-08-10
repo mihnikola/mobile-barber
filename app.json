@@ -34,7 +34,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/moustache.png",
+          "icon": "./assets/images/homeSplash.png",
           "color": "#ffffff"
         }
       ]

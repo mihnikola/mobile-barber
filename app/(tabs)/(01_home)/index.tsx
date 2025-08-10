@@ -19,7 +19,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
-import {router} from 'expo-router';import { router } from "expo-router";
+import { router } from "expo-router";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -97,14 +97,11 @@ export default function App() {
     Notifications.Notification | undefined
   >(undefined);
 
-  
-
   const nextPage = () => {
     router.push("/(tabs)/(02_barbers)");
   };
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
-
   };
 
   const slideAnim = useRef(new Animated.Value(-height)).current;
@@ -112,15 +109,15 @@ export default function App() {
 
   useEffect(() => {
     Animated.timing(slideAnim, {
-      toValue: 0, 
+      toValue: 0,
       duration: 1000,
-      useNativeDriver: true, 
+      useNativeDriver: true,
     }).start();
     setTimeout(() => {
       Animated.timing(slideAnimBook, {
-        toValue: 0, 
-        duration: 1000, 
-        useNativeDriver: true, 
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
       }).start();
     }, 400);
   }, [slideAnim]);
@@ -144,9 +141,14 @@ export default function App() {
 
     if (reservationIdValue && reservationIdValue !== undefined) {
       console.log("redirectReservation object", reservationIdValue);
-      navigation.navigate("components/reservation/reservationdetails", {
-        itemId: reservationIdValue,
-        check: true,
+
+      router.push({
+        pathname: "/(tabs)/(03_calendar)/cancelModalReservation",
+        params: {
+          itemId: reservationIdValue,
+          check: true,
+          pushNotification: true,
+        },
       });
     }
   };

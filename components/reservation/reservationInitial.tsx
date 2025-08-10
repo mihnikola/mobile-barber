@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import Loader from "@/components/Loader";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useLocalSearchParams } from "expo-router";
-import SignForm from "../SignForm/SignForm";
 import CalendarComponent from "./CalendarComponent";
 import useReservationHandler from "./hooks/useReservationHandler";
 export default function Explore() {
@@ -22,9 +21,7 @@ export default function Explore() {
   if (isLoading) {
     return <Loader />;
   }
-  if (!isLoading && !token) {
-    return <SignForm />;
-  }
+
   if (!isLoading && token) {
     return <CalendarComponent />;
   }
