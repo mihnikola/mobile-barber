@@ -23,6 +23,7 @@ import { useCallback, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loader from "../Loader";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -30,11 +31,19 @@ const LoginScreen = () => {
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login, status, success, setIsMessage, isMessage, error } =
-    useLoginForm();
+  const {
+    pending,
+    login,
+    status,
+    success,
+    setIsMessage,
+    isMessage,
+    error,
+    verificationOTPCode,
+    sendOTPviaLogin,
+  } = useLoginForm();
 
   function handleBackButtonClick3() {
-  
     return true;
   }
   useEffect(() => {
@@ -64,14 +73,21 @@ const LoginScreen = () => {
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
   const confirmHandler2 = () => {
-    setIsMessage(false);
     if (status === 606) {
+      console.log("object 606", { email, password });
+      const loginData = { email, password };
+      verificationOTPCode(loginData);
+    }
+    // setIsMessage(false);
+  };
+  useEffect(() => {
+    if (sendOTPviaLogin) {
       router.push({
         pathname: "/(tabs)/(04_settings)/otpCodeRegister",
-        params: { loginData: { email, password } },
+        params: { email, password },
       });
     }
-  };
+  }, [sendOTPviaLogin]);
   const confirmHandler = () => {
     setIsMessage(false);
     redirectValidation();
@@ -117,6 +133,9 @@ const LoginScreen = () => {
     }, [])
   );
 
+  if (pending) {
+    return <Loader />;
+  }
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />

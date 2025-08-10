@@ -9,6 +9,7 @@ const useSendEmailVerification = () => {
 
   const verificationOTPCode = useCallback(async (paramsData) => {
     const { email, password } = paramsData;
+    console.log("verificationOTPCode+++",{ email, password })
     setIsLoadingVerification(true);
     setErrorVerification(null);
     try {

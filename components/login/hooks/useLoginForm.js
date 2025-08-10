@@ -1,7 +1,7 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
 import { saveStorage } from "@/helpers/token";
-import { post } from "@/api/apiService";
+import { getData, post } from "@/api/apiService";
 import { removeExpoTokenStorage } from "@/helpers/expoToken";
 import useNotificationServices from "@/hooks/useNotificationServices";
 
@@ -12,7 +12,7 @@ const useLoginForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
-
+  const [sendOTPviaLogin, setsendOTPviaLogin] = useState(false);
   const { registerForPushNotificationsAsync, expoPushToken } =
     useNotificationServices();
 
@@ -67,6 +67,29 @@ const useLoginForm = () => {
     }
   };
 
+
+
+  const verificationOTPCode = async (paramsData) => {
+    const { email, password } = paramsData;
+    console.log("verificationOTPCode+++", { email, password });
+    setPending(true);
+    setError(null);
+    try {
+      const response = await getData("/users/sendOTPviaLogin", {
+        params: { email, password },
+      });
+      console.log("verificationOTPCode", response);
+      if (response.status === 200) {
+        setsendOTPviaLogin(true);
+        setPending(false);
+      }
+    } catch (err) {
+      setPending(false);
+      setError(`Not valid otp code`);
+
+      setIsMessage(true);
+    }
+  };
   useEffect(() => {
     if (data) {
       saveToken(data.userId);
@@ -116,6 +139,9 @@ const useLoginForm = () => {
     setStatus,
     setIsMessage,
     isMessage,
+    setsendOTPviaLogin,
+    sendOTPviaLogin,
+    verificationOTPCode,
   };
 };
 

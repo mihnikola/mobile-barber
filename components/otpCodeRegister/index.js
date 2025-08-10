@@ -20,9 +20,10 @@ import { router, useLocalSearchParams } from "expo-router";
 
 const otpCodeRegister = () => {
   const params = useLocalSearchParams(); // Get the route object
-  const { data, loginData } = params;
-  const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
+  const { email,password } = params;
+      console.log("otpCodeRegister",email,password)
 
+  const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   <Text style={styles.mainTitle}>Enter OTP Code</Text>;
   const {
     checkOtpCodeValidation,
@@ -47,19 +48,18 @@ const otpCodeRegister = () => {
   } = useSendEmailVerification();
 
   useEffect(() => {
-    if (loginData) {
+    const loginData ={email,password};
       verificationOTPCode(loginData);
-    }
-  }, [loginData]);
+  }, []);
 
   const handleVerify = () => {
     const otp = code.join("");
     if (otp.length === 6) {
-      if (loginData) {
-        checkOtpCodeVerification(loginData?.email, loginData?.password, otp);
-      } else {
-        checkOtpCodeValidation(data, otp);
-      }
+      // if (loginData) {
+        checkOtpCodeVerification(email, password, otp);
+      // } else {
+        // checkOtpCodeValidation(data, otp);
+      // }
     } else {
       setIsMessage(true);
       setError("Please enter all 6 digits.");
@@ -69,10 +69,10 @@ const otpCodeRegister = () => {
   const confirmHandler = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
-    if (!loginData) {
-      router.push("/(tabs)/(04_settings)/login")
-    }
-    if (isVerified && loginData) {
+    // if (!loginData) {
+      // router.push("/(tabs)/(04_settings)/login")
+    // }
+    if (isVerified) {
       router.push("/(tabs)/(01_home)")
 
 
@@ -92,14 +92,14 @@ const otpCodeRegister = () => {
       </View>
       <View>
         <Text style={styles.subtitle}>
-          OTP code has been sent to {!loginData ? data : loginData?.email}.
+          OTP code has been sent to {email}.
         </Text>
         <Text style={styles.subtitle}>
           If you didn't find it, check your SPAM mailbox.
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
-      <ResendOtpCodeTimer email={!loginData ? data : loginData?.email} />
+      <ResendOtpCodeTimer email={email} />
       <View style={styles.imageContainer}>
         <Image
           source={require("@/assets/images/fgtPass.png")}
