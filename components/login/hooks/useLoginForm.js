@@ -1,10 +1,12 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
+import { saveStorage } from "../../../../helpers/token";
+import { post } from "../../../../api/apiService";
 import {
-  saveStorage,
-} from "../../../helpers/token";
-import { post } from "../../../api/apiService";
-import { getExpoTokenStorage, removeExpoTokenStorage } from "@/helpers/expoToken";
+  getExpoTokenStorage,
+  removeExpoTokenStorage,
+} from "@/helpers/expoToken";
+import { Platform } from "react-native";
 
 const useLoginForm = () => {
   const [data, setData] = useState(null);
@@ -14,6 +16,52 @@ const useLoginForm = () => {
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
 
+  async function registerForPushNotificationsAsync() {
+    
+
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        handleRegistrationError(
+          "Permission not granted to get push token for push notification!"
+        );
+        return;
+      }
+      const projectId =
+        Constants?.expoConfig?.extra?.eas?.projectId ??
+        Constants?.easConfig?.projectId;
+      if (!projectId) {
+        handleRegistrationError("Project ID not found");
+      }
+      try {
+        const pushTokenString = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId,
+          })
+        ).data;
+        console.log(pushTokenString);
+        return pushTokenString;
+      } catch (e) {
+        handleRegistrationError(`${e}`);
+      }
+    } else {
+      handleRegistrationError(
+        "Must use physical device for push notifications"
+      );
+    }
+  }
+
+  useEffect(() => {
+    registerForPushNotificationsAsync()
+      .then((token) => setExpoPushToken(token ?? ""))
+      .catch((error) => setExpoPushToken(`${error}`));
+  }, []);
   const login = async (email, password) => {
     if (!email || !password) {
       setIsMessage(true);
@@ -34,7 +82,7 @@ const useLoginForm = () => {
         setError(responseData.message);
         return;
       }
-       if (responseData.status === 606) {
+      if (responseData.status === 606) {
         setPending(false);
         setIsMessage(true);
         setStatus(responseData.status);
@@ -83,7 +131,6 @@ const useLoginForm = () => {
 
         setSuccess("Login Successful!");
         removeExpoTokenStorage();
-        
       } else {
         setPending(false);
         setIsMessage(true);

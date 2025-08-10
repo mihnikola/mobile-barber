@@ -19,7 +19,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
-import {router} from 'expo-router';
+import {router} from 'expo-router';import { router } from "expo-router";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const { height } = Dimensions.get("window");
@@ -137,20 +138,53 @@ export default function App() {
     }, [])
   );
 
+  const redirectReservation = (response) => {
+    const reservationIdValue =
+      response?.notification?.request?.content?.data?.someData?.url;
+
+    if (reservationIdValue && reservationIdValue !== undefined) {
+      console.log("redirectReservation object", reservationIdValue);
+      navigation.navigate("components/reservation/reservationdetails", {
+        itemId: reservationIdValue,
+        check: true,
+      });
+    }
+  };
+
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? ""))
       .catch((error) => setExpoPushToken(`${error}`));
 
+    //kada je aplikacija ubijena
+    Notifications.getLastNotificationResponseAsync().then((response) => {
+      if (response) {
+        redirectReservation(response);
+      }
+    });
+    //kada sam u aplikaciji
     const notificationListener = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
+      (notificationData) => {
+        if (notificationData) {
+          redirectReservation(notificationData);
+        }
+        // const notificationDatax = notificationData?.request?.content?.data;
+        // console.log("joj notification data:", notificationDatax);
+        // setNotification(notificationData);
+        // (notification) => {
+        //   console.log("notificationListener", notification);
+
+        //   setNotification(notification);
+        // };
       }
     );
 
+    //kada sam van aplikacije
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        if (response) {
+          redirectReservation(response);
+        }
       });
 
     return () => {
@@ -252,7 +286,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 5,
-    marginTop:10,
+    marginTop: 10,
   },
   locationContent: {
     flexDirection: "column",
@@ -268,16 +302,16 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     position: "absolute",
-    alignItems:"center",
-    alignSelf:'center',
-    paddingTop: 100
+    alignItems: "center",
+    alignSelf: "center",
+    paddingTop: 100,
   },
   boxBook: {
     position: "absolute",
-    alignSelf:'center',
-    justifyContent:'center',
-    height: '100%',
-    paddingTop:330
+    alignSelf: "center",
+    justifyContent: "center",
+    height: "100%",
+    paddingTop: 330,
   },
 
   backImage: {
