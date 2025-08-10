@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     paddingVertical: 20,
-    backgroundColor: "#0A0B0E", // Dark background color
+    backgroundColor: "black", // Dark background color
   },
   container: {
     flex: 1,

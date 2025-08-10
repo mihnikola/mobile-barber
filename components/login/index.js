@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   safeArea: {
     paddingVertical: 20,
     flex: 1,
-    backgroundColor: "#0A0B0E", // Dark background color
+    backgroundColor: "black", // Dark background color
   },
   iconStyle: {
     width: 30, // Set your desired width

@@ -51,7 +51,7 @@ const ForgotPassword = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <StatusBar />
+      <StatusBar  backgroundColor="black" barStyle="dark-content" />
       <View>
         <Text style={styles.mainTitle}>Forgot Password</Text>
       </View>

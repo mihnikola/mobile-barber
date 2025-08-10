@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: "#0A0B0E",
+    backgroundColor: "black",
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
