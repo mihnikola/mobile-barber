@@ -2,19 +2,18 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
-
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: "white",
         tabBarStyle: {
           backgroundColor: "black", // Set the background color to black
         },
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(01_home)"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
@@ -23,7 +22,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="employers"
+        name="(02_barbers)"
         options={{
           title: "Barbers",
           tabBarIcon: ({ color }) => (
@@ -32,7 +31,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="(03_calendar)"
         options={{
           title: "Calendar",
           tabBarIcon: ({ color }) => (
@@ -42,7 +41,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="settings"
+        name="(04_settings)"
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => (

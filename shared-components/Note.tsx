@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   content: {
-    // backgroundColor: "white",
     display: "flex",
     flexDirection: "row",
     borderRadius: 20,

@@ -5,7 +5,7 @@ import {
     Image,
 } from 'react-native';
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import usePickImage from '../app/components/infoapp/hooks/usePickImage';
+import usePickImage from '@/components/infoapp/hooks/usePickImage';
 import { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
@@ -43,13 +43,12 @@ const styles = StyleSheet.create({
     defaultImgAvatar: {
         width: 200,
         height: 200,
-        marginVertical: 30,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        padding: 10,
     },
     image: {
         width: 200,
@@ -59,8 +58,8 @@ const styles = StyleSheet.create({
     },
     button: {
         position: "absolute",
-        left: 180,
-        top: 200
+        left: 160,
+        top: 160
     },
     buttonPlaceholder: {
         position: "absolute",
