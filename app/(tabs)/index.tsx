@@ -136,6 +136,19 @@ export default function App() {
     }, [])
   );
 
+  const redirectReservation = (response) => {
+    const reservationIdValue =
+      response?.notification?.request?.content?.data?.someData?.url;
+
+    if (reservationIdValue && reservationIdValue !== undefined) {
+      console.log("redirectReservation object", reservationIdValue);
+      navigation.navigate("components/reservation/reservationdetails", {
+        itemId: reservationIdValue,
+        check: true,
+      });
+    }
+  };
+
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? ""))
@@ -143,39 +156,33 @@ export default function App() {
 
     //kada je aplikacija ubijena
     Notifications.getLastNotificationResponseAsync().then((response) => {
-      if (response?.notification?.request?.content?.data?.someData?.url) {
-        const reservationIdValue =
-          response?.notification?.request?.content?.data?.someData?.url;
-
-        navigation.navigate("components/reservation/reservationdetails", {
-          itemId: reservationIdValue,
-          check: true,
-        });
+      if (response) {
+        redirectReservation(response);
       }
     });
     //kada sam u aplikaciji
     const notificationListener = Notifications.addNotificationReceivedListener(
       (notificationData) => {
-        const notificationDatax = notificationData?.request?.content?.data;
-        console.log("joj notification data:", notificationDatax);
-        setNotification(notificationData);
-        (notification) => {
-          console.log("notificationListener", notification);
+        if (notificationData) {
+          redirectReservation(notificationData);
+        }
+        // const notificationDatax = notificationData?.request?.content?.data;
+        // console.log("joj notification data:", notificationDatax);
+        // setNotification(notificationData);
+        // (notification) => {
+        //   console.log("notificationListener", notification);
 
-          setNotification(notification);
-        };
+        //   setNotification(notification);
+        // };
       }
     );
 
     //kada sam van aplikacije
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-        const notificationData = response.notification.request.content.data;
-        navigation.navigate("components/reservation/reservationdetails", {
-          itemId: notificationData.someData.reservationId,
-          check: true,
-        });
+        if (response) {
+          redirectReservation(response);
+        }
       });
 
     return () => {
