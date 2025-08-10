@@ -1,5 +1,5 @@
-import { get } from "@/api/apiService";
-import { removeStorage } from "@/helpers/token";
+import { get, post } from "@/api/apiService";
+import { getStorage, removeStorage } from "@/helpers/token";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -11,6 +11,27 @@ const useUser = () => {
     const [isValid, setIsValid] = useState(false);
     const [isMessage, setIsMessage] = useState(false);
 
+    const logoutFromFIrebase = async () => {
+        setIsLoading(true);
+        let resultStatus = '';
+        try {
+            const token = await getStorage();
+            if(token){
+                const response = await post('/users/logout',{token});
+                if(response.status === 200){
+                    resultStatus = response.status;
+                }
+            }else{
+                console.log("nema token jbt")
+            }
+        } catch (error) {
+
+            
+        }
+        if(resultStatus===200){
+            logoutHandler();
+        }
+    }
     const tokenData = async () => {
         setIsLoading(true);
         try {
@@ -45,10 +66,12 @@ const useUser = () => {
     };
 
     const logoutHandler = async () => {
-        setIsMessage(false);
         await removeStorage().then((s) => {
             router.push("/(tabs)/(04_settings)/login");
         });
+        setIsLoading(false);
+        setIsMessage(false);
+
     };
 
     const fetchUserData = async () => {
@@ -73,7 +96,7 @@ const useUser = () => {
     };
 
 
-    return { userData, isLoading, error, isValid, tokenData, fetchUserData, onPressHandler, logoutHandler, isMessage, setIsMessage };
+    return { userData, isLoading, error, isValid, tokenData, fetchUserData, onPressHandler, logoutFromFIrebase, isMessage, setIsMessage };
 };
 
 export default useUser;

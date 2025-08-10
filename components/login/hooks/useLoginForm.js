@@ -1,12 +1,9 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
-import { saveStorage } from "../../../../helpers/token";
-import { post } from "../../../../api/apiService";
-import {
-  getExpoTokenStorage,
-  removeExpoTokenStorage,
-} from "@/helpers/expoToken";
-import { Platform } from "react-native";
+import { saveStorage } from "@/helpers/token";
+import { post } from "@/api/apiService";
+import { removeExpoTokenStorage } from "@/helpers/expoToken";
+import useNotificationServices from "@/hooks/useNotificationServices";
 
 const useLoginForm = () => {
   const [data, setData] = useState(null);
@@ -16,53 +13,12 @@ const useLoginForm = () => {
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
 
-  async function registerForPushNotificationsAsync() {
-    
+  const { registerForPushNotificationsAsync, expoPushToken } =
+    useNotificationServices();
 
-    if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== "granted") {
-        handleRegistrationError(
-          "Permission not granted to get push token for push notification!"
-        );
-        return;
-      }
-      const projectId =
-        Constants?.expoConfig?.extra?.eas?.projectId ??
-        Constants?.easConfig?.projectId;
-      if (!projectId) {
-        handleRegistrationError("Project ID not found");
-      }
-      try {
-        const pushTokenString = (
-          await Notifications.getExpoPushTokenAsync({
-            projectId,
-          })
-        ).data;
-        console.log(pushTokenString);
-        return pushTokenString;
-      } catch (e) {
-        handleRegistrationError(`${e}`);
-      }
-    } else {
-      handleRegistrationError(
-        "Must use physical device for push notifications"
-      );
-    }
-  }
-
-  useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? ""))
-      .catch((error) => setExpoPushToken(`${error}`));
-  }, []);
   const login = async (email, password) => {
+    registerForPushNotificationsAsync();
+
     if (!email || !password) {
       setIsMessage(true);
       setError("Please enter both email and password");
@@ -74,6 +30,9 @@ const useLoginForm = () => {
     setData(null);
 
     try {
+      if (expoPushToken) {
+        console.log("object", expoPushToken);
+      }
       const responseData = await post("/users/login", { email, password });
       if (responseData.status === 202) {
         setPending(false);
@@ -116,11 +75,9 @@ const useLoginForm = () => {
 
   const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token
-    const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
-
     try {
       const responseData = await post("/api/saveToken", {
-        tokenExpo: expoTokenData,
+        tokenExpo: expoPushToken,
         tokenUser: userId,
       });
 

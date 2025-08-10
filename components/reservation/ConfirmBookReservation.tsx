@@ -1,21 +1,23 @@
 import { View, Text, StyleSheet, Image, BackHandler } from "react-native";
 import React, { useCallback, useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
-import {
-  useFocusEffect,
-} from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 
 const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
-   const params = useLocalSearchParams();
-    const { responseData } = params;
-console.log("ConfirmBookReservation+++",responseData)
+  const params = useLocalSearchParams();
+  const { responseData } = params;
   const submitReservationHandler = async () => {
     router.dismissAll();
-    router.push({pathname:"/(tabs)/(03_calendar)", params: {reevalueted: 1}});
+    console.log("ConfirmBookReservation+++", responseData);
+
+    router.push({
+      pathname: "/(tabs)/(03_calendar)",
+      params: { reevalueted: 1 },
+    });
   };
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");

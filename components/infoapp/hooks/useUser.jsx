@@ -1,11 +1,10 @@
 import { get, post } from "@/api/apiService";
 import { getStorage, removeStorage } from "@/helpers/token";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 import { useState, useEffect } from "react";
 
 const useUser = () => {
-  const navigation = useNavigation();
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,9 +30,9 @@ const useUser = () => {
       setError(`Something Went Wrong, Please Try Again`);
     }
     if (resultStatus === 200) {
-      removeStorage().then((s) => {
+     await removeStorage().then((s) => {
         setIsLoading(false);
-        navigation.navigate("(tabs)", { screen: "index" });
+        router.push("/(tabs)/(01_home)");
       });
     }
   };

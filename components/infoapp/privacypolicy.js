@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useCallback } from "react";
 import { useFocusEffect } from "expo-router";
-import { useNavigation } from "@react-navigation/native";
 
 const privacypolicy = () => {
   const supportEmail = "support@fta.com";

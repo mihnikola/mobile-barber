@@ -1,25 +1,19 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   Image,
-  TextInput,
   ScrollView,
-  ToastAndroid,
   BackHandler,
   StatusBar,
   Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-
 import useEmail from "./hooks/useEmail";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useRegisterForm from "./hooks/useRegisterForm";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useNavigation } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
@@ -44,7 +38,7 @@ const Register = () => {
     useConfirmPassword(password);
 
   function handleBackButtonClick3() {
-        router.push("/(tabs)/(04_settings)/login");
+    router.push("/(tabs)/(04_settings)/login");
 
     return true;
   }
@@ -72,11 +66,13 @@ const Register = () => {
 
   const navigateToLogin = () => {
     router.push("/(tabs)/(04_settings)/login");
-
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    router.push({ pathname: "/(tabs)/(04_settings)/otpCodeRegister", params: { data: email } });
+    router.push({
+      pathname: "/(tabs)/(04_settings)/otpCodeRegister",
+      params: { data: email },
+    });
   };
 
   const confirmHandler2 = () => {
