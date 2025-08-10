@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { removeStorage } from "@/helpers/token";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
@@ -18,8 +17,7 @@ import useUser from "./hooks/useUser";
 import Loader from "@/components/Loader";
 const SettingsComponent = () => {
   const navigation = useNavigation();
-  const [isMessage, setIsMessage] = useState(false);
-  const { userData, isLoading, error } = useUser();
+  const { userData, isLoading, error, message, isMessage, setIsMessage, logoutFirebase } = useUser();
 
   if (isLoading) {
     return <Loader />;
@@ -44,10 +42,11 @@ const SettingsComponent = () => {
   };
 
   const logoutHandler = async () => {
+    
+    logoutFirebase();
     setIsMessage(false);
-    removeStorage().then((s) => {
-      navigation.navigate("(tabs)", { screen: "index" });
-    });
+
+    
   };
   return (
     <View style={styles.container}>

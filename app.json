@@ -4,7 +4,7 @@
     "slug": "barber-app-ver2",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logoBaberIcon.png",
+    "icon": "./assets/images/homeSplash.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -17,12 +17,9 @@
       "supportsTablet": true
     },
     "android": {
-      "notification": {
-        "icon": "./assets/images/moustache.png",
-        "color": "#ffffff"
-      },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/homeSplash.png"
+        "foregroundImage": "./assets/images/homeSplash.png",
+        "backgroundColor": "#000000"
       },
       "package": "com.mihailovic93.barberappver2",
       "googleServicesFile": "./google-services.json"
@@ -33,14 +30,14 @@
       "favicon": "./assets/images/homeSplash.png"
     },
     "plugins": [
+      "expo-router",
       [
         "expo-notifications",
         {
           "icon": "./assets/images/moustache.png",
           "color": "#ffffff"
         }
-      ],
-      "expo-router"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
