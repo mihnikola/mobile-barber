@@ -16,19 +16,19 @@ const useUser = () => {
         let resultStatus = '';
         try {
             const token = await getStorage();
-            if(token){
-                const response = await post('/users/logout',{token});
-                if(response.status === 200){
+            if (token) {
+                const response = await post('/users/logout', { token });
+                if (response.status === 200) {
                     resultStatus = response.status;
                 }
-            }else{
+            } else {
                 console.log("nema token jbt")
             }
         } catch (error) {
 
-            
+
         }
-        if(resultStatus===200){
+        if (resultStatus === 200) {
             logoutHandler();
         }
     }
@@ -36,6 +36,7 @@ const useUser = () => {
         setIsLoading(true);
         try {
             const storedToken = await AsyncStorage.getItem("token");
+            console.log("tokenData++", storedToken)
             if (storedToken) {
                 setIsValid(true);
             } else {
@@ -66,11 +67,12 @@ const useUser = () => {
     };
 
     const logoutHandler = async () => {
+        setIsMessage(false);
+
         await removeStorage().then((s) => {
             router.push("/(tabs)/(04_settings)/login");
         });
         setIsLoading(false);
-        setIsMessage(false);
 
     };
 

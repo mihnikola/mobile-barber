@@ -2,8 +2,11 @@
 import { useEffect, useState } from "react";
 import { saveStorage } from "@/helpers/token";
 import { post } from "@/api/apiService";
-import { removeExpoTokenStorage } from "@/helpers/expoToken";
-import useNotificationServices from "@/hooks/useNotificationServices";
+import {
+  removeExpoTokenStorage,
+  getExpoTokenStorage,
+} from "@/helpers/expoToken";
+import { usePushNotifications } from "@/components/home/hooks/usePushNotifications";
 
 const useLoginForm = () => {
   const [data, setData] = useState(null);
@@ -12,13 +15,10 @@ const useLoginForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
+  const [initialToken, setInitialToken] = useState(false);
 
-  const { registerForPushNotificationsAsync, expoPushToken } =
-    useNotificationServices();
-
+  const { registerForPushNotifications } = usePushNotifications();
   const login = async (email, password) => {
-    registerForPushNotificationsAsync();
-
     if (!email || !password) {
       setIsMessage(true);
       setError("Please enter both email and password");
@@ -30,15 +30,11 @@ const useLoginForm = () => {
     setData(null);
 
     try {
-      if (expoPushToken) {
-        console.log("object", expoPushToken);
-      }
       const responseData = await post("/users/login", { email, password });
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
-        // setSuccess(responseData.message);
-        setError(responseData.message);
+        setSuccess(responseData.message);
         return;
       }
       if (responseData.status === 606) {
@@ -49,9 +45,10 @@ const useLoginForm = () => {
         return;
       }
       if (responseData.status === 200) {
+        setPending(false);
         saveStorage(responseData.token);
-
-        setData(responseData);
+        setData("Login Successful!");
+       
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -75,9 +72,11 @@ const useLoginForm = () => {
 
   const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token
+
+    const expoToken = await getExpoTokenStorage();
     try {
       const responseData = await post("/api/saveToken", {
-        tokenExpo: expoPushToken,
+        tokenExpo: expoToken,
         tokenUser: userId,
       });
 
@@ -87,6 +86,7 @@ const useLoginForm = () => {
         setIsMessage(true);
 
         setSuccess("Login Successful!");
+
         removeExpoTokenStorage();
       } else {
         setPending(false);
@@ -106,7 +106,6 @@ const useLoginForm = () => {
   };
 
   return {
-    data,
     pending,
     error,
     login,
@@ -116,6 +115,8 @@ const useLoginForm = () => {
     setStatus,
     setIsMessage,
     isMessage,
+    initialToken,
+    setInitialToken,
   };
 };
 
