@@ -74,11 +74,14 @@ const otpCode = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={isLoading}
+          disabled={
+            code.join("").length < 6 || isLoading || isLoadingVerification
+          }
           text={isLoading ? "Submitting..." : "Submit"}
           onPress={handleVerify}
         />
       </View>
+       
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
