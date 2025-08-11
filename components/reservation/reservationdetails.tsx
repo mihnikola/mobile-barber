@@ -58,7 +58,7 @@ const ReservationDetails = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("useFocusEffect+++")
+      console.log("useFocusEffect+++");
       const onBackPress = () => {
         // Return true to disable the default back button behavior
         if (pushNotification) {
@@ -129,11 +129,11 @@ const ReservationDetails = () => {
       {reservationData && (
         <>
           <View style={styles.coverContent}>
-            {reservationData?.status === 0 ? (
+            {/* {reservationData?.status === 0 ? (
               <IconSymbol size={38} name="check.cirle" color="green" />
             ) : (
               <IconSymbol size={38} name="disturb" color="red" />
-            )}
+            )} */}
             <Text style={styles.timeData}>
               {reservationData?.time} -{" "}
               {addMinutesToTime(
@@ -152,13 +152,23 @@ const ReservationDetails = () => {
           {check === "false" && !reservationData?.rate && (
             <StarRating onRatingChange={handleUserRatingChange} />
           )}
-          {check === "false" && !reservationData?.rate && (
-            <SharedButtonDateReservation
-              loading={isRating}
-              onPress={rateAlert}
-              text="Rate us"
-            />
-          )}
+          <View style={styles.btnSubmitContainer}>
+            {check === "false" && !reservationData?.rate && (
+              <SharedButtonDateReservation
+                loading={isRating}
+                onPress={rateAlert}
+                text="Rate us"
+              />
+            )}
+            {check === "true" && (
+              <SharedButtonDateReservation
+                onPress={cancelReservationHandler}
+                loading={isCanceling}
+                text="Cancel"
+              />
+            )}
+          </View>
+
           {check === "false" && reservationData?.rate && (
             <View style={{ alignItems: "center", marginTop: 40, padding: 20 }}>
               <Text style={{ color: "white", fontSize: 20 }}>
@@ -188,13 +198,6 @@ const ReservationDetails = () => {
                 </Text>
               </View>
             </View>
-          )}
-          {check === "true" && (
-            <SharedButtonDateReservation
-              onPress={cancelReservationHandler}
-              loading={isCanceling}
-              text="Cancel"
-            />
           )}
         </>
       )}
@@ -269,6 +272,12 @@ const ReservationDetails = () => {
   );
 };
 const styles = StyleSheet.create({
+  btnSubmitContainer: {
+    display: 'flex',
+    marginVertical: 20,
+    marginHorizontal: 20
+  
+  },
   statusContent: {
     color: "white",
     padding: 8,
@@ -310,9 +319,9 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   coverContent: {
-    padding: 8,
+    paddingHorizontal: 20,
     position: "absolute",
-    top: 50,
+    top: 90,
   },
   statusContentPending: {
     color: "white",

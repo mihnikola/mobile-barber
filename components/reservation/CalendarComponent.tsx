@@ -69,11 +69,14 @@ const styles = StyleSheet.create({
 
   },
   containerCapture: {
+    display:'flex',
+    width: "100%",
+    justifyContent: 'center',
+    gap:30,
     flexDirection: "row",
-    gap: 20,
     alignSelf: "center",
     position: "absolute",
-    top: 150,
+    top: 150, 
   },
   greyLine: {
     width: "100%",
