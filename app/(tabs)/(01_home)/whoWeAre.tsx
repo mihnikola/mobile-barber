@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
  backImage: {
     width: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
     opacity: 0.2,
     marginBottom: 20,
     position: "absolute",

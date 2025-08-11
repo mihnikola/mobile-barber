@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#1E1E1E", // Dark background from your image
     display: "flex",
     flexDirection: "row",
-    width: "100%",
-    marginTop: 20,
+    marginHorizontal: 10,
+    marginVertical: 10,
     borderRadius: 20,
     padding: 10,
     gap: 20,
