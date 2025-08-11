@@ -1,11 +1,8 @@
-import Constants from "expo-constants";
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 import {
   BackHandler,
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -16,14 +13,13 @@ import {
 } from "react-native";
 
 import { useFocusEffect } from "@react-navigation/native";
-import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
+import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const { height } = Dimensions.get("window");
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -34,68 +30,13 @@ Notifications.setNotificationHandler({
   }),
 });
 
-function handleRegistrationError(errorMessage: any) {
-  alert(errorMessage);
-  throw new Error(errorMessage);
-}
-
-async function registerForPushNotificationsAsync() {
-  if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
-  }
-
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      handleRegistrationError(
-        "Permission not granted to get push token for push notification!"
-      );
-      return;
-    }
-    const projectId =
-      Constants?.expoConfig?.extra?.eas?.projectId ??
-      Constants?.easConfig?.projectId;
-    if (!projectId) {
-      handleRegistrationError("Project ID not found");
-    }
-    try {
-      const pushTokenString = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId,
-        })
-      ).data;
-      console.log(pushTokenString);
-      return pushTokenString;
-    } catch (e) {
-      handleRegistrationError(`${e}`);
-    }
-  } else {
-    handleRegistrationError("Must use physical device for push notifications");
-  }
-}
-
 export default function App() {
-  const [expoPushToken, setExpoPushToken] = useState("");
+  const { slideAnim, slideAnimBook } = useSlideAnimations();
 
   const destinationLat = 48.8584;
   const destinationLon = 2.2945;
 
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
-
-  const [notification, setNotification] = useState<
-    Notifications.Notification | undefined
-  >(undefined);
 
   const nextPage = () => {
     router.push("/(tabs)/(02_barbers)");
@@ -103,24 +44,7 @@ export default function App() {
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
   };
-
-  const slideAnim = useRef(new Animated.Value(-height)).current;
-  const slideAnimBook = useRef(new Animated.Value(height)).current;
-
-  useEffect(() => {
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-    setTimeout(() => {
-      Animated.timing(slideAnimBook, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start();
-    }, 400);
-  }, [slideAnim]);
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -134,73 +58,6 @@ export default function App() {
         BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     }, [])
   );
-
-  const redirectReservation = (response) => {
-    const reservationIdValue =
-      response?.notification?.request?.content?.data?.someData?.url;
-
-    if (reservationIdValue && reservationIdValue !== undefined) {
-      console.log("redirectReservation object", reservationIdValue);
-
-      router.push({
-        pathname: "/(tabs)/(03_calendar)/cancelModalReservation",
-        params: {
-          itemId: reservationIdValue,
-          check: true,
-          pushNotification: true,
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? ""))
-      .catch((error) => setExpoPushToken(`${error}`));
-
-    //kada je aplikacija ubijena
-    Notifications.getLastNotificationResponseAsync().then((response) => {
-      if (response) {
-        redirectReservation(response);
-      }
-    });
-    //kada sam u aplikaciji
-    const notificationListener = Notifications.addNotificationReceivedListener(
-      (notificationData) => {
-        if (notificationData) {
-          redirectReservation(notificationData);
-        }
-        // const notificationDatax = notificationData?.request?.content?.data;
-        // console.log("joj notification data:", notificationDatax);
-        // setNotification(notificationData);
-        // (notification) => {
-        //   console.log("notificationListener", notification);
-
-        //   setNotification(notification);
-        // };
-      }
-    );
-
-    //kada sam van aplikacije
-    const responseListener =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        if (response) {
-          redirectReservation(response);
-        }
-      });
-
-    return () => {
-      notificationListener.remove();
-      responseListener.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (expoPushToken) {
-      saveExpoTokenStorage(expoPushToken);
-    }
-  }, [expoPushToken]);
-
   return (
     <ScrollView style={styles.container}>
       <Image

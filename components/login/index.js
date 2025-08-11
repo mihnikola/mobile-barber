@@ -23,6 +23,7 @@ import { useCallback, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { usePushNotifications } from "../home/hooks/usePushNotifications";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -33,8 +34,8 @@ const LoginScreen = () => {
   const { pending, login, status, success, setIsMessage, isMessage, error } =
     useLoginForm();
 
+  const { registerForPushNotifications } = usePushNotifications();
   function handleBackButtonClick3() {
-  
     return true;
   }
   useEffect(() => {
@@ -47,7 +48,7 @@ const LoginScreen = () => {
     };
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     login(email, password);
   };
   const navigateToRegister = () => {
@@ -63,8 +64,9 @@ const LoginScreen = () => {
     console.log("Apple Login");
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
-  const confirmHandler2 = () => {
+  const confirmHandler2 = async () => {
     setIsMessage(false);
+
     if (status === 606) {
       router.push({
         pathname: "/(tabs)/(04_settings)/otpCodeRegister",
@@ -72,11 +74,14 @@ const LoginScreen = () => {
       });
     }
   };
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
     setIsMessage(false);
+    await registerForPushNotifications();
     redirectValidation();
   };
+
   const redirectValidation = () => {
+    console.log("redirectValidation li ", data);
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
@@ -104,9 +109,12 @@ const LoginScreen = () => {
   const getToken = async () => {
     const storedToken = await AsyncStorage.getItem("token");
     if (storedToken) {
-      console.log("getToken async");
+      router.push({
+        pathname: "/(tabs)/(04_settings)",
+        params: { reevaluted: true },
+      });
 
-      redirectValidation();
+      // redirectValidation();
     }
   };
   useFocusEffect(

@@ -8,7 +8,7 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
@@ -16,21 +16,20 @@ import Loader from "@/components/Loader";
 import { useLocalSearchParams } from "expo-router";
 import useUser from "./hooks/useUser";
 import LoginScreen from "../login";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 const SettingsComponent = () => {
   const { userData, isLoading, error, isValid, tokenData, fetchUserData, logoutFromFIrebase, onPressHandler, isMessage, setIsMessage } = useUser();
   const params = useLocalSearchParams();
-  const reevaluted = params;
+  const { reevaluted } = params;
 
   const isFocused = useIsFocused(); // useIsFocused hook
-  useEffect(() => {
-    console.log("isFocused",isFocused)
-
-    
-    tokenData();
-    fetchUserData();
-  }, [isFocused]);
+  console.log("SettingsComponent moze li",reevaluted);
+  useFocusEffect(
+    useCallback(() => {
+      tokenData();
+      fetchUserData();
+    }, [isFocused, reevaluted]));
 
   if (isLoading) {
     return <Loader />
@@ -100,7 +99,7 @@ const SettingsComponent = () => {
                 />
               }
               title="Are you sure you want to sign out from application?" // Title of the modal
-              buttonTextYes="Ok" // Text for the action button
+              buttonTextYes="Leave" // Text for the action button
               buttonTextNo="Cancel"
             />
           )}
