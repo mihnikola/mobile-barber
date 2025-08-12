@@ -20,6 +20,7 @@ import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
+import SharedButton from "@/shared-components/SharedButton";
 
 const userprofile = () => {
   const { userData, isLoading, error } = useUser();
@@ -163,20 +164,11 @@ const userprofile = () => {
             />
           </View>
 
-          {!isValidated && (
-            <View style={styles.unbutton}>
-              <Text style={styles.unButtonText}>Submit</Text>
-            </View>
-          )}
-          {isValidated && (
-            <TouchableOpacity onPress={submitChanges}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                  {isLoadingChange ? "Submiting..." : "Submit"}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          <SharedButton
+            disabled={!isValidated}
+            onPress={submitChanges}
+            text={isLoadingChange ? `Submiting...` : `Submit`}
+          />
         </View>
         {isMessage && (
           <SharedMessage
@@ -298,7 +290,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: "black",
   },
   containerInfo: {
