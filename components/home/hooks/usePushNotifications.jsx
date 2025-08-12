@@ -68,7 +68,6 @@ export function usePushNotifications() {
         try {
             const token = await Notifications.getExpoPushTokenAsync({ projectId });
             if (token) {
-                console.log("getExpoPushTokenAsync",token?.data);
                 setExpoPushToken(token?.data);
                 saveExpoTokenStorage(token?.data);
             }

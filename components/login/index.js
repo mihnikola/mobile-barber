@@ -1,5 +1,6 @@
 import useLoginForm from "./hooks/useLoginForm";
 import {
+  ActivityIndicator,
   BackHandler,
   Dimensions,
   Image,
@@ -24,6 +25,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePushNotifications } from "../home/hooks/usePushNotifications";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -31,8 +33,18 @@ const LoginScreen = () => {
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
-  const { pending, login, status, success, setIsMessage, isMessage, error } =
-    useLoginForm();
+  const {
+    pending,
+    login,
+    status,
+    success,
+    setIsMessage,
+    isMessage,
+    error,
+    verificationOTPCode,
+    isLoading,
+    message,
+  } = useLoginForm();
 
   const { registerForPushNotifications } = usePushNotifications();
   function handleBackButtonClick3() {
@@ -66,22 +78,24 @@ const LoginScreen = () => {
   };
   const confirmHandler2 = async () => {
     setIsMessage(false);
-
-    if (status === 606) {
-      router.push({
-        pathname: "/(tabs)/(04_settings)/otpCodeRegister",
-        params: { loginData: { email, password } },
-      });
-    }
   };
   const confirmHandler = async () => {
     setIsMessage(false);
-    await registerForPushNotifications();
-    redirectValidation();
+
+    if (status === 606) {
+      verificationOTPCode(email, password);
+
+      router.push({
+        pathname: "/(tabs)/(04_settings)/otpCodeRegister",
+        params: { email, password },
+      });
+    } else {
+      await registerForPushNotifications();
+      redirectValidation();
+    }
   };
 
   const redirectValidation = () => {
-    console.log("redirectValidation li ", data);
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
@@ -99,7 +113,6 @@ const LoginScreen = () => {
         pathname: "/(tabs)/(04_settings)",
         params: { reevaluted: true },
       });
-      console.log("/(tabs)/(04_settings)-", data);
     }
   };
   const forgotHandler = () => {
@@ -119,8 +132,6 @@ const LoginScreen = () => {
   };
   useFocusEffect(
     useCallback(() => {
-      console.log("getToken");
-
       getToken();
     }, [])
   );
@@ -214,10 +225,11 @@ const LoginScreen = () => {
                 color="white" // Corresponds to text-blue-500
               />
             }
-            title={error || success} // Title of the modal
+            title={error || success || message} // Title of the modal
             buttonText="Ok" // Text for the action button
           />
         )}
+        {isLoading && <SharedLoader isOpen={isLoading} />}
       </View>
     </ScrollView>
   );
