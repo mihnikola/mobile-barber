@@ -20,7 +20,7 @@ import { router, useLocalSearchParams } from "expo-router";
 
 const otpCodeRegister = () => {
   const params = useLocalSearchParams(); // Get the route object
-  const { data, loginData } = params;
+  const { data, email,password } = params;
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
 
   <Text style={styles.mainTitle}>Enter OTP Code</Text>;
@@ -46,17 +46,13 @@ const otpCodeRegister = () => {
     setErrorVerification,
   } = useSendEmailVerification();
 
-  useEffect(() => {
-    if (loginData) {
-      verificationOTPCode(loginData);
-    }
-  }, [loginData]);
+
 
   const handleVerify = () => {
     const otp = code.join("");
     if (otp.length === 6) {
-      if (loginData) {
-        checkOtpCodeVerification(loginData?.email, loginData?.password, otp);
+      if (email && password) {
+        checkOtpCodeVerification(email, password, otp);
       } else {
         checkOtpCodeValidation(data, otp);
       }
@@ -69,10 +65,11 @@ const otpCodeRegister = () => {
   const confirmHandler = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
-    if (!loginData) {
+    if (!email && !password) {
       router.push("/(tabs)/(04_settings)/login")
     }
-    if (isVerified && loginData) {
+    if (isVerified && email && password) {
+      router.dismissAll();
       router.push("/(tabs)/(01_home)")
 
 
@@ -92,14 +89,14 @@ const otpCodeRegister = () => {
       </View>
       <View>
         <Text style={styles.subtitle}>
-          OTP code has been sent to {!loginData ? data : loginData?.email}.
+          OTP code has been sent to {data || email}.
         </Text>
         <Text style={styles.subtitle}>
           If you didn't find it, check your SPAM mailbox.
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
-      <ResendOtpCodeTimer email={!loginData ? data : loginData?.email} />
+      <ResendOtpCodeTimer email={data || email} />
       <View style={styles.imageContainer}>
         <Image
           source={require("@/assets/images/fgtPass.png")}

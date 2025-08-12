@@ -1,7 +1,7 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from "react";
 import { saveStorage } from "@/helpers/token";
-import { post } from "@/api/apiService";
+import { getData, post } from "@/api/apiService";
 import {
   removeExpoTokenStorage,
   getExpoTokenStorage,
@@ -16,8 +16,37 @@ const useLoginForm = () => {
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [initialToken, setInitialToken] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const [message, setMessage] = useState(null);
+    // const [errorVerification, setErrorVerification] = useState(null);
+  // const [isMessageVerification, setIsMessageVerification] = useState(false);
 
   const { registerForPushNotifications } = usePushNotifications();
+
+  const verificationOTPCode = async (email, password) => {
+    setIsLoading(true);
+    // setErrorVerification(null);
+    try {
+      const response = await getData("/users/sendOTPviaLogin", {
+        params: { email, password },
+      });
+      console.log("verificationOTPCode++-+-",response);
+      
+      if (response.status === 200) {
+        // setIsMessageVerification(true);
+        setMessage(response.message);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setIsLoading(false);
+      // setErrorVerification(`Not valid otp code`);
+
+      // setIsMessageVerification(true);
+    }
+  };
+
   const login = async (email, password) => {
     if (!email || !password) {
       setIsMessage(true);
@@ -41,14 +70,13 @@ const useLoginForm = () => {
         setPending(false);
         setIsMessage(true);
         setStatus(responseData.status);
-        setError(responseData.message);
+        setMessage(responseData.message);
         return;
       }
       if (responseData.status === 200) {
         setPending(false);
         saveStorage(responseData.token);
         setData("Login Successful!");
-       
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -117,6 +145,9 @@ const useLoginForm = () => {
     isMessage,
     initialToken,
     setInitialToken,
+    verificationOTPCode,
+    isLoading,
+    message,
   };
 };
 
