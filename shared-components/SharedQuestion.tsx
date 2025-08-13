@@ -23,10 +23,10 @@ export const SharedQuestion = ({
           <Text style={styles.modalTitle}>{title}</Text>
 
           <View style={styles.buttons}>
-            <TouchableOpacity onPress={onLogOut} style={styles.actionButton}>
+            <TouchableOpacity onPress={onLogOut} style={styles.actionButtonNo}>
               <Text style={styles.actionButtonText}>{buttonTextYes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClose} style={styles.actionButtonNo}>
+            <TouchableOpacity onPress={onClose} style={styles.actionButton}>
               <Text style={styles.actionButtonText}>{buttonTextNo}</Text>
             </TouchableOpacity>
           </View>

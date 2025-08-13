@@ -24,7 +24,6 @@ const SettingsComponent = () => {
   const { reevaluted } = params;
 
   const isFocused = useIsFocused(); // useIsFocused hook
-  console.log("SettingsComponent moze li",reevaluted);
   useFocusEffect(
     useCallback(() => {
       tokenData();

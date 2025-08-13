@@ -20,17 +20,19 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
     return (
         <View style={styles.container}>
-            {!selectedImageUri && (
+            {uploading && <ActivityIndicator size={32} />}
+
+            {!selectedImageUri &&
                 <Image
                     source={require("@/assets/images/defaultImgAvatar.png")}
                     style={styles.defaultImgAvatar}
                     resizeMode="cover"
-                />)}
-            {selectedImageUri ?
+                />}
+            {selectedImageUri &&
                 <View style={styles.defaultImgAvatar}>
                     <Image source={{ uri: selectedImageUri }} style={styles.image} />
                 </View>
-                : <ActivityIndicator />}
+            }
             <TouchableOpacity style={[!selectedImageUri ? styles.buttonPlaceholder : styles.button]} onPress={pickImage} disabled={uploading}>
                 <IconSymbol size={50} name="image" color="white" />
             </TouchableOpacity>
@@ -64,6 +66,6 @@ const styles = StyleSheet.create({
     buttonPlaceholder: {
         position: "absolute",
         left: 170,
-        top: 180
+        top: 140
     }
 });

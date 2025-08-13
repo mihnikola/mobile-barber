@@ -6,10 +6,8 @@ import {
   removeExpoTokenStorage,
   getExpoTokenStorage,
 } from "@/helpers/expoToken";
-import { usePushNotifications } from "@/components/home/hooks/usePushNotifications";
 
 const useLoginForm = () => {
-  const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState(false);
   const [error, setError] = useState(null);
@@ -18,12 +16,9 @@ const useLoginForm = () => {
   const [initialToken, setInitialToken] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-
   const [message, setMessage] = useState(null);
-    // const [errorVerification, setErrorVerification] = useState(null);
+  // const [errorVerification, setErrorVerification] = useState(null);
   // const [isMessageVerification, setIsMessageVerification] = useState(false);
-
-  const { registerForPushNotifications } = usePushNotifications();
 
   const verificationOTPCode = async (email, password) => {
     setIsLoading(true);
@@ -32,8 +27,8 @@ const useLoginForm = () => {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email, password },
       });
-      console.log("verificationOTPCode++-+-",response);
-      
+      console.log("verificationOTPCode++-+-", response);
+
       if (response.status === 200) {
         // setIsMessageVerification(true);
         setMessage(response.message);
@@ -56,7 +51,6 @@ const useLoginForm = () => {
 
     setPending(true);
     setError(null);
-    setData(null);
 
     try {
       const responseData = await post("/users/login", { email, password });
@@ -76,7 +70,7 @@ const useLoginForm = () => {
       if (responseData.status === 200) {
         setPending(false);
         saveStorage(responseData.token);
-        setData("Login Successful!");
+        saveToken(responseData.userId);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -92,22 +86,24 @@ const useLoginForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      saveToken(data.userId);
-    }
-  }, [data]);
+
 
   const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token
 
     const expoToken = await getExpoTokenStorage();
+    console.log("useLoginForm", expoToken, userId);
+
+    if (!expoToken) {
+      setPending(false);
+      return;
+    }
     try {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoToken,
         tokenUser: userId,
       });
-
+      console.log("saveToken responseData", responseData);
       if (responseData.status === 200) {
         console.log("Token saved successfully");
         setPending(false);
@@ -115,7 +111,7 @@ const useLoginForm = () => {
 
         setSuccess("Login Successful!");
 
-        removeExpoTokenStorage();
+        // removeExpoTokenStorage();
       } else {
         setPending(false);
         setIsMessage(true);

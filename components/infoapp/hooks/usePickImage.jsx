@@ -12,6 +12,8 @@ const usePickImage = (imageValue) => {
   const [statusMessage, setStatusMessage] = useState('');
 
   const compressImageUntilUnder1MB = async (uri) => {
+    setUploading(true);
+
     let quality = 0.9;
     let resizedUri = uri;
     let sizeOk = false;
@@ -69,6 +71,7 @@ const usePickImage = (imageValue) => {
 
       setSelectedImageUri(compressedUri);
       setStatusMessage('');
+      setUploading(false);
     } catch (error) {
       console.error('Error picking image:', error);
       setStatusMessage('Failed to pick image.');

@@ -10,7 +10,7 @@ import { ScrollView } from "react-native";
 import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -20,7 +20,7 @@ import { router, useLocalSearchParams } from "expo-router";
 
 const otpCodeRegister = () => {
   const params = useLocalSearchParams(); // Get the route object
-  const { data, email,password } = params;
+  const { data, email, password } = params;
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
 
   <Text style={styles.mainTitle}>Enter OTP Code</Text>;
@@ -47,10 +47,10 @@ const otpCodeRegister = () => {
   } = useSendEmailVerification();
 
 
-
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const otp = code.join("");
     if (otp.length === 6) {
+
       if (email && password) {
         checkOtpCodeVerification(email, password, otp);
       } else {
@@ -66,13 +66,11 @@ const otpCodeRegister = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
     if (!email && !password) {
-      router.push("/(tabs)/(04_settings)/login")
+      router.push("/(tabs)/(04_settings)/login");
     }
     if (isVerified && email && password) {
       router.dismissAll();
-      router.push("/(tabs)/(01_home)")
-
-
+      router.push("/(tabs)/(01_home)");
     }
   };
 
