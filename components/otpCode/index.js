@@ -75,7 +75,7 @@ const otpCode = () => {
       <View style={styles.btnFooter}>
         <SharedButton
           disabled={
-            code.join("").length < 6 || isLoading || isLoadingVerification
+            code.join("").length < 6 || isLoading
           }
           text={isLoading ? "Submitting..." : "Submit"}
           onPress={handleVerify}

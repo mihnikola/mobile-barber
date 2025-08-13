@@ -36,7 +36,6 @@ const useUser = () => {
         setIsLoading(true);
         try {
             const storedToken = await AsyncStorage.getItem("token");
-            console.log("tokenData++", storedToken)
             if (storedToken) {
                 setIsValid(true);
             } else {

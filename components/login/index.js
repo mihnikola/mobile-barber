@@ -1,6 +1,5 @@
 import useLoginForm from "./hooks/useLoginForm";
 import {
-  ActivityIndicator,
   BackHandler,
   Dimensions,
   Image,
@@ -24,7 +23,6 @@ import { useCallback, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { usePushNotifications } from "../home/hooks/usePushNotifications";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 const { width } = Dimensions.get("window");
 
@@ -46,7 +44,6 @@ const LoginScreen = () => {
     message,
   } = useLoginForm();
 
-  const { registerForPushNotifications } = usePushNotifications();
   function handleBackButtonClick3() {
     return true;
   }
@@ -90,12 +87,12 @@ const LoginScreen = () => {
         params: { email, password },
       });
     } else {
-      await registerForPushNotifications();
       redirectValidation();
     }
   };
 
   const redirectValidation = () => {
+    console.log("redirectValidation++++",data)
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
@@ -126,8 +123,6 @@ const LoginScreen = () => {
         pathname: "/(tabs)/(04_settings)",
         params: { reevaluted: true },
       });
-
-      // redirectValidation();
     }
   };
   useFocusEffect(

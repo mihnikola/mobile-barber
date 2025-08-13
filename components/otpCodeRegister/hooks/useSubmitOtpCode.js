@@ -75,15 +75,20 @@ const useSubmitOtpCode = () => {
     setIsLoading(true); // Set pending state when saving token
     const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
 
+    console.log("useSubmitOtpCode",expoTokenData)
+    
+      if(!expoTokenData){
+          return;
+        }
     try {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoTokenData,
         tokenUser: userId,
       });
-      console.log("saveToken", responseData, userId, messageData);
+      console.log("saveToken responseData",responseData)
 
       if (responseData.status === 200) {
-        removeExpoTokenStorage();
+        // removeExpoTokenStorage();
         setIsMessage(true);
         setIsLoading(false);
         setMessage(messageData);
