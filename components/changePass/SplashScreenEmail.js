@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import LottieView from "lottie-react-native";
+// import LottieView from "lottie-react-native";
 import { useEffect } from "react";
 
 const SplashScreenEmail = () => {
@@ -13,14 +13,14 @@ const SplashScreenEmail = () => {
   
   return (
     <View style={styles.container}>
-      <LottieView
+      {/* <LottieView
         ref={animationRef} // Assign the ref to control it programmatically
         source={require("../../assets/images/nuvemconnect-email.json")}
         autoPlay // Automatically play the animation when loaded
         loop // Loop the animation indefinitely
         style={styles.lottieAnimation}
         // onAnimationFinish={() => console.log('Animation finished!')} // Callback when animation completes
-      />
+      /> */}
     </View>
   );
 };

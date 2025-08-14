@@ -31,7 +31,7 @@ const Employers = () => {
   return (
     <ScrollView style={styles.container}>
       <Image
-        source={require("@/assets/images/team.jpg")}
+        source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
       <Text style={styles.capture}>Choose your barber</Text>

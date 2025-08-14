@@ -10,10 +10,10 @@ const NotificationActive = ({ data, showNotification }) => {
   return (
     <TouchableOpacity style={styles.cardReservation} onPress={() => pressHandler(data)}>
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           source={require("@/assets/images/logoImage.png")}
           style={styles.reactLogo}
-        />
+        /> */}
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.capture}>{capture}</Text>

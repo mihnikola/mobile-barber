@@ -4,7 +4,6 @@ import {
   DarkTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { BooleanProvider } from "@/context/BooleanContext";
 import MainContainer from "../components/mainContainer/MainContainer";
@@ -39,7 +38,6 @@ export default function RootLayout() {
         <BooleanProvider>
           <ReservationProvider>
             <MainContainer />
-            <StatusBar style="auto" />
           </ReservationProvider>
         </BooleanProvider>
       </ThemeProvider>
