@@ -42,13 +42,13 @@ const Reservation = () => {
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
-        <View style={{ display: "flex" }}>
+        <View style={{ display: "flex",paddingHorizontal: 12 }}>
           <View>
             {reservation && <Details data={reservation} />}
             <Note />
           </View>
         </View>
-        <View style={{ display: "flex", paddingHorizontal: 10 }}>
+        <View style={{ display: "flex",paddingHorizontal: 25 }}>
           <SharedButton
             loading={isLoading}
             onPress={submitReservationHandler}

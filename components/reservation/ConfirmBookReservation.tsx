@@ -59,16 +59,27 @@ const ConfirmBookReservation = () => {
             )}
           </Text>
         </View>
-
-        <View style={{ display: "flex", flexDirection: "column" }}>
+        <View
+          style={{
+            flex:1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent:"space-between",
+            alignSelf:'center'
+          }}
+        >
           <View style={{ display: "flex" }}>
             <Text style={styles.message}>
               Your appointment is successfully booked!
             </Text>
           </View>
-        </View>
-        <View style={{ display: "flex", paddingHorizontal: 10 }}>
-          <SharedButton onPress={submitReservationHandler} text="OK" />
+          <View
+            style={{
+              display: "flex",
+            }}
+          >
+            <SharedButton onPress={submitReservationHandler} text="OK" />
+          </View>
         </View>
       </View>
     );
@@ -119,9 +130,11 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
+    flexDirection: "column",
     alignItems: "center",
-    marginTop: 20,
-    width: "100%",
+    justifyContent: "space-between",
+    padding: 20, // Add padding to make the space visible from the edges
+    marginVertical: 20,
   },
   dateData: {
     fontSize: 25,
