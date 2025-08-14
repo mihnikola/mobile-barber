@@ -4,7 +4,7 @@
     "slug": "barber-app-ver2",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/homeSplash.png",
+    "icon": "./assets/images/splashImag.png",
     "splash":{},
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/homeSplash.png",
+        "foregroundImage": "./assets/images/splashImag.png",
         "backgroundColor": "#000000"
       },
       "package": "com.mihailovic93.barberappver2",
