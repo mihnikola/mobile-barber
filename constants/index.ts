@@ -1,17 +1,12 @@
 export const phone = require("@/assets/images/phoneImage.png");
-export const igImage = require("@/assets/images/igImage.png");
-export const testimonialImg = require("@/assets/images/reviewImage.png");
-export const womanImage = require("@/assets/images/woman.jpg");
-export const man1 = require("@/assets/images/man1.jpg");
-export const man2 = require("@/assets/images/man2.jpg");
-export const man3 = require("@/assets/images/man3.jpg");
-export const ksImage = require("@/assets/images/ks.jpg");
-export const fadeImage = require("@/assets/images/fade.jpg");
-export const brImage = require("@/assets/images/njega-brade-615.jpg");
-export const faadeImg = require("@/assets/images/faaade.jpg");
+
+
 export const bradicaImage = require("@/assets/images/onBoard1.jpg");
 export const bradicaImage2 = require("@/assets/images/onBoard2.jpg");
 export const bradicaImage3 = require("@/assets/images/onBoard3.jpg");
+
+export const testimonialImg = require("@/assets/images/reviewImage.png");
+
 
 export const ABOUT_DATA = {
   title: "Who are we?",
@@ -90,89 +85,7 @@ export const MAIN_DATA = {
   location: "Location",
 };
 
-export const SERVICES_DATA = [
-  {
-    id: 1,
-    title: "Klasično Šišanje",
-    duration: "25",
-    image: ksImage,
-    price: 700,
-  },
-  {
-    id: 2,
-    title: "Fade Šišanje",
-    duration: "40",
-    image: fadeImage,
-    price: 1200,
-  },
-  {
-    id: 3,
-    title: "Klasično Šišanje & Brada",
-    duration: "40",
-    image: brImage,
-    price: 1100,
-  },
-  {
-    id: 4,
-    title: "Fade Šišanje & Brada",
-    duration: "50",
-    image: faadeImg,
-    price: 1300,
-  },
-  {
-    id: 5,
-    title: "Uređivanje Brade",
-    duration: "20",
-    image: bradicaImage,
-    price: 500,
-  },
-  {
-    id: 6,
-    title: "Uređivanje Brade",
-    duration: "20",
-    image: bradicaImage,
-    price: 500,
-  },
-];
 
-export const EMPLOYEES_DATA = [
-  {
-    id: "1",
-    name: "Miljana Petrović",
-    position: "Frizer",
-    image: womanImage,
-  },
-  {
-    id: "2",
-    name: "Marko Petrović",
-    position: "Frizer",
-    image: man1,
-  },
-  {
-    id: "3",
-    name: "Bojan Petrović",
-    position: "Frizer",
-    image: man2,
-  },
-  {
-    id: "4",
-    name: "Nikola Petrović",
-    position: "Top Frizer",
-    image: man3,
-  },
-  {
-    id: "5",
-    name: "Igor Petrović",
-    position: "Top Frizer",
-    image: man3,
-  },
-  {
-    id: "6",
-    name: "Miljan Petrović",
-    position: "Top Frizer",
-    image: man3,
-  },
-];
 
 export const TIME_DATA = [
   { label: "9", value: "09:00" },

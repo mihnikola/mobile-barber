@@ -136,7 +136,7 @@ const LoginScreen = () => {
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <Image
-          source={require("@/assets/images/logoFamilyImg.png")}
+          source={require("@/assets/images/homeSplash.png")}
           style={styles.logo}
         />
 
@@ -249,11 +249,11 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-    width: 200, // Adjust size as needed
+    width: 80, // Adjust size as needed
     height: 80, // Adjust size as needed
     resizeMode: "cover",
     alignSelf: "flex-start", // Aligns to the left as in the image
-    marginLeft: -50,
+    marginLeft: 20,
     marginBottom: 20,
   },
   mainTitle: {
