@@ -245,12 +245,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: "#0A0B0E", // Dark background color
+    backgroundColor: "black", // Dark background color
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-    width: 80, // Adjust size as needed
-    height: 80, // Adjust size as needed
+   width: 105, // Adjust size as needed
+    height: 90, // Adjust size as needed
     resizeMode: "cover",
     alignSelf: "flex-start", // Aligns to the left as in the image
     marginLeft: 20,
