@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
+import SharedInput from "@/shared-components/SharedInput";
 
 const changePass = () => {
   const params = useLocalSearchParams();
@@ -66,9 +67,7 @@ const changePass = () => {
 
   const confirmHandler = () => {
     setIsMessage(false);
-       router.push("/(tabs)/(04_settings)/login");
-
-
+    router.push("/(tabs)/(04_settings)/login");
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
@@ -82,52 +81,24 @@ const changePass = () => {
       </View>
 
       <View style={styles.textinputContainer}>
-        <Text style={{ color: "white", fontSize: 14, marginTop: 10 }}>
-          Password
-        </Text>
-        <View style={styles.passContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter a new password"
-            placeholderTextColor="grey"
-            onChangeText={handlePasswordChange}
-            value={password}
-            secureTextEntry={!isPasswordVisible}
-          />
-          <TouchableOpacity
-            onPress={() => setIsPasswordVisible((prev) => !prev)}
-            style={styles.icon}
-          >
-            <Text style={{ color: "#888" }}>
-              {isPasswordVisible ? "Hide" : "Show"}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {password.length > 0 && passwordError && (
-          <Text style={{ color: "red" }}>{passwordError}</Text>
-        )}
-        <Text style={{ color: "white", fontSize: 14, marginTop: 10 }}>
-          Re-Enter Password
-        </Text>
+        <SharedInput
+          label="Password"
+          value={password}
+          onChangeText={handlePasswordChange}
+          placeholder="Enter your password"
+          style={styles.passwordInput}
+          stylePassword={styles.passwordInputContainer}
+          error={passwordError}
+        />
 
-        <View style={styles.passContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Confirm a new password"
-            placeholderTextColor="grey"
-            onChangeText={handleConfirmPasswordChange}
-            value={confirmPassword}
-            secureTextEntry={!isPasswordConfirmVisible}
-          />
-          <TouchableOpacity
-            onPress={() => setIsPasswordConfirmVisible((prev) => !prev)}
-            style={styles.icon}
-          >
-            <Text style={{ color: "#888" }}>
-              {isPasswordConfirmVisible ? "Hide" : "Show"}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <SharedInput
+          label="Re-Enter Password"
+          value={confirmPassword}
+          onChangeText={handleConfirmPasswordChange}
+          placeholder="Confirm your password"
+          style={styles.passwordInput}
+          stylePassword={styles.passwordInputContainer}
+        />
       </View>
 
       <View style={styles.imageContainer}>
@@ -173,6 +144,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
+  passwordInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "#333",
+  },
+  passwordInput: {
+    flex: 1,
+    color: "black",
+    padding: 15,
+    fontSize: 16,
+  },
   textinputContainer: {
     display: "flex",
     gap: 10,
@@ -184,13 +169,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   textInput: {
-    borderWidth: 1,
-    borderColor: "white",
-    borderRadius: 5,
+    backgroundColor: "white", // Dark input background
+    color: "black",
     padding: 15,
-    flex: 1,
-    paddingVertical: 10,
-    color: "#000",
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
   },
   imageContainer: {
     display: "flex",
