@@ -77,22 +77,15 @@ const LoginScreen = () => {
     setIsMessage(false);
   };
   const confirmHandler = async () => {
-    setIsMessage(false);
-
     if (status === 606) {
       verificationOTPCode(email, password);
-
-      router.push({
-        pathname: "/(tabs)/(04_settings)/otpCodeRegister",
-        params: { email, password },
-      });
     } else {
       redirectValidation();
     }
   };
 
   const redirectValidation = () => {
-    console.log("redirectValidation++++",data)
+    console.log("redirectValidation++++", data);
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
@@ -213,6 +206,7 @@ const LoginScreen = () => {
             isOpen={isMessage}
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}
+            isLoading={isLoading}
             icon={
               <FontAwesome
                 name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
@@ -221,10 +215,9 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText="Ok" // Text for the action button
+            buttonText={isLoading ? "Loading..." : "ok"} // Text for the action button
           />
         )}
-        {isLoading && <SharedLoader isOpen={isLoading} />}
       </View>
     </ScrollView>
   );
@@ -249,7 +242,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-   width: 105, // Adjust size as needed
+    width: 105, // Adjust size as needed
     height: 90, // Adjust size as needed
     resizeMode: "cover",
     alignSelf: "flex-start", // Aligns to the left as in the image

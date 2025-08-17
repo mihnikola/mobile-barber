@@ -1,11 +1,9 @@
 // src/hooks/useAuth.js
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { saveStorage } from "@/helpers/token";
 import { getData, post } from "@/api/apiService";
-import {
-  removeExpoTokenStorage,
-  getExpoTokenStorage,
-} from "@/helpers/expoToken";
+import { getExpoTokenStorage } from "@/helpers/expoToken";
+import { router } from "expo-router";
 
 const useLoginForm = () => {
   const [pending, setPending] = useState(false);
@@ -17,28 +15,35 @@ const useLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [message, setMessage] = useState(null);
-  // const [errorVerification, setErrorVerification] = useState(null);
-  // const [isMessageVerification, setIsMessageVerification] = useState(false);
 
   const verificationOTPCode = async (email, password) => {
     setIsLoading(true);
-    // setErrorVerification(null);
+    console.log("verificationOTPCode");
+
     try {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email, password },
       });
-      console.log("verificationOTPCode++-+-", response);
-
       if (response.status === 200) {
-        // setIsMessageVerification(true);
-        setMessage(response.message);
         setIsLoading(false);
+        setIsMessage(false);
+
+        router.push({
+          pathname: "/(tabs)/(04_settings)/otpCodeRegister",
+          params: { email, password },
+        });
+      }
+      if (response.status === 500) {
+        setIsLoading(false);
+        setError(response.message);
+      }
+      if (response.status === 404) {
+        setIsLoading(false);
+        setError(response.message);
       }
     } catch (err) {
       setIsLoading(false);
-      // setErrorVerification(`Not valid otp code`);
-
-      // setIsMessageVerification(true);
+      setError("Something goes wrong! Please try again!");
     }
   };
 
@@ -85,8 +90,6 @@ const useLoginForm = () => {
       setPending(false);
     }
   };
-
-
 
   const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token

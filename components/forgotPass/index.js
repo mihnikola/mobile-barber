@@ -27,23 +27,13 @@ const ForgotPassword = () => {
     error,
     setError,
     isLoading,
-    message,
-    setMessage,
     isMessage,
     setIsMessage,
   } = useEmailOtpCode();
   const navHandler = () => {
     checkEmailValidation(email);
   };
-  const confirmHandler = () => {
-    setIsMessage(false);
-    setMessage(null);
-    // navigation.navigate("components/otpCode/index", {data: email});
-    router.push({
-      pathname: "/(tabs)/(04_settings)/otpCode",
-      params: { data: email },
-    });
-  };
+
   const confirmHandler2 = () => {
     setIsMessage(false);
     setError(null);
@@ -99,11 +89,11 @@ const ForgotPassword = () => {
         onPress={navHandler}
         text={isLoading ? `Sending...` : `Send code`}
       />
-      {isMessage && (
+      {isMessage && error && (
         <SharedMessage
-          isOpen={isMessage}
-          onClose={error ? confirmHandler2 : confirmHandler}
-          onConfirm={error ? confirmHandler2 : confirmHandler}
+          isOpen={isMessage && error}
+          onClose={error && confirmHandler2}
+          onConfirm={error && confirmHandler2}
           icon={
             <FontAwesome
               name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
@@ -111,7 +101,7 @@ const ForgotPassword = () => {
               color="white" // Corresponds to text-blue-500
             />
           }
-          title={error || message} // Title of the modal
+          title={error} // Title of the modal
           buttonText="Ok" // Text for the action button
         />
       )}
