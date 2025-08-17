@@ -1,10 +1,14 @@
 {
   "expo": {
-    "name": "barber-app-ver2",
-    "slug": "barber-app-ver2",
+    "name": "BarberBooking",
+    "slug": "BarberBooking",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/splashImag.png",
+    "icon": "./assets/images/adaptive-icon.png",
+    "splash": {
+      "image":"./assets/images/splashScreen.png",
+      "backgroundColor": "#000000"
+    },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splashImag.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
       "package": "com.mihailovic93.barberappver2",
@@ -30,7 +34,7 @@
         "expo-notifications",
         {
           "icon": "./assets/images/homeSplash.png",
-          "color": "#ffffff"
+          "color": "#000000"
         }
       ]
     ],

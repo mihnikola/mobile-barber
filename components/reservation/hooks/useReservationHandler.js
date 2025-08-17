@@ -12,7 +12,6 @@ const useReservationHandler = () => {
     try {
       const storedToken = await AsyncStorage.getItem("token");
 
-      console.log("useReservationHandler+++",storedToken)
       if (storedToken) {
         setToken(storedToken);
       } else {
