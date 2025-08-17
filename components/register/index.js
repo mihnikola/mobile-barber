@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-    width: 80, // Adjust size as needed
-    height: 80, // Adjust size as needed
+   width: 105, // Adjust size as needed
+    height: 90, // Adjust size as needed
     resizeMode: "cover",
     alignSelf: "flex-start", // Aligns to the left as in the image
     marginLeft: 20,
