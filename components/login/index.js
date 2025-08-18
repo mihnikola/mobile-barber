@@ -129,7 +129,7 @@ const LoginScreen = () => {
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <Image
-          source={require("@/assets/images/homeSplash.png")}
+          source={require("@/assets/images/adaptive-icon.png")}
           style={styles.logo}
         />
 
@@ -242,12 +242,9 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-    width: 105, // Adjust size as needed
-    height: 90, // Adjust size as needed
+    width: 130, // Adjust size as needed
+    height: 80, // Adjust size as needed
     resizeMode: "cover",
-    alignSelf: "flex-start", // Aligns to the left as in the image
-    marginLeft: 20,
-    marginBottom: 20,
   },
   mainTitle: {
     fontSize: 22,
@@ -315,16 +312,22 @@ const styles = StyleSheet.create({
   },
   passwordInputContainer: {
     flexDirection: "row",
+    justifyContent:"space-between",
+    flexWrap:"wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
+    // maxWidth:"100%",
     borderColor: "#333",
   },
   passwordInput: {
-    flex: 1,
+    backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
+    borderRadius: 8,
     fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
   },
 });

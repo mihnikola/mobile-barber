@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    width: 290,
-    height: 290,
-    resizeMode: "cover",
+    // width: 250,
+    // height: 300,
+    resizeMode: "contain",
   },
   input: {
     backgroundColor: "white", // Dark input background
