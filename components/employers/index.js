@@ -34,7 +34,9 @@ const Employers = () => {
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <Text style={styles.capture}>Choose your barber</Text>
+      <View style={styles.captureContainer}>
+        <Text style={styles.capture}>Choose your barber</Text>
+      </View>
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
@@ -74,17 +76,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
+
+  captureContainer: {
+    position: "absolute",
+    marginHorizontal: 15, // Side padding for the list
+  },
   capture: {
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    position: "absolute",
-    display: "flex",
-    alignSelf: "center",
-    paddingVertical: 150,
+    paddingVertical: 130
   },
+
   container: {
     flex: 1,
+    flexDirection: "column",
     backgroundColor: "black",
   },
   errorContainer: {

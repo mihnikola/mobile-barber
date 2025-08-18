@@ -3,8 +3,6 @@ import React from "react";
 import { addMinutesToTime, convertToDay, convertToMonthName } from "@/helpers";
 
 const CardPastReservation = ({ reservations, redirectScreen }) => {
-
- 
   return (
     <>
       {reservations?.length > 0 &&
@@ -33,7 +31,7 @@ const CardPastReservation = ({ reservations, redirectScreen }) => {
 
                 <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
               </View>
-              <View>
+              <View style={styles.ratingContainer}>
                 <Text style={styles.rating}>
                   {!item.rate ? "Rate us" : "Rated"}
                 </Text>
@@ -48,11 +46,13 @@ const styles = StyleSheet.create({
   centerContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "68%",
+    justifyContent: "space-around",
+    flex: 1,
+  },
+  ratingContainer: {
+    display: "flex",
   },
   rating: {
-    fontStyle: "italic",
     color: "gray",
   },
   captureDateLocation: {
@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
     fontWeight: 800,
   },
   cardPastReservation: {
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#1E1E1E", // Dark background from your image
     display: "flex",
     flexDirection: "row",
-    width: "100%",
-    marginTop: 20,
+    marginHorizontal: 10,
+    marginVertical: 10,
     borderRadius: 20,
     padding: 10,
     gap: 20,

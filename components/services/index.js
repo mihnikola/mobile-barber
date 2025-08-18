@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     position: "absolute",
     display: 'flex',
-    alignSelf: 'center',
-    paddingVertical: 130
+    alignSelf: 'flex-start',
+    marginHorizontal: 20,
+    paddingVertical: 120
   },
 });
