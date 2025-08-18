@@ -144,19 +144,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
-  passwordInputContainer: {
+passwordInputContainer: {
     flexDirection: "row",
+    justifyContent:"space-between",
+    flexWrap:"wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
+    // maxWidth:"100%",
     borderColor: "#333",
   },
   passwordInput: {
-    flex: 1,
+   backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
+    borderRadius: 8,
     fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
   },
   textinputContainer: {
     display: "flex",
@@ -191,8 +197,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    width: 290,
-    height: 290,
+    // width: 290,
+    // height: 290,
     resizeMode: "cover",
   },
   mainTitle: {

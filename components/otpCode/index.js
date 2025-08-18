@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    width: 290,
-    height: 290,
+    // width: 290,
+    // height: 290,
     resizeMode: "cover",
   },
   mainTitle: {
