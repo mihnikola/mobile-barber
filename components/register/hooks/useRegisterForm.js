@@ -48,15 +48,15 @@ const useRegisterForm = () => {
         `${process.env.EXPO_PUBLIC_API_URL}/users`,
         sendUserData
       );
+      console.log("handleSubmit+++",result);
+
       if (result.status === 400) {
         setIsMessage(true);
         setSuccess(result.data.message);
       } else if (result.status === 202) {
-
         setIsMessage(true);
-
         setError(result.data.message);
-      } else if (result.status === 201) {
+      } else if (result.status === 200) {
         setIsMessage(true);
 
         setSuccess(result.data.message);
@@ -66,7 +66,7 @@ const useRegisterForm = () => {
         setError(`Registration failed: ${result.status}`);
       }
     } catch (errorx) {
-      if (err.message.includes("404")) {
+      if (errorx.message.includes("404")) {
         setIsMessage(true);
 
         setError(` Not found endpoint`);
