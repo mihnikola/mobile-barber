@@ -142,8 +142,9 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     position: "absolute",
     display: "flex",
-    alignSelf: "center",
-    paddingVertical: 110,
+    alignSelf: "flex-start",
+    paddingVertical: 90,
+    marginHorizontal: 15
   },
   coverImage: {
     width: "100%",

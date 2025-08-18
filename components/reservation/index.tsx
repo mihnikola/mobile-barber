@@ -42,7 +42,7 @@ const Reservation = () => {
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
-        <View style={{ display: "flex",paddingHorizontal: 12 }}>
+        <View style={{ display: "flex",paddingHorizontal: 10,marginTop: 10 }}>
           <View>
             {reservation && <Details data={reservation} />}
             <Note />
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   timeData: {
-    fontSize: 20,
+     fontSize: 20,
     color: "#fff",
     fontWeight: "bold",
   },
@@ -91,10 +91,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
+    paddingHorizontal: 30,
     position: "absolute",
-    alignItems: "center",
-    alignSelf: "center",
-    top:50
+    top: 80,
   },
   dateData: {
     fontSize: 20,

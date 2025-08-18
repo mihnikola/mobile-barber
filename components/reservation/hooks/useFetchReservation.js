@@ -13,7 +13,6 @@ const useFetchReservation = (reservationId) => {
             setError("Reservation ID is not provided.");
             return;
         }
-            console.log("useFetchReservation",reservationId)
 
         setIsLoading(true);
         setError(null);

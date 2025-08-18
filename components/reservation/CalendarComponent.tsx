@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  StyleSheet
-} from "react-native";
+import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import React from "react";
 import Loader from "@/components/Loader";
 import CardFutureReservation from "@/components/reservation/CardFutureReservation";
@@ -13,39 +7,49 @@ import useReservations from "./hooks/useReservations";
 import CardPastReservation from "./CardPastReservation";
 
 const CalendarComponent = () => {
-  const { reservations, isLoading, checkPastHandler, checkFutureHandler, check, detailsReservation } = useReservations();
-  
+  const {
+    reservations,
+    isLoading,
+    checkPastHandler,
+    checkFutureHandler,
+    check,
+    detailsReservation,
+  } = useReservations();
+
   return (
     <ScrollView style={styles.container}>
       <Image
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <View style={styles.containerCapture}>
-        <Text
-          style={[styles.capture, check && styles.active]}
-          onPress={checkFutureHandler}
-        >
-          Future
+      {/* <View style={styles.containerCapture}> */}
+        <Text style={styles.capture} onPress={checkFutureHandler}>
+          Reservations
         </Text>
-        <Text
+        {/* <Text
           style={[styles.capture, !check && styles.active]}
           onPress={checkPastHandler}
         >
           Past
-        </Text>
-      </View>
+        </Text> */}
+      {/* </View> */}
       {isLoading ? (
         <Loader />
       ) : (
-        <View style={{ display: "flex" }}>
+        <View style={{ display: "flex",marginTop:10 }}>
           {check && reservations?.length > 0 ? (
-            <CardFutureReservation reservations={reservations} redirectScreen={detailsReservation} />
+            <CardFutureReservation
+              reservations={reservations}
+              redirectScreen={detailsReservation}
+            />
           ) : (
             check && reservations?.length === 0 && <CardNoReservation />
           )}
           {!check && reservations?.length > 0 ? (
-            <CardPastReservation reservations={reservations} redirectScreen={detailsReservation} />
+            <CardPastReservation
+              reservations={reservations}
+              redirectScreen={detailsReservation}
+            />
           ) : (
             !check && reservations?.length === 0 && <CardNoReservation />
           )}
@@ -57,7 +61,6 @@ const CalendarComponent = () => {
 
 export default CalendarComponent;
 
-
 const styles = StyleSheet.create({
   active: {
     color: "#fff",
@@ -65,18 +68,17 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor:"black"
-
+    backgroundColor: "black",
   },
   containerCapture: {
-    display:'flex',
+    display: "flex",
     width: "100%",
-    justifyContent: 'center',
-    gap:30,
+    gap: 30,
     flexDirection: "row",
-    alignSelf: "center",
+    marginHorizontal: 20,
+    alignSelf: "flex-start",
     position: "absolute",
-    top: 150, 
+    top: 140,
   },
   greyLine: {
     width: "100%",
@@ -90,10 +92,13 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   capture: {
-    fontSize: 32,
-    color: "grey",
-    fontWeight: "900",
-    textAlign: "center",
-    fontStyle: "italic",
+     fontSize: 32,
+    color: "white",
+    fontWeight: "500",
+    position: "absolute",
+    display: 'flex',
+    alignSelf: 'flex-start',
+    marginHorizontal: 15,
+    paddingVertical: 128
   },
 });

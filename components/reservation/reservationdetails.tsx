@@ -26,8 +26,6 @@ const ReservationDetails = () => {
   const params = useLocalSearchParams();
   const { itemId, check, pushNotification } = params;
 
-  console.log("ReservationDetails++");
-  console.log("useRoute++", itemId, check, pushNotification);
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const { reservationData, isLoading, error, refetch } =
     useFetchReservation(itemId);
@@ -58,7 +56,6 @@ const ReservationDetails = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("useFocusEffect+++");
       const onBackPress = () => {
         // Return true to disable the default back button behavior
         if (pushNotification) {

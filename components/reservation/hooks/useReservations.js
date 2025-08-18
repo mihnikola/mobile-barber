@@ -10,9 +10,10 @@ const useReservations = () => {
   const [error, setError] = useState(null);
   const [check, setCheck] = useState(true);
   const detailsReservation = (item) => {
+    const checkValue = item?.past ? false : true;
     router.push({
       pathname: "/(tabs)/(03_calendar)/modalReservation",
-      params: { itemId: item._id, check },
+      params: { itemId: item._id, check: checkValue },
     });
   };
   const checkPastHandler = () => {
@@ -26,7 +27,6 @@ const useReservations = () => {
     setIsLoading(true);
     setError(null);
     const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
-
     try {
       const response = await getData("/reservations", {
         check,
