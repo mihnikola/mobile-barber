@@ -287,6 +287,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   containerWrapper: {
+    marginTop:10,
     display: "flex",
   },
   containerBtn: {

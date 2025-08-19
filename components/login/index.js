@@ -225,7 +225,7 @@ const LoginScreen = () => {
 export default LoginScreen;
 const styles = StyleSheet.create({
   safeArea: {
-    paddingVertical: 20,
+    paddingVertical: 10,
     flex: 1,
     backgroundColor: "black", // Dark background color
   },
@@ -242,9 +242,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
   logo: {
-    width: 130, // Adjust size as needed
-    height: 80, // Adjust size as needed
-    resizeMode: "cover",
+    width: 120, // Adjust size as needed
+    height: 100, // Adjust size as needed
+    resizeMode: "contain",
+    backgroundColor: "black",
   },
   mainTitle: {
     fontSize: 22,
@@ -312,13 +313,13 @@ const styles = StyleSheet.create({
   },
   passwordInputContainer: {
     flexDirection: "row",
-    justifyContent:"space-between",
-    flexWrap:"wrap",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-    // maxWidth:"100%",
+   
     borderColor: "#333",
   },
   passwordInput: {
@@ -329,5 +330,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
+     width:"80%",
   },
 });

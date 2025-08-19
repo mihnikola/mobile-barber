@@ -48,7 +48,6 @@ const useRegisterForm = () => {
         `${process.env.EXPO_PUBLIC_API_URL}/users`,
         sendUserData
       );
-      console.log("handleSubmit+++",result);
 
       if (result.status === 400) {
         setIsMessage(true);

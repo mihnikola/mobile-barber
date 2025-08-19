@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 
   safeArea: {
     flex: 1,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: "black", // Dark background color
   },
   container: {
@@ -212,10 +212,11 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
   },
- logo: {
-    width: 130, // Adjust size as needed
-    height: 80, // Adjust size as needed
-    resizeMode: "cover",
+  logo: {
+    width: 120, // Adjust size as needed
+    height: 100, // Adjust size as needed
+    resizeMode: "contain",
+    backgroundColor: "black",
   },
   mainTitle: {
     fontSize: 22,
@@ -238,8 +239,8 @@ const styles = StyleSheet.create({
   },
   passwordInputContainer: {
     flexDirection: "row",
-    justifyContent:"space-between",
-    flexWrap:"wrap",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
     borderColor: "#333",
   },
   passwordInput: {
-   backgroundColor: "white", // Dark input background
+    backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
     borderRadius: 8,

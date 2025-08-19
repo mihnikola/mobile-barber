@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A0B0E",
   },
   btnFooter: {
-    marginVertical: 40,
+    marginVertical: 0,
   },
   radiobtn: {
     flex: 2,
@@ -142,9 +142,11 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    // width: 290,
-    // height: 290,
-    resizeMode: "cover",
+    width: 290,
+    height: 290,
+    resizeMode: "contain",
+    backgroundColor:"black"
+
   },
   mainTitle: {
     fontSize: 22,
