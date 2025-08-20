@@ -2,11 +2,10 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   Text,
   BackHandler,
   StatusBar,
-  Button,
+  ScrollView,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
 import useUser from "@/components/infoapp/hooks/useUser";
@@ -21,6 +20,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
+import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 
 const userprofile = () => {
   const { userData, isLoading, error } = useUser();
@@ -116,7 +116,7 @@ const userprofile = () => {
   };
   if (!isLoading) {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
             <ImageCompress
@@ -136,7 +136,7 @@ const userprofile = () => {
             />
           </View>
           <View>
-            <SharedInput
+            <SharedPhoneNumber
               label="Phone Number"
               placeholder="6x xxx xxxx"
               placeholderTextColor="#888"
@@ -145,11 +145,9 @@ const userprofile = () => {
               value={
                 phoneNumber !== null
                   ? phoneNumber
-                  : userData?.phoneNumber?.slice(4)
+                  : userData?.phoneNumber === null ? "" : userData?.phoneNumber?.slice(4)
               }
               onChangeText={handlePhoneNumberChange}
-              stylePassword={styles.phoneNumberInputContainer}
-              style={styles.phoneNumberInput}
               autoComplete="tel"
               error={errorPhoneNumber}
             />
@@ -187,7 +185,7 @@ const userprofile = () => {
           />
         )}
         <StatusBar backgroundColor="black" />
-      </View>
+      </ScrollView>
     );
   }
 };
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
   phoneNumberInputContainer: {
     flexDirection: "row", // Arrange children horizontally
     alignItems: "center", // Vertically align items in the center
-    height: 50,
+    // height: 50,
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 1,
@@ -215,12 +213,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // Padding inside the combined input area
   },
   phoneNumberInput: {
-    flex: 1, // Take up remaining space
-    height: "100%", // Make TextInput fill the height of the container
+    backgroundColor: "white", // Dark input background
     color: "black",
+    padding: 15,
+    borderRadius: 8,
     fontSize: 16,
-    // No border or background here, handled by inputContainer
-    padding: 0, // Remove default TextInput padding
+    borderWidth: 2,
+    borderColor: "white",
   },
   buttonText: {
     color: "#fff",
@@ -230,7 +229,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    backgroundColor: "white", // Dark input background
+       backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -278,8 +277,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   imageContainerImage: {
-    position: "absolute",
-    display: "flex",
+    flex:1,
     flexDirection: "column",
   },
   textInput: {

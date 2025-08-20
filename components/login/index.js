@@ -24,6 +24,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
@@ -80,6 +81,8 @@ const LoginScreen = () => {
     if (status === 606) {
       verificationOTPCode(email, password);
     } else {
+      setIsMessage(false);
+
       redirectValidation();
     }
   };
@@ -177,14 +180,14 @@ const LoginScreen = () => {
           autoCapitalize="none"
           style={styles.input}
         />
-        <SharedInput
+
+        <SharedPassword
           label="Password"
           value={password}
           onChangeText={handlePasswordChange}
           placeholder="Enter your password"
-          style={styles.passwordInput}
-          stylePassword={styles.passwordInputContainer}
         />
+
         <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
           <Text style={{ color: "white", textAlign: "right" }}>
             Forgot password?
@@ -209,13 +212,13 @@ const LoginScreen = () => {
             isLoading={isLoading}
             icon={
               <FontAwesome
-                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
                 size={64} // Size of the icon
                 color="white" // Corresponds to text-blue-500
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading ? "Loading..." : "ok"} // Text for the action button
+            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>
@@ -319,7 +322,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-   
+
     borderColor: "#333",
   },
   passwordInput: {
@@ -330,6 +333,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
-     width:"80%",
+    width: "80%",
   },
 });
