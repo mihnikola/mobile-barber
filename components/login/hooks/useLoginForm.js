@@ -59,18 +59,17 @@ const useLoginForm = () => {
 
     try {
       const responseData = await post("/users/login", { email, password });
+      console.log("login",responseData)
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
-        setSuccess(responseData.message);
-        return;
+        setError(responseData.message);
       }
       if (responseData.status === 606) {
         setPending(false);
         setIsMessage(true);
         setStatus(responseData.status);
         setMessage(responseData.message);
-        return;
       }
       if (responseData.status === 200) {
         setPending(false);

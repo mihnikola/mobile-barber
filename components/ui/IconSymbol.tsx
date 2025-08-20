@@ -13,6 +13,7 @@ const MAPPING = {
   "email": "email",
   "sms":"sms",
   "star":"star",
+  "photo":"edit-square",
   "image":"image",
   "price-change":"price-change",
   "house.fill": "home",

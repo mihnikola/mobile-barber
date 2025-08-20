@@ -19,6 +19,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedInput from "@/shared-components/SharedInput";
+import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
+import SharedPassword from "@/shared-components/SharedPassword";
 
 const changePass = () => {
   const params = useLocalSearchParams();
@@ -81,23 +83,18 @@ const changePass = () => {
       </View>
 
       <View style={styles.textinputContainer}>
-        <SharedInput
+        <SharedPassword
           label="Password"
           value={password}
           onChangeText={handlePasswordChange}
           placeholder="Enter your password"
-          style={styles.passwordInput}
-          stylePassword={styles.passwordInputContainer}
           error={passwordError}
         />
-
-        <SharedInput
+        <SharedConfirmPassword
           label="Re-Enter Password"
           value={confirmPassword}
           onChangeText={handleConfirmPasswordChange}
           placeholder="Confirm your password"
-          style={styles.passwordInput}
-          stylePassword={styles.passwordInputContainer}
         />
       </View>
 
@@ -144,10 +141,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
-passwordInputContainer: {
+  passwordInputContainer: {
     flexDirection: "row",
-    justifyContent:"space-between",
-    flexWrap:"wrap",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
@@ -156,7 +153,7 @@ passwordInputContainer: {
     borderColor: "#333",
   },
   passwordInput: {
-   backgroundColor: "white", // Dark input background
+    backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
     borderRadius: 8,

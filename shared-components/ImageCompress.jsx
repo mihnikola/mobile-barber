@@ -26,7 +26,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
                 <Image
                     source={require("@/assets/images/defaultImgAvatar.png")}
                     style={styles.defaultImgAvatar}
-                    resizeMode="cover"
+                    resizeMode="contain"
                 />}
             {selectedImageUri &&
                 <View style={styles.defaultImgAvatar}>
@@ -34,7 +34,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
                 </View>
             }
             <TouchableOpacity style={[!selectedImageUri ? styles.buttonPlaceholder : styles.button]} onPress={pickImage} disabled={uploading}>
-                <IconSymbol size={50} name="image" color="white" />
+                <IconSymbol size={45} name="photo" color="white" />
             </TouchableOpacity>
         </View>
     );
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     defaultImgAvatar: {
         width: 200,
         height: 200,
+        backgroundColor:"black",
     },
     container: {
         flex: 1,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     button: {
         position: "absolute",
         left: 160,
-        top: 160
+        top: 170
     },
     buttonPlaceholder: {
         position: "absolute",
