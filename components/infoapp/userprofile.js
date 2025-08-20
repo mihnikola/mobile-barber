@@ -94,16 +94,10 @@ const userprofile = () => {
   };
 
   const submitChanges = () => {
-    const phone = phoneNumber || userData?.phoneNumber?.slice(4);
-    console.log("phoneNumber", phoneNumber, userData.phoneNumber);
 
     const data = {
-      phoneNumber:
-        phoneNumber !== userData?.phoneNumber?.slice(4) &&
-        phoneNumber !== userData?.phoneNumber &&
-        phoneNumber !== null &&
-        phoneNumber !== "null"
-          ? "+381" + phone
+      phoneNumber: phoneNumber !== userData?.phoneNumber?.slice(4) &&  phoneNumber !== userData?.phoneNumber &&   phoneNumber !== null &&  phoneNumber !== "null"
+         ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
       image: changedImg === userData?.image ? null : changedImg,

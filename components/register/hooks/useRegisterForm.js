@@ -20,7 +20,7 @@ const useRegisterForm = () => {
       confirmPassword,
     } = userData;
 
-    if (!name || !confirmPassword || !password || !email || !phoneNumber) {
+    if (!name || !confirmPassword || !password || !email) {
       setIsMessage(true);
       setError("Please fill out all fields.");
       return;
@@ -37,7 +37,7 @@ const useRegisterForm = () => {
       name,
       email,
       password,
-      phoneNumber: "+381" + phoneNumber,
+      phoneNumber: phoneNumber ? "+381" + phoneNumber : "",
     };
 
     setLoading(true);
