@@ -30,7 +30,6 @@ const useUserChange = () => {
         type: fileType,
       });
     }
-    console.log("formData", formData);
     try {
       const storedToken = await AsyncStorage.getItem("token");
       const response = await axios.put(
@@ -43,7 +42,6 @@ const useUserChange = () => {
         }
       );
 
-      console.log("axios.put", response);
       if (response.status >= 200 && response.status < 300) {
         setIsMessage(true);
         console.log("res", response.data);
