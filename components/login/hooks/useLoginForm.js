@@ -7,7 +7,7 @@ import { router } from "expo-router";
 
 const useLoginForm = () => {
   const [pending, setPending] = useState(false);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
@@ -53,13 +53,13 @@ const useLoginForm = () => {
       setError("Please enter both email and password");
       return;
     }
+    setStatus(null);
 
     setPending(true);
     setError(null);
 
     try {
       const responseData = await post("/users/login", { email, password });
-      console.log("login",responseData)
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
@@ -138,7 +138,6 @@ const useLoginForm = () => {
     saveToken,
     success,
     status,
-    setStatus,
     setIsMessage,
     isMessage,
     initialToken,
