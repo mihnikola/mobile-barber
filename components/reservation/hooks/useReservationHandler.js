@@ -16,9 +16,10 @@ const useReservationHandler = () => {
         setToken(storedToken);
       } else {
         setToken(null);
+        console.log("dsadasdsaxxxxxxxxxxxxxxxxx")
         router.push({
           pathname: "/(tabs)/(04_settings)/login",
-          params: { data: 2 },
+          params: { reevaluted: 200 },
         });
       }
       setIsLoading(false);

@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity,
-  BackHandler,
 } from "react-native";
 import { ScrollView } from "react-native";
 import { Image } from "react-native";
@@ -52,20 +51,7 @@ const changePass = () => {
     handlePatchUser(data, password, confirmPassword);
   };
 
-  function handleBackButtonClick3() {
-    router.push("/(tabs)/(04_settings)/login");
 
-    return true;
-  }
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
-    return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick3
-      );
-    };
-  }, []);
 
   const confirmHandler = () => {
     setIsMessage(false);

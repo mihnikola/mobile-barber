@@ -55,14 +55,7 @@ const HelpSupportScreen = () => {
 
       {/* You could add more items here like a FAQ link or phone number */}
       {/* Example for a different menu item */}
-      {/*
-      <MenuItem
-        iconName="frequently-asked-questions"
-        title="FAQ"
-        onPress={() => console.log('FAQ pressed')}
-        hasSubItems={true}
-      />
-      */}
+      
     </ScrollView>
   );
 };

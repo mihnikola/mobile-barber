@@ -3,7 +3,6 @@ import {
   StyleSheet,
   TextInput,
   Text,
-  BackHandler,
   StatusBar,
   ScrollView,
 } from "react-native";
@@ -14,7 +13,6 @@ import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
 import { useCallback, useEffect, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
@@ -66,17 +64,7 @@ const userprofile = () => {
       }
     }
   };
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
 
   if (isLoading) {
     return <Loader />;

@@ -1,39 +1,20 @@
 // app/menuservices.tsx
-import { useCallback, useContext } from "react";
-import { ScrollView, Image, StyleSheet, View, Text, BackHandler } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useContext } from "react";
+import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import SharedItem from "@/shared-components/SharedItem";
-import { router } from 'expo-router';
+import { router } from "expo-router";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices();
 
-  const funcDateTimeReservation = useCallback(
-    (service) => {
-      updateReservation({ ...reservation, service });
-      router.push("/(tabs)/(02_barbers)/calendar");
-    },
-    [router, reservation, updateReservation]
-  );
-
-     useFocusEffect(
-      useCallback(() => {
-        const onBackPress = () => {
-          // Return true to disable the default back button behavior
-         router.push("/(tabs)/(02_barbers)")
-         return true;
-
-        };
-        BackHandler.addEventListener("hardwareBackPress", onBackPress);
-  
-        return () =>
-          BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-      }, [])
-    );
+  const funcDateTimeReservation = (service) => {
+    updateReservation({ ...reservation, service });
+    router.push("/(tabs)/(02_barbers)/calendar");
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -84,9 +65,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "500",
     position: "absolute",
-    display: 'flex',
-    alignSelf: 'flex-start',
+    display: "flex",
+    alignSelf: "flex-start",
     marginHorizontal: 20,
-    paddingVertical: 120
+    paddingVertical: 120,
   },
 });

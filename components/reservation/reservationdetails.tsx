@@ -1,9 +1,8 @@
 import Loader from "@/components/Loader";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import Details from "@/shared-components/Details";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import {
-  BackHandler,
   Image,
   ScrollView,
   StyleSheet,
@@ -13,7 +12,6 @@ import {
 import useFetchReservation from "./hooks/useFetchReservation";
 import useCancelReservation from "./hooks/useCancelReservation";
 import useRateReservation from "./hooks/useRateReservation";
-import { useFocusEffect } from "@react-navigation/native";
 import StarRating from "./StarRateComponent";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -54,26 +52,9 @@ const ReservationDetails = () => {
     setRateSuccessFlag(true);
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        // Return true to disable the default back button behavior
-        if (pushNotification) {
-          router.push("/(tabs)/(03_calendar)");
-        } else {
-          router.back();
-        }
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
 
   const handleUserRatingChange = (rating: number) => {
-    console.log("User selected rating:", rating);
     setUserFeedbackRating(rating);
     // Here you would typically send this rating to your backend
   };

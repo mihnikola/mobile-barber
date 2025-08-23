@@ -4,11 +4,10 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  BackHandler,
   StatusBar,
   Platform,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useEmail from "./hooks/useEmail";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
@@ -40,20 +39,7 @@ const Register = () => {
   const { confirmPassword, handleConfirmPasswordChange } =
     useConfirmPassword(password);
 
-  function handleBackButtonClick3() {
-    router.push("/(tabs)/(04_settings)/login");
 
-    return true;
-  }
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
-    return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick3
-      );
-    };
-  }, []);
 
   const handleRegister = () => {
     handleRegistration({
@@ -68,7 +54,7 @@ const Register = () => {
   };
 
   const navigateToLogin = () => {
-    router.push("/(tabs)/(04_settings)/login");
+    router.back();
   };
   const confirmHandler = () => {
     setIsMessage(false);

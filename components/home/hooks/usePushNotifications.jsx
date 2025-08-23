@@ -15,7 +15,6 @@ export function usePushNotifications() {
             response?.notification?.request?.content?.data?.someData?.url;
 
         if (reservationIdValue) {
-            console.log("redirectReservation object", reservationIdValue);
             router.push({
                 pathname: "/(tabs)/(03_calendar)/cancelModalReservation",
                 params: {

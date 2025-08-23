@@ -1,11 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
   ScrollView,
   Text,
   Image,
-  BackHandler,
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
@@ -15,7 +14,6 @@ import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
-import { useFocusEffect } from "@react-navigation/native";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
 const DateComponent = () => {
@@ -50,18 +48,7 @@ const DateComponent = () => {
     handleDayPress(valueInitialData);
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        router.push("/(tabs)/(02_barbers)/services");
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
 
   return (
     <ScrollView style={styles.container}>

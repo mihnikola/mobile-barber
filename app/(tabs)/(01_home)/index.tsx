@@ -1,7 +1,6 @@
 import * as Notifications from "expo-notifications";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import {
-  BackHandler,
   Image,
   ScrollView,
   StyleSheet,
@@ -12,7 +11,6 @@ import {
   View,
 } from "react-native";
 
-import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
@@ -53,18 +51,8 @@ export default function App() {
     }, 100);
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        // Return true to disable the default back button behavior
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
+
   return (
     <ScrollView style={styles.container}>
       <Image

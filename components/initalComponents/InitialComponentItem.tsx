@@ -44,7 +44,7 @@ export default function InitialComponentItem({item}) {
         </Text>
 
         {/* Next Button */}
-        <TouchableOpacity style={styles.button} onPress={() => console.log('Next button pressed')}>
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>

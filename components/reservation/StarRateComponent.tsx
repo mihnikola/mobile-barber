@@ -68,48 +68,11 @@ const StarRating: React.FC<StarRatingProps> = ({
       <View style={{ display: "flex", flexDirection: "row" }}>
         {renderStars()}
       </View>
-      {/* <Text className="text-lg font-medium text-gray-700 mt-3">
-        You rated: {currentRating} / {maxStars}
-      </Text> */}
+      
     </View>
   );
 };
 
-// // Main App component to demonstrate StarRating
-// const App: React.FC = () => {
-//   const [userFeedbackRating, setUserFeedbackRating] = useState(0);
 
-//   const handleUserRatingChange = (rating: number) => {
-//     console.log('User selected rating:', rating);
-//     setUserFeedbackRating(rating);
-//     // Here you would typically send this rating to your backend
-//   };
-
-//   return (
-//     <View style={styles.container} className="bg-gray-100">
-//       <Text className="text-3xl font-bold text-blue-700 mb-8">My Awesome App</Text>
-//       <StarRating
-//         maxStars={5}
-//         initialRating={3} // Start with 3 stars selected
-//         starSize={40}
-//         filledColor="#FFC107" // A slightly different gold
-//         emptyColor="#D0D0D0"
-//         onRatingChange={handleUserRatingChange}
-//       />
-//       <Text className="text-lg font-medium text-gray-700 mt-6">
-//         Current App Rating State: {userFeedbackRating}
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 20,
-//   },
-// });
 
 export default StarRating;

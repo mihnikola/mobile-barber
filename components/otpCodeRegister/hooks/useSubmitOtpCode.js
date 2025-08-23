@@ -21,7 +21,6 @@ const useSubmitOtpCode = () => {
       const response = await getData("/users/verifyEmail", {
         params: { email, otpCode },
       });
-      console.log("reessadasdsa", response);
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(response.message);
@@ -46,7 +45,6 @@ const useSubmitOtpCode = () => {
           otpCode,
         });
 
-        console.log("checkOtpCodeVerification", response);
         /*
  status: 69, ok
     token, ok
@@ -75,7 +73,6 @@ const useSubmitOtpCode = () => {
     setIsLoading(true); // Set pending state when saving token
     const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
 
-    console.log("useSubmitOtpCode",expoTokenData)
     
       if(!expoTokenData){
           return;
@@ -85,10 +82,8 @@ const useSubmitOtpCode = () => {
         tokenExpo: expoTokenData,
         tokenUser: userId,
       });
-      console.log("saveToken responseData",responseData)
 
       if (responseData.status === 200) {
-        // removeExpoTokenStorage();
         setIsMessage(true);
         setIsLoading(false);
         setMessage(messageData);
@@ -102,7 +97,6 @@ const useSubmitOtpCode = () => {
         );
       }
     } catch (err) {
-      console.log("Error saving token:", err.message);
       setIsLoading(false);
       setIsMessage(true);
 

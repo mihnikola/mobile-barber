@@ -22,7 +22,6 @@ const useSubmitReservation = () => {
   const [responseData, setResponseData] = useState(null);
 
   Notifications.addNotificationReceivedListener((notification) => {
-    console.log("Background notification received:", notification);
     // Handle the background notification
   });
 
@@ -31,14 +30,12 @@ const useSubmitReservation = () => {
   useEffect(() => {
     const notificationListener = Notifications.addNotificationReceivedListener(
       (notification) => {
-        console.log("addNotificationReceivedListener++++", notification);
         setNotification(notification);
       }
     );
 
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        // console.log("addNotificationResponseReceivedListener++++",response.notification.request.content.body);
         setNotification(response);
       });
 
@@ -75,6 +72,7 @@ const useSubmitReservation = () => {
         },
       });
       setResponseData(response);
+      router.dismissAll();
       router.push({
         pathname: "/(tabs)/(02_barbers)/reservationSuccess",
         params: {

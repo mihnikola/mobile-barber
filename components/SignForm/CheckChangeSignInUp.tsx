@@ -6,7 +6,6 @@ const CheckChangeSignInUp = ({ check, title, link }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log(";");
       setIsLoading(false);
     }, 100);
   }, []);

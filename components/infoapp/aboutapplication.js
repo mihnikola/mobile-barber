@@ -1,12 +1,9 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { router, useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
-  BackHandler,
   Image,
   Switch,
   Platform,
@@ -27,19 +24,7 @@ const aboutapplication = () => {
     const newLanguage = isSerbian ? "en" : "sr";
     setIsSerbian(!isSerbian); // Update the local state
   };
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        router.push("/(tabs)/(04_settings)");
 
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
-
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />

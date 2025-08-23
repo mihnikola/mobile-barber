@@ -26,7 +26,6 @@ const SettingsComponent = () => {
   const isFocused = useIsFocused(); // useIsFocused hook
   useFocusEffect(
     useCallback(() => {
-      console.log("dasdasdasd")
       tokenData();
       fetchUserData();
     }, [isFocused, reevaluted]));
