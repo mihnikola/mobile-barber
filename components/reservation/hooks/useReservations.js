@@ -1,5 +1,5 @@
 // src/hooks/useReservations.js
-import { getData } from "@/api/apiService";
+import { get } from "@/api/apiService";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 import { router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
@@ -26,12 +26,8 @@ const useReservations = () => {
   const getReservationsData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
     try {
-      const response = await getData("/reservations", {
-        check,
-        dateTimeStampValue,
-      });
+      const response = await get("/reservations");
       setReservations(response);
       setIsLoading(false);
     } catch (err) {

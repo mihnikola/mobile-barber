@@ -26,9 +26,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-
+import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import useGoogleSignIn from "./hooks/useGoogleSignIn";
 const LoginScreen = () => {
   const params = useLocalSearchParams();
+  const {
+    signIn,
+    error: errorGoogle,
+    isMessage: isMessageGoogle,
+    pending: pendingGoogle,
+    success: successGoogle,
+    setIsMessage: setIsMessageGoogle,
+  } = useGoogleSignIn();
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
@@ -65,10 +74,10 @@ const LoginScreen = () => {
     router.push("(tabs)/(04_settings)/register");
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google Login");
-    // Implement Google login with Expo AuthSession or a dedicated library
-  };
+  // const handleGoogleLogin = () => {
+  //   console.log("Google Login");
+  //   // Implement Google login with Expo AuthSession or a dedicated library
+  // };
 
   const handleAppleLogin = () => {
     console.log("Apple Login");
@@ -76,6 +85,14 @@ const LoginScreen = () => {
   };
   const confirmHandler2 = async () => {
     setIsMessage(false);
+  };
+  const confirmHandlerGoogle = async () => {
+    setIsMessageGoogle(false);
+    redirectValidation();
+
+  };
+  const confirmHandlerGoogle2 = async () => {
+    setIsMessageGoogle(false);
   };
   const confirmHandler = async () => {
     if (status === 606) {
@@ -140,18 +157,24 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>Enter your information below</Text>
 
         <View style={styles.socialButtonsContainer}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[styles.socialButton, styles.googleButton]}
             onPress={handleGoogleLogin}
           >
             <Image
               source={require("@/assets/images/googleG.png")} // Adjust path as neededgoogleG
               style={styles.iconStyle}
-            />
+            /> */}
+          <GoogleSigninButton
+            style={{ width: "100%", height: 58 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={signIn}
+          />
 
-            <Text style={styles.socialButtonText}>Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          {/* <Text style={styles.socialButtonText}>Google</Text> */}
+          {/* </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={[styles.socialButton, styles.appleButton]}
             onPress={handleAppleLogin}
           >
@@ -162,7 +185,7 @@ const LoginScreen = () => {
               style={styles.socialIcon}
             />
             <Text style={styles.socialButtonText}>Apple</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View style={styles.dividerContainer}>
@@ -219,6 +242,27 @@ const LoginScreen = () => {
             }
             title={error || success || message} // Title of the modal
             buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
+          />
+        )}
+        {isMessageGoogle && (
+          <SharedMessage
+            isOpen={isMessageGoogle}
+            onClose={
+              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
+            }
+            onConfirm={
+              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
+            }
+            isLoading={pendingGoogle}
+            icon={
+              <FontAwesome
+                name={errorGoogle ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title={errorGoogle || successGoogle} // Title of the modal
+            buttonText={pendingGoogle ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>
