@@ -18,7 +18,6 @@ const useLoginForm = () => {
 
   const verificationOTPCode = async (email, password) => {
     setIsLoading(true);
-    console.log("verificationOTPCode");
 
     try {
       const response = await getData("/users/sendOTPviaLogin", {
@@ -90,6 +89,41 @@ const useLoginForm = () => {
     }
   };
 
+  const loginViaGoogle = async (userData) => {
+    setStatus(null);
+
+    setPending(true);
+    setError(null);
+
+    const { user } = userData;
+
+    try {
+      const responseData = await post("/users/loginViaGoogle", { user });
+
+      if (responseData.status === 200 || responseData.status === 300) {
+        setPending(false);
+        saveStorage(responseData.token);
+        saveToken(responseData.userId);
+      }
+
+      if (responseData.status === 500) {
+        setPending(false);
+        setError(responseData.message);
+      }
+    } catch (err) {
+      if (err.message.includes("404")) {
+        setIsMessage(true);
+
+        setError(` Not found endpoint`);
+      } else {
+        setIsMessage(true);
+
+        setError(`Something Went Wrong, Please Try Again`);
+      }
+      setPending(false);
+    }
+  };
+
   const saveToken = async (userId) => {
     setPending(true); // Set pending state when saving token
 
@@ -145,6 +179,7 @@ const useLoginForm = () => {
     verificationOTPCode,
     isLoading,
     message,
+    loginViaGoogle,
   };
 };
 

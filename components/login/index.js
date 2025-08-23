@@ -30,7 +30,14 @@ import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import useGoogleSignIn from "./hooks/useGoogleSignIn";
 const LoginScreen = () => {
   const params = useLocalSearchParams();
-  const { signIn } = useGoogleSignIn();
+  const {
+    signIn,
+    error: errorGoogle,
+    isMessage: isMessageGoogle,
+    pending: pendingGoogle,
+    success: successGoogle,
+    setIsMessage: setIsMessageGoogle,
+  } = useGoogleSignIn();
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
@@ -78,6 +85,14 @@ const LoginScreen = () => {
   };
   const confirmHandler2 = async () => {
     setIsMessage(false);
+  };
+  const confirmHandlerGoogle = async () => {
+    setIsMessageGoogle(false);
+    redirectValidation();
+
+  };
+  const confirmHandlerGoogle2 = async () => {
+    setIsMessageGoogle(false);
   };
   const confirmHandler = async () => {
     if (status === 606) {
@@ -151,7 +166,7 @@ const LoginScreen = () => {
               style={styles.iconStyle}
             /> */}
           <GoogleSigninButton
-            style={{ width:"100%", height: 58 }}
+            style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
@@ -227,6 +242,27 @@ const LoginScreen = () => {
             }
             title={error || success || message} // Title of the modal
             buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
+          />
+        )}
+        {isMessageGoogle && (
+          <SharedMessage
+            isOpen={isMessageGoogle}
+            onClose={
+              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
+            }
+            onConfirm={
+              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
+            }
+            isLoading={pendingGoogle}
+            icon={
+              <FontAwesome
+                name={errorGoogle ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title={errorGoogle || successGoogle} // Title of the modal
+            buttonText={pendingGoogle ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>

@@ -1,14 +1,16 @@
 import {
   GoogleSignin,
-  GoogleSigninButton,
   isErrorWithCode,
   isSuccessResponse,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
 
 import { useEffect } from "react";
+import useLoginForm from "./useLoginForm";
 
 export default function useGoogleSignIn() {
+  const { pending, success, isMessage, error, loginViaGoogle, setIsMessage } = useLoginForm();
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -27,8 +29,7 @@ export default function useGoogleSignIn() {
       console.log("objectx");
 
       if (isSuccessResponse(response)) {
-        const { idToken, user } = response.data;
-        console.log("object data", idToken, user);
+        loginViaGoogle(response.data);
       } else {
         // sign in was cancelled by user
       }
@@ -49,5 +50,10 @@ export default function useGoogleSignIn() {
       }
     }
   };
-  return { signIn };
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+    } catch (error) {}
+  };
+  return { signIn, pending, isMessage, error, success, signOut, setIsMessage };
 }
