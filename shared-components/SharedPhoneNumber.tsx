@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
-    width: "75%",
+    width: "70%",
   },
   inputLabel: {
     color: "#ccc",
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     width: 24, // Adjust size as needed
     height: 18, // Adjust size as needed, maintain aspect ratio
     marginRight: 8,
+    marginLeft: 12,
     borderRadius: 2, // Slightly rounded corners for the flag
   },
 });
