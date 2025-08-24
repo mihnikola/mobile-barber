@@ -44,7 +44,6 @@ const useUserChange = () => {
 
       if (response.status >= 200 && response.status < 300) {
         setIsMessage(true);
-        console.log("res", response.data);
 
         setMessage(response.data.message);
       } else {

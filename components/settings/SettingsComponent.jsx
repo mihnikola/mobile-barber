@@ -19,24 +19,36 @@ import LoginScreen from "../login";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 const SettingsComponent = () => {
-  const { userData, isLoading, error, isValid, tokenData, fetchUserData, logoutFromFIrebase, onPressHandler, isMessage, setIsMessage } = useUser();
+  const {
+    userData,
+    isLoading,
+    error,
+    isValid,
+    tokenData,
+    fetchUserData,
+    logoutFromFIrebase,
+    onPressHandler,
+    isMessage,
+    setIsMessage,
+  } = useUser();
   const params = useLocalSearchParams();
   const { reevaluted } = params;
 
-  const isFocused = useIsFocused(); // useIsFocused hook
+  const isFocused = useIsFocused(); 
+
   useFocusEffect(
     useCallback(() => {
-      console.log("dasdasdasd")
+      console.log("usao u SettingsComponent")
       tokenData();
       fetchUserData();
-    }, [isFocused, reevaluted]));
+    }, [isFocused, reevaluted])
+  );
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
   if (isValid && !isLoading) {
-
     return (
       <View style={styles.container}>
         {/* Status Bar style adjustment for dark background */}
@@ -49,7 +61,10 @@ const SettingsComponent = () => {
 
         {/* Profile Section */}
         <View style={styles.profileSection}>
-          <Image source={{ uri: userData?.image }} style={styles.profileImage} />
+          <Image
+            source={{ uri: userData?.image }}
+            style={styles.profileImage}
+          />
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>{userData?.name}</Text>
             <Text style={styles.profileEmail}>{userData?.email}</Text>
@@ -107,8 +122,8 @@ const SettingsComponent = () => {
       </View>
     );
   }
-  if (!isValid || isValid === undefined) {
-    return (<LoginScreen />)
+  if (!isValid && !isLoading) {
+    return <LoginScreen />;
   }
 };
 

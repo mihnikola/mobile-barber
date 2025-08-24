@@ -23,20 +23,23 @@ const useUser = () => {
         if (response.status === 200) {
           resultStatus = response.status;
         }
-      } else {
-        console.log("nema token jbt");
+      }
+      if (resultStatus === 200) {
+        console.log("resultStatusresultStatus", resultStatus);
+        signOut();
+        await logoutHandler();
       }
     } catch (error) {}
-    if (resultStatus === 200) {
-      logoutHandler();
-    }
   };
   const tokenData = async () => {
     setIsLoading(true);
+    setIsValid(false);
     try {
       const storedToken = await AsyncStorage.getItem("token");
+      console.log("tokenData+++",storedToken);
       if (storedToken) {
         setIsValid(true);
+         router.push("/(tabs)/(04_settings)");
       } else {
         setIsValid(false);
       }
@@ -65,12 +68,17 @@ const useUser = () => {
   };
 
   const logoutHandler = async () => {
-    setIsMessage(false);
-    setIsLoading(false);
-    signOut();
-    await removeStorage().then((s) => {
+    try {
+      const x = await removeStorage();
+      setIsValid(false);
       router.push("/(tabs)/(04_settings)/login");
-    });
+      setIsMessage(false);
+      setIsLoading(false);
+
+      // console.log("logoutHandler promisses 222", s);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const fetchUserData = async () => {
@@ -78,7 +86,6 @@ const useUser = () => {
     setError(null);
     try {
       const storedToken = await AsyncStorage.getItem("token");
-      console.log('object',storedToken)
 
       const response = await get(`/users/${storedToken}`);
       if (response.status === 200) {

@@ -16,7 +16,6 @@ const useFetchServices = () => {
         setServicesData(response);
         setIsLoading(false);
       } catch (err) {
-        console.error("Error fetching services:", err);
         setError(
           err.message || "An unexpected error occurred while fetching services."
         );

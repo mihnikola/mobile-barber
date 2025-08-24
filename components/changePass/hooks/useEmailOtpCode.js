@@ -21,7 +21,6 @@ const useEmailOtpCode = () => {
     try {
       const response = await getData("/users/email", { params: { email } });
 
-      console.log("/users/email", response);
       if (response.status === 200) {
         setIsLoading(false);
 

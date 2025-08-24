@@ -11,10 +11,8 @@ const useSubmitOtpCode = () => {
   const checkOtpCodeValidation = useCallback(async (email,otpCode) => {
     setIsLoading(true);
     setError(null);
-    console.log("object")
     try {
       const response = await getData("/users/otpcode", { params: { email,otpCode } });
-      console.log("object",response)
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(response.message);

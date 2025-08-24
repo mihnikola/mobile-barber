@@ -48,8 +48,7 @@ const useFetchTimes = (date, reservation, isSunday) => {
           setTimesData(response);
           setIsLoading(false);
         } catch (err) {
-          console.error("Error fetching times:", err);
-          setError(err.message || "An unexpected error occurred.");
+          setError(err.message || "Error fetching times.");
           setIsLoading(false);
         }
       } else {

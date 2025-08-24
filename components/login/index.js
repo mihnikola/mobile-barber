@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import usePassword from "./hooks/usePassword";
 import useEmail from "./hooks/useEmail";
 import SharedInput from "@/shared-components/SharedInput";
@@ -20,8 +19,7 @@ import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useCallback, useEffect } from "react";
-import { router, useLocalSearchParams } from "expo-router";
-import { useFocusEffect } from "@react-navigation/native";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedPassword from "@/shared-components/SharedPassword";
@@ -54,19 +52,6 @@ const LoginScreen = () => {
     message,
   } = useLoginForm();
 
-  function handleBackButtonClick3() {
-    return true;
-  }
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
-    return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick3
-      );
-    };
-  }, []);
-
   const handleLogin = async () => {
     login(email, password);
   };
@@ -74,13 +59,7 @@ const LoginScreen = () => {
     router.push("(tabs)/(04_settings)/register");
   };
 
-  // const handleGoogleLogin = () => {
-  //   console.log("Google Login");
-  //   // Implement Google login with Expo AuthSession or a dedicated library
-  // };
-
   const handleAppleLogin = () => {
-    console.log("Apple Login");
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
   const confirmHandler2 = async () => {
@@ -89,7 +68,6 @@ const LoginScreen = () => {
   const confirmHandlerGoogle = async () => {
     setIsMessageGoogle(false);
     redirectValidation();
-
   };
   const confirmHandlerGoogle2 = async () => {
     setIsMessageGoogle(false);
@@ -105,19 +83,16 @@ const LoginScreen = () => {
   };
 
   const redirectValidation = () => {
-    console.log("redirectValidation++++", data);
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
         params: { reevaluted: true },
       });
-      console.log("/(tabs)/(02_barbers)/calendar-", data);
     } else if (data === "2") {
       router.push({
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
       });
-      console.log("/(tabs)/(03_calendar)-", data);
     } else {
       router.push({
         pathname: "/(tabs)/(04_settings)",
@@ -129,20 +104,21 @@ const LoginScreen = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
 
-  const getToken = async () => {
-    const storedToken = await AsyncStorage.getItem("token");
-    if (storedToken) {
-      router.push({
-        pathname: "/(tabs)/(04_settings)",
-        params: { reevaluted: true },
-      });
-    }
-  };
-  useFocusEffect(
-    useCallback(() => {
-      getToken();
-    }, [])
-  );
+  // const getToken = async () => {
+  //   const storedToken = await AsyncStorage.getItem("token");
+  //   if (storedToken) {
+  //     router.push({
+  //       pathname: "/(tabs)/(04_settings)",
+  //       params: { reevaluted: true },
+  //     });
+  //   }
+  // };
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     console.log("imalidjsaldijsa");
+  //     getToken();
+  //   }, [])
+  // );
 
   return (
     <ScrollView style={styles.safeArea}>

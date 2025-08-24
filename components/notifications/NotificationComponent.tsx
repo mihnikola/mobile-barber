@@ -23,17 +23,14 @@ const NotificationComponent = () => {
       const response = await getData("/notifications", { check });
       setNotifications(response);
     } catch (error) {
-      console.log("getNotificationData", error);
     }
   };
 
   const detailHandler = async (data) => {
-    console.log("detailHandler+++")
     try {
       const response = await getData(`/notifications/{data._id}`,{params: {id: data._id}});
       setNotification(response);
     } catch (error) {
-      console.log("getNotificationData", error);
     }
   };
 

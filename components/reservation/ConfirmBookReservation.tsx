@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet, Image, BackHandler } from "react-native";
-import React, { useCallback, useContext } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
-import { useFocusEffect } from "@react-navigation/native";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
@@ -10,10 +9,9 @@ const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const params = useLocalSearchParams();
   const { responseData } = params;
-  const submitReservationHandler = async () => {
-    router.dismissAll();
-    console.log("ConfirmBookReservation+++", responseData);
 
+  const submitReservationHandler = async () => {
+   
     router.push({
       pathname: "/(tabs)/(03_calendar)",
       params: { reevalueted: 1 },
@@ -22,16 +20,7 @@ const ConfirmBookReservation = () => {
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");
   }
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
+
 
   if (reservation && responseData) {
     return (

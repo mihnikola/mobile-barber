@@ -128,7 +128,6 @@ const useLoginForm = () => {
     setPending(true); // Set pending state when saving token
 
     const expoToken = await getExpoTokenStorage();
-    console.log("useLoginForm", expoToken, userId);
 
     if (!expoToken) {
       setPending(false);
@@ -139,9 +138,7 @@ const useLoginForm = () => {
         tokenExpo: expoToken,
         tokenUser: userId,
       });
-      console.log("saveToken responseData", responseData);
       if (responseData.status === 200) {
-        console.log("Token saved successfully");
         setPending(false);
         setIsMessage(true);
 
@@ -157,7 +154,6 @@ const useLoginForm = () => {
         );
       }
     } catch (err) {
-      console.log("Error saving token:", err.message);
       setPending(false);
       setIsMessage(true);
 

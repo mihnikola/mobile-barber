@@ -15,7 +15,6 @@ const useSendEmailVerification = () => {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email, password },
       });
-      console.log("verificationOTPCode", response);
       if (response.status === 200) {
         setIsMessageVerification(true);
         setMessageVerification(response.message);

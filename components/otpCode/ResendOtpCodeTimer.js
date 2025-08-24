@@ -21,7 +21,6 @@ const ResendOtpCodeTimer = ({ email }) => {
 
     checkEmailValidation(email);
     // Resend OTP logic goes here (API call)
-    console.log("OTP resent!");
     // Restart timer
     setTimer(RESEND_TIME);
     setCanResend(false);

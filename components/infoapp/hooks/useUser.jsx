@@ -17,15 +17,12 @@ const useUser = () => {
     try {
       const sendUserData = await getStorage("token");
       if (sendUserData) {
-        console.log(" async storage", sendUserData);
 
         const result = await post(`/users/logout`, { token: sendUserData });
         if (result.status === 200) {
           resultStatus = result.status;
         }
-      } else {
-        console.log("nema async storage");
-      }
+      } 
     } catch (error) {
       setError(`Something Went Wrong, Please Try Again`);
     }

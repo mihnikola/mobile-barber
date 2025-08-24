@@ -22,16 +22,14 @@ const DateReservation: React.FC = () => {
           setIsLoggedIn(res);
           setIsLoading(false);
         } else {
-          console.log("unproved")
           router.push({pathname :"/(tabs)/(04_settings)/login", params: {data: 1}})
           setIsLoading(false);
         }
       })
       .catch((er) => {
-        console.log("errr", er);
+        // console.log("errr", er);
       });
   };
-  console.log("object",isLoading,isLoggedIn)
   return (
     <>
       {!isLoading && isLoggedIn && <DateComponent />}

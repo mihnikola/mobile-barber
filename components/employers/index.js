@@ -1,32 +1,21 @@
-import { ScrollView, Image, StyleSheet, View, BackHandler } from "react-native";
-import { useContext, useEffect } from "react";
+import { ScrollView, Image, StyleSheet, View } from "react-native";
+import { useCallback, useContext, useEffect } from "react";
 import { Text } from "react-native";
-import { router } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
+import { router } from "expo-router";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick3);
-    return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick3
-      );
-    };
-  }, []);
 
   const redirectHandler = (employer) => {
     updateReservation({ ...reservation, employer });
     router.push("/(tabs)/(02_barbers)/services");
   };
-  function handleBackButtonClick3() {
-    return true;
-  }
 
   return (
     <ScrollView style={styles.container}>

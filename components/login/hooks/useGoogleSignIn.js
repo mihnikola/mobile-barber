@@ -20,13 +20,11 @@ export default function useGoogleSignIn() {
   }, []);
   // Somewhere in your code
   const signIn = async () => {
-    console.log("object");
 
     try {
       await GoogleSignin.hasPlayServices();
 
       const response = await GoogleSignin.signIn();
-      console.log("objectx");
 
       if (isSuccessResponse(response)) {
         loginViaGoogle(response.data);

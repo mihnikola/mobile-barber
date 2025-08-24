@@ -3,14 +3,11 @@ import {
   Text,
   Image,
   StyleSheet,
-  BackHandler,
   ScrollView,
   TouchableOpacity,
   Linking,
   StatusBar,
 } from "react-native";
-import { useCallback } from "react";
-import { useFocusEffect } from "expo-router";
 
 const privacypolicy = () => {
   const supportEmail = "support@fta.com";
@@ -18,19 +15,8 @@ const privacypolicy = () => {
   const termsOfServiceURL = "[Link to your Terms of Service]"; // IMPORTANT!
   const developerName = "FusionTech Agency"; 
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        return true;
-      };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    }, [])
-  );
   const openLink = async (url) => {
-    console.log("url", url);
     try {
       const supported = await Linking.canOpenURL(url);
       if (supported) {
