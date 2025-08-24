@@ -9,6 +9,8 @@ const useReservationHandler = () => {
 
   const checkToken = async () => {
     setIsLoading(true);
+    setToken(null);
+
     try {
       const storedToken = await AsyncStorage.getItem("token");
 
@@ -16,10 +18,10 @@ const useReservationHandler = () => {
         setToken(storedToken);
       } else {
         setToken(null);
-        console.log("dsadasdsaxxxxxxxxxxxxxxxxx")
+        console.log("dsadasdsaxxxxxxxxxxxxxxxxx");
         router.push({
           pathname: "/(tabs)/(04_settings)/login",
-          params: { reevaluted: 200 },
+          params: { data: "2" },
         });
       }
       setIsLoading(false);

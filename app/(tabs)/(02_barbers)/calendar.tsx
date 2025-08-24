@@ -8,7 +8,7 @@ const Calendar = () => {
   const [check, setCheck] = useState(false);
   const params = useLocalSearchParams();
   const { reevaluted } = params;
-  console.log("reevalutedreevalutedreevaluted", reevaluted);
+
   const checkToken = async () => {
     try {
       console.log("reevalutedreevalutedreevaluted", reevaluted);
@@ -17,8 +17,11 @@ const Calendar = () => {
       if (storedToken) {
         setCheck(true);
       } else {
-        router.dismissAll();
-        router.push("/(tabs)/(04_settings)/login");
+        // router.dismissAll();
+        router.push({
+          pathname: "/(tabs)/(04_settings)/login",
+          params: { data: "1" },
+        });
       }
     } catch (error) {
       router.push("/(tabs)/(04_settings)/login");

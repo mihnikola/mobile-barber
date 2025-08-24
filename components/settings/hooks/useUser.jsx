@@ -33,10 +33,13 @@ const useUser = () => {
   };
   const tokenData = async () => {
     setIsLoading(true);
+    setIsValid(false);
     try {
       const storedToken = await AsyncStorage.getItem("token");
+      console.log("tokenData+++",storedToken);
       if (storedToken) {
         setIsValid(true);
+         router.push("/(tabs)/(04_settings)");
       } else {
         setIsValid(false);
       }
@@ -67,8 +70,7 @@ const useUser = () => {
   const logoutHandler = async () => {
     try {
       const x = await removeStorage();
-      console.log("object", x);
-      // router.dismissAll();
+      setIsValid(false);
       router.push("/(tabs)/(04_settings)/login");
       setIsMessage(false);
       setIsLoading(false);

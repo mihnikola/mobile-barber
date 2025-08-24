@@ -36,7 +36,7 @@ const LoginScreen = () => {
     success: successGoogle,
     setIsMessage: setIsMessageGoogle,
   } = useGoogleSignIn();
-  const { data, reevaluted } = params;
+  const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
   const {
@@ -58,8 +58,6 @@ const LoginScreen = () => {
   const navigateToRegister = () => {
     router.push("(tabs)/(04_settings)/register");
   };
-
-  console.log("reevalutedreevalutedreevaluted",reevaluted)
 
   const handleAppleLogin = () => {
     // Implement Apple login with Expo AuthSession or a dedicated library
@@ -121,8 +119,6 @@ const LoginScreen = () => {
   //     getToken();
   //   }, [])
   // );
-
-
 
   return (
     <ScrollView style={styles.safeArea}>
