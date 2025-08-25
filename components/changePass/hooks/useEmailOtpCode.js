@@ -21,7 +21,7 @@ const useEmailOtpCode = () => {
     try {
       const response = await getData("/users/email", { params: { email } });
 
-      if (response.status === 200) {
+      if (response.status === 200 && response.success) {
         setIsLoading(false);
 
         router.push({
@@ -29,11 +29,13 @@ const useEmailOtpCode = () => {
           params: { data: email },
         });
       }
-      if (response.status === 500) {
+      if (response.status === 200 && !response.success) {
+        console.log("checkEmailValidation 400 response+++", response);        
         setIsLoading(false);
 
         setIsMessage(true);
-        setError(response.message);
+        setError("Entered email not found");
+
       }
     } catch (err) {
       setIsLoading(false);

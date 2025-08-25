@@ -96,7 +96,7 @@ const ReservationDetails = () => {
   const confirmHandler = () => {
     setIsRateSuccess(false);
     setIsCanceling(false);
-    router.push({ pathname: "/(tabs)/(03_calendar)", params: { data: 2 } });
+    router.back();
   };
   return (
     <ScrollView style={styles.container}>

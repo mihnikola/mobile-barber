@@ -18,15 +18,22 @@ const SharedPhoneNumber = (props: any) => {
           source={require("../assets/images/serbiaFlag.png")}
           style={styles.flagIcon}
         />
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems:"center",
+          }}
+        >
+          <Text style={styles.prefixText}>+381</Text>
 
-        <Text style={styles.prefixText}>+381</Text>
-
-        <TextInput
-          {...props}
-          style={styles.phoneNumberInput}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+          <TextInput
+            {...props}
+            style={styles.phoneNumberInput}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        </View>
       </View>
       {props.value && props.value?.length > 0 && props.error ? (
         <Text style={styles.errorText}>{props.error}</Text>
@@ -38,7 +45,6 @@ const styles = StyleSheet.create({
   prefixText: {
     color: "black",
     fontSize: 16,
-    marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
   },
   phoneNumberInputContainer: {
@@ -52,14 +58,18 @@ const styles = StyleSheet.create({
     borderColor: "#333",
   },
   phoneNumberInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
-    padding: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingRight: 15,
+    paddingLeft: 5,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
     width: "70%",
+    
   },
   inputLabel: {
     color: "#ccc",

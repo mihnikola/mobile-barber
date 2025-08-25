@@ -89,14 +89,14 @@ const ForgotPassword = () => {
         onPress={navHandler}
         text={isLoading ? `Sending...` : `Send code`}
       />
-      {isMessage && error && (
+      {error && (
         <SharedMessage
-          isOpen={isMessage && error}
+          isOpen={isMessage || error}
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}
           icon={
             <FontAwesome
-              name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              name={"close"} // The specific FontAwesome icon to use
               size={64} // Size of the icon
               color="white" // Corresponds to text-blue-500
             />

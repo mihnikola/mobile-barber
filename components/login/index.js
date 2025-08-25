@@ -220,6 +220,8 @@ const LoginScreen = () => {
             buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
           />
         )}
+        {pendingGoogle && <SharedLoader />}
+        {pending && <SharedLoader />}
         {isMessageGoogle && (
           <SharedMessage
             isOpen={isMessageGoogle}

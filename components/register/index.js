@@ -22,6 +22,7 @@ import { router } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 const Register = () => {
   const [userName, setUserName] = useState("");
   const {
@@ -38,8 +39,6 @@ const Register = () => {
   const { password, passwordError, handlePasswordChange } = usePassword();
   const { confirmPassword, handleConfirmPasswordChange } =
     useConfirmPassword(password);
-
-
 
   const handleRegister = () => {
     handleRegistration({
@@ -140,6 +139,7 @@ const Register = () => {
           question="Already have an account?"
           text="Login"
         />
+        {loading && <SharedLoader />}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
@@ -221,5 +221,4 @@ const styles = StyleSheet.create({
     borderColor: "white",
     width: "80%",
   },
-
 });
