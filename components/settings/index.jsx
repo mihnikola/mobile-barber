@@ -6,25 +6,20 @@ import LoginScreen from "../login";
 import SettingsComponent from "./SettingsComponent";
 import { useIsFocused } from "@react-navigation/native";
 const SettingsProfileComponent = () => {
-
-
-
-  const { isLoading, isValid, tokenData } = useUser();
+  const { isLoading, isValid, tokenData, fetchUserData } = useUser();
   const params = useLocalSearchParams();
-  
   const { reevaluted } = params;
 
   const isFocused = useIsFocused();
 
   useFocusEffect(
     useCallback(() => {
-      tokenData();
+        tokenData();
+        fetchUserData();
     }, [isFocused, reevaluted])
   );
 
-  if (isLoading) {
-    return <Loader />;
-  }
+
   if (!isValid && !isLoading) {
     return <LoginScreen />;
   }
