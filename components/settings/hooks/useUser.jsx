@@ -49,7 +49,6 @@ const useUser = () => {
       const storedToken = await AsyncStorage.getItem("token");
       if (storedToken) {
         setIsValid(true);
-        fetchUserData();
 
         router.push("/(tabs)/(04_settings)");
       } else {

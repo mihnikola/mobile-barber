@@ -13,6 +13,7 @@ import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
 import useUser from "./hooks/useUser";
 import { useEffect } from "react";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const SettingsComponent = () => {
   const {
@@ -22,6 +23,7 @@ const SettingsComponent = () => {
     logoutFromFIrebase,
     onPressHandler,
     fetchUserData,
+    isLoading
   } = useUser();
 
   useEffect(() => {
@@ -77,6 +79,7 @@ const SettingsComponent = () => {
           onPress={() => onPressHandler("6")}
           isLogout
         />
+        {isLoading && <SharedLoader />}
         {isMessage && (
           <SharedQuestion
             isOpen={isMessage}
