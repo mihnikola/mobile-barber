@@ -8,123 +8,95 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { useCallback } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
-import Loader from "@/components/Loader";
-import { useLocalSearchParams } from "expo-router";
 import useUser from "./hooks/useUser";
-import LoginScreen from "../login";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useEffect } from "react";
 
 const SettingsComponent = () => {
   const {
     userData,
-    isLoading,
-    error,
-    isValid,
-    tokenData,
-    fetchUserData,
-    logoutFromFIrebase,
-    onPressHandler,
     isMessage,
     setIsMessage,
+    logoutFromFIrebase,
+    onPressHandler,
+    fetchUserData,
   } = useUser();
-  const params = useLocalSearchParams();
-  const { reevaluted } = params;
 
-  const isFocused = useIsFocused(); 
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      console.log("usao u SettingsComponent")
-      tokenData();
-      fetchUserData();
-    }, [isFocused, reevaluted])
-  );
+  return (
+    <View style={styles.container}>
+      {/* Status Bar style adjustment for dark background */}
+      <StatusBar barStyle="dark-content" backgroundColor="black" />
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (isValid && !isLoading) {
-    return (
-      <View style={styles.container}>
-        {/* Status Bar style adjustment for dark background */}
-        <StatusBar barStyle="dark-content" backgroundColor="black" />
-
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>My Profile</Text>
-        </View>
-
-        {/* Profile Section */}
-        <View style={styles.profileSection}>
-          <Image
-            source={{ uri: userData?.image }}
-            style={styles.profileImage}
-          />
-          <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>{userData?.name}</Text>
-            <Text style={styles.profileEmail}>{userData?.email}</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => onPressHandler("1")}
-          >
-            <MaterialCommunityIcons name="pencil" size={20} color="#FFFFFF" />
-          </TouchableOpacity>
-        </View>
-
-        {/* Menu Items */}
-        <ScrollView style={styles.menuContainer}>
-          <MenuItem
-            iconName="contacts"
-            title="About Application"
-            onPress={() => onPressHandler("100")}
-          />
-          <MenuItem
-            iconName="file-document"
-            title="Legal & Policy"
-            onPress={() => onPressHandler("200")}
-          />
-          <MenuItem
-            iconName="face-agent"
-            title="Help & Support"
-            onPress={() => onPressHandler("900")}
-          />
-
-          <MenuItem
-            iconName="logout"
-            title="Logout"
-            onPress={() => onPressHandler("6")}
-            isLogout={true}
-          />
-          {isMessage && (
-            <SharedQuestion
-              isOpen={isMessage}
-              onClose={() => setIsMessage(false)}
-              onLogOut={logoutFromFIrebase}
-              icon={
-                <FontAwesome
-                  name="question-circle-o" // The specific FontAwesome icon to use
-                  size={64} // Size of the icon
-                  color="white" // Corresponds to text-blue-500
-                />
-              }
-              title="Are you sure you want to sign out from application?" // Title of the modal
-              buttonTextYes="Leave" // Text for the action button
-              buttonTextNo="Cancel"
-            />
-          )}
-        </ScrollView>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>My Profile</Text>
       </View>
-    );
-  }
-  if (!isValid && !isLoading) {
-    return <LoginScreen />;
-  }
+
+      {/* Profile Section */}
+      <View style={styles.profileSection}>
+        <Image source={{ uri: userData?.image }} style={styles.profileImage} />
+        <View style={styles.profileInfo}>
+          <Text style={styles.profileName}>{userData?.name}</Text>
+          <Text style={styles.profileEmail}>{userData?.email}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => onPressHandler("1")}
+        >
+          <MaterialCommunityIcons name="pencil" size={20} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Menu Items */}
+      <ScrollView style={styles.menuContainer}>
+        <MenuItem
+          iconName="contacts"
+          title="About Application"
+          onPress={() => onPressHandler("100")}
+        />
+        <MenuItem
+          iconName="file-document"
+          title="Legal & Policy"
+          onPress={() => onPressHandler("200")}
+        />
+        <MenuItem
+          iconName="face-agent"
+          title="Help & Support"
+          onPress={() => onPressHandler("900")}
+        />
+
+        <MenuItem
+          iconName="logout"
+          title="Logout"
+          onPress={() => onPressHandler("6")}
+          isLogout
+        />
+        {isMessage && (
+          <SharedQuestion
+            isOpen={isMessage}
+            onClose={() => setIsMessage(false)}
+            onLogOut={logoutFromFIrebase}
+            icon={
+              <FontAwesome
+                name="question-circle-o" // The specific FontAwesome icon to use
+                size={64} // Size of the icon
+                color="white" // Corresponds to text-blue-500
+              />
+            }
+            title="Are you sure you want to sign out from application?" // Title of the modal
+            buttonTextYes="Leave" // Text for the action button
+            buttonTextNo="Cancel"
+          />
+        )}
+      </ScrollView>
+    </View>
+  );
 };
 
 export default SettingsComponent;

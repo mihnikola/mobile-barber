@@ -1,9 +1,9 @@
 import { get, post } from "@/api/apiService";
-import useGoogleSignIn from "@/components/login/hooks/useGoogleSignIn";
+import useGoogleSignIn from "../../../components/login/hooks/useGoogleSignIn";
 import { getStorage, removeStorage } from "@/helpers/token";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useUser = () => {
   const [userData, setUserData] = useState([]);
@@ -13,33 +13,45 @@ const useUser = () => {
   const [isMessage, setIsMessage] = useState(false);
   const { signOut } = useGoogleSignIn();
 
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+  const logoutHandler = async () => {
+    try {
+      console.log("resultStatusresultStatus");
+      const x = await removeStorage();
+      setIsValid(false);
+      router.push("/(tabs)/(04_settings)/login");
+      setIsMessage(false);
+      setIsLoading(false);
+
+      // console.log("logoutHandler promisses 222", s);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const logoutFromFIrebase = async () => {
     setIsLoading(true);
-    let resultStatus = "";
     try {
       const token = await getStorage();
       if (token) {
         const response = await post("/users/logout", { token });
         if (response.status === 200) {
-          resultStatus = response.status;
+          signOut();
+          logoutHandler();
         }
-      }
-      if (resultStatus === 200) {
-        console.log("resultStatusresultStatus", resultStatus);
-        signOut();
-        await logoutHandler();
       }
     } catch (error) {}
   };
   const tokenData = async () => {
     setIsLoading(true);
-    setIsValid(false);
     try {
       const storedToken = await AsyncStorage.getItem("token");
-      console.log("tokenData+++",storedToken);
       if (storedToken) {
         setIsValid(true);
-         router.push("/(tabs)/(04_settings)");
+        fetchUserData();
+
+        router.push("/(tabs)/(04_settings)");
       } else {
         setIsValid(false);
       }
@@ -64,20 +76,6 @@ const useUser = () => {
     }
     if (data === "6") {
       setIsMessage(true);
-    }
-  };
-
-  const logoutHandler = async () => {
-    try {
-      const x = await removeStorage();
-      setIsValid(false);
-      router.push("/(tabs)/(04_settings)/login");
-      setIsMessage(false);
-      setIsLoading(false);
-
-      // console.log("logoutHandler promisses 222", s);
-    } catch (error) {
-      console.error(error);
     }
   };
 

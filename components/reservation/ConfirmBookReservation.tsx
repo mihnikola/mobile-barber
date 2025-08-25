@@ -11,7 +11,7 @@ const ConfirmBookReservation = () => {
   const { responseData } = params;
 
   const submitReservationHandler = async () => {
-   
+    router.back();
     router.push({
       pathname: "/(tabs)/(03_calendar)",
       params: { reevalueted: 1 },

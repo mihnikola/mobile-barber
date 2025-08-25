@@ -10,7 +10,6 @@ const CalendarComponent = () => {
   const {
     reservations,
     isLoading,
-    checkPastHandler,
     checkFutureHandler,
     check,
     detailsReservation,
@@ -22,17 +21,9 @@ const CalendarComponent = () => {
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      {/* <View style={styles.containerCapture}> */}
         <Text style={styles.capture} onPress={checkFutureHandler}>
           Reservations
         </Text>
-        {/* <Text
-          style={[styles.capture, !check && styles.active]}
-          onPress={checkPastHandler}
-        >
-          Past
-        </Text> */}
-      {/* </View> */}
       {isLoading ? (
         <Loader />
       ) : (

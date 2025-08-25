@@ -2,17 +2,12 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   Modal,
   ActivityIndicator,
 } from "react-native";
 
 export const SharedLoader = ({
   isOpen,
-  onClose,
-  icon,
-  title,
-  buttonText,
   onConfirm,
 }) => {
   return (
@@ -24,8 +19,8 @@ export const SharedLoader = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <ActivityIndicator size={32} />
-          <Text style={styles.modalTitle}>Sending...</Text>
+          <ActivityIndicator size={32} color="white" />
+          <Text style={styles.modalTitle}>Loading...</Text>
         </View>
       </View>
     </Modal>
@@ -35,7 +30,7 @@ export const SharedLoader = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(12, 10, 10, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
@@ -66,7 +61,7 @@ const styles = StyleSheet.create({
 
   modalTitle: {
     color: "#FFFFFF",
-    fontSize: 25,
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 16,
     textAlign: "center",
