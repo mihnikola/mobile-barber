@@ -21,6 +21,8 @@ const useSubmitReservation = () => {
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
 
+  const [description, setDescription] = useState('');
+
   Notifications.addNotificationReceivedListener((notification) => {
     // Handle the background notification
   });
@@ -69,6 +71,7 @@ const useSubmitReservation = () => {
           date: dateReservation,
           customer: "", //  Where is this data coming from?
           token: tokenData,
+          description
         },
       });
       setResponseData(response);
@@ -110,7 +113,7 @@ const useSubmitReservation = () => {
     }
   }, [submitReservation]);
 
-  return { submitReservationHandler, isLoading, error };
+  return { submitReservationHandler, isLoading, error,description, setDescription };
 };
 
 export default useSubmitReservation;

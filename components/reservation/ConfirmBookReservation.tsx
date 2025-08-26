@@ -4,6 +4,7 @@ import ReservationContext from "@/context/ReservationContext";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
+import Note from "@/shared-components/Note";
 
 const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -20,7 +21,6 @@ const ConfirmBookReservation = () => {
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");
   }
-
 
   if (reservation && responseData) {
     return (
@@ -50,17 +50,20 @@ const ConfirmBookReservation = () => {
         </View>
         <View
           style={{
-            flex:1,
+            flex: 1,
             display: "flex",
             flexDirection: "column",
-            justifyContent:"space-between",
-            alignSelf:'center'
+            justifyContent: "space-evenly",
+            alignSelf: "center",
           }}
         >
           <View style={{ display: "flex" }}>
             <Text style={styles.message}>
               Your appointment is successfully booked!
             </Text>
+          </View>
+          <View style={{ display: "flex" }}>
+            <Note />
           </View>
           <View
             style={{
@@ -122,8 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20, // Add padding to make the space visible from the edges
-    marginVertical: 20,
+    padding: 10, // Add padding to make the space visible from the edges
   },
   dateData: {
     fontSize: 25,

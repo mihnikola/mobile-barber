@@ -1,22 +1,22 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from "react-native";
-import React, {  useContext } from "react";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
 import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
+import MultilineInputExample from "@/shared-components/SharedInputTextArea";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
-  const { submitReservationHandler, isLoading, error } = useSubmitReservation();
-
+  const {
+    submitReservationHandler,
+    isLoading,
+    error,
+    description,
+    setDescription,
+  } = useSubmitReservation();
 
   if (reservation) {
     return (
@@ -42,13 +42,16 @@ const Reservation = () => {
           </Text>
           <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
         </View>
-        <View style={{ display: "flex",paddingHorizontal: 10,marginTop: 10 }}>
+        <View style={{ display: "flex", paddingHorizontal: 10, marginTop: 10 }}>
           <View>
             {reservation && <Details data={reservation} />}
-            <Note />
+            <MultilineInputExample
+              description={description}
+              setDescription={setDescription}
+            />
           </View>
         </View>
-        <View style={{ display: "flex",paddingHorizontal: 25 }}>
+        <View style={{ display: "flex", paddingHorizontal: 25 }}>
           <SharedButton
             loading={isLoading}
             onPress={submitReservationHandler}
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
   },
 
   timeData: {
-     fontSize: 20,
+    fontSize: 20,
     color: "#fff",
     fontWeight: "bold",
   },
@@ -114,5 +117,4 @@ const styles = StyleSheet.create({
     height: 180,
     opacity: 0.2,
   },
-
 });

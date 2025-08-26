@@ -2,13 +2,7 @@ import Loader from "@/components/Loader";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import Details from "@/shared-components/Details";
 import React, { useState } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import useFetchReservation from "./hooks/useFetchReservation";
 import useCancelReservation from "./hooks/useCancelReservation";
 import useRateReservation from "./hooks/useRateReservation";
@@ -51,8 +45,6 @@ const ReservationDetails = () => {
   const rateAlert = () => {
     setRateSuccessFlag(true);
   };
-
-
 
   const handleUserRatingChange = (rating: number) => {
     setUserFeedbackRating(rating);
@@ -127,6 +119,13 @@ const ReservationDetails = () => {
           <View style={styles.containerWrapper}>
             <Details data={reservationData} />
           </View>
+          {reservationData?.description && (
+            <View style={styles.containerWrapper}>
+              <Text style={styles.description}>
+                Your description: {reservationData?.description}
+              </Text>
+            </View>
+          )}
           {check === "false" && !reservationData?.rate && (
             <StarRating onRatingChange={handleUserRatingChange} />
           )}
@@ -148,7 +147,7 @@ const ReservationDetails = () => {
           </View>
 
           {check === "false" && reservationData?.rate && (
-            <View style={{ alignItems: "center", marginTop: 40, padding: 20 }}>
+            <View style={{ alignItems: "center" }}>
               <Text style={{ color: "white", fontSize: 20 }}>
                 You rated this appointment
               </Text>
@@ -251,10 +250,15 @@ const ReservationDetails = () => {
 };
 const styles = StyleSheet.create({
   btnSubmitContainer: {
-    display: 'flex',
+    display: "flex",
     marginVertical: 20,
-    marginHorizontal: 20
-  
+    marginHorizontal: 20,
+  },
+  description: {
+    fontSize: 15,
+    color: "white",
+    padding: 10,
+    marginLeft: 10,
   },
   statusContent: {
     color: "white",
@@ -268,7 +272,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   containerWrapper: {
-    marginTop:10,
+    marginTop: 10,
     display: "flex",
   },
   containerBtn: {
