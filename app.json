@@ -14,14 +14,14 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mihailovic93.barberappver2"
+      "bundleIdentifier": "com.mihailovic93.barberappointmentapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.mihailovic93.barberappver2",
+      "package": "com.mihailovic93.barberappointmentapp",
       "googleServicesFile": "./google-services.json"
     },
     "web": {

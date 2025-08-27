@@ -13,7 +13,11 @@ const MenuServices = () => {
 
   const funcDateTimeReservation = (service) => {
     updateReservation({ ...reservation, service });
+    /*if 
+    ako je unathorized
+
     router.push("/(tabs)/(02_barbers)/calendar");
+    */
   };
 
   return (

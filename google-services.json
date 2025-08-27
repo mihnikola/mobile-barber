@@ -37,39 +37,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:797653864913:android:95349e44e18211b78090f0",
-        "android_client_info": {
-          "package_name": "com.mihailovic93.barberappver2"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "797653864913-0uftcp6mc6q1ojlojbolfd2vks6ueopb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mihailovic93.barberappver2",
-            "certificate_hash": "9024cdba46f0d724e172dfc7d2df55377c9742f1"
-          }
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBbAcrN2w5sNbUIEacrjVJje0Nzlq3OyDE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "797653864913-f6visqt4gmpcakdgloabfk72oi3hli90.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

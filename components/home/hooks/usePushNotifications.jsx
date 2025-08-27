@@ -11,8 +11,9 @@ export function usePushNotifications() {
 
     const redirectReservation = useCallback((response) => {
         // Your existing redirect logic
+        console.log("dsadasdasd")
         const reservationIdValue =
-            response?.notification?.request?.content?.data?.someData?.url;
+            response?.notification?.request?.content?.data?.url;
 
         if (reservationIdValue) {
             router.push({
@@ -66,6 +67,7 @@ export function usePushNotifications() {
         try {
             const token = await Notifications.getExpoPushTokenAsync({ projectId });
             if (token) {
+                console.log("token",token)
                 setExpoPushToken(token?.data);
                 saveExpoTokenStorage(token?.data);
             }
