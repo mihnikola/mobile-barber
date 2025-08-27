@@ -6,7 +6,7 @@ import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
-import MultilineInputExample from "@/shared-components/SharedInputTextArea";
+// import MultilineInputExample from "@/shared-components/SharedInputTextArea";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -44,11 +44,11 @@ const Reservation = () => {
         </View>
         <View style={{ display: "flex", paddingHorizontal: 10, marginTop: 10 }}>
           <View>
-            {reservation && <Details data={reservation} />}
+            {/* {reservation && <Details data={reservation} />}
             <MultilineInputExample
               description={description}
               setDescription={setDescription}
-            />
+            /> */}
           </View>
         </View>
         <View style={{ display: "flex", paddingHorizontal: 25 }}>

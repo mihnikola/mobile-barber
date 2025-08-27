@@ -20,6 +20,10 @@
             "package_name": "com.mihailovic93.barberappointmentapp",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
+        },
+        {
+          "client_id": "797653864913-mi48t5ukn42thrukjuclf1h32nnt6ml7.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -31,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "797653864913-f6visqt4gmpcakdgloabfk72oi3hli90.apps.googleusercontent.com",
+              "client_id": "797653864913-91mt5qd7betaavc8mfe4q4hbomn5ncvu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -47,12 +51,8 @@
       },
       "oauth_client": [
         {
-          "client_id": "797653864913-0uftcp6mc6q1ojlojbolfd2vks6ueopb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mihailovic93.barberappver2",
-            "certificate_hash": "9024cdba46f0d724e172dfc7d2df55377c9742f1"
-          }
+          "client_id": "797653864913-mi48t5ukn42thrukjuclf1h32nnt6ml7.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -64,7 +64,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "797653864913-f6visqt4gmpcakdgloabfk72oi3hli90.apps.googleusercontent.com",
+              "client_id": "797653864913-91mt5qd7betaavc8mfe4q4hbomn5ncvu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

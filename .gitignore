@@ -1,4 +1,6 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Exclude sensitive Firebase configuration file
+google-services.json
 
 # dependencies
 node_modules/
@@ -22,10 +24,12 @@ android/
 # Metro
 .metro-health-check*
 
+
 # debug
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+barberappointmentapp-85deb-firebase-adminsdk-fbsvc-cb94268fd8.json
 
 # macOS
 .DS_Store
