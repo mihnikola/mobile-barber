@@ -109,7 +109,6 @@ const DateComponent = () => {
       </View>
       {selectedItem && (
         <View style={styles.buttonContainer}>
-          {/* <FlatButton text="Continue" onPress={reportHandler} /> */}
           <SharedButtonDateReservation
             loading={isLoading}
             disabled={isLoading}
