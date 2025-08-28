@@ -51,7 +51,7 @@ export default function App() {
   });
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Image
         source={require("@/assets/images/homeImage.jpg")}
         style={styles.backImage}
@@ -107,7 +107,7 @@ export default function App() {
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
       </Animated.View>
-    </ScrollView>
+    </View>
   );
 }
 
