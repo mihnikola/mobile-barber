@@ -1,9 +1,6 @@
 // /app/layout/RootLayout.tsx
 import { ReservationProvider } from "@/context/ReservationContext";
-import {
-  DarkTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { BooleanProvider } from "@/context/BooleanContext";
 import MainContainer from "../components/mainContainer/MainContainer";

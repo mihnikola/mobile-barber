@@ -23,10 +23,13 @@ export default function useGoogleSignIn() {
 
     try {
       await GoogleSignin.hasPlayServices();
+        console.log("signIn")
 
       const response = await GoogleSignin.signIn();
+        console.log("signIn",response)
 
       if (isSuccessResponse(response)) {
+        console.log("object",response.data)
         loginViaGoogle(response.data);
       } else {
         // sign in was cancelled by user

@@ -1,5 +1,5 @@
 import * as Notifications from "expo-notifications";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -10,12 +10,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
-import { usePushNotifications } from "@/components/home/hooks/usePushNotifications";
+import {usePushNotifications} from './../../../components/home/hooks/usePushNotifications';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -30,9 +29,9 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
 
-  const { registerForPushNotifications } = usePushNotifications();
   const destinationLat = 48.8584;
   const destinationLon = 2.2945;
 
@@ -48,10 +47,8 @@ export default function App() {
   useEffect(() => {
     setTimeout(async () => {
       await registerForPushNotifications();
-    }, 100);
-  }, []);
-
-
+    }, 500);
+  });
 
   return (
     <ScrollView style={styles.container}>
