@@ -6,14 +6,28 @@ import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import SharedItem from "@/shared-components/SharedItem";
 import { router } from "expo-router";
+import { getStorage } from "@/helpers/token";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices();
 
-  const funcDateTimeReservation = (service) => {
+  const funcDateTimeReservation = async (service) => {
     updateReservation({ ...reservation, service });
-    router.push("/(tabs)/(02_barbers)/calendar");
+    // ovde treba ispitati da li je user authorized ili nije
+    try {
+      const getToken = await getStorage();
+      if (getToken) {
+        router.push("/(tabs)/(02_barbers)/calendar");
+      } else {
+        router.push({
+          pathname: "/(tabs)/(04_settings)/login",
+          params: { data: "1" },
+        });
+      }
+    } catch (error) {
+      console.error("object", error);
+    }
   };
 
   return (

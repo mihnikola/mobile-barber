@@ -1,30 +1,43 @@
-import { useCallback } from "react";
-import Loader from "@/components/Loader";
-import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import useUser from "./hooks/useUser";
 import LoginScreen from "../login";
 import SettingsComponent from "./SettingsComponent";
+import { useCallback, useEffect, useState } from "react";
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import { useFocusEffect } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
 const SettingsProfileComponent = () => {
-  const { isLoading, isValid, tokenData, fetchUserData } = useUser();
-  const params = useLocalSearchParams();
-  const { reevaluted } = params;
+  const [mja, setM] = useState(false);
+  const {
+    isLoading,
+    tokenData,
+    fetchUserData,
+    isValidToken,
+    logoutFromFIrebase,
+  } = useUser();
 
   const isFocused = useIsFocused();
-
   useFocusEffect(
     useCallback(() => {
-        tokenData();
-        fetchUserData();
-    }, [isFocused, reevaluted])
+      setM(true);
+    }, [isFocused])
   );
+  useEffect(() => {
+    if (mja) {
+      console.log("SettingsProfileComponent useEffect aloooooooooooooooo");
+      tokenData();
+      fetchUserData();
+      setM(false);
+    }
+  }, [mja]);
 
-
-  if (!isValid && !isLoading) {
-    return <LoginScreen />;
+  if (isLoading) {
+    return <SharedLoader />;
   }
-  if (isValid && !isLoading) {
-    return <SettingsComponent />;
+  if (!isValidToken && !isLoading) {
+    return <LoginScreen tokenData={tokenData} />;
+  }
+  if (isValidToken && !isLoading) {
+    return <SettingsComponent logoutFromFIrebase={logoutFromFIrebase} />;
   }
 };
 

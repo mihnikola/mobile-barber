@@ -1,11 +1,9 @@
 import {
   View,
   Text,
-  TextInput,
   StatusBar,
   StyleSheet,
   Platform,
-  TouchableOpacity,
 } from "react-native";
 import { ScrollView } from "react-native";
 import { Image } from "react-native";
@@ -13,11 +11,9 @@ import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
-import SharedInput from "@/shared-components/SharedInput";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
 
@@ -29,14 +25,10 @@ const changePass = () => {
     password,
     passwordError,
     handlePasswordChange,
-    isPasswordVisible,
-    setIsPasswordVisible,
   } = usePassword();
   const {
     confirmPassword,
     handleConfirmPasswordChange,
-    isPasswordConfirmVisible,
-    setIsPasswordConfirmVisible,
   } = useConfirmPassword(password);
 
   const {
@@ -55,7 +47,7 @@ const changePass = () => {
 
   const confirmHandler = () => {
     setIsMessage(false);
-    router.push("/(tabs)/(04_settings)/login");
+    router.dismissAll();
   };
   const confirmHandler2 = () => {
     setIsMessage(false);

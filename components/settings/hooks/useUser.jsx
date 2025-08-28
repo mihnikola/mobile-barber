@@ -9,21 +9,24 @@ const useUser = () => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isValid, setIsValid] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const { signOut } = useGoogleSignIn();
+
+  const [isValidToken, setIisValidToken] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
   }, []);
+
   const logoutHandler = async () => {
     try {
-      console.log("resultStatusresultStatus");
       const x = await removeStorage();
-      setIsValid(false);
-      router.push("/(tabs)/(04_settings)/login");
+      // router.push("/(tabs)/(04_settings)/login");
+      console.log("resultStatusresultStatus", x);
       setIsMessage(false);
-      setIsLoading(false);
+      setTimeout(() => {
+        tokenData();
+      }, 200);
 
       // console.log("logoutHandler promisses 222", s);
     } catch (error) {
@@ -47,16 +50,18 @@ const useUser = () => {
     setIsLoading(true);
     try {
       const storedToken = await AsyncStorage.getItem("token");
-      if (storedToken) {
-        setIsValid(true);
+      console.log("storedToken", storedToken);
 
-        router.push("/(tabs)/(04_settings)");
+      if (storedToken) {
+        setIisValidToken(true);
+
+        console.log("tokenData isValid+++ bbbbbbbbbbbbbbbbbb");
       } else {
-        setIsValid(false);
+        setIisValidToken(false);
       }
       setIsLoading(false);
     } catch (err) {
-      setIsValid(false);
+      setIisValidToken(false);
       setIsLoading(false);
     }
   };
@@ -103,13 +108,13 @@ const useUser = () => {
     userData,
     isLoading,
     error,
-    isValid,
     tokenData,
     fetchUserData,
     onPressHandler,
     logoutFromFIrebase,
     isMessage,
     setIsMessage,
+    isValidToken,
   };
 };
 

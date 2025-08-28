@@ -1,6 +1,5 @@
 import useLoginForm from "./hooks/useLoginForm";
 import {
-  BackHandler,
   Dimensions,
   Image,
   Platform,
@@ -18,16 +17,18 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useCallback, useEffect } from "react";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import useGoogleSignIn from "./hooks/useGoogleSignIn";
-const LoginScreen = () => {
+
+
+const LoginScreen = (props) => {
+  console.log("dlkashdjkhasgdjhsagdjhgsadhjg")
   const params = useLocalSearchParams();
+  const {tokenData} = props;
   const {
     signIn,
     error: errorGoogle,
@@ -66,6 +67,7 @@ const LoginScreen = () => {
     setIsMessage(false);
   };
   const confirmHandlerGoogle = async () => {
+
     setIsMessageGoogle(false);
     redirectValidation();
   };
@@ -93,32 +95,13 @@ const LoginScreen = () => {
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
       });
-    } else {
-      router.push({
-        pathname: "/(tabs)/(04_settings)",
-        params: { reevaluted: true },
-      });
+    }else{
+      tokenData();
     }
   };
   const forgotHandler = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
-
-  // const getToken = async () => {
-  //   const storedToken = await AsyncStorage.getItem("token");
-  //   if (storedToken) {
-  //     router.push({
-  //       pathname: "/(tabs)/(04_settings)",
-  //       params: { reevaluted: true },
-  //     });
-  //   }
-  // };
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     console.log("imalidjsaldijsa");
-  //     getToken();
-  //   }, [])
-  // );
 
   return (
     <ScrollView style={styles.safeArea}>

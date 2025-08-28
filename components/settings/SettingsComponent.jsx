@@ -15,20 +15,29 @@ import useUser from "./hooks/useUser";
 import { useEffect } from "react";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 
-const SettingsComponent = () => {
+const SettingsComponent = (props) => {
   const {
     userData,
     isMessage,
     setIsMessage,
-    logoutFromFIrebase,
     onPressHandler,
     fetchUserData,
-    isLoading
+    isLoading,
   } = useUser();
+
+  const { logoutFromFIrebase } = props;
 
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const logoutHanlder = () => {
+    onPressHandler("6");
+  };
+
+  if (isLoading) {
+    return <SharedLoader />;
+  }
 
   return (
     <View style={styles.container}>
@@ -76,10 +85,9 @@ const SettingsComponent = () => {
         <MenuItem
           iconName="logout"
           title="Logout"
-          onPress={() => onPressHandler("6")}
+          onPress={logoutHanlder}
           isLogout
         />
-        {isLoading && <SharedLoader />}
         {isMessage && (
           <SharedQuestion
             isOpen={isMessage}
