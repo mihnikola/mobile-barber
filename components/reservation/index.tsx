@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
-import Note from "@/shared-components/Note";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
@@ -44,11 +43,11 @@ const Reservation = () => {
         </View>
         <View style={{ display: "flex", paddingHorizontal: 10, marginTop: 10 }}>
           <View>
-            {/* {reservation && <Details data={reservation} />}
-            <MultilineInputExample
-              description={description}
-              setDescription={setDescription}
-            /> */}
+             {reservation && <Details data={reservation} />}
+            {/* // <MultilineInputExample
+            //   description={description}
+            //   setDescription={setDescription}
+            // />  */}
           </View>
         </View>
         <View style={{ display: "flex", paddingHorizontal: 25 }}>

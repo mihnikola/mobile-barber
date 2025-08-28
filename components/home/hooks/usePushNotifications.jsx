@@ -7,12 +7,11 @@ import { router } from "expo-router";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 
 export function usePushNotifications() {
-    const [expoPushToken, setExpoPushToken] = useState("");
 
     const redirectReservation = useCallback((response) => {
         // Your existing redirect logic
         const reservationIdValue =
-            response?.notification?.request?.content?.data?.someData?.url;
+            response?.notification?.request?.content?.data?.url;
 
         if (reservationIdValue) {
             router.push({
@@ -66,16 +65,13 @@ export function usePushNotifications() {
         try {
             const token = await Notifications.getExpoPushTokenAsync({ projectId });
             if (token) {
-                setExpoPushToken(token?.data);
                 saveExpoTokenStorage(token?.data);
             }
         } catch (e) {
             alert(`Error getting push token: ${e}`);
         }
     }, []);
-
-    // Set up listeners for when the app is already running or in the background
-    // This logic should still run on app load to handle existing notifications
+    
     useEffect(() => {
         Notifications.getLastNotificationResponseAsync().then((response) => {
             if (response) {
@@ -92,5 +88,5 @@ export function usePushNotifications() {
         };
     }, [redirectReservation]);
 
-    return { expoPushToken, registerForPushNotifications };
+    return { registerForPushNotifications };
 }

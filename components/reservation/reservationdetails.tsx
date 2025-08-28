@@ -16,7 +16,7 @@ import { router, useLocalSearchParams } from "expo-router";
 
 const ReservationDetails = () => {
   const params = useLocalSearchParams();
-  const { itemId, check, pushNotification } = params;
+  const { itemId, check } = params;
 
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const { reservationData, isLoading, error, refetch } =

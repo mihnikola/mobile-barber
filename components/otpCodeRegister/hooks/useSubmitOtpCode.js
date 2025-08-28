@@ -45,12 +45,7 @@ const useSubmitOtpCode = () => {
           otpCode,
         });
 
-        /*
- status: 69, ok
-    token, ok
-    userId: user._id,
-    message: "Your account has been verified! Welcome to hell!",
-    */
+
         if (response.status === 69) {
           saveStorage(response.token);
           saveToken(response.userId, response.message);
