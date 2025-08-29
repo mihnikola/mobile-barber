@@ -24,13 +24,13 @@ const CalendarComponent = () => {
         <Loader />
       ) : (
         <View style={styles.containerReservationData}>
-          {reservations?.length > 0 ? (
+          {reservations && reservations?.length > 0 ? (
             <CardReservation
               reservations={reservations}
               redirectScreen={detailsReservation}
             />
           ) : (
-            reservations?.length === 0 && <CardNoReservation />
+            <CardNoReservation />
           )}
         </View>
       )}
