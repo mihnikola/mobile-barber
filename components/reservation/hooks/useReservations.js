@@ -3,6 +3,8 @@ import { get } from "@/api/apiService";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 import { router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 const useReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -16,8 +18,23 @@ const useReservations = () => {
     });
   };
 
-
   const formatReservationData = (localDateString) => {
+    // // Extend dayjs with the UTC plugin
+    // dayjs.extend(utc);
+
+    // // Your input string from the original code
+    // const localDateString = "29/8/2025, 23:16:30";
+
+    // // Tell dayjs the exact format of the input string for parsing
+    // const parsedDate = dayjs(localDateString, "DD/M/YYYY, HH:mm:ss");
+
+    // // Convert to UTC and then format to the desired output string
+    // const formattedDate = parsedDate
+    //   .utc()
+    //   .format("YYYY-MM-DDTHH:mm:ss.000+00:00");
+
+    // console.log(formattedDate);
+
     const [datePart, timePart] = localDateString.split(", ");
     const [day, month, year] = datePart.split("/").map(Number);
     const [hours, minutes, seconds] = timePart.split(":").map(Number);
@@ -32,13 +49,28 @@ const useReservations = () => {
   };
 
   const populateReservations = (response, date) => {
-    const futureReservations = response.filter((res) => res.date > date);
-    const pastReservations = response.filter((res) => res.date < date);
-    const modifiedPastReservations = pastReservations?.map((reservation) => {
-      return { ...reservation, past: true };
-    });
-    const reservations = [...futureReservations, ...modifiedPastReservations];
-    return reservations;
+    // const futureReservations = response.filter((res) => res.date > date);
+    // const pastReservations = response.filter((res) => res.date < date);
+    // const modifiedPastReservations = pastReservations?.map((reservation) => {
+    //   return { ...reservation, past: true };
+    // });
+    // const reservations = [...futureReservations, ...modifiedPastReservations];
+    // return reservations;
+
+    const { futureReservations, modifiedPastReservations } = response.reduce(
+      (acc, reservation) => {
+        if (reservation.date > date) {
+          acc.futureReservations.push(reservation);
+        } else {
+          acc.modifiedPastReservations.push({ ...reservation, past: true });
+        }
+        return acc;
+      },
+      { futureReservations: [], modifiedPastReservations: [] }
+    );
+
+    console.log("Future Reservations:", futureReservations);
+    console.log("Modified Past Reservations:", modifiedPastReservations);
   };
 
   const getReservationsData = async () => {
@@ -65,8 +97,6 @@ const useReservations = () => {
       setIsLoading(false);
     }
   };
-
-
 
   return {
     reservations,

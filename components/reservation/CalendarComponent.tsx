@@ -24,7 +24,7 @@ const CalendarComponent = () => {
         <Loader />
       ) : (
         <View style={styles.containerReservationData}>
-          {reservations && reservations?.length > 0 ? (
+          {reservations?.length > 0 ? (
             <CardReservation
               reservations={reservations}
               redirectScreen={detailsReservation}
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "500",
     position: "absolute",
-    display: "flex",
     alignSelf: "flex-start",
     marginHorizontal: 15,
     paddingVertical: 128,

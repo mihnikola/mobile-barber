@@ -49,15 +49,15 @@ const ConfirmBookReservation = () => {
           </Text>
         </View>
         <View style={styles.infoContainer}>
-          <View style={styles.flexView}>
+          <View>
             <Text style={styles.message}>
               Your appointment is successfully booked!
             </Text>
           </View>
-          <View style={styles.flexView}>
+          <View>
             <Note />
           </View>
-          <View style={styles.flexView}>
+          <View>
             <SharedButton onPress={submitReservationHandler} text="OK" />
           </View>
         </View>
@@ -79,16 +79,11 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
     justifyContent: "space-evenly",
     alignSelf: "center",
   },
   checkbox: {
-    marginRight: 10, // Space between checkbox and label
-  },
-  flexView: {
-    display: "flex",
+    marginRight: 10,
   },
   message: {
     fontSize: 30,
