@@ -49,17 +49,11 @@ const ConfirmBookReservation = () => {
           </Text>
         </View>
         <View style={styles.infoContainer}>
-          <View>
             <Text style={styles.message}>
               Your appointment is successfully booked!
             </Text>
-          </View>
-          <View>
             <Note />
-          </View>
-          <View>
             <SharedButton onPress={submitReservationHandler} text="OK" />
-          </View>
         </View>
       </View>
     );

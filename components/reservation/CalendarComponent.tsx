@@ -19,12 +19,14 @@ const CalendarComponent = () => {
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <Text style={styles.capture}>Reservations</Text>
+      <View style={styles.containerCapture}>
+        <Text style={styles.capture}>Reservations</Text>
+      </View>
       {isLoading ? (
         <Loader />
       ) : (
         <View style={styles.containerReservationData}>
-          {reservations?.length > 0 ? (
+          {reservations?.length ? (
             <CardReservation
               reservations={reservations}
               redirectScreen={detailsReservation}
@@ -51,14 +53,18 @@ const styles = StyleSheet.create({
     height: 200,
     opacity: 0.2,
   },
+  containerCapture: {
+    position: "absolute",
+    alignSelf: "flex-start",
+    left: 20,
+    justifyContent: "flex-end",
+    alignItems: "baseline",
+    height: 200,
+  },
   capture: {
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    position: "absolute",
-    alignSelf: "flex-start",
-    marginHorizontal: 15,
-    paddingVertical: 128,
   },
   containerReservationData: {
     marginTop: 10,

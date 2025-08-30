@@ -52,6 +52,8 @@ const useLoginForm = () => {
       setError("Please enter both email and password");
       return;
     }
+    console.log("responseData+++");
+
     setStatus(null);
 
     setPending(true);
@@ -59,6 +61,8 @@ const useLoginForm = () => {
 
     try {
       const responseData = await post("/users/login", { email, password });
+console.log("responseData+++",responseData);
+
       if (responseData.status === 202) {
         setPending(false);
         setIsMessage(true);
@@ -99,7 +103,6 @@ const useLoginForm = () => {
 
     try {
       const responseData = await post("/users/loginViaGoogle", { user });
-
       if (responseData.status === 200 || responseData.status === 300) {
         setPending(false);
         saveStorage(responseData.token);
