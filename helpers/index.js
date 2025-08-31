@@ -158,7 +158,19 @@ export const convertDate = (item) => {
   return `${dayOfWeek} ${day}-${month}-${year}`;
 };
 
+  export const formatReservationData = (localDateString) => {
+    const [datePart, timePart] = localDateString.split(", ");
+    const [day, month, year] = datePart.split("/").map(Number);
+    const [hours, minutes, seconds] = timePart.split(":").map(Number);
 
+    const monthValue = month.toString().length > 1 ? month : `0${month}`;
+    const dayValue = day.toString().length > 1 ? day : `0${day}`;
+    const minuteValue = minutes.toString().length > 1 ? minutes : `0${minutes}`;
+    const hourValue = hours.toString().length > 1 ? hours : `0${hours}`;
+    const secondValue = seconds.toString().length > 1 ? seconds : `0${seconds}`;
+
+    return `${year}-${monthValue}-${dayValue}T${hourValue}:${minuteValue}:${secondValue}.000+00:00`;
+  };
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"
 
