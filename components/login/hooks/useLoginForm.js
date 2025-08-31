@@ -10,9 +10,7 @@ const useLoginForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
-  const [initialToken, setInitialToken] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [message, setMessage] = useState(null);
 
   const verificationOTPCode = async (email, password) => {
@@ -169,8 +167,6 @@ const useLoginForm = () => {
     status,
     setIsMessage,
     isMessage,
-    initialToken,
-    setInitialToken,
     verificationOTPCode,
     isLoading,
     message,

@@ -1,4 +1,3 @@
-import useLoginForm from "./hooks/useLoginForm";
 import {
   Dimensions,
   Image,
@@ -22,37 +21,35 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
-import useGoogleSignIn from "./hooks/useGoogleSignIn";
+import { useAuth } from "@/context/AuthContext";
 
-
-const LoginScreen = (props) => {
-  console.log("dlkashdjkhasgdjhsagdjhgsadhjg")
+const LoginScreen = () => {
   const params = useLocalSearchParams();
-  const {getTokenData} = props;
-  const {
-    signIn,
-    error: errorGoogle,
-    isMessage: isMessageGoogle,
-    pending: pendingGoogle,
-    success: successGoogle,
-    setIsMessage: setIsMessageGoogle,
-  } = useGoogleSignIn();
+
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
+
   const {
-    pending,
-    login,
-    status,
-    success,
+    isLoading,
     setIsMessage,
     isMessage,
     error,
+    pending,
+    login,
+    success,
+    status,
     verificationOTPCode,
-    isLoading,
     message,
-  } = useLoginForm();
+    signIn,
+    getTokenData,
+  } = useAuth();
 
+  console.log("1")
+  console.log("2")
+  console.log("3")
+  console.log("4")
+  console.log("7")
   const handleLogin = async () => {
     login(email, password);
   };
@@ -63,16 +60,8 @@ const LoginScreen = (props) => {
   const handleAppleLogin = () => {
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
-  const confirmHandler2 = async () => {
+  const cancelHandler = async () => {
     setIsMessage(false);
-  };
-  const confirmHandlerGoogle = async () => {
-
-    setIsMessageGoogle(false);
-    redirectValidation();
-  };
-  const confirmHandlerGoogle2 = async () => {
-    setIsMessageGoogle(false);
   };
   const confirmHandler = async () => {
     if (status === 606) {
@@ -85,6 +74,7 @@ const LoginScreen = (props) => {
   };
 
   const redirectValidation = () => {
+    getTokenData();
     if (data === "1") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
@@ -95,8 +85,6 @@ const LoginScreen = (props) => {
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
       });
-    }else{
-      getTokenData();
     }
   };
   const forgotHandler = () => {
@@ -179,7 +167,7 @@ const LoginScreen = (props) => {
         <SharedButton
           loading={pending}
           onPress={handleLogin}
-          text={pending ? "Loading" : "Login"}
+          text={isLoading || pending ? "Loading" : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
@@ -189,8 +177,8 @@ const LoginScreen = (props) => {
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
-            onClose={!error ? confirmHandler : confirmHandler2}
-            onConfirm={!error ? confirmHandler : confirmHandler2}
+            onClose={!error ? confirmHandler : cancelHandler}
+            onConfirm={!error ? confirmHandler : cancelHandler}
             isLoading={isLoading}
             icon={
               <FontAwesome
@@ -200,30 +188,7 @@ const LoginScreen = (props) => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
-          />
-        )}
-        {pendingGoogle && <SharedLoader />}
-        {pending && <SharedLoader />}
-        {isMessageGoogle && (
-          <SharedMessage
-            isOpen={isMessageGoogle}
-            onClose={
-              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
-            }
-            onConfirm={
-              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
-            }
-            isLoading={pendingGoogle}
-            icon={
-              <FontAwesome
-                name={errorGoogle ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
-            }
-            title={errorGoogle || successGoogle} // Title of the modal
-            buttonText={pendingGoogle ? "Loading..." : "OK"} // Text for the action button
+            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>
