@@ -1,4 +1,3 @@
-// src/hooks/useAuth.js
 import { useState } from "react";
 import { saveStorage } from "@/helpers/token";
 import { getData, post } from "@/api/apiService";

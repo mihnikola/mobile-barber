@@ -11,33 +11,20 @@ import {
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MenuItem } from "./MenuItem";
-import useUser from "./hooks/useUser";
 import { useEffect } from "react";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const SettingsComponent = (props) => {
-  const {
-    userData,
-    isMessage,
-    setIsMessage,
-    onPressHandler,
-    fetchUserData,
-    isLoading,
-  } = useUser();
 
-  const { logoutFromFIrebase } = props;
+  const { userData ,onPressHandler} = props;
+  console.log("userData++",userData)
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  // useEffect(()=>{
+  //   fetchUserData()
+  // },[])
 
   const logoutHanlder = () => {
     onPressHandler("6");
   };
-
-  if (isLoading) {
-    return <SharedLoader />;
-  }
 
   return (
     <View style={styles.container}>
@@ -88,11 +75,11 @@ const SettingsComponent = (props) => {
           onPress={logoutHanlder}
           isLogout
         />
-        {isMessage && (
+        {/* {isMessage && (
           <SharedQuestion
             isOpen={isMessage}
             onClose={() => setIsMessage(false)}
-            onLogOut={logoutFromFIrebase}
+            onLogOut={logout}
             icon={
               <FontAwesome
                 name="question-circle-o" // The specific FontAwesome icon to use
@@ -104,7 +91,7 @@ const SettingsComponent = (props) => {
             buttonTextYes="Leave" // Text for the action button
             buttonTextNo="Cancel"
           />
-        )}
+        )} */}
       </ScrollView>
     </View>
   );

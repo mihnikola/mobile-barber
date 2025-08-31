@@ -28,7 +28,7 @@ import useGoogleSignIn from "./hooks/useGoogleSignIn";
 const LoginScreen = (props) => {
   console.log("dlkashdjkhasgdjhsagdjhgsadhjg")
   const params = useLocalSearchParams();
-  const {tokenData} = props;
+  const {getTokenData} = props;
   const {
     signIn,
     error: errorGoogle,
@@ -96,7 +96,7 @@ const LoginScreen = (props) => {
         params: { reevaluted: true },
       });
     }else{
-      tokenData();
+      getTokenData();
     }
   };
   const forgotHandler = () => {

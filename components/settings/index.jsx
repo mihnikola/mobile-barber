@@ -1,43 +1,46 @@
-import useUser from "./hooks/useUser";
+// import useUser from "./hooks/useUser";
 import LoginScreen from "../login";
 import SettingsComponent from "./SettingsComponent";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useFocusEffect } from "expo-router";
-import { useIsFocused } from "@react-navigation/native";
+import { useAuth } from "@/context/AuthContext";
 const SettingsProfileComponent = () => {
-  const [mja, setM] = useState(false);
   const {
+    isToken,
     isLoading,
-    tokenData,
-    fetchUserData,
-    isValidToken,
+    getTokenData,
+    onPressHandler,
     logoutFromFIrebase,
-  } = useUser();
+    isMessage,
+    setIsMessage,
+    userData,
+    fetchUserData,
+  } = useAuth();
 
-  const isFocused = useIsFocused();
-  useFocusEffect(
-    useCallback(() => {
-      setM(true);
-    }, [isFocused])
-  );
   useEffect(() => {
-    if (mja) {
-      console.log("SettingsProfileComponent useEffect aloooooooooooooooo");
-      tokenData();
+    getTokenData();
+  }, []);
+  useEffect(() => {
+    if (isToken) {
       fetchUserData();
-      setM(false);
     }
-  }, [mja]);
-
+  }, [isToken]);
   if (isLoading) {
     return <SharedLoader />;
   }
-  if (!isValidToken && !isLoading) {
-    return <LoginScreen tokenData={tokenData} />;
+  if (!isToken && !isLoading) {
+    return <LoginScreen getTokenData={getTokenData} />;
   }
-  if (isValidToken && !isLoading) {
-    return <SettingsComponent logoutFromFIrebase={logoutFromFIrebase} />;
+  if (isToken && !isLoading) {
+    return (
+      <SettingsComponent
+        logout={logoutFromFIrebase}
+        onPressHandler={onPressHandler}
+        isMessage={isMessage}
+        setIsMessage={setIsMessage}
+        userData={userData}
+      />
+    );
   }
 };
 
