@@ -45,11 +45,7 @@ const LoginScreen = () => {
     getTokenData,
   } = useAuth();
 
-  console.log("1")
-  console.log("2")
-  console.log("3")
-  console.log("4")
-  console.log("7")
+
   const handleLogin = async () => {
     login(email, password);
   };
@@ -75,12 +71,12 @@ const LoginScreen = () => {
 
   const redirectValidation = () => {
     getTokenData();
-    if (data === "1") {
+    if (data === "calendar") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
         params: { reevaluted: true },
       });
-    } else if (data === "2") {
+    } else if (data === "appointments") {
       router.push({
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
@@ -174,23 +170,23 @@ const LoginScreen = () => {
           question="Don't have an account?"
           text="Register Now"
         />
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={!error ? confirmHandler : cancelHandler}
-            onConfirm={!error ? confirmHandler : cancelHandler}
-            isLoading={isLoading}
-            icon={
-              <FontAwesome
-                name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
-            }
-            title={error || success || message} // Title of the modal
-            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
-          />
-        )}
+          {isMessage && (
+            <SharedMessage
+              isOpen={isMessage}
+              onClose={!error ? confirmHandler : cancelHandler}
+              onConfirm={!error ? confirmHandler : cancelHandler}
+              isLoading={isLoading}
+              icon={
+                <FontAwesome
+                  name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
+                  size={64} // Size of the icon
+                  color="white" // Corresponds to text-blue-500
+                />
+              }
+              title={error || success || message} // Title of the modal
+              buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
+            />
+          )}
       </View>
     </ScrollView>
   );

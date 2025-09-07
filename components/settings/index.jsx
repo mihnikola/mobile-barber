@@ -8,10 +8,10 @@ const SettingsProfileComponent = () => {
   if (isLoading) {
     return <SharedLoader />;
   }
-  if (!isToken && !isLoading) {
+  if (!isToken) {
     return <LoginScreen />;
   }
-  if (isToken && !isLoading) {
+  if (isToken) {
     return <SettingsComponent />;
   }
 };

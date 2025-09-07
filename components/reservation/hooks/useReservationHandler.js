@@ -21,7 +21,7 @@ const useReservationHandler = () => {
         console.log("dsadasdsaxxxxxxxxxxxxxxxxx");
         router.push({
           pathname: "/(tabs)/(04_settings)/login",
-          params: { data: "2" },
+          params: { data: "appointments" },
         });
       }
       setIsLoading(false);

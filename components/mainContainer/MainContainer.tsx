@@ -14,10 +14,10 @@ const MainContainer = () => {
 
   return (
     <NavigationIndependentTree>
-      {!initialToken && !isLoading && (
+      {!initialToken && (
         <InitialComponent addToken={addInitialTokenData} />
       )}
-      {initialToken && !isLoading && (
+      {initialToken && (
         <AuthProvider>
           <Stack screenOptions={{ headerShown: false }} />
         </AuthProvider>
