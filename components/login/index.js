@@ -1,6 +1,4 @@
-import useLoginForm from "./hooks/useLoginForm";
 import {
-  BackHandler,
   Dimensions,
   Image,
   Platform,
@@ -18,39 +16,35 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useCallback, useEffect } from "react";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
-import useGoogleSignIn from "./hooks/useGoogleSignIn";
+import { useAuth } from "@/context/AuthContext";
+
 const LoginScreen = () => {
   const params = useLocalSearchParams();
-  const {
-    signIn,
-    error: errorGoogle,
-    isMessage: isMessageGoogle,
-    pending: pendingGoogle,
-    success: successGoogle,
-    setIsMessage: setIsMessageGoogle,
-  } = useGoogleSignIn();
+
   const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
+
   const {
-    pending,
-    login,
-    status,
-    success,
+    isLoading,
     setIsMessage,
     isMessage,
     error,
+    pending,
+    login,
+    success,
+    status,
     verificationOTPCode,
-    isLoading,
     message,
-  } = useLoginForm();
+    signIn,
+    getTokenData,
+  } = useAuth();
+
 
   const handleLogin = async () => {
     login(email, password);
@@ -62,15 +56,8 @@ const LoginScreen = () => {
   const handleAppleLogin = () => {
     // Implement Apple login with Expo AuthSession or a dedicated library
   };
-  const confirmHandler2 = async () => {
+  const cancelHandler = async () => {
     setIsMessage(false);
-  };
-  const confirmHandlerGoogle = async () => {
-    setIsMessageGoogle(false);
-    redirectValidation();
-  };
-  const confirmHandlerGoogle2 = async () => {
-    setIsMessageGoogle(false);
   };
   const confirmHandler = async () => {
     if (status === 606) {
@@ -83,19 +70,15 @@ const LoginScreen = () => {
   };
 
   const redirectValidation = () => {
-    if (data === "1") {
+    getTokenData();
+    if (data === "calendar") {
       router.push({
         pathname: "/(tabs)/(02_barbers)/calendar",
         params: { reevaluted: true },
       });
-    } else if (data === "2") {
+    } else if (data === "appointments") {
       router.push({
         pathname: "/(tabs)/(03_calendar)",
-        params: { reevaluted: true },
-      });
-    } else {
-      router.push({
-        pathname: "/(tabs)/(04_settings)",
         params: { reevaluted: true },
       });
     }
@@ -103,22 +86,6 @@ const LoginScreen = () => {
   const forgotHandler = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
-
-  // const getToken = async () => {
-  //   const storedToken = await AsyncStorage.getItem("token");
-  //   if (storedToken) {
-  //     router.push({
-  //       pathname: "/(tabs)/(04_settings)",
-  //       params: { reevaluted: true },
-  //     });
-  //   }
-  // };
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     console.log("imalidjsaldijsa");
-  //     getToken();
-  //   }, [])
-  // );
 
   return (
     <ScrollView style={styles.safeArea}>
@@ -196,53 +163,30 @@ const LoginScreen = () => {
         <SharedButton
           loading={pending}
           onPress={handleLogin}
-          text={pending ? "Loading" : "Login"}
+          text={isLoading || pending ? "Loading" : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
           question="Don't have an account?"
           text="Register Now"
         />
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={!error ? confirmHandler : confirmHandler2}
-            onConfirm={!error ? confirmHandler : confirmHandler2}
-            isLoading={isLoading}
-            icon={
-              <FontAwesome
-                name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
-            }
-            title={error || success || message} // Title of the modal
-            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
-          />
-        )}
-        {pendingGoogle && <SharedLoader />}
-        {pending && <SharedLoader />}
-        {isMessageGoogle && (
-          <SharedMessage
-            isOpen={isMessageGoogle}
-            onClose={
-              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
-            }
-            onConfirm={
-              !errorGoogle ? confirmHandlerGoogle : confirmHandlerGoogle2
-            }
-            isLoading={pendingGoogle}
-            icon={
-              <FontAwesome
-                name={errorGoogle ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
-            }
-            title={errorGoogle || successGoogle} // Title of the modal
-            buttonText={pendingGoogle ? "Loading..." : "OK"} // Text for the action button
-          />
-        )}
+          {isMessage && (
+            <SharedMessage
+              isOpen={isMessage}
+              onClose={!error ? confirmHandler : cancelHandler}
+              onConfirm={!error ? confirmHandler : cancelHandler}
+              isLoading={isLoading}
+              icon={
+                <FontAwesome
+                  name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
+                  size={64} // Size of the icon
+                  color="white" // Corresponds to text-blue-500
+                />
+              }
+              title={error || success || message} // Title of the modal
+              buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
+            />
+          )}
       </View>
     </ScrollView>
   );

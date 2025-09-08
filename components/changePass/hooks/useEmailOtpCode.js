@@ -26,7 +26,7 @@ const useEmailOtpCode = () => {
 
         router.push({
           pathname: "/(tabs)/(04_settings)/otpCode",
-          params: { data: email },
+          params: { data: email },  
         });
       }
       if (response.status === 200 && !response.success) {

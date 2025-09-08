@@ -40,7 +40,7 @@ const otpCode = () => {
   const confirmHandler = () => {
     setIsMessage(false);
     // navigation.navigate("components/changePass/index",{data});
-    router.push({
+    router.replace({
       pathname: "/(tabs)/(04_settings)/changePassword",
       params: { data },
     });

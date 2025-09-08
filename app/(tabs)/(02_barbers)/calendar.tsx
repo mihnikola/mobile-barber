@@ -20,7 +20,7 @@ const Calendar = () => {
         // router.dismissAll();
         router.push({
           pathname: "/(tabs)/(04_settings)/login",
-          params: { data: "1" },
+          params: { data: "calendar" },
         });
       }
     } catch (error) {

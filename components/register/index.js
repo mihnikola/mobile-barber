@@ -57,7 +57,7 @@ const Register = () => {
   };
   const confirmHandler = () => {
     setIsMessage(false);
-    router.push({
+    router.replace({
       pathname: "/(tabs)/(04_settings)/otpCodeRegister",
       params: { data: email },
     });

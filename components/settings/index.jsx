@@ -1,29 +1,17 @@
-import { useCallback } from "react";
-import Loader from "@/components/Loader";
-import { useFocusEffect, useLocalSearchParams } from "expo-router";
-import useUser from "./hooks/useUser";
 import LoginScreen from "../login";
 import SettingsComponent from "./SettingsComponent";
-import { useIsFocused } from "@react-navigation/native";
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import { useAuth } from "@/context/AuthContext";
 const SettingsProfileComponent = () => {
-  const { isLoading, isValid, tokenData, fetchUserData } = useUser();
-  const params = useLocalSearchParams();
-  const { reevaluted } = params;
+  const { isToken, isLoading } = useAuth();
 
-  const isFocused = useIsFocused();
-
-  useFocusEffect(
-    useCallback(() => {
-        tokenData();
-        fetchUserData();
-    }, [isFocused, reevaluted])
-  );
-
-
-  if (!isValid && !isLoading) {
+  if (isLoading) {
+    return <SharedLoader />;
+  }
+  if (!isToken) {
     return <LoginScreen />;
   }
-  if (isValid && !isLoading) {
+  if (isToken) {
     return <SettingsComponent />;
   }
 };

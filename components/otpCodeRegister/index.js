@@ -16,7 +16,7 @@ import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import useSendEmailVerification from "./hooks/useSendEmailVerification";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 
 const otpCodeRegister = () => {
   const params = useLocalSearchParams(); // Get the route object
@@ -78,6 +78,9 @@ const otpCodeRegister = () => {
     setIsMessage(false);
     setIsMessageVerification(false);
   };
+
+
+
 
   return (
     <ScrollView style={styles.container}>
