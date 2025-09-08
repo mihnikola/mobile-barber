@@ -12,7 +12,8 @@ const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices();
 
-  const funcDateTimeReservation = async (service) => {
+  const funcDateTimeReservation = async (serviceData) => {
+    const service = {serviceId: serviceData.id, serviceDuration: serviceData.duration, servicePrice: serviceData.price, name: serviceData.name, image: serviceData.image};
     updateReservation({ ...reservation, service });
     // ovde treba ispitati da li je user authorized ili nije
     try {

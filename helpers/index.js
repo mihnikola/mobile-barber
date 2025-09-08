@@ -1,7 +1,7 @@
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
-  const [hours, minutes] = inputTime?.split(":").map(Number);
-
+  const [day, tttt] = inputTime?.split("T");
+  const [hours, minutes] = day?.split(":");
   // Kreiraj datum sa tim vremenom
   let date = new Date();
   date.setHours(hours, minutes, 0, 0); // Postavi vreme
@@ -56,6 +56,17 @@ export function convertToDay(dateString) {
   const day = date.getDate();
 
   return day; // Output: January
+}
+export function convertToDayTime(dateString) {
+  // Convert the string to a Date object
+
+  const [date, time] = dateString.split("T");
+  const [hours, minutes] = time.split(":");
+
+  const formattedMinutes = minutes.length === 1 ? "0" + minutes : minutes;
+  const formattedHours = hours.length === 1 ? "0" + hours : hours;
+
+  return `${formattedHours}:${formattedMinutes}`;
 }
 export function getCurrentUTCOffset() {
   const now = new Date();
@@ -158,19 +169,19 @@ export const convertDate = (item) => {
   return `${dayOfWeek} ${day}-${month}-${year}`;
 };
 
-  export const formatReservationData = (localDateString) => {
-    const [datePart, timePart] = localDateString.split(", ");
-    const [day, month, year] = datePart.split("/").map(Number);
-    const [hours, minutes, seconds] = timePart.split(":").map(Number);
+export const formatReservationData = (localDateString) => {
+  const [datePart, timePart] = localDateString.split(", ");
+  const [day, month, year] = datePart.split("/").map(Number);
+  const [hours, minutes, seconds] = timePart.split(":").map(Number);
 
-    const monthValue = month.toString().length > 1 ? month : `0${month}`;
-    const dayValue = day.toString().length > 1 ? day : `0${day}`;
-    const minuteValue = minutes.toString().length > 1 ? minutes : `0${minutes}`;
-    const hourValue = hours.toString().length > 1 ? hours : `0${hours}`;
-    const secondValue = seconds.toString().length > 1 ? seconds : `0${seconds}`;
+  const monthValue = month.toString().length > 1 ? month : `0${month}`;
+  const dayValue = day.toString().length > 1 ? day : `0${day}`;
+  const minuteValue = minutes.toString().length > 1 ? minutes : `0${minutes}`;
+  const hourValue = hours.toString().length > 1 ? hours : `0${hours}`;
+  const secondValue = seconds.toString().length > 1 ? seconds : `0${seconds}`;
 
-    return `${year}-${monthValue}-${dayValue}T${hourValue}:${minuteValue}:${secondValue}.000+00:00`;
-  };
+  return `${year}-${monthValue}-${dayValue}T${hourValue}:${minuteValue}:${secondValue}.000+00:00`;
+};
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"
 

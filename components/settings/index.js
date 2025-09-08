@@ -1,8 +1,8 @@
-import LoginScreen from "../login";
-import SettingsComponent from "./SettingsComponent";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useAuth } from "@/context/AuthContext";
-const SettingsProfileComponent = () => {
+import LoginScreen from "@/components/login";
+import SettingsComponent from "@/components/settings/SettingsComponent";
+const Settings = () => {
   const { isToken, isLoading } = useAuth();
 
   if (isLoading) {
@@ -16,4 +16,4 @@ const SettingsProfileComponent = () => {
   }
 };
 
-export default SettingsProfileComponent;
+export default Settings;

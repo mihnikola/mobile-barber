@@ -13,16 +13,23 @@ const useCancelReservation = () => {
       setCancelError("Reservation ID is missing.");
       return false;
     }
-    setIsCanceling(true);
     setCancelError(null);
     try {
-      const response = await put(`/reservations/${reservationId}`, {
+      const response = await put(`/availabilities/${reservationId}`, {
         status: 1,
-      }); // Assuming status 1 is for cancellation
-      setCancelSuccess(response.message || "Successfully canceled.");
+      });
+      if (response.status === 202) {
+        setCancelError("Failed to cancel reservation.");
+        setIsCanceling(true);
+      } else {
+        setIsCanceling(true);
+
+        setCancelSuccess(response.message || "Successfully canceled.");
+      }
     } catch (err) {
+      setIsCanceling(true);
+      
       setCancelError(err.message || "Failed to cancel reservation.");
-      console.error("Error canceling reservation:", err);
     }
   };
 

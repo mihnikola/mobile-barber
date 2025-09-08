@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { addMinutesToTime, convertToDay, convertToMonthName } from "@/helpers";
+import {
+  addMinutesToTime,
+  convertToDay,
+  convertToDayTime,
+  convertToMonthName,
+} from "@/helpers";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
@@ -19,15 +24,15 @@ const DateFormatComponent = ({ item }) => {
   return (
     <View style={item?.past ? styles.dateContainerPast : styles.dateContainer}>
       <Text style={item?.past ? styles.captureDatePast : styles.captureDate}>
-        {convertToMonthName(item?.date)}
+        {convertToMonthName(item?.startDate)}
       </Text>
       <Text
         style={item?.past ? styles.captureDateBoldPast : styles.captureDateBold}
       >
-        {convertToDay(item?.date)}
+        {convertToDay(item?.startDate)}
       </Text>
       <Text style={item?.past ? styles.captureDatePast : styles.captureDate}>
-        {item?.time}
+        {convertToDayTime(item?.startDate)}
       </Text>
     </View>
   );
@@ -38,7 +43,11 @@ const InfoContainerPast = ({ item }) => {
       <View style={styles.infoContainer}>
         <Text style={styles.captureDateBoldPast}>{item.service?.name}</Text>
         <Text style={styles.captureDatePast}>
-          {item?.time} - {addMinutesToTime(item?.time, item?.service?.duration)}
+          {convertToDayTime(item?.startDate)} -{" "}
+          {addMinutesToTime(
+            convertToDayTime(item?.startDate),
+            item?.service?.duration
+          )}
         </Text>
 
         <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
@@ -55,7 +64,11 @@ const InfoContainerFuture = ({ item }) => {
     <View style={styles.infoContainer}>
       <Text style={styles.captureDateBold}>{item.service?.name}</Text>
       <Text style={styles.captureDate}>
-        {item?.time} - {addMinutesToTime(item?.time, item?.service?.duration)}
+        {convertToDayTime(item?.startDate)} -{" "}
+        {addMinutesToTime(
+          convertToDayTime(item?.startDate),
+          item?.service?.duration
+        )}{" "}
       </Text>
 
       <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>

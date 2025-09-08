@@ -19,9 +19,10 @@ const useReservations = () => {
 
 
   const populateReservations = (response, date) => {
+
     const { futureReservations, modifiedPastReservations } = response.reduce(
       (acc, reservation) => {
-        if (reservation.date > date) {
+        if (reservation.startDate > date) {
           acc.futureReservations.push(reservation);
         } else {
           acc.modifiedPastReservations.push({ ...reservation, past: true });
@@ -41,7 +42,7 @@ const useReservations = () => {
     const dateCorrecto = formatReservationData(now);
 
     try {
-      const response = await get("/reservations");
+      const response = await get("/availabilities");
       const reservationDataResponse = populateReservations(
         response,
         dateCorrecto

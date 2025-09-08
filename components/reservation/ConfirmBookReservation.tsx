@@ -21,6 +21,7 @@ const ConfirmBookReservation = () => {
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");
   }
+  console.log("reservationreservation", reservation);
 
   if (reservation && responseData) {
     return (
@@ -38,7 +39,7 @@ const ConfirmBookReservation = () => {
             {reservation?.timeData?.value} -{" "}
             {addMinutesToTime(
               reservation?.timeData?.value,
-              reservation?.service?.duration
+              reservation?.service?.serviceDuration
             )}
           </Text>
           <Text style={styles.dateData}>
@@ -49,11 +50,11 @@ const ConfirmBookReservation = () => {
           </Text>
         </View>
         <View style={styles.infoContainer}>
-            <Text style={styles.message}>
-              Your appointment is successfully booked!
-            </Text>
-            <Note />
-            <SharedButton onPress={submitReservationHandler} text="OK" />
+          <Text style={styles.message}>
+            Your appointment is successfully booked!
+          </Text>
+          <Note />
+          <SharedButton onPress={submitReservationHandler} text="OK" />
         </View>
       </View>
     );

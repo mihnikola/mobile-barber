@@ -6,6 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price, position } = data;
+  console.log("SharedItem",data)
   if (!redirectHandler) {
     return (
       <View key={id} style={styles.card}>
@@ -14,7 +15,7 @@ const SharedItem = (props: any) => {
           <Text style={styles.name}>{name}</Text>
           <View style={styles.locationContainer}>
             <FontAwesome
-              name={duration ? "clock-o" : "trophy"}
+              name={price ? "clock-o" : "trophy"}
               size={16}
               color="#CCCCCC"
             />

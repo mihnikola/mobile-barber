@@ -1,5 +1,5 @@
 import Loader from "@/components/Loader";
-import { addMinutesToTime, convertDate } from "@/helpers";
+import { addMinutesToTime, convertDate, convertToDayTime } from "@/helpers";
 import Details from "@/shared-components/Details";
 import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -90,6 +90,10 @@ const ReservationDetails = () => {
     setIsCanceling(false);
     router.back();
   };
+  const cancelHandler = () => {
+    setIsCanceling(false);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -105,14 +109,14 @@ const ReservationDetails = () => {
               <IconSymbol size={38} name="disturb" color="red" />
             )} */}
             <Text style={styles.timeData}>
-              {reservationData?.time} -{" "}
+              {convertToDayTime(reservationData?.startDate)} -
               {addMinutesToTime(
-                reservationData?.time,
+                convertToDayTime(reservationData?.startDate),
                 reservationData?.service?.duration
               )}
             </Text>
             <Text style={styles.dateData}>
-              {convertDate(reservationData?.date)}
+              {convertDate(reservationData?.startDate)}
             </Text>
             <Text style={styles.dateData}>Barber Studio - Gentleman</Text>
           </View>
@@ -126,11 +130,11 @@ const ReservationDetails = () => {
               </Text>
             </View>
           )}
-          {check === "false" && !reservationData?.rate && (
+          {check === "false" && !reservationData?.rating && (
             <StarRating onRatingChange={handleUserRatingChange} />
           )}
           <View style={styles.btnSubmitContainer}>
-            {check === "false" && !reservationData?.rate && (
+            {check === "false" && !reservationData?.rating && (
               <SharedButtonDateReservation
                 loading={isRating}
                 onPress={rateAlert}
@@ -146,7 +150,7 @@ const ReservationDetails = () => {
             )}
           </View>
 
-          {check === "false" && reservationData?.rate && (
+          {check === "false" && reservationData?.rating && (
             <View style={{ alignItems: "center" }}>
               <Text style={{ color: "white", fontSize: 20 }}>
                 You rated this appointment
@@ -161,7 +165,7 @@ const ReservationDetails = () => {
               >
                 <Text style={{ color: "white", fontSize: 40 }}>
                   {myArray?.map((item, index) => {
-                    if (index < reservationData?.rate) {
+                    if (index < reservationData?.rating?.rate) {
                       return (
                         <IconSymbol
                           key={item.arrx}
@@ -213,11 +217,11 @@ const ReservationDetails = () => {
         />
       )}
 
-      {isCanceling && cancelSuccess && (
+      {isCanceling && (
         <SharedMessage
           isOpen={isCanceling}
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
+          onClose={!cancelError ? confirmHandler : cancelHandler}
+          onConfirm={!cancelError ? confirmHandler : cancelHandler}
           icon={
             <FontAwesome
               name={cancelError ? "close" : "check-circle-o"}
