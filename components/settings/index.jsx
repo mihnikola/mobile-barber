@@ -33,10 +33,10 @@ const SettingsProfileComponent = () => {
   if (isLoading) {
     return <SharedLoader />;
   }
-  if (!isValidToken && !isLoading) {
+  if (!isValidToken) {
     return <LoginScreen tokenData={tokenData} />;
   }
-  if (isValidToken && !isLoading) {
+  if (isValidToken) {
     return <SettingsComponent logoutFromFIrebase={logoutFromFIrebase} />;
   }
 };
