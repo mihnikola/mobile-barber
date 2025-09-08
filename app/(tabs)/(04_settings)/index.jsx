@@ -1,5 +1,6 @@
-import SettingsProfileComponent from "./../../../components/settings/index";
+import SettingsComponent from "@/components/settings";
 const Settings = () => {
-  return <SettingsProfileComponent />;
+  return <SettingsComponent />;
 };
+
 export default Settings;

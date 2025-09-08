@@ -17,7 +17,8 @@ const useFetchReservation = (reservationId) => {
         setIsLoading(true);
         setError(null);
         try {
-            const data = await get(`/reservations/${reservationId}`);
+            const data = await get(`/availabilities/${reservationId}`);
+            console.log("objectxxxxxxxxxxxxxxxxfffffffffff",data)
             setReservationData(data);
         } catch (err) {
             setError(err.message || "Failed to fetch reservation details.");

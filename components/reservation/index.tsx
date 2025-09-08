@@ -17,6 +17,7 @@ const Reservation = () => {
     setDescription,
   } = useSubmitReservation();
 
+  console.log("reservation",reservation)
   if (reservation) {
     return (
       <ScrollView style={styles.container}>
@@ -30,7 +31,7 @@ const Reservation = () => {
             {reservation &&
               addMinutesToTime(
                 reservation?.timeData?.value,
-                reservation?.service?.duration
+                reservation?.service?.serviceDuration
               )}
           </Text>
           <Text style={styles.dateData}>

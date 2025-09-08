@@ -13,6 +13,7 @@ const CalendarComponent = () => {
     getReservationsData();
   }, []);
 
+  
   return (
     <ScrollView style={styles.container}>
       <Image

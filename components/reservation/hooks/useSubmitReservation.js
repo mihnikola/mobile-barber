@@ -21,7 +21,7 @@ const useSubmitReservation = () => {
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
 
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
 
   Notifications.addNotificationReceivedListener((notification) => {
     // Handle the background notification
@@ -63,16 +63,14 @@ const useSubmitReservation = () => {
     }
 
     try {
-      const response = await post("/reservations", {
-        params: {
-          employerId: employer.id,
-          service_id: service.id,
-          time: timeData.value,
-          date: dateReservation,
-          customer: "", //  Where is this data coming from?
-          token: tokenData,
-          description
-        },
+      const response = await post("/availabilities", {
+        employerId: employer.id,
+        service,
+        time: timeData.value,
+        date: dateReservation,
+        customer: "", //  Where is this data coming from?
+        token: tokenData,
+        description,
       });
       setResponseData(response);
       router.dismissAll();
@@ -113,7 +111,13 @@ const useSubmitReservation = () => {
     }
   }, [submitReservation]);
 
-  return { submitReservationHandler, isLoading, error,description, setDescription };
+  return {
+    submitReservationHandler,
+    isLoading,
+    error,
+    description,
+    setDescription,
+  };
 };
 
 export default useSubmitReservation;

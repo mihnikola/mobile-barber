@@ -20,7 +20,7 @@ const useRateReservation = () => {
     setIsRating(true);
     setRateCancelError(null);
     try {
-      const response = await put(`/reservations/${reservationId}`, {
+      const response = await put(`/availabilities/${reservationId}`, {
         status: 0,
         rate: rating,
       });
