@@ -21,8 +21,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
-import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 const Register = () => {
   const [userName, setUserName] = useState("");
   const {
@@ -139,7 +137,6 @@ const Register = () => {
           question="Already have an account?"
           text="Login"
         />
-        {loading && <SharedLoader />}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
