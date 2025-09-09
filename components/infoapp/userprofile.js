@@ -7,21 +7,21 @@ import {
   ScrollView,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
-import useUser from "@/components/infoapp/hooks/useUser";
 import Loader from "@/components/Loader";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
+import { useAuth } from "@/context/AuthContext";
 
 const userprofile = () => {
-  const { userData, isLoading, error } = useUser();
+  const { isLoading, fetchUserData, userData } = useAuth();
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
@@ -36,6 +36,10 @@ const userprofile = () => {
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     setIsValidated(validationFields);
@@ -65,7 +69,6 @@ const userprofile = () => {
     }
   };
 
-
   if (isLoading) {
     return <Loader />;
   }
@@ -82,10 +85,13 @@ const userprofile = () => {
   };
 
   const submitChanges = () => {
-
     const data = {
-      phoneNumber: phoneNumber !== userData?.phoneNumber?.slice(4) &&  phoneNumber !== userData?.phoneNumber &&   phoneNumber !== null &&  phoneNumber !== "null"
-         ? "+381" + phoneNumber
+      phoneNumber:
+        phoneNumber !== userData?.phoneNumber?.slice(4) &&
+        phoneNumber !== userData?.phoneNumber &&
+        phoneNumber !== null &&
+        phoneNumber !== "null"
+          ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
       image: changedImg === userData?.image ? null : changedImg,
@@ -96,80 +102,80 @@ const userprofile = () => {
   const messageHandler2 = () => {
     setIsMessage(false);
   };
-  if (!isLoading) {
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.imageContainer}>
-          <View style={styles.imageContainerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={userData?.image}
-            />
-          </View>
-        </View>
-        <View style={styles.userDataContainer}>
-          <View>
-            <Text style={styles.inputLabel}>Your Email</Text>
-            <TextInput
-              style={styles.inputDisabled}
-              defaultValue={userData?.email}
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </View>
-          <View>
-            <SharedPhoneNumber
-              label="Phone Number"
-              placeholder="6x xxx xxxx"
-              placeholderTextColor="#888"
-              keyboardType="phone-pad"
-              dataDetectorTypes="phoneNumber"
-              value={
-                phoneNumber !== null
-                  ? phoneNumber
-                  : userData?.phoneNumber === null ? "" : userData?.phoneNumber?.slice(4)
-              }
-              onChangeText={handlePhoneNumberChange}
-              autoComplete="tel"
-              error={errorPhoneNumber}
-            />
-          </View>
-          <View>
-            <SharedInput
-              label="Your Name"
-              value={name}
-              onChangeText={handleNameChange}
-              placeholder="Enter your name"
-              style={styles.input}
-            />
-          </View>
-
-          <SharedButton
-            disabled={!isValidated}
-            onPress={submitChanges}
-            text={isLoadingChange ? `Submiting...` : `Submit`}
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageContainerImage}>
+          <ImageCompress
+            handlePickImage={selectedImgHandler}
+            imageValue={userData?.image}
           />
         </View>
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={!errorChange ? messageHandler : messageHandler2}
-            onConfirm={!errorChange ? messageHandler : messageHandler2}
-            icon={
-              <FontAwesome
-                name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
+      </View>
+      <View style={styles.userDataContainer}>
+        <View>
+          <Text style={styles.inputLabel}>Your Email</Text>
+          <TextInput
+            style={styles.inputDisabled}
+            defaultValue={userData?.email}
+            editable={false}
+            selectTextOnFocus={false}
+          />
+        </View>
+        <View>
+          <SharedPhoneNumber
+            label="Phone Number"
+            placeholder="6x xxx xxxx"
+            placeholderTextColor="#888"
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            value={
+              phoneNumber !== null
+                ? phoneNumber
+                : userData?.phoneNumber === null
+                ? ""
+                : userData?.phoneNumber?.slice(4)
             }
-            title={errorChange || message} // Title of the modal
-            buttonText="Ok" // Text for the action button
+            onChangeText={handlePhoneNumberChange}
+            autoComplete="tel"
+            error={errorPhoneNumber}
           />
-        )}
-        <StatusBar backgroundColor="black" />
-      </ScrollView>
-    );
-  }
+        </View>
+        <View>
+          <SharedInput
+            label="Your Name"
+            value={name}
+            onChangeText={handleNameChange}
+            placeholder="Enter your name"
+            style={styles.input}
+          />
+        </View>
+
+        <SharedButton
+          disabled={!isValidated}
+          onPress={submitChanges}
+          text={isLoadingChange ? `Submiting...` : `Submit`}
+        />
+      </View>
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          onClose={!errorChange ? messageHandler : messageHandler2}
+          onConfirm={!errorChange ? messageHandler : messageHandler2}
+          icon={
+            <FontAwesome
+              name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={errorChange || message} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
+      )}
+      <StatusBar backgroundColor="black" />
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -211,7 +217,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-       backgroundColor: "white", // Dark input background
+    backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -259,7 +265,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   imageContainerImage: {
-    flex:1,
+    flex: 1,
     flexDirection: "column",
   },
   textInput: {

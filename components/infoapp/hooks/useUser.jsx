@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const useUser = () => {
   const [userData, setUserData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
@@ -33,6 +33,9 @@ const useUser = () => {
   const onPressHandler = (data) => {
     if (data === "1") {
       router.push("/(tabs)/(04_settings)/infoUserProfile");
+    }
+       if (data === "2") {
+      router.push("/(tabs)/(04_settings)/languageChange");
     }
     if (data === "100") {
       router.push("/(tabs)/(04_settings)/infoApp");

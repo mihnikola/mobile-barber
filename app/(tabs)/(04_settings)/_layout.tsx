@@ -50,6 +50,18 @@ export default function RootLayoutSettings() {
           headerTintColor: "white", // This sets the color of the title text and back button arrow }}
         }}
       />
+        <Stack.Screen
+        name="languageChange"
+        options={{
+          headerShown: true, // This overrides the parent
+
+          title: "",
+          headerStyle: {
+            backgroundColor: "black", // Replace with your desired color
+          },
+          headerTintColor: "white", // This sets the color of the title text and back button arrow }}
+        }}
+      />
       {/* start auth */}
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="register" options={{ headerShown: false }} />
