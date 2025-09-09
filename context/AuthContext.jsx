@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       profileImageSize: 150,
     });
   }, []);
-  // Somewhere in your code
+
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -95,7 +95,6 @@ export const AuthProvider = ({ children }) => {
     await getStorage().then((res) => {
       if (res) {
         setIsToken(res);
-        fetchUserData();
       } else {
         setIsToken(null);
       }

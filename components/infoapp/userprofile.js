@@ -7,24 +7,25 @@ import {
   ScrollView,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
-import useUser from "@/components/infoapp/hooks/useUser";
 import Loader from "@/components/Loader";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
+import { useAuth } from "@/context/AuthContext";
 
 const userprofile = () => {
-  const { userData, isLoading, error } = useUser();
+  const { userData, isLoading, error } = useAuth();
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
+
   const {
     message,
     isLoadingChange,
@@ -33,6 +34,7 @@ const userprofile = () => {
     isMessage,
     setIsMessage,
   } = useUserChange();
+
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
@@ -40,6 +42,7 @@ const userprofile = () => {
   useEffect(() => {
     setIsValidated(validationFields);
   }, [phoneNumber, name, changedImg]);
+  
   const validationFields = () => {
     if (!isValid) {
       return false;
@@ -65,11 +68,6 @@ const userprofile = () => {
     }
   };
 
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
   const selectedImgHandler = (imgData) => {
     if (imgData) {
       setChangedImg(imgData);
@@ -82,10 +80,13 @@ const userprofile = () => {
   };
 
   const submitChanges = () => {
-
     const data = {
-      phoneNumber: phoneNumber !== userData?.phoneNumber?.slice(4) &&  phoneNumber !== userData?.phoneNumber &&   phoneNumber !== null &&  phoneNumber !== "null"
-         ? "+381" + phoneNumber
+      phoneNumber:
+        phoneNumber !== userData?.phoneNumber?.slice(4) &&
+        phoneNumber !== userData?.phoneNumber &&
+        phoneNumber !== null &&
+        phoneNumber !== "null"
+          ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
       image: changedImg === userData?.image ? null : changedImg,
@@ -96,6 +97,10 @@ const userprofile = () => {
   const messageHandler2 = () => {
     setIsMessage(false);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
   if (!isLoading) {
     return (
       <ScrollView style={styles.container}>
@@ -127,7 +132,9 @@ const userprofile = () => {
               value={
                 phoneNumber !== null
                   ? phoneNumber
-                  : userData?.phoneNumber === null ? "" : userData?.phoneNumber?.slice(4)
+                  : userData?.phoneNumber === null
+                  ? ""
+                  : userData?.phoneNumber?.slice(4)
               }
               onChangeText={handlePhoneNumberChange}
               autoComplete="tel"
@@ -211,7 +218,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-       backgroundColor: "white", // Dark input background
+    backgroundColor: "white", // Dark input background
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -259,7 +266,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   imageContainerImage: {
-    flex:1,
+    flex: 1,
     flexDirection: "column",
   },
   textInput: {
