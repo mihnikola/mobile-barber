@@ -13,7 +13,7 @@ const Employers = () => {
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
 
   const redirectHandler = (employer) => {
-    updateReservation({ ...reservation, employer });
+    updateReservation({...reservation,employer});
     router.push("/(tabs)/(02_barbers)/services");
   };
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    paddingVertical: 130
+    paddingVertical: 130,
   },
 
   container: {

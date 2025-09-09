@@ -34,13 +34,13 @@ const SettingsComponent = () => {
           onLogOut={logoutFirebase}
           icon={
             <FontAwesome
-              name="question-circle-o" // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
+              name="question-circle-o"
+              size={64}
+              color="white"
             />
           }
-          title="Are you sure you want to sign out from application?" // Title of the modal
-          buttonTextYes="Leave" // Text for the action button
+          title="Are you sure you want to sign out from application?" 
+          buttonTextYes="Leave"
           buttonTextNo="Cancel"
         />
       )}

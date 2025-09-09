@@ -25,6 +25,7 @@ const userprofile = () => {
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
+
   const {
     message,
     isLoadingChange,
@@ -33,6 +34,7 @@ const userprofile = () => {
     isMessage,
     setIsMessage,
   } = useUserChange();
+
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
@@ -44,6 +46,7 @@ const userprofile = () => {
   useEffect(() => {
     setIsValidated(validationFields);
   }, [phoneNumber, name, changedImg]);
+  
   const validationFields = () => {
     if (!isValid) {
       return false;
