@@ -32,38 +32,25 @@ const aboutapplication = () => {
       <Image
         source={require("@/assets/images/settingsImage.jpg")}
         style={styles.headerImage}
-        resizeMode="cover"
       />
-
-      <View style={styles.section}>
-        <Text style={styles.label}>App Name:</Text>
-        <Text style={styles.value}>{appName}</Text>
+      <View style={styles.captureContainer}>
+        <Text style={styles.capture}>About application</Text>
       </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Version:</Text>
-        <Text style={styles.value}>{appVersion}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Developed by:</Text>
-        <Text style={styles.value}>{developerName}</Text>
-      </View>
-      <View style={styles.section}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Language</Text>
-          <Text style={styles.subTitle}>
-            {isSerbian ? "Srpski / Serbian" : "English / Engleski"}
-          </Text>
+      <View style={styles.sectionContainer}>
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>App Name:</Text>
+          <Text style={styles.value}>{appName}</Text>
         </View>
-        <Switch
-          onValueChange={toggleSwitch}
-          value={isSerbian}
-          trackColor={{ false: "#767577", true: "#757080ff" }}
-          thumbColor={isSerbian ? "#36a3ceff" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          style={styles.switch}
-        />
+
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>Version:</Text>
+          <Text style={styles.value}>{appVersion}</Text>
+        </View>
+
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>Developed by:</Text>
+          <Text style={styles.value}>{developerName}</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -71,7 +58,6 @@ const aboutapplication = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "black",
   },
   title: {
@@ -80,6 +66,19 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 30,
     textAlign: "center",
+  },
+  sectionContainer: {
+    padding: 20,
+  },
+  captureContainer: {
+    position: "absolute",
+    marginHorizontal: 15, // Side padding for the list
+  },
+  capture: {
+    fontSize: 25,
+    color: "white",
+    fontWeight: "500",
+    paddingVertical: 130,
   },
   icon: {
     marginRight: 15,
@@ -102,6 +101,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+    infoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: "#333333",
+    marginBottom: 20,
+  },
   label: {
     fontSize: 16,
     fontWeight: "600",
@@ -122,8 +128,8 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: "100%",
-    height: 300,
-    opacity: 0.3,
+    height: 180,
+    opacity: 0.2,
   },
   switch: {
     // Platform-specific adjustments if needed

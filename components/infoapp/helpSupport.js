@@ -18,7 +18,6 @@ const companyInfo = {
 };
 
 const HelpSupportScreen = () => {
-
   // Function to open the email app with a pre-filled recipient
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
@@ -26,36 +25,37 @@ const HelpSupportScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-              <StatusBar backgroundColor="black" barStyle="dark-content" />
-        
+      <StatusBar backgroundColor="black" barStyle="dark-content" />
+
       <Image
         source={require("@/assets/images/settingsImage.jpg")}
         style={styles.headerImage}
-        resizeMode="cover"
       />
-      <Text style={styles.sectionTitle}>Contact Information</Text>
-
-      {/* Display Company Name */}
-      <View style={styles.infoRow}>
-        <Text style={styles.infoLabel}>Company:</Text>
-        <Text style={styles.infoValue}>{companyInfo.name}</Text>
+      <View style={styles.captureContainer}>
+        <Text style={styles.capture}>Help & Support</Text>
       </View>
+      <View style={styles.sectionContainer}>
+        {/* Display Company Name */}
+        <View style={styles.infoRow}>
+          <Text style={styles.infoLabel}>Company:</Text>
+          <Text style={styles.infoValue}>{companyInfo.name}</Text>
+        </View>
 
-      {/* Display and make the email address clickable */}
-      <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
-        <MaterialCommunityIcons
-          name="email-outline"
-          size={24}
-          color="#B0B0B0"
-          style={styles.menuItemIcon}
-        />
-        <Text style={styles.menuItemText}>Email Support</Text>
-        <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
-      </TouchableOpacity>
+        {/* Display and make the email address clickable */}
+        <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
+          <MaterialCommunityIcons
+            name="email-outline"
+            size={24}
+            color="#B0B0B0"
+            style={styles.menuItemIcon}
+          />
+          <Text style={styles.menuItemText}>Email Support</Text>
+          <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
+        </TouchableOpacity>
 
-      {/* You could add more items here like a FAQ link or phone number */}
-      {/* Example for a different menu item */}
-      
+        {/* You could add more items here like a FAQ link or phone number */}
+        {/* Example for a different menu item */}
+      </View>
     </ScrollView>
   );
 };
@@ -64,8 +64,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000ff",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+  },
+  captureContainer: {
+    position: "absolute",
+    marginHorizontal: 15, // Side padding for the list
+  },
+  sectionContainer: {
+    padding: 20,
+  },
+  capture: {
+    fontSize: 25,
+    color: "white",
+    fontWeight: "500",
+    paddingVertical: 130,
   },
   sectionTitle: {
     fontSize: 20,
@@ -83,8 +94,8 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: "100%",
-    height: 300,
-    opacity: 0.3,
+    height: 180,
+    opacity: 0.2,
   },
   infoLabel: {
     fontSize: 16,

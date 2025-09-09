@@ -5,9 +5,18 @@ import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import SettingsHeaderTitle from "./SettingsHeaderTitle";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 const SettingsComponent = () => {
-  const { logoutFirebase, onPressHandler, isMessage, setIsMessage, userData } = useAuth();
+  const {
+    logoutFirebase,
+    onPressHandler,
+    isMessage,
+    setIsMessage,
+    userData,
+  } = useAuth();
+
+ 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />

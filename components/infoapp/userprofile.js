@@ -21,7 +21,7 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useAuth } from "@/context/AuthContext";
 
 const userprofile = () => {
-  const { userData, isLoading, error } = useAuth();
+  const { isLoading, fetchUserData, userData } = useAuth();
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
@@ -38,6 +38,10 @@ const userprofile = () => {
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     setIsValidated(validationFields);
@@ -68,6 +72,10 @@ const userprofile = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   const selectedImgHandler = (imgData) => {
     if (imgData) {
       setChangedImg(imgData);
@@ -97,86 +105,80 @@ const userprofile = () => {
   const messageHandler2 = () => {
     setIsMessage(false);
   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (!isLoading) {
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.imageContainer}>
-          <View style={styles.imageContainerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={userData?.image}
-            />
-          </View>
-        </View>
-        <View style={styles.userDataContainer}>
-          <View>
-            <Text style={styles.inputLabel}>Your Email</Text>
-            <TextInput
-              style={styles.inputDisabled}
-              defaultValue={userData?.email}
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </View>
-          <View>
-            <SharedPhoneNumber
-              label="Phone Number"
-              placeholder="6x xxx xxxx"
-              placeholderTextColor="#888"
-              keyboardType="phone-pad"
-              dataDetectorTypes="phoneNumber"
-              value={
-                phoneNumber !== null
-                  ? phoneNumber
-                  : userData?.phoneNumber === null
-                  ? ""
-                  : userData?.phoneNumber?.slice(4)
-              }
-              onChangeText={handlePhoneNumberChange}
-              autoComplete="tel"
-              error={errorPhoneNumber}
-            />
-          </View>
-          <View>
-            <SharedInput
-              label="Your Name"
-              value={name}
-              onChangeText={handleNameChange}
-              placeholder="Enter your name"
-              style={styles.input}
-            />
-          </View>
-
-          <SharedButton
-            disabled={!isValidated}
-            onPress={submitChanges}
-            text={isLoadingChange ? `Submiting...` : `Submit`}
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageContainerImage}>
+          <ImageCompress
+            handlePickImage={selectedImgHandler}
+            imageValue={userData?.image}
           />
         </View>
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={!errorChange ? messageHandler : messageHandler2}
-            onConfirm={!errorChange ? messageHandler : messageHandler2}
-            icon={
-              <FontAwesome
-                name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
-              />
+      </View>
+      <View style={styles.userDataContainer}>
+        <View>
+          <Text style={styles.inputLabel}>Your Email</Text>
+          <TextInput
+            style={styles.inputDisabled}
+            defaultValue={userData?.email}
+            editable={false}
+            selectTextOnFocus={false}
+          />
+        </View>
+        <View>
+          <SharedPhoneNumber
+            label="Phone Number"
+            placeholder="6x xxx xxxx"
+            placeholderTextColor="#888"
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            value={
+              phoneNumber !== null
+                ? phoneNumber
+                : userData?.phoneNumber === null
+                ? ""
+                : userData?.phoneNumber?.slice(4)
             }
-            title={errorChange || message} // Title of the modal
-            buttonText="Ok" // Text for the action button
+            onChangeText={handlePhoneNumberChange}
+            autoComplete="tel"
+            error={errorPhoneNumber}
           />
-        )}
-        <StatusBar backgroundColor="black" />
-      </ScrollView>
-    );
-  }
+        </View>
+        <View>
+          <SharedInput
+            label="Your Name"
+            value={name}
+            onChangeText={handleNameChange}
+            placeholder="Enter your name"
+            style={styles.input}
+          />
+        </View>
+
+        <SharedButton
+          disabled={!isValidated}
+          onPress={submitChanges}
+          text={isLoadingChange ? `Submiting...` : `Submit`}
+        />
+      </View>
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          onClose={!errorChange ? messageHandler : messageHandler2}
+          onConfirm={!errorChange ? messageHandler : messageHandler2}
+          icon={
+            <FontAwesome
+              name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={errorChange || message} // Title of the modal
+          buttonText="Ok" // Text for the action button
+        />
+      )}
+      <StatusBar backgroundColor="black" />
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

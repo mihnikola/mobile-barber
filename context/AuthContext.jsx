@@ -145,6 +145,9 @@ export const AuthProvider = ({ children }) => {
     if (data === "1") {
       router.push("/(tabs)/(04_settings)/infoUserProfile");
     }
+       if (data === "2") {
+      router.push("/(tabs)/(04_settings)/languageChange");
+    }
     if (data === "100") {
       router.push("/(tabs)/(04_settings)/infoApp");
     }
