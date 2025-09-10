@@ -47,7 +47,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(async () => {
       await registerForPushNotifications();
-    }, 500);
+    }, 2000);
   });
 
   return (

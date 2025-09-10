@@ -10,13 +10,19 @@ const instance = axios.create({
   },
 });
 
-// Request interceptor to inject the token
+// Request interceptor to inject the token and timezone
 instance.interceptors.request.use(
   async (config) => {
     const token = await getStorage();
+    const timeZoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    if (timeZoneValue) {
+      config.headers["Time-Zone"] = timeZoneValue;
+    }
+
     return config;
   },
   (error) => {
@@ -50,15 +56,13 @@ const getData = async (url, data, config = {}) => {
   try {
     const response = await instance.get(url, {
       ...config,
-      params: data, 
+      params: data,
     });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-
-
 
 const post = async (url, data, config = {}) => {
   try {
@@ -97,4 +101,3 @@ const del = async (url, config = {}) => {
 };
 
 export { del as delete, get, getData, patch, post, put };
-
