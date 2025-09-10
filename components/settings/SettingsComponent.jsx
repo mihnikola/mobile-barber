@@ -5,7 +5,6 @@ import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import SettingsHeaderTitle from "./SettingsHeaderTitle";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect } from "react";
 
 const SettingsComponent = () => {
   const {

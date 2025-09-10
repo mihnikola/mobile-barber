@@ -41,6 +41,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signIn = async () => {
+    setPending(true);
+
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
@@ -145,7 +147,7 @@ export const AuthProvider = ({ children }) => {
     if (data === "1") {
       router.push("/(tabs)/(04_settings)/infoUserProfile");
     }
-       if (data === "2") {
+    if (data === "2") {
       router.push("/(tabs)/(04_settings)/languageChange");
     }
     if (data === "100") {
@@ -219,24 +221,24 @@ export const AuthProvider = ({ children }) => {
     }
     setStatus(null);
 
-    setPending(true);
+    setIsLoading(true);
     setError(null);
 
     try {
       const responseData = await post("/users/login", { email, password });
       if (responseData.status === 202) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setError(responseData.message);
       }
       if (responseData.status === 606) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setStatus(responseData.status);
         setMessage(responseData.message);
       }
       if (responseData.status === 200) {
-        setPending(false);
+        setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId, responseData.token);
       }
@@ -250,14 +252,13 @@ export const AuthProvider = ({ children }) => {
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setPending(false);
+      setIsLoading(false);
     }
   };
 
   const loginViaGoogle = async (userData) => {
     setStatus(null);
 
-    setPending(true);
     setError(null);
 
     const { user } = userData;
@@ -267,6 +268,7 @@ export const AuthProvider = ({ children }) => {
 
       if (responseData.status === 200 || responseData.status === 300) {
         setPending(false);
+
         saveStorage(responseData.token);
         saveToken(responseData.userId, responseData.token);
       }
@@ -290,11 +292,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const saveToken = async (userId) => {
-    setPending(true);
     const expoToken = await getExpoTokenStorage();
 
     if (!expoToken) {
       setPending(false);
+      setIsLoading(false);
       return;
     }
 
@@ -305,10 +307,12 @@ export const AuthProvider = ({ children }) => {
       });
       if (responseData.status === 200) {
         setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setSuccess("Login Successful!");
       } else {
         setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
 
         setError(
@@ -318,6 +322,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       setPending(false);
       setIsMessage(true);
+      setIsLoading(false);
 
       setError(`Error saving token: ${err.message || err}`);
     }
