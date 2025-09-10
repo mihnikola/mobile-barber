@@ -1,13 +1,13 @@
 // src/hooks/useReservations.js
 import { get } from "@/api/apiService";
-import { formatReservationData, getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 import { router } from "expo-router";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 const useReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const detailsReservation = (item) => {
     const checkValue = item?.past ? false : true;
     router.push({
@@ -18,36 +18,14 @@ const useReservations = () => {
 
 
 
-  const populateReservations = (response, date) => {
 
-    const { futureReservations, modifiedPastReservations } = response.reduce(
-      (acc, reservation) => {
-        if (reservation.startDate > date) {
-          acc.futureReservations.push(reservation);
-        } else {
-          acc.modifiedPastReservations.push({ ...reservation, past: true });
-        }
-        return acc;
-      },
-      { futureReservations: [], modifiedPastReservations: [] }
-    );
-
-    return [...futureReservations, ...modifiedPastReservations]
-  };
 
   const getReservationsData = async () => {
     setIsLoading(true);
     setError(null);
-    const now = new Date().toLocaleString("en-GB");
-    const dateCorrecto = formatReservationData(now);
 
     try {
-      const response = await get("/availabilities");
-      const reservationDataResponse = populateReservations(
-        response,
-        dateCorrecto
-      );
-
+      const reservationDataResponse = await get("/availabilities");
       setReservations(reservationDataResponse);
       setIsLoading(false);
     } catch (err) {
