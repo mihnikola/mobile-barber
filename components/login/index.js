@@ -21,6 +21,7 @@ import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -157,15 +158,16 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={pending}
+          loading={isLoading}
           onPress={handleLogin}
-          text={isLoading || pending ? "Loading" : "Login"}
+          text={isLoading ? "Loading" : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
           question="Don't have an account?"
           text="Register Now"
         />
+        {pending && <SharedLoader />}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
@@ -180,7 +182,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
+            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>

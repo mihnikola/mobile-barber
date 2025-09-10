@@ -21,7 +21,7 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useAuth } from "@/context/AuthContext";
 
 const userprofile = () => {
-  const { isLoading, fetchUserData, userData } = useAuth();
+  const { isLoading, userData } = useAuth();
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
@@ -39,9 +39,7 @@ const userprofile = () => {
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+ 
 
   useEffect(() => {
     setIsValidated(validationFields);
