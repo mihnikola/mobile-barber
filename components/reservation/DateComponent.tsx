@@ -21,7 +21,6 @@ const DateComponent = () => {
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
-
   const { selectedDate, handleDayPress, isSunday, markedDates } =
     useSelectedDate(currentDate);
   const { timesData, isLoading, error, resetError } = useFetchTimes(

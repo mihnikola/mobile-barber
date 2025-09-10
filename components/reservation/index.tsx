@@ -17,7 +17,6 @@ const Reservation = () => {
     setDescription,
   } = useSubmitReservation();
 
-  console.log("reservation",reservation)
   if (reservation) {
     return (
       <ScrollView style={styles.container}>

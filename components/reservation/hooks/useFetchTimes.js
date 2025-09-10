@@ -28,16 +28,19 @@ const useFetchTimes = (date, reservation, isSunday) => {
       }
 
       const serviceData = {
-        id: service.id,
-        duration: service.duration,
+        id: service.serviceId,
+        duration: service.serviceDuration,
       };
       const employerData = {
         id: employer.id,
       };
+
+
       const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
 
       if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
         try {
+
           const response = await getData("/times", {
             date: selectedDate,
             employer: employerData,
