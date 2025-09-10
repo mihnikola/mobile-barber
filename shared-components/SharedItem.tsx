@@ -6,7 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price, position } = data;
-  console.log("SharedItem",data)
+  const { servicePrice, serviceDuration } = data;
   if (!redirectHandler) {
     return (
       <View key={id} style={styles.card}>
@@ -15,25 +15,24 @@ const SharedItem = (props: any) => {
           <Text style={styles.name}>{name}</Text>
           <View style={styles.locationContainer}>
             <FontAwesome
-              name={price ? "clock-o" : "trophy"}
+              name={serviceDuration || duration ? "clock-o" : "trophy"}
               size={16}
               color="#CCCCCC"
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration ? `Duration ${duration}` : "Top Barber"}
+              {duration || serviceDuration ? `Duration ${duration || serviceDuration}` : "Top Barber"}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
             <IconSymbol
-              name={price ? "price-change" : "star"}
+              name={price || servicePrice? "price-change" : "star"}
               size={16}
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price ? `Price ${price}` : 10}{" "}
+              {price || servicePrice ? `Price ${price || servicePrice}` : `25 Review`}{" "}
             </Text>
-            {!price && <Text style={styles.reviewText}>(25 Review)</Text>}
           </View>
         </View>
       </View>
@@ -51,25 +50,25 @@ const SharedItem = (props: any) => {
           <Text style={styles.name}>{name}</Text>
           <View style={styles.locationContainer}>
             <FontAwesome
-              name={duration ? "clock-o" : "trophy"}
+              name={duration || serviceDuration ? "clock-o" : "trophy"}
               size={16}
               color="#CCCCCC"
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration ? `Duration ${duration}` : "Top Barber"}
+              {duration || serviceDuration ? `Duration ${duration || serviceDuration}` : "Top Barber"}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
             <IconSymbol
-              name={price ? "price-change" : "star"}
+              name={price || servicePrice ? "price-change" : "star"}
               size={16}
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price ? `Price ${price}` : 10}{" "}
+              {price || servicePrice? `Price ${price || servicePrice}` : 10}{" "}
             </Text>
-            {!price && <Text style={styles.reviewText}>(25 Review)</Text>}
+            {!price || !servicePrice && <Text style={styles.reviewText}>(25 Review)</Text>}
           </View>
         </View>
         <FontAwesome name={"chevron-right"} size={32} color="gray" />
