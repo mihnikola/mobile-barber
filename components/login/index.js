@@ -84,6 +84,9 @@ const LoginScreen = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
 
+  if (pending) {
+    return <SharedLoader />;
+  }
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -167,7 +170,6 @@ const LoginScreen = () => {
           question="Don't have an account?"
           text="Register Now"
         />
-        {pending && <SharedLoader />}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
