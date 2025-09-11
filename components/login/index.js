@@ -34,7 +34,6 @@ const LoginScreen = () => {
     setIsMessage,
     isMessage,
     error,
-    pending,
     login,
     success,
     status,
@@ -157,9 +156,9 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={pending}
+          loading={isLoading}
           onPress={handleLogin}
-          text={isLoading || pending ? "Loading" : "Login"}
+          text={isLoading ? "Loading..." : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
@@ -180,7 +179,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
+            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>

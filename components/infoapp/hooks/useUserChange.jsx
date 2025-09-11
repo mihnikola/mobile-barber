@@ -37,7 +37,7 @@ const useUserChange = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Axios might need this explicitly for FormData, depending on setup
+            "Content-Type": "multipart/form-data", // Axios might need this explicitly for FormData
           },
         }
       );
