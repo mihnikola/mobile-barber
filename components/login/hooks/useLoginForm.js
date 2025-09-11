@@ -5,7 +5,6 @@ import { getExpoTokenStorage } from "@/helpers/expoToken";
 import { router } from "expo-router";
 
 const useLoginForm = () => {
-  const [pending, setPending] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -53,7 +52,7 @@ const useLoginForm = () => {
 
     setStatus(null);
 
-    setPending(true);
+    setIsLoading(true);
     setError(null);
 
     try {
@@ -61,18 +60,18 @@ const useLoginForm = () => {
 console.log("responseData+++",responseData);
 
       if (responseData.status === 202) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setError(responseData.message);
       }
       if (responseData.status === 606) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setStatus(responseData.status);
         setMessage(responseData.message);
       }
       if (responseData.status === 200) {
-        setPending(false);
+        setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId);
       }
@@ -86,14 +85,14 @@ console.log("responseData+++",responseData);
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setPending(false);
+      setIsLoading(false);
     }
   };
 
   const loginViaGoogle = async (userData) => {
     setStatus(null);
 
-    setPending(true);
+    setIsLoading(true);
     setError(null);
 
     const { user } = userData;
@@ -101,13 +100,13 @@ console.log("responseData+++",responseData);
     try {
       const responseData = await post("/users/loginViaGoogle", { user });
       if (responseData.status === 200 || responseData.status === 300) {
-        setPending(false);
+        setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId);
       }
 
       if (responseData.status === 500) {
-        setPending(false);
+        setIsLoading(false);
         setError(responseData.message);
       }
     } catch (err) {
@@ -120,17 +119,17 @@ console.log("responseData+++",responseData);
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setPending(false);
+      setIsLoading(false);
     }
   };
 
   const saveToken = async (userId) => {
-    setPending(true); // Set pending state when saving token
+    setIsLoading(true);
 
     const expoToken = await getExpoTokenStorage();
 
     if (!expoToken) {
-      setPending(false);
+      setIsLoading(false);
       return;
     }
     try {
@@ -139,14 +138,14 @@ console.log("responseData+++",responseData);
         tokenUser: userId,
       });
       if (responseData.status === 200) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
 
         setSuccess("Login Successful!");
 
         // removeExpoTokenStorage();
       } else {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
 
         setError(
@@ -154,7 +153,7 @@ console.log("responseData+++",responseData);
         );
       }
     } catch (err) {
-      setPending(false);
+      setIsLoading(false);
       setIsMessage(true);
 
       setError(`Error saving token: ${err.message || err}`);
@@ -162,7 +161,6 @@ console.log("responseData+++",responseData);
   };
 
   return {
-    pending,
     error,
     login,
     saveToken,

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import useLoginForm from "./useLoginForm";
 
 export default function useGoogleSignIn() {
-  const { pending, success, isMessage, error, loginViaGoogle, setIsMessage } = useLoginForm();
+  const { isLoading, success, isMessage, error, loginViaGoogle, setIsMessage } = useLoginForm();
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -56,5 +56,5 @@ export default function useGoogleSignIn() {
       await GoogleSignin.signOut();
     } catch (error) {}
   };
-  return { signIn, pending, isMessage, error, success, signOut, setIsMessage };
+  return { signIn, isLoading, isMessage, error, success, signOut, setIsMessage };
 }

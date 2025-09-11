@@ -65,8 +65,8 @@ const useSubmitOtpCode = () => {
   );
 
   const saveToken = async (userId, messageData) => {
-    setIsLoading(true); // Set pending state when saving token
-    const expoTokenData = await getExpoTokenStorage(); // Assuming this function exists
+    setIsLoading(true); 
+    const expoTokenData = await getExpoTokenStorage();
 
     
       if(!expoTokenData){

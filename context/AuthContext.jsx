@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
-  const [pending, setPending] = useState(false);
   const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
@@ -219,24 +218,24 @@ export const AuthProvider = ({ children }) => {
     }
     setStatus(null);
 
-    setPending(true);
+    setIsLoading(true);
     setError(null);
 
     try {
       const responseData = await post("/users/login", { email, password });
       if (responseData.status === 202) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setError(responseData.message);
       }
       if (responseData.status === 606) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setStatus(responseData.status);
         setMessage(responseData.message);
       }
       if (responseData.status === 200) {
-        setPending(false);
+        setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId, responseData.token);
       }
@@ -250,14 +249,14 @@ export const AuthProvider = ({ children }) => {
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setPending(false);
+      setIsLoading(false);
     }
   };
 
   const loginViaGoogle = async (userData) => {
     setStatus(null);
 
-    setPending(true);
+    setIsLoading(true);
     setError(null);
 
     const { user } = userData;
@@ -266,13 +265,13 @@ export const AuthProvider = ({ children }) => {
       const responseData = await post("/users/loginViaGoogle", { user });
 
       if (responseData.status === 200 || responseData.status === 300) {
-        setPending(false);
+        setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId, responseData.token);
       }
 
       if (responseData.status === 500) {
-        setPending(false);
+        setIsLoading(false);
         setError(responseData.message);
       }
     } catch (err) {
@@ -285,16 +284,16 @@ export const AuthProvider = ({ children }) => {
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setPending(false);
+      setIsLoading(false);
     }
   };
 
   const saveToken = async (userId) => {
-    setPending(true);
+    setIsLoading(true);
     const expoToken = await getExpoTokenStorage();
 
     if (!expoToken) {
-      setPending(false);
+      setIsLoading(false);
       return;
     }
 
@@ -304,11 +303,11 @@ export const AuthProvider = ({ children }) => {
         tokenUser: userId,
       });
       if (responseData.status === 200) {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
         setSuccess("Login Successful!");
       } else {
-        setPending(false);
+        setIsLoading(false);
         setIsMessage(true);
 
         setError(
@@ -316,7 +315,7 @@ export const AuthProvider = ({ children }) => {
         );
       }
     } catch (err) {
-      setPending(false);
+      setIsLoading(false);
       setIsMessage(true);
 
       setError(`Error saving token: ${err.message || err}`);
@@ -340,7 +339,6 @@ export const AuthProvider = ({ children }) => {
         userData,
         fetchUserData,
         error,
-        pending,
         login,
         saveToken,
         success,
