@@ -1,7 +1,9 @@
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { useLocalization } from "@/context/LocalizationContext";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
+  const { localization } = useLocalization();
   return (
     <Tabs
       screenOptions={{
@@ -15,7 +17,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(01_home)"
         options={{
-          title: "Home",
+          title: localization.TABS.HOME,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />
           ),
@@ -24,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(02_barbers)"
         options={{
-          title: "Barbers",
+          title: localization.TABS.BARBERS,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="content.cut" color={color} />
           ),
@@ -33,7 +35,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(03_calendar)"
         options={{
-          title: "Appointments",
+          title: localization.TABS.APPOINTMENTS,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="calendar.month" color={color} />
           ),
@@ -43,7 +45,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(04_settings)"
         options={{
-          title: "Settings",
+          title: localization.TABS.SETTINGS,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="miscellaneous.services" color={color} />
           ),

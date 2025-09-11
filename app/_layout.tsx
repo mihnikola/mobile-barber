@@ -1,5 +1,5 @@
-// /app/layout/RootLayout.tsx
 import { ReservationProvider } from "@/context/ReservationContext";
+import { LocalizationProvider } from "@/context/LocalizationContext";
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { AuthProvider } from "@/context/AuthContext";
@@ -27,15 +27,17 @@ export default function RootLayout() {
       background: "#000000",
     },
   };
-  
+
   if (!isLoading) {
     return (
       <ThemeProvider value={MyDarkTheme}>
-        <AuthProvider>
-          <ReservationProvider>
-            <MainContainer />
-          </ReservationProvider>
-        </AuthProvider>
+        <LocalizationProvider>
+          <AuthProvider>
+            <ReservationProvider>
+              <MainContainer />
+            </ReservationProvider>
+          </AuthProvider>
+        </LocalizationProvider>
       </ThemeProvider>
     );
   }

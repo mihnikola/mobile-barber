@@ -1,33 +1,35 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { MenuItem } from "./MenuItem";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const MenuItemContainer = ({ onPress }) => {
+  const { localization } = useLocalization();
   return (
     <ScrollView style={styles.menuContainer}>
       <MenuItem
         iconName="translate"
-        title="Change Language"
+        title={localization.SETTINGS.changeLanguage.capture}
         onPress={() => onPress("2")}
       />
       <MenuItem
         iconName="contacts"
-        title="About Application"
+        title={localization.SETTINGS.ABOUTAPP.title}
         onPress={() => onPress("100")}
       />
 
       <MenuItem
         iconName="face-agent"
-        title="Help & Support"
+        title={localization.SETTINGS.HELP.title}
         onPress={() => onPress("900")}
       />
       <MenuItem
         iconName="file-document"
-        title="Legal & Policy"
+        title={localization.SETTINGS.LEGAL.title}
         onPress={() => onPress("200")}
       />
       <MenuItem
         iconName="logout"
-        title="Logout"
+        title={localization.SETTINGS.LOGOUT.title}
         onPress={() => onPress("6")}
         isLogout
       />

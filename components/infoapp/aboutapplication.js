@@ -1,3 +1,4 @@
+import { useLocalization } from "@/context/LocalizationContext";
 import { useState } from "react";
 import {
   View,
@@ -15,6 +16,7 @@ const aboutapplication = () => {
   const appVersion = "1.0.2";
   const developerName = "FusionTech Agency";
 
+  const {localization} = useLocalization();
   // State to manage the switch's value. 'true' for Serbian, 'false' for English.
   const [isSerbian, setIsSerbian] = useState("en");
 
@@ -34,21 +36,21 @@ const aboutapplication = () => {
         style={styles.headerImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>About application</Text>
+        <Text style={styles.capture}>{localization.SETTINGS.ABOUTAPP.title}</Text>
       </View>
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <Text style={styles.label}>App Name:</Text>
+          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.name}</Text>
           <Text style={styles.value}>{appName}</Text>
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>Version:</Text>
+          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.version}</Text>
           <Text style={styles.value}>{appVersion}</Text>
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>Developed by:</Text>
+          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</Text>
           <Text style={styles.value}>{developerName}</Text>
         </View>
       </View>

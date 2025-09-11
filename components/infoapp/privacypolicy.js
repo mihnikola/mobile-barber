@@ -1,4 +1,5 @@
 import { PRIVACY_DATA } from "@/constants";
+import { useLocalization } from "@/context/LocalizationContext";
 import {
   View,
   Text,
@@ -15,6 +16,8 @@ const privacypolicy = () => {
   const privacyPolicyURL = "[Link to your Privacy Policy]"; // IMPORTANT!
   const termsOfServiceURL = "[Link to your Terms of Service]"; // IMPORTANT!
   const developerName = "FusionTech Agency";
+
+  const {localization} = useLocalization();
 
   const openLink = async (url) => {
     try {
@@ -38,11 +41,11 @@ const privacypolicy = () => {
         style={styles.headerImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Legal & Policy</Text>
+        <Text style={styles.capture}>{localization.SETTINGS.LEGAL.title}</Text>
       </View>
       <View style={styles.sectionContainer}>
-        <Text style={styles.text}>**Last Updated:** June 21, 2025</Text>
-        <Text style={styles.paragraph}>{PRIVACY_DATA.data}</Text>
+        <Text style={styles.text}>{localization.SETTINGS.LEGAL.update}</Text>
+        <Text style={styles.paragraph}>{localization.SETTINGS.LEGAL.paragraph}</Text>
         <View style={styles.section}>
           <Text style={styles.label}>Support:</Text>
           <TouchableOpacity

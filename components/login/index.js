@@ -19,8 +19,9 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+// import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -83,6 +84,9 @@ const LoginScreen = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
 
+  if (pending) {
+    return <SharedLoader />;
+  }
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -104,12 +108,12 @@ const LoginScreen = () => {
               source={require("@/assets/images/googleG.png")} // Adjust path as neededgoogleG
               style={styles.iconStyle}
             /> */}
-          <GoogleSigninButton
+          {/* <GoogleSigninButton
             style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
-          />
+          /> */}
 
           {/* <Text style={styles.socialButtonText}>Google</Text> */}
           {/* </TouchableOpacity> */}
@@ -157,9 +161,9 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={pending}
+          loading={isLoading}
           onPress={handleLogin}
-          text={isLoading || pending ? "Loading" : "Login"}
+          text={isLoading ? "Loading" : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
@@ -180,7 +184,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
+            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>
