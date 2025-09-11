@@ -35,7 +35,6 @@ export const SharedMessage = ({
             {isLoading && (
               <View>
                 <ActivityIndicator size={25} color="white" />
-                <Text style={styles.actionButtonText}>{buttonText}</Text>
               </View>
             )}
           </TouchableOpacity>
