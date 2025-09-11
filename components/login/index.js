@@ -21,7 +21,6 @@ import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -84,9 +83,6 @@ const LoginScreen = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
 
-  if (pending) {
-    return <SharedLoader />;
-  }
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -161,9 +157,9 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={isLoading}
+          loading={pending}
           onPress={handleLogin}
-          text={isLoading ? "Loading" : "Login"}
+          text={isLoading || pending ? "Loading" : "Login"}
         />
         <SharedRedirect
           onPress={navigateToRegister}
@@ -184,7 +180,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
+            buttonText={isLoading || pending ? "Loading..." : "OK"} // Text for the action button
           />
         )}
       </View>
