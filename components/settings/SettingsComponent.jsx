@@ -3,10 +3,11 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
-import SettingsHeaderTitle from "./SettingsHeaderTitle";
 import { useAuth } from "@/context/AuthContext";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const SettingsComponent = () => {
+  const { localization } = useLocalization();
   const {
     logoutFirebase,
     onPressHandler,
@@ -15,17 +16,12 @@ const SettingsComponent = () => {
     userData,
   } = useAuth();
 
- 
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
-
-      <SettingsHeaderTitle capture="My Profile" />
-
       <ProfileUserComponent data={userData} onPress={onPressHandler} />
-
       <MenuItemContainer onPress={onPressHandler} />
-
       {isMessage && (
         <SharedQuestion
           isOpen={isMessage}
@@ -38,9 +34,9 @@ const SettingsComponent = () => {
               color="white"
             />
           }
-          title="Are you sure you want to sign out from application?" 
-          buttonTextYes="Leave"
-          buttonTextNo="Cancel"
+          title={localization.SETTINGS.LOGOUT.question}
+          buttonTextYes={localization.SETTINGS.LOGOUT.leave}
+          buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
     </View>

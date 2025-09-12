@@ -11,6 +11,7 @@ import {
   StatusBar,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -18,7 +19,7 @@ const companyInfo = {
 };
 
 const HelpSupportScreen = () => {
-  // Function to open the email app with a pre-filled recipient
+  const { localization } = useLocalization();
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
   };
@@ -32,16 +33,13 @@ const HelpSupportScreen = () => {
         style={styles.headerImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Help & Support</Text>
+        <Text style={styles.capture}>{localization.SETTINGS.HELP.title}</Text>
       </View>
       <View style={styles.sectionContainer}>
-        {/* Display Company Name */}
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>Company:</Text>
+          <Text style={styles.infoLabel}>{localization.SETTINGS.HELP.company}</Text>
           <Text style={styles.infoValue}>{companyInfo.name}</Text>
         </View>
-
-        {/* Display and make the email address clickable */}
         <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
           <MaterialCommunityIcons
             name="email-outline"
@@ -49,12 +47,9 @@ const HelpSupportScreen = () => {
             color="#B0B0B0"
             style={styles.menuItemIcon}
           />
-          <Text style={styles.menuItemText}>Email Support</Text>
+          <Text style={styles.menuItemText}>{localization.SETTINGS.HELP.support}</Text>
           <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
         </TouchableOpacity>
-
-        {/* You could add more items here like a FAQ link or phone number */}
-        {/* Example for a different menu item */}
       </View>
     </ScrollView>
   );

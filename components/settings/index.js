@@ -8,7 +8,6 @@ const Settings = () => {
 
   useEffect(() => {
     if (isToken) {
-      console.log("xxxxxxxxxxxxxx")
       fetchUserData();
     }
   }, [isToken]);

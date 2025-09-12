@@ -19,9 +19,11 @@ import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useAuth } from "@/context/AuthContext";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const userprofile = () => {
   const { isLoading, userData } = useAuth();
+  const { localization } = useLocalization();
 
   const [changedImg, setChangedImg] = useState(undefined);
   const { name, handleNameChange } = useName(userData?.name);
@@ -35,16 +37,16 @@ const userprofile = () => {
     setIsMessage,
   } = useUserChange();
 
+
+
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
 
- 
-
   useEffect(() => {
     setIsValidated(validationFields);
   }, [phoneNumber, name, changedImg]);
-  
+
   const validationFields = () => {
     if (!isValid) {
       return false;
@@ -70,9 +72,7 @@ const userprofile = () => {
     }
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
@@ -115,7 +115,9 @@ const userprofile = () => {
       </View>
       <View style={styles.userDataContainer}>
         <View>
-          <Text style={styles.inputLabel}>Your Email</Text>
+          <Text style={styles.inputLabel}>
+            {localization.SETTINGS.PROFILE.email}
+          </Text>
           <TextInput
             style={styles.inputDisabled}
             defaultValue={userData?.email}
@@ -125,7 +127,7 @@ const userprofile = () => {
         </View>
         <View>
           <SharedPhoneNumber
-            label="Phone Number"
+            label={localization.SETTINGS.PROFILE.phoneNumber}
             placeholder="6x xxx xxxx"
             placeholderTextColor="#888"
             keyboardType="phone-pad"
@@ -144,10 +146,10 @@ const userprofile = () => {
         </View>
         <View>
           <SharedInput
-            label="Your Name"
+            label={localization.SETTINGS.PROFILE.name}
             value={name}
             onChangeText={handleNameChange}
-            placeholder="Enter your name"
+            placeholder={localization.SETTINGS.PROFILE.placeholderName}
             style={styles.input}
           />
         </View>
@@ -155,7 +157,11 @@ const userprofile = () => {
         <SharedButton
           disabled={!isValidated}
           onPress={submitChanges}
-          text={isLoadingChange ? `Submiting...` : `Submit`}
+          text={
+            isLoadingChange
+              ? localization.SETTINGS.PROFILE.loading
+              : localization.SETTINGS.PROFILE.btnText
+          }
         />
       </View>
       {isMessage && (
@@ -165,13 +171,13 @@ const userprofile = () => {
           onConfirm={!errorChange ? messageHandler : messageHandler2}
           icon={
             <FontAwesome
-              name={errorChange ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
+              name={errorChange ? "close" : "check-circle-o"} 
+              size={64}
+              color="white"
             />
           }
-          title={errorChange || message} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          title={message ? localization.SETTINGS.PROFILE.messageConfirm : errorChange} 
+          buttonText="Ok"
         />
       )}
       <StatusBar backgroundColor="black" />
@@ -192,17 +198,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   phoneNumberInputContainer: {
-    flexDirection: "row", // Arrange children horizontally
-    alignItems: "center", // Vertically align items in the center
-    // height: 50,
+    flexDirection: "row", 
+    alignItems: "center", 
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#333", // Default border color
-    paddingHorizontal: 10, // Padding inside the combined input area
+    borderColor: "#333", 
+    paddingHorizontal: 10,
   },
   phoneNumberInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -218,7 +223,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white", 
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   inputDisabled: {
-    backgroundColor: "grey", // Dark input background
+    backgroundColor: "grey", 
     color: "black",
     padding: 15,
     borderRadius: 8,
