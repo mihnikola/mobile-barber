@@ -14,7 +14,6 @@ const otpCode = () => {
   const params = useLocalSearchParams();
   const { data } = params;
 
-
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   const {
     checkOtpCodeValidation,
@@ -74,14 +73,13 @@ const otpCode = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={
-            code.join("").length < 6 || isLoading
-          }
-          text={isLoading ? "Submitting..." : "Submit"}
+          disabled={code.join("").length < 6}
           onPress={handleVerify}
+          text="Submit"
+          loading={isLoading}
         />
       </View>
-       
+
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -145,8 +143,7 @@ const styles = StyleSheet.create({
     width: 290,
     height: 290,
     resizeMode: "contain",
-    backgroundColor:"black"
-
+    backgroundColor: "black",
   },
   mainTitle: {
     fontSize: 22,

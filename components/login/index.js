@@ -107,12 +107,12 @@ const LoginScreen = () => {
               source={require("@/assets/images/googleG.png")} // Adjust path as neededgoogleG
               style={styles.iconStyle}
             /> */}
-          <GoogleSigninButton
+          {<GoogleSigninButton
             style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
-          />
+          />}
 
           {/* <Text style={styles.socialButtonText}>Google</Text> */}
           {/* </TouchableOpacity> */}
@@ -162,8 +162,10 @@ const LoginScreen = () => {
         <SharedButton
           loading={isLoading}
           onPress={handleLogin}
-          text={isLoading ? "Loading" : "Login"}
-       />
+          text="Login"
+        />
+
+
         <SharedRedirect
           onPress={navigateToRegister}
           question="Don't have an account?"
@@ -183,7 +185,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText={isLoading ? "Loading..." : "OK"} // Text for the action button
+            buttonText="OK" // Text for the action button
           />
         )}
       </View>

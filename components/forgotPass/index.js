@@ -2,26 +2,20 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   ScrollView,
   StyleSheet,
   StatusBar,
 } from "react-native";
 import { Platform } from "react-native";
-import RadioButton from "./RadioButton";
 import SharedButton from "@/shared-components/SharedButton";
-import { useEffect, useState } from "react";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
-import { router } from "expo-router";
 
 const ForgotPassword = () => {
-  const [active, setActive] = useState("email");
   const { email, emailError, handleEmailChange } = useEmail();
-
   const {
     checkEmailValidation,
     error,
@@ -40,7 +34,7 @@ const ForgotPassword = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <StatusBar  backgroundColor="black" barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View>
         <Text style={styles.mainTitle}>Forgot Password</Text>
       </View>
@@ -56,23 +50,6 @@ const ForgotPassword = () => {
         />
       </View>
       <View style={styles.radiobtn}>
-        {/* <RadioButton
-          icon="sms"
-          color="white"
-          title="Send OTP via SMS"
-          value="+395 54654 54 54"
-          onPress={() => setActive("sms")}
-          active={active === "sms"}
-        /> */}
-        {/* <RadioButton
-          icon="email"
-          color="white"
-          title="Send OTP via Email"
-          value={email}
-          onPress={() => setActive("email")}
-          onChangeText={setEmail}
-          active={active === "email"}
-        /> */}
         <SharedInput
           label="Email Address"
           value={email}
@@ -87,32 +64,23 @@ const ForgotPassword = () => {
       <SharedButton
         disabled={emailError.length > 0 || isLoading}
         onPress={navHandler}
-        text={isLoading ? `Sending...` : `Send code`}
+        loading={isLoading}
+        text="Send code"
       />
       {error && (
         <SharedMessage
           isOpen={isMessage || error}
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}
-          icon={
-            <FontAwesome
-              name={"close"} // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
-            />
-          }
-          title={error} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          title={error}
+          buttonText="Ok"
         />
       )}
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#0A0B0E",
-  },
   radiobtn: {
     flex: 2,
     flexDirection: "column",
@@ -124,11 +92,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-  iconStyle: {
-    width: 30,
-    height: 30,
-    resizeMode: "cover",
-  },
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -136,12 +99,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    // width: 250,
-    // height: 300,
     resizeMode: "contain",
   },
   input: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -158,20 +119,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: "#ccc",
-  },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
-  },
-  socialButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "white",
   },
 });
 export default ForgotPassword;

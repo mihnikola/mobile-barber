@@ -8,43 +8,43 @@ const useChangePasswordHandler = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
 
-  const handlePatchUser = useCallback(async (email, password, confirmPassword) => {
-    setIsLoading(true);
-    setError(null);
+  const handlePatchUser = useCallback(
+    async (email, password, confirmPassword) => {
+      setIsLoading(true);
+      setError(null);
 
-    if (password.length === 0 || confirmPassword.length === 0) {
-      setIsMessage(true);
-      setError("Please fill out all fields.");
-      setIsLoading(false);
-      return;
-    }
-    if (password !== confirmPassword) {
-      setIsMessage(true);
-      setError("Your passwords do not match.");
-      setIsLoading(false);
-      return;
-    }
+      if (password.length === 0 || confirmPassword.length === 0) {
+        setIsMessage(true);
+        setError("Please fill out all fields.");
+        setIsLoading(false);
+        return;
+      }
+      if (password !== confirmPassword) {
+        setIsMessage(true);
+        setError("Your passwords do not match.");
+        setIsLoading(false);
+        return;
+      }
 
-    try {
-      const response = await put(`/users/${email}/changePassword`, {
-        password,
-      });
-      if (response.status === 200) {
+      try {
+        const response = await put(`/users/${email}/changePassword`, {
+          password,
+        });
+        if (response.status === 200) {
+          setIsMessage(true);
+          setMessage(response.message);
+        }
+        if (response.status === 400) {
+          setIsMessage(true);
+          setMessage(response.message);
+        }
+      } catch (err) {
+        setError("Something went wrong");
         setIsMessage(true);
-        setMessage(response.message);
-        setIsLoading(false);
       }
-      if (response.status === 400) {
-        setIsMessage(true);
-        setMessage(response.message);
-        setIsLoading(false);
-      }
-    } catch (err) {
       setIsLoading(false);
-      setError("Something went wrong")
-      setIsMessage(true);
     }
-  });
+  );
 
   return {
     handlePatchUser,

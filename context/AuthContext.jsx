@@ -32,15 +32,14 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-      profileImageSize: 150,
-    });
+     GoogleSignin.configure({
+       webClientId:
+         "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+       profileImageSize: 150,
+     });
   }, []);
 
   const signIn = async () => {
-    setPending(true);
 
     try {
       await GoogleSignin.hasPlayServices();

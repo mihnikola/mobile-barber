@@ -33,9 +33,7 @@ export const SharedMessage = ({
               <Text style={styles.actionButtonText}>{buttonText}</Text>
             )}
             {isLoading && (
-              <View>
                 <ActivityIndicator size={25} color="white" />
-              </View>
             )}
           </TouchableOpacity>
         </View>
@@ -47,7 +45,7 @@ export const SharedMessage = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.98)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

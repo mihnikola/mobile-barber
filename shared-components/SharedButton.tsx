@@ -1,4 +1,9 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 
 const SharedButton = (props: any) => {
@@ -8,16 +13,21 @@ const SharedButton = (props: any) => {
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      <Text style={[styles.btnText, props.disabled && styles.btnTextDisabled]}>
-        {props.loading ? "Loading..." : props.text}
-      </Text>
+      {!props.loading && (
+        <Text
+          style={[styles.btnText, props.disabled && styles.btnTextDisabled]}
+        >
+          {props.text}
+        </Text>
+      )}
+      {props.loading && <ActivityIndicator size={25} color="white" />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  btnTextDisabled:{
-  color: "#3f3f3fff",
+  btnTextDisabled: {
+    color: "#3f3f3fff",
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -26,10 +36,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  btnDisabled:{
+  btnDisabled: {
     borderColor: "grey",
     backgroundColor: "#8b8b8bff",
-    color: '#3f3f3fff'
+    color: "#3f3f3fff",
   },
   btn: {
     backgroundColor: "#1C1C1E",
