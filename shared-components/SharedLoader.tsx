@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   Modal,
   ActivityIndicator,
@@ -20,7 +19,6 @@ export const SharedLoader = ({
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
           <ActivityIndicator size={32} color="white" />
-          <Text style={styles.modalTitle}>Loading...</Text>
         </View>
       </View>
     </Modal>
@@ -57,31 +55,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 24,
-  },
-
-  modalTitle: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 16,
-    textAlign: "center",
-    lineHeight: 36,
-  },
-  actionButton: {
-    width: "100%",
-    backgroundColor: "black",
-    paddingVertical: 16,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  actionButtonText: {
-    color: "#FFFFFF",
-    fontSize: 22,
-    fontWeight: "600",
-    textAlign: "center",
   },
 });

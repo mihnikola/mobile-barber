@@ -85,7 +85,8 @@ const changePass = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          text={isLoading ? "Submitting..." : "Submit"}
+          loading={isLoading}
+          text="Submit"
           disabled={isLoading || passwordError.length > 0}
           onPress={submitChanges}
         />

@@ -46,11 +46,9 @@ const otpCodeRegister = () => {
     setErrorVerification,
   } = useSendEmailVerification();
 
-
   const handleVerify = async () => {
     const otp = code.join("");
     if (otp.length === 6) {
-
       if (email && password) {
         checkOtpCodeVerification(email, password, otp);
       } else {
@@ -79,9 +77,6 @@ const otpCodeRegister = () => {
     setIsMessageVerification(false);
   };
 
-
-
-
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -107,11 +102,10 @@ const otpCodeRegister = () => {
 
       <View style={styles.btnFooter}>
         <SharedButton
-          disabled={
-            code.join("").length < 6 || isLoading || isLoadingVerification
-          }
-          text={isLoading || isLoadingVerification ? "Submitting..." : "Submit"}
+          disabled={code.join("").length < 6}
           onPress={handleVerify}
+          text="Submit"
+          loading={isLoading}
         />
       </View>
       {isMessage && !isMessageVerification && (
@@ -190,10 +184,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-     width: 290,
+    width: 290,
     height: 290,
     resizeMode: "contain",
-    backgroundColor:"black"
+    backgroundColor: "black",
   },
   mainTitle: {
     fontSize: 22,

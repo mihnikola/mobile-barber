@@ -1,9 +1,9 @@
-import {
-  GoogleSignin,
-  isErrorWithCode,
-  isSuccessResponse,
-  statusCodes,
-} from "@react-native-google-signin/google-signin";
+// import {
+//   GoogleSignin,
+//   isErrorWithCode,
+//   isSuccessResponse,
+//   statusCodes,
+// } from "@react-native-google-signin/google-signin";
 
 import { useEffect } from "react";
 import useLoginForm from "./useLoginForm";
@@ -12,49 +12,49 @@ export default function useGoogleSignIn() {
   const { isLoading, success, isMessage, error, loginViaGoogle, setIsMessage } = useLoginForm();
 
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-      profileImageSize: 150,
-    });
+    // GoogleSignin.configure({
+    //   webClientId:
+    //     "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+    //   profileImageSize: 150,
+    // });
   }, []);
   // Somewhere in your code
   const signIn = async () => {
 
-    try {
-      await GoogleSignin.hasPlayServices();
-        console.log("signIn")
+    // try {
+    //   await GoogleSignin.hasPlayServices();
+    //     console.log("signIn")
 
-      const response = await GoogleSignin.signIn();
-        console.log("signIn",response)
+    //   const response = await GoogleSignin.signIn();
+    //     console.log("signIn",response)
 
-      if (isSuccessResponse(response)) {
-        console.log("object",response.data)
-        loginViaGoogle(response.data);
-      } else {
-        // sign in was cancelled by user
-      }
-    } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            // operation (eg. sign in) already in progress
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            // Android only, play services not available or outdated
-            break;
-          default:
-          // some other error happened
-        }
-      } else {
-        // an error that's not related to google sign in occurred
-      }
-    }
+    //   if (isSuccessResponse(response)) {
+    //     console.log("object",response.data)
+    //     loginViaGoogle(response.data);
+    //   } else {
+    //     // sign in was cancelled by user
+    //   }
+    // } catch (error) {
+    //   if (isErrorWithCode(error)) {
+    //     switch (error.code) {
+    //       case statusCodes.IN_PROGRESS:
+    //         // operation (eg. sign in) already in progress
+    //         break;
+    //       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+    //         // Android only, play services not available or outdated
+    //         break;
+    //       default:
+    //       // some other error happened
+    //     }
+    //   } else {
+    //     // an error that's not related to google sign in occurred
+    //   }
+    // }
   };
   const signOut = async () => {
-    try {
-      await GoogleSignin.signOut();
-    } catch (error) {}
+    // try {
+    //   await GoogleSignin.signOut();
+    // } catch (error) {}
   };
   return { signIn, isLoading, isMessage, error, success, signOut, setIsMessage };
 }

@@ -145,13 +145,13 @@ const Register = () => {
             onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
               <FontAwesome
-                name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
+                name={error ? "close" : "check-circle-o"} 
+                size={64} 
+                color="white"
               />
             }
-            title={error || success} // Title of the modal
-            buttonText="Ok" // Text for the action button
+            title={error || success}
+            buttonText="Ok" 
           />
         )}
       </View>
@@ -165,17 +165,17 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     paddingVertical: 10,
-    backgroundColor: "black", // Dark background color
+    backgroundColor: "black",
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
+    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   logo: {
-    width: 120, // Adjust size as needed
-    height: 100, // Adjust size as needed
+    width: 120, 
+    height: 100, 
     resizeMode: "contain",
     backgroundColor: "black",
   },
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white", 
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     borderColor: "#333",
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
