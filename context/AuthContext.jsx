@@ -40,6 +40,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signIn = async () => {
+    setPending(true);
+
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
@@ -144,7 +146,7 @@ export const AuthProvider = ({ children }) => {
     if (data === "1") {
       router.push("/(tabs)/(04_settings)/infoUserProfile");
     }
-       if (data === "2") {
+    if (data === "2") {
       router.push("/(tabs)/(04_settings)/languageChange");
     }
     if (data === "100") {
@@ -256,6 +258,7 @@ export const AuthProvider = ({ children }) => {
   const loginViaGoogle = async (userData) => {
     setStatus(null);
 
+
     setIsLoading(true);
     setError(null);
 
@@ -265,6 +268,7 @@ export const AuthProvider = ({ children }) => {
       const responseData = await post("/users/loginViaGoogle", { user });
 
       if (responseData.status === 200 || responseData.status === 300) {
+
         setIsLoading(false);
         saveStorage(responseData.token);
         saveToken(responseData.userId, responseData.token);
@@ -289,10 +293,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const saveToken = async (userId) => {
+
     setIsLoading(true);
     const expoToken = await getExpoTokenStorage();
 
     if (!expoToken) {
+
       setIsLoading(false);
       return;
     }
@@ -303,10 +309,12 @@ export const AuthProvider = ({ children }) => {
         tokenUser: userId,
       });
       if (responseData.status === 200) {
+
         setIsLoading(false);
         setIsMessage(true);
         setSuccess("Login Successful!");
       } else {
+
         setIsLoading(false);
         setIsMessage(true);
 
@@ -317,6 +325,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       setIsLoading(false);
       setIsMessage(true);
+      setIsLoading(false);
 
       setError(`Error saving token: ${err.message || err}`);
     }

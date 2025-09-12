@@ -1,4 +1,4 @@
-import { PRIVACY_DATA } from "@/constants";
+import { useLocalization } from "@/context/LocalizationContext";
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ const privacypolicy = () => {
   const privacyPolicyURL = "[Link to your Privacy Policy]"; // IMPORTANT!
   const termsOfServiceURL = "[Link to your Terms of Service]"; // IMPORTANT!
   const developerName = "FusionTech Agency";
+
+  const {localization} = useLocalization();
 
   const openLink = async (url) => {
     try {
@@ -38,13 +40,13 @@ const privacypolicy = () => {
         style={styles.headerImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Legal & Policy</Text>
+        <Text style={styles.capture}>{localization.SETTINGS.LEGAL.title}</Text>
       </View>
       <View style={styles.sectionContainer}>
-        <Text style={styles.text}>**Last Updated:** June 21, 2025</Text>
-        <Text style={styles.paragraph}>{PRIVACY_DATA.data}</Text>
+        <Text style={styles.text}>{localization.SETTINGS.LEGAL.update}</Text>
+        <Text style={styles.paragraph}>{localization.SETTINGS.LEGAL.paragraph}</Text>
         <View style={styles.section}>
-          <Text style={styles.label}>Support:</Text>
+          <Text style={styles.label}>{localization.SETTINGS.LEGAL.support}</Text>
           <TouchableOpacity
             onPress={() => Linking.openURL(`mailto:${supportEmail}`)}
           >
@@ -54,15 +56,15 @@ const privacypolicy = () => {
 
         <View style={styles.legalSection}>
           <TouchableOpacity onPress={() => openLink(privacyPolicyURL)}>
-            <Text style={styles.linkText}>Privacy Policy</Text>
+            <Text style={styles.linkText}>{localization.SETTINGS.LEGAL.footerTitle}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => openLink(termsOfServiceURL)}>
-            <Text style={styles.linkText}>Terms of Service</Text>
+            <Text style={styles.linkText}>{localization.SETTINGS.LEGAL.footerTerms}</Text>
           </TouchableOpacity>
         </View>
 
         <Text style={styles.copyright}>
-          © 2025 {developerName}. All rights reserved.
+         {localization.SETTINGS.LEGAL.footerBottom} {developerName}
         </Text>
       </View>
     </ScrollView>
@@ -70,7 +72,7 @@ const privacypolicy = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Crucial for ScrollView to take full height
+    flex: 1, 
     backgroundColor: "black",
   },
   header: {
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   },
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
+    marginHorizontal: 15,
   },
   headerImage: {
     width: "100%",
@@ -134,7 +136,6 @@ const styles = StyleSheet.create({
     height: 180,
     opacity: 0.2,
   },
-
   title: {
     fontSize: 28,
     fontWeight: "bold",
@@ -142,7 +143,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     textAlign: "center",
   },
-
   label: {
     fontSize: 16,
     fontWeight: "600",
@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
     color: "white",
     lineHeight: 24,
   },
-
   copyright: {
     fontSize: 14,
     color: "white",

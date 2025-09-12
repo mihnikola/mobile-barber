@@ -1,15 +1,37 @@
+import { useLocalization } from "@/context/LocalizationContext";
+import { FontAwesome } from "@expo/vector-icons";
+import { useState } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
-  ScrollView,
   StatusBar,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 
+const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "sr", label: "Srpski" },
+];
+
 const languageSupport = () => {
+  const { changeLocalization, localization } = useLocalization();
+  const [search, setSearch] = useState("");
+  const [filteredLanguages, setFilteredLanguages] = useState(LANGUAGES);
+
+  const handleSearch = (text) => {
+    setSearch(text);
+    const filtered = LANGUAGES.filter((lang) =>
+      lang.label.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredLanguages(filtered);
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
       <Image
@@ -17,19 +39,45 @@ const languageSupport = () => {
         style={styles.headerImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Change Language</Text>
+        <Text style={styles.capture}>
+          {localization?.SETTINGS?.changeLanguage.capture}
+        </Text>
       </View>
-    </ScrollView>
+      <TextInput
+        style={styles.search}
+        placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
+        placeholderTextColor="gray"
+        value={search}
+        onChangeText={handleSearch}
+      />
+      <FlatList
+        data={filteredLanguages}
+        keyExtractor={(item) => item.code}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.languageItem}
+            onPress={() => changeLocalization(item)}
+          >
+            <Text style={styles.languageText}>{item.label}</Text>
+            <FontAwesome
+              name={localization.code === item.code && "check-circle-o"}
+              size={28}
+              color="white"
+            />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Crucial for ScrollView to take full height
+    flex: 1,
     backgroundColor: "black",
   },
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
+    marginHorizontal: 15,
   },
   headerImage: {
     width: "100%",
@@ -41,6 +89,31 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "500",
     paddingVertical: 130,
+  },
+
+  search: {
+    color: "white",
+    borderColor: "white",
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    margin: 20,
+    fontSize: 20,
+  },
+
+  languageItem: {
+    padding: 20,
+    margin: 10,
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "gray",
+  },
+  languageText: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#fff",
   },
 });
 
