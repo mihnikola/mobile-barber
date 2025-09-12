@@ -3,7 +3,6 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
-import SettingsHeaderTitle from "./SettingsHeaderTitle";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 
@@ -21,13 +20,8 @@ const SettingsComponent = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
-
-      <SettingsHeaderTitle capture="My Profile" />
-
       <ProfileUserComponent data={userData} onPress={onPressHandler} />
-
       <MenuItemContainer onPress={onPressHandler} />
-
       {isMessage && (
         <SharedQuestion
           isOpen={isMessage}

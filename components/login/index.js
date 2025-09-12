@@ -19,7 +19,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-// import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 
@@ -108,12 +108,12 @@ const LoginScreen = () => {
               source={require("@/assets/images/googleG.png")} // Adjust path as neededgoogleG
               style={styles.iconStyle}
             /> */}
-          {/* <GoogleSigninButton
+          <GoogleSigninButton
             style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
-          /> */}
+          />
 
           {/* <Text style={styles.socialButtonText}>Google</Text> */}
           {/* </TouchableOpacity> */}
