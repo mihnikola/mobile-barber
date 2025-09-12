@@ -23,6 +23,7 @@ const ReservationDetails = () => {
     useFetchReservation(itemId);
   const {
     isCanceling,
+    isLoading:isLoadingCancel,
     cancelError,
     cancelReservation,
     setIsCanceling,
@@ -222,6 +223,7 @@ const ReservationDetails = () => {
           isOpen={isCanceling}
           onClose={!cancelError ? confirmHandler : cancelHandler}
           onConfirm={!cancelError ? confirmHandler : cancelHandler}
+          isLoading={isLoadingCancel}
           icon={
             <FontAwesome
               name={cancelError ? "close" : "check-circle-o"}
@@ -238,6 +240,8 @@ const ReservationDetails = () => {
           isOpen={isRateSuccess}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
+          isLoading={isLoading}
+
           icon={
             <FontAwesome
               name={rateCancelError ? "close" : "check-circle-o"}

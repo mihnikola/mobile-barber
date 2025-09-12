@@ -3,12 +3,14 @@ import { put } from "@/api/apiService";
 
 const useCancelReservation = () => {
   const [isCanceling, setIsCanceling] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [cancelError, setCancelError] = useState(null);
   const [cancelMessage, setCancelMessage] = useState(null);
   const [cancelSuccess, setCancelSuccess] = useState(null);
   const [cancelSuccessFlag, setCancelSuccessFlag] = useState(false);
 
   const cancelReservation = async (reservationId) => {
+    setIsLoading(true);
     if (!reservationId) {
       setCancelError("Reservation ID is missing.");
       return false;
@@ -31,10 +33,12 @@ const useCancelReservation = () => {
       
       setCancelError(err.message || "Failed to cancel reservation.");
     }
+    setIsLoading(false);
   };
 
   return {
     isCanceling,
+    isLoading,
     cancelError,
     cancelReservation,
     cancelMessage,

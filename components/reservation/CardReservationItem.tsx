@@ -53,7 +53,7 @@ const InfoContainerPast = ({ item }) => {
         <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
       </View>
       <View style={styles.ratingContainer}>
-        <Text style={styles.rating}>{item.rate ? "Rated" : "Rate us"}</Text>
+        <Text style={styles.rating}>{item.rating ? "Rated" : "Rate us"}</Text>
       </View>
     </View>
   );
