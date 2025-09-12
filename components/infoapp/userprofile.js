@@ -37,8 +37,6 @@ const userprofile = () => {
     setIsMessage,
   } = useUserChange();
 
-
-
   const [isValidated, setIsValidated] = useState(false);
   const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber } =
     usePhoneNumber(userData?.phoneNumber);
@@ -71,8 +69,6 @@ const userprofile = () => {
       }
     }
   };
-
-
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
@@ -157,11 +153,8 @@ const userprofile = () => {
         <SharedButton
           disabled={!isValidated}
           onPress={submitChanges}
-          text={
-            isLoadingChange
-              ? localization.SETTINGS.PROFILE.loading
-              : localization.SETTINGS.PROFILE.btnText
-          }
+          loading={isLoadingChange}
+          text={localization.SETTINGS.PROFILE.btnText}
         />
       </View>
       {isMessage && (
@@ -171,12 +164,14 @@ const userprofile = () => {
           onConfirm={!errorChange ? messageHandler : messageHandler2}
           icon={
             <FontAwesome
-              name={errorChange ? "close" : "check-circle-o"} 
+              name={errorChange ? "close" : "check-circle-o"}
               size={64}
               color="white"
             />
           }
-          title={message ? localization.SETTINGS.PROFILE.messageConfirm : errorChange} 
+          title={
+            message ? localization.SETTINGS.PROFILE.messageConfirm : errorChange
+          }
           buttonText="Ok"
         />
       )}
@@ -198,12 +193,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   phoneNumberInputContainer: {
-    flexDirection: "row", 
-    alignItems: "center", 
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#333", 
+    borderColor: "#333",
     paddingHorizontal: 10,
   },
   phoneNumberInput: {
@@ -223,7 +218,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    backgroundColor: "white", 
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -232,7 +227,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   inputDisabled: {
-    backgroundColor: "grey", 
+    backgroundColor: "grey",
     color: "black",
     padding: 15,
     borderRadius: 8,
