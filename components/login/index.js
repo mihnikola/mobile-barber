@@ -35,7 +35,6 @@ const LoginScreen = () => {
     setIsMessage,
     isMessage,
     error,
-    pending,
     login,
     success,
     status,
@@ -164,7 +163,7 @@ const LoginScreen = () => {
           loading={isLoading}
           onPress={handleLogin}
           text={isLoading ? "Loading" : "Login"}
-        />
+       />
         <SharedRedirect
           onPress={navigateToRegister}
           question="Don't have an account?"
