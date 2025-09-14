@@ -5,11 +5,11 @@ import { router } from "expo-router";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-// import {
-//   GoogleSignin,
-//   isErrorWithCode,
-//   isSuccessResponse,
-// } from "@react-native-google-signin/google-signin";
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+} from "@react-native-google-signin/google-signin";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -32,44 +32,44 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    //  GoogleSignin.configure({
-    //    webClientId:
-    //      "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-    //    profileImageSize: 150,
-    //  });
+     GoogleSignin.configure({
+       webClientId:
+         "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+       profileImageSize: 150,
+     });
   }, []);
 
   const signIn = async () => {
 
-    // try {
-    //   await GoogleSignin.hasPlayServices();
-    //   const response = await GoogleSignin.signIn();
-    //   if (isSuccessResponse(response)) {
-    //     loginViaGoogle(response.data);
-    //   } else {
-    //     // sign in was cancelled by user
-    //   }
-    // } catch (error) {
-    //   if (isErrorWithCode(error)) {
-    //     switch (error.code) {
-    //       case statusCodes.IN_PROGRESS:
-    //         // operation (eg. sign in) already in progress
-    //         break;
-    //       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-    //         // Android only, play services not available or outdated
-    //         break;
-    //       default:
-    //       // some other error happened
-    //     }
-    //   } else {
-    //     // an error that's not related to google sign in occurred
-    //   }
-    // }
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (isSuccessResponse(response)) {
+        loginViaGoogle(response.data);
+      } else {
+        // sign in was cancelled by user
+      }
+    } catch (error) {
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            // operation (eg. sign in) already in progress
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            // Android only, play services not available or outdated
+            break;
+          default:
+          // some other error happened
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
+    }
   };
   const signOut = async () => {
-    // try {
-    //   await GoogleSignin.signOut();
-    // } catch (error) {}
+    try {
+      await GoogleSignin.signOut();
+    } catch (error) {}
   };
 
   const fetchUserData = async () => {
