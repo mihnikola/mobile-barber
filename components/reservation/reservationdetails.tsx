@@ -1,358 +1,59 @@
 import Loader from "@/components/Loader";
-import { addMinutesToTime, convertDate, convertToDayTime } from "@/helpers";
 import Details from "@/shared-components/Details";
-import React, { useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import useFetchReservation from "./hooks/useFetchReservation";
-import useCancelReservation from "./hooks/useCancelReservation";
-import useRateReservation from "./hooks/useRateReservation";
-import StarRating from "./StarRateComponent";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { FontAwesome } from "@expo/vector-icons";
-import { SharedMessage } from "@/shared-components/SharedMessage";
-import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
+import RateDetailsComponent from "./RateDetailsComponent";
+import CancelDetailsComponent from "./CancelDetailsComponent";
+import HeaderReservationTime from "./HeaderReservationTime";
 
 const ReservationDetails = () => {
   const params = useLocalSearchParams();
   const { itemId, check } = params;
 
-  const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const { reservationData, isLoading, error, refetch } =
     useFetchReservation(itemId);
-  const {
-    isCanceling,
-    isLoading:isLoadingCancel,
-    cancelError,
-    cancelReservation,
-    setIsCanceling,
-    cancelSuccess,
-    setCancelSuccessFlag,
-    cancelSuccessFlag,
-  } = useCancelReservation();
-
-  const {
-    isRating,
-    rateCancelError,
-    rateReservation,
-    setRateSuccessFlag,
-    rateSuccessFlag,
-    rateSuccess,
-    isRateSuccess,
-    setIsRateSuccess,
-  } = useRateReservation();
-
-  const rateAlert = () => {
-    setRateSuccessFlag(true);
-  };
-
-  const handleUserRatingChange = (rating: number) => {
-    setUserFeedbackRating(rating);
-    // Here you would typically send this rating to your backend
-  };
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (cancelError) {
-    // You might want to display a separate error message for cancellation
-    console.error("Cancellation Error:", cancelError);
-  }
-  if (rateCancelError) {
-    // You might want to display a separate error message for cancellation
-    console.error("Rating Error:", cancelError);
-  }
-
-  const myArray = [
-    { arrx: "10000" },
-    { arrx: "1111110" },
-    { arrx: "232222" },
-    { arrx: "4545453" },
-    { arrx: "asdasdasd" },
-  ];
-
-  const cancelReservationHandler = () => {
-    setCancelSuccessFlag(true);
-  };
-
-  const sharedQuestionHandler = () => {
-    setCancelSuccessFlag(false);
-    cancelReservation(itemId);
-  };
-  const sharedRateQuestionHandler = () => {
-    setRateSuccessFlag(false);
-    rateReservation(itemId, userFeedbackRating);
-  };
-
-  const confirmHandler = () => {
-    setIsRateSuccess(false);
-    setIsCanceling(false);
-    router.back();
-  };
-  const cancelHandler = () => {
-    setIsCanceling(false);
-  };
-
+  console.log("first",check, reservationData?.past)
   return (
     <ScrollView style={styles.container}>
       <Image
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      {reservationData && (
-        <>
-          <View style={styles.coverContent}>
-            {/* {reservationData?.status === 0 ? (
-              <IconSymbol size={38} name="check.cirle" color="green" />
-            ) : (
-              <IconSymbol size={38} name="disturb" color="red" />
-            )} */}
-            <Text style={styles.timeData}>
-              {convertToDayTime(reservationData?.startDate)} -
-              {addMinutesToTime(
-                convertToDayTime(reservationData?.startDate),
-                reservationData?.service?.duration
-              )}
-            </Text>
-            <Text style={styles.dateData}>
-              {convertDate(reservationData?.startDate)}
-            </Text>
-            <Text style={styles.dateData}>Barber Studio - Gentleman</Text>
-          </View>
-          <View style={styles.containerWrapper}>
-            <Details data={reservationData} />
-          </View>
-          {reservationData?.description && (
-            <View style={styles.containerWrapper}>
-              <Text style={styles.description}>
-                Your description: {reservationData?.description}
-              </Text>
-            </View>
-          )}
-          {check === "false" && !reservationData?.rating && (
-            <StarRating onRatingChange={handleUserRatingChange} />
-          )}
-          <View style={styles.btnSubmitContainer}>
-            {check === "false" && !reservationData?.rating && (
-              <SharedButtonDateReservation
-                loading={isRating}
-                onPress={rateAlert}
-                text="Rate us"
-              />
-            )}
-            {check === "true" && (
-              <SharedButtonDateReservation
-                onPress={cancelReservationHandler}
-                loading={isCanceling}
-                text="Cancel"
-              />
-            )}
-          </View>
+      <HeaderReservationTime data={reservationData} />
 
-          {check === "false" && reservationData?.rating && (
-            <View style={{ alignItems: "center" }}>
-              <Text style={{ color: "white", fontSize: 20 }}>
-                You rated this appointment
-              </Text>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 4,
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 40 }}>
-                  {myArray?.map((item, index) => {
-                    if (index < reservationData?.rating?.rate) {
-                      return (
-                        <IconSymbol
-                          key={item.arrx}
-                          name="star"
-                          color="gold"
-                          size={40}
-                        />
-                      );
-                    }
-                  })}
-                </Text>
-              </View>
-            </View>
-          )}
-        </>
-      )}
-      {cancelSuccessFlag && (
-        <SharedQuestion
-          isOpen={cancelSuccessFlag}
-          onClose={() => setCancelSuccessFlag(false)}
-          onLogOut={sharedQuestionHandler}
-          icon={
-            <FontAwesome
-              name="question-circle-o" // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
-            />
-          }
-          title="Are you sure you want to cancel this reservation?" // Title of the modal
-          buttonTextYes="Yes" // Text for the action button
-          buttonTextNo="No"
-        />
-      )}
-      {rateSuccessFlag && (
-        <SharedQuestion
-          isOpen={rateSuccessFlag}
-          onClose={() => setRateSuccessFlag(false)}
-          onLogOut={sharedRateQuestionHandler}
-          icon={
-            <FontAwesome
-              name="question-circle-o" // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
-            />
-          }
-          title="Are you sure you want to rate this appointment?" // Title of the modal
-          buttonTextYes="Yes" // Text for the action button
-          buttonTextNo="No"
-        />
-      )}
+      <View style={styles.containerWrapper}>
+        <Details data={reservationData} />
+      </View>
 
-      {isCanceling && (
-        <SharedMessage
-          isOpen={isCanceling}
-          onClose={!cancelError ? confirmHandler : cancelHandler}
-          onConfirm={!cancelError ? confirmHandler : cancelHandler}
-          isLoading={isLoadingCancel}
-          icon={
-            <FontAwesome
-              name={cancelError ? "close" : "check-circle-o"}
-              size={64}
-              color="white"
-            />
-          }
-          title={cancelError || cancelSuccess}
-          buttonText="Ok"
-        />
+      {check === "true" && !reservationData?.past && (
+        <CancelDetailsComponent data={reservationData} itemId={itemId} />
       )}
-      {isRateSuccess && rateSuccess && (
-        <SharedMessage
-          isOpen={isRateSuccess}
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
-          isLoading={isLoading}
-
-          icon={
-            <FontAwesome
-              name={rateCancelError ? "close" : "check-circle-o"}
-              size={64}
-              color="white"
-            />
-          }
-          title={rateCancelError || rateSuccess}
-          buttonText="Ok"
-        />
+      {check === "false" && reservationData?.past && (
+        <RateDetailsComponent data={reservationData} itemId={itemId} />
       )}
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
-  btnSubmitContainer: {
-    display: "flex",
-    marginVertical: 20,
-    marginHorizontal: 20,
-  },
-  description: {
-    fontSize: 15,
-    color: "white",
-    padding: 10,
-    marginLeft: 10,
-  },
-  statusContent: {
-    color: "white",
-    padding: 8,
-    fontSize: 20,
-    borderRadius: 5,
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  disabledButton: {
-    opacity: 0.5,
-  },
   containerWrapper: {
     marginTop: 10,
     display: "flex",
-  },
-  containerBtn: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  dateData: {
-    fontSize: 25,
-    color: "#fff",
-    fontWeight: "700",
-  },
-  btnSubmit: {
-    fontSize: 30,
-    color: "white",
-    fontWeight: 900,
-    borderColor: "white",
-    backgroundColor: "#1C1C1E",
-    borderRadius: 20,
-    padding: 20,
-    top: 50,
-    borderWidth: 1,
-    alignItems: "center",
   },
   container: {
     flex: 1,
     backgroundColor: "black",
   },
-  coverContent: {
-    paddingHorizontal: 20,
-    position: "absolute",
-    top: 90,
-  },
-  statusContentPending: {
-    color: "white",
-    padding: 5,
-    fontSize: 20,
-    maxWidth: 140,
-    minWidth: 140,
-    backgroundColor: "gray",
-  },
-  statusContentConfirm: {
-    color: "white",
-    padding: 5,
-    fontSize: 20,
-    maxWidth: 100,
-    minWidth: 100,
-    backgroundColor: "green",
-  },
-  statusContentRejected: {
-    color: "white",
-    padding: 5,
-    fontSize: 20,
-    maxWidth: 100,
-    minWidth: 100,
-    backgroundColor: "red",
-  },
   coverImage: {
     width: "100%",
     height: 200,
     opacity: 0.2,
-  },
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "white", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
-  timeData: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
 export default ReservationDetails;

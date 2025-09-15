@@ -1,43 +1,37 @@
 import { useState } from "react";
 import { put } from "@/api/apiService";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useCancelReservation = () => {
-  const [isCanceling, setIsCanceling] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [cancelError, setCancelError] = useState(null);
   const [cancelMessage, setCancelMessage] = useState(null);
   const [cancelSuccess, setCancelSuccess] = useState(null);
   const [cancelSuccessFlag, setCancelSuccessFlag] = useState(false);
+  const { localization } = useLocalization();
 
   const cancelReservation = async (reservationId) => {
     setIsLoading(true);
+    setCancelError(null);
+
     if (!reservationId) {
       setCancelError("Reservation ID is missing.");
       return false;
     }
-    setCancelError(null);
     try {
-      const response = await put(`/availabilities/${reservationId}`, {
+      await put(`/availabilities/${reservationId}`, {
         status: 1,
       });
-      if (response.status === 202) {
-        setCancelError("Failed to cancel reservation.");
-        setIsCanceling(true);
-      } else {
-        setIsCanceling(true);
-
-        setCancelSuccess(response.message || "Successfully canceled.");
-      }
+      setCancelSuccess(
+        localization.APPOINTMENTS.cancelReservation.confirmMessage
+      );
     } catch (err) {
-      setIsCanceling(true);
-      
-      setCancelError(err.message || "Failed to cancel reservation.");
+      setCancelError(localization.APPOINTMENTS.cancelReservation.errorMessage);
     }
     setIsLoading(false);
   };
 
   return {
-    isCanceling,
     isLoading,
     cancelError,
     cancelReservation,
@@ -46,7 +40,6 @@ const useCancelReservation = () => {
     cancelSuccess,
     setCancelSuccessFlag,
     cancelSuccessFlag,
-    setIsCanceling,
   };
 };
 

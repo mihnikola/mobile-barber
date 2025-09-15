@@ -6,6 +6,7 @@ import {
   convertToDayTime,
   convertToMonthName,
 } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
@@ -38,6 +39,8 @@ const DateFormatComponent = ({ item }) => {
   );
 };
 const InfoContainerPast = ({ item }) => {
+  const { localization } = useLocalization();
+
   return (
     <View style={styles.centerContainer}>
       <View style={styles.infoContainer}>
@@ -53,7 +56,11 @@ const InfoContainerPast = ({ item }) => {
         <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
       </View>
       <View style={styles.ratingContainer}>
-        <Text style={styles.rating}>{item.rating ? "Rated" : "Rate us"}</Text>
+        <Text style={styles.rating}>
+          {item.rating
+            ? localization.APPOINTMENTS.rateReservation.rated
+            : localization.APPOINTMENTS.rateReservation.rateUs}
+        </Text>
       </View>
     </View>
   );

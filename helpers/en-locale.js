@@ -1,34 +1,56 @@
-
 export const ENG_LOCALIZATION = {
-  TABS:{
+  TABS: {
     HOME: "Home",
-    BARBERS:"Barbers",
+    BARBERS: "Barbers",
     APPOINTMENTS: "Appointments",
-    SETTINGS:"Settings"
-  }, 
+    SETTINGS: "Settings",
+  },
   code: "en",
   HOME: {},
   BARBERS: {},
-  APPOINTMENTS: {},
+  APPOINTMENTS: {
+    title: "Reservations",
+    cancelReservation: {
+      cancelButton: "Cancel",
+      cancelQuestion: "Are you sure you want to cancel this reservation?",
+      yesButton: "Yes",
+      noButton: "No",
+      confirmMessage: "Reservation is cancelled successfully",
+      errorMessage: "Reservation is not exist",
+    },
+    rateReservation: {
+      rateButton: "Rate",
+      rateQuestion: "Are you sure you want to rate this reservation?",
+      yesButton: "Yes",
+      noButton: "No",
+      rated: "Rated",
+      rateUs: "Rate us",
+      ratedInfo: "You rated this appointment",
+      confirmMessage: "Reservation is rated successfully",
+      errorMessage: "Reservation is not exist",
+    },
+    description: "Your description",
+    placeholderDescription: "Enter your description...",
+  },
   SETTINGS: {
     changeLanguage: {
       capture: "Change language",
-      filterCapture: "Filter languages"
+      filterCapture: "Filter languages",
     },
     LOGOUT: {
       title: "Logout",
       question: "Are you sure you want to sign out from application?",
       leave: "Leave",
-      cancel: "Cancel"
+      cancel: "Cancel",
     },
-    HELP:{
-      title:"Help & Support",
-      company:"Company:",
-      support: "Email Support"
+    HELP: {
+      title: "Help & Support",
+      company: "Company:",
+      support: "Email Support",
     },
-    LEGAL:{
-      title:"Legal & Policy",
-      update:"Last Updated: June 21, 2025",
+    LEGAL: {
+      title: "Legal & Policy",
+      update: "Last Updated: June 21, 2025",
       paragraph: `
       This Privacy Policy describes how FusionTech Agency. We collects, uses,and discloses your information in connection with your use of our mobile application, Barber App. By using the App, you agree to the collection and use of information in accordance with this policy. 
       1. Information We Collect We collect various types of information to provide and improve our App and its features. 
@@ -43,25 +65,23 @@ export const ENG_LOCALIZATION = {
       7. Children's Privacy Our App is not intended for use by children under the age of [e.g., 13 or local legal age]. We do not knowingly collect personally identifiable information from anyone under the age of [e.g., 13 or local legal age]. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us. If we become aware that we have collected personal information from a child without verification of parental consent, we take steps to remove that information from our servers. 
       8. Changes to This Privacy Policy We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this Privacy Policy. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page. 
       9. Contact Us If you have any questions about this Privacy Policy.`,
-      footerBottom:"All rights reserved ©"
-
+      footerBottom: "All rights reserved ©",
     },
-    ABOUTAPP:{
-      title:"About Application",
-      name:"App Name:",
-      version:"Version:",
-      dev:"Developed by:"
+    ABOUTAPP: {
+      title: "About Application",
+      name: "App Name:",
+      version: "Version:",
+      dev: "Developed by:",
     },
-    PROFILE:{
-      email:"Your email",
+    PROFILE: {
+      email: "Your email",
       phoneNumber: "Your phone number",
       errorPhoneNumber: "Please enter a valid phone number.",
       name: "Your name",
       placeholderName: "Enter your name",
-      loading:"Submitting...",
+      loading: "Submitting...",
       btnText: "Submit",
-      messageConfirm:"User updated successfully",
+      messageConfirm: "User updated successfully",
     },
-    
   },
 };

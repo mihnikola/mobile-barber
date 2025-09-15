@@ -1,49 +1,52 @@
-// src/hooks/useCancelReservation.js
 import { useState } from "react";
 import { put } from "@/api/apiService";
 
 const useRateReservation = () => {
-  const [isRating, setIsRating] = useState(false);
-  const [rateCancelError, setRateCancelError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [rateModal, setRateModal] = useState(false);
 
-  const [rateSuccess, setRateSuccess] = useState(null);
-  const [isRateSuccess, setIsRateSuccess] = useState(false);
+  const [rateError, setRateError] = useState(null);
+  const [rateMessage, setRateMessage] = useState(null);
 
-  const [rateSuccessFlag, setRateSuccessFlag] = useState(false);
 
   const rateReservation = async (reservationId, rating) => {
+    setRateError(null);
+    setIsLoading(true);
+
     if (!reservationId) {
-      setRateCancelError("Reservation ID is missing.");
+      setRateError("Reservation ID is missing.");
       return false;
     }
 
-    setIsRating(true);
-    setRateCancelError(null);
     try {
-      const response = await put(`/availabilities/${reservationId}`, {
+      await put(`/availabilities/${reservationId}`, {
         status: 0,
         rate: rating,
       });
-      setRateSuccess(response.message || "Appointment is rated.");
-      setIsRateSuccess(true);
+      setRateMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
     } catch (err) {
-      setRateCancelError(err.message || "Failed to rate reservation.");
-      console.error("Error rating reservation:", err);
-      return false;
+      setRateError(
+        localization.APPOINTMENTS.rateReservation.errorMessage
+      );
     } finally {
-      setIsRating(false);
+      setIsLoading(false);
     }
   };
 
   return {
-    isRating,
-    rateCancelError,
+    isLoading,
+
+    rateModal,
+    setRateModal,
+
+    rateError,
+    setRateError,
+
+    rateMessage,
+    setRateMessage,
+
     rateReservation,
-    rateSuccessFlag,
-    setRateSuccessFlag,
-    rateSuccess,
-    setIsRateSuccess,
-    isRateSuccess,
+
   };
 };
 
