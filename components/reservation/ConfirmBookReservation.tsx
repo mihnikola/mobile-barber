@@ -5,8 +5,11 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/shared-components/Note";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const ConfirmBookReservation = () => {
+  const { localization } = useLocalization();
+
   const { reservation } = useContext(ReservationContext)!;
   const params = useLocalSearchParams();
   const { responseData } = params;
@@ -51,10 +54,10 @@ const ConfirmBookReservation = () => {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.message}>
-            Your appointment is successfully booked!
+            {localization.SALON.success}
           </Text>
           <Note />
-          <SharedButton onPress={submitReservationHandler} text="OK" />
+          <SharedButton onPress={submitReservationHandler} text={localization.BUTTONS.ok} />
         </View>
       </View>
     );

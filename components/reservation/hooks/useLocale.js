@@ -1,6 +1,6 @@
 import { LocaleConfig } from "react-native-calendars";
 
-export default LocaleConfig.locales["en"] = {
+LocaleConfig.locales["en"] = {
   monthNames: [
     "January",
     "February",
@@ -26,35 +26,34 @@ export default LocaleConfig.locales["en"] = {
   ],
   dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 };
-LocaleConfig.defaultLocale = "en";
 
 
+LocaleConfig.locales["sr"] = {
+  monthNames: [
+    "Januar",
+    "Februar",
+    "Mart",
+    "April",
+    "Maj",
+    "Jun",
+    "Jul",
+    "Avgust",
+    "Septembar",
+    "Oktobar",
+    "Novembar",
+    "Decembar",
+  ],
+  dayNames: [
+    "Nedelja",
+    "Ponedeljak",
+    "Utorak",
+    "Sreda",
+    "Četvrtak",
+    "Petak",
+    "Subota",
+  ],
+  dayNamesShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
+};
 
-// Set up locale for Serbian language
-// LocaleConfig.locales["srb"] = {
-//   monthNames: [
-//     "Januar",
-//     "Februar",
-//     "Mart",
-//     "April",
-//     "Maj",
-//     "Jun",
-//     "Jul",
-//     "Avgust",
-//     "Septembar",
-//     "Oktobar",
-//     "Novembar",
-//     "Decembar",
-//   ],
-//   dayNames: [
-//     "Nedelja",
-//     "Ponedeljak",
-//     "Utorak",
-//     "Sreda",
-//     "Četvrtak",
-//     "Petak",
-//     "Subota",
-//   ],
-//   dayNamesShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-// };
-// LocaleConfig.defaultLocale = "srb";
+
+LocaleConfig.defaultLocale = 'en';

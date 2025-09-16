@@ -1,17 +1,18 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const Note = () => {
+  const {localization} = useLocalization();
+
   return (
     <View style={styles.data}>
-      <Text style={styles.title}>Salon Rules:</Text>
+      <Text style={styles.title}>{localization.SALON.title}</Text>
       <Text style={styles.info}>
-        1. Maximum delay allowed is 5 minutes. After that, the appointment is
-        considered missed!
+       {localization.SALON.first}
       </Text>
       <Text style={styles.info}>
-        2. Cancellations must be made at least 180 minutes before the
-        appointment.
+        {localization.SALON.second}
       </Text>
     </View>
   );

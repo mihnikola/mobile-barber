@@ -69,9 +69,8 @@ const SharedItem = (props: any) => {
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price || servicePrice? `${localization.DETAILS.price} ${price || servicePrice}` : 10}{" "}
+              {price || servicePrice ? `${localization.DETAILS.price} ${price || servicePrice}` : `25 ${localization.DETAILS.mark}`}{" "}
             </Text>
-            {!price || !servicePrice && <Text style={styles.reviewText}>25 {localization.DETAILS.mark}</Text>}
           </View>
         </View>
         <FontAwesome name={"chevron-right"} size={32} color="gray" />
