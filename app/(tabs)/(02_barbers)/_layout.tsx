@@ -44,6 +44,13 @@ export default function RootLayoutBarbers() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="locations"
+        options={{
+          title: "",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
