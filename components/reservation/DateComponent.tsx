@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Text, Image } from "react-native";
-import { CalendarList, LocaleConfig } from "react-native-calendars";
+import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
@@ -11,6 +11,7 @@ import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
+import { setupCalendarLocales } from "./hooks/useLocale"; // Adjust path if needed
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -25,63 +26,9 @@ const DateComponent = () => {
     reservation,
     isSunday
   );
-  // 🌍 Locale Definitions
-  LocaleConfig.locales["en"] = {
-    monthNames: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    dayNames: [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
-    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  };
-
-  LocaleConfig.locales["sr"] = {
-    monthNames: [
-      "Januar",
-      "Februar",
-      "Mart",
-      "April",
-      "Maj",
-      "Jun",
-      "Jul",
-      "Avgust",
-      "Septembar",
-      "Oktobar",
-      "Novembar",
-      "Decembar",
-    ],
-    dayNames: [
-      "Nedelja",
-      "Ponedeljak",
-      "Utorak",
-      "Sreda",
-      "Četvrtak",
-      "Petak",
-      "Subota",
-    ],
-    dayNamesShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-  };
-
-  // Set default locale
-  LocaleConfig.defaultLocale = localization.code;
+  useEffect(() => {
+    setupCalendarLocales(localization.code);
+  }, [localization.code]);
 
   const reportHandler = () => {
     const { employer, service } = reservation;
