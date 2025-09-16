@@ -5,8 +5,6 @@ const LocalizationContext = createContext(null);
 export const useLocalization = () => {
     return useContext(LocalizationContext);
 };
-
-
 export const LocalizationProvider = ({ children }) => {
     const [localization, setLocalization] = useState(ENG_LOCALIZATION);
 

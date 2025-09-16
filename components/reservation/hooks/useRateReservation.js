@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { put } from "@/api/apiService";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useRateReservation = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -7,6 +8,7 @@ const useRateReservation = () => {
 
   const [rateError, setRateError] = useState(null);
   const [rateMessage, setRateMessage] = useState(null);
+  const { localization } = useLocalization();
 
 
   const rateReservation = async (reservationId, rating) => {

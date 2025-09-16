@@ -1,17 +1,12 @@
-import { addMinutesToTime, convertDate, convertToDayTime } from "@/helpers";
 import { StyleSheet, Text, View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
   return (
     <View style={styles.coverContent}>
       <Text style={styles.timeData}>
-        {convertToDayTime(data?.startDate)} -
-        {addMinutesToTime(
-          convertToDayTime(data?.startDate),
-          data?.service?.duration
-        )}
+        {data?.startDateTime} - {data?.finishedTime}
       </Text>
-      <Text style={styles.dateData}>{convertDate(data?.startDate)}</Text>
+      <Text style={styles.dateData}>{data?.eventDate}</Text>
       <Text style={styles.dateData}>Barber Studio - Gentleman</Text>
     </View>
   );

@@ -8,6 +8,12 @@ export const SRB_LOCALIZATION = {
   code: "sr",
   HOME: {},
   BARBERS: {},
+  DETAILS:{
+    price:"Cena",
+    duration:"Trajanje",
+    mark:"Ocena"
+
+  },
   APPOINTMENTS: {
     title: "Rezervacije",
     cancelReservation: {

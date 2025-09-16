@@ -5,7 +5,18 @@ export default function RootLayoutCalendar() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title:"", headerShown: false }} />
       <Stack.Screen
-        name="modalReservation"
+        name="rateReservation"
+        options={{
+          title: "",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "black", // Replace with your desired color
+          },
+          headerTintColor: "white", // This sets the color of the title text and back button arrow
+        }}
+      />
+      <Stack.Screen
+        name="cancelReservation"
         options={{
           title: "",
           headerShown: true,

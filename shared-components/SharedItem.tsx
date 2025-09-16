@@ -2,11 +2,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { FontAwesome } from "@expo/vector-icons";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price, position } = data;
   const { servicePrice, serviceDuration } = data;
+    const { localization } = useLocalization();
+  
   if (!redirectHandler) {
     return (
       <View key={id} style={styles.card}>
@@ -21,7 +24,7 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `Duration ${duration || serviceDuration}` : "Top Barber"}
+              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : "Top Barber"}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
@@ -31,7 +34,7 @@ const SharedItem = (props: any) => {
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price || servicePrice ? `Price ${price || servicePrice}` : `25 Review`}{" "}
+              {price || servicePrice ? `${localization.DETAILS.price} ${price || servicePrice}` : `25 ${localization.DETAILS.mark}`}{" "}
             </Text>
           </View>
         </View>
@@ -56,7 +59,7 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `Duration ${duration || serviceDuration}` : "Top Barber"}
+              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : "Top Barber"}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
@@ -66,9 +69,9 @@ const SharedItem = (props: any) => {
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price || servicePrice? `Price ${price || servicePrice}` : 10}{" "}
+              {price || servicePrice? `${localization.DETAILS.price} ${price || servicePrice}` : 10}{" "}
             </Text>
-            {!price || !servicePrice && <Text style={styles.reviewText}>(25 Review)</Text>}
+            {!price || !servicePrice && <Text style={styles.reviewText}>25 {localization.DETAILS.mark}</Text>}
           </View>
         </View>
         <FontAwesome name={"chevron-right"} size={32} color="gray" />

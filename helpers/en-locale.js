@@ -8,6 +8,11 @@ export const ENG_LOCALIZATION = {
   code: "en",
   HOME: {},
   BARBERS: {},
+  DETAILS:{
+    price:"Price",
+    duration:"Duration",
+    mark:"Reviews"
+  },
   APPOINTMENTS: {
     title: "Reservations",
     cancelReservation: {
