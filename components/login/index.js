@@ -84,9 +84,6 @@ const LoginScreen = () => {
     router.push("/(tabs)/(04_settings)/forgotPass");
   };
 
-  if (isGoogleLoading) {
-    return <SharedLoader />;
-  }
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
@@ -160,12 +157,7 @@ const LoginScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <SharedButton
-          loading={isLoading}
-          onPress={handleLogin}
-          text="Login"
-        />
-
+        <SharedButton loading={isLoading} onPress={handleLogin} text="Login" />
 
         <SharedRedirect
           onPress={navigateToRegister}
@@ -189,6 +181,7 @@ const LoginScreen = () => {
             buttonText="OK" // Text for the action button
           />
         )}
+        {isGoogleLoading && <SharedLoader />}
       </View>
     </ScrollView>
   );
