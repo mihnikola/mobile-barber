@@ -9,16 +9,18 @@ const useReservations = () => {
   const [error, setError] = useState(null);
 
   const detailsReservation = (item) => {
-    const checkValue = item?.past ? false : true;
-    router.push({
-      pathname: "/(tabs)/(03_calendar)/modalReservation",
-      params: { itemId: item._id, check: checkValue },
-    });
+    if (item?.past) {
+      router.push({
+        pathname: "/(tabs)/(03_calendar)/rateReservation",
+        params: { itemId: item._id },
+      });
+    } else {
+      router.push({
+        pathname: "/(tabs)/(03_calendar)/cancelReservation",
+        params: { itemId: item._id },
+      });
+    }
   };
-
-
-
-
 
   const getReservationsData = async () => {
     setIsLoading(true);

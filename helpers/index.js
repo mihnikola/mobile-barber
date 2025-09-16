@@ -1,7 +1,7 @@
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
-  const [day, tttt] = inputTime?.split("T");
-  const [hours, minutes] = day?.split(":");
+  // const [day, tttt] = inputTime?.split("T");
+  const [hours, minutes] = inputTime?.split(":");
   // Kreiraj datum sa tim vremenom
   let date = new Date();
   date.setHours(hours, minutes, 0, 0); // Postavi vreme
@@ -57,9 +57,22 @@ export function convertToDay(dateString) {
 
   return day; // Output: January
 }
+export function structureData(response) {
+  const startDateTime = convertToDayTime(response?.startDate);
+  const finishedTime = addMinutesToTime(
+    convertToDayTime(response?.startDate),
+    response?.service?.duration
+  );
+  const eventDate = convertDate(response?.startDate);
+  return {
+    ...response,
+    eventDate,
+    startDateTime,
+    finishedTime,
+  };
+}
 export function convertToDayTime(dateString) {
   // Convert the string to a Date object
-
   const [date, time] = dateString.split("T");
   const [hours, minutes] = time.split(":");
 
@@ -168,7 +181,6 @@ export const convertDate = (item) => {
   // Combine everything into the desired format
   return `${dayOfWeek} ${day}-${month}-${year}`;
 };
-
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   // Example input: "2025-05-26T9:39:20 AM" or "2025-05-26T9:39:20 PM"

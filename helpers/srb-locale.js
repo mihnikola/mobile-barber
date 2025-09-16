@@ -8,7 +8,37 @@ export const SRB_LOCALIZATION = {
   code: "sr",
   HOME: {},
   BARBERS: {},
-  APPOINTMENTS: {},
+  DETAILS:{
+    price:"Cena",
+    duration:"Trajanje",
+    mark:"Ocena"
+
+  },
+  APPOINTMENTS: {
+    title: "Rezervacije",
+    cancelReservation: {
+      cancelButton: "Otkaži",
+      cancelQuestion:
+        "Da li ste sigurni da želite da otkažete ovu rezervaciju?",
+      yesButton: "Da",
+      noButton: "Ne",
+      confirmMessage: "Rezervacija je uspešno otkazana",
+      errorMessage: "Rezervacija ne postoji",
+    },
+    rateReservation: {
+      rateButton: "Ocenite",
+      rateQuestion: "Da li ste sigurni da želite da ocenite ovu rezervaciju?",
+      yesButton: "Da",
+      noButton: "Ne",
+      rated: "Ocenjeno",
+      rateUs: "Ocenite nas",
+      ratedInfo: "Ocenili ste ovu rezervaciju",
+      confirmMessage: "Rezervacija je uspešno ocenjena",
+      errorMessage: "Rezervacija ne postoji",
+    },
+    description: "Vaš Opis:",
+    placeholderDescription: "Unesite opis...",
+  },
   SETTINGS: {
     changeLanguage: {
       capture: "Promeni jezik",
@@ -29,8 +59,7 @@ export const SRB_LOCALIZATION = {
       title: "Pravno i politika",
       update: `Poslednje ažuriranje:  21 Jun 2025
       `,
-      paragraph:
-        `     Ova Politika privatnosti opisuje kako FusionTech Agency prikuplja, koristi i otkriva vaše podatke u vezi sa vašim korišćenjem naše mobilne aplikacije, Barber App. Korišćenjem aplikacije, pristajete na prikupljanje i korišćenje informacija u skladu sa ovom politikom. 
+      paragraph: `     Ova Politika privatnosti opisuje kako FusionTech Agency prikuplja, koristi i otkriva vaše podatke u vezi sa vašim korišćenjem naše mobilne aplikacije, Barber App. Korišćenjem aplikacije, pristajete na prikupljanje i korišćenje informacija u skladu sa ovom politikom. 
       1. Informacije koje prikupljamo Prikupljamo različite vrste informacija kako bismo pružili i poboljšali našu aplikaciju i njene funkcije. 
       1.1. Informacije koje nam direktno dostavljate Kada koristite našu aplikaciju, možete nam pružiti određene lične podatke, uključujući, ali ne ograničavajući se na: Informacije o nalogu: Vaše ime, adresa e-pošte, korisničko ime, lozinka i drugi detalji o registraciji. Informacije o profilu: Slika profila, biografija, podešavanja ili drugi detalji koje izaberete da dodate svom profilu. Komunikacija: Informacije koje pružate kada nas kontaktirate za podršku, pošaljete nam povratne informacije ili učestvujete u anketama. Korisnički sadržaj: Bilo koji sadržaj koji kreirate, otpremite ili delite u okviru aplikacije (npr. fotografije, video snimci, tekst, komentari, opisi zadataka, poruke). 
       1.2. Informacije koje automatski prikupljamo Kada pristupate aplikaciji i koristite je, možemo automatski prikupljati određene informacije o vašem uređaju i vašim obrascima korišćenja, uključujući: Informacije o uređaju: Model uređaja, verzija operativnog sistema, jedinstveni identifikatori uređaja (npr. UDID, ID oglašavanja), informacije o mobilnoj mreži. Podaci o korišćenju: Informacije o tome kako komunicirate sa aplikacijom, kao što su pristupane funkcije, pregledani ekrani, vreme provedeno na funkcijama, padovi i drugi podaci o performansama. Podaci evidencije: Evidencije servera mogu da uključuju IP adresu vašeg uređaja, datume i vreme pristupa, pregledane funkcije ili stranice aplikacije i druge sistemske aktivnosti. Informacije o lokaciji: Precizna lokacija: Uz vašu izričitu dozvolu, možemo prikupljati precizne podatke o lokaciji sa GPS, Wi-Fi ili mobilne mreže vašeg uređaja. Ovo se koristi za [npr. usluge zasnovane na lokaciji, prikazivanje sadržaja u blizini, pružanje navigacije]. Ovo možete onemogućiti u podešavanjima uređaja. Približna lokacija: Možemo zaključiti vašu približnu lokaciju na osnovu vaše IP adrese ili podešavanja uređaja. Analitičke informacije: Možemo koristiti alate za analitiku trećih strana (npr. Google Analytics za Firebase, Mixpanel) kako bismo izmerili trendove saobraćaja i korišćenja za aplikaciju. Ovi alati prikupljaju informacije koje šalje vaš uređaj, uključujući stranice koje posećujete i druge informacije koje nam pomažu u poboljšanju aplikacije. 
@@ -41,7 +70,7 @@ export const SRB_LOCALIZATION = {
       5. Vaša prava U zavisnosti od vaše jurisdikcije, možete imati određena prava u vezi sa vašim ličnim podacima, uključujući: Pristup: Pravo da zahtevate kopiju ličnih podataka koje posedujemo o vama. Ispravka: Pravo da zahtevate da ispravimo bilo koje netačne ili nepotpune lične podatke. Brisanje: Pravo da zahtevate da obrišemo vaše lične podatke, pod određenim uslovima. Ograničenje obrade: Pravo da zahtevate da ograničimo obradu vaših ličnih podataka, pod određenim uslovima. Prigovor na obradu: Pravo da prigovorite na našu obradu vaših ličnih podataka, pod određenim uslovima. Prenosivost podataka: Pravo da zahtevate da podatke koje smo prikupili prenesemo drugoj organizaciji ili direktno vama, pod određenim uslovima. Povlačenje saglasnosti: Kada se oslanjamo na vašu saglasnost za obradu vaših ličnih podataka, imate pravo da povučete tu saglasnost u bilo kom trenutku. Da biste ostvarili bilo koje od ovih prava, kontaktirajte nas koristeći kontakt podatke navedene u Odeljku 7. 
       6. Bezbednost vaših podataka Bezbednost vaših ličnih podataka nam je važna. Sprovodimo razumne mere bezbednosti osmišljene da zaštite vaše podatke od neovlašćenog pristupa, upotrebe, izmene i otkrivanja. Međutim, nijedan metod prenosa preko interneta ili metod elektronskog skladištenja nije 100% bezbedan. Stoga, iako se trudimo da koristimo komercijalno prihvatljiva sredstva za zaštitu vaših ličnih podataka, ne možemo garantovati njihovu apsolutnu bezbednost. 
       7. Privatnost dece Naša aplikacija nije namenjena za upotrebu od strane dece mlađe od [npr. 13 godina ili lokalnog zakonskog punoletstva]. Ne prikupljamo svesno lične podatke od bilo koga mlađeg od [npr. 13 godina ili lokalnog zakonskog punoletstva]. Ako ste roditelj ili staratelj i svesni ste da nam je vaše dete pružilo lične podatke`,
-     
+
       footerBottom: "Sva prava zadržava ©",
     },
     ABOUTAPP: {

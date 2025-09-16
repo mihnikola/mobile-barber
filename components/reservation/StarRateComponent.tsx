@@ -64,7 +64,6 @@ const StarRating: React.FC<StarRatingProps> = ({
         gap:20
       }}
     >
-      <Text style={{ color: "white" }}>Rate this:</Text>
       <View style={{ display: "flex", flexDirection: "row" }}>
         {renderStars()}
       </View>

@@ -15,7 +15,7 @@ export function usePushNotifications() {
 
         if (reservationIdValue) {
             router.push({
-                pathname: "/(tabs)/(03_calendar)/cancelModalReservation",
+                pathname: "/(tabs)/(03_calendar)/cancelReservation",
                 params: {
                     itemId: reservationIdValue,
                     check: true,

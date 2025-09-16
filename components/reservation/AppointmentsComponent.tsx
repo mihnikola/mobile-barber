@@ -4,16 +4,16 @@ import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
 import CardReservation from "./CardReservation";
+import { useLocalization } from "@/context/LocalizationContext";
 
-const CalendarComponent = () => {
+const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
 
+  const { localization } = useLocalization();
   useEffect(() => {
     getReservationsData();
   }, []);
-
-  
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -21,7 +21,7 @@ const CalendarComponent = () => {
         style={styles.coverImage}
       />
       <View style={styles.containerCapture}>
-        <Text style={styles.capture}>Reservations</Text>
+        <Text style={styles.capture}>{localization.APPOINTMENTS.title}</Text>
       </View>
       {isLoading ? (
         <Loader />
@@ -41,7 +41,7 @@ const CalendarComponent = () => {
   );
 };
 
-export default CalendarComponent;
+export default AppointmentsComponent;
 
 const styles = StyleSheet.create({
   container: {
