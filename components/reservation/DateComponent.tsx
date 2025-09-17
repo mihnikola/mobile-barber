@@ -1,12 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Image,
-} from "react-native";
-import { CalendarList } from "react-native-calendars";
+import { View, StyleSheet, ScrollView, Text, Image } from "react-native";
+import { CalendarList, LocaleConfig } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
@@ -14,10 +8,15 @@ import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
+import {calendarLocales} from "@/helpers/calendarLocales";
+
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
+import { useLocalization } from "@/context/LocalizationContext";
+
 const DateComponent = () => {
   const currentDate = new Date();
+  const { localization } = useLocalization();
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
@@ -28,7 +27,6 @@ const DateComponent = () => {
     reservation,
     isSunday
   );
-
   const reportHandler = () => {
     const { employer, service } = reservation;
     if (employer && service && selectedItem && selectedDate) {
@@ -47,7 +45,10 @@ const DateComponent = () => {
     handleDayPress(valueInitialData);
   }, []);
 
+  useEffect(()=>{
+    calendarLocales(localization.code);
 
+  },[localization.code])
 
   return (
     <ScrollView style={styles.container}>
@@ -55,9 +56,10 @@ const DateComponent = () => {
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <Text style={styles.capture}>Choose your date</Text>
+      <Text style={styles.capture}>{localization.DATE.title}</Text>
       <View style={styles.calendarContainer}>
         <CalendarList
+          key={localization.code}
           style={styles.calendar}
           theme={calendarTheme}
           onVisibleMonthsChange={(months) => {
@@ -85,7 +87,7 @@ const DateComponent = () => {
         {!isSunday && (
           <>
             {isLoading && <Loader />}
-            {resetError && <NotSummary text="Please select your day" />}
+            {resetError && <NotSummary text={localization.DATE.chooseDate} />}
             {!isLoading && !error && timesData.length > 0 && !resetError && (
               <Summary
                 data={timesData}
@@ -94,14 +96,14 @@ const DateComponent = () => {
               />
             )}
             {!isLoading && timesData.length === 0 && !resetError && (
-              <NotSummary text="No appointments for the chosen date" />
+              <NotSummary text={localization.DATE.noAvailableDates} />
             )}
           </>
         )}
         {isSunday && (
           <View style={styles.notWorkingDays}>
             <Text style={styles.notWorkingDaysContent}>
-              We don't work on Sundays
+              {localization.DATE.holidaySunday}
             </Text>
           </View>
         )}
@@ -112,7 +114,7 @@ const DateComponent = () => {
             loading={isLoading}
             disabled={isLoading}
             onPress={reportHandler}
-            text={"Continue"}
+            text={localization.DATE.continue}
           />
         </View>
       )}
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignSelf: "flex-start",
     paddingVertical: 90,
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   coverImage: {
     width: "100%",

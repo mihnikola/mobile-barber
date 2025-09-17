@@ -11,7 +11,6 @@ const Calendar = () => {
 
   const checkToken = async () => {
     try {
-      console.log("reevalutedreevalutedreevaluted", reevaluted);
 
       const storedToken = await AsyncStorage.getItem("token");
       if (storedToken) {

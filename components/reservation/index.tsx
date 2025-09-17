@@ -6,9 +6,12 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
+    const {localization } = useLocalization();
+  
   const {
     submitReservationHandler,
     isLoading,
@@ -45,6 +48,7 @@ const Reservation = () => {
           <View>
             {reservation && <Details data={reservation} />}
             <SharedInputTextArea
+              placeholderText={localization.DATE.detailsReservation}
               description={description}
               setDescription={setDescription}
             />
@@ -54,7 +58,7 @@ const Reservation = () => {
           <SharedButton
             loading={isLoading}
             onPress={submitReservationHandler}
-            text={isLoading ? "Booking..." : "Book"}
+            text={localization.DATE.book}
           />
         </View>
       </ScrollView>

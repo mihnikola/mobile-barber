@@ -1,3 +1,6 @@
+import { useLocalization } from "@/context/LocalizationContext";
+import { dayNamesEng } from "@/helpers/locale-calendar-en";
+import { dayNamesRs } from "@/helpers/locale-calendar-rs";
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
@@ -160,17 +163,14 @@ export function getTimeForUTCOffset(offsetHours) {
 export const convertDate = (item) => {
   const date = new Date(item);
 
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const { localization } = useLocalization();
+  let weekdays = [];
+  if (localization.code === "en") {
+    weekdays = dayNamesEng;
+  } else {
+    weekdays = dayNamesRs;
+  }
 
-  // Get the day of the week in Croatian
   const dayOfWeek = weekdays[date.getDay()];
 
   // Format the date to day-month-year

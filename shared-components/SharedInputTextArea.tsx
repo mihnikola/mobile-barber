@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
  * A reusable component for a multiline text input field.
  * @returns {JSX.Element} The multiline text input component.
  */
-const SharedInputTextArea = ({ description, setDescription }): JSX.Element => {
+const SharedInputTextArea = ({ description, setDescription, placeholderText }): JSX.Element => {
   return (
     <View style={styles.container}>
       {/* The core multiline TextInput component */}
@@ -12,7 +12,7 @@ const SharedInputTextArea = ({ description, setDescription }): JSX.Element => {
         style={styles.textInput}
         onChangeText={setDescription}
         value={description}
-        placeholder="Enter your details here..."
+        placeholder={placeholderText}
         placeholderTextColor="grey"
         multiline={true} // This is the key prop for multiline behavior
         numberOfLines={4} // Optional: Hint for Android's initial height

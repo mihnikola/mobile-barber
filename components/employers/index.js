@@ -6,6 +6,7 @@ import Loader from "@/components/Loader";
 import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router } from "expo-router";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -16,6 +17,8 @@ const Employers = () => {
     router.push("/(tabs)/(02_barbers)/services");
   };
 
+  const {localization} = useLocalization();
+
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -23,7 +26,7 @@ const Employers = () => {
         style={styles.coverImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Choose your barber</Text>
+        <Text style={styles.capture}>{localization.BARBERS.title}</Text>
       </View>
       {isLoading && <Loader />}
       {!isLoading && (
@@ -67,13 +70,13 @@ const styles = StyleSheet.create({
 
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
+    marginHorizontal: 15,
   },
   capture: {
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    paddingVertical: 130,
+    paddingVertical: 140,
   },
 
   container: {

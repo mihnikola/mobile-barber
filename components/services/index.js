@@ -7,6 +7,7 @@ import useFetchServices from "./hooks/useFetchServices";
 import SharedItem from "@/shared-components/SharedItem";
 import { router } from "expo-router";
 import { getStorage } from "@/helpers/token";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -31,13 +32,14 @@ const MenuServices = () => {
     }
   };
 
+  const {localization } = useLocalization();
   return (
     <ScrollView style={styles.container}>
       <Image
         source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
-      <Text style={styles.capture}>Pricing and Services</Text>
+      <Text style={styles.capture}>{localization.SERVICES.title}</Text>
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length > 0 && !isLoading && (

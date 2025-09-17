@@ -76,7 +76,6 @@ export const MAIN_DATA = {
   workDays: "Monday - Friday (09:00 AM - 06:00 PM)",
   workSaturday: "Saturday (10:00 AM - 05:00 PM)",
   sunday: "Closed on Sundays",
-  location: "Location",
 };
 
 export const TIME_DATA = [

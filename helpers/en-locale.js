@@ -7,11 +7,37 @@ export const ENG_LOCALIZATION = {
   },
   code: "en",
   HOME: {},
-  BARBERS: {},
-  DETAILS:{
-    price:"Price",
-    duration:"Duration",
-    mark:"Reviews"
+  BUTTONS: {
+    ok: "OK",
+    cancel: "Cancel",
+  },
+  BARBERS: {
+    title: "Choose your barber",
+  },
+  DATE: {
+    title: "Choose your date",
+    holidaySunday: "We don't work on Sundays",
+    noAvailableDates: "No appointments for the chosen date",
+    chooseDate: "Please select your day",
+    continue: "Continue",
+    book: "Book",
+    detailsReservation: "Enter your details here..",
+  },
+  SALON: {
+    title: "Salon Rules:",
+    first:
+      "1. Maximum delay allowed is 5 minutes. After that, the appointment is considered missed!",
+    second:
+      "2. Cancellations must be made at least 180 minutes before the appointment.",
+    success: "Your appointment is successfully booked!",
+  },
+  SERVICES: {
+    title: "Pricing & Services",
+  },
+  DETAILS: {
+    price: "Price",
+    duration: "Duration",
+    mark: "Reviews",
   },
   APPOINTMENTS: {
     title: "Reservations",

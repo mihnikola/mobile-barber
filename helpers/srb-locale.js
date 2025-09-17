@@ -5,14 +5,39 @@ export const SRB_LOCALIZATION = {
     APPOINTMENTS: "Rezervacije",
     SETTINGS: "Podešavanje",
   },
+  BUTTONS: {
+    ok: "U redu",
+    cancel: "Odustani",
+  },
   code: "sr",
   HOME: {},
-  BARBERS: {},
-  DETAILS:{
-    price:"Cena",
-    duration:"Trajanje",
-    mark:"Ocena"
-
+  BARBERS: {
+    title: "Odaberi svog frizera",
+  },
+  SERVICES: {
+    title: "Cenovnik & Usluge",
+  },
+  DATE: {
+    title: "Odaberi svoj termin",
+    holidaySunday: "Ne radimo nedeljom",
+    noAvailableDates: "Ne postoji slobodni termini za taj datum",
+    chooseDate: "Odaberite svoj termin",
+    continue: "Nastavi",
+    book: "Rezerviši",
+    detailsReservation: "Dodaj napomenu...",
+  },
+  SALON: {
+    title: "Pravila salona:",
+    first:
+      "1. Maksimalno dozvoljeno kašnjenje je 5 minuta. Nakon toga, termin se smatra propuštenim!",
+    second:
+      "2. Otkazivanje se mora izvršiti najmanje 180 minuta pre zakazanog termina.",
+    success: "Vaš termin je uspešno zakazan!",
+  },
+  DETAILS: {
+    price: "Cena",
+    duration: "Trajanje",
+    mark: "Ocena",
   },
   APPOINTMENTS: {
     title: "Rezervacije",
