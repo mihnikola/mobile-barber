@@ -2,13 +2,13 @@ import { ABOUT_DATA } from "@/constants";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const AboutUsInfo = () => {
+const AboutUsInfo = ({title, text, textThree, textTwo}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{ABOUT_DATA.title}</Text>
-      <Text style={styles.text}>{ABOUT_DATA.text}</Text>
-      <Text style={styles.text}>{ABOUT_DATA.textTwo}</Text>
-      <Text style={styles.text}>{ABOUT_DATA.textThree}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{textTwo}</Text>
+      <Text style={styles.text}>{textThree}</Text>
     </View>
   );
 };
