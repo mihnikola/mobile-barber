@@ -1,5 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
-
+import { dayNamesEng } from "@/helpers/locale-calendar-en";
+import { dayNamesRs } from "@/helpers/locale-calendar-rs";
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
@@ -165,25 +166,9 @@ export const convertDate = (item) => {
   const { localization } = useLocalization();
   let weekdays = [];
   if (localization.code === "en") {
-    weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
+    weekdays = dayNamesEng;
   } else {
-    weekdays = [
-      "Nedelja",
-      "Ponedeljak",
-      "Utorak",
-      "Sreda",
-      "Četvrtak",
-      "Petak",
-      "Subota",
-    ];
+    weekdays = dayNamesRs;
   }
 
   const dayOfWeek = weekdays[date.getDay()];
