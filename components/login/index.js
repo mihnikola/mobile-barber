@@ -97,35 +97,12 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>Enter your information below</Text>
 
         <View style={styles.socialButtonsContainer}>
-          {/* <TouchableOpacity
-            style={[styles.socialButton, styles.googleButton]}
-            onPress={handleGoogleLogin}
-          >
-            <Image
-              source={require("@/assets/images/googleG.png")} // Adjust path as neededgoogleG
-              style={styles.iconStyle}
-            /> */}
           <GoogleSigninButton
             style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
           />
-
-          {/* <Text style={styles.socialButtonText}>Google</Text> */}
-          {/* </TouchableOpacity> */}
-          {/* <TouchableOpacity
-            style={[styles.socialButton, styles.appleButton]}
-            onPress={handleAppleLogin}
-          >
-            <IconSymbol
-              name="apple"
-              size={24}
-              color="white"
-              style={styles.socialIcon}
-            />
-            <Text style={styles.socialButtonText}>Apple</Text>
-          </TouchableOpacity> */}
         </View>
 
         <View style={styles.dividerContainer}>

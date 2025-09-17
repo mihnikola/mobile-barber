@@ -14,8 +14,10 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
-import {usePushNotifications} from './../../../components/home/hooks/usePushNotifications';
-import useCompany from './../../../components/home/hooks/useCompany';
+import { usePushNotifications } from "./../../../components/home/hooks/usePushNotifications";
+import useCompany from "./../../../components/home/hooks/useCompany";
+import HomeCoverImage from "@/components/home/HomeCoverImage";
+import HomeImage from "@/components/home/HomeImage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -32,14 +34,17 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const {company, getCompany} = useCompany();
+  const { company, getCompany } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
 
   const nextPage = () => {
     router.push("/(tabs)/(02_barbers)");
   };
   const onAboutUs = () => {
-    router.push("/(tabs)/(01_home)/whoWeAre");
+   
+    router.push({
+      pathname: "/(tabs)/(01_home)/whoWeAre",
+    });
   };
 
   useEffect(() => {
@@ -47,67 +52,69 @@ export default function App() {
     setTimeout(async () => {
       await registerForPushNotifications();
     }, 2000);
-  },[]);
+  }, []);
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/homeImage.jpg")}
-        style={styles.backImage}
-      />
-      <Animated.View
-        style={[
-          styles.box,
-          {
-            transform: [{ translateY: slideAnim }],
-          },
-        ]}
-      >
-        <Image
-          source={require("@/assets/images/logoBaber.png")}
-          style={styles.logoImage}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.boxBook,
-          {
-            transform: [{ translateY: slideAnimBook }],
-          },
-        ]}
-      >
-        <TouchableOpacity onPress={nextPage} style={styles.btnLocationContent}>
-          <FontAwesome name="calendar" size={28} color="white" />
-
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>Booking</Text>
-            <Text style={styles.address}>Book Your Spot</Text>
-          </View>
-
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onAboutUs} style={styles.btnLocationContent}>
-          <FontAwesome name="home" size={28} color="white" />
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>About us</Text>
-            <Text style={styles.address}>Our Story</Text>
-          </View>
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={()=>openGoogleMapsRoute(company?.mapsLink)}
-          style={styles.btnLocationContent}
+  if (company && company?.media?.coverImageHome) {
+    return (
+      <View style={styles.container}>
+        <HomeCoverImage image={company?.media?.coverImageHome} />
+        <Animated.View
+          style={[
+            styles.box,
+            {
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
         >
-          <FontAwesome name="location-arrow" size={28} color="white" />
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>Location</Text>
-            <Text style={styles.address}>Where Am I?</Text>
-          </View>
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-      </Animated.View>
-    </View>
-  );
+          <HomeImage image={company?.media?.logo} />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.boxBook,
+            {
+              transform: [{ translateY: slideAnimBook }],
+            },
+          ]}
+        >
+          <TouchableOpacity
+            onPress={nextPage}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="calendar" size={28} color="white" />
+
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>Booking</Text>
+              <Text style={styles.address}>Book Your Spot</Text>
+            </View>
+
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onAboutUs}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="home" size={28} color="white" />
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>About us</Text>
+              <Text style={styles.address}>Our Story</Text>
+            </View>
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGoogleMapsRoute(company?.mapsLink)}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="location-arrow" size={28} color="white" />
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>Location</Text>
+              <Text style={styles.address}>Where Am I?</Text>
+            </View>
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
