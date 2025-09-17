@@ -1,13 +1,11 @@
 
 import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { useCallback, useContext, useEffect } from "react";
 import { Text } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
-import SharedItem from "@/shared-components/SharedItem";
 import useFetchLocations from './useFetchLocations';
-
+import SharedItemLocation from "@/shared-components/SharedItemLocation";
+import { useContext } from "react";
 import { router } from "expo-router";
 
 const PlaceComponent = () => {
@@ -15,10 +13,10 @@ const PlaceComponent = () => {
   const { locationsData, isLoading, error } = useFetchLocations(); // Use the custom hook
 
   const redirectHandler = (location) => {
-    updateReservation({...reservation,location});
-    router.push("/(tabs)/(02_barbers)/services");
+    updateReservation({ ...reservation, location });
+    router.push("/(tabs)/(02_barbers)/employers")
   };
-
+  
   return (
     <ScrollView style={styles.container}>
       <Image
@@ -26,13 +24,13 @@ const PlaceComponent = () => {
         style={styles.coverImage}
       />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Choose barber location</Text>
+        <Text style={styles.capture}>Choose location</Text>
       </View>
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
           {locationsData?.map((item) => (
-            <SharedItem
+            <SharedItemLocation
               key={item.id}
               data={item}
               redirectHandler={redirectHandler}
@@ -49,6 +47,7 @@ const PlaceComponent = () => {
       )}
     </ScrollView>
   );
+
 };
 
 export default PlaceComponent;

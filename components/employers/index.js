@@ -1,7 +1,6 @@
 import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Text } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import SharedItem from "@/shared-components/SharedItem";
