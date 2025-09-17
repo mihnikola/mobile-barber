@@ -15,6 +15,7 @@ import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoo
 import { router } from "expo-router";
 import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
 import {usePushNotifications} from './../../../components/home/hooks/usePushNotifications';
+import useCompany from './../../../components/home/hooks/useCompany';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -31,10 +32,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-
-  const destinationLat = 48.8584;
-  const destinationLon = 2.2945;
-
+  const {company, getCompany} = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
 
   const nextPage = () => {
@@ -45,10 +43,11 @@ export default function App() {
   };
 
   useEffect(() => {
+    getCompany();
     setTimeout(async () => {
       await registerForPushNotifications();
     }, 2000);
-  });
+  },[]);
 
   return (
     <View style={styles.container}>
@@ -96,7 +95,7 @@ export default function App() {
           <FontAwesome name="chevron-right" size={28} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => openGoogleMapsRoute(destinationLat, destinationLon)}
+          onPress={()=>openGoogleMapsRoute(company?.mapsLink)}
           style={styles.btnLocationContent}
         >
           <FontAwesome name="location-arrow" size={28} color="white" />

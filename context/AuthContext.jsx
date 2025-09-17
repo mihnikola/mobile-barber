@@ -5,11 +5,11 @@ import { router } from "expo-router";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-// import {
-//   GoogleSignin,
-//   isErrorWithCode,
-//   isSuccessResponse,
-// } from "@react-native-google-signin/google-signin";
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+} from "@react-native-google-signin/google-signin";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -26,50 +26,57 @@ export const AuthProvider = ({ children }) => {
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    //  GoogleSignin.configure({
-      //  webClientId:
-        //  "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-      //  profileImageSize: 150,
-    //  });
+    GoogleSignin.configure({
+      webClientId:
+        "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+      profileImageSize: 150,
+    });
   }, []);
 
   const signIn = async () => {
+    setIsGoogleLoading(true);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (isSuccessResponse(response)) {
+        loginViaGoogle(response.data);
+      } else {
+        // sign in was cancelled by user
+      }
+    } catch (error) {
 
-    // try {
-    //   await GoogleSignin.hasPlayServices();
-    //   const response = await GoogleSignin.signIn();
-    //   if (isSuccessResponse(response)) {
-    //     loginViaGoogle(response.data);
-    //   } else {
-    //     // sign in was cancelled by user
-    //   }
-    // } catch (error) {
-    //   if (isErrorWithCode(error)) {
-    //     switch (error.code) {
-    //       case statusCodes.IN_PROGRESS:
-    //         // operation (eg. sign in) already in progress
-    //         break;
-    //       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-    //         // Android only, play services not available or outdated
-    //         break;
-    //       default:
-    //       // some other error happened
-    //     }
-    //   } else {
-    //     // an error that's not related to google sign in occurred
-    //   }
-    // }
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            // operation (eg. sign in) already in progress
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            // Android only, play services not available or outdated
+            break;
+          default:
+          // some other error happened
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
+      setIsGoogleLoading(false);
+    }
   };
   const signOut = async () => {
-    // try {
-    //   await GoogleSignin.signOut();
-    // } catch (error) {}
+    setIsGoogleLoading(true);
+
+    try {
+      await GoogleSignin.signOut();
+      setIsGoogleLoading(false);
+
+    } catch (error) { }
   };
 
   const fetchUserData = async () => {
@@ -256,9 +263,6 @@ export const AuthProvider = ({ children }) => {
 
   const loginViaGoogle = async (userData) => {
     setStatus(null);
-
-
-    setIsLoading(true);
     setError(null);
 
     const { user } = userData;
@@ -268,16 +272,17 @@ export const AuthProvider = ({ children }) => {
 
       if (responseData.status === 200 || responseData.status === 300) {
 
-        setIsLoading(false);
         saveStorage(responseData.token);
-        saveToken(responseData.userId, responseData.token);
+        saveTokenViaGoogle(responseData.userId, responseData.token);
       }
 
       if (responseData.status === 500) {
-        setIsLoading(false);
+        setIsGoogleLoading(false);
         setError(responseData.message);
       }
     } catch (err) {
+      setIsGoogleLoading(false);
+
       if (err.message.includes("404")) {
         setIsMessage(true);
 
@@ -287,7 +292,6 @@ export const AuthProvider = ({ children }) => {
 
         setError(`Something Went Wrong, Please Try Again`);
       }
-      setIsLoading(false);
     }
   };
 
@@ -330,6 +334,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const saveTokenViaGoogle = async (userId) => {
+
+    const expoToken = await getExpoTokenStorage();
+
+    if (!expoToken) {
+
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const responseData = await post("/api/saveToken", {
+        tokenExpo: expoToken,
+        tokenUser: userId,
+      });
+      if (responseData.status === 200) {
+
+        setIsGoogleLoading(false);
+        setIsMessage(true);
+        setSuccess("Login Successful!");
+      } else {
+
+        setIsGoogleLoading(false);
+        setIsMessage(true);
+
+        setError(
+          `Failed to save token: ${responseData?.message || "Unknown error"}`
+        );
+      }
+    } catch (err) {
+      setIsGoogleLoading(false);
+      setIsMessage(true);
+
+      setError(`Error saving token: ${err.message || err}`);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -355,6 +396,7 @@ export const AuthProvider = ({ children }) => {
         message,
         loginViaGoogle,
         signIn,
+        isGoogleLoading
       }}
     >
       {children}

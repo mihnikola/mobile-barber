@@ -4,6 +4,7 @@ export default function RootLayoutBarbers() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="employers" options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="services"
         options={{
@@ -39,6 +40,13 @@ export default function RootLayoutBarbers() {
       />
       <Stack.Screen
         name="reservationSuccess"
+        options={{
+          title: "",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="locations"
         options={{
           title: "",
           headerShown: false,
