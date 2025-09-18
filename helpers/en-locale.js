@@ -7,23 +7,32 @@ export const ENG_LOCALIZATION = {
   },
   code: "en",
   HOME: {
-    aboutUs:"Visit us",
+    aboutUs: "Visit us",
+    bookingBtn: "Booking",
+    bookingBtnDesc: "Book Your Spot",
+    aboutUsBtn: "About Us",
+    aboutUsBtnDesc: "Our Story",
+    locationBtn: "Location",
+    locationBtnDesc: "Where Am I?",
   },
   BUTTONS: {
     ok: "OK",
     cancel: "Cancel",
   },
   BARBERS: {
-    title: "Choose your barber",
+    title: "Choose barber",
+  },
+  PLACES: {
+    title: "Choose location",
   },
   DATE: {
-    title: "Choose your date",
+    title: "Choose date",
     holidaySunday: "We don't work on Sundays",
     noAvailableDates: "No appointments for the chosen date",
-    chooseDate: "Please select your day",
+    chooseDate: "Please select day",
     continue: "Continue",
     book: "Book",
-    detailsReservation: "Enter your details here..",
+    detailsReservation: "Enter details here..",
   },
   SALON: {
     title: "Salon Rules:",
