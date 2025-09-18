@@ -5,8 +5,6 @@ import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
-import Loader from "../Loader";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -16,12 +14,9 @@ const SettingsComponent = () => {
     isMessage,
     setIsMessage,
     userData,
-    isLoading
   } = useAuth();
 
-  if (isLoading) {
-    return <SharedLoader />
-  }
+ 
 
 
   return (

@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -41,13 +42,12 @@ const languageSupport = () => {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
+    
 
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>
-          {localization?.SETTINGS?.changeLanguage.capture}
-        </Text>
-      </View>
+       <SharedTabHeader
+        image={company?.media?.coverImageSettings}
+        title={localization.SETTINGS.changeLanguage.capture}
+      />
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}

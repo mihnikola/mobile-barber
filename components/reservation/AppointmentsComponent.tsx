@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
@@ -7,27 +7,34 @@ import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import { useFocusEffect } from "@react-navigation/native";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
+  const { company, getCompany } = useCompany();
 
   const { localization } = useLocalization();
+
   useEffect(() => {
+    getCompany();
     getReservationsData();
   }, []);
 
-    const { company, getCompany } = useCompany();
-  
-    useEffect(() => {
-      getCompany();
-    }, []);
+  useFocusEffect(
+    useCallback(() => {
+      console.log("APPROVED");
+      getReservationsData();
+    }, [])
+  );
+
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.APPOINTMENTS.title}</Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageAppointments}
+        title={localization.APPOINTMENTS.title}
+      />
       {isLoading ? (
         <Loader />
       ) : (

@@ -40,6 +40,7 @@ const useCancelReservation = () => {
     cancelSuccess,
     setCancelSuccessFlag,
     cancelSuccessFlag,
+    setCancelSuccess
   };
 };
 

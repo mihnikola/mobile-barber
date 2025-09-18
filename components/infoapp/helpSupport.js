@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -35,11 +36,11 @@ const HelpSupportScreen = () => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
-
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.SETTINGS.HELP.title}</Text>
-      </View>
+   
+      <SharedTabHeader
+        image={company?.media?.coverImageSettings}
+        title={localization.SETTINGS.HELP.title}
+      />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>

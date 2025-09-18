@@ -32,7 +32,6 @@ function RateDetailsComponent() {
     rateModal,
     setRateModal,
     rateError,
-    setRateError,
     rateMessage,
     setRateMessage,
     rateReservation,
@@ -82,7 +81,7 @@ function RateDetailsComponent() {
         {reservationData?.rating && (
           <ReservationMarkComponent data={reservationData} />
         )}
-        {rateModal && !rateError && !rateMessage && (
+        {rateModal && (
           <SharedQuestion
             isOpen={rateModal}
             onClose={() => setRateModal(false)}
@@ -95,7 +94,7 @@ function RateDetailsComponent() {
             buttonTextNo={localization.APPOINTMENTS.rateReservation.noButton}
           />
         )}
-        {!rateModal && rateMessage?.length > 0 && (
+        {rateMessage?.length > 0 && (
           <SharedMessage
             isOpen={rateMessage?.length > 0}
             onClose={!rateError ? confirmHandler : cancelHandler}
