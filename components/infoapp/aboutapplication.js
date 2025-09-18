@@ -1,51 +1,50 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState } from "react";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import { useEffect } from "react";
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
-  Image,
-  Switch,
   Platform,
   StatusBar,
 } from "react-native";
+import useCompany from "../home/hooks/useCompany";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
   const appVersion = "1.0.2";
   const developerName = "FusionTech Agency";
 
-  const {localization} = useLocalization();
-  // State to manage the switch's value. 'true' for Serbian, 'false' for English.
-  const [isSerbian, setIsSerbian] = useState("en");
+  const { localization } = useLocalization();
 
-  // Use useEffect to update the switch's state if the language changes from outside this component
+  const { company, getCompany } = useCompany();
 
-  const toggleSwitch = () => {
-    const newLanguage = isSerbian ? "en" : "sr";
-    setIsSerbian(!isSerbian); // Update the local state
-  };
+  useEffect(() => {
+    getCompany();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
-
-      <Image
-        source={require("@/assets/images/settingsImage.jpg")}
-        style={styles.headerImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.SETTINGS.ABOUTAPP.title}</Text>
+        <Text style={styles.capture}>
+          {localization.SETTINGS.ABOUTAPP.title}
+        </Text>
       </View>
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.name}</Text>
+          <Text style={styles.label}>
+            {localization.SETTINGS.ABOUTAPP.name}
+          </Text>
           <Text style={styles.value}>{appName}</Text>
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.version}</Text>
+          <Text style={styles.label}>
+            {localization.SETTINGS.ABOUTAPP.version}
+          </Text>
           <Text style={styles.value}>{appVersion}</Text>
         </View>
 
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-    infoRow: {
+  infoRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,

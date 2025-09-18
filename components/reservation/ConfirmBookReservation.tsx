@@ -1,16 +1,24 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/shared-components/Note";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedLogo from "@/shared-components/SharedLogo";
+import useCompany from "../home/hooks/useCompany";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
 
   const { reservation } = useContext(ReservationContext)!;
+  const { company, getCompany, isLoading: isLoadingCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
   const params = useLocalSearchParams();
   const { responseData } = params;
 
@@ -29,14 +37,10 @@ const ConfirmBookReservation = () => {
   if (reservation && responseData) {
     return (
       <View style={styles.container}>
-        <Image
-          source={require("@/assets/images/coverImage.jpg")}
-          style={styles.coverImage}
-        />
-        <Image
-          source={require("@/assets/images/logoBaber.png")}
-          style={styles.coverLogo}
-        />
+        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        
+        <SharedLogo image={company?.media?.logo} />
+
         <View style={styles.coverContent}>
           <Text style={styles.timeData}>
             {reservation?.timeData?.value} -{" "}
@@ -52,12 +56,14 @@ const ConfirmBookReservation = () => {
             )}
           </Text>
         </View>
+
         <View style={styles.infoContainer}>
-          <Text style={styles.message}>
-            {localization.SALON.success}
-          </Text>
+          <Text style={styles.message}>{localization.SALON.success}</Text>
           <Note />
-          <SharedButton onPress={submitReservationHandler} text={localization.BUTTONS.ok} />
+          <SharedButton
+            onPress={submitReservationHandler}
+            text={localization.BUTTONS.ok}
+          />
         </View>
       </View>
     );

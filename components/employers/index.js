@@ -1,5 +1,5 @@
-import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { useContext } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
@@ -7,24 +7,29 @@ import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
 
+  const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
   const redirectHandler = (employer) => {
-    updateReservation({...reservation,employer});
+    updateReservation({ ...reservation, employer });
     router.push("/(tabs)/(02_barbers)/services");
   };
 
-  const {localization} = useLocalization();
+  const { localization } = useLocalization();
 
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
       <View style={styles.captureContainer}>
         <Text style={styles.capture}>{localization.BARBERS.title}</Text>
       </View>

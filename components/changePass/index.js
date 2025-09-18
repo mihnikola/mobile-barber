@@ -16,6 +16,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
+import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 
 const changePass = () => {
   const params = useLocalSearchParams();
@@ -39,6 +40,7 @@ const changePass = () => {
     error,
     isLoading,
   } = useChangePasswordHandler();
+  
   const submitChanges = () => {
     handlePatchUser(data, password, confirmPassword);
   };
@@ -75,14 +77,7 @@ const changePass = () => {
           placeholder="Confirm your password"
         />
       </View>
-
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("@/assets/images/fgtPass.png")}
-          style={styles.image}
-        />
-      </View>
-
+      <SharedImageForgotPass />
       <View style={styles.btnFooter}>
         <SharedButton
           loading={isLoading}

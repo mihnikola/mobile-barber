@@ -13,7 +13,6 @@ const EmployersComponent = () => {
     return <PlaceComponent />;
   } else {
     return <Employers />;
-
   }
 
 };

@@ -10,16 +10,20 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import { INITIAL_DATA } from "@/constants";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
-import { removeInitialToken } from "@/helpers/initialToken";
+import useInitialData from "./useInitialData";
 
 const InitialComponent = ({ addToken }) => {
+  const { getInitialData, initialData } = useInitialData();
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
   const flatListIndex = useSharedValue(0);
+
+  useEffect(() => {
+    getInitialData();
+  }, []);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     if (
@@ -97,7 +101,7 @@ const InitialComponent = ({ addToken }) => {
     });
     return (
       <View style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
-        <Animated.Image source={item.image} style={imageAnimationStyle} />
+        <Animated.Image source={{uri: item.image}} style={imageAnimationStyle} />
         <Animated.View style={textAnimationStyle}>
           <Text style={styles.itemTitle}>{item.title}</Text>
           <Text style={styles.itemText}>{item.text}</Text>
@@ -106,17 +110,16 @@ const InitialComponent = ({ addToken }) => {
     );
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
       <Animated.FlatList
         ref={flatListRef}
         onScroll={onScroll}
-        data={INITIAL_DATA}
+        data={initialData}
         renderItem={({ item, index }) => {
           return <RenderItem item={item} index={index} />;
         }}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         scrollEventThrottle={16}
         horizontal={true}
         bounces={false}
@@ -129,12 +132,12 @@ const InitialComponent = ({ addToken }) => {
         }}
       />
       <View style={styles.bottomContainer}>
-        <Pagination data={INITIAL_DATA} x={x} screenWidth={SCREEN_WIDTH} />
+        <Pagination data={initialData} x={x} screenWidth={SCREEN_WIDTH} />
         <CustomButton
           addToken={addToken}
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
-          dataLength={INITIAL_DATA.length}
+          dataLength={initialData?.length}
         />
       </View>
     </SafeAreaView>

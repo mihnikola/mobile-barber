@@ -5,24 +5,27 @@ import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchLocations from './useFetchLocations';
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { router } from "expo-router";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { locationsData, isLoading, error } = useFetchLocations(); // Use the custom hook
 
+  const { getCompany, company } = useCompany();
+  useEffect(() => {
+    getCompany();
+  }, [])
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
-    router.push("/(tabs)/(02_barbers)/employers")
+    router.push({ pathname: "/(tabs)/(02_barbers)/employers", params: { image: company?.media?.coverImageAppointments } });
   };
-  
+
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
       <View style={styles.captureContainer}>
         <Text style={styles.capture}>Choose location</Text>
       </View>

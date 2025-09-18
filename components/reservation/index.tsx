@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
 import { addMinutesToTime, convertDate } from "@/helpers";
@@ -7,6 +7,8 @@ import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -20,13 +22,16 @@ const Reservation = () => {
     setDescription,
   } = useSubmitReservation();
 
+  const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
   if (reservation) {
     return (
       <ScrollView style={styles.container}>
-        <Image
-          source={require("@/assets/images/coverImage.jpg")}
-          style={styles.coverImage}
-        />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <View style={styles.coverContent}>
           <Text style={styles.timeData}>
             {reservation && reservation?.timeData?.value} -{" "}

@@ -1,4 +1,3 @@
-import { REVIEW_DATA } from "@/constants";
 import {
   Animated,
   FlatList,
@@ -10,6 +9,30 @@ import {
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import { useRef, useState } from "react";
+
+const REVIEW_DATA = [
+  {
+    id: "1",
+    title: "Nick",
+    text: "I really appreciate the attention to detail—this haircut suits me perfectly.",
+  },
+  {
+    id: "2",
+    title: "Chris",
+    text: "Everything was professional. I highly recommend Gentleman Hair Salon.",
+  },
+  {
+    id: "3",
+    title: "John",
+    text: "The haircut was really well done, I feel like I got exactly what I needed.",
+  },
+  {
+    id: "4",
+    title: "Michael",
+    text: "I’ve always been searching for a good haircut",
+  },
+];
+
 
 const OnboardingComponent = () => {
   const { width } = useWindowDimensions(); // Dohvatite širinu ekrana ovde

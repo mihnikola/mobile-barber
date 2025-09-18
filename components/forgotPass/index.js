@@ -13,6 +13,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
+import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -43,12 +44,8 @@ const ForgotPassword = () => {
           Select which contact details should we use to reset your password
         </Text>
       </View>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("@/assets/images/fgtPass.png")}
-          style={styles.image}
-        />
-      </View>
+      <SharedImageForgotPass />
+
       <View style={styles.radiobtn}>
         <SharedInput
           label="Email Address"

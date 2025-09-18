@@ -1,21 +1,22 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-function SharedCoverImage({image}) {
+function SharedLogo({image}) {
   return (
     <Image
       source={{uri:image}}
-      style={styles.coverImage}
+      style={styles.coverLogo}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  coverImage: {
-    width: "100%",
+ coverLogo: {
+    position: "absolute",
+    alignSelf: "center",
+    width: 140,
     height: 200,
-    opacity: 0.2,
   },
 });
 
-export default SharedCoverImage;
+export default SharedLogo;

@@ -18,12 +18,14 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
 import { FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
+import SharedLogo from "@/shared-components/SharedLogo";
 const Register = () => {
   const [userName, setUserName] = useState("");
+  const { image } = useLocalSearchParams();
   const {
     loading,
     error,
@@ -70,10 +72,7 @@ const Register = () => {
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
-        <Image
-          source={require("@/assets/images/adaptive-icon.png")}
-          style={styles.logo}
-        />
+        <SharedLogo image={image} />
 
         <Text style={styles.mainTitle}>Register your account</Text>
         <Text style={styles.subtitle}>Enter your information below</Text>
@@ -145,13 +144,13 @@ const Register = () => {
             onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
               <FontAwesome
-                name={error ? "close" : "check-circle-o"} 
-                size={64} 
+                name={error ? "close" : "check-circle-o"}
+                size={64}
                 color="white"
               />
             }
             title={error || success}
-            buttonText="Ok" 
+            buttonText="Ok"
           />
         )}
       </View>
@@ -174,8 +173,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   logo: {
-    width: 120, 
-    height: 100, 
+    width: 120,
+    height: 100,
     resizeMode: "contain",
     backgroundColor: "black",
   },
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: "white", 
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,

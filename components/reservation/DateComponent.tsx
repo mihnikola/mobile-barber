@@ -8,11 +8,13 @@ import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { calendarTheme, convertDayInitalValue } from "@/helpers";
-import {calendarLocales} from "@/helpers/calendarLocales";
+import { calendarLocales } from "@/helpers/calendarLocales";
 
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -45,18 +47,21 @@ const DateComponent = () => {
     handleDayPress(valueInitialData);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     calendarLocales(localization.code);
+  }, [localization.code]);
+  const { company, getCompany } = useCompany();
 
-  },[localization.code])
+  useEffect(() => {
+    getCompany();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
-      <Text style={styles.capture}>{localization.DATE.title}</Text>
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <View style={styles.captureContainer}>
+        <Text style={styles.capture}>{localization.DATE.title}</Text>
+      </View>
       <View style={styles.calendarContainer}>
         <CalendarList
           key={localization.code}
@@ -123,15 +128,15 @@ const DateComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  captureContainer: {
+    position: "absolute",
+    marginHorizontal: 15, // Side padding for the list
+  },
   capture: {
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    position: "absolute",
-    display: "flex",
-    alignSelf: "flex-start",
-    paddingVertical: 90,
-    marginHorizontal: 15,
+    paddingVertical: 140,
   },
   coverImage: {
     width: "100%",

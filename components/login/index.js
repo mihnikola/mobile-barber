@@ -19,9 +19,12 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+// import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import SharedLogo from "@/shared-components/SharedLogo";
+import useCompany from "../home/hooks/useCompany";
+import { useEffect } from "react";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -44,11 +47,18 @@ const LoginScreen = () => {
     signIn,
   } = useAuth();
 
+  const { company, getCompany, isLoading: isLoadingCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+  console.log("company", company);
+
   const handleLogin = async () => {
     login(email, password);
   };
   const navigateToRegister = () => {
-    router.push("(tabs)/(04_settings)/register");
+    router.push({pathname: "(tabs)/(04_settings)/register",params:{image:company?.media?.logo}});
   };
 
   const handleAppleLogin = () => {
@@ -62,7 +72,6 @@ const LoginScreen = () => {
       verificationOTPCode(email, password);
     } else {
       setIsMessage(false);
-
       redirectValidation();
     }
   };
@@ -88,21 +97,18 @@ const LoginScreen = () => {
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
-        <Image
-          source={require("@/assets/images/adaptive-icon.png")}
-          style={styles.logo}
-        />
+        <SharedLogo image={company?.media?.logo} />
 
         <Text style={styles.mainTitle}>Let's get you Login!</Text>
         <Text style={styles.subtitle}>Enter your information below</Text>
 
         <View style={styles.socialButtonsContainer}>
-          <GoogleSigninButton
+          {/* <GoogleSigninButton
             style={{ width: "100%", height: 58 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
-          />
+          /> */}
         </View>
 
         <View style={styles.dividerContainer}>
