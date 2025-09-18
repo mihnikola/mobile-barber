@@ -9,6 +9,7 @@ import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
+import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 
 const otpCode = () => {
   const params = useLocalSearchParams();
@@ -64,12 +65,7 @@ const otpCode = () => {
       </View>
       <OtpInput code={code} setCode={setCode} />
       <ResendOtpCodeTimer email={data} />
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("@/assets/images/fgtPass.png")}
-          style={styles.image}
-        />
-      </View>
+      <SharedImageForgotPass />
 
       <View style={styles.btnFooter}>
         <SharedButton

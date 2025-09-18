@@ -8,7 +8,6 @@ const useFetchLocations = () => {
   const [error, setError] = useState(null);
 
   const fetchLocations = async () => {
-    setIsLoading(true);
     setError(null);
     try {
       const response = await get("/places");

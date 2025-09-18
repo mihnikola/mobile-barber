@@ -10,7 +10,9 @@ export const SRB_LOCALIZATION = {
     cancel: "Odustani",
   },
   code: "sr",
-  HOME: {},
+  HOME: {
+    aboutUs: "Posetite nas",
+  },
   BARBERS: {
     title: "Odaberi svog frizera",
   },

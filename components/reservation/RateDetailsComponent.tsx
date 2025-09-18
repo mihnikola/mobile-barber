@@ -1,10 +1,8 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { IconSymbol } from "../ui/IconSymbol";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import StarRating from "./StarRateComponent";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import Details from "@/shared-components/Details";
-import { addMinutesToTime, convertDate, convertToDayTime } from "@/helpers";
 import useRateReservation from "./hooks/useRateReservation";
 import { useEffect, useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -16,20 +14,17 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import HeaderReservationTime from "./HeaderReservationTime";
 import ReservationMarkComponent from "./ReservationMarkComponent";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-
-const myArray = [
-  { arrx: "10000" },
-  { arrx: "1111110" },
-  { arrx: "232222" },
-  { arrx: "4545453" },
-  { arrx: "asdasdasd" },
-];
+import useCompany from "../home/hooks/useCompany";
 
 function RateDetailsComponent() {
   const params = useLocalSearchParams();
   const { itemId } = params;
   const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
+  const { company, getCompany } = useCompany();
 
+  useEffect(() => {
+    getCompany();
+  }, []);
   const { localization } = useLocalization();
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const {
@@ -67,7 +62,7 @@ function RateDetailsComponent() {
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>
-        <SharedCoverImage />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerWrapper}>
           <Details data={reservationData} />

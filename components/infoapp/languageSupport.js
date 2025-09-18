@@ -1,6 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +12,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import useCompany from "../home/hooks/useCompany";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -29,15 +31,18 @@ const languageSupport = () => {
     );
     setFilteredLanguages(filtered);
   };
+    const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
-      <Image
-        source={require("@/assets/images/settingsImage.jpg")}
-        style={styles.headerImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
+
       <View style={styles.captureContainer}>
         <Text style={styles.capture}>
           {localization?.SETTINGS?.changeLanguage.capture}

@@ -1,27 +1,29 @@
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   ScrollView,
   StatusBar,
 } from "react-native";
+import useCompany from "../home/hooks/useCompany";
+import { useEffect } from "react";
 
 const privacypolicy = () => {
-
   const developerName = "FusionTech Agency";
 
   const { localization } = useLocalization();
+  const { company, getCompany } = useCompany();
 
-
+  useEffect(() => {
+    getCompany();
+  }, []);
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
-      <Image
-        source={require("@/assets/images/settingsImage.jpg")}
-        style={styles.headerImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
+
       <View style={styles.captureContainer}>
         <Text style={styles.capture}>{localization.SETTINGS.LEGAL.title}</Text>
       </View>
@@ -29,7 +31,6 @@ const privacypolicy = () => {
         <Text style={styles.text}>{localization.SETTINGS.LEGAL.update}</Text>
         <Text style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.paragraph}
-        
         </Text>
         <Text style={styles.copyright}>
           {localization.SETTINGS.LEGAL.footerBottom} {developerName}
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
   copyright: {
-    marginBottom:50,
+    marginBottom: 50,
     fontSize: 14,
     color: "white",
     textAlign: "center",

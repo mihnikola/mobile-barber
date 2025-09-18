@@ -10,27 +10,55 @@ import useCompany from "@/components/home/hooks/useCompany";
 import { useEffect } from "react";
 
 const AboutUsScreen = () => {
-  const { company, getCompany } = useCompany();
+  const {
+    name,
+    contact,
+    text,
+    title,
+    textTwo,
+    textThree,
+    workDays,
+    workSaturday,
+    holidays,
+    media,
+  } = useLocalSearchParams();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
-
-  const {aboutUs} = company;
-  const {title, text, textThree, textTwo} = aboutUs;
+  // const {aboutUs} = params.data;
+  console.log("company", {
+    name,
+    contact,
+    text,
+    title,
+    textTwo,
+    textThree,
+    workDays,
+    workSaturday,
+    holidays,
+    media,
+  });
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <WhoAreWeCoverImage image={company?.media?.logo} />
+        <WhoAreWeCoverImage image={media} />
 
         <View style={styles.contentContainer}>
-          <AboutUsInfo title={title} text={text} textThree={textThree} textTwo={textTwo}/>
-          <ListAboutUs />
+          <AboutUsInfo
+            title={title}
+            text={text}
+            textThree={textThree}
+            textTwo={textTwo}
+          />
+          <ListAboutUs contact={contact} />
         </View>
         <OnboardingComponent />
+
         <View style={styles.contentContainer}>
-          <ContactUs />
+          <ContactUs
+            workDays={workDays}
+            workSaturday={workSaturday}
+            holidays={holidays}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

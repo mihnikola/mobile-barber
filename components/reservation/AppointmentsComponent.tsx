@@ -1,10 +1,12 @@
-import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
@@ -14,13 +16,16 @@ const AppointmentsComponent = () => {
   useEffect(() => {
     getReservationsData();
   }, []);
+
+    const { company, getCompany } = useCompany();
+  
+    useEffect(() => {
+      getCompany();
+    }, []);
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={require("@/assets/images/coverImage.jpg")}
-        style={styles.coverImage}
-      />
-      <View style={styles.containerCapture}>
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <View style={styles.captureContainer}>
         <Text style={styles.capture}>{localization.APPOINTMENTS.title}</Text>
       </View>
       {isLoading ? (
@@ -48,25 +53,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
-
   coverImage: {
     width: "100%",
     height: 200,
     opacity: 0.2,
   },
-  containerCapture: {
+  captureContainer: {
     position: "absolute",
-    alignSelf: "flex-start",
-    left: 20,
-    justifyContent: "flex-end",
-    alignItems: "baseline",
-    height: 200,
+    marginHorizontal: 15, // Side padding for the list
   },
   capture: {
     fontSize: 32,
     color: "white",
     fontWeight: "500",
+    paddingVertical: 140,
   },
+
   containerReservationData: {
     marginTop: 10,
   },

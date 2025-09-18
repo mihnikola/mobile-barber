@@ -18,6 +18,7 @@ import { usePushNotifications } from "./../../../components/home/hooks/usePushNo
 import useCompany from "./../../../components/home/hooks/useCompany";
 import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
+import SplashScreen from "@/shared-components/SplashScreen";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -34,30 +35,48 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const { company, getCompany } = useCompany();
+  const { company, getCompany, isLoading } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
 
+  useEffect(() => {
+    getCompany();
+  }, []);
   const nextPage = () => {
     router.push("/(tabs)/(02_barbers)");
   };
   const onAboutUs = () => {
-   
     router.push({
       pathname: "/(tabs)/(01_home)/whoWeAre",
+      params: {
+        name: company?.name,
+        contact: company?.contact,
+        title: company?.aboutUs?.title,
+        text: company?.aboutUs?.text,
+        textTwo: company?.aboutUs?.textTwo,
+        textThree: company?.aboutUs?.textThree,
+        workDays: company?.workDays,
+        workSaturday: company?.workSaturday,
+        holidays: company?.holidays,
+        media: company?.media?.logo,
+      },
     });
   };
 
   useEffect(() => {
-    getCompany();
     setTimeout(async () => {
       await registerForPushNotifications();
     }, 2000);
   }, []);
 
-  if (company && company?.media?.coverImageHome) {
+  if (!company) {
+    return <SplashScreen />;
+  }
+
+  if (company) {
     return (
       <View style={styles.container}>
         <HomeCoverImage image={company?.media?.coverImageHome} />
+        
         <Animated.View
           style={[
             styles.box,

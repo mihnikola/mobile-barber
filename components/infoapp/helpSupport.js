@@ -1,5 +1,5 @@
 // HelpSupportScreen.js
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -23,21 +25,26 @@ const HelpSupportScreen = () => {
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
   };
+    const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
-      <Image
-        source={require("@/assets/images/settingsImage.jpg")}
-        style={styles.headerImage}
-      />
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
+
       <View style={styles.captureContainer}>
         <Text style={styles.capture}>{localization.SETTINGS.HELP.title}</Text>
       </View>
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>{localization.SETTINGS.HELP.company}</Text>
+          <Text style={styles.infoLabel}>
+            {localization.SETTINGS.HELP.company}
+          </Text>
           <Text style={styles.infoValue}>{companyInfo.name}</Text>
         </View>
         <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
@@ -47,7 +54,9 @@ const HelpSupportScreen = () => {
             color="#B0B0B0"
             style={styles.menuItemIcon}
           />
-          <Text style={styles.menuItemText}>{localization.SETTINGS.HELP.support}</Text>
+          <Text style={styles.menuItemText}>
+            {localization.SETTINGS.HELP.support}
+          </Text>
           <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
         </TouchableOpacity>
       </View>

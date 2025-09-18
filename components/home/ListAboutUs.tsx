@@ -1,17 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { CONTACT_DATA } from "@/constants/index";
+import { StyleSheet, Text, View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
-const ListAboutUs = () => {
+const ListAboutUs = ({ contact }) => {
   return (
     <View>
       <Text style={styles.titleContant}>Contact</Text>
-      {CONTACT_DATA.map((item) => (
-        <View key={item.id} style={styles.contactItem}>
-          <Image source={item.image} style={styles.image} />
-          <Text style={styles.title}>{item.title}</Text>
-        </View>
-      ))}
+      <View style={styles.contactItem}>
+        <FontAwesome name="phone" size={30} color="white" />
+        <Text style={styles.title}>{contact}</Text>
+      </View>
     </View>
   );
 };
@@ -28,9 +26,10 @@ const styles = StyleSheet.create({
   },
   contactItem: {
     flexDirection: "row",
+    gap: 30,
     alignItems: "center",
     justifyContent: "center",
-    padding: 10,
+    padding: 25,
   },
   title: {
     fontSize: 20,

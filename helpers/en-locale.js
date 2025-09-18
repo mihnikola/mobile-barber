@@ -6,7 +6,9 @@ export const ENG_LOCALIZATION = {
     SETTINGS: "Settings",
   },
   code: "en",
-  HOME: {},
+  HOME: {
+    aboutUs:"Visit us",
+  },
   BUTTONS: {
     ok: "OK",
     cancel: "Cancel",

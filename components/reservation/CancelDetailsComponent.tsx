@@ -7,11 +7,12 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetchReservation from "./hooks/useFetchReservation";
 import Details from "@/shared-components/Details";
 import HeaderReservationTime from "./HeaderReservationTime";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import useCompany from "../home/hooks/useCompany";
 
 function CancelDetailsComponent() {
   const { localization } = useLocalization();
@@ -42,10 +43,16 @@ function CancelDetailsComponent() {
   if (isLoading) {
     return <SharedLoader />;
   }
+  const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>
-        <SharedCoverImage />
+        <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerCancel}>
           {reservationData && <Details data={reservationData} />}

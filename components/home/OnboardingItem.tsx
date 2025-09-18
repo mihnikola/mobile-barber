@@ -1,6 +1,6 @@
+import SharedReviewImage from "@/shared-components/SharedReviewImage";
 import React from "react";
 import {
-  Image,
   StyleSheet,
   Text,
   View,
@@ -12,10 +12,7 @@ const OnboardingItem = ({ item, itemWidth }) => {
     <View style={[styles.onboardingItemContainer, { width: itemWidth }]}>
       {/* Horizontalni padding je unutar svakog elementa. */}
       <View style={styles.reviewContentWrapper}>
-        <Image
-          source={require("@/assets/images/reviewImage.png")}
-          style={styles.imageStyle}
-        />
+        <SharedReviewImage style={styles.imageStyle} />
 
         <Text style={styles.reviewText}>{item.text}</Text>
         <Text style={styles.reviewTitle}>{item.title}</Text>
