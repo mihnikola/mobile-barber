@@ -9,6 +9,7 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -29,10 +30,11 @@ const Employers = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.BARBERS.title}</Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageAppointments}
+        title={localization.BARBERS.title}
+      />
+
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>

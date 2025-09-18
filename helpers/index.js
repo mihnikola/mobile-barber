@@ -67,6 +67,8 @@ export function structureData(response) {
     response?.service?.duration
   );
   const eventDate = convertDate(response?.startDate);
+  console.log("startDateTime", startDateTime, finishedTime, eventDate);
+
   return {
     ...response,
     eventDate,
@@ -159,9 +161,20 @@ export function getTimeForUTCOffset(offsetHours) {
   // Return the full date and time string
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
+export function convertNameAndDate(value) {
+  const date = new Date(value);
+
+  const dayNameSr = date.toLocaleDateString("sr-RS", { weekday: "long" });
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${dayNameSr} ${day}-${month}-${year}`;
+}
 
 export const convertDate = (item) => {
+  console.log("first", item);
   const date = new Date(item);
+  console.log("first", date);
 
   const { localization } = useLocalization();
   let weekdays = [];
@@ -172,6 +185,7 @@ export const convertDate = (item) => {
   }
 
   const dayOfWeek = weekdays[date.getDay()];
+  console.log("dayOfWeek", dayOfWeek);
 
   // Format the date to day-month-year
   const day = String(date.getDate()).padStart(2, "0");

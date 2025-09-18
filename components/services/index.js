@@ -9,6 +9,7 @@ import { getStorage } from "@/helpers/token";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -49,10 +50,10 @@ const MenuServices = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.SERVICES.title}</Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageAppointments}
+        title={localization.SERVICES.title}
+      />
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length > 0 && !isLoading && (

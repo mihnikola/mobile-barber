@@ -9,6 +9,7 @@ import { useContext, useEffect } from "react";
 import { router } from "expo-router";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -25,10 +26,7 @@ const PlaceComponent = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Choose location</Text>
-      </View>
+      <SharedTabHeader image={company?.media?.coverImageAppointments} title="Choose location" />
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>

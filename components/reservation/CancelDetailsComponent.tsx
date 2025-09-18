@@ -16,8 +16,7 @@ import useCompany from "../home/hooks/useCompany";
 
 function CancelDetailsComponent() {
   const { localization } = useLocalization();
-  const params = useLocalSearchParams();
-  const { itemId } = params;
+  const { itemId } = useLocalSearchParams();
 
   const { isLoading, cancelReservation, cancelError, cancelSuccess } =
     useCancelReservation();
@@ -48,6 +47,11 @@ function CancelDetailsComponent() {
   useEffect(() => {
     getCompany();
   }, []);
+  if(!reservationData){
+    return <View>
+      <Text>Mjau</Text>
+    </View>
+  }
 
   if (reservationData) {
     return (

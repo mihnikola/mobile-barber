@@ -15,6 +15,7 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -58,10 +59,10 @@ const DateComponent = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.DATE.title}</Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageAppointments}
+        title={localization.DATE.title}
+      />
       <View style={styles.calendarContainer}>
         <CalendarList
           key={localization.code}
