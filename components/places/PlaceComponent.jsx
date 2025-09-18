@@ -10,11 +10,12 @@ import { router } from "expo-router";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { locationsData, isLoading, error } = useFetchLocations(); // Use the custom hook
-
+  const {localization} = useLocalization();
   const { getCompany, company } = useCompany();
   useEffect(() => {
     getCompany();
@@ -26,7 +27,7 @@ const PlaceComponent = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader image={company?.media?.coverImageAppointments} title="Choose location" />
+      <SharedTabHeader image={company?.media?.coverImageAppointments} title={localization.PLACES.title} />
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>

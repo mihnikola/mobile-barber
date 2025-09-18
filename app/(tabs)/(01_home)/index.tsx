@@ -19,6 +19,7 @@ import useCompany from "./../../../components/home/hooks/useCompany";
 import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import SplashScreen from "@/shared-components/SplashScreen";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -37,6 +38,7 @@ export default function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, getCompany, isLoading } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
+  const {localization}  = useLocalization();
 
   useEffect(() => {
     getCompany();
@@ -102,8 +104,8 @@ export default function App() {
             <FontAwesome name="calendar" size={28} color="white" />
 
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>Booking</Text>
-              <Text style={styles.address}>Book Your Spot</Text>
+              <Text style={styles.titleLocation}>{localization.HOME.bookingBtn}</Text>
+              <Text style={styles.address}>{localization.HOME.bookingBtnDesc}</Text>
             </View>
 
             <FontAwesome name="chevron-right" size={28} color="white" />
@@ -114,8 +116,8 @@ export default function App() {
           >
             <FontAwesome name="home" size={28} color="white" />
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>About us</Text>
-              <Text style={styles.address}>Our Story</Text>
+              <Text style={styles.titleLocation}>{localization.HOME.aboutUsBtn}</Text>
+              <Text style={styles.address}>{localization.HOME.aboutUsBtnDesc}</Text>
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>
@@ -125,8 +127,8 @@ export default function App() {
           >
             <FontAwesome name="location-arrow" size={28} color="white" />
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>Location</Text>
-              <Text style={styles.address}>Where Am I?</Text>
+              <Text style={styles.titleLocation}>{localization.HOME.locationBtn}</Text>
+              <Text style={styles.address}>{localization.HOME.locationBtnDesc}</Text>
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>

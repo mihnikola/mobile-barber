@@ -12,18 +12,27 @@ export const SRB_LOCALIZATION = {
   code: "sr",
   HOME: {
     aboutUs: "Posetite nas",
+    bookingBtn: "Rezerviši",
+    bookingBtnDesc: "Rezerviši svoj termin",
+    aboutUsBtn: "O nama",
+    aboutUsBtnDesc: "Naša priča",
+    locationBtn: "Lokacija",
+    locationBtnDesc: "Gde se nalazimo?",
   },
   BARBERS: {
-    title: "Odaberi svog frizera",
+    title: "Odaberi frizera",
+  },
+  PLACES: {
+    title: "Odaberi lokaciju",
   },
   SERVICES: {
     title: "Cenovnik & Usluge",
   },
   DATE: {
-    title: "Odaberi svoj termin",
+    title: "Odaberi termin",
     holidaySunday: "Ne radimo nedeljom",
     noAvailableDates: "Ne postoji slobodni termini za taj datum",
-    chooseDate: "Odaberite svoj termin",
+    chooseDate: "Odaberite termin",
     continue: "Nastavi",
     book: "Rezerviši",
     detailsReservation: "Dodaj napomenu...",
