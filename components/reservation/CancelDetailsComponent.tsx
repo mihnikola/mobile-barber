@@ -16,15 +16,22 @@ import useCompany from "../home/hooks/useCompany";
 
 function CancelDetailsComponent() {
   const { localization } = useLocalization();
-  const params = useLocalSearchParams();
-  const { itemId } = params;
-
-  const { isLoading, cancelReservation, cancelError, cancelSuccess } =
-    useCancelReservation();
-
+  const { itemId } = useLocalSearchParams();
   const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
 
   const [isCanceling, setIsCanceling] = useState(false);
+  const { company, getCompany } = useCompany();
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+  const {
+    isLoading,
+    cancelReservation,
+    cancelError,
+    cancelSuccess,
+    setCancelSuccess,
+  } = useCancelReservation();
 
   const cancelReservationHandler = () => {
     setIsCanceling(true);
@@ -34,7 +41,7 @@ function CancelDetailsComponent() {
     cancelReservation(itemId);
   };
   const confirmHandler = () => {
-    setIsCanceling(false);
+    setCancelSuccess(null);
     router.back();
   };
   const cancelHandler = () => {
@@ -43,11 +50,6 @@ function CancelDetailsComponent() {
   if (isLoading) {
     return <SharedLoader />;
   }
-  const { company, getCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
 
   if (reservationData) {
     return (

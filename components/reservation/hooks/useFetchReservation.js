@@ -1,14 +1,18 @@
 // src/hooks/useFetchReservation.js
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { get } from "@/api/apiService";
-import { structureData } from "@/helpers";
+import {
+  addMinutesToTime,
+  convertNameAndDate,
+  convertToDayTime,
+} from "@/helpers";
 
 const useFetchReservation = (reservationId) => {
   const [reservationData, setReservationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchReservationDetails = useCallback(async () => {
+  const fetchReservationDetails = async () => {
     if (!reservationId) {
       setIsLoading(false);
       setError("Reservation ID is not provided.");
@@ -19,18 +23,22 @@ const useFetchReservation = (reservationId) => {
     setError(null);
     try {
       const response = await get(`/availabilities/${reservationId}`);
-      if (response) {
-        const responseData = structureData(response);
+      const startDateTime = convertToDayTime(response?.startDate);
+      const finishedTime = addMinutesToTime(
+        convertToDayTime(response?.startDate),
+        response?.service?.duration
+      );
 
-        setReservationData(responseData);
-      }
+      const eventDate = convertNameAndDate(response?.startDate);
+      const result = { ...response, startDateTime, finishedTime, eventDate };
+      setReservationData(result);
     } catch (err) {
       setError(err.message || "Failed to fetch reservation details.");
       console.error("Error fetching reservation details:", err);
     } finally {
       setIsLoading(false);
     }
-  }, [reservationId]);
+  };
 
   useEffect(() => {
     let isMounted = true;

@@ -1,19 +1,18 @@
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
-import { addMinutesToTime, convertDate } from "@/helpers";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
+import HeaderInfo from "./HeaderInfo";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
-    const {localization } = useLocalization();
-  
+  const { localization } = useLocalization();
+
   const {
     submitReservationHandler,
     isLoading,
@@ -31,24 +30,11 @@ const Reservation = () => {
   if (reservation) {
     return (
       <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-        <View style={styles.coverContent}>
-          <Text style={styles.timeData}>
-            {reservation && reservation?.timeData?.value} -{" "}
-            {reservation &&
-              addMinutesToTime(
-                reservation?.timeData?.value,
-                reservation?.service?.serviceDuration
-              )}
-          </Text>
-          <Text style={styles.dateData}>
-            {convertDate(
-              reservation?.dateReservation?.dateString ||
-                reservation?.dateReservation
-            )}
-          </Text>
-          <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
-        </View>
+        <HeaderInfo
+          image={company?.media?.coverImageAppointments}
+          reservation={reservation}
+        />
+
         <View style={{ display: "flex", paddingHorizontal: 10, marginTop: 10 }}>
           <View>
             {reservation && <Details data={reservation} />}

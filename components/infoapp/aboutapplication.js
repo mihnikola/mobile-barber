@@ -10,6 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import useCompany from "../home/hooks/useCompany";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -27,12 +28,10 @@ const aboutapplication = () => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>
-          {localization.SETTINGS.ABOUTAPP.title}
-        </Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageSettings}
+        title={localization.SETTINGS.ABOUTAPP.title}
+      />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>

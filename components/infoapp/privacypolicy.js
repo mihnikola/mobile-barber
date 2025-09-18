@@ -1,14 +1,9 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
 import useCompany from "../home/hooks/useCompany";
 import { useEffect } from "react";
+import SharedTabHeader from "@/shared-components/SharedTabHeader";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
@@ -22,11 +17,11 @@ const privacypolicy = () => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
 
-      <View style={styles.captureContainer}>
-        <Text style={styles.capture}>{localization.SETTINGS.LEGAL.title}</Text>
-      </View>
+      <SharedTabHeader
+        image={company?.media?.coverImageSettings}
+        title={localization.SETTINGS.LEGAL.title}
+      />
       <View style={styles.sectionContainer}>
         <Text style={styles.text}>{localization.SETTINGS.LEGAL.update}</Text>
         <Text style={styles.paragraph}>

@@ -9,6 +9,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedLogo from "@/shared-components/SharedLogo";
 import useCompany from "../home/hooks/useCompany";
+import BookSuccess from "./BookSuccess";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -32,31 +33,15 @@ const ConfirmBookReservation = () => {
   if (!responseData) {
     return router.push("/(tabs)/(03_calendar)");
   }
-  console.log("reservationreservation", reservation);
 
   if (reservation && responseData) {
     return (
       <View style={styles.container}>
-        <SharedCoverImage image={company?.media?.coverImageAppointments} />
-        
-        <SharedLogo image={company?.media?.logo} />
-
-        <View style={styles.coverContent}>
-          <Text style={styles.timeData}>
-            {reservation?.timeData?.value} -{" "}
-            {addMinutesToTime(
-              reservation?.timeData?.value,
-              reservation?.service?.serviceDuration
-            )}
-          </Text>
-          <Text style={styles.dateData}>
-            {convertDate(
-              reservation?.dateReservation?.dateString ||
-                reservation?.dateReservation
-            )}
-          </Text>
-        </View>
-
+        <BookSuccess
+          image={company?.media?.coverImageAppointments}
+          logo={company?.media?.logo}
+          reservation={reservation}
+        />
         <View style={styles.infoContainer}>
           <Text style={styles.message}>{localization.SALON.success}</Text>
           <Note />
@@ -73,21 +58,10 @@ const ConfirmBookReservation = () => {
 export default ConfirmBookReservation;
 
 const styles = StyleSheet.create({
-  coverLogo: {
-    position: "absolute",
-    display: "flex",
-    alignSelf: "center",
-    marginTop: 50,
-    width: 140,
-    height: 200,
-  },
   infoContainer: {
     flex: 1,
     justifyContent: "space-evenly",
     alignSelf: "center",
-  },
-  checkbox: {
-    marginRight: 10,
   },
   message: {
     fontSize: 30,
@@ -96,56 +70,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "900",
   },
-
-  reservation: {
-    display: "flex",
-    flexDirection: "column",
-    height: 350,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  timeData: {
-    fontSize: 30,
-
-    color: "#fff",
-    fontWeight: "900",
-    display: "flex",
-    justifyContent: "center",
-  },
-  position: {
-    fontSize: 20,
-    color: "grey",
-    fontStyle: "italic",
-    padding: 12,
-  },
-  coverContent: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10, // Add padding to make the space visible from the edges
-  },
-  dateData: {
-    fontSize: 25,
-    color: "#fff",
-    fontWeight: "700",
-  },
-  data: {
-    display: "flex",
-    flexDirection: "column",
-  },
   container: {
     flex: 1,
     backgroundColor: "black",
-  },
-  coverImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.25,
-  },
-  whiteLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "#fff", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
 });

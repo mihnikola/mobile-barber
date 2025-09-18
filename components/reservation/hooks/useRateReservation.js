@@ -10,7 +10,6 @@ const useRateReservation = () => {
   const [rateMessage, setRateMessage] = useState(null);
   const { localization } = useLocalization();
 
-
   const rateReservation = async (reservationId, rating) => {
     setRateError(null);
     setIsLoading(true);
@@ -25,14 +24,12 @@ const useRateReservation = () => {
         status: 0,
         rate: rating,
       });
+
       setRateMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
     } catch (err) {
-      setRateError(
-        localization.APPOINTMENTS.rateReservation.errorMessage
-      );
-    } finally {
-      setIsLoading(false);
+      setRateError(localization.APPOINTMENTS.rateReservation.errorMessage);
     }
+    setIsLoading(false);
   };
 
   return {
@@ -48,7 +45,6 @@ const useRateReservation = () => {
     setRateMessage,
 
     rateReservation,
-
   };
 };
 
