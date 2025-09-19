@@ -23,19 +23,6 @@ const AboutUsScreen = () => {
     media,
   } = useLocalSearchParams();
 
-  // const {aboutUs} = params.data;
-  console.log("company", {
-    name,
-    contact,
-    text,
-    title,
-    textTwo,
-    textThree,
-    workDays,
-    workSaturday,
-    holidays,
-    media,
-  });
 
   return (
     <SafeAreaView style={styles.safeArea}>

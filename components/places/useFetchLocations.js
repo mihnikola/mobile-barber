@@ -1,4 +1,5 @@
 import { get } from "@/api/apiService";
+import { useLocalization } from "@/context/LocalizationContext";
 import { useState, useEffect } from "react";
 
 const useFetchLocations = () => {
@@ -6,6 +7,7 @@ const useFetchLocations = () => {
   const [locationsData, setLocationsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { localization } = useLocalization();
 
   const fetchLocations = async () => {
     setError(null);
@@ -16,11 +18,7 @@ const useFetchLocations = () => {
         setLocationsData(response.data);
       }
     } catch (err) {
-      if (err.message.includes("404")) {
-        setError(`Not found endpoint`);
-      } else {
-        setError(`Something Went Wrong, Please Try Again`);
-      }
+      setError(localization.PLACES.error);
       setIsLoading(false);
     }
   };

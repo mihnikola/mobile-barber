@@ -14,9 +14,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
+
+  const { localization } = useLocalization();
+
   const {
     checkEmailValidation,
     error,
@@ -37,21 +41,23 @@ const ForgotPassword = () => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View>
-        <Text style={styles.mainTitle}>Forgot Password</Text>
+        <Text style={styles.mainTitle}>
+          {localization.FORGOT_PASSWORD.title}
+        </Text>
       </View>
       <View>
         <Text style={styles.subtitle}>
-          Select which contact details should we use to reset your password
+          {localization.FORGOT_PASSWORD.subtitle}
         </Text>
       </View>
       <SharedImageForgotPass />
 
       <View style={styles.radiobtn}>
         <SharedInput
-          label="Email Address"
+          label={localization.EMAIL.label}
           value={email}
           onChangeText={handleEmailChange}
-          placeholder="Enter your email"
+          placeholder={localization.EMAIL.placeholder}
           keyboardType="email-address"
           autoCapitalize="none"
           style={styles.input}
@@ -62,7 +68,7 @@ const ForgotPassword = () => {
         disabled={emailError.length > 0 || isLoading}
         onPress={navHandler}
         loading={isLoading}
-        text="Send code"
+        text={localization.FORGOT_PASSWORD.submitBtn}
       />
       {error && (
         <SharedMessage
@@ -71,7 +77,7 @@ const ForgotPassword = () => {
           onConfirm={error && confirmHandler2}
           icon={<FontAwesome name="close" size={64} color="white" />}
           title={error}
-          buttonText="Ok"
+          buttonText={localization.OK.label}
         />
       )}
     </ScrollView>

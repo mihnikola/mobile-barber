@@ -5,6 +5,7 @@ import { getStorage } from "@/helpers/token";
 import { router } from "expo-router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
+import { useLocalization } from "@/context/LocalizationContext";
 
 // Handle background notifications using Expo's background handler
 Notifications.setNotificationHandler({
@@ -21,6 +22,7 @@ const useSubmitReservation = () => {
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
 
+  const { localization } = useLocalization();
   const [description, setDescription] = useState("");
 
   Notifications.addNotificationReceivedListener((notification) => {
@@ -57,7 +59,7 @@ const useSubmitReservation = () => {
     const { employer, service, timeData, dateReservation } = reservation;
 
     if (!employer || !service || !timeData || !dateReservation) {
-      setError("Missing reservation details. Please check your selection.");
+      setError(localization.APPOINTMENTS.errorFields);
       setIsLoading(false);
       return;
     }
@@ -68,7 +70,7 @@ const useSubmitReservation = () => {
         service,
         time: timeData.value,
         date: dateReservation,
-        customer: "", //  Where is this data coming from?
+        customer: "",
         token: tokenData,
         description,
       });
@@ -83,11 +85,7 @@ const useSubmitReservation = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.error("Error submitting reservation:", err);
-      setError(
-        err.message ||
-          "An unexpected error occurred while submitting your reservation."
-      );
+      setError(localization.APPOINTMENTS.postError);
       setIsLoading(false);
     }
 
@@ -100,14 +98,10 @@ const useSubmitReservation = () => {
       if (tokenData) {
         await submitReservation(tokenData);
       } else {
-        setError("Authentication token is missing. Please log in again.");
+        setError(localization.LOGIN.missingToken);
       }
     } catch (error) {
-      console.error("Error getting token:", error);
-      setError(
-        error.message ||
-          "Failed to retrieve authentication token. Please check your storage."
-      );
+      setError(localization.LOGIN.missingToken);
     }
   }, [submitReservation]);
 

@@ -2,10 +2,8 @@
 import { useState, useCallback } from "react";
 import { getData, post } from "@/api/apiService";
 import { saveStorage } from "@/helpers/token";
-import {
-  getExpoTokenStorage,
-  removeExpoTokenStorage,
-} from "@/helpers/expoToken";
+import { getExpoTokenStorage } from "@/helpers/expoToken";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useSubmitOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +11,8 @@ const useSubmitOtpCode = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+
+  const { localization } = useLocalization();
 
   const checkOtpCodeValidation = useCallback(async (email, otpCode) => {
     setIsLoading(true);
@@ -23,13 +23,22 @@ const useSubmitOtpCode = () => {
       });
       if (response.status === 200) {
         setIsMessage(true);
-        setMessage(response.message);
+        setMessage(localization.LOGIN.successVerified);
+        setIsLoading(false);
+      }
+      if (response.status === 401) {
+        setIsMessage(true);
+        setError(localization.LOGIN.expiredVerification);
+        setIsLoading(false);
+      }
+      if (response.status === 403) {
+        setIsMessage(true);
+        setError(localization.LOGIN.alreadyVerify);
         setIsLoading(false);
       }
     } catch (err) {
       setIsLoading(false);
-      setError(`Not valid otp code`);
-
+      setError(localization.OTP_CODE.validError);
       setIsMessage(true);
     }
   });
@@ -45,19 +54,18 @@ const useSubmitOtpCode = () => {
           otpCode,
         });
 
-
         if (response.status === 69) {
           saveStorage(response.token);
-          saveToken(response.userId, response.message);
+          saveToken(response.userId, localization.LOGIN.successVerified);
         }
         if (response.status === 202) {
           setIsMessage(true);
-          setError(response.message);
+          setError(localization.OTP_CODE.validError);
           setIsLoading(false);
         }
       } catch (err) {
         setIsLoading(false);
-        setError(`Not valid otp code`);
+        setError(localization.OTP_CODE.validError);
 
         setIsMessage(true);
       }
@@ -65,13 +73,12 @@ const useSubmitOtpCode = () => {
   );
 
   const saveToken = async (userId, messageData) => {
-    setIsLoading(true); 
+    setIsLoading(true);
     const expoTokenData = await getExpoTokenStorage();
 
-    
-      if(!expoTokenData){
-          return;
-        }
+    if (!expoTokenData) {
+      return;
+    }
     try {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoTokenData,
@@ -87,15 +94,13 @@ const useSubmitOtpCode = () => {
         setIsLoading(false);
         setIsMessage(true);
 
-        setError(
-          `Failed to save token: ${responseData?.message || "Unknown error"}`
-        );
+        setError(localization.LOGIN.errorToken);
       }
     } catch (err) {
       setIsLoading(false);
       setIsMessage(true);
 
-      setError(`Error saving token: ${err.message || err}`);
+      setError(localization.LOGIN.errorToken);
     }
   };
 

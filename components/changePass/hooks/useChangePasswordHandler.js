@@ -1,13 +1,14 @@
 // src/hooks/useChangePasswordHandler.js
 import { useState, useCallback } from "react";
 import { put } from "@/api/apiService";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useChangePasswordHandler = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
-
+  const { localization } = useLocalization();
   const handlePatchUser = useCallback(
     async (email, password, confirmPassword) => {
       setIsLoading(true);
@@ -15,13 +16,13 @@ const useChangePasswordHandler = () => {
 
       if (password.length === 0 || confirmPassword.length === 0) {
         setIsMessage(true);
-        setError("Please fill out all fields.");
+        setError(localization.LOGIN.error);
         setIsLoading(false);
         return;
       }
       if (password !== confirmPassword) {
         setIsMessage(true);
-        setError("Your passwords do not match.");
+        setError(localization.LOGIN.notMatch);
         setIsLoading(false);
         return;
       }
@@ -32,14 +33,10 @@ const useChangePasswordHandler = () => {
         });
         if (response.status === 200) {
           setIsMessage(true);
-          setMessage(response.message);
-        }
-        if (response.status === 400) {
-          setIsMessage(true);
-          setMessage(response.message);
+          setMessage(localization.CHANGE_PASS.success);
         }
       } catch (err) {
-        setError("Something went wrong");
+        setError(localization.CHANGE_PASS.error);
         setIsMessage(true);
       }
       setIsLoading(false);

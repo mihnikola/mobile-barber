@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
-import Loader from "@/components/Loader";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";

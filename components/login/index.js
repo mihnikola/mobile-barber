@@ -25,6 +25,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedLogo from "@/shared-components/SharedLogo";
 import useCompany from "../home/hooks/useCompany";
 import { useEffect } from "react";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -33,6 +34,7 @@ const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
+  const { localization } = useLocalization();
   const {
     isLoading,
     setIsMessage,
@@ -52,13 +54,15 @@ const LoginScreen = () => {
   useEffect(() => {
     getCompany();
   }, []);
-  console.log("company", company);
 
   const handleLogin = async () => {
     login(email, password);
   };
   const navigateToRegister = () => {
-    router.push({pathname: "(tabs)/(04_settings)/register",params:{image:company?.media?.logo}});
+    router.push({
+      pathname: "(tabs)/(04_settings)/register",
+      params: { image: company?.media?.logo },
+    });
   };
 
   const handleAppleLogin = () => {
@@ -99,8 +103,8 @@ const LoginScreen = () => {
       <View style={styles.container}>
         <SharedLogo image={company?.media?.logo} />
 
-        <Text style={styles.mainTitle}>Let's get you Login!</Text>
-        <Text style={styles.subtitle}>Enter your information below</Text>
+        <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
+        <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
         <View style={styles.socialButtonsContainer}>
           {/* <GoogleSigninButton
@@ -113,39 +117,39 @@ const LoginScreen = () => {
 
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
-          <Text style={styles.dividerText}>Or Login With</Text>
+          <Text style={styles.dividerText}>{localization.LOGIN.or}</Text>
           <View style={styles.dividerLine} />
         </View>
 
         <SharedInput
-          label="Email Address"
+          label={localization.EMAIL.label}
           value={email}
           onChangeText={handleEmailChange}
-          placeholder="Enter your email"
+          placeholder={localization.EMAIL.placeholder}
           keyboardType="email-address"
           autoCapitalize="none"
           style={styles.input}
         />
 
         <SharedPassword
-          label="Password"
+          label={localization.PASSWORD.label}
           value={password}
           onChangeText={handlePasswordChange}
-          placeholder="Enter your password"
+          placeholder={localization.PASSWORD.placeholder}
         />
 
         <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
           <Text style={{ color: "white", textAlign: "right" }}>
-            Forgot password?
+            {localization.LOGIN.forgot}
           </Text>
         </TouchableOpacity>
 
-        <SharedButton loading={isLoading} onPress={handleLogin} text="Login" />
+        <SharedButton loading={isLoading} onPress={handleLogin} text={localization.LOGIN.submitBtn} />
 
         <SharedRedirect
           onPress={navigateToRegister}
-          question="Don't have an account?"
-          text="Register Now"
+          question={localization.LOGIN.question}
+          text={localization.LOGIN.CTA}
         />
         {isMessage && (
           <SharedMessage
@@ -161,7 +165,7 @@ const LoginScreen = () => {
               />
             }
             title={error || success || message} // Title of the modal
-            buttonText="OK" // Text for the action button
+            buttonText={localization.OK.label} // Text for the action button
           />
         )}
         {isGoogleLoading && <SharedLoader />}

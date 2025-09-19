@@ -1,85 +1,7 @@
-// src/hooks/useEmailOtpCode.js
-// import { useState, useCallback } from "react";
-// import { getData } from "@/api/apiService";
-// import { router } from "expo-router";
-
-// const useEmailOtpCode = () => {
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setError] = useState(null);
-//   const [isMessage, setIsMessage] = useState(false);
-
-//   const checkEmailValidation = useCallback(async (email) => {
-//     setIsLoading(true);
-//     setError(null);
-//     if (email.length === 0) {
-//       setIsMessage(true);
-//       setError("Please enter your email");
-//       setIsLoading(false);
-//       return;
-//     }
-//     try {
-//       const response = await getData("/users/email", { params: { email } });
-//       if (response.status === 200 && response.success) {
-//         setIsLoading(false);
-//         router.push({
-//           pathname: "/(tabs)/(04_settings)/otpCode",
-//           params: { data: email },  
-//         });
-//       }
-//       if (response.status === 200 && !response.success) {
-//         console.log("checkEmailValidation 400 response+++", response);        
-//         setIsLoading(false);
-//         setIsMessage(true);
-//         setError("Entered email not found");
-//       }
-//     } catch (err) {
-//       setIsLoading(false);
-//       setError(`Not valid email`);
-//       setIsMessage(true);
-//     }
-//   });
-
-//   return {
-//     isLoading,
-//     error,
-//     setError,
-//     checkEmailValidation,
-//     isMessage,
-//     setIsMessage,
-//   };
-// };
-
-// export default useEmailOtpCode;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useState, useCallback } from "react";
 import { getData } from "@/api/apiService";
 import { router } from "expo-router";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -87,7 +9,7 @@ const useEmailOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
-
+  const { localization } = useLocalization();
   const resetState = () => {
     setError(null);
     setIsMessage(false);
@@ -97,13 +19,13 @@ const useEmailOtpCode = () => {
     resetState();
 
     if (!email || email.trim().length === 0) {
-      setError("Please enter your email");
+      setError(localization.EMAIL.errorEmpty);
       setIsMessage(true);
       return;
     }
 
     if (!EMAIL_REGEX.test(email)) {
-      setError("Please enter a valid email address");
+      setError(localization.EMAIL.errorValid);
       setIsMessage(true);
       return;
     }
@@ -120,15 +42,15 @@ const useEmailOtpCode = () => {
             params: { data: email },
           });
         } else {
-          setError("Entered email not found");
+          setError(localization.EMAIL.errorFound);
           setIsMessage(true);
         }
       } else {
-        setError("Unexpected server response");
+        setError(localization.SERVER_RESPONSE.error);
         setIsMessage(true);
       }
     } catch (err) {
-      setError("Unable to verify email. Please try again later.");
+        setError(localization.SERVER_RESPONSE.error);
       setIsMessage(true);
     } finally {
       setIsLoading(false);

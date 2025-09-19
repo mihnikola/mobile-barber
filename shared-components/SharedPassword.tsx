@@ -1,3 +1,4 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   Image,
@@ -36,9 +37,11 @@ const SharedPassword = (props: any) => {
           style={styles.passwordToggle}
           onPress={togglePasswordVisibility}
         >
-          <Text style={{ color: "#888" }}>
-            {isPasswordVisible ? "Hide" : "Show"}
-          </Text>
+          <FontAwesome
+            name={isPasswordVisible ? "eye" : "eye-slash"}
+            size={24}
+            color="grey"
+          />
         </TouchableOpacity>
       </View>
       {props.value.length > 0 && props.error ? (

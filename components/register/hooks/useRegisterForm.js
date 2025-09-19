@@ -1,13 +1,14 @@
 // src/hooks/useRegisterForm.js
 import { useState } from "react";
 import axios from "axios";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useRegisterForm = () => {
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
+  const { localization } = useLocalization();
 
   const handleSubmit = async (userData) => {
     const {
@@ -22,14 +23,13 @@ const useRegisterForm = () => {
 
     if (!name || !confirmPassword || !password || !email) {
       setIsMessage(true);
-      setError("Please fill out all fields.");
+      setError(localization.REGISTER.error);
       return;
     }
 
     if (confirmPassword !== password) {
       setIsMessage(true);
-
-      setError("Your passwords does not match");
+      setError(localization.LOGIN.notMatch);
       return;
     }
 
@@ -51,28 +51,24 @@ const useRegisterForm = () => {
 
       if (result.status === 400) {
         setIsMessage(true);
-        setSuccess(result.data.message);
+        setError(localization.LOGIN.error);
       } else if (result.status === 202) {
         setIsMessage(true);
-        setError(result.data.message);
+        setError(localization.REGISTER.emailError);
       } else if (result.status === 200) {
         setIsMessage(true);
-
-        setSuccess(result.data.message);
+        setSuccess(localization.REGISTER.createUser);
       } else {
         setIsMessage(true);
-
-        setError(`Registration failed: ${result.status}`);
+        setError(localization.REGISTER.postError);
       }
     } catch (errorx) {
       if (errorx.message.includes("404")) {
         setIsMessage(true);
-
-        setError(` Not found endpoint`);
+        setError(localization.SERVER_RESPONSE.notFound);
       } else {
         setIsMessage(true);
-
-        setError(`Something Went Wrong, Please Try Again`);
+        setError(localization.SERVER_RESPONSE.error);
       }
     } finally {
       setLoading(false);

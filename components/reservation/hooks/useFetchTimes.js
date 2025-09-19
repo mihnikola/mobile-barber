@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/api/apiService";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useFetchTimes = (date, reservation, isSunday) => {
   const [timesData, setTimesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [resetError, setResetError] = useState(false);
+  const { localization } = useLocalization();
 
   const fetchTimes = useCallback(
     async (selectedDate) => {
@@ -21,9 +23,7 @@ const useFetchTimes = (date, reservation, isSunday) => {
 
       if (!employer || !service) {
         setIsLoading(false);
-        setError(
-          "Employer and service must be selected before fetching times."
-        );
+        setError(localization.TIMES.error);
         return;
       }
 
@@ -51,7 +51,7 @@ const useFetchTimes = (date, reservation, isSunday) => {
           setTimesData(response);
           setIsLoading(false);
         } catch (err) {
-          setError(err.message || "Error fetching times.");
+          setError(localization.TIMES.errorFetch);
           setIsLoading(false);
         }
       } else {

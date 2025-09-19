@@ -8,7 +8,6 @@ const usePhoneNumber = () => {
   const serbianPhoneRegex = /^\d{8,9}$/;
 
   const validateSerbianPhoneNumber = (number) => {
-
     if (number.length === 0) {
       setIsValid(true);
       setErrorPhoneNumber("");
@@ -18,10 +17,9 @@ const usePhoneNumber = () => {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;
-      
     } else {
       setIsValid(false);
-      setErrorPhoneNumber("Please enter a valid phone number.");
+      setErrorPhoneNumber(localization.SETTINGS.PROFILE.errorPhoneNumber);
       return false;
     }
   };
