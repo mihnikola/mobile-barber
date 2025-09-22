@@ -6,6 +6,7 @@ const useEmail = () => {
   const [emailError, setEmailError] = useState("");
 
   const handleEmailChange = useCallback((text) => {
+    console.log("xxxxxxxxxx",text)
     setEmail(text);
   }, []);
 

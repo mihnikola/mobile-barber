@@ -56,6 +56,7 @@ const LoginScreen = () => {
   }, []);
 
   const handleLogin = async () => {
+    console.log("login+++",email,password)
     login(email, password);
   };
   const navigateToRegister = () => {
@@ -72,7 +73,15 @@ const LoginScreen = () => {
     setIsMessage(false);
   };
   const confirmHandler = async () => {
+          console.log("jel si realan 2", email, password);
+
+    if(email === "" || password === ""){
+       setIsMessage(false);
+      console.log("jel si realan", email, password);
+      return;
+    }
     if (status === 606) {
+      console.log("email 606",email,password)
       verificationOTPCode(email, password);
     } else {
       setIsMessage(false);

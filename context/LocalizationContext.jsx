@@ -1,16 +1,33 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ENG_LOCALIZATION } from "../helpers/en-locale";
 import { SRB_LOCALIZATION } from "../helpers/srb-locale";
+import { getLanguageValue, setLanguageValue } from "../helpers/language";
+
 const LocalizationContext = createContext(null);
 export const useLocalization = () => {
     return useContext(LocalizationContext);
 };
 export const LocalizationProvider = ({ children }) => {
+
     const [localization, setLocalization] = useState(ENG_LOCALIZATION);
+
+    const getLanguageFromStorage = async () => {
+        await getLanguageValue().then((res) => {
+            if (res) {
+                const prom = { code: res };
+                changeLocalization(prom);
+            } else {
+                setLocalization(ENG_LOCALIZATION)
+            }
+        });
+    }
+    useEffect(() => {
+        getLanguageFromStorage();
+    }, [])
 
     const changeLocalization = (language) => {
         const { code } = language;
-
+        setLanguageValue(code);
         if (code === "en") {
             setLocalization(ENG_LOCALIZATION);
         }
