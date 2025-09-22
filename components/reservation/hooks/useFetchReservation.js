@@ -6,21 +6,24 @@ import {
   convertNameAndDate,
   convertToDayTime,
 } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const useFetchReservation = (reservationId) => {
   const [reservationData, setReservationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { localization } = useLocalization();
+  
   const fetchReservationDetails = async () => {
+    setIsLoading(true);
+    setError(null);
+
     if (!reservationId) {
       setIsLoading(false);
-      setError("Reservation ID is not provided.");
+      setError(localization.APPOINTMENTS.errorId);
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
     try {
       const response = await get(`/availabilities/${reservationId}`);
       const startDateTime = convertToDayTime(response?.startDate);
@@ -33,8 +36,7 @@ const useFetchReservation = (reservationId) => {
       const result = { ...response, startDateTime, finishedTime, eventDate };
       setReservationData(result);
     } catch (err) {
-      setError(err.message || "Failed to fetch reservation details.");
-      console.error("Error fetching reservation details:", err);
+      setError(localization.APPOINTMENTS.errorFetchId);
     } finally {
       setIsLoading(false);
     }
@@ -46,7 +48,7 @@ const useFetchReservation = (reservationId) => {
       fetchReservationDetails();
     } else if (isMounted && !reservationId) {
       setIsLoading(false);
-      setError("Reservation ID is not available initially.");
+      setError(localization.APPOINTMENTS.errorId);
     }
 
     return () => {

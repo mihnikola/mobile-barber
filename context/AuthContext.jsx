@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useLocalization } from "./LocalizationContext";
 // import {
 //   GoogleSignin,
 //   isErrorWithCode,
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
 
+  const { localization } = useLocalization();
   useEffect(() => {
     // GoogleSignin.configure({
     //   webClientId:
@@ -90,9 +92,9 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       if (err.message.includes("404")) {
-        setError(`Not found endpoint`);
+        setError(localization.SERVER_RESPONSE.notFound);
       } else {
-        setError(`Something Went Wrong, Please Try Again`);
+        setError(localization.SERVER_RESPONSE.error);
       }
       setIsLoading(false);
     }
@@ -130,7 +132,7 @@ export const AuthProvider = ({ children }) => {
       setIsToken(null);
       setIsLoading(false);
     } catch (error) {
-      console.error("logoutHandler error ", error);
+      setError(error);
     }
   };
   const logoutFirebase = async () => {
@@ -144,7 +146,7 @@ export const AuthProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.log("logoutFirebase error", error);
+      setError(error);
     }
   };
 
@@ -214,14 +216,14 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       setIsLoading(false);
-      setError("Something goes wrong! Please try again!");
+      setError(localization.SERVER_RESPONSE.error);
     }
   };
 
   const login = async (email, password) => {
     if (!email || !password) {
       setIsMessage(true);
-      setError("Please enter both email and password");
+      setError(localization.LOGIN.error);
       return;
     }
     setStatus(null);
@@ -234,13 +236,13 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 202) {
         setIsLoading(false);
         setIsMessage(true);
-        setError(responseData.message);
+        setError(localization.LOGIN.errorFields);
       }
       if (responseData.status === 606) {
         setIsLoading(false);
         setIsMessage(true);
         setStatus(responseData.status);
-        setMessage(responseData.message);
+        setMessage(localization.LOGIN.isVerified);
       }
       if (responseData.status === 200) {
         setIsLoading(false);
@@ -251,11 +253,11 @@ export const AuthProvider = ({ children }) => {
       if (err.message.includes("404")) {
         setIsMessage(true);
 
-        setError(` Not found endpoint`);
+        setError(localization.SERVER_RESPONSE.notFound);
       } else {
         setIsMessage(true);
 
-        setError(`Something Went Wrong, Please Try Again`);
+        setError(localization.SERVER_RESPONSE.error);
       }
       setIsLoading(false);
     }
@@ -278,7 +280,7 @@ export const AuthProvider = ({ children }) => {
 
       if (responseData.status === 500) {
         setIsGoogleLoading(false);
-        setError(responseData.message);
+        setError(localization.SERVER_RESPONSE.error);
       }
     } catch (err) {
       setIsGoogleLoading(false);
@@ -286,11 +288,11 @@ export const AuthProvider = ({ children }) => {
       if (err.message.includes("404")) {
         setIsMessage(true);
 
-        setError(` Not found endpoint`);
+        setError(localization.SERVER_RESPONSE.notFound);
       } else {
         setIsMessage(true);
 
-        setError(`Something Went Wrong, Please Try Again`);
+        setError(localization.SERVER_RESPONSE.error);
       }
     }
   };
@@ -315,14 +317,15 @@ export const AuthProvider = ({ children }) => {
 
         setIsLoading(false);
         setIsMessage(true);
-        setSuccess("Login Successful!");
+        setSuccess(localization.LOGIN.success);
+
       } else {
 
         setIsLoading(false);
         setIsMessage(true);
 
         setError(
-          `Failed to save token: ${responseData?.message || "Unknown error"}`
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
         );
       }
     } catch (err) {
@@ -330,7 +333,7 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(true);
       setIsLoading(false);
 
-      setError(`Error saving token: ${err.message || err}`);
+      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
     }
   };
 
@@ -353,21 +356,21 @@ export const AuthProvider = ({ children }) => {
 
         setIsGoogleLoading(false);
         setIsMessage(true);
-        setSuccess("Login Successful!");
+        setSuccess(localization.LOGIN.success);
       } else {
 
         setIsGoogleLoading(false);
         setIsMessage(true);
 
         setError(
-          `Failed to save token: ${responseData?.message || "Unknown error"}`
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
         );
       }
     } catch (err) {
       setIsGoogleLoading(false);
       setIsMessage(true);
 
-      setError(`Error saving token: ${err.message || err}`);
+      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
     }
   };
 

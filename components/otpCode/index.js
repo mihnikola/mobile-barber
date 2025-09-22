@@ -10,10 +10,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const otpCode = () => {
   const params = useLocalSearchParams();
   const { data } = params;
+  const { localization } = useLocalization();
 
   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   const {
@@ -33,7 +35,7 @@ const otpCode = () => {
       checkOtpCodeValidation(data, otp);
     } else {
       setIsMessage(true);
-      setError("Please enter all 6 digits.");
+      setError(localization.OTP_CODE.validCode);
     }
   };
 
@@ -55,12 +57,14 @@ const otpCode = () => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View>
-        <Text style={styles.mainTitle}>Enter OTP Code</Text>
+        <Text style={styles.mainTitle}>{localization.OTP_CODE.mainTitle}</Text>
       </View>
       <View>
-        <Text style={styles.subtitle}>OTP code has been sent to {data}.</Text>
         <Text style={styles.subtitle}>
-          If you didn't find it, check your SPAM mailbox.
+          {localization.OTP_CODE.subtitlePrimary} {data}.
+        </Text>
+        <Text style={styles.subtitle}>
+          {localization.OTP_CODE.subtitleSecondary}
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
@@ -71,7 +75,7 @@ const otpCode = () => {
         <SharedButton
           disabled={code.join("").length < 6}
           onPress={handleVerify}
-          text="Submit"
+          text={localization.SUBMIT.label}
           loading={isLoading}
         />
       </View>
@@ -89,7 +93,7 @@ const otpCode = () => {
             />
           }
           title={error || message} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          buttonText={localization.OK.label} // Text for the action button
         />
       )}
     </ScrollView>

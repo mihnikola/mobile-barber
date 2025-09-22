@@ -1,5 +1,6 @@
 // src/hooks/useReservations.js
 import { get } from "@/api/apiService";
+import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { useState } from "react";
 
@@ -7,6 +8,7 @@ const useReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { localization } = useLocalization();
 
   const detailsReservation = (item) => {
     if (item?.past) {
@@ -31,11 +33,7 @@ const useReservations = () => {
       setReservations(reservationDataResponse);
       setIsLoading(false);
     } catch (err) {
-      console.error("Error fetching reservations:", err);
-      setError(
-        err.message ||
-          "An unexpected error occurred while fetching reservations."
-      );
+      setError(localization.APPOINTMENTS.errorFetch);
       setIsLoading(false);
     }
   };

@@ -19,11 +19,16 @@ export const ENG_LOCALIZATION = {
     ok: "OK",
     cancel: "Cancel",
   },
+  COMPANY: {
+    error: "Error while fetching company data...",
+  },
   BARBERS: {
     title: "Choose barber",
+    error: "Error while fetching employers...",
   },
   PLACES: {
     title: "Choose location",
+    error: "Error while fetching locations...",
   },
   DATE: {
     title: "Choose date",
@@ -44,14 +49,22 @@ export const ENG_LOCALIZATION = {
   },
   SERVICES: {
     title: "Pricing & Services",
+    errorFetch: "An unexpected error occurred while fetching services.",
   },
   DETAILS: {
     price: "Price",
     duration: "Duration",
     mark: "Reviews",
   },
+  TIMES: {
+    error: "Employer and service must be selected before fetching times.",
+    errorFetch: "Errpr while fetching times...",
+  },
+
   APPOINTMENTS: {
+    errorId: "Reservation id is not provided.",
     title: "Reservations",
+    postError: "Error while submitting your reservation.",
     cancelReservation: {
       cancelButton: "Cancel",
       cancelQuestion: "Are you sure you want to cancel this reservation?",
@@ -71,8 +84,14 @@ export const ENG_LOCALIZATION = {
       confirmMessage: "Reservation is rated successfully",
       errorMessage: "Reservation is not exist",
     },
+    errorFetch: "Error fetching reservations",
+    errorFetchId: "Error fetching information for current reservation",
     description: "Your description",
     placeholderDescription: "Enter your description...",
+    errorFields: "Missing reservation details. Please check your selection.",
+  },
+  INITIAL: {
+    error: "Error while fetching initial data",
   },
   SETTINGS: {
     changeLanguage: {
@@ -125,5 +144,98 @@ export const ENG_LOCALIZATION = {
       btnText: "Submit",
       messageConfirm: "User updated successfully",
     },
+    ERROR: {
+      label: "Error while changing user",
+      imageError: "Upload failed",
+    },
+  },
+  LOGIN: {
+    title: "Let's get you Login!",
+    description: "Enter your information below",
+    or: "Or Login With",
+    email: "Otp code is sent to your email successfully",
+    errorEmail:"Error while sending email",
+    isVerified:"Your account is not verified yet. Verification code will be sent to your email.",
+    forgot: "Forgot password?",
+    submitBtn: "Login",
+    question: "Don't have an account?",
+    CTA: "Register Now",
+    error: "Please enter both email and password",
+    success: "Login Successful!",
+    errorToken: "Failed to save token:",
+    missingToken: "Authentication token is missing. Please log in again.",
+    notMatch: "Your passwords do not match.",
+    errorFields: "Incorrect email or password",
+    errorPass:"Incorrect password",
+    successVerified:"Your account has been verified!",
+    expiredVerification:"Invalid or expired verification otp code.",
+    alreadyVerify:"User already verified.",
+  },
+  CHANGE_PASS: {
+    mainTitle: "Enter New Password",
+    success: "Successfully updated password",
+    error: "Error while changing password",
+  },
+  EMAIL: {
+    label: "Email",
+    placeholder: "Enter your email",
+    errorValid: "Please enter a valid email address.",
+    errorEmpty: "Please enter your email.",
+    errorFound: "Entered email not found",
+    errorRegex:
+      "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
+  },
+  PASSWORD: {
+    label: "Password",
+    placeholder: "Enter your password",
+  },
+  REGISTER: {
+    title: "Register your account",
+    emailError: "Email already exists.",
+    description: "Enter your information below",
+
+    submitBtn: "Register",
+    question: "Already have an account?",
+    CTA: "Login",
+    error: "Please enter all fields",
+    success: "Successfully registration!",
+    postError: "Error while creating user...",
+    createUser: "User created successfully! Please verified your account.",
+  },
+  CONFIRM_PASSWORD: {
+    label: "Re-Enter password",
+    placeholder: "Confirm your password",
+  },
+  NAME: {
+    label: "Name",
+    placeholder: "Enter your name",
+  },
+  PHONENUMBER: {
+    label: "Phone number",
+    placeholder: "Enter your phone number",
+  },
+  SERVER_RESPONSE: {
+    notFound: "Not found endpoint",
+    error: "Something Went Wrong, Please Try Again",
+  },
+  OK: {
+    label: "OK",
+  },
+  OTP_CODE: {
+    mainTitle: "Enter OTP Code",
+    validCode: "Please enter all 6 digits.",
+    validError: "Not valid otp code",
+    validSuccess: "Your otp code is valid",
+    subtitlePrimary: "OTP code has been sent to",
+    subtitleSecondary: " If you didn't find it, check your SPAM mailbox.",
+  },
+  SUBMIT: {
+    label: "Submit",
+  },
+  FORGOT_PASSWORD: {
+    title: "Forgot Password",
+    subtitle:
+      "Select which contact details should we use to reset your password",
+    submitBtn: "Send code",
   },
 };

@@ -19,14 +19,20 @@ export const SRB_LOCALIZATION = {
     locationBtn: "Lokacija",
     locationBtnDesc: "Gde se nalazimo?",
   },
+  COMPANY: {
+    error: "Greška prilikom uzimanja podataka o kompaniji...",
+  },
   BARBERS: {
     title: "Odaberi frizera",
+    error: "Greška prilikom uzimanja podataka o zaposlenima...",
   },
   PLACES: {
     title: "Odaberi lokaciju",
+    error: "Greška prilikom preuzimanja lokacija...",
   },
   SERVICES: {
     title: "Cenovnik & Usluge",
+    errorFetch: "Greška prilikom uzimanja podataka o servisima...",
   },
   DATE: {
     title: "Odaberi termin",
@@ -45,13 +51,20 @@ export const SRB_LOCALIZATION = {
       "2. Otkazivanje se mora izvršiti najmanje 180 minuta pre zakazanog termina.",
     success: "Vaš termin je uspešno zakazan!",
   },
+  TIMES: {
+    error:
+      "Radnik i usluga mora biti odabrana pre preuzimanja slobodne satnice.",
+    errorFetch: "Greška prilikom preuzimanja slobodne satnice...",
+  },
   DETAILS: {
     price: "Cena",
     duration: "Trajanje",
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    errorId: "Id rezervacije nije pronađen.",
     title: "Rezervacije",
+    postError: "Greška prilikom kreiranja rezervacije.",
     cancelReservation: {
       cancelButton: "Otkaži",
       cancelQuestion:
@@ -72,8 +85,15 @@ export const SRB_LOCALIZATION = {
       confirmMessage: "Rezervacija je uspešno ocenjena",
       errorMessage: "Rezervacija ne postoji",
     },
+    errorFetch: "Greška prilikom preuzimanja rezervacija",
+    errorFetchId: "Greška prilikom preuzimanja date rezervacije",
     description: "Vaš Opis:",
     placeholderDescription: "Unesite opis...",
+    errorFields:
+      "Nedostaju neophodni podaci za rezervaciju termina. Molim Vas ponovite ceo proces.",
+  },
+  INITIAL: {
+    error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
   SETTINGS: {
     changeLanguage: {
@@ -125,5 +145,98 @@ export const SRB_LOCALIZATION = {
       btnText: "Pošalji",
       messageConfirm: "Korisnik je uspešno ažuriran",
     },
+    ERROR: {
+      label: "Greška prilikom menjanja korisnika",
+      imageError: "Greška u toku postavljanja slike",
+    },
+  },
+  LOGIN: {
+    title: "Prijava",
+    description: "Molimo Vas da unesete podatke",
+    or: "ili popunFite formu",
+    forgot: "Zaboravljena lozinka?",
+    submitBtn: "Prijavi se",
+    question: "Nemate nalog?",
+    CTA: "Registrujte se",
+    error: "Niste uneli sva polja",
+    missingToken: "Token ne postoji. Popunite formu za prijavu.",
+    email: "Otp kod je uspešno poslat na Vaš email",
+    errorEmail: "Greška prilikom slanja email-a",
+    success: "Uspešna prijava!",
+    errorToken: "Neuspešno čuvanje tokena:",
+    notMatch: "Lozinke se ne podudaraju.",
+    errorFields: "Email ili lozinka nisu tačni",
+    isVerified:
+      "Vaš nalog nije verifikovan. Verifikacioni kod će biti poslat na Vaš email.",
+    errorPass: "Netačna lozinka",
+    successVerified: "Vaš nalog je verifikovan!",
+    expiredVerification:"Nevalidan ili istekao otp kod.",
+    alreadyVerify:"Korisnik je već verifikovan.",
+  },
+  REGISTER: {
+    title: "Registracija",
+    emailError: "Email već postoji.",
+    description: "Molimo Vas da unesete podatke",
+    submitBtn: "Registruj se",
+    question: "Već imate nalog?",
+    CTA: "Prijavite se",
+    error: "Niste uneli sva polja",
+    success: "Uspešna registracija!",
+    postError: "Greška prilikom kreiranja korisnika...",
+    createUser: "Korisnik je uspešno kreiran! Verifikuj svoj nalog.",
+  },
+  CHANGE_PASS: {
+    mainTitle: "Unesite novu lozinku",
+    success: "Uspešno ažurirana lozinka",
+    error: "Greška u toku promene lozinke",
+  },
+  EMAIL: {
+    label: "Email",
+    placeholder: "Unesite Vaš email",
+    errorValid: "Unesite validnu email adresu.",
+    errorEmpty: "Unesite email adresu.",
+    errorFound: "Nije pronađena email adresa.",
+    errorRegex:
+      "Lozinka mora da počne sa slovom i da ima najmanje 8 karaktera, koje čine jedno veliko slovo, broj, i specijalni znak.",
+  },
+  PASSWORD: {
+    label: "Lozinka",
+    placeholder: "Unesite Vašu lozinku",
+  },
+  CONFIRM_PASSWORD: {
+    label: "Potvrdite lozinku",
+    placeholder: "Potvrdite Vašu lozinku",
+  },
+  NAME: {
+    label: "Ime i prezime",
+    placeholder: "Unesite Vaše ime i prezime",
+  },
+  PHONENUMBER: {
+    label: "Broj telefona",
+    placeholder: "Unesite Vaš broj telefona",
+  },
+
+  OTP_CODE: {
+    mainTitle: "Unesi OTP kod",
+    validCode: "Molim Vas unesite svih 6 cifara.",
+    validError: "Vaš otp kod nije validan",
+    validSuccess: "Vaš otp kod je validan",
+    subtitlePrimary: "OTP kod je poslat na adresu",
+    subtitleSecondary: "Ukoliko nema u inbox, proveri SPAM poštansko sanduče.",
+  },
+  SUBMIT: {
+    label: "Pošalji",
+  },
+  OK: {
+    label: "U redu",
+  },
+  FORGOT_PASSWORD: {
+    title: "Zaboravljena Lozinka",
+    subtitle: "Odaberite email za resetovanje Vaše lozinke",
+    submitBtn: "Pošalji kod",
+  },
+  SERVER_RESPONSE: {
+    notFound: "Neispravan endpoint",
+    error: "Neočekivana greška. Pokušaj ponovo kasnije.",
   },
 };

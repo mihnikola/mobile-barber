@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  StatusBar,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
 import { ScrollView } from "react-native";
-import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
@@ -17,20 +10,16 @@ import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const changePass = () => {
   const params = useLocalSearchParams();
   const { data } = params;
 
-  const {
-    password,
-    passwordError,
-    handlePasswordChange,
-  } = usePassword();
-  const {
-    confirmPassword,
-    handleConfirmPasswordChange,
-  } = useConfirmPassword(password);
+  const { localization } = useLocalization();
+  const { password, passwordError, handlePasswordChange } = usePassword();
+  const { confirmPassword, handleConfirmPasswordChange } =
+    useConfirmPassword(password);
 
   const {
     handlePatchUser,
@@ -40,12 +29,10 @@ const changePass = () => {
     error,
     isLoading,
   } = useChangePasswordHandler();
-  
+
   const submitChanges = () => {
     handlePatchUser(data, password, confirmPassword);
   };
-
-
 
   const confirmHandler = () => {
     setIsMessage(false);
@@ -59,29 +46,31 @@ const changePass = () => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View>
-        <Text style={styles.mainTitle}>Enter New Password</Text>
+        <Text style={styles.mainTitle}>
+          {localization.CHANGE_PASS.mainTitle}
+        </Text>
       </View>
 
       <View style={styles.textinputContainer}>
         <SharedPassword
-          label="Password"
+          label={localization.PASSWORD.label}
           value={password}
           onChangeText={handlePasswordChange}
-          placeholder="Enter your password"
+          placeholder={localization.PASSWORD.placeholder}
           error={passwordError}
         />
         <SharedConfirmPassword
-          label="Re-Enter Password"
+          label={localization.CONFIRM_PASSWORD.label}
           value={confirmPassword}
           onChangeText={handleConfirmPasswordChange}
-          placeholder="Confirm your password"
+          placeholder={localization.CONFIRM_PASSWORD.placeholder}
         />
       </View>
       <SharedImageForgotPass />
       <View style={styles.btnFooter}>
         <SharedButton
           loading={isLoading}
-          text="Submit"
+          text={localization.SUBMIT.label}
           disabled={isLoading || passwordError.length > 0}
           onPress={submitChanges}
         />
@@ -93,13 +82,13 @@ const changePass = () => {
           onConfirm={!error ? confirmHandler : confirmHandler2}
           icon={
             <FontAwesome
-              name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
-              size={64} // Size of the icon
-              color="white" // Corresponds to text-blue-500
+              name={error ? "close" : "check-circle-o"}
+              size={64}
+              color="white"
             />
           }
-          title={error || message} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          title={error || message}
+          buttonText={localization.OK.label}
         />
       )}
     </ScrollView>
@@ -123,11 +112,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-    // maxWidth:"100%",
     borderColor: "#333",
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -146,7 +134,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   textInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -168,8 +156,6 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
-    // width: 290,
-    // height: 290,
     resizeMode: "cover",
   },
   mainTitle: {

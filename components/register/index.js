@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   ScrollView,
   StatusBar,
   Platform,
@@ -23,9 +22,11 @@ import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import SharedLogo from "@/shared-components/SharedLogo";
+import { useLocalization } from "@/context/LocalizationContext";
 const Register = () => {
   const [userName, setUserName] = useState("");
   const { image } = useLocalSearchParams();
+  const { localization } = useLocalization();
   const {
     loading,
     error,
@@ -74,19 +75,19 @@ const Register = () => {
       <View style={styles.container}>
         <SharedLogo image={image} />
 
-        <Text style={styles.mainTitle}>Register your account</Text>
-        <Text style={styles.subtitle}>Enter your information below</Text>
+        <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
+        <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
 
         <SharedInput
-          label="Name"
-          placeholder="Enter your name"
+          label={localization.NAME.label}
+          placeholder={localization.NAME.placeholder}
           value={userName}
           style={styles.input}
           onChangeText={setUserName}
         />
         <SharedInput
-          label="Email Address"
-          placeholder="Enter your email"
+          label={localization.EMAIL.label}
+          placeholder={localization.EMAIL.placeholder}
           keyboardType="email-address"
           value={email}
           autoCapitalize="none"
@@ -96,7 +97,7 @@ const Register = () => {
         />
 
         <SharedPhoneNumber
-          label="Phone Number"
+          label={localization.PHONENUMBER.label}
           placeholder="6x xxx xxxx"
           placeholderTextColor="#888"
           keyboardType="phone-pad"
@@ -108,17 +109,17 @@ const Register = () => {
         />
 
         <SharedPassword
-          label="Password"
+          label={localization.PASSWORD.label}
           value={password}
           onChangeText={handlePasswordChange}
-          placeholder="Enter your password"
+          placeholder={localization.PASSWORD.placeholder}
           error={passwordError}
         />
         <SharedConfirmPassword
-          label="Re-Enter Password"
+          label={localization.CONFIRM_PASSWORD.label}
           value={confirmPassword}
           onChangeText={handleConfirmPasswordChange}
-          placeholder="Confirm your password"
+          placeholder={localization.CONFIRM_PASSWORD.placeholder}
         />
 
         <SharedButton
@@ -129,13 +130,13 @@ const Register = () => {
           }
           loading={loading}
           onPress={handleRegister}
-          text="Register"
+          text={localization.REGISTER.submitBtn}
         />
 
         <SharedRedirect
           onPress={navigateToLogin}
-          question="Already have an account?"
-          text="Login"
+          question={localization.REGISTER.question}
+          text={localization.REGISTER.CTA}
         />
         {isMessage && (
           <SharedMessage
@@ -150,7 +151,7 @@ const Register = () => {
               />
             }
             title={error || success}
-            buttonText="Ok"
+            buttonText={localization.OK.label}
           />
         )}
       </View>

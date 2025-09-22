@@ -1,13 +1,11 @@
 import {
   View,
   Text,
-  TextInput,
   StatusBar,
   StyleSheet,
   Platform,
 } from "react-native";
 import { ScrollView } from "react-native";
-import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
 import { useState } from "react";
@@ -16,15 +14,18 @@ import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import useSendEmailVerification from "./hooks/useSendEmailVerification";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const otpCodeRegister = () => {
-  const params = useLocalSearchParams(); // Get the route object
+  const params = useLocalSearchParams();
   const { data, email, password } = params;
-  const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
+  const [code, setCode] = useState(Array(6).fill("")); 
 
-  <Text style={styles.mainTitle}>Enter OTP Code</Text>;
+  const {localization} = useLocalization();
+
+  <Text style={styles.mainTitle}>{localization.OTP_CODE.mainTitle}</Text>;
   const {
     checkOtpCodeValidation,
     checkOtpCodeVerification,
@@ -57,7 +58,7 @@ const otpCodeRegister = () => {
       }
     } else {
       setIsMessage(true);
-      setError("Please enter all 6 digits.");
+      setError(localization.OTP_CODE.validCode);
     }
   };
 
@@ -82,14 +83,14 @@ const otpCodeRegister = () => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View>
-        <Text style={styles.mainTitle}>Enter OTP Code</Text>
+        <Text style={styles.mainTitle}>{localization.OTP_CODE.mainTitle}</Text>
       </View>
       <View>
         <Text style={styles.subtitle}>
-          OTP code has been sent to {data || email}.
+          {localization.OTP_CODE.subtitlePrimary} {data || email}.
         </Text>
         <Text style={styles.subtitle}>
-          If you didn't find it, check your SPAM mailbox.
+          {localization.OTP_CODE.subtitleSecondary}
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
@@ -100,7 +101,7 @@ const otpCodeRegister = () => {
         <SharedButton
           disabled={code.join("").length < 6}
           onPress={handleVerify}
-          text="Submit"
+          text={localization.SUBMIT.label}
           loading={isLoading}
         />
       </View>
@@ -117,7 +118,7 @@ const otpCodeRegister = () => {
             />
           }
           title={error || message} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          buttonText={localization.OK.label} // Text for the action button
         />
       )}
       {isMessageVerification && !isMessage && (
@@ -133,7 +134,7 @@ const otpCodeRegister = () => {
             />
           }
           title={errorVerification || messageVerification} // Title of the modal
-          buttonText="Ok" // Text for the action button
+          buttonText={localization.OK.label} // Text for the action button
         />
       )}
     </ScrollView>

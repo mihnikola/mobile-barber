@@ -1,3 +1,4 @@
+import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useState, useCallback } from "react";
@@ -7,6 +8,7 @@ const useUserChange = () => {
   const [errorChange, setErrorChange] = useState(null);
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
+  const { localization } = useLocalization();
 
   const handleChangeUser = useCallback(async (userData) => {
     setIsLoadingChange(true);
@@ -22,8 +24,8 @@ const useUserChange = () => {
         filename.split(".").pop() === "png"
           ? "image/png"
           : filename.split(".").pop() === "jpg"
-          ? "image/jpg"
-          : "image/jpeg";
+            ? "image/jpg"
+            : "image/jpeg";
       formData.append("image", {
         uri: userData?.image,
         name: filename,
@@ -41,21 +43,17 @@ const useUserChange = () => {
           },
         }
       );
-
       if (response.status >= 200 && response.status < 300) {
         setIsMessage(true);
-
-        setMessage(response.data.message);
+        setMessage(localization.SETTINGS.PROFILE.messageConfirm);
       } else {
         setIsMessage(true);
 
-        setMessage(
-          `Upload failed: ${response.data.message || "Unknown error"}`
-        );
+        setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
       setIsMessage(true);
-      setErrorChange(`Something Went Wrong, Please Try Again`);
+      setErrorChange(localization.SETTINGS.ERROR.label);
       setIsLoadingChange(false);
     } finally {
       setIsLoadingChange(false);
