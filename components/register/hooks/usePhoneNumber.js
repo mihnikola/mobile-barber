@@ -1,3 +1,4 @@
+import { useLocalization } from "@/context/LocalizationContext";
 import { useState } from "react";
 
 const usePhoneNumber = () => {
@@ -5,6 +6,7 @@ const usePhoneNumber = () => {
   const [isValid, setIsValid] = useState(true);
   const [errorPhoneNumber, setErrorPhoneNumber] = useState("");
 
+  const {localization} = useLocalization();
   const serbianPhoneRegex = /^\d{8,9}$/;
 
   const validateSerbianPhoneNumber = (number) => {

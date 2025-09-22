@@ -193,6 +193,7 @@ export const AuthProvider = ({ children }) => {
   const verificationOTPCode = async (email, password) => {
     setIsLoading(true);
 
+    console.log("verificationOTPCode sendOTPviaLogin",email)
     try {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email, password },
