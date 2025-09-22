@@ -9,6 +9,7 @@ export const SRB_LOCALIZATION = {
     ok: "U redu",
     cancel: "Odustani",
   },
+
   code: "sr",
   HOME: {
     aboutUs: "Posetite nas",
@@ -170,8 +171,8 @@ export const SRB_LOCALIZATION = {
       "Vaš nalog nije verifikovan. Verifikacioni kod će biti poslat na Vaš email.",
     errorPass: "Netačna lozinka",
     successVerified: "Vaš nalog je verifikovan!",
-    expiredVerification:"Nevalidan ili istekao otp kod.",
-    alreadyVerify:"Korisnik je već verifikovan.",
+    expiredVerification: "Nevalidan ili istekao otp kod.",
+    alreadyVerify: "Korisnik je već verifikovan.",
   },
   REGISTER: {
     title: "Registracija",
@@ -217,6 +218,8 @@ export const SRB_LOCALIZATION = {
   },
 
   OTP_CODE: {
+    codeResend: "Ponovno slanje koda za",
+    codeResendCapture: "Ponovno slanje",
     mainTitle: "Unesi OTP kod",
     validCode: "Molim Vas unesite svih 6 cifara.",
     validError: "Vaš otp kod nije validan",

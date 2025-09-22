@@ -5,8 +5,7 @@ import { useLocalSearchParams } from "expo-router";
 import useReservationHandler from "./hooks/useReservationHandler";
 import AppointmentsComponent from "./AppointmentsComponent";
 export default function ReservationInitial() {
-  const params = useLocalSearchParams();
-  const { reevalueted } = params;
+  const { reevalueted } = useLocalSearchParams();
   const { checkToken, isLoading, token } = useReservationHandler();
   const isFocused = useIsFocused();
 

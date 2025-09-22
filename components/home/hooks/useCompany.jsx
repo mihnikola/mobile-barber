@@ -1,7 +1,7 @@
 // src/hooks/useCompany.js
 import { get } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useCompany = () => {
   const [company, setCompany] = useState(null);
@@ -23,6 +23,9 @@ const useCompany = () => {
       setIsLoading(false);
     }
   };
+   useEffect(() => {
+    getCompany();
+  }, []);
 
   return {
     company,

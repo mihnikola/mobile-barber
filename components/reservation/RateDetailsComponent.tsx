@@ -17,14 +17,14 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useCompany from "../home/hooks/useCompany";
 
 function RateDetailsComponent() {
-  const params = useLocalSearchParams();
-  const { itemId } = params;
+  const { itemId } = useLocalSearchParams();
   const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
   const { company, getCompany } = useCompany();
 
   useEffect(() => {
     getCompany();
   }, []);
+  
   const { localization } = useLocalization();
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const {
@@ -61,7 +61,7 @@ function RateDetailsComponent() {
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerWrapper}>
           <Details data={reservationData} />
@@ -116,7 +116,7 @@ function RateDetailsComponent() {
 }
 
 const styles = StyleSheet.create({
-   container: {
+  container: {
     flex: 1,
     backgroundColor: "black",
   },
@@ -130,18 +130,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-   btnSubmitContainer: {
+  btnSubmitContainer: {
     display: "flex",
     marginVertical: 20,
     marginHorizontal: 20,
   },
-
-
-
-
-
-
-
 });
 
 export default RateDetailsComponent;

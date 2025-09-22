@@ -24,13 +24,11 @@ import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedLogo from "@/shared-components/SharedLogo";
 import useCompany from "../home/hooks/useCompany";
-import { useEffect } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const LoginScreen = () => {
-  const params = useLocalSearchParams();
+  const { data } = useLocalSearchParams();
 
-  const { data } = params;
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
@@ -49,14 +47,9 @@ const LoginScreen = () => {
     signIn,
   } = useAuth();
 
-  const { company, getCompany, isLoading: isLoadingCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
+  const { company, isLoading: isLoadingCompany } = useCompany();
 
   const handleLogin = async () => {
-    console.log("login+++",email,password)
     login(email, password);
   };
   const navigateToRegister = () => {
@@ -66,23 +59,12 @@ const LoginScreen = () => {
     });
   };
 
-  const handleAppleLogin = () => {
-    // Implement Apple login with Expo AuthSession or a dedicated library
-  };
   const cancelHandler = async () => {
     setIsMessage(false);
   };
   const confirmHandler = async () => {
-          console.log("jel si realan 2", email, password);
-
-    if(email === "" || password === ""){
-       setIsMessage(false);
-      console.log("jel si realan", email, password);
-      return;
-    }
     if (status === 606) {
-      console.log("email 606",email,password)
-      verificationOTPCode(email, password);
+      verificationOTPCode();
     } else {
       setIsMessage(false);
       redirectValidation();
@@ -153,7 +135,11 @@ const LoginScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <SharedButton loading={isLoading} onPress={handleLogin} text={localization.LOGIN.submitBtn} />
+        <SharedButton
+          loading={isLoading}
+          onPress={handleLogin}
+          text={localization.LOGIN.submitBtn}
+        />
 
         <SharedRedirect
           onPress={navigateToRegister}
@@ -168,13 +154,13 @@ const LoginScreen = () => {
             isLoading={isLoading}
             icon={
               <FontAwesome
-                name={error ? "close" : success ? "check-circle-o" : "info"} // The specific FontAwesome icon to use
-                size={64} // Size of the icon
-                color="white" // Corresponds to text-blue-500
+                name={error ? "close" : success ? "check-circle-o" : "info"}
+                size={64}
+                color="white"
               />
             }
-            title={error || success || message} // Title of the modal
-            buttonText={localization.OK.label} // Text for the action button
+            title={error || success || message}
+            buttonText={localization.OK.label}
           />
         )}
         {isGoogleLoading && <SharedLoader />}
@@ -187,23 +173,23 @@ const styles = StyleSheet.create({
   safeArea: {
     paddingVertical: 10,
     flex: 1,
-    backgroundColor: "black", // Dark background color
+    backgroundColor: "black",
   },
   iconStyle: {
-    width: 30, // Set your desired width
-    height: 30, // Set your desired height (maintain aspect ratio for best results)
-    resizeMode: "cover", // or 'cover', 'stretch', etc. 'contain' is usually good for icons
+    width: 30, 
+    height: 30, 
+    resizeMode: "cover", 
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: "black", // Dark background color
-    paddingTop: Platform.OS === "android" ? 20 : 0, // Add padding for Android status bar
+    backgroundColor: "black",
+    paddingTop: Platform.OS === "android" ? 20 : 0, 
   },
   logo: {
-    width: 120, // Adjust size as needed
-    height: 100, // Adjust size as needed
+    width: 120,
+    height: 100,
     resizeMode: "contain",
     backgroundColor: "black",
   },
@@ -234,10 +220,10 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   googleButton: {
-    backgroundColor: "#1C1C1E", // Darker background for Google
+    backgroundColor: "#1C1C1E",
   },
   appleButton: {
-    backgroundColor: "#1C1C1E", // Darker background for Apple
+    backgroundColor: "#1C1C1E",
   },
   socialIcon: {
     marginRight: 10,
@@ -263,7 +249,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   input: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white", 
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -283,7 +269,7 @@ const styles = StyleSheet.create({
     borderColor: "#333",
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,

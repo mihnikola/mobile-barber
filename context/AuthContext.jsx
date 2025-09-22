@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [vefificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -190,20 +191,21 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const verificationOTPCode = async (email, password) => {
+  const verificationOTPCode = async () => {
     setIsLoading(true);
 
-    console.log("verificationOTPCode sendOTPviaLogin",email)
+    const { email, password } = vefificationData;
+    console.log("verificationOTPCode sendOTPviaLogin", email, password)
     try {
       const response = await getData("/users/sendOTPviaLogin", {
-        params: { email, password },
+        params: { email },
       });
       if (response.status === 200) {
         setIsLoading(false);
         setIsMessage(false);
 
         router.push({
-          pathname: "/(tabs)/(04_settings)/otpCodeRegister",
+          pathname: "/(tabs)/(04_settings)/otpCode",
           params: { email, password },
         });
       }
@@ -242,6 +244,13 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 606) {
         setIsLoading(false);
         setIsMessage(true);
+
+
+        setVerificationData({ email, password });
+
+
+
+
         setStatus(responseData.status);
         setMessage(localization.LOGIN.isVerified);
       }
