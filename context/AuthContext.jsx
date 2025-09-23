@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [vefificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
@@ -273,39 +273,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginViaGoogle = async (userData) => {
-    setStatus(null);
-    setError(null);
+  // const loginViaGoogle = async (userData) => {
+  //   setStatus(null);
+  //   setError(null);
 
-    const { user } = userData;
+  //   const { user } = userData;
 
-    try {
-      const responseData = await post("/users/loginViaGoogle", { user });
+  //   try {
+  //     const responseData = await post("/users/loginViaGoogle", { user });
 
-      if (responseData.status === 200 || responseData.status === 300) {
+  //     if (responseData.status === 200 || responseData.status === 300) {
 
-        saveStorage(responseData.token);
-        saveTokenViaGoogle(responseData.userId, responseData.token);
-      }
+  //       saveStorage(responseData.token);
+  //       saveTokenViaGoogle(responseData.userId, responseData.token);
+  //     }
 
-      if (responseData.status === 500) {
-        setIsGoogleLoading(false);
-        setError(localization.SERVER_RESPONSE.error);
-      }
-    } catch (err) {
-      setIsGoogleLoading(false);
+  //     if (responseData.status === 500) {
+  //       setIsGoogleLoading(false);
+  //       setError(localization.SERVER_RESPONSE.error);
+  //     }
+  //   } catch (err) {
+  //     setIsGoogleLoading(false);
 
-      if (err.message.includes("404")) {
-        setIsMessage(true);
+  //     if (err.message.includes("404")) {
+  //       setIsMessage(true);
 
-        setError(localization.SERVER_RESPONSE.notFound);
-      } else {
-        setIsMessage(true);
+  //       setError(localization.SERVER_RESPONSE.notFound);
+  //     } else {
+  //       setIsMessage(true);
 
-        setError(localization.SERVER_RESPONSE.error);
-      }
-    }
-  };
+  //       setError(localization.SERVER_RESPONSE.error);
+  //     }
+  //   }
+  // };
 
   const saveToken = async (userId) => {
 
@@ -347,42 +347,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveTokenViaGoogle = async (userId) => {
+  // const saveTokenViaGoogle = async (userId) => {
 
-    const expoToken = await getExpoTokenStorage();
+  //   const expoToken = await getExpoTokenStorage();
 
-    if (!expoToken) {
+  //   if (!expoToken) {
 
-      setIsLoading(false);
-      return;
-    }
+  //     setIsLoading(false);
+  //     return;
+  //   }
 
-    try {
-      const responseData = await post("/api/saveToken", {
-        tokenExpo: expoToken,
-        tokenUser: userId,
-      });
-      if (responseData.status === 200) {
+  //   try {
+  //     const responseData = await post("/api/saveToken", {
+  //       tokenExpo: expoToken,
+  //       tokenUser: userId,
+  //     });
+  //     if (responseData.status === 200) {
 
-        setIsGoogleLoading(false);
-        setIsMessage(true);
-        setSuccess(localization.LOGIN.success);
-      } else {
+  //       setIsGoogleLoading(false);
+  //       setIsMessage(true);
+  //       setSuccess(localization.LOGIN.success);
+  //     } else {
 
-        setIsGoogleLoading(false);
-        setIsMessage(true);
+  //       setIsGoogleLoading(false);
+  //       setIsMessage(true);
 
-        setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
-        );
-      }
-    } catch (err) {
-      setIsGoogleLoading(false);
-      setIsMessage(true);
+  //       setError(
+  //         `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
+  //       );
+  //     }
+  //   } catch (err) {
+  //     setIsGoogleLoading(false);
+  //     setIsMessage(true);
 
-      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
-    }
-  };
+  //     setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
+  //   }
+  // };
 
   return (
     <AuthContext.Provider
@@ -407,9 +407,9 @@ export const AuthProvider = ({ children }) => {
         status,
         verificationOTPCode,
         message,
-        loginViaGoogle,
+        // loginViaGoogle,
         signIn,
-        isGoogleLoading
+        // isGoogleLoading
       }}
     >
       {children}
