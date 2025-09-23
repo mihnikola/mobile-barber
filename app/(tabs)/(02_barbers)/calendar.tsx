@@ -2,16 +2,14 @@ import DateComponent from "@/components/reservation/DateComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 const Calendar = () => {
   const [check, setCheck] = useState(false);
-  const params = useLocalSearchParams();
-  const { reevaluted } = params;
+  const { reevaluted } = useLocalSearchParams();
 
   const checkToken = async () => {
     try {
-
       const storedToken = await AsyncStorage.getItem("token");
       if (storedToken) {
         setCheck(true);

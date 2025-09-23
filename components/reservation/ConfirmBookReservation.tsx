@@ -20,8 +20,7 @@ const ConfirmBookReservation = () => {
   useEffect(() => {
     getCompany();
   }, []);
-  const params = useLocalSearchParams();
-  const { responseData } = params;
+  const { responseData } = useLocalSearchParams();
 
   const submitReservationHandler = async () => {
     router.back();

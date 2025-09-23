@@ -89,18 +89,7 @@ export default function RootLayoutSettings() {
           headerTintColor: "white", // This sets the color of the title text and back button arrow }}
         }}
       />
-      <Stack.Screen
-        name="otpCodeRegister"
-        options={{
-          headerShown: true, // This overrides the parent
-
-          title: "",
-          headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
-          },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow }}
-        }}
-      />
+  
       <Stack.Screen
         name="changePassword"
         options={{

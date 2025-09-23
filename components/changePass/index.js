@@ -13,8 +13,7 @@ import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const changePass = () => {
-  const params = useLocalSearchParams();
-  const { data } = params;
+  const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
   const { password, passwordError, handlePasswordChange } = usePassword();

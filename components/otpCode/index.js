@@ -1,38 +1,268 @@
+// import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
+// import { ScrollView } from "react-native";
+// import { Image } from "react-native";
+// import SharedButton from "@/shared-components/SharedButton";
+// import OtpInput from "./OtpCodeInput";
+// import { useState } from "react";
+// import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
+// import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
+// import { FontAwesome } from "@expo/vector-icons";
+// import { SharedMessage } from "@/shared-components/SharedMessage";
+// import { router, useLocalSearchParams } from "expo-router";
+// import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+// import { useLocalization } from "@/context/LocalizationContext";
+
+// const otpCode = () => {
+//   const { localization } = useLocalization();
+//   const { data, email, password } = useLocalSearchParams();
+
+//   const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
+//   const {
+//     checkOtpCodeValidation,
+//     isLoading,
+//     message,
+//     setIsMessage,
+//     isMessage,
+//     error,
+//     setError,
+//   } = useSubmitOtpCode();
+//   const handleVerify = () => {
+//     const otp = code.join("");
+//     if (otp.length === 6) {
+//       //   Alert.alert("OTP Entered", otp);
+//       // You can send OTP to backend here
+//       checkOtpCodeValidation(data, otp);
+//     } else {
+//       setIsMessage(true);
+//       setError(localization.OTP_CODE.validCode);
+//     }
+//   };
+
+//   const confirmHandler = () => {
+//     setIsMessage(false);
+//     // navigation.navigate("components/changePass/index",{data});
+//     router.replace({
+//       pathname: "/(tabs)/(04_settings)/changePassword",
+//       params: { data },
+//     });
+//   };
+
+//   const confirmHandler2 = () => {
+//     setIsMessage(false);
+//     setError(null);
+//   };
+
+//   return (
+//     <ScrollView style={styles.container}>
+//       <StatusBar backgroundColor="black" barStyle="dark-content" />
+//       <View>
+//         <Text style={styles.mainTitle}>{localization.OTP_CODE.mainTitle}</Text>
+//       </View>
+//       <View>
+//         <Text style={styles.subtitle}>
+//           {localization.OTP_CODE.subtitlePrimary} {data}.
+//         </Text>
+//         <Text style={styles.subtitle}>
+//           {localization.OTP_CODE.subtitleSecondary}
+//         </Text>
+//       </View>
+//       <OtpInput code={code} setCode={setCode} />
+//       <ResendOtpCodeTimer email={data || email} />
+//       <SharedImageForgotPass />
+
+//       <View style={styles.btnFooter}>
+//         <SharedButton
+//           disabled={code.join("").length < 6}
+//           onPress={handleVerify}
+//           text={localization.SUBMIT.label}
+//           loading={isLoading}
+//         />
+//       </View>
+
+//       {isMessage && (
+//         <SharedMessage
+//           isOpen={isMessage}
+//           onClose={!error ? confirmHandler : confirmHandler2}
+//           onConfirm={!error ? confirmHandler : confirmHandler2}
+//           icon={
+//             <FontAwesome
+//               name={error ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+//               size={64} // Size of the icon
+//               color="white" // Corresponds to text-blue-500
+//             />
+//           }
+//           title={error || message} // Title of the modal
+//           buttonText={localization.OK.label} // Text for the action button
+//         />
+//       )}
+//     </ScrollView>
+//   );
+// };
+// const styles = StyleSheet.create({
+//   safeArea: {
+//     flex: 1,
+//     backgroundColor: "#0A0B0E",
+//   },
+//   btnFooter: {
+//     marginVertical: 0,
+//   },
+//   radiobtn: {
+//     flex: 2,
+//     flexDirection: "column",
+//     gap: 25,
+//   },
+//   imageContainer: {
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     alignContent: "center",
+//   },
+
+//   resendText: {
+//     color: "#00AEEF",
+//     fontSize: 16,
+//     fontWeight: "bold",
+//   },
+//   timerText: {
+//     color: "#999",
+//     fontSize: 14,
+//   },
+//   iconStyle: {
+//     width: 30,
+//     height: 30,
+//     resizeMode: "cover",
+//   },
+//   container: {
+//     flex: 1,
+//     paddingHorizontal: 20,
+//     backgroundColor: "black",
+//     paddingTop: Platform.OS === "android" ? 20 : 0,
+//   },
+//   image: {
+//     width: 290,
+//     height: 290,
+//     resizeMode: "contain",
+//     backgroundColor: "black",
+//   },
+//   mainTitle: {
+//     fontSize: 22,
+//     fontWeight: "bold",
+//     color: "#fff",
+//     marginBottom: 5,
+//   },
+//   subtitle: {
+//     fontSize: 13,
+//     color: "#ccc",
+//     padding: 5,
+//   },
+//   socialButtonsContainer: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     marginBottom: 30,
+//   },
+//   socialButton: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     paddingVertical: 12,
+//     borderRadius: 8,
+//     borderWidth: 1,
+//     borderColor: "white",
+//   },
+// });
+// export default otpCode;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
 import { ScrollView } from "react-native";
-import { Image } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
 import { useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
-import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import { FontAwesome } from "@expo/vector-icons";
+import useSendEmailVerification from "../otpCode/hooks/useSendEmailVerification";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const otpCode = () => {
-  const params = useLocalSearchParams();
-  const { data } = params;
+const otpCodeRegister = () => {
+  const { data, email, password } = useLocalSearchParams();
+  const [code, setCode] = useState(Array(6).fill(""));
+
   const { localization } = useLocalization();
 
-  const [code, setCode] = useState(Array(6).fill("")); // 6-digit code
   const {
     checkOtpCodeValidation,
-    isLoading,
+    checkOtpCodeVerification,
     message,
     setIsMessage,
     isMessage,
     error,
-    setError,
+    isLoading,
+    isVerified,
+    setIsVerified,
   } = useSubmitOtpCode();
-  const handleVerify = () => {
+
+  const {
+    verificationOTPCode,
+    isMessageVerification,
+    isLoadingVerification,
+    setIsMessageVerification,
+    errorVerification,
+    messageVerification,
+    setErrorVerification,
+  } = useSendEmailVerification();
+
+  const handleVerify = async () => {
     const otp = code.join("");
     if (otp.length === 6) {
-      //   Alert.alert("OTP Entered", otp);
-      // You can send OTP to backend here
-      checkOtpCodeValidation(data, otp);
+      if (email && password) {
+        checkOtpCodeVerification(email, password, otp);
+      } else {
+        checkOtpCodeValidation(data, otp);
+      }
     } else {
       setIsMessage(true);
       setError(localization.OTP_CODE.validCode);
@@ -41,16 +271,19 @@ const otpCode = () => {
 
   const confirmHandler = () => {
     setIsMessage(false);
-    // navigation.navigate("components/changePass/index",{data});
-    router.replace({
-      pathname: "/(tabs)/(04_settings)/changePassword",
-      params: { data },
-    });
+    setIsMessageVerification(false);
+    if (!email && !password) {
+      router.push("/(tabs)/(04_settings)/login");
+    }
+    if (isVerified && email && password) {
+      router.dismissAll();
+      router.push("/(tabs)/(01_home)");
+    }
   };
 
   const confirmHandler2 = () => {
     setIsMessage(false);
-    setError(null);
+    setIsMessageVerification(false);
   };
 
   return (
@@ -61,14 +294,14 @@ const otpCode = () => {
       </View>
       <View>
         <Text style={styles.subtitle}>
-          {localization.OTP_CODE.subtitlePrimary} {data}.
+          {localization.OTP_CODE.subtitlePrimary} {data || email}.
         </Text>
         <Text style={styles.subtitle}>
           {localization.OTP_CODE.subtitleSecondary}
         </Text>
       </View>
       <OtpInput code={code} setCode={setCode} />
-      <ResendOtpCodeTimer email={data} />
+      <ResendOtpCodeTimer email={data || email} />
       <SharedImageForgotPass />
 
       <View style={styles.btnFooter}>
@@ -79,8 +312,7 @@ const otpCode = () => {
           loading={isLoading}
         />
       </View>
-
-      {isMessage && (
+      {isMessage && !isMessageVerification && (
         <SharedMessage
           isOpen={isMessage}
           onClose={!error ? confirmHandler : confirmHandler2}
@@ -93,6 +325,22 @@ const otpCode = () => {
             />
           }
           title={error || message} // Title of the modal
+          buttonText={localization.OK.label} // Text for the action button
+        />
+      )}
+      {isMessageVerification && !isMessage && (
+        <SharedMessage
+          isOpen={isMessageVerification}
+          onClose={!errorVerification ? confirmHandler : confirmHandler2}
+          onConfirm={!errorVerification ? confirmHandler : confirmHandler2}
+          icon={
+            <FontAwesome
+              name={errorVerification ? "close" : "check-circle-o"} // The specific FontAwesome icon to use
+              size={64} // Size of the icon
+              color="white" // Corresponds to text-blue-500
+            />
+          }
+          title={errorVerification || messageVerification} // Title of the modal
           buttonText={localization.OK.label} // Text for the action button
         />
       )}
@@ -171,4 +419,4 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
 });
-export default otpCode;
+export default otpCodeRegister;

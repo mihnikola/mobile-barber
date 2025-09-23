@@ -9,14 +9,13 @@ const useEmailOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
+
   const { localization } = useLocalization();
-  const resetState = () => {
+
+  const checkEmailValidation = async (email) => {
+    
     setError(null);
     setIsMessage(false);
-  };
-
-  const checkEmailValidation = useCallback(async (email) => {
-    resetState();
 
     if (!email || email.trim().length === 0) {
       setError(localization.EMAIL.errorEmpty);
@@ -50,12 +49,16 @@ const useEmailOtpCode = () => {
         setIsMessage(true);
       }
     } catch (err) {
-        setError(localization.SERVER_RESPONSE.error);
+      setError(localization.SERVER_RESPONSE.error);
       setIsMessage(true);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
+
+  const handleResendCode = () => {
+    checkEmailValidation(email);
+  };
 
   return {
     isLoading,
@@ -64,6 +67,7 @@ const useEmailOtpCode = () => {
     checkEmailValidation,
     isMessage,
     setIsMessage,
+    handleResendCode,
   };
 };
 
