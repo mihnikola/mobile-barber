@@ -12,9 +12,9 @@ const Settings = () => {
     }
   }, [isToken]);
 
-  if (isLoading) {
-    return <SharedLoader />;
-  }
+  // if (isLoading) {
+  //   return <SharedLoader />;
+  // }
   if (!isToken) {
     return <LoginScreen />;
   }

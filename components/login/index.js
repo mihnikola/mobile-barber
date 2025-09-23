@@ -44,8 +44,8 @@ const LoginScreen = () => {
     status,
     verificationOTPCode,
     message,
-    isGoogleLoading,
-    signIn,
+    // isGoogleLoading,
+    // signIn,
   } = useAuth();
 
   const { company, isLoading: isLoadingCompany } = useCompany();
@@ -164,7 +164,7 @@ const LoginScreen = () => {
             buttonText={localization.OK.label}
           />
         )}
-        {isGoogleLoading && <SharedLoader />}
+        {/* {isGoogleLoading && <SharedLoader />} */}
       </View>
     </ScrollView>
   );
