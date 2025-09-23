@@ -26,6 +26,7 @@ import SharedLogo from "@/shared-components/SharedLogo";
 import useCompany from "../home/hooks/useCompany";
 import { useEffect } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedLogin from "@/shared-components/SharedLogin";
 
 const LoginScreen = () => {
   const params = useLocalSearchParams();
@@ -101,7 +102,7 @@ const LoginScreen = () => {
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
-        <SharedLogo image={company?.media?.logo} />
+        <SharedLogin image={company?.media?.logo} />
 
         <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>

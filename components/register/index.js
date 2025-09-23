@@ -23,7 +23,9 @@ import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import SharedLogo from "@/shared-components/SharedLogo";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedLogin from "@/shared-components/SharedLogin";
 const Register = () => {
+  
   const [userName, setUserName] = useState("");
   const { image } = useLocalSearchParams();
   const { localization } = useLocalization();
@@ -73,7 +75,7 @@ const Register = () => {
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
-        <SharedLogo image={image} />
+        <SharedLogin image={image} />
 
         <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
         <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
