@@ -1,11 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const ListAboutUs = ({ contact }) => {
+  const { localization } = useLocalization();
+
   return (
     <View>
-      <Text style={styles.titleContant}>Contact</Text>
+      <Text style={styles.titleContant}>{localization.HOME.contact}</Text>
       <View style={styles.contactItem}>
         <FontAwesome name="phone" size={30} color="white" />
         <Text style={styles.title}>{contact}</Text>
