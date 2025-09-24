@@ -57,11 +57,11 @@ export default function App() {
     }, 2000);
   }, []);
 
-  if (!company) {
+  if (isLoading) {
     return <SplashScreen />;
   }
 
-  if (company) {
+  
     return (
       <View style={styles.container}>
         <HomeCoverImage image={company?.media?.coverImageHome} />
@@ -134,7 +134,7 @@ export default function App() {
         </Animated.View>
       </View>
     );
-  }
+  
 }
 
 const styles = StyleSheet.create({
