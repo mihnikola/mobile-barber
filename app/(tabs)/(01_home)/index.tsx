@@ -38,30 +38,17 @@ export default function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, getCompany, isLoading } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
-  const {localization}  = useLocalization();
+  const { localization } = useLocalization();
 
   useEffect(() => {
     getCompany();
   }, []);
+
   const nextPage = () => {
     router.push("/(tabs)/(02_barbers)");
   };
   const onAboutUs = () => {
-    router.push({
-      pathname: "/(tabs)/(01_home)/whoWeAre",
-      params: {
-        name: company?.name,
-        contact: company?.contact,
-        title: company?.aboutUs?.title,
-        text: company?.aboutUs?.text,
-        textTwo: company?.aboutUs?.textTwo,
-        textThree: company?.aboutUs?.textThree,
-        workDays: company?.workDays,
-        workSaturday: company?.workSaturday,
-        holidays: company?.holidays,
-        media: company?.media?.logo,
-      },
-    });
+    router.push("/(tabs)/(01_home)/whoWeAre");
   };
 
   useEffect(() => {
@@ -78,7 +65,7 @@ export default function App() {
     return (
       <View style={styles.container}>
         <HomeCoverImage image={company?.media?.coverImageHome} />
-        
+
         <Animated.View
           style={[
             styles.box,
@@ -104,8 +91,12 @@ export default function App() {
             <FontAwesome name="calendar" size={28} color="white" />
 
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>{localization.HOME.bookingBtn}</Text>
-              <Text style={styles.address}>{localization.HOME.bookingBtnDesc}</Text>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.bookingBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.bookingBtnDesc}
+              </Text>
             </View>
 
             <FontAwesome name="chevron-right" size={28} color="white" />
@@ -116,8 +107,12 @@ export default function App() {
           >
             <FontAwesome name="home" size={28} color="white" />
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>{localization.HOME.aboutUsBtn}</Text>
-              <Text style={styles.address}>{localization.HOME.aboutUsBtnDesc}</Text>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.aboutUsBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.aboutUsBtnDesc}
+              </Text>
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>
@@ -127,8 +122,12 @@ export default function App() {
           >
             <FontAwesome name="location-arrow" size={28} color="white" />
             <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>{localization.HOME.locationBtn}</Text>
-              <Text style={styles.address}>{localization.HOME.locationBtnDesc}</Text>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.locationBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.locationBtnDesc}
+              </Text>
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>

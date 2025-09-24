@@ -7,6 +7,8 @@ export const ENG_LOCALIZATION = {
   },
   code: "en",
   HOME: {
+    reviews: "Reviews",
+    contact: "Contact",
     aboutUs: "Visit us",
     bookingBtn: "Booking",
     bookingBtnDesc: "Book Your Spot",

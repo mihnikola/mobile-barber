@@ -9,32 +9,11 @@ import {
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import { useRef, useState } from "react";
+import { useLocalization } from "@/context/LocalizationContext";
 
-const REVIEW_DATA = [
-  {
-    id: "1",
-    title: "Nick",
-    text: "I really appreciate the attention to detail—this haircut suits me perfectly.",
-  },
-  {
-    id: "2",
-    title: "Chris",
-    text: "Everything was professional. I highly recommend Gentleman Hair Salon.",
-  },
-  {
-    id: "3",
-    title: "John",
-    text: "The haircut was really well done, I feel like I got exactly what I needed.",
-  },
-  {
-    id: "4",
-    title: "Michael",
-    text: "I’ve always been searching for a good haircut",
-  },
-];
+const OnboardingComponent = ({ reviews }) => {
+  const { localization } = useLocalization();
 
-
-const OnboardingComponent = () => {
   const { width } = useWindowDimensions(); // Dohvatite širinu ekrana ovde
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -50,10 +29,10 @@ const OnboardingComponent = () => {
 
   return (
     <View style={styles.onboardingSection}>
-      <Text style={styles.reviewSectionTitle}>Reviews</Text>
+      <Text style={styles.reviewSectionTitle}>{localization.HOME.reviews}</Text>
       {/* FlatList sada ima fiksnu širinu ekrana. */}
       <FlatList
-        data={REVIEW_DATA}
+        data={reviews}
         renderItem={({ item }) => (
           <OnboardingItem item={item} itemWidth={width} />
         )} // Prosleđivanje širine kao prop
@@ -61,7 +40,7 @@ const OnboardingComponent = () => {
         showsHorizontalScrollIndicator={false}
         pagingEnabled
         bounces={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }
@@ -70,10 +49,9 @@ const OnboardingComponent = () => {
         viewabilityConfig={viewConfig}
         ref={slidesRef}
         scrollEventThrottle={32}
-        // Explicitna širina FlatList-e
         style={{ width: width }}
       />
-      <Paginator data={REVIEW_DATA} scrollX={scrollX} />
+      <Paginator data={reviews} scrollX={scrollX} />
     </View>
   );
 };

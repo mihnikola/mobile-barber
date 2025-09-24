@@ -13,6 +13,8 @@ export const SRB_LOCALIZATION = {
   code: "sr",
   HOME: {
     aboutUs: "Posetite nas",
+    reviews: "Recenzije",
+    contact: "Kontakt",
     bookingBtn: "Rezerviši",
     bookingBtnDesc: "Rezerviši svoj termin",
     aboutUsBtn: "O nama",

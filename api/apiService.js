@@ -1,4 +1,5 @@
 // src/api/apiService.js
+import { getLanguageValue } from "@/helpers/language";
 import { getStorage } from "@/helpers/token";
 import axios from "axios";
 
@@ -14,6 +15,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   async (config) => {
     const token = await getStorage();
+    const languageValue = await getLanguageValue();
     const timeZoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (token) {
@@ -21,6 +23,9 @@ instance.interceptors.request.use(
     }
     if (timeZoneValue) {
       config.headers["Time-Zone"] = timeZoneValue;
+    }
+    if (languageValue) {
+      config.headers["Language"] = languageValue;
     }
 
     return config;

@@ -14,8 +14,8 @@ const OnboardingItem = ({ item, itemWidth }) => {
       <View style={styles.reviewContentWrapper}>
         <SharedReviewImage style={styles.imageStyle} />
 
-        <Text style={styles.reviewText}>{item.text}</Text>
-        <Text style={styles.reviewTitle}>{item.title}</Text>
+        <Text style={styles.reviewText}>{item.description}</Text>
+        <Text style={styles.reviewTitle}>{item.name}</Text>
       </View>
     </View>
   );
