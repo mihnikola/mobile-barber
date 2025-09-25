@@ -47,16 +47,23 @@ const otpCode = () => {
     isVerified,
     setIsVerified,
     verificationOTPCode,
+    checkverifyEmail,
   } = useSubmitOtpCode();
 
   console.log("verifyData", verifyData);
-
   const handleVerify = async () => {
     const otp = code.join("");
     if (otp.length === 6) {
-      if (verifyData?.email && verifyData?.password) {
+      if (
+        verifyData?.email &&
+        verifyData?.password &&
+        verifyData?.confirmPassword
+      ) {
+        checkverifyEmail(verifyData?.email, otp);
+      } else if (verifyData?.email && verifyData?.password) {
         checkOtpCodeVerification(verifyData?.email, verifyData?.password, otp);
       } else {
+        console.log("asdsad");
         checkOtpCodeValidation(verifyData?.email, otp);
       }
     } else {
@@ -69,15 +76,24 @@ const otpCode = () => {
     setIsMessage(false);
 
     if (verifyData?.email && !verifyData?.password) {
-     
       router.push({
         pathname: "/(tabs)/(04_settings)/changePassword",
         params: { data: verifyData?.email },
       });
     }
+    router.dismissAll();
+
     if (isVerified && verifyData?.email && verifyData?.password) {
-      router.dismissAll();
       router.push("/(tabs)/(01_home)");
+    }
+    if (
+      verifyData?.email &&
+      verifyData?.password &&
+      verifyData?.confirmPassword
+    ) {
+      await removeOtpParamsStorage();
+
+      router.push("/(tabs)/(04_settings)/login");
     }
   };
 

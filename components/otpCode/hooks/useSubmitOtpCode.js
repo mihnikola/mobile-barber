@@ -18,9 +18,12 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
+      console.log("checkOtpCodeValidation pre");
       const response = await getData("/users/otpcode", {
-        params: { email, otpCode },
+        email,
+        otpCode,
       });
+      console.log("checkOtpCodeValidation++ posle", response);
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.OTP_CODE.validSuccess);
@@ -32,9 +35,10 @@ const useSubmitOtpCode = () => {
         setIsLoading(false);
       }
     } catch (err) {
-      setIsLoading(false);
-      setError(localization.SERVER_RESPONSE.error);
+      console.log("sdashjdkjashdjkh");
       setIsMessage(true);
+      setError(localization.OTP_CODE.validError);
+      setIsLoading(false);
     }
   };
 
@@ -67,6 +71,28 @@ const useSubmitOtpCode = () => {
       setError(localization.OTP_CODE.validError);
 
       setIsMessage(true);
+    }
+  };
+
+  const checkverifyEmail = async (email, otpCode) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      console.log("checkOtpCodeValidation pre");
+      const response = await getData("/users/verifyEmail", {
+        email,
+        otpCode,
+      });
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.LOGIN.successVerified);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.log("sdashjdkjashdjkh");
+      setIsMessage(true);
+      setError(localization.LOGIN.alreadyVerify);
+      setIsLoading(false);
     }
   };
 
@@ -144,6 +170,7 @@ const useSubmitOtpCode = () => {
     verificationOTPCode,
     checkOtpCodeVerification,
     isVerified,
+    checkverifyEmail
   };
 };
 

@@ -7,19 +7,15 @@ import SharedItem from "@/shared-components/SharedItem";
 import { router } from "expo-router";
 import { getStorage } from "@/helpers/token";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
+
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices();
 
-  const { getCompany, company } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
+  const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
     const service = {

@@ -17,9 +17,7 @@ const Employers = () => {
   const { company } = useCompany();
 
 
-  useEffect(() => {
-    getCompany();
-  }, []);
+
 
   const redirectHandler = (employer) => {
     updateReservation({ ...reservation, employer });

@@ -24,8 +24,8 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import SharedLogo from "@/shared-components/SharedLogo";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
+import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 const Register = () => {
-  
   const [userName, setUserName] = useState("");
   const { image } = useLocalSearchParams();
   const { localization } = useLocalization();
@@ -59,12 +59,11 @@ const Register = () => {
   const navigateToLogin = () => {
     router.back();
   };
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
     setIsMessage(false);
-    router.replace({
-      pathname: "/(tabs)/(04_settings)/otpCode",
-      params: { data: email },
-    });
+    const verifyData = { email, password, confirmPassword };
+    await saveOtpParamsStorage(verifyData);
+    router.push("/(tabs)/(04_settings)/otpCode");
   };
 
   const confirmHandler2 = () => {
