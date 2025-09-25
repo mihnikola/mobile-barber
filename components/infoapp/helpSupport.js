@@ -12,9 +12,8 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -26,11 +25,7 @@ const HelpSupportScreen = () => {
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
   };
-    const { company, getCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
+    const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>

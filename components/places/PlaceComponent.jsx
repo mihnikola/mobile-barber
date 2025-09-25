@@ -5,21 +5,18 @@ import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchLocations from './useFetchLocations';
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { router } from "expo-router";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useLocalization } from "@/context/LocalizationContext";
+import { useCompany } from "@/context/CompanyContext";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { locationsData, isLoading, error } = useFetchLocations(); // Use the custom hook
   const {localization} = useLocalization();
-  const { getCompany, company } = useCompany();
-  useEffect(() => {
-    getCompany();
-  }, [])
+  const { company } = useCompany();
+
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
     router.push({ pathname: "/(tabs)/(02_barbers)/employers", params: { image: company?.media?.coverImageAppointments } });

@@ -21,11 +21,9 @@ import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 // import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
-import { SharedLoader } from "@/shared-components/SharedLoader";
-import SharedLogo from "@/shared-components/SharedLogo";
-import useCompany from "../home/hooks/useCompany";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
+import { useCompany } from "@/context/CompanyContext";
 
 const LoginScreen = () => {
   const { data } = useLocalSearchParams();
@@ -48,7 +46,7 @@ const LoginScreen = () => {
     // signIn,
   } = useAuth();
 
-  const { company, isLoading: isLoadingCompany } = useCompany();
+  const { company } = useCompany();
 
   const handleLogin = async () => {
     login(email, password);

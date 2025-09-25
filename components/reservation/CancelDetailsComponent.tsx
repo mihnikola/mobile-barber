@@ -7,12 +7,12 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFetchReservation from "./hooks/useFetchReservation";
 import Details from "@/shared-components/Details";
 import HeaderReservationTime from "./HeaderReservationTime";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
+import { useCompany } from "@/context/CompanyContext";
 
 function CancelDetailsComponent() {
   const { localization } = useLocalization();
@@ -20,11 +20,9 @@ function CancelDetailsComponent() {
   const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
 
   const [isCanceling, setIsCanceling] = useState(false);
-  const { company, getCompany } = useCompany();
+  const { company } = useCompany();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
+
   const {
     isLoading,
     cancelReservation,

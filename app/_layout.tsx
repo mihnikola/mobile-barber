@@ -1,5 +1,6 @@
 import { ReservationProvider } from "@/context/ReservationContext";
 import { LocalizationProvider } from "@/context/LocalizationContext";
+import { CompanyProvider } from "@/context/CompanyContext";
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { AuthProvider } from "@/context/AuthContext";
@@ -32,11 +33,13 @@ export default function RootLayout() {
     return (
       <ThemeProvider value={MyDarkTheme}>
         <LocalizationProvider>
-          <AuthProvider>
-            <ReservationProvider>
-              <MainContainer />
-            </ReservationProvider>
-          </AuthProvider>
+          <CompanyProvider>
+            <AuthProvider>
+              <ReservationProvider>
+                <MainContainer />
+              </ReservationProvider>
+            </AuthProvider>
+          </CompanyProvider>
         </LocalizationProvider>
       </ThemeProvider>
     );

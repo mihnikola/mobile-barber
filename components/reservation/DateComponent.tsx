@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Text, Image } from "react-native";
-import { CalendarList, LocaleConfig } from "react-native-calendars";
+import { CalendarList } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
@@ -13,13 +13,13 @@ import { calendarLocales } from "@/helpers/calendarLocales";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const DateComponent = () => {
   const currentDate = new Date();
   const { localization } = useLocalization();
+  const { company } = useCompany();
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
@@ -51,11 +51,6 @@ const DateComponent = () => {
   useEffect(() => {
     calendarLocales(localization.code);
   }, [localization.code]);
-  const { company, getCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
 
   return (
     <ScrollView style={styles.container}>

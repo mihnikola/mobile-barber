@@ -4,7 +4,7 @@ import StarRating from "./StarRateComponent";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import Details from "@/shared-components/Details";
 import useRateReservation from "./hooks/useRateReservation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -14,18 +14,15 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import HeaderReservationTime from "./HeaderReservationTime";
 import ReservationMarkComponent from "./ReservationMarkComponent";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
+import { useCompany } from "@/context/CompanyContext";
 
 function RateDetailsComponent() {
   const { itemId } = useLocalSearchParams();
   const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
-  const { company, getCompany } = useCompany();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
-  
   const { localization } = useLocalization();
+  const { company } = useCompany();
+
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const {
     isLoading,

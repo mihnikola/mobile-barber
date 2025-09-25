@@ -5,15 +5,20 @@ import ListAboutUs from "@/components/home/ListAboutUs";
 import ContactUs from "@/components/home/ContactUs";
 import OnboardingComponent from "@/components/home/OnboardingComponent";
 import WhoAreWeCoverImage from "@/components/home/WhoAreWeCoverImage";
-import useCompany from "@/components/home/hooks/useCompany";
+import { useCompany } from "@/context/CompanyContext";
 import { useEffect } from "react";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const AboutUsScreen = () => {
-  const { company, getCompany } = useCompany();
+  const { company, getCompany, isLoading } = useCompany();
 
   useEffect(() => {
     getCompany();
   }, []);
+
+  if (isLoading) {
+    return <SharedLoader />;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -27,7 +32,7 @@ const AboutUsScreen = () => {
             textThree={company?.aboutUs?.textThree}
             textTwo={company?.aboutUs?.textTwo}
           />
-          
+
           <ListAboutUs contact={company?.contact} />
         </View>
         <OnboardingComponent reviews={company?.reviews} />
