@@ -11,6 +11,7 @@ import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
+import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();
@@ -33,9 +34,11 @@ const changePass = () => {
     handlePatchUser(data, password, confirmPassword);
   };
 
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
     setIsMessage(false);
+    await removeOtpParamsStorage();
     router.dismissAll();
+    router.push("/(tabs)/(04_settings)/login");
   };
   const confirmHandler2 = () => {
     setIsMessage(false);

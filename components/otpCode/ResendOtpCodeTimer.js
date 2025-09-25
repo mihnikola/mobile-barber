@@ -1,35 +1,21 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
-import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const RESEND_TIME = 50;
+const RESEND_TIME = 10;
 
-const ResendOtpCodeTimer = ({ email }) => {
+const ResendOtpCodeTimer = ({ resendHandler }) => {
   const [timer, setTimer] = useState(RESEND_TIME);
   const [canResend, setCanResend] = useState(false);
 
   const { localization } = useLocalization();
-  const {
-    checkEmailValidation,
-    isMessage,
-    setIsMessage,
-    setMessage,
-    error,
-    message,
-    handleResendCode,
-  } = useEmailOtpCode();
-  const confirmHandler = () => {
-    setIsMessage(false);
-    setMessage(null);
-  };
+
   const handleResendCodeHandler = () => {
     if (!canResend) return;
     setTimer(RESEND_TIME);
     setCanResend(false);
-    handleResendCode(email);
+    // handleResendCode(email);
+    resendHandler();
   };
   useEffect(() => {
     let interval = null;
@@ -43,7 +29,6 @@ const ResendOtpCodeTimer = ({ email }) => {
     }
     return () => clearInterval(interval);
   }, [timer]);
-
   return (
     <View>
       {canResend ? (
@@ -52,25 +37,10 @@ const ResendOtpCodeTimer = ({ email }) => {
         </Text>
       ) : (
         <Text style={styles.timerText}>
-          {localization.OTP_CODE.resendCode} {timer}
+          {localization.OTP_CODE.codeResend} {timer}
         </Text>
       )}
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
-          icon={
-            <FontAwesome
-              name={error ? "close" : "check-circle-o"}
-              size={64}
-              color="white"
-            />
-          }
-          title={error || message}
-          buttonText="Ok"
-        />
-      )}
+      
     </View>
   );
 };

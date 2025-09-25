@@ -3,6 +3,7 @@ import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
+import { getOtpParamsStorage, removeOtpParamsStorage, saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [vefificationData, setVerificationData] = useState(null);
+  const [verificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -138,6 +139,7 @@ export const AuthProvider = ({ children }) => {
   };
   const logoutFirebase = async () => {
     setIsLoading(true);
+    await removeOtpParamsStorage();
     try {
       if (isToken) {
         const response = await post("/users/logout", { token: isToken });
@@ -194,20 +196,20 @@ export const AuthProvider = ({ children }) => {
   const verificationOTPCode = async () => {
     setIsLoading(true);
 
-    const { email, password } = vefificationData;
+    const { email, password } = verificationData;
     console.log("verificationOTPCode sendOTPviaLogin", email, password)
     try {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email },
       });
+
+      console.log("verificationOTPCode+++", response)
       if (response.status === 200) {
+        await saveOtpParamsStorage(verificationData);
         setIsLoading(false);
         setIsMessage(false);
+        router.push("/(tabs)/(04_settings)/otpCode");
 
-        router.push({
-          pathname: "/(tabs)/(04_settings)/otpCode",
-          params: { email, password },
-        });
       }
       if (response.status === 500) {
         setIsLoading(false);
