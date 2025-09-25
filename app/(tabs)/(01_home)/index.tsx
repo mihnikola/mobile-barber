@@ -19,6 +19,7 @@ import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
+import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -47,7 +48,9 @@ export default function App() {
   };
 
   useEffect(() => {
+    
     setTimeout(async () => {
+
       await registerForPushNotifications();
     }, 2000);
   }, []);

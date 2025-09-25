@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { getData } from "@/api/apiService";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
+import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -36,10 +37,9 @@ const useEmailOtpCode = () => {
 
       if (response.status === 200) {
         if (response.success) {
-          router.push({
-            pathname: "/(tabs)/(04_settings)/otpCode",
-            params: { data: email },
-          });
+          const verifyData = {email};
+          await saveOtpParamsStorage(verifyData);
+          router.push("/(tabs)/(04_settings)/otpCode");
         } else {
           setError(localization.EMAIL.errorFound);
           setIsMessage(true);
@@ -56,9 +56,7 @@ const useEmailOtpCode = () => {
     }
   };
 
-  const handleResendCode = () => {
-    checkEmailValidation(email);
-  };
+
 
   return {
     isLoading,
@@ -67,7 +65,6 @@ const useEmailOtpCode = () => {
     checkEmailValidation,
     isMessage,
     setIsMessage,
-    handleResendCode,
   };
 };
 
