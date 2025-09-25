@@ -26,6 +26,8 @@ instance.interceptors.request.use(
     }
     if (languageValue) {
       config.headers["Language"] = languageValue;
+    } else {
+      config.headers["Language"] = "sr";
     }
 
     return config;
