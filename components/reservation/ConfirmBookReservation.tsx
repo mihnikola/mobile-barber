@@ -1,25 +1,20 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
-import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/shared-components/Note";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedLogo from "@/shared-components/SharedLogo";
-import useCompany from "../home/hooks/useCompany";
 import BookSuccess from "./BookSuccess";
+import { useCompany } from "@/context/CompanyContext";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
 
   const { reservation } = useContext(ReservationContext)!;
-  const { company, getCompany, isLoading: isLoadingCompany } = useCompany();
+  const { company } = useCompany();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
+
   const { responseData } = useLocalSearchParams();
 
   const submitReservationHandler = async () => {

@@ -12,8 +12,8 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -32,19 +32,13 @@ const languageSupport = () => {
     );
     setFilteredLanguages(filtered);
   };
-    const { company, getCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
+  const { company } = useCompany();
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
-    
-
-       <SharedTabHeader
+      <SharedTabHeader
         image={company?.media?.coverImageSettings}
         title={localization.SETTINGS.changeLanguage.capture}
       />

@@ -1,17 +1,18 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
 import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
-import useCompany from "../home/hooks/useCompany";
 import HeaderInfo from "./HeaderInfo";
+import { useCompany } from "@/context/CompanyContext";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { localization } = useLocalization();
+  const { company } = useCompany();
 
   const {
     submitReservationHandler,
@@ -21,11 +22,7 @@ const Reservation = () => {
     setDescription,
   } = useSubmitReservation();
 
-  const { company, getCompany } = useCompany();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
 
   if (reservation) {
     return (

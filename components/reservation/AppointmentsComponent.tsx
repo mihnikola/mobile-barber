@@ -1,24 +1,22 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import React, { useCallback, useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
 import { useFocusEffect } from "@react-navigation/native";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
-  const { company, getCompany } = useCompany();
+  const { company } = useCompany();
 
   const { localization } = useLocalization();
 
   useEffect(() => {
-    getCompany();
     getReservationsData();
   }, []);
 

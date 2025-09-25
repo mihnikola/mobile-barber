@@ -9,8 +9,8 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -19,11 +19,7 @@ const aboutapplication = () => {
 
   const { localization } = useLocalization();
 
-  const { company, getCompany } = useCompany();
-
-  useEffect(() => {
-    getCompany();
-  }, []);
+  const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>

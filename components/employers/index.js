@@ -7,15 +7,15 @@ import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import useCompany from "../home/hooks/useCompany";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { useCompany } from "@/context/CompanyContext";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
 
-  const { company, getCompany } = useCompany();
+  const { company } = useCompany();
+
 
   useEffect(() => {
     getCompany();
