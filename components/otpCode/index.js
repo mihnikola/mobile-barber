@@ -72,6 +72,8 @@ const otpCode = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
+    router.dismissAll();
+
     if (verifyData?.email && !verifyData?.password) {
       router.push({
         pathname: "/(tabs)/(04_settings)/changePassword",
@@ -80,17 +82,14 @@ const otpCode = () => {
     }
     if (isVerified && verifyData?.email && verifyData?.password) {
       await removeOtpParamsStorage();
-      router.dismissAll();
       router.push("/(tabs)/(01_home)");
     }
-    
+
     if (
       verifyData?.email &&
       verifyData?.password &&
       verifyData?.confirmPassword
     ) {
-    router.dismissAll();
-
       await removeOtpParamsStorage();
 
       router.push("/(tabs)/(04_settings)/login");
