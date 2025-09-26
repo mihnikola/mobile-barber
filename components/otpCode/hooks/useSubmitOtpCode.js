@@ -18,12 +18,10 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      console.log("checkOtpCodeValidation pre");
       const response = await getData("/users/otpcode", {
         email,
         otpCode,
       });
-      console.log("checkOtpCodeValidation++ posle", response);
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.OTP_CODE.validSuccess);
@@ -35,7 +33,6 @@ const useSubmitOtpCode = () => {
         setIsLoading(false);
       }
     } catch (err) {
-      console.log("sdashjdkjashdjkh");
       setIsMessage(true);
       setError(localization.OTP_CODE.validError);
       setIsLoading(false);
@@ -51,21 +48,17 @@ const useSubmitOtpCode = () => {
         password,
         otpCode,
       });
-      console.log("loginVerify+++++", response);
       if (response.status === 69) {
-        console.log("sattus 69");
         saveStorage(response.token);
         saveToken(response.userId, localization.LOGIN.successVerified);
       }
       if (response.status === 202) {
-        console.log("sattus 202");
 
         setIsMessage(true);
         setError(localization.OTP_CODE.validError);
         setIsLoading(false);
       }
     } catch (err) {
-      console.log("sattus catch error");
 
       setIsLoading(false);
       setError(localization.OTP_CODE.validError);
@@ -78,7 +71,6 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      console.log("checkOtpCodeValidation pre");
       const response = await getData("/users/verifyEmail", {
         email,
         otpCode,
@@ -89,7 +81,6 @@ const useSubmitOtpCode = () => {
         setIsLoading(false);
       }
     } catch (err) {
-      console.log("sdashjdkjashdjkh");
       setIsMessage(true);
       setError(localization.LOGIN.alreadyVerify);
       setIsLoading(false);
@@ -100,7 +91,6 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     const expoTokenData = await getExpoTokenStorage();
 
-    console.log("expoTokenData+++", expoTokenData, userId);
     if (!expoTokenData) {
       return;
     }
@@ -109,16 +99,13 @@ const useSubmitOtpCode = () => {
         tokenExpo: expoTokenData,
         tokenUser: userId,
       });
-      console.log("saveToken responseData+++", responseData);
 
       if (responseData.status === 200) {
-        console.log("error nema");
         setIsMessage(true);
         setIsLoading(false);
         setMessage(messageData);
         setIsVerified(true);
       } else {
-        console.log("error ima");
 
         setIsLoading(false);
         setIsMessage(true);
@@ -126,7 +113,6 @@ const useSubmitOtpCode = () => {
         setError(localization.LOGIN.errorToken);
       }
     } catch (err) {
-      console.log("error ima catch");
 
       setIsLoading(false);
       setIsMessage(true);
