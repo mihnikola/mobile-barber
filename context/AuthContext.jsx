@@ -195,7 +195,6 @@ export const AuthProvider = ({ children }) => {
 
   const verificationOTPCode = async () => {
     setIsLoading(true);
-
     const { email, password } = verificationData;
     console.log("verificationOTPCode sendOTPviaLogin", email, password)
     try {
@@ -232,13 +231,9 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     const expoToken = await getExpoTokenStorage();
-
     setStatus(null);
-
     setIsLoading(true);
     setError(null);
-
-
     try {
       const responseData = await post("/users/login", { email, password, expoToken });
       if (responseData.status === 202) {
@@ -249,13 +244,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 606) {
         setIsLoading(false);
         setIsMessage(true);
-
-
         setVerificationData({ email, password });
-
-
-
-
         setStatus(responseData.status);
         setMessage(localization.LOGIN.isVerified);
       }
@@ -313,31 +302,23 @@ export const AuthProvider = ({ children }) => {
   // };
 
   const saveToken = async (userId,expoToken) => {
-
     setIsLoading(true);
-
     if (!expoToken) {
-
       setIsLoading(false);
       return;
     }
-
     try {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoToken,
         tokenUser: userId,
       });
       if (responseData.status === 200) {
-
         setIsLoading(false);
         setIsMessage(true);
         setSuccess(localization.LOGIN.success);
-
       } else {
-
         setIsLoading(false);
         setIsMessage(true);
-
         setError(
           `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
         );
