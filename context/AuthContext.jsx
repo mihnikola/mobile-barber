@@ -231,13 +231,16 @@ export const AuthProvider = ({ children }) => {
       setError(localization.LOGIN.error);
       return;
     }
+    const expoToken = await getExpoTokenStorage();
+
     setStatus(null);
 
     setIsLoading(true);
     setError(null);
 
+
     try {
-      const responseData = await post("/users/login", { email, password });
+      const responseData = await post("/users/login", { email, password, expoToken });
       if (responseData.status === 202) {
         setIsLoading(false);
         setIsMessage(true);
@@ -259,7 +262,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         setIsLoading(false);
         saveStorage(responseData.token);
-        saveToken(responseData.userId, responseData.token);
+        saveToken(responseData.userId, expoToken);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -309,10 +312,9 @@ export const AuthProvider = ({ children }) => {
   //   }
   // };
 
-  const saveToken = async (userId) => {
+  const saveToken = async (userId,expoToken) => {
 
     setIsLoading(true);
-    const expoToken = await getExpoTokenStorage();
 
     if (!expoToken) {
 
