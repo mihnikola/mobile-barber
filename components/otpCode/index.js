@@ -50,7 +50,6 @@ const otpCode = () => {
     checkverifyEmail,
   } = useSubmitOtpCode();
 
-  console.log("verifyData", verifyData);
   const handleVerify = async () => {
     const otp = code.join("");
     if (otp.length === 6) {
@@ -63,7 +62,6 @@ const otpCode = () => {
       } else if (verifyData?.email && verifyData?.password) {
         checkOtpCodeVerification(verifyData?.email, verifyData?.password, otp);
       } else {
-        console.log("asdsad");
         checkOtpCodeValidation(verifyData?.email, otp);
       }
     } else {
@@ -74,6 +72,7 @@ const otpCode = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
+    router.dismissAll();
 
     if (verifyData?.email && !verifyData?.password) {
       router.push({
@@ -81,11 +80,11 @@ const otpCode = () => {
         params: { data: verifyData?.email },
       });
     }
-    router.dismissAll();
-
     if (isVerified && verifyData?.email && verifyData?.password) {
+      await removeOtpParamsStorage();
       router.push("/(tabs)/(01_home)");
     }
+
     if (
       verifyData?.email &&
       verifyData?.password &&
@@ -134,7 +133,7 @@ const otpCode = () => {
             disabled={code.join("").length < 6}
             onPress={handleVerify}
             text={localization.SUBMIT.label}
-            // loading={isLoading}
+            loading={isLoading}
           />
         </View>
         {isMessage && (
