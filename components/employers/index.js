@@ -10,14 +10,17 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 
-const Employers = () => {
+const Employers = ({ locations: locationsNotChoosen }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-  const { emplData, isLoading, error } = useFetchEmployers(); // Use the custom hook
+  const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
 
   const { company } = useCompany();
 
-
-
+  useEffect(() => {
+    if (locationsNotChoosen?.length === 1 || reservation) {
+      fetchAllEmployees(locationsNotChoosen || reservation);
+    }
+  }, [locationsNotChoosen,reservation]);
 
   const redirectHandler = (employer) => {
     updateReservation({ ...reservation, employer });

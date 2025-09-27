@@ -1,7 +1,6 @@
-// src/hooks/useFetchEmployers.js
-import { get } from "@/api/apiService";
+import { getData } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useFetchEmployers = () => {
   const [emplData, setEmplData] = useState([]);
@@ -9,11 +8,12 @@ const useFetchEmployers = () => {
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
 
-  const fetchAllEmployees = async () => {
+  const fetchAllEmployees = async (location) => {
     setIsLoading(true);
     setError(null);
+
     try {
-      const response = await get("/users");
+      const response = await getData("/users", { location });
       if (response.status === 200) {
         setEmplData(response.data);
         setIsLoading(false);
@@ -23,11 +23,9 @@ const useFetchEmployers = () => {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    fetchAllEmployees();
-  }, []);
 
-  return { emplData, isLoading, error };
+
+  return { fetchAllEmployees, emplData, isLoading, error };
 };
 
 export default useFetchEmployers;
