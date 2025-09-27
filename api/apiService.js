@@ -2,6 +2,7 @@
 import { getLanguageValue } from "@/helpers/language";
 import { getStorage } from "@/helpers/token";
 import axios from "axios";
+import { showError } from '@/helpers/error-handler';
 
 const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
@@ -42,9 +43,10 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // console.error("Response Interceptor Error:", error);
     if (error.response && error.response.data && error.response.data.message) {
-      // console.error("Server Error Message:", error.response.data.message);
+      if(error.response.data.status === 401){
+      showError('Unauthorized token', error.response.data.message);
+      }
     }
     return Promise.reject(error);
   }

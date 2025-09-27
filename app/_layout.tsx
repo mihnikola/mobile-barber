@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { AuthProvider } from "@/context/AuthContext";
 import MainContainer from "../components/mainContainer/MainContainer";
 import SplashScreen from "@/shared-components/SuccessScreen";
+import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
+import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
 
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,13 +35,16 @@ export default function RootLayout() {
     return (
       <ThemeProvider value={MyDarkTheme}>
         <LocalizationProvider>
-          <CompanyProvider>
-            <AuthProvider>
-              <ReservationProvider>
-                <MainContainer />
-              </ReservationProvider>
-            </AuthProvider>
-          </CompanyProvider>
+          <GlobalErrorProvider>
+            <GlobalErrorHandler />
+            <CompanyProvider>
+              <AuthProvider>
+                <ReservationProvider>
+                  <MainContainer />
+                </ReservationProvider>
+              </AuthProvider>
+            </CompanyProvider>
+          </GlobalErrorProvider>
         </LocalizationProvider>
       </ThemeProvider>
     );
