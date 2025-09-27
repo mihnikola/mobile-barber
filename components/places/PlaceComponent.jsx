@@ -1,9 +1,8 @@
-
 import { ScrollView, Image, StyleSheet, View } from "react-native";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
-import useFetchLocations from './useFetchLocations';
+import useFetchLocations from "./useFetchLocations";
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
 import { useContext } from "react";
 import { router } from "expo-router";
@@ -13,18 +12,21 @@ import { useCompany } from "@/context/CompanyContext";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-  const { locationsData, isLoading, error } = useFetchLocations(); // Use the custom hook
-  const {localization} = useLocalization();
+  const { locationsData, isLoading, error } = useFetchLocations(); 
+  const { localization } = useLocalization();
   const { company } = useCompany();
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
-    router.push({ pathname: "/(tabs)/(02_barbers)/employers", params: { image: company?.media?.coverImageAppointments } });
+    router.push("/(tabs)/(02_barbers)/employers");
   };
 
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader image={company?.media?.coverImageAppointments} title={localization.PLACES.title} />
+      <SharedTabHeader
+        image={company?.media?.coverImageAppointments}
+        title={localization.PLACES.title}
+      />
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
@@ -46,7 +48,6 @@ const PlaceComponent = () => {
       )}
     </ScrollView>
   );
-
 };
 
 export default PlaceComponent;

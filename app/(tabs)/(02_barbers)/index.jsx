@@ -12,7 +12,7 @@ const EmployersComponent = () => {
   if (locationsData.length > 1) {
     return <PlaceComponent />;
   } else {
-    return <Employers />;
+    return <Employers locations={locationsData} />;
   }
 
 };
