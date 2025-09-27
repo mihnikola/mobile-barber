@@ -19,7 +19,6 @@ import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const windowWidth = Dimensions.get("window").width;
@@ -37,7 +36,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const { company, getCompany, isLoading } = useCompany();
+  const { company, isLoading } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const { localization } = useLocalization();
 
@@ -49,7 +48,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    getCompany();
     setTimeout(async () => {
       await registerForPushNotifications();
     }, 2000);
@@ -58,72 +56,80 @@ export default function App() {
   if (isLoading) {
     return <SharedLoader />;
   }
-  return (
-    <View style={styles.container}>
-      <HomeCoverImage image={company?.media?.coverImageHome} />
+  if (company) {
+    return (
+      <View style={styles.container}>
+        <HomeCoverImage image={company?.media?.coverImageHome} />
 
-      <Animated.View
-        style={[
-          styles.box,
-          {
-            transform: [{ translateY: slideAnim }],
-          },
-        ]}
-      >
-        <HomeImage image={company?.media?.logo} />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.boxBook,
-          {
-            transform: [{ translateY: slideAnimBook }],
-          },
-        ]}
-      >
-        <TouchableOpacity onPress={nextPage} style={styles.btnLocationContent}>
-          <FontAwesome name="calendar" size={28} color="white" />
-
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
-              {localization.HOME.bookingBtn}
-            </Text>
-            <Text style={styles.address}>
-              {localization.HOME.bookingBtnDesc}
-            </Text>
-          </View>
-
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onAboutUs} style={styles.btnLocationContent}>
-          <FontAwesome name="home" size={28} color="white" />
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
-              {localization.HOME.aboutUsBtn}
-            </Text>
-            <Text style={styles.address}>
-              {localization.HOME.aboutUsBtnDesc}
-            </Text>
-          </View>
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => openGoogleMapsRoute(company?.mapsLink)}
-          style={styles.btnLocationContent}
+        <Animated.View
+          style={[
+            styles.box,
+            {
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
         >
-          <FontAwesome name="location-arrow" size={28} color="white" />
-          <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
-              {localization.HOME.locationBtn}
-            </Text>
-            <Text style={styles.address}>
-              {localization.HOME.locationBtnDesc}
-            </Text>
-          </View>
-          <FontAwesome name="chevron-right" size={28} color="white" />
-        </TouchableOpacity>
-      </Animated.View>
-    </View>
-  );
+          <HomeImage image={company?.media?.logo} />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.boxBook,
+            {
+              transform: [{ translateY: slideAnimBook }],
+            },
+          ]}
+        >
+          <TouchableOpacity
+            onPress={nextPage}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="calendar" size={28} color="white" />
+
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.bookingBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.bookingBtnDesc}
+              </Text>
+            </View>
+
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onAboutUs}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="home" size={28} color="white" />
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.aboutUsBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.aboutUsBtnDesc}
+              </Text>
+            </View>
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGoogleMapsRoute(company?.mapsLink)}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="location-arrow" size={28} color="white" />
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.locationBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.locationBtnDesc}
+              </Text>
+            </View>
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
