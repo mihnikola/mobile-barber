@@ -1,8 +1,6 @@
 import { SharedMessage } from "./SharedMessage";
 import { useGlobalError } from "./../context/GlobalErrorContext";
 import { FontAwesome } from "@expo/vector-icons";
-import { removeStorage } from "@/helpers/token";
-import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "./SharedLoader";
 
@@ -13,7 +11,6 @@ const GlobalErrorHandler = () => {
   if (!error) return null;
 
   const removeEverything = async () => {
-    //logout from everything
     await logoutFirebase();
     hideError();
   };

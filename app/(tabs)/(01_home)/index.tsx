@@ -20,6 +20,7 @@ import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -36,7 +37,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const { company } = useCompany();
+  const { company, getCompany, isLoading } = useCompany();
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const { localization } = useLocalization();
 
@@ -48,13 +49,15 @@ export default function App() {
   };
 
   useEffect(() => {
-    
+    getCompany();
     setTimeout(async () => {
-
       await registerForPushNotifications();
     }, 2000);
   }, []);
 
+  if (isLoading) {
+    return <SharedLoader />;
+  }
   return (
     <View style={styles.container}>
       <HomeCoverImage image={company?.media?.coverImageHome} />

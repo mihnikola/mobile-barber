@@ -13,9 +13,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
+import SplashScreen from "@/shared-components/SplashScreen";
 
 const InitialComponent = ({ addToken }) => {
-  const { getInitialData, initialData } = useInitialData();
+  const { getInitialData, initialData, isLoading } = useInitialData();
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
@@ -101,7 +102,10 @@ const InitialComponent = ({ addToken }) => {
     });
     return (
       <View style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
-        <Animated.Image source={{uri: item.image}} style={imageAnimationStyle} />
+        <Animated.Image
+          source={{ uri: item.image }}
+          style={imageAnimationStyle}
+        />
         <Animated.View style={textAnimationStyle}>
           <Text style={styles.itemTitle}>{item.title}</Text>
           <Text style={styles.itemText}>{item.text}</Text>
@@ -110,38 +114,44 @@ const InitialComponent = ({ addToken }) => {
     );
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Animated.FlatList
-        ref={flatListRef}
-        onScroll={onScroll}
-        data={initialData}
-        renderItem={({ item, index }) => {
-          return <RenderItem item={item} index={index} />;
-        }}
-        keyExtractor={(item) => item._id}
-        scrollEventThrottle={16}
-        horizontal={true}
-        bounces={false}
-        pagingEnabled={true}
-        showsHorizontalScrollIndicator={false}
-        onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={{
-          minimumViewTime: 300,
-          viewAreaCoveragePercentThreshold: 10,
-        }}
-      />
-      <View style={styles.bottomContainer}>
-        <Pagination data={initialData} x={x} screenWidth={SCREEN_WIDTH} />
-        <CustomButton
-          addToken={addToken}
-          flatListRef={flatListRef}
-          flatListIndex={flatListIndex}
-          dataLength={initialData?.length}
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  if (initialData?.length) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Animated.FlatList
+          ref={flatListRef}
+          onScroll={onScroll}
+          data={initialData}
+          renderItem={({ item, index }) => {
+            return <RenderItem item={item} index={index} />;
+          }}
+          keyExtractor={(item) => item._id}
+          scrollEventThrottle={16}
+          horizontal={true}
+          bounces={false}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          onViewableItemsChanged={onViewableItemsChanged}
+          viewabilityConfig={{
+            minimumViewTime: 300,
+            viewAreaCoveragePercentThreshold: 10,
+          }}
         />
-      </View>
-    </SafeAreaView>
-  );
+        <View style={styles.bottomContainer}>
+          <Pagination data={initialData} x={x} screenWidth={SCREEN_WIDTH} />
+          <CustomButton
+            addToken={addToken}
+            flatListRef={flatListRef}
+            flatListIndex={flatListIndex}
+            dataLength={initialData?.length}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
 };
 
 export default InitialComponent;
