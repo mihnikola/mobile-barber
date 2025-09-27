@@ -35,16 +35,16 @@ export default function RootLayout() {
     return (
       <ThemeProvider value={MyDarkTheme}>
         <LocalizationProvider>
-          <GlobalErrorProvider>
-            <GlobalErrorHandler />
-            <CompanyProvider>
-              <AuthProvider>
+          <CompanyProvider>
+            <AuthProvider>
+              <GlobalErrorProvider>
+                <GlobalErrorHandler />
                 <ReservationProvider>
                   <MainContainer />
                 </ReservationProvider>
-              </AuthProvider>
-            </CompanyProvider>
-          </GlobalErrorProvider>
+              </GlobalErrorProvider>
+            </AuthProvider>
+          </CompanyProvider>
         </LocalizationProvider>
       </ThemeProvider>
     );
