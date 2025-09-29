@@ -20,6 +20,8 @@ import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import useFetchLocations from "@/components/places/useFetchLocations";
+import LocationsComponent from "@/components/home/LocationsComponent";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -37,7 +39,15 @@ export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, isLoading } = useCompany();
+  const [modalVisible, setModalVisible] = useState(false);
+
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
+  const {
+    locationsData,
+    isLoading: isLoaderLocation,
+    error,
+  } = useFetchLocations();
+
   const { localization } = useLocalization();
 
   const nextPage = () => {
@@ -46,6 +56,10 @@ export default function App() {
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
   };
+  const handleLocationSelect = (locationData) => {
+    setModalVisible(false);
+    openGoogleMapsRoute(locationData?.mapLink);
+  };
 
   useEffect(() => {
     setTimeout(async () => {
@@ -53,8 +67,28 @@ export default function App() {
     }, 2000);
   }, []);
 
+  const openLocationHandler = () => {
+    if (locationsData?.length === 1) {
+      openGoogleMapsRoute(locationsData[0]?.mapLink);
+    } else {
+      setModalVisible(true);
+    }
+  };
+
   if (isLoading) {
     return <SharedLoader />;
+  }
+  if (modalVisible && locationsData?.length > 1) {
+    return (
+      <LocationsComponent
+        locations={locationsData}
+        handleLocationSelect={handleLocationSelect}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        title="Choose a barber location"
+        buttonText="Close"
+      />
+    );
   }
   if (company) {
     return (
@@ -112,7 +146,7 @@ export default function App() {
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => openGoogleMapsRoute(company?.mapsLink)}
+            onPress={openLocationHandler}
             style={styles.btnLocationContent}
           >
             <FontAwesome name="location-arrow" size={28} color="white" />
