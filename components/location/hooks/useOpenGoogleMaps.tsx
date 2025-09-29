@@ -4,7 +4,6 @@ export const useOpenGoogleMaps = () => {
   const openGoogleMapsRoute = async (url) => {
     try {
       const supported = await Linking.canOpenURL(url);
-      console.log("url", url);
       if (supported) {
         await Linking.openURL(url);
       } else {

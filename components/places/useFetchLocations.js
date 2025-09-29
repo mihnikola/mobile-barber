@@ -26,7 +26,7 @@ const useFetchLocations = () => {
     fetchLocations();
   }, []);
 
-  return { locationsData, isLoading, error };
+  return { locationsData, isLoading, error, fetchLocations };
 };
 
 export default useFetchLocations;
