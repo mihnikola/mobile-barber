@@ -1,5 +1,4 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { FontAwesome } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
@@ -15,16 +14,27 @@ import {
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 
-const LANGUAGES = [
-  { code: "en", label: "English" },
-  { code: "sr", label: "Srpski" },
-];
-
 const languageSupport = () => {
   const { changeLocalization, localization } = useLocalization();
   const [search, setSearch] = useState("");
-  const [filteredLanguages, setFilteredLanguages] = useState(LANGUAGES);
+  const [filteredLanguages, setFilteredLanguages] = useState([]);
 
+  const { company } = useCompany();
+
+  const languageLabels = {
+    sr: {
+      en: "Engleski",
+      sr: "Srpski",
+    },
+    en: {
+      en: "English",
+      sr: "Serbian",
+    },
+  };
+  const LANGUAGES = [
+    { code: "en", label: languageLabels[localization.code]?.en || "English" },
+    { code: "sr", label: languageLabels[localization.code]?.sr || "Serbian" },
+  ];
   const handleSearch = (text) => {
     setSearch(text);
     const filtered = LANGUAGES.filter((lang) =>
@@ -32,7 +42,10 @@ const languageSupport = () => {
     );
     setFilteredLanguages(filtered);
   };
-  const { company } = useCompany();
+
+  useEffect(() => {
+    setFilteredLanguages(LANGUAGES);
+  }, [localization.code]);
 
   return (
     <View style={styles.container}>
@@ -101,8 +114,9 @@ const styles = StyleSheet.create({
   },
 
   languageItem: {
-    padding: 20,
-    margin: 10,
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 7,
     borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",
