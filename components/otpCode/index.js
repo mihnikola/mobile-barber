@@ -48,6 +48,7 @@ const otpCode = () => {
     setIsVerified,
     verificationOTPCode,
     checkverifyEmail,
+    verificationOTPCodeResend
   } = useSubmitOtpCode();
 
   const handleVerify = async () => {
@@ -97,7 +98,7 @@ const otpCode = () => {
   };
 
   const handleResendCodeHandler = () => {
-    verificationOTPCode(verifyData);
+    verificationOTPCodeResend(verifyData);
   };
   const confirmHandler2 = () => {
     setIsMessage(false);

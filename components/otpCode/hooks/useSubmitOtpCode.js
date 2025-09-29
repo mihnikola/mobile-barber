@@ -144,6 +144,24 @@ const useSubmitOtpCode = () => {
     }
   };
 
+  const verificationOTPCodeResend = async (paramsData) => {
+    const { email, password } = paramsData;
+  
+    setError(null);
+    try {
+      const response = await getData("/users/sendOTPviaLogin", {
+        params: { email, password },
+      });
+      if (response.status === 400) {
+        setIsMessage(true);
+        setError(localization.LOGIN.errorEmail);
+      }
+    } catch (err) {
+      setError(localization.LOGIN.errorEmail);
+      setIsMessage(true);
+    }
+  };
+
   return {
     message,
     setMessage,
@@ -156,7 +174,8 @@ const useSubmitOtpCode = () => {
     verificationOTPCode,
     checkOtpCodeVerification,
     isVerified,
-    checkverifyEmail
+    checkverifyEmail,
+    verificationOTPCodeResend
   };
 };
 
