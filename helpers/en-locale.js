@@ -6,7 +6,9 @@ export const ENG_LOCALIZATION = {
     SETTINGS: "Settings",
   },
   code: "en",
+
   HOME: {
+    startBtn:"Get Started",
     reviews: "Reviews",
     contact: "Contact",
     aboutUs: "Visit us",
@@ -99,10 +101,10 @@ export const ENG_LOCALIZATION = {
     changeLanguage: {
       capture: "Change language",
       filterCapture: "Filter languages",
-      label:{
-        eng:"English",
-        srb:"Serbian"
-      }
+      label: {
+        eng: "English",
+        srb: "Serbian",
+      },
     },
     LOGOUT: {
       title: "Logout",
@@ -190,12 +192,12 @@ We reserve the right to modify the terms of use at any time, and users will be n
     errorValid: "Please enter a valid email address.",
     errorEmpty: "Please enter your email.",
     errorFound: "Entered email not found",
-    errorRegex:
-      "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
   },
   PASSWORD: {
     label: "Password",
     placeholder: "Enter your password",
+    errorRegex:
+      "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
   },
   REGISTER: {
     title: "Register your account",

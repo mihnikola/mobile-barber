@@ -5,8 +5,7 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  StatusBar,
-  Dimensions // To get screen height for responsive design
+  Dimensions 
 } from 'react-native';
 
 const { height } = Dimensions.get('window');

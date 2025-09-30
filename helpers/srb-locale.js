@@ -12,6 +12,7 @@ export const SRB_LOCALIZATION = {
 
   code: "sr",
   HOME: {
+    startBtn: "Započni",
     aboutUs: "Posetite nas",
     reviews: "Recenzije",
     contact: "Kontakt",
@@ -164,7 +165,7 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
   LOGIN: {
     title: "Prijava",
     description: "Molimo Vas da unesete podatke",
-    or: "ili popunFite formu",
+    or: "ili popunite formu",
     forgot: "Zaboravljena lozinka?",
     submitBtn: "Prijavi se",
     question: "Nemate nalog?",
@@ -207,12 +208,12 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     errorValid: "Unesite validnu email adresu.",
     errorEmpty: "Unesite email adresu.",
     errorFound: "Nije pronađena email adresa.",
-    errorRegex:
-      "Lozinka mora da počne sa slovom i da ima najmanje 8 karaktera, koje čine jedno veliko slovo, broj, i specijalni znak.",
   },
   PASSWORD: {
     label: "Lozinka",
     placeholder: "Unesite Vašu lozinku",
+    errorRegex:
+      "Lozinka mora da počne sa slovom i da ima najmanje 8 karaktera, koje čine jedno veliko slovo, broj, i specijalni znak.",
   },
   CONFIRM_PASSWORD: {
     label: "Potvrdite lozinku",

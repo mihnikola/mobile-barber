@@ -16,7 +16,7 @@ const usePassword = () => {
     setPassword(trimmedPass);
     setTimeout(() => {
       if (!strongPasswordRegex.test(trimmedPass)) {
-        setPasswordError(localization.EMAIL.errorRegex);
+        setPasswordError(localization.PASSWORD.errorRegex);
       } else {
         setPasswordError("");
       }

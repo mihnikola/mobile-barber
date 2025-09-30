@@ -6,15 +6,18 @@ import Animated, {
 } from "react-native-reanimated";
 
 import getStartedIcon from "@/assets/images/arrowImg.png";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
+  const { localization } = useLocalization();
+
   const buttonAnimationStyle = useAnimatedStyle(() => {
     return {
       width:
         flatListIndex.value === dataLength - 1
           ? withSpring(140)
           : withSpring(60),
-      height: 60
+      height: 60,
     };
   });
   const arrowAnimationStyle = useAnimatedStyle(() => {
@@ -25,7 +28,6 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
         flatListIndex.value === dataLength - 1 ? withTiming(0) : withTiming(1),
       transform: [
         {
-          
           translateX:
             flatListIndex.value === dataLength - 1
               ? withTiming(100)
@@ -36,7 +38,6 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
   });
   const textAnimationStyle = useAnimatedStyle(() => {
     return {
-
       opacity:
         flatListIndex.value === dataLength - 1 ? withTiming(1) : withTiming(0),
       transform: [
@@ -62,7 +63,7 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
     >
       <Animated.View style={[styles.container, buttonAnimationStyle]}>
         <Animated.Text style={[styles.textButton, textAnimationStyle]}>
-          Get Started
+          {localization.HOME.startBtn}
         </Animated.Text>
         <Animated.Image
           source={getStartedIcon}
@@ -79,9 +80,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#1C1C1E",
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
     padding: 10,
-    width:200,
+    width: 200,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -95,6 +96,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "800",
     position: "absolute",
-
   },
 });

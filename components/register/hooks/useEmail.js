@@ -1,4 +1,5 @@
 // src/hooks/useEmail.js
+import { useLocalization } from "@/context/LocalizationContext";
 import { useState, useCallback } from "react";
 
 const useEmail = () => {
@@ -6,12 +7,13 @@ const useEmail = () => {
   const [emailError, setEmailError] = useState("");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+  const {localization} = useLocalization();
   const handleEmailChange = useCallback((text) => {
     setEmail(text);
     // const trimmedEmail = text.trim().toLowerCase();
 
     if (text.includes(" ") || !emailRegex.test(text)) {
-      setEmailError("Please enter a valid email address.");
+      setEmailError(localization.EMAIL.errorValid);
     } else {
       setEmailError(""); // No errors
     }
