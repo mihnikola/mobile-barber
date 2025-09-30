@@ -50,7 +50,7 @@ const ForgotPassword = () => {
           {localization.FORGOT_PASSWORD.subtitle}
         </Text>
       </View>
-      <SharedImageForgotPass />
+      {/* <SharedImageForgotPass /> */}
 
       <View style={styles.radiobtn}>
         <SharedInput
