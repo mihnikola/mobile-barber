@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { MenuItem } from "./MenuItem";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const MenuItemContainer = ({ onPress }) => {
+const MenuItemContainer = ({ onPress, isToken }) => {
   const { localization } = useLocalization();
   return (
     <ScrollView style={styles.menuContainer}>
@@ -27,12 +27,15 @@ const MenuItemContainer = ({ onPress }) => {
         title={localization.SETTINGS.LEGAL.title}
         onPress={() => onPress("200")}
       />
-      <MenuItem
-        iconName="logout"
-        title={localization.SETTINGS.LOGOUT.title}
-        onPress={() => onPress("6")}
-        isLogout
-      />
+      {isToken &&
+        <MenuItem
+          iconName="logout"
+          title={localization.SETTINGS.LOGOUT.title}
+          onPress={() => onPress("6")}
+          isLogout
+
+        />
+      }
     </ScrollView>
   );
 };

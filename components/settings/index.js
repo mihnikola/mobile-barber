@@ -2,25 +2,26 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useAuth } from "@/context/AuthContext";
 import LoginScreen from "@/components/login";
 import SettingsComponent from "@/components/settings/SettingsComponent";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 const Settings = () => {
-  const { isToken, isLoading, fetchUserData } = useAuth();
+  const { getTokenData } = useAuth();
 
-  useEffect(() => {
-    if (isToken) {
-      fetchUserData();
-    }
-  }, [isToken]);
+  useFocusEffect(
+    useCallback(() => {
+      getTokenData();
+    }, [])
+  );
 
   // if (isLoading) {
   //   return <SharedLoader />;
   // }
-  if (!isToken) {
-    return <LoginScreen />;
-  }
-  if (isToken) {
-    return <SettingsComponent />;
-  }
+  // if (!isToken) {
+  //   return <LoginScreen />;
+  // }
+  // if (isToken) {
+  return <SettingsComponent />;
+  // }
 };
 
 export default Settings;

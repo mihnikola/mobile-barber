@@ -8,7 +8,7 @@ export const ENG_LOCALIZATION = {
   code: "en",
 
   HOME: {
-    startBtn:"Get Started",
+    startBtn: "Get Started",
     reviews: "Reviews",
     contact: "Contact",
     aboutUs: "Visit us",
@@ -98,6 +98,7 @@ export const ENG_LOCALIZATION = {
     error: "Error while fetching initial data",
   },
   SETTINGS: {
+    clickHere: "Click here to Log in",
     changeLanguage: {
       capture: "Change language",
       filterCapture: "Filter languages",
