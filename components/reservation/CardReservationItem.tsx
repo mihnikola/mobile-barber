@@ -40,20 +40,24 @@ const DateFormatComponent = ({ item }) => {
 };
 const InfoContainerPast = ({ item }) => {
   const { localization } = useLocalization();
-
   return (
     <View style={styles.centerContainer}>
-      <View style={styles.infoContainer}>
-        <Text style={styles.captureDateBoldPast}>{item.service?.name}</Text>
-        <Text style={styles.captureDatePast}>
-          {convertToDayTime(item?.startDate)} -{" "}
-          {addMinutesToTime(
-            convertToDayTime(item?.startDate),
-            item?.service?.duration
-          )}
-        </Text>
-
-        <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
+      <View style={styles.columnContainer}>
+        <View style={styles.infoContainer}>
+          <Text style={styles.captureDateBoldPast}>{item.service?.name}</Text>
+          <Text style={styles.captureDatePast}>
+            {convertToDayTime(item?.startDate)} -{" "}
+            {addMinutesToTime(
+              convertToDayTime(item?.startDate),
+              item?.service?.duration
+            )}
+          </Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.captureDateLocation}>
+            {item?.employer?.place?.address}
+          </Text>
+        </View>
       </View>
       <View style={styles.ratingContainer}>
         <Text style={styles.rating}>
@@ -78,12 +82,19 @@ const InfoContainerFuture = ({ item }) => {
         )}{" "}
       </Text>
 
-      <Text style={styles.captureDateLocation}>Cara Lazara 85 a</Text>
+      <Text style={styles.captureDateFutureLocation}>
+        {item?.employer?.place?.address}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  columnContainer: {
+    display: "flex",
+    justifyContent: "space-around",
+    flex: 1,
+  },
   centerContainer: {
     display: "flex",
     flexDirection: "row",
@@ -144,10 +155,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "500",
   },
+  captureDateFutureLocation: {
+    color: "#ffd900ff",
+  },
   captureDateLocation: {
-    color: "#FFD700",
-    fontSize: 17,
-    fontWeight: 800,
+    color: "#9a871fff",
   },
   captureDatePast: {
     fontSize: 18,
