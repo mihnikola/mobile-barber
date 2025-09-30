@@ -127,7 +127,7 @@ const otpCode = () => {
         </View>
         <OtpInput code={code} setCode={setCode} />
         <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
-        <SharedImageForgotPass />
+        {/* <SharedImageForgotPass /> */}
 
         <View style={styles.btnFooter}>
           <SharedButton

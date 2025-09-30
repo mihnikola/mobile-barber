@@ -68,7 +68,7 @@ const changePass = () => {
           placeholder={localization.CONFIRM_PASSWORD.placeholder}
         />
       </View>
-      <SharedImageForgotPass />
+      {/* <SharedImageForgotPass /> */}
       <View style={styles.btnFooter}>
         <SharedButton
           loading={isLoading}
