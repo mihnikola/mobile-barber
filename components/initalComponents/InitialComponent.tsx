@@ -17,6 +17,7 @@ import SplashScreen from "@/shared-components/SplashScreen";
 
 const InitialComponent = ({ addToken }) => {
   const { getInitialData, initialData, isLoading } = useInitialData();
+  
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
