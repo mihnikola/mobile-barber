@@ -7,11 +7,16 @@ const HeaderReservationTime = ({ data }) => {
         {data?.startDateTime} - {data?.finishedTime}
       </Text>
       <Text style={styles.dateData}>{data?.eventDate}</Text>
-      <Text style={styles.dateData}>Barber Studio - Gentleman</Text>
+      <Text style={styles.locationData}>{data?.employer?.place?.address}</Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
+  locationData: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "700",
+  },
   dateData: {
     fontSize: 25,
     color: "#fff",

@@ -22,7 +22,7 @@ function HeaderInfo({ image, reservation }) {
               reservation?.dateReservation
           )}
         </Text>
-        <Text style={styles.dateData}>Frizerski Studio - Gentleman</Text>
+        <Text style={styles.dateData}>{reservation?.location.address}</Text>
       </View>
     </>
   );
