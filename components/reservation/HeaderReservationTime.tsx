@@ -1,3 +1,4 @@
+import { convertDateDetails } from "@/helpers";
 import { StyleSheet, Text, View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
@@ -6,7 +7,7 @@ const HeaderReservationTime = ({ data }) => {
       <Text style={styles.timeData}>
         {data?.startDateTime} - {data?.finishedTime}
       </Text>
-      <Text style={styles.dateData}>{data?.eventDate}</Text>
+      <Text style={styles.dateData}>{convertDateDetails(data?.eventDate)}</Text>
       <Text style={styles.locationData}>{data?.employer?.place?.address}</Text>
     </View>
   );
