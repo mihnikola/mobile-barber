@@ -100,6 +100,7 @@ export const SRB_LOCALIZATION = {
     error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
   SETTINGS: {
+    clickHere: "Prijavite se ovde",
     changeLanguage: {
       capture: "Promeni jezik",
       filterCapture: "Pretrazi jezike",
