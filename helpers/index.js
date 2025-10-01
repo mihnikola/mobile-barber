@@ -197,7 +197,6 @@ export const convertDate = (item) => {
   }
 
   const dayOfWeek = weekdays[date.getDay()];
-  console.log("dayOfWeek", dayOfWeek);
 
   // Format the date to day-month-year
   const day = String(date.getDate()).padStart(2, "0");

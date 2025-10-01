@@ -22,6 +22,8 @@ const useSubmitReservation = () => {
   const { reservation } = useContext(ReservationContext);
   const [responseData, setResponseData] = useState(null);
 
+  const [isMessage, setIsMessage] = useState(false);
+
   const { localization } = useLocalization();
   const [description, setDescription] = useState("");
 
@@ -63,7 +65,6 @@ const useSubmitReservation = () => {
       setIsLoading(false);
       return;
     }
-
     try {
       const response = await post("/availabilities", {
         employerId: employer.id,
@@ -74,22 +75,34 @@ const useSubmitReservation = () => {
         token: tokenData,
         description,
       });
-      setResponseData(response);
-      router.dismissAll();
-      router.push({
-        pathname: "/(tabs)/(02_barbers)/reservationSuccess",
-        params: {
-          responseData: response,
-        },
-      });
-
+      if (response.status === 201) {
+        setResponseData(response);
+        router.dismissAll();
+        router.push({
+          pathname: "/(tabs)/(02_barbers)/reservationSuccess",
+          params: {
+            responseData: response,
+          },
+        });
+      }
+      if (response.status === 202) {
+        setError(localization.APPOINTMENTS.errorDailyLimit);
+      }
+      if (response.status === 203) {
+        setError(localization.APPOINTMENTS.errorWeeklyLimit);
+      }
+      if (response.status === 204) {
+        setError(localization.APPOINTMENTS.errorMonthlyLimit);
+      }
+      if (response.status === 205) {
+        setError(localization.APPOINTMENTS.errorYearlyLimit);
+      }
       setIsLoading(false);
+      setIsMessage(true);
     } catch (err) {
       setError(localization.APPOINTMENTS.postError);
       setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const submitReservationHandler = useCallback(async () => {
@@ -111,6 +124,9 @@ const useSubmitReservation = () => {
     error,
     description,
     setDescription,
+    setError,
+    setIsMessage,
+    isMessage,
   };
 };
 

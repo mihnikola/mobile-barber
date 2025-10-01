@@ -66,6 +66,10 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
+    errorDailyLimit:"You cannot make more reservation this day",
+    errorWeeklyLimit:"You cannot make more reservation this week",
+    errorMonthlyLimit:"You cannot make more reservation this month",
+    errorYearlyLimit:"You cannot make more reservation this year",
     errorId: "Reservation id is not provided.",
     title: "Reservations",
     postError: "Error while submitting your reservation.",
