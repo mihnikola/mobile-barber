@@ -47,9 +47,6 @@ const DateComponent = () => {
     const dateValue = selectedDate.toLocaleString("en-GB");
     const valueInitialData = convertDayInitalValue(dateValue);
     handleDayPress(valueInitialData);
-  }, []);
-
-  useEffect(() => {
     calendarLocales(localization.code);
   }, [localization.code]);
 
@@ -72,20 +69,18 @@ const DateComponent = () => {
             setSelectedItem(null);
             handleDayPress({});
           }}
-          current={currentDate.toDateString()}
+          current={currentDate.toISOString().split("T")[0]}
+          minDate={currentDate.toISOString().split("T")[0]}
           futureScrollRange={2}
-          markedDates={markedDates}
-          onDayPress={(months) => {
-            handleDayPress(months);
-
-            setSelectedItem(null);
-          }}
-          showScrollIndicator
           pastScrollRange={0}
+          markedDates={markedDates}
           horizontal
           pagingEnabled
-          minDate={currentDate.toDateString()}
           hideExtraDays
+          onDayPress={(months) => {
+            handleDayPress(months);
+            setSelectedItem(null);
+          }}
         />
       </View>
 
