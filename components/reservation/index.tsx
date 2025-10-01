@@ -8,6 +8,9 @@ import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderInfo from "./HeaderInfo";
 import { useCompany } from "@/context/CompanyContext";
+import { SharedMessage } from "@/shared-components/SharedMessage";
+import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -20,9 +23,16 @@ const Reservation = () => {
     error,
     description,
     setDescription,
+    setError,
+    setIsMessage,
+    isMessage
   } = useSubmitReservation();
 
-
+  const confirmHandler = () => {
+    setError(null);
+    setIsMessage(false);
+    router.back();
+  };
 
   if (reservation) {
     return (
@@ -49,6 +59,16 @@ const Reservation = () => {
             text={localization.DATE.book}
           />
         </View>
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={confirmHandler}
+            onConfirm={confirmHandler}
+            icon={<FontAwesome name={"close"} size={64} color="white" />}
+            title={error}
+            buttonText={localization.OK.label}
+          />
+        )}
       </ScrollView>
     );
   }

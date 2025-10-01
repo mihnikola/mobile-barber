@@ -66,6 +66,10 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    errorDailyLimit:"Ne možete napraviti više rezervacija za ovaj dan.",
+    errorWeeklyLimit:"Ne možete napraviti više rezervacija za ovu nedelju.",
+    errorMonthlyLimit:"Ne možete napraviti više rezervacija za ovaj mesec.",
+    errorYearlyLimit:"Ne možete napraviti više rezervacija za ovu godinu.",
     errorId: "Id rezervacije nije pronađen.",
     title: "Rezervacije",
     postError: "Greška prilikom kreiranja rezervacije.",
