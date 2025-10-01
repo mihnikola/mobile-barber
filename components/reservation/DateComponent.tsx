@@ -19,6 +19,10 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const DateComponent = () => {
   const currentDate = new Date();
+
+  const today = new Date();
+  const localDateString = today.toLocaleDateString("sv-SE"); // Format: YYYY-MM-DD
+
   const { localization } = useLocalization();
   const { company } = useCompany();
 
@@ -69,8 +73,8 @@ const DateComponent = () => {
             setSelectedItem(null);
             handleDayPress({});
           }}
-          current={currentDate.toISOString().split("T")[0]}
-          minDate={currentDate.toISOString().split("T")[0]}
+          current={localDateString}
+          minDate={localDateString}
           futureScrollRange={2}
           pastScrollRange={0}
           markedDates={markedDates}
