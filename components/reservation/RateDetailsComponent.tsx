@@ -4,7 +4,7 @@ import StarRating from "./StarRateComponent";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import Details from "@/shared-components/Details";
 import useRateReservation from "./hooks/useRateReservation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -15,14 +15,23 @@ import HeaderReservationTime from "./HeaderReservationTime";
 import ReservationMarkComponent from "./ReservationMarkComponent";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
+import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 
 function RateDetailsComponent() {
   const { itemId } = useLocalSearchParams();
-  const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
+  const {
+    reservationData,
+    isLoading: s,
+    error,
+    fetchReservationDetails,
+  } = useFetchReservation();
 
   const { localization } = useLocalization();
   const { company } = useCompany();
 
+  useEffect(() => {
+    fetchReservationDetails(itemId);
+  }, []);
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const {
     isLoading,
@@ -61,7 +70,7 @@ function RateDetailsComponent() {
         <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerWrapper}>
-          <Details data={reservationData} />
+          <SharedDetailsReservation data={reservationData} />
         </View>
         {!reservationData?.rating && (
           <StarRating onRatingChange={handleUserRatingChange} />

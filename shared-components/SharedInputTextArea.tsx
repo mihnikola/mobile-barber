@@ -14,9 +14,9 @@ const SharedInputTextArea = ({ description, setDescription, placeholderText }): 
         value={description}
         placeholder={placeholderText}
         placeholderTextColor="grey"
-        multiline={true} // This is the key prop for multiline behavior
-        numberOfLines={4} // Optional: Hint for Android's initial height
-        textAlignVertical="top" // Ensures text starts at the top on Android
+        multiline={true} 
+        numberOfLines={4}
+        textAlignVertical="top"
         maxLength={170}
       />
 

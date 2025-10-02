@@ -8,13 +8,13 @@ import {
 } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const useFetchReservation = (reservationId) => {
+const useFetchReservation = () => {
   const [reservationData, setReservationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
   
-  const fetchReservationDetails = async () => {
+  const fetchReservationDetails = async (reservationId) => {
     setIsLoading(true);
     setError(null);
 
@@ -42,19 +42,7 @@ const useFetchReservation = (reservationId) => {
     }
   };
 
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted && reservationId) {
-      fetchReservationDetails();
-    } else if (isMounted && !reservationId) {
-      setIsLoading(false);
-      setError(localization.APPOINTMENTS.errorId);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [fetchReservationDetails, reservationId]);
+  
 
   return { reservationData, isLoading, error, fetchReservationDetails };
 };

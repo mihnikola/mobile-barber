@@ -2,15 +2,21 @@ import { convertDateDetails } from "@/helpers";
 import { StyleSheet, Text, View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
-  return (
-    <View style={styles.coverContent}>
-      <Text style={styles.timeData}>
-        {data?.startDateTime} - {data?.finishedTime}
-      </Text>
-      <Text style={styles.dateData}>{convertDateDetails(data?.eventDate)}</Text>
-      <Text style={styles.locationData}>{data?.employer?.place?.address}</Text>
-    </View>
-  );
+  if (data) {
+    return (
+      <View style={styles.coverContent}>
+        <Text style={styles.timeData}>
+          {data?.startDateTime} - {data?.finishedTime}
+        </Text>
+        <Text style={styles.dateData}>
+          {convertDateDetails(data?.eventDate)}
+        </Text>
+        <Text style={styles.locationData}>
+          {data?.employer?.place?.address || data?.employer?.place[0]?.address}
+        </Text>
+      </View>
+    );
+  }
 };
 const styles = StyleSheet.create({
   locationData: {
