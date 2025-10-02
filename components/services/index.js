@@ -5,7 +5,6 @@ import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import SharedItem from "@/shared-components/SharedItem";
 import { router } from "expo-router";
-import { getStorage } from "@/helpers/token";
 import { useLocalization } from "@/context/LocalizationContext";
 
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
@@ -26,20 +25,7 @@ const MenuServices = () => {
       image: serviceData.image,
     };
     updateReservation({ ...reservation, service });
-    // ovde treba ispitati da li je user authorized ili nije
-    try {
-      const getToken = await getStorage();
-      if (getToken) {
-        router.push("/(tabs)/(02_barbers)/calendar");
-      } else {
-        router.push({
-          pathname: "/(tabs)/(04_settings)/login",
-          params: { data: "calendar" },
-        });
-      }
-    } catch (error) {
-      console.error("object", error);
-    }
+    router.push("/(tabs)/(02_barbers)/employers");
   };
 
   const { localization } = useLocalization();

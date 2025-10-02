@@ -79,11 +79,11 @@ const InfoContainerFuture = ({ item }) => {
         {addMinutesToTime(
           convertToDayTime(item?.startDate),
           item?.service?.duration
-        )}{" "}
+        )}
       </Text>
 
       <Text style={styles.captureDateFutureLocation}>
-        {item?.employer?.place?.address}
+        {item?.employer?.place?.address || item?.employer[0]?.place?.address}
       </Text>
     </View>
   );

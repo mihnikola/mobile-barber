@@ -22,7 +22,6 @@ const AppointmentsComponent = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("APPROVED");
       getReservationsData();
     }, [])
   );

@@ -4,6 +4,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 function HeaderInfo({ image, reservation }) {
+  console.log("reservation?.location",reservation?.location)
   return (
     <>
       <SharedCoverImage image={image} />
@@ -22,7 +23,7 @@ function HeaderInfo({ image, reservation }) {
               reservation?.dateReservation
           )}
         </Text>
-        <Text style={styles.dateData}>{reservation?.location.address}</Text>
+        <Text style={styles.dateData}>{reservation?.location.address || reservation?.location[0].address}</Text>
       </View>
     </>
   );
