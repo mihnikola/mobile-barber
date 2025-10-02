@@ -9,22 +9,41 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { getStorage } from "@/helpers/token";
+import NotFoundEmployers from "./NotFoundEmployers";
 
-const Employers = ({ locations: locationsNotChoosen }) => {
+const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
+
+  const { location, service } = reservation;
 
   const { company } = useCompany();
 
   useEffect(() => {
-    if (locationsNotChoosen?.length === 1 || reservation) {
-      fetchAllEmployees(locationsNotChoosen || reservation);
+    if (location && service) {
+      fetchAllEmployees(location, service);
     }
-  }, [locationsNotChoosen,reservation]);
+  }, [location]);
 
+  const getStorageToken = async () => {
+    try {
+      const getToken = await getStorage();
+      if (getToken) {
+        router.push("/(tabs)/(02_barbers)/calendar");
+      } else {
+        router.push({
+          pathname: "/(tabs)/(04_settings)/login",
+          params: { data: "calendar" },
+        });
+      }
+    } catch (error) {
+      console.error("object", error);
+    }
+  };
   const redirectHandler = (employer) => {
     updateReservation({ ...reservation, employer });
-    router.push("/(tabs)/(02_barbers)/services");
+    getStorageToken();
   };
 
   const { localization } = useLocalization();
@@ -39,13 +58,17 @@ const Employers = ({ locations: locationsNotChoosen }) => {
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
-          {emplData?.map((item) => (
-            <SharedItem
-              key={item.id}
-              data={item}
-              redirectHandler={redirectHandler}
-            />
-          ))}
+          {emplData?.length > 0 ? (
+            emplData?.map((item) => (
+              <SharedItem
+                key={item.id}
+                data={item}
+                redirectHandler={redirectHandler}
+              />
+            ))
+          ) : (
+            <NotFoundEmployers />
+          )}
         </View>
       )}
       {!isLoading && error && (

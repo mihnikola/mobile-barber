@@ -18,7 +18,7 @@ const PlaceComponent = () => {
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
-    router.push("/(tabs)/(02_barbers)/employers");
+    router.push("/(tabs)/(02_barbers)/services");
   };
 
   return (

@@ -8,12 +8,12 @@ const useFetchEmployers = () => {
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
 
-  const fetchAllEmployees = async (location) => {
+  const fetchAllEmployees = async (location,service) => {
+
     setIsLoading(true);
     setError(null);
-
     try {
-      const response = await getData("/users", { location });
+      const response = await getData("/users", { location, service });
       if (response.status === 200) {
         setEmplData(response.data);
         setIsLoading(false);

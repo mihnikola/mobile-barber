@@ -1,9 +1,11 @@
 import { get } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState, useEffect } from "react";
+import ReservationContext from "@/context/ReservationContext";
+import { useState, useEffect, useContext } from "react";
 
 const useFetchLocations = () => {
-  
+  const { reservation, updateReservation } = useContext(ReservationContext);
+
   const [locationsData, setLocationsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +17,12 @@ const useFetchLocations = () => {
       const response = await get("/places");
       if (response.status === 200) {
         setIsLoading(false);
-        setLocationsData(response.data);
+        const { data } = response;
+        if (data?.length > 1) {
+          setLocationsData(data);
+        } else {
+          updateReservation({ ...reservation, location: data });
+        }
       }
     } catch (err) {
       setError(localization.PLACES.error);
