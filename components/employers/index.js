@@ -11,6 +11,7 @@ import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
+import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -60,7 +61,7 @@ const Employers = () => {
         <View style={styles.contentContainer}>
           {emplData?.length > 0 ? (
             emplData?.map((item) => (
-              <SharedItem
+              <SharedItemEmployerCard
                 key={item.id}
                 data={item}
                 redirectHandler={redirectHandler}

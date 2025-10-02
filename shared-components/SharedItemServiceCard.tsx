@@ -4,33 +4,35 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const SharedDetailsEmployerCard = ({ data }) => {
-  const { _id, image, name, price, ratingCount, seniority } = data;
-
+const SharedItemServiceCard = (props: any) => {
+  const { redirectHandler, data } = props;
+  const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
 
   return (
-    <View key={_id} style={styles.card}>
+    <TouchableOpacity
+      key={id}
+      onPress={() => redirectHandler(data)}
+      style={styles.card}
+    >
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{seniority?.title}</Text>
+          <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
+          <Text style={styles.locationText}>
+            {`${localization.DETAILS.duration} ${duration}`}
+          </Text>
         </View>
         <View style={styles.ratingContainer}>
-          <IconSymbol
-            name={price ? "price-change" : "star"}
-            size={16}
-            color="#FFD700"
-          />
+          <IconSymbol name={"price-change"} size={16} color="#FFD700" />
           <Text style={styles.reviewText}>
-            {price
-              ? `${localization.DETAILS.price} ${price}`
-              : `${ratingCount} ${localization.DETAILS.mark}`}{" "}
+            {`${localization.DETAILS.price} ${price}`}
           </Text>
         </View>
       </View>
-    </View>
+      <FontAwesome name={"chevron-right"} size={32} color="gray" />
+    </TouchableOpacity>
   );
 };
 
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 14,
     color: "#CCCCCC", // Lighter grey for location
+    marginLeft: 5,
   },
   ratingContainer: {
     flexDirection: "row",
@@ -107,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SharedDetailsEmployerCard;
+export default SharedItemServiceCard;

@@ -9,6 +9,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -41,7 +42,7 @@ const MenuServices = () => {
       {serviceData.length > 0 && !isLoading && (
         <View style={styles.contentContainer}>
           {serviceData?.map((item) => (
-            <SharedItem
+            <SharedItemServiceCard
               key={item.id}
               data={item}
               redirectHandler={funcDateTimeReservation}
