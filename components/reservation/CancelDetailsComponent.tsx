@@ -7,21 +7,28 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetchReservation from "./hooks/useFetchReservation";
-import Details from "@/shared-components/Details";
 import HeaderReservationTime from "./HeaderReservationTime";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
+import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 
 function CancelDetailsComponent() {
   const { localization } = useLocalization();
   const { itemId } = useLocalSearchParams();
-  const { reservationData, isLoading: s, error } = useFetchReservation(itemId);
+  const {
+    reservationData,
+    isLoading: s,
+    error,
+    fetchReservationDetails,
+  } = useFetchReservation();
 
+  useEffect(() => {
+    fetchReservationDetails(itemId);
+  }, []);
   const [isCanceling, setIsCanceling] = useState(false);
   const { company } = useCompany();
-
 
   const {
     isLoading,
@@ -48,14 +55,15 @@ function CancelDetailsComponent() {
   if (isLoading) {
     return <SharedLoader />;
   }
-
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>
         <SharedCoverImage image={company?.media?.coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerCancel}>
-          {reservationData && <Details data={reservationData} />}
+          {reservationData && (
+            <SharedDetailsReservation data={reservationData} />
+          )}
           {reservationData?.description && (
             <View style={styles.containerWrapper}>
               <Text>{localization.APPOINTMENTS.description}</Text>

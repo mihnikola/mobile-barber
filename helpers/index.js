@@ -171,10 +171,9 @@ export function convertNameAndDate(value) {
   return `${dayNameSr} ${day}-${month}-${year}`;
 }
 export const convertDateDetails = (item) => {
-
   const itemValue = item?.split(" ")[1];
-const [day, month, year] = itemValue.split("-").map(Number);
-const date = new Date(year, month - 1, day);
+  const [day, month, year] = itemValue.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
 
   const { localization } = useLocalization();
   let weekdays = [];

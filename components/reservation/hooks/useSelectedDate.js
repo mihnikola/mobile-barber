@@ -5,7 +5,6 @@ const useSelectedDate = (initialDate) => {
   const [isSunday, setIsSunday] = useState(false);
   const [markedDates, setMarkedDates] = useState();
   const handleDayPress = (day) => {
-    console.log("daydaydaydayday",day)
     if (!day) {
       return null;
     }
@@ -30,7 +29,6 @@ const useSelectedDate = (initialDate) => {
         selectedColor: "white",
       };
     }
-    console.log("markedDates",selectedDateString)
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);

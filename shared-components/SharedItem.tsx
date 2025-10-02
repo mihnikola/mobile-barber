@@ -6,7 +6,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
-  const { id, image, name, duration, price, position } = data;
+  const { id, image, name, duration, price, seniority } = data;
   const { servicePrice, serviceDuration } = data;
     const { localization } = useLocalization();
   
@@ -24,7 +24,7 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : "Top Barber"}
+              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : `${seniority || seniority?.title}`}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
@@ -59,7 +59,7 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : "Top Barber"}
+              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : `${seniority || seniority?.title}`}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
