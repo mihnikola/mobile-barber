@@ -55,6 +55,7 @@ function CancelDetailsComponent() {
   if (isLoading) {
     return <SharedLoader />;
   }
+
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>

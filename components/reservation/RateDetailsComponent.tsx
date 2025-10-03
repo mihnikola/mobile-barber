@@ -16,9 +16,11 @@ import ReservationMarkComponent from "./ReservationMarkComponent";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
+import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 
 function RateDetailsComponent() {
   const { itemId } = useLocalSearchParams();
+  const [description, setDescription] = useState(null);
   const {
     reservationData,
     isLoading: s,
@@ -48,7 +50,7 @@ function RateDetailsComponent() {
   };
   const sharedRateQuestionHandler = () => {
     setRateModal(false);
-    rateReservation(itemId, userFeedbackRating);
+    rateReservation(itemId, userFeedbackRating,description);
   };
   const confirmHandler = () => {
     setRateMessage(null);
@@ -75,6 +77,15 @@ function RateDetailsComponent() {
         {!reservationData?.rating && (
           <StarRating onRatingChange={handleUserRatingChange} />
         )}
+      <View style={styles.descContent}>
+        <SharedInputTextArea
+          placeholderText={
+            localization.APPOINTMENTS.rateReservation.rateExplanation
+          }
+          description={description}
+          setDescription={setDescription}
+        />
+        </View>
 
         <View style={styles.btnSubmitContainer}>
           {!reservationData?.rating && (
@@ -122,6 +133,9 @@ function RateDetailsComponent() {
 }
 
 const styles = StyleSheet.create({
+  descContent:{
+    marginVertical: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: "black",
@@ -138,7 +152,6 @@ const styles = StyleSheet.create({
   },
   btnSubmitContainer: {
     display: "flex",
-    marginVertical: 20,
     marginHorizontal: 20,
   },
 });

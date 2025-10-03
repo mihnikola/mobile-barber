@@ -18,7 +18,7 @@ interface StarRatingProps {
 const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
-  starSize = 30,
+  starSize = 23,
   filledColor = "#FFD700", // Gold color
   emptyColor = "#CCCCCC", // Light gray
   onRatingChange,

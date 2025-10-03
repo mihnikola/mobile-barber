@@ -1,74 +1,73 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const SharedDetailsEmployerCard = ({ data }) => {
+const SharedDetailsEmployerCard = ({ data}) => {
   const { _id, image, name, price, ratingCount, seniority } = data;
 
   const { localization } = useLocalization();
 
   return (
     <View key={_id} style={styles.card}>
+      
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
           <Text style={styles.locationText}>{seniority?.title}</Text>
         </View>
-        <View style={styles.ratingContainer}>
-          <IconSymbol
-            name={price ? "price-change" : "star"}
-            size={16}
-            color="#FFD700"
-          />
-          <Text style={styles.reviewText}>
-            {price
-              ? `${localization.DETAILS.price} ${price}`
-              : `${ratingCount} ${localization.DETAILS.mark}`}{" "}
-          </Text>
+        <View style={styles.dataContainer}>
+          <View style={styles.ratingContainer}>
+            <IconSymbol name={"star"} size={16} color="#FFD700" />
+            <Text style={styles.reviewText}>
+              {/* {`${ratingCount}/5.0  `}  */}
+              {`4.0/5.0`}
+            </Text>
+          </View>
+
+          <View style={styles.ratingContainer}>
+            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Text style={styles.reviewText}>
+              {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
+              1102
+            </Text>
+          </View>
         </View>
       </View>
+     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E", // Dark background from your image
+    backgroundColor: "#1E1E1E",
     borderRadius: 12,
     padding: 15,
-    marginVertical: 8, // Spacing between cards
-    marginHorizontal: 15, // Side padding for the list
+    marginVertical: 8,
+    marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+    elevation: 5,
   },
-  detailsCard: {
-    flexDirection: "row",
-    backgroundColor: "#1E1E1E", // Dark background from your image
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8, // Spacing between cards
-    marginHorizontal: 15, // Side padding for the list
-    alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+ 
+  dataContainer: {
+    gap: 5,
   },
+
   profileImage: {
     width: 90,
     height: 90,
-    borderRadius: 30, // Makes it circular
+    borderRadius: 30,
     marginRight: 15,
-    borderWidth: 1, // Optional: for a subtle border around the image
+    borderWidth: 1,
     borderColor: "#333",
   },
   detailsContainer: {
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF", // White text color
+    color: "#FFFFFF",
     marginBottom: 4,
   },
   locationContainer: {
@@ -88,22 +87,17 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for location
+    color: "#CCCCCC",
   },
   ratingContainer: {
+    gap: 5,
     flexDirection: "row",
     alignItems: "center",
   },
-  ratingText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFD700", // Gold color for rating number
-    marginLeft: 5,
-  },
+
   reviewText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for review count
-    marginLeft: 5,
+    color: "#CCCCCC",
   },
 });
 
