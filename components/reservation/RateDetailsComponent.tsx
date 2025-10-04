@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import StarRating from "./StarRateComponent";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
@@ -30,7 +30,7 @@ function RateDetailsComponent() {
 
   const { localization } = useLocalization();
   const { company } = useCompany();
-
+  console.log("reservationData", reservationData);
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -50,7 +50,7 @@ function RateDetailsComponent() {
   };
   const sharedRateQuestionHandler = () => {
     setRateModal(false);
-    rateReservation(itemId, userFeedbackRating,description);
+    rateReservation(itemId, userFeedbackRating, description);
   };
   const confirmHandler = () => {
     setRateMessage(null);
@@ -77,16 +77,24 @@ function RateDetailsComponent() {
         {!reservationData?.rating && (
           <StarRating onRatingChange={handleUserRatingChange} />
         )}
-      <View style={styles.descContent}>
-        <SharedInputTextArea
-          placeholderText={
-            localization.APPOINTMENTS.rateReservation.rateExplanation
-          }
-          description={description}
-          setDescription={setDescription}
-        />
-        </View>
-
+        {!reservationData?.rating && (
+          <View style={styles.descContent}>
+            <SharedInputTextArea
+              placeholderText={
+                localization.APPOINTMENTS.rateReservation.rateExplanation
+              }
+              description={description}
+              setDescription={setDescription}
+            />
+          </View>
+        )}
+        {reservationData?.rating?.description?.length > 0 && (
+          <View style={styles.descContent}>
+            <Text style={styles.description}>{`${
+              localization.APPOINTMENTS.rateReservation.descReservation
+            } ${":  "}${reservationData?.rating?.description}`}</Text>
+          </View>
+        )}
         <View style={styles.btnSubmitContainer}>
           {!reservationData?.rating && (
             <SharedButtonDateReservation
@@ -133,8 +141,14 @@ function RateDetailsComponent() {
 }
 
 const styles = StyleSheet.create({
-  descContent:{
+  description: {
+    color: "white",
+  },
+  descContent: {
     marginVertical: 10,
+    marginHorizontal: 10,
+    alignItems: "center",
+    padding: 12,
   },
   container: {
     flex: 1,

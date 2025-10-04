@@ -1,15 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price, seniority, ratingCount } = data;
   const { servicePrice, serviceDuration } = data;
-    const { localization } = useLocalization();
-  
+  const { localization } = useLocalization();
+
   if (!redirectHandler) {
     return (
       <View key={id} style={styles.card}>
@@ -24,17 +24,33 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : `${seniority || seniority?.title}`}
+              {duration || serviceDuration
+                ? `${localization.DETAILS.duration} ${
+                    duration || serviceDuration
+                  }`
+                : `${seniority || seniority?.title}`}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
             <IconSymbol
-              name={price || servicePrice? "price-change" : "star"}
+              name={price || servicePrice ? "price-change" : "star"}
               size={16}
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price || servicePrice ? `${localization.DETAILS.price} ${price || servicePrice}` : `${ratingCount} ${localization.DETAILS.mark}`}{" "}
+              {price ||
+                (servicePrice &&
+                  `${localization.DETAILS.price} ${
+                    price || servicePrice
+                  }`)}{" "}
+              {!price && !servicePrice && "4.0/5.0"}
+            </Text>
+          </View>
+          <View style={styles.ratingContainer}>
+            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Text style={styles.reviewText}>
+              {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
+              1102
             </Text>
           </View>
         </View>
@@ -59,7 +75,11 @@ const SharedItem = (props: any) => {
             />
             <Text style={styles.locationText}>
               {" "}
-              {duration || serviceDuration ? `${localization.DETAILS.duration} ${duration || serviceDuration}` : `${seniority || seniority?.title}`}
+              {duration || serviceDuration
+                ? `${localization.DETAILS.duration} ${
+                    duration || serviceDuration
+                  }`
+                : `${seniority || seniority?.title}`}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
@@ -69,7 +89,9 @@ const SharedItem = (props: any) => {
               color="#FFD700"
             />
             <Text style={styles.reviewText}>
-              {price || servicePrice ? `${localization.DETAILS.price} ${price || servicePrice}` : `${ratingCount} ${localization.DETAILS.mark}`}{" "}
+              {price || servicePrice
+                ? `${localization.DETAILS.price} ${price || servicePrice}`
+                : `${ratingCount} ${localization.DETAILS.mark}`}{" "}
             </Text>
           </View>
         </View>

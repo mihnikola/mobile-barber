@@ -12,6 +12,7 @@ import { useCompany } from "@/context/CompanyContext";
 import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
+import SharedEmployerCard from "@/shared-components/SharedEmployerCard";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);

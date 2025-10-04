@@ -1,4 +1,3 @@
-import Employers from "../../../components/employers";
 import useFetchLocations from '../../../components/places/useFetchLocations';
 import PlaceComponent from "../../../components/places/PlaceComponent";
 import { SharedLoader } from './../../../shared-components/SharedLoader';

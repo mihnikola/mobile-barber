@@ -82,6 +82,7 @@ export const ENG_LOCALIZATION = {
       errorMessage: "Reservation is not exist",
     },
     rateReservation: {
+      descReservation:"Description of tretman",
       rateButton: "Rate",
       rateQuestion: "Are you sure you want to rate this reservation?",
       yesButton: "Yes",

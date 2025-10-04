@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const SharedItemEmployerCard = (props: any) => {
@@ -24,11 +24,22 @@ const SharedItemEmployerCard = (props: any) => {
             {`${seniority || seniority?.title}`}
           </Text>
         </View>
-        <View style={styles.ratingContainer}>
-          <IconSymbol name={"star"} size={16} color="#FFD700" />
-          <Text style={styles.reviewText}>
-            {`${ratingCount} ${localization.DETAILS.mark}`}
-          </Text>
+         <View style={styles.dataContainer}>
+          <View style={styles.ratingContainer}>
+            <IconSymbol name={"star"} size={16} color="#FFD700" />
+            <Text style={styles.reviewText}>
+              {/* {`${ratingCount}/5.0  `}  */}
+              {`4.0/5.0`}
+            </Text>
+          </View>
+
+          <View style={styles.ratingContainer}>
+            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Text style={styles.reviewText}>
+              {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
+              1102
+            </Text>
+          </View>
         </View>
       </View>
       <FontAwesome name={"chevron-right"} size={32} color="gray" />
@@ -37,6 +48,11 @@ const SharedItemEmployerCard = (props: any) => {
 };
 
 const styles = StyleSheet.create({
+  dataContainer:{
+    gap: 5,
+
+
+  },
   card: {
     flexDirection: "row",
     backgroundColor: "#1E1E1E", // Dark background from your image
