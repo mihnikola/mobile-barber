@@ -1,14 +1,14 @@
-import { useContext, useEffect } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { useContext } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
-import SharedItem from "@/shared-components/SharedItem";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -41,7 +41,7 @@ const MenuServices = () => {
       {serviceData.length > 0 && !isLoading && (
         <View style={styles.contentContainer}>
           {serviceData?.map((item) => (
-            <SharedItem
+            <SharedItemServiceCard
               key={item.id}
               data={item}
               redirectHandler={funcDateTimeReservation}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
+    marginHorizontal: 15, 
   },
   capture: {
     fontSize: 32,

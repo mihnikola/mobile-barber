@@ -20,7 +20,7 @@ const SharedInputTextArea = ({ description, setDescription, placeholderText }): 
         maxLength={170}
       />
 
-      {description.length > 150 && (
+      {description?.length > 150 && (
         <View style={styles.previewContainer}>
           <Text style={styles.previewText}>{description.length} / 170</Text>
         </View>

@@ -10,7 +10,7 @@ const useRateReservation = () => {
   const [rateMessage, setRateMessage] = useState(null);
   const { localization } = useLocalization();
 
-  const rateReservation = async (reservationId, rating) => {
+  const rateReservation = async (reservationId, rating, description) => {
     setRateError(null);
     setIsLoading(true);
 
@@ -23,6 +23,7 @@ const useRateReservation = () => {
       await put(`/availabilities/${reservationId}`, {
         status: 0,
         rate: rating,
+        description,
       });
 
       setRateMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
