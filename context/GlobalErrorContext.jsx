@@ -1,6 +1,7 @@
 // GlobalErrorContext.jsx
 import { registerErrorHandler } from "@/helpers/error-handler";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useLocalization } from "./LocalizationContext";
 
 const GlobalErrorContext = createContext();
 
@@ -8,9 +9,10 @@ export const useGlobalError = () => useContext(GlobalErrorContext);
 
 export const GlobalErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
-
+  const {localization} = useLocalization();
   const showError = (title) => {
-    setError({ title });
+
+    setError({ title: localization.Authorization.error });
   };
 
   const hideError = () => {

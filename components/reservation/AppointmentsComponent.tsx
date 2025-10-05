@@ -5,9 +5,9 @@ import CardNoReservation from "@/components/reservation/CardNoReservation";
 import useReservations from "./hooks/useReservations";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useFocusEffect } from "@react-navigation/native";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { useFocusEffect } from "expo-router";
 
 const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
@@ -16,15 +16,14 @@ const AppointmentsComponent = () => {
 
   const { localization } = useLocalization();
 
-  useEffect(() => {
-    getReservationsData();
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       getReservationsData();
     }, [])
   );
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -32,19 +31,17 @@ const AppointmentsComponent = () => {
         image={company?.media?.coverImageAppointments}
         title={localization.APPOINTMENTS.title}
       />
-      {isLoading ? (
-        <Loader />
-      ) : (
+      {isLoading && <Loader />}
+
+      {!isLoading && reservations?.length ? (
         <View style={styles.containerReservationData}>
-          {reservations?.length ? (
-            <CardReservation
-              reservations={reservations}
-              redirectScreen={detailsReservation}
-            />
-          ) : (
-            <CardNoReservation />
-          )}
+          <CardReservation
+            reservations={reservations}
+            redirectScreen={detailsReservation}
+          />
         </View>
+      ) : (
+        !isLoading && <CardNoReservation />
       )}
     </ScrollView>
   );

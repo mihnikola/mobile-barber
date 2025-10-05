@@ -8,6 +8,9 @@ import {
 } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 
+const truncateText = (text, limit) => {
+  return text.length > limit ? text.slice(0, limit) + "..." : text;
+};
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
     <TouchableOpacity
@@ -40,6 +43,7 @@ const DateFormatComponent = ({ item }) => {
 };
 const InfoContainerPast = ({ item }) => {
   const { localization } = useLocalization();
+
   return (
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
@@ -55,7 +59,7 @@ const InfoContainerPast = ({ item }) => {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.captureDateLocation}>
-            {item?.employer?.place?.address}
+            {truncateText(item?.employer?.place?.address, 50)}
           </Text>
         </View>
       </View>
@@ -83,7 +87,10 @@ const InfoContainerFuture = ({ item }) => {
       </Text>
 
       <Text style={styles.captureDateFutureLocation}>
-        {item?.employer?.place?.address || item?.employer[0]?.place?.address}
+        {truncateText(
+          item?.employer?.place?.address || item?.employer[0]?.place?.address,
+          50
+        )}
       </Text>
     </View>
   );
@@ -107,12 +114,12 @@ const styles = StyleSheet.create({
   dateContainerPast: {
     borderWidth: 1,
     borderColor: "gray",
-    borderLeftWidth: 5,
+    borderLeftWidth: 3,
     borderLeftColor: "green",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 13,
   },
   rating: {
     color: "gray",
@@ -125,8 +132,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 20,
     padding: 10,
-    gap: 20,
-    height: 100,
+    gap: 12,
+    height: 105,
   },
   cardPastReservation: {
     backgroundColor: "#1E1E1E", // Dark background from your image
@@ -136,18 +143,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 20,
     padding: 10,
-    gap: 20,
-    height: 100,
+    gap: 12,
+    height: 105,
   },
   dateContainer: {
     borderWidth: 1,
     borderColor: "white",
-    borderLeftWidth: 5,
+    borderLeftWidth: 3,
     borderLeftColor: "green",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 13,
   },
   captureDate: {
     fontSize: 18,
