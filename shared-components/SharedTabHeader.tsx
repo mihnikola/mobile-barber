@@ -15,7 +15,7 @@ function SharedTabHeader({ image, title }) {
 const styles = StyleSheet.create({
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
+    marginHorizontal: 20, // Side padding for the list
   },
   capture: {
     fontSize: 32,

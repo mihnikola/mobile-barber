@@ -19,7 +19,7 @@ function CancelDetailsComponent() {
   const { itemId } = useLocalSearchParams();
   const {
     reservationData,
-    isLoading: s,
+    isLoading: isLoadingReservationData,
     error,
     fetchReservationDetails,
   } = useFetchReservation();
@@ -52,10 +52,10 @@ function CancelDetailsComponent() {
   const cancelHandler = () => {
     setIsCanceling(false);
   };
-  if (isLoading) {
-    return <SharedLoader />;
-  }
 
+  if(isLoading || isLoadingReservationData){
+    return <SharedLoader />
+  }
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>

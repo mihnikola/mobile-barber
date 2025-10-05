@@ -21,6 +21,10 @@ function LocationsComponent({
   const onConfirm = () => {
     setModalVisible(false);
   };
+
+    const truncateText = (text, limit) => {
+    return text.length > limit ? text.slice(0, limit) + '...' : text;
+  };
   return (
     <Modal
       animationType="fade"
@@ -31,21 +35,18 @@ function LocationsComponent({
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>{title}</Text>
-          <FlatList
-            data={locations}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{ paddingBottom: 20 }}
-            showsVerticalScrollIndicator={true}
-            renderItem={({ item }) => (
+          {locations?.map((locationItem) => {
+            return (
               <TouchableOpacity
+                key={locationItem._id}
                 style={styles.item}
-                onPress={() => handleLocationSelect(item)}
+                onPress={() => handleLocationSelect(locationItem)}
               >
                 <FontAwesome6 name="location-dot" size={20} color="red" />
-                <Text style={styles.itemSubtitle}>{item.address}</Text>
+                <Text style={styles.itemSubtitle}>{truncateText(locationItem.address, 60)}</Text>
               </TouchableOpacity>
-            )}
-          />
+            );
+          })}
           <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
           </TouchableOpacity>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c", 
+    backgroundColor: "#433d3c",
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -77,8 +78,9 @@ const styles = StyleSheet.create({
     maxHeight: "63%",
   },
   item: {
-    padding: 4,
-    gap: 20,
+    padding: 8,
+    gap: 10,
+    width: "100%",
     textAlign: "center",
     flexWrap: "wrap",
     flexDirection: "column",

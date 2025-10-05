@@ -3,9 +3,7 @@ import { getLanguageValue } from "@/helpers/language";
 import { getStorage } from "@/helpers/token";
 import axios from "axios";
 import { showError } from "@/helpers/error-handler";
-import { useLocalization } from "@/context/LocalizationContext";
 
-const { localization } = useLocalization();
 const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 10000, // Adjust as needed
@@ -47,7 +45,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.data && error.response.data.message) {
       if (error.response.data.status === 401) {
-        showError(localization.Authorization.error);
+        showError(401);
       }
     }
     return Promise.reject(error);
