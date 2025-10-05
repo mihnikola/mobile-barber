@@ -5,8 +5,10 @@ export const ENG_LOCALIZATION = {
     APPOINTMENTS: "Appointments",
     SETTINGS: "Settings",
   },
+  Authorization: {
+    error: "You are logged in on another device.",
+  },
   code: "en",
-
   HOME: {
     startBtn: "Get Started",
     reviews: "Reviews",
@@ -82,7 +84,7 @@ export const ENG_LOCALIZATION = {
       errorMessage: "Reservation is not exist",
     },
     rateReservation: {
-      descReservation:"Description of tretman",
+      descReservation: "Description of tretman",
       rateButton: "Rate",
       rateQuestion: "Are you sure you want to rate this reservation?",
       yesButton: "Yes",

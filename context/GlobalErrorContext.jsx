@@ -1,6 +1,6 @@
 // GlobalErrorContext.jsx
-import { registerErrorHandler } from '@/helpers/error-handler';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { registerErrorHandler } from "@/helpers/error-handler";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const GlobalErrorContext = createContext();
 
@@ -9,8 +9,8 @@ export const useGlobalError = () => useContext(GlobalErrorContext);
 export const GlobalErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
-  const showError = (title, message) => {
-    setError({ title, message });
+  const showError = (title) => {
+    setError({ title });
   };
 
   const hideError = () => {
