@@ -162,7 +162,7 @@ export function getTimeForUTCOffset(offsetHours) {
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 export const roundValue = (rating) => {
-  const roundedNumber = Number(rating.toFixed(1));
+  const roundedNumber = Number(rating?.toFixed(1));
   return roundedNumber;
 };
 export function convertNameAndDate(value) {

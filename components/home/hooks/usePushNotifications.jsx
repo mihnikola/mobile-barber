@@ -64,8 +64,10 @@ export function usePushNotifications() {
     }
 
     try {
-      const token = await Notifications.getDevicePushTokenAsync({ projectId });
+      // const token = await Notifications.getDevicePushTokenAsync({ projectId });
+      const token = await Notifications.getDevicePushTokenAsync();
       if (token) {
+        console.log("saveExpoTokenStorage",token)
         saveExpoTokenStorage(token?.data);
       }
     } catch (e) {
