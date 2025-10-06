@@ -11,9 +11,7 @@ const HeaderReservationTime = ({ data }) => {
         <Text style={styles.dateData}>
           {convertDateDetails(data?.eventDate)}
         </Text>
-        <Text style={styles.locationData}>
-          {data?.employer?.place?.address || data?.employer?.place[0]?.address}
-        </Text>
+        <Text style={styles.locationData}>{data?.place}</Text>
       </View>
     );
   }

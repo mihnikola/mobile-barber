@@ -1,12 +1,9 @@
 import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import {
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   Animated,
-  Dimensions,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -22,9 +19,6 @@ import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -56,7 +50,7 @@ export default function App() {
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
   };
-  const handleLocationSelect = (locationData) => {
+  const handleLocationSelect = (locationData: any) => {
     setModalVisible(false);
     openGoogleMapsRoute(locationData?.mapLink);
   };
@@ -75,8 +69,8 @@ export default function App() {
     }
   };
 
-  if (isLoading) {
-    return <SharedLoader />;
+  if (isLoading || isLoaderLocation) {
+    return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
   }
   if (modalVisible && locationsData?.length > 1) {
     return (
@@ -85,8 +79,8 @@ export default function App() {
         handleLocationSelect={handleLocationSelect}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        title="Choose a barber location"
-        buttonText="Close"
+        title={localization.PLACES.title}
+        buttonText={localization.PLACES.close}
       />
     );
   }
@@ -218,15 +212,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: "100%",
     paddingTop: 330,
-  },
-
-  backImage: {
-    width: windowWidth,
-    height: windowHeight - 30,
-    opacity: 0.6,
-  },
-  logoImage: {
-    width: 200,
-    height: 300,
   },
 });

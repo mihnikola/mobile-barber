@@ -1,19 +1,31 @@
+import useFetchLocations from "@/components/places/useFetchLocations";
 import { Stack } from "expo-router";
 
 export default function RootLayoutBarbers() {
+  const { locationsData } = useFetchLocations();
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="employers" options={{ title: "", headerShown: false }} />
       <Stack.Screen
-        name="services"
+        name="employers"
         options={{
           title: "",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
+            backgroundColor: "black",
           },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="services"
+        options={{
+          title: "",
+          headerShown: locationsData?.length > 1 ? true : false,
+          headerStyle: {
+            backgroundColor: "black",
+          },
+          headerTintColor: "white",
         }}
       />
       <Stack.Screen
@@ -22,9 +34,9 @@ export default function RootLayoutBarbers() {
           title: "",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
+            backgroundColor: "black",
           },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow
+          headerTintColor: "white",
         }}
       />
       <Stack.Screen
@@ -33,9 +45,9 @@ export default function RootLayoutBarbers() {
           title: "",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
+            backgroundColor: "black",
           },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow
+          headerTintColor: "white",
         }}
       />
       <Stack.Screen

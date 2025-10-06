@@ -161,6 +161,10 @@ export function getTimeForUTCOffset(offsetHours) {
   // Return the full date and time string
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
+export const roundValue = (rating) => {
+  const roundedNumber = Number(rating.toFixed(1));
+  return roundedNumber;
+};
 export function convertNameAndDate(value) {
   const date = new Date(value);
 

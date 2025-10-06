@@ -5,8 +5,8 @@ export const SRB_LOCALIZATION = {
     APPOINTMENTS: "Rezervacije",
     SETTINGS: "Podešavanje",
   },
-  Authorization:{
-    error:"Ulogovani ste na drugom uredjaju",
+  Authorization: {
+    error: "Ulogovani ste na drugom uredjaju",
   },
   BUTTONS: {
     ok: "U redu",
@@ -36,6 +36,8 @@ export const SRB_LOCALIZATION = {
   PLACES: {
     title: "Odaberi lokaciju",
     error: "Greška prilikom preuzimanja lokacija...",
+    title: "Odaberi barber lokaciju",
+    close: "Zatvori",
   },
   SERVICES: {
     title: "Cenovnik & Usluge",
@@ -93,12 +95,12 @@ export const SRB_LOCALIZATION = {
       rated: "Ocenjeno",
       rateUs: "Ocenite nas",
       rateOurBarber: "Ocenite svog barbera",
-      rateExplanation:"Ocenite svoje iskustvo...",
+      rateExplanation: "Ocenite svoje iskustvo...",
       rateOurCut: "Ocenite svoj tretman",
       ratedInfo: "Ocenili ste ovu rezervaciju",
       confirmMessage: "Rezervacija je uspešno ocenjena",
       errorMessage: "Rezervacija ne postoji",
-      descReservation:"Opis tretmana"
+      descReservation: "Opis tretmana",
     },
     errorFetch: "Greška prilikom preuzimanja rezervacija",
     errorFetchId: "Greška prilikom preuzimanja date rezervacije",

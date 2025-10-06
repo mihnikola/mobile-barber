@@ -8,13 +8,10 @@ import {
 } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const truncateText = (text, limit) => {
-  return text.length > limit ? text.slice(0, limit) + "..." : text;
-};
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
     <TouchableOpacity
-      style={item?.past ? styles.cardPastReservation : styles.cardReservation}
+      style={styles.cardReservation}
       key={item._id}
       onPress={() => redirectScreen(item)}
     >
@@ -57,13 +54,17 @@ const InfoContainerPast = ({ item }) => {
             )}
           </Text>
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.captureDateLocation}>
-            {truncateText(item?.employer?.place?.address, 50)}
+        <View style={styles.addressContainer}>
+          <Text
+            style={styles.captureDateLocation}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {item?.employer?.place?.address}
           </Text>
         </View>
       </View>
-      <View style={styles.ratingContainer}>
+      <View>
         <Text style={styles.rating}>
           {item.rating
             ? localization.APPOINTMENTS.rateReservation.rated
@@ -85,21 +86,26 @@ const InfoContainerFuture = ({ item }) => {
           item?.service?.duration
         )}
       </Text>
-
-      <Text style={styles.captureDateFutureLocation}>
-        {truncateText(
-          item?.employer?.place?.address || item?.employer[0]?.place?.address,
-          50
-        )}
-      </Text>
+      <View>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.captureDateFutureLocation}
+        >
+          {item?.employer?.place?.address || item?.employer[0]?.place?.address}
+        </Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  addressContainer: {
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
   columnContainer: {
     display: "flex",
-    justifyContent: "space-around",
     flex: 1,
   },
   centerContainer: {
@@ -108,9 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flex: 1,
   },
-  ratingContainer: {
-    display: "flex",
-  },
+
   dateContainerPast: {
     borderWidth: 1,
     borderColor: "gray",
@@ -135,17 +139,7 @@ const styles = StyleSheet.create({
     gap: 12,
     height: 105,
   },
-  cardPastReservation: {
-    backgroundColor: "#1E1E1E", // Dark background from your image
-    display: "flex",
-    flexDirection: "row",
-    marginHorizontal: 10,
-    marginVertical: 10,
-    borderRadius: 20,
-    padding: 10,
-    gap: 12,
-    height: 105,
-  },
+
   dateContainer: {
     borderWidth: 1,
     borderColor: "white",
@@ -154,7 +148,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: 13,
+    padding: 10,
   },
   captureDate: {
     fontSize: 18,
@@ -164,9 +158,13 @@ const styles = StyleSheet.create({
   },
   captureDateFutureLocation: {
     color: "#ffd900ff",
+    flex: 2,
+    fontSize: 15,
   },
   captureDateLocation: {
     color: "#9a871fff",
+    flex: 2,
+    fontSize: 15,
   },
   captureDatePast: {
     fontSize: 18,
@@ -185,9 +183,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
   infoContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
+    flex: 1,
     alignItems: "flex-start",
   },
 });
