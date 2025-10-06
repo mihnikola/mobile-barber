@@ -1,14 +1,6 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
-import {
-  Button,
-  FlatList,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function LocationsComponent({
   locations,
@@ -22,9 +14,6 @@ function LocationsComponent({
     setModalVisible(false);
   };
 
-    const truncateText = (text, limit) => {
-    return text.length > limit ? text.slice(0, limit) + '...' : text;
-  };
   return (
     <Modal
       animationType="fade"
@@ -35,18 +24,24 @@ function LocationsComponent({
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>{title}</Text>
-          {locations?.map((locationItem) => {
-            return (
-              <TouchableOpacity
-                key={locationItem._id}
-                style={styles.item}
-                onPress={() => handleLocationSelect(locationItem)}
-              >
-                <FontAwesome6 name="location-dot" size={20} color="red" />
-                <Text style={styles.itemSubtitle}>{truncateText(locationItem.address, 60)}</Text>
-              </TouchableOpacity>
-            );
-          })}
+            {locations?.map((locationItem: any) => {
+              return (
+                <TouchableOpacity
+                  key={locationItem.id}
+                  style={styles.item}
+                  onPress={() => handleLocationSelect(locationItem)}
+                >
+                  <FontAwesome6 name="location-dot" size={20} color="red" />
+                  <Text
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={styles.itemSubtitle}
+                  >
+                    {locationItem.address}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
           </TouchableOpacity>
@@ -67,37 +62,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#433d3c",
     borderRadius: 12,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    elevation: 15,
     padding: 32,
-    maxWidth: 384,
     width: "100%",
-    alignItems: "center",
     maxHeight: "63%",
   },
   item: {
-    padding: 8,
+    paddingTop: 10,
     gap: 10,
-    width: "100%",
-    textAlign: "center",
     flexWrap: "wrap",
-    flexDirection: "column",
-    alignItems: "center",
   },
   itemSubtitle: {
+    flex: 1,
+    width: "100%",
     fontSize: 16,
     color: "white",
-  },
-  iconContainer: {
-    width: 96,
-    height: 96,
-    backgroundColor: "black", // Corresponds to bg-blue-900 bg-opacity-30
-    borderRadius: 9999,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 24,
   },
 
   modalTitle: {

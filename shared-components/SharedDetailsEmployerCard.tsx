@@ -1,48 +1,41 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useLocalization } from "@/context/LocalizationContext";
+import { Ionicons } from "@expo/vector-icons";
+import { roundValue } from "@/helpers";
 
-const SharedDetailsEmployerCard = ({ data}) => {
-  const { _id, image, name, price, ratingCount, seniority } = data;
 
-  const { localization } = useLocalization();
+const SharedDetailsEmployerCard = ({ data }) => {
+  const { _id, image, name, averageRating, userCount, seniority } = data;
+
 
   return (
     <View key={_id} style={styles.card}>
-      
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{seniority?.title}</Text>
+          <Text style={styles.locationText}>{seniority?.title || seniority}</Text>
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
             <IconSymbol name={"star"} size={16} color="#FFD700" />
-            <Text style={styles.reviewText}>
-              {/* {`${ratingCount}/5.0  `}  */}
-              {`4.0/5.0`}
-            </Text>
+            <Text style={styles.reviewText}>{`${roundValue(
+              averageRating
+            )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
             <Ionicons name={"person"} size={16} color="#FFD700" />
-            <Text style={styles.reviewText}>
-              {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
-              1102
-            </Text>
+            <Text style={styles.reviewText}>{userCount}</Text>
           </View>
         </View>
       </View>
-     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-
   card: {
     flexDirection: "row",
     backgroundColor: "#1E1E1E",
@@ -57,7 +50,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
- 
+
   dataContainer: {
     gap: 5,
   },

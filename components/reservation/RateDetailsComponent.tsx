@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import StarRating from "./StarRateComponent";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import Details from "@/shared-components/Details";
 import useRateReservation from "./hooks/useRateReservation";
 import { useEffect, useState } from "react";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -30,7 +29,7 @@ function RateDetailsComponent() {
 
   const { localization } = useLocalization();
   const { company } = useCompany();
-  console.log("reservationData", reservationData);
+  
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -78,7 +77,6 @@ function RateDetailsComponent() {
           <StarRating onRatingChange={handleUserRatingChange} />
         )}
         {!reservationData?.rating && (
-          <View style={styles.descContent}>
             <SharedInputTextArea
               placeholderText={
                 localization.APPOINTMENTS.rateReservation.rateExplanation
@@ -86,7 +84,6 @@ function RateDetailsComponent() {
               description={description}
               setDescription={setDescription}
             />
-          </View>
         )}
         {reservationData?.rating?.description?.length > 0 && (
           <View style={styles.descContent}>

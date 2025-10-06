@@ -14,6 +14,7 @@ const useFetchEmployers = () => {
     setError(null);
     try {
       const response = await getData("/users", { location, service });
+
       if (response.status === 200) {
         setEmplData(response.data);
         setIsLoading(false);

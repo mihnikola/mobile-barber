@@ -2,12 +2,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { useLocalization } from "@/context/LocalizationContext";
+import { roundValue } from "@/helpers";
 
 const SharedItemEmployerCard = (props: any) => {
   const { redirectHandler, data } = props;
-  const { id, image, name, seniority, ratingCount } = data;
-  const { localization } = useLocalization();
+  const { id, image, name, seniority, averageRating, userCount } = data;
 
   return (
     <TouchableOpacity
@@ -24,21 +23,17 @@ const SharedItemEmployerCard = (props: any) => {
             {`${seniority || seniority?.title}`}
           </Text>
         </View>
-         <View style={styles.dataContainer}>
+        <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
             <IconSymbol name={"star"} size={16} color="#FFD700" />
-            <Text style={styles.reviewText}>
-              {/* {`${ratingCount}/5.0  `}  */}
-              {`4.0/5.0`}
-            </Text>
+            <Text style={styles.reviewText}>{`${roundValue(
+              averageRating
+            )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
             <Ionicons name={"person"} size={16} color="#FFD700" />
-            <Text style={styles.reviewText}>
-              {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
-              1102
-            </Text>
+            <Text style={styles.reviewText}>{userCount}</Text>
           </View>
         </View>
       </View>
@@ -48,26 +43,15 @@ const SharedItemEmployerCard = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  dataContainer:{
+  dataContainer: {
     gap: 5,
-
-
+  },
+  locationText: {
+    fontSize: 14,
+    color: "#CCCCCC", // Lighter grey for location
+    marginLeft: 5,
   },
   card: {
-    flexDirection: "row",
-    backgroundColor: "#1E1E1E", // Dark background from your image
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8, // Spacing between cards
-    marginHorizontal: 15, // Side padding for the list
-    alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
-  },
-  detailsCard: {
     flexDirection: "row",
     backgroundColor: "#1E1E1E", // Dark background from your image
     borderRadius: 12,
@@ -104,20 +88,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 4,
   },
-  locationText: {
-    fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for location
-    marginLeft: 5,
-  },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  ratingText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFD700", // Gold color for rating number
-    marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
@@ -125,5 +98,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-
 export default SharedItemEmployerCard;
