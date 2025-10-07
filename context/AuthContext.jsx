@@ -28,7 +28,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
