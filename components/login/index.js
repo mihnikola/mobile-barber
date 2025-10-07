@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   Platform,
@@ -46,7 +47,6 @@ const LoginScreen = () => {
     isGoogleLoading,
     signIn,
   } = useAuth();
-
 
   const { company } = useCompany();
 
@@ -99,8 +99,11 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
         <View style={styles.socialButtonsContainer}>
-          {isGoogleLoading && <SharedLoader />}
-          {!isGoogleLoading && (
+          {isGoogleLoading ? (
+            <TouchableOpacity style={styles.buttonGoogleIsLoading} disabled={true}>
+              <ActivityIndicator color="#fff" size={32} />
+            </TouchableOpacity>
+          ) : (
             <GoogleSigninButton
               style={{ width: "100%", height: 58 }}
               size={GoogleSigninButton.Size.Wide}
@@ -173,6 +176,16 @@ const LoginScreen = () => {
 };
 export default LoginScreen;
 const styles = StyleSheet.create({
+  buttonGoogleIsLoading: {
+    alignSelf:"center",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4285F4",
+    paddingVertical: 10,
+    borderRadius: 4,
+    width: '100%'
+  },
+
   safeArea: {
     paddingVertical: 10,
     flex: 1,
