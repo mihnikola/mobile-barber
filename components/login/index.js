@@ -19,11 +19,12 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-// import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const LoginScreen = () => {
   const { data } = useLocalSearchParams();
@@ -42,9 +43,10 @@ const LoginScreen = () => {
     status,
     verificationOTPCode,
     message,
-    // isGoogleLoading,
-    // signIn,
+    isGoogleLoading,
+    signIn,
   } = useAuth();
+
 
   const { company } = useCompany();
 
@@ -97,12 +99,15 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
         <View style={styles.socialButtonsContainer}>
-          {/* <GoogleSigninButton
-            style={{ width: "100%", height: 58 }}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={signIn}
-          /> */}
+          {isGoogleLoading && <SharedLoader />}
+          {!isGoogleLoading && (
+            <GoogleSigninButton
+              style={{ width: "100%", height: 58 }}
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={signIn}
+            />
+          )}
         </View>
 
         <View style={styles.dividerContainer}>
@@ -162,7 +167,6 @@ const LoginScreen = () => {
             buttonText={localization.OK.label}
           />
         )}
-        {/* {isGoogleLoading && <SharedLoader />} */}
       </View>
     </ScrollView>
   );
@@ -175,16 +179,16 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   iconStyle: {
-    width: 30, 
-    height: 30, 
-    resizeMode: "cover", 
+    width: 30,
+    height: 30,
+    resizeMode: "cover",
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0, 
+    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   logo: {
     width: 120,
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   input: {
-    backgroundColor: "white", 
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
