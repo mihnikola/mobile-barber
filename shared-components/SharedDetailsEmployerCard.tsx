@@ -27,7 +27,7 @@ const SharedDetailsEmployerCard = ({ data }) => {
 
           <View style={styles.ratingContainer}>
             <Ionicons name={"person"} size={16} color="#FFD700" />
-            <Text style={styles.reviewText}>{userCount}</Text>
+            <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>
         </View>
       </View>
