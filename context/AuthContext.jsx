@@ -3,15 +3,19 @@ import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
-import { getOtpParamsStorage, removeOtpParamsStorage, saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import {
+  getOtpParamsStorage,
+  removeOtpParamsStorage,
+  saveOtpParamsStorage,
+} from "@/helpers/verificationOtpParams";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
-// import {
-//   GoogleSignin,
-//   isErrorWithCode,
-//   isSuccessResponse,
-// } from "@react-native-google-signin/google-signin";
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+} from "@react-native-google-signin/google-signin";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [verificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
@@ -37,50 +41,57 @@ export const AuthProvider = ({ children }) => {
 
   const { localization } = useLocalization();
   useEffect(() => {
-    // GoogleSignin.configure({
-    //   webClientId:
-    //     "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-    //   profileImageSize: 150,
-    // });
+    GoogleSignin.configure({
+      webClientId:
+        "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+      profileImageSize: 150,
+    });
   }, []);
 
   const signIn = async () => {
-    // setIsGoogleLoading(true);
-    // try {
-    //   await GoogleSignin.hasPlayServices();
-    //   const response = await GoogleSignin.signIn();
-    //   if (isSuccessResponse(response)) {
-    //     loginViaGoogle(response.data);
-    //   } else {
-    //     // sign in was cancelled by user
-    //   }
-    // } catch (error) {
+    setIsGoogleLoading(true);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      setIsGoogleLoading(false);
+      console.log("xxxxxxxxxxxxx");
+      if (isSuccessResponse(response)) {
+        console.log("wwwwwwwwwwwwwwwww");
 
-    //   if (isErrorWithCode(error)) {
-    //     switch (error.code) {
-    //       case statusCodes.IN_PROGRESS:
-    //         // operation (eg. sign in) already in progress
-    //         break;
-    //       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-    //         // Android only, play services not available or outdated
-    //         break;
-    //       default:
-    //       // some other error happened
-    //     }
-    //   } else {
-    //     // an error that's not related to google sign in occurred
-    //   }
-    //   setIsGoogleLoading(false);
-    // }
+        loginViaGoogle(response.data);
+      } else {
+        // sign in was cancelled by user
+        setIsGoogleLoading(false);
+      }
+    } catch (error) {
+      console.log("error+++",error);
+      setIsGoogleLoading(false);
+
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            // operation (eg. sign in) already in progress
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            // Android only, play services not available or outdated
+            break;
+          default:
+          // some other error happened
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+        setIsGoogleLoading(false);
+      }
+      setIsGoogleLoading(false);
+    }
   };
   const signOut = async () => {
-    // setIsGoogleLoading(true);
+    setIsGoogleLoading(true);
 
-    // try {
-    //   await GoogleSignin.signOut();
-    //   setIsGoogleLoading(false);
-
-    // } catch (error) { }
+    try {
+      await GoogleSignin.signOut();
+      setIsGoogleLoading(false);
+    } catch (error) {}
   };
 
   const fetchUserData = async () => {
@@ -196,19 +207,18 @@ export const AuthProvider = ({ children }) => {
   const verificationOTPCode = async () => {
     setIsLoading(true);
     const { email, password } = verificationData;
-    console.log("verificationOTPCode sendOTPviaLogin", email, password)
+    console.log("verificationOTPCode sendOTPviaLogin", email, password);
     try {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email },
       });
 
-      console.log("verificationOTPCode+++", response)
+      console.log("verificationOTPCode+++", response);
       if (response.status === 200) {
         await saveOtpParamsStorage(verificationData);
         setIsLoading(false);
         setIsMessage(false);
         router.push("/(tabs)/(04_settings)/otpCode");
-
       }
       if (response.status === 500) {
         setIsLoading(false);
@@ -235,7 +245,11 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const responseData = await post("/users/login", { email, password, expoToken });
+      const responseData = await post("/users/login", {
+        email,
+        password,
+        expoToken,
+      });
       if (responseData.status === 202) {
         setIsLoading(false);
         setIsMessage(true);
@@ -267,41 +281,41 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // const loginViaGoogle = async (userData) => {
-  //   setStatus(null);
-  //   setError(null);
+  const loginViaGoogle = async (userData) => {
+    setStatus(null);
+    setError(null);
 
-  //   const { user } = userData;
+    const { user } = userData;
+    const expoToken = await getExpoTokenStorage();
 
-  //   try {
-  //     const responseData = await post("/users/loginViaGoogle", { user });
+    try {
+      const responseData = await post("/users/loginViaGoogle", { user, expoToken });
 
-  //     if (responseData.status === 200 || responseData.status === 300) {
+      if (responseData.status === 200 || responseData.status === 300) {
+        saveStorage(responseData.token);
+        saveTokenViaGoogle(responseData.userId, responseData.token);
+      }
 
-  //       saveStorage(responseData.token);
-  //       saveTokenViaGoogle(responseData.userId, responseData.token);
-  //     }
+      if (responseData.status === 500) {
+        setIsGoogleLoading(false);
+        setError(localization.SERVER_RESPONSE.error);
+      }
+    } catch (err) {
+      setIsGoogleLoading(false);
 
-  //     if (responseData.status === 500) {
-  //       setIsGoogleLoading(false);
-  //       setError(localization.SERVER_RESPONSE.error);
-  //     }
-  //   } catch (err) {
-  //     setIsGoogleLoading(false);
+      if (err.message.includes("404")) {
+        setIsMessage(true);
 
-  //     if (err.message.includes("404")) {
-  //       setIsMessage(true);
+        setError(localization.SERVER_RESPONSE.notFound);
+      } else {
+        setIsMessage(true);
 
-  //       setError(localization.SERVER_RESPONSE.notFound);
-  //     } else {
-  //       setIsMessage(true);
+        setError(localization.SERVER_RESPONSE.error);
+      }
+    }
+  };
 
-  //       setError(localization.SERVER_RESPONSE.error);
-  //     }
-  //   }
-  // };
-
-  const saveToken = async (userId,expoToken) => {
+  const saveToken = async (userId, expoToken) => {
     setIsLoading(true);
     if (!expoToken) {
       setIsLoading(false);
@@ -320,7 +334,9 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
+          }`
         );
       }
     } catch (err) {
@@ -332,42 +348,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // const saveTokenViaGoogle = async (userId) => {
+  const saveTokenViaGoogle = async (userId,expoToken) => {
 
-  //   const expoToken = await getExpoTokenStorage();
+    if (!expoToken) {
+      setIsLoading(false);
+      return;
+    }
 
-  //   if (!expoToken) {
+    try {
+      const responseData = await post("/api/saveToken", {
+        tokenExpo: expoToken,
+        tokenUser: userId,
+      });
+      if (responseData.status === 200) {
+        setIsGoogleLoading(false);
+        setIsMessage(true);
+        setSuccess(localization.LOGIN.success);
+      } else {
+        setIsGoogleLoading(false);
+        setIsMessage(true);
 
-  //     setIsLoading(false);
-  //     return;
-  //   }
+        setError(
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
+          }`
+        );
+      }
+    } catch (err) {
+      setIsGoogleLoading(false);
+      setIsMessage(true);
 
-  //   try {
-  //     const responseData = await post("/api/saveToken", {
-  //       tokenExpo: expoToken,
-  //       tokenUser: userId,
-  //     });
-  //     if (responseData.status === 200) {
-
-  //       setIsGoogleLoading(false);
-  //       setIsMessage(true);
-  //       setSuccess(localization.LOGIN.success);
-  //     } else {
-
-  //       setIsGoogleLoading(false);
-  //       setIsMessage(true);
-
-  //       setError(
-  //         `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
-  //       );
-  //     }
-  //   } catch (err) {
-  //     setIsGoogleLoading(false);
-  //     setIsMessage(true);
-
-  //     setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
-  //   }
-  // };
+      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -392,9 +405,9 @@ export const AuthProvider = ({ children }) => {
         status,
         verificationOTPCode,
         message,
-        // loginViaGoogle,
+        loginViaGoogle,
         signIn,
-        // isGoogleLoading
+        isGoogleLoading,
       }}
     >
       {children}
