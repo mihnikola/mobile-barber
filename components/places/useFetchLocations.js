@@ -21,6 +21,8 @@ const useFetchLocations = () => {
         if (data?.length > 1) {
           setLocationsData(data);
         } else {
+          setLocationsData(data);
+
           updateReservation({ ...reservation, location: data });
         }
       }
