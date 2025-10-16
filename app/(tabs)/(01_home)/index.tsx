@@ -40,6 +40,7 @@ export default function App() {
     locationsData,
     isLoading: isLoaderLocation,
     error,
+    fetchLocations,
   } = useFetchLocations();
 
   const { localization } = useLocalization();
@@ -57,18 +58,23 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(async () => {
+      console.log("xxxxxxxxxx");
       await registerForPushNotifications();
-    }, 2000);
+    }, 1500);
   }, []);
 
-  const openLocationHandler = () => {
+  const openLocationHandler = async () => {
+    await fetchLocations();
+
+    console.log("openLocationHandler", locationsData);
+
     if (locationsData?.length === 1) {
       openGoogleMapsRoute(locationsData[0]?.mapLink);
     } else {
       setModalVisible(true);
     }
   };
-
+  console.log("isLoading || isLoaderLocation", isLoading, isLoaderLocation);
   if (isLoading || isLoaderLocation) {
     return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
   }
