@@ -1,6 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import React from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function LocationsComponent({
   locations,
@@ -10,6 +9,7 @@ function LocationsComponent({
   title,
   buttonText,
 }) {
+
   const onConfirm = () => {
     setModalVisible(false);
   };
@@ -24,24 +24,26 @@ function LocationsComponent({
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>{title}</Text>
-            {locations?.map((locationItem: any) => {
-              return (
-                <TouchableOpacity
-                  key={locationItem.id}
-                  style={styles.item}
-                  onPress={() => handleLocationSelect(locationItem)}
+          <ScrollView style={{ maxHeight: 300 }}>
+          {locations?.map((locationItem: any) => {
+            return (
+              <TouchableOpacity
+                key={locationItem.id}
+                style={styles.item}
+                onPress={() => handleLocationSelect(locationItem)}
+              >
+                <FontAwesome6 name="location-dot" size={20} color="red" />
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={styles.itemSubtitle}
                 >
-                  <FontAwesome6 name="location-dot" size={20} color="red" />
-                  <Text
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
-                    style={styles.itemSubtitle}
-                  >
-                    {locationItem.address}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+                  {locationItem.address}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+          </ScrollView>
           <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
           </TouchableOpacity>
@@ -64,16 +66,15 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     padding: 32,
     width: "100%",
-    maxHeight: "63%",
+    maxHeight: "60%",
   },
   item: {
-    paddingTop: 10,
-    gap: 10,
     flexWrap: "wrap",
+    flexDirection: "row",
+    gap: 10,
+    padding: 10,
   },
   itemSubtitle: {
-    flex: 1,
-    width: "100%",
     fontSize: 16,
     color: "white",
   },
@@ -82,15 +83,15 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 50,
     textAlign: "center",
     lineHeight: 36,
+    marginBottom: 10,
   },
   actionButton: {
     width: "100%",
     backgroundColor: "black",
     paddingVertical: 16,
-    marginVertical: 10,
+    marginTop: 20,
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

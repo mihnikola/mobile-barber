@@ -60,7 +60,7 @@ const InfoContainerPast = ({ item }) => {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {item?.employer?.place?.address}
+            {item?.place?.address}
           </Text>
         </View>
       </View>
@@ -92,7 +92,7 @@ const InfoContainerFuture = ({ item }) => {
           ellipsizeMode="tail"
           style={styles.captureDateFutureLocation}
         >
-          {item?.employer?.place?.address || item?.employer[0]?.place?.address}
+          {item?.place?.address}
         </Text>
       </View>
     </View>
@@ -102,14 +102,11 @@ const InfoContainerFuture = ({ item }) => {
 const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: "row",
-    paddingBottom: 10,
   },
   columnContainer: {
-    display: "flex",
     flex: 1,
   },
   centerContainer: {
-    display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
     flex: 1,
@@ -185,6 +182,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     alignItems: "flex-start",
+    gap: 5,
   },
 });
 

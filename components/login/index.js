@@ -105,6 +105,7 @@ const LoginScreen = () => {
             </TouchableOpacity>
           ) : (
             <GoogleSigninButton
+              
               style={{ width: "100%", height: 58 }}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}

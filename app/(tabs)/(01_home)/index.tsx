@@ -185,11 +185,11 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   btnLocationContent: {
-    width: 300,
+    width: "100%",
     backgroundColor: "#222224",
     justifyContent: "space-around",
-    alignContent: "center",
     alignItems: "center",
+    alignSelf:'center',
     flexDirection: "row",
     padding: 5,
     marginTop: 10,
