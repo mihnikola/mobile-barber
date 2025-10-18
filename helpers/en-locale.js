@@ -35,7 +35,6 @@ export const ENG_LOCALIZATION = {
   PLACES: {
     title: "Choose location",
     error: "Error while fetching locations...",
-    title:"Choose a barber location",
     close:"Close"
   },
   DATE: {

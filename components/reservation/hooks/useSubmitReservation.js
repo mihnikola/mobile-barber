@@ -58,9 +58,9 @@ const useSubmitReservation = () => {
   const submitReservation = async (tokenData) => {
     setIsLoading(true);
     setError(null);
-    const { employer, service, timeData, dateReservation } = reservation;
+    const { employer, service, timeData, dateReservation, location } = reservation;
 
-    if (!employer || !service || !timeData || !dateReservation) {
+    if (!employer || !service || !timeData || !dateReservation || !location) {
       setError(localization.APPOINTMENTS.errorFields);
       setIsLoading(false);
       return;
@@ -74,6 +74,7 @@ const useSubmitReservation = () => {
         customer: "",
         token: tokenData,
         description,
+        location
       });
       if (response.status === 201) {
         setResponseData(response);

@@ -13,7 +13,7 @@ const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
   const { company } = useCompany();
-
+console.log("reservations",reservations[0])
   const { localization } = useLocalization();
 
   useFocusEffect(

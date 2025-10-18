@@ -100,7 +100,7 @@ export const SRB_LOCALIZATION = {
       ratedInfo: "Ocenili ste ovu rezervaciju",
       confirmMessage: "Rezervacija je uspešno ocenjena",
       errorMessage: "Rezervacija ne postoji",
-      descReservation: "Opis tretmana",
+      descReservation: "Komentar za uslugu",
     },
     errorFetch: "Greška prilikom preuzimanja rezervacija",
     errorFetchId: "Greška prilikom preuzimanja date rezervacije",
