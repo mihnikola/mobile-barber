@@ -27,6 +27,17 @@ const useSelectedDate = (initialDate) => {
       markedDates[selectedDateString] = {
         selected: true,
         selectedColor: "white",
+        customStyles: {
+          container: {
+            backgroundColor: "white",
+            padding: 1,
+            borderRadius: 8,
+          },
+          text: {
+            color: "black",
+            fontWeight: "bold",
+          },
+        },
       };
     }
 

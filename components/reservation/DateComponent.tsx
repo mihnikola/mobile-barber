@@ -66,6 +66,7 @@ const DateComponent = () => {
       />
       <View style={styles.calendarContainer}>
         <CalendarList
+          markingType="custom"
           key={localization.code}
           style={styles.calendar}
           theme={calendarTheme}
