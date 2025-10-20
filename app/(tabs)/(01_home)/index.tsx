@@ -105,6 +105,7 @@ export default function App() {
         >
           <HomeImage image={company?.media?.logo} />
         </Animated.View>
+
         <Animated.View
           style={[
             styles.boxBook,
@@ -167,8 +168,48 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  box: {
+    width: 400,
+    height: 400,
+    position: "absolute",
+    alignItems: "center",
+    alignSelf: "center",
+    paddingTop: 100,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#000000",
+  },
+
+  boxBook: {
+    position: "absolute",
+    alignSelf: "center",
+    justifyContent: "center",
+    height: "100%",
+    paddingTop: 330,
+  },
+
+  locationContent: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnLocationContent: {
+    width: "90%",
+    backgroundColor: "#222224",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "center",
+    flexDirection: "row",
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    marginTop: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 0
+  },
+
   address: {
-    fontStyle: "italic",
     fontSize: 15,
     color: "grey",
   },
@@ -183,40 +224,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: "row",
     padding: 15,
-  },
-  btnLocationContent: {
-    width: "100%",
-    backgroundColor: "#222224",
-    justifyContent: "space-around",
-    alignItems: "center",
-    alignSelf:'center',
-    flexDirection: "row",
-    padding: 5,
-    marginTop: 10,
-  },
-  locationContent: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#000000",
-  },
-
-  box: {
-    width: 400,
-    height: 400,
-    position: "absolute",
-    alignItems: "center",
-    alignSelf: "center",
-    paddingTop: 100,
-  },
-  boxBook: {
-    position: "absolute",
-    alignSelf: "center",
-    justifyContent: "center",
-    height: "100%",
-    paddingTop: 330,
   },
 });
