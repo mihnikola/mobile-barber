@@ -20,7 +20,7 @@ const SettingsComponent = () => {
   } = useAuth();
 
   const redirectToLogin = () => {
-    router.push("/(tabs)/(04_settings)/login")
+    router.push("/(z_auth)/login")
   }
 
 

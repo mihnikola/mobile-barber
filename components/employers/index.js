@@ -35,7 +35,7 @@ const Employers = () => {
         router.push("/(tabs)/(02_barbers)/calendar");
       } else {
         router.push({
-          pathname: "/(tabs)/(04_settings)/login",
+          pathname: "/(z_auth)/login",
           params: { data: "calendar" },
         });
       }

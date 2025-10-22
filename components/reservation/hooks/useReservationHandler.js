@@ -19,7 +19,7 @@ const useReservationHandler = () => {
       } else {
         setToken(null);
         router.push({
-          pathname: "/(tabs)/(04_settings)/login",
+          pathname: "/(z_auth)/login",
           params: { data: "appointments" },
         });
       }

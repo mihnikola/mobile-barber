@@ -77,7 +77,7 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    router.push("(tabs)/(04_settings)");
+    router.push("(auth)");
   };
 
   const submitChanges = () => {
