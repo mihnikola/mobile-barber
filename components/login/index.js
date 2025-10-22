@@ -26,6 +26,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import CustomGoogleButton from "../home/CustomGoogleButton";
 
 const LoginScreen = () => {
   const { data } = useLocalSearchParams();
@@ -100,17 +101,23 @@ const LoginScreen = () => {
 
         <View style={styles.socialButtonsContainer}>
           {isGoogleLoading ? (
-            <TouchableOpacity style={styles.buttonGoogleIsLoading} disabled={true}>
+            <TouchableOpacity
+              style={styles.buttonGoogleIsLoading}
+              disabled={true}
+            >
               <ActivityIndicator color="#fff" size={32} />
             </TouchableOpacity>
           ) : (
-            <GoogleSigninButton
-              
-              style={{ width: "100%", height: 58 }}
-              size={GoogleSigninButton.Size.Wide}
-              color={GoogleSigninButton.Color.Dark}
-              onPress={signIn}
-            />
+            // <GoogleSigninButton
+
+            //   style={{ width: "100%", height: 58 }}
+            //   size={GoogleSigninButton.Size.Wide}
+            //   color={GoogleSigninButton.Color.Dark}
+            //   onPress={signIn}
+            // />
+            <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+              <CustomGoogleButton onPress={signIn} />
+            </View>
           )}
         </View>
 
@@ -178,13 +185,17 @@ const LoginScreen = () => {
 export default LoginScreen;
 const styles = StyleSheet.create({
   buttonGoogleIsLoading: {
-    alignSelf:"center",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#4285F4",
-    paddingVertical: 10,
+   backgroundColor: "#4285A0",
+    height: 58,
+    width:"100%",
     borderRadius: 4,
-    width: '100%'
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
 
   safeArea: {
