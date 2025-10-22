@@ -8,6 +8,9 @@ export const SRB_LOCALIZATION = {
   Authorization: {
     error: "Ulogovani ste na drugom uredjaju",
   },
+  GOOGLE_BTN:{
+    label:"Prijava putem Google naloga"
+  },
   BUTTONS: {
     ok: "U redu",
     cancel: "Odustani",

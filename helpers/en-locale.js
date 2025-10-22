@@ -21,6 +21,9 @@ export const ENG_LOCALIZATION = {
     locationBtn: "Location",
     locationBtnDesc: "Where Am I?",
   },
+  GOOGLE_BTN: {
+    label: "Sign in with Google",
+  },
   BUTTONS: {
     ok: "OK",
     cancel: "Cancel",
@@ -35,7 +38,7 @@ export const ENG_LOCALIZATION = {
   PLACES: {
     title: "Choose location",
     error: "Error while fetching locations...",
-    close:"Close"
+    close: "Close",
   },
   DATE: {
     title: "Choose date",
