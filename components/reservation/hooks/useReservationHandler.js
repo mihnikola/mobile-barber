@@ -18,10 +18,7 @@ const useReservationHandler = () => {
         setToken(storedToken);
       } else {
         setToken(null);
-        router.push({
-          pathname: "/(z_auth)/login",
-          params: { data: "appointments" },
-        });
+       
       }
       setIsLoading(false);
     } catch (error) {

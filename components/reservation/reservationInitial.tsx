@@ -4,6 +4,7 @@ import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useLocalSearchParams } from "expo-router";
 import useReservationHandler from "./hooks/useReservationHandler";
 import AppointmentsComponent from "./AppointmentsComponent";
+import AppointmentsNonToken from "./AppointmentsNonToken";
 export default function ReservationInitial() {
   const { reevalueted } = useLocalSearchParams();
   const { checkToken, isLoading, token } = useReservationHandler();
@@ -19,6 +20,9 @@ export default function ReservationInitial() {
 
   if (isLoading) {
     return <Loader />;
+  }
+  if(!token){
+    return <AppointmentsNonToken />
   }
 
   if (token) {

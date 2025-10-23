@@ -17,5 +17,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/(z_auth)index.jsx"
-, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx"  ]
+, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx", "store/useTabsStore.jsx"  ]
 }

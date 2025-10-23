@@ -8,8 +8,8 @@ export const SRB_LOCALIZATION = {
   Authorization: {
     error: "Ulogovani ste na drugom uredjaju",
   },
-  GOOGLE_BTN:{
-    label:"Prijava putem Google naloga"
+  GOOGLE_BTN: {
+    label: "Prijava putem Google naloga",
   },
   BUTTONS: {
     ok: "U redu",
@@ -74,6 +74,9 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    noLogin: "Samo ste nekoliko klikova od svojih rezervacija",
+    login: "Molim vas prijavite se ovde",
+    error:"Trenutno nemate nijednu rezervaciju",
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",
     errorMonthlyLimit: "Ne možete napraviti više rezervacija za ovaj mesec.",

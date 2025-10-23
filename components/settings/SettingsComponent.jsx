@@ -10,26 +10,34 @@ import { router } from "expo-router";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
+
   const {
     logoutFirebase,
     onPressHandler,
     isMessage,
     setIsMessage,
     userData,
-    isToken
+    isToken,
   } = useAuth();
 
+
+
   const redirectToLogin = () => {
-    router.push("/(z_auth)/login")
-  }
-
-
+    router.push("/(z_auth)/login");
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
-      {isToken && <ProfileUserComponent data={userData} onPress={onPressHandler} />}
-      {!isToken && <LoginRedirect onPress={redirectToLogin} title={localization.SETTINGS.clickHere} />}
+      {isToken && (
+        <ProfileUserComponent data={userData} onPress={onPressHandler} />
+      )}
+      {!isToken && (
+        <LoginRedirect
+          onPress={redirectToLogin}
+          title={localization.SETTINGS.clickHere}
+        />
+      )}
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
       {isMessage && (
         <SharedQuestion
@@ -37,11 +45,7 @@ const SettingsComponent = () => {
           onClose={() => setIsMessage(false)}
           onLogOut={logoutFirebase}
           icon={
-            <FontAwesome
-              name="question-circle-o"
-              size={64}
-              color="white"
-            />
+            <FontAwesome name="question-circle-o" size={64} color="white" />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.leave}
@@ -59,5 +63,3 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
 });
-
-
