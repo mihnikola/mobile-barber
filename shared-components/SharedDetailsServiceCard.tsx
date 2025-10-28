@@ -18,17 +18,18 @@ const SharedDetailsServiceCard = (props: any) => {
         <View style={styles.locationContainer}>
           <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
           <Text style={styles.locationText}>
-            {`${localization.DETAILS.duration} ${duration}`}
+            {`${localization.DETAILS.duration} ${
+              duration || data?.serviceDuration
+            }`}
           </Text>
         </View>
         <View style={styles.ratingContainer}>
           <IconSymbol name={"price-change"} size={16} color="#FFD700" />
           <Text style={styles.reviewText}>
-            {`${localization.DETAILS.price} ${price}`}
+            {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
           </Text>
         </View>
       </View>
-      
     </View>
   );
 };
