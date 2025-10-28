@@ -19,7 +19,7 @@ const MainContainer = () => {
       )}
       {initialToken && (
         <AuthProvider>
-          <Stack screenOptions={{ headerShown: false }} />
+          <Stack initialRouteName="(tabs)" screenOptions={{ headerShown: false }} />
         </AuthProvider>
       )}
     </NavigationIndependentTree>

@@ -77,7 +77,7 @@ const otpCode = () => {
 
     if (verifyData?.email && !verifyData?.password) {
       router.push({
-        pathname: "/(tabs)/(04_settings)/changePassword",
+        pathname: "/(z_auth)/changePassword",
         params: { data: verifyData?.email },
       });
     }
@@ -93,7 +93,7 @@ const otpCode = () => {
     ) {
       await removeOtpParamsStorage();
 
-      router.push("/(tabs)/(04_settings)/login");
+      router.push("/(z_auth)/login");
     }
   };
 

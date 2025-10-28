@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  BackHandler,
   Dimensions,
   Image,
   Platform,
@@ -27,6 +28,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import CustomGoogleButton from "../home/CustomGoogleButton";
+import { useEffect } from "react";
 
 const LoginScreen = () => {
   const { data } = useLocalSearchParams();
@@ -54,9 +56,25 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     login(email, password);
   };
+  useEffect(() => {
+    const backAction = () => {
+      if (router.canGoBack()) {
+        router.back();
+      }
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const navigateToRegister = () => {
     router.push({
-      pathname: "(tabs)/(04_settings)/register",
+      pathname: "(z_auth)/register",
       params: { image: company?.media?.logo },
     });
   };
@@ -84,10 +102,15 @@ const LoginScreen = () => {
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
       });
+    } else {
+      router.push({
+        pathname: "/(tabs)/(01_home)",
+        params: { reevaluted: true },
+      });
     }
   };
   const forgotHandler = () => {
-    router.push("/(tabs)/(04_settings)/forgotPass");
+    router.push("/(z_auth)/forgotPass");
   };
 
   return (
@@ -185,9 +208,9 @@ const LoginScreen = () => {
 export default LoginScreen;
 const styles = StyleSheet.create({
   buttonGoogleIsLoading: {
-   backgroundColor: "#4285A0",
+    backgroundColor: "#4285A0",
     height: 58,
-    width:"100%",
+    width: "100%",
     borderRadius: 4,
     justifyContent: "center",
     alignItems: "center",

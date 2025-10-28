@@ -39,7 +39,7 @@ const useEmailOtpCode = () => {
         if (response.success) {
           const verifyData = {email};
           await saveOtpParamsStorage(verifyData);
-          router.push("/(tabs)/(04_settings)/otpCode");
+          router.push("/(z_auth)/otpCode");
         } else {
           setError(localization.EMAIL.errorFound);
           setIsMessage(true);

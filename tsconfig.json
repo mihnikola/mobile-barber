@@ -16,6 +16,6 @@
     "context/ReservationContext.jsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/(tabs)/(04_settings)/index.jsx"
-, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx"  ]
+    "app/(z_auth)index.jsx"
+, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx", "store/useTabsStore.jsx"  ]
 }

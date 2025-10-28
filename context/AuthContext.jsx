@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         setIsGoogleLoading(false);
       }
     } catch (error) {
-      console.log("error+++",error);
+      console.log("error+++", error);
       setIsGoogleLoading(false);
 
       if (isErrorWithCode(error)) {
@@ -144,6 +144,8 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(false);
       setIsToken(null);
       setIsLoading(false);
+      router.dismissAll();
+      router.push("/(tabs)/(04_settings)")
     } catch (error) {
       setError(error);
     }
@@ -159,6 +161,7 @@ export const AuthProvider = ({ children }) => {
           logoutHandler();
         }
       }
+
     } catch (error) {
       setError(error);
     }
@@ -166,19 +169,19 @@ export const AuthProvider = ({ children }) => {
 
   const onPressHandler = (data) => {
     if (data === "1") {
-      router.push("/(tabs)/(04_settings)/infoUserProfile");
+      router.push("/(z_auth)/infoUserProfile");
     }
     if (data === "2") {
-      router.push("/(tabs)/(04_settings)/languageChange");
+      router.push("/(z_auth)/languageChange");
     }
     if (data === "100") {
-      router.push("/(tabs)/(04_settings)/infoApp");
+      router.push("/(z_auth)/infoApp");
     }
     if (data === "200") {
-      router.push("/(tabs)/(04_settings)/infoPrivacy");
+      router.push("/(z_auth)/infoPrivacy");
     }
     if (data === "900") {
-      router.push("/(tabs)/(04_settings)/infoHelpCenter");
+      router.push("/(z_auth)/infoHelpCenter");
     }
     if (data === "6") {
       setIsMessage(true);
@@ -218,7 +221,7 @@ export const AuthProvider = ({ children }) => {
         await saveOtpParamsStorage(verificationData);
         setIsLoading(false);
         setIsMessage(false);
-        router.push("/(tabs)/(04_settings)/otpCode");
+        router.push("/(z_auth)/otpCode");
       }
       if (response.status === 500) {
         setIsLoading(false);
@@ -289,7 +292,10 @@ export const AuthProvider = ({ children }) => {
     const expoToken = await getExpoTokenStorage();
 
     try {
-      const responseData = await post("/users/loginViaGoogle", { user, expoToken });
+      const responseData = await post("/users/loginViaGoogle", {
+        user,
+        expoToken,
+      });
 
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
@@ -348,8 +354,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveTokenViaGoogle = async (userId,expoToken) => {
-
+  const saveTokenViaGoogle = async (userId, expoToken) => {
     if (!expoToken) {
       setIsLoading(false);
       return;

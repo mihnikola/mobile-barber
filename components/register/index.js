@@ -63,7 +63,7 @@ const Register = () => {
     setIsMessage(false);
     const verifyData = { email, password, confirmPassword };
     await saveOtpParamsStorage(verifyData);
-    router.push("/(tabs)/(04_settings)/otpCode");
+    router.push("/(z_auth)/otpCode");
   };
 
   const confirmHandler2 = () => {
