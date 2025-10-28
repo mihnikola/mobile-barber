@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { useLocalization } from "@/context/LocalizationContext";
 
 const CardNoReservation = () => {
+  const {localization} = useLocalization();
   return (
     <View style={styles.card}>
-      <Text style={styles.capture}> You currently have no reservations </Text>
+      <Text style={styles.capture}>{localization.APPOINTMENTS.error}</Text>
       <Text style={styles.description}>
-      You're just a few clicks away from your appointment.
+      {localization.APPOINTMENTS.noLogin}
       </Text>
     </View>
   );

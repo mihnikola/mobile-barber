@@ -11,6 +11,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
+
   const {
     logoutFirebase,
     onPressHandler,
@@ -21,24 +22,34 @@ const SettingsComponent = () => {
     isToken
   } = useAuth();
 
-  const redirectToLogin = () => {
-    router.push("/(tabs)/(04_settings)/login")
-  }
 
   const logoutFunction = () => {
     setIsMessage(false);
     logoutFirebase();
   }
 
+
   if(isLoading){
     return <SharedLoader />
   }
 
+  const redirectToLogin = () => {
+    router.push("/(z_auth)/login");
+  };
+
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
-      {isToken && <ProfileUserComponent data={userData} onPress={onPressHandler} />}
-      {!isToken && <LoginRedirect onPress={redirectToLogin} title={localization.SETTINGS.clickHere} />}
+      {isToken && (
+        <ProfileUserComponent data={userData} onPress={onPressHandler} />
+      )}
+      {!isToken && (
+        <LoginRedirect
+          onPress={redirectToLogin}
+          title={localization.SETTINGS.clickHere}
+        />
+      )}
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
       {isMessage && (
         <SharedQuestion
@@ -46,11 +57,7 @@ const SettingsComponent = () => {
           onClose={() => setIsMessage(false)}
           onLogOut={logoutFunction}
           icon={
-            <FontAwesome
-              name="question-circle-o"
-              size={64}
-              color="white"
-            />
+            <FontAwesome name="question-circle-o" size={64} color="white" />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.leave}
@@ -68,5 +75,3 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
 });
-
-

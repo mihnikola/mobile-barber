@@ -72,6 +72,9 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
+    noLogin: "You're just a few clicks away from your appointments.",
+    login: "Please login here",
+    error: "You don't have any reservations",
     errorDailyLimit: "You cannot make more reservation this day",
     errorWeeklyLimit: "You cannot make more reservation this week",
     errorMonthlyLimit: "You cannot make more reservation this month",

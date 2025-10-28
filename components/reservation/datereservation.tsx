@@ -22,7 +22,7 @@ const DateReservation: React.FC = () => {
           setIsLoggedIn(res);
           setIsLoading(false);
         } else {
-          router.push({pathname :"/(tabs)/(04_settings)/login", params: {data: 1}})
+          router.push({pathname :"/(z_auth)/login", params: {data: 1}})
           setIsLoading(false);
         }
       })

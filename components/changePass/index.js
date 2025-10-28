@@ -38,7 +38,7 @@ const changePass = () => {
     setIsMessage(false);
     await removeOtpParamsStorage();
     router.dismissAll();
-    router.push("/(tabs)/(04_settings)/login");
+    router.push("/(z_auth)/login");
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
