@@ -144,8 +144,13 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(false);
       setIsToken(null);
       setIsLoading(false);
+      setMessage(null);
+      setStatus(null);
+      setSuccess(null);
+
       router.dismissAll();
       router.push("/(tabs)/(04_settings)")
+
     } catch (error) {
       setError(error);
     }
