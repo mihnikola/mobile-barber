@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         setIsGoogleLoading(false);
       }
     } catch (error) {
-      console.log("error+++",error);
+      console.log("error+++", error);
       setIsGoogleLoading(false);
 
       if (isErrorWithCode(error)) {
@@ -144,6 +144,9 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(false);
       setIsToken(null);
       setIsLoading(false);
+      setMessage(null);
+      setStatus(null);
+      setSuccess(null);
     } catch (error) {
       setError(error);
     }
@@ -289,7 +292,10 @@ export const AuthProvider = ({ children }) => {
     const expoToken = await getExpoTokenStorage();
 
     try {
-      const responseData = await post("/users/loginViaGoogle", { user, expoToken });
+      const responseData = await post("/users/loginViaGoogle", {
+        user,
+        expoToken,
+      });
 
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
@@ -348,8 +354,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveTokenViaGoogle = async (userId,expoToken) => {
-
+  const saveTokenViaGoogle = async (userId, expoToken) => {
     if (!expoToken) {
       setIsLoading(false);
       return;

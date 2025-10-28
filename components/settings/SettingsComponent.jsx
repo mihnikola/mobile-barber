@@ -7,6 +7,7 @@ import LoginRedirect from "./LoginRedirect";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -16,6 +17,7 @@ const SettingsComponent = () => {
     isMessage,
     setIsMessage,
     userData,
+    isLoading,
     isToken
   } = useAuth();
 
@@ -23,7 +25,14 @@ const SettingsComponent = () => {
     router.push("/(tabs)/(04_settings)/login")
   }
 
+  const logoutFunction = () => {
+    setIsMessage(false);
+    logoutFirebase();
+  }
 
+  if(isLoading){
+    return <SharedLoader />
+  }
 
   return (
     <View style={styles.container}>
@@ -35,7 +44,7 @@ const SettingsComponent = () => {
         <SharedQuestion
           isOpen={isMessage}
           onClose={() => setIsMessage(false)}
-          onLogOut={logoutFirebase}
+          onLogOut={logoutFunction}
           icon={
             <FontAwesome
               name="question-circle-o"
