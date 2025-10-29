@@ -1,9 +1,11 @@
+import { useLocalization } from "@/context/LocalizationContext";
 import { View, Text, StyleSheet } from "react-native";
 
 const NotFoundEmployers = () => {
+  const {localization}  = useLocalization();
   return (
     <View style={styles.card}>
-      <Text style={styles.capture}> Trenutno nema dostupnih radnika </Text>
+      <Text style={styles.capture}>{localization.BARBERS.notFound} </Text>
     </View>
   );
 };

@@ -34,6 +34,7 @@ export const ENG_LOCALIZATION = {
   BARBERS: {
     title: "Choose barber",
     error: "Error while fetching employers...",
+    notFound: "There are no available barbers",
   },
   PLACES: {
     title: "Choose location",

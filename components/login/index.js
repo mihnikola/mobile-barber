@@ -2,7 +2,6 @@ import {
   ActivityIndicator,
   BackHandler,
   Dimensions,
-  Image,
   Platform,
   ScrollView,
   StatusBar,
@@ -26,7 +25,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import CustomGoogleButton from "../home/CustomGoogleButton";
 import { useEffect } from "react";
 
@@ -124,12 +122,9 @@ const LoginScreen = () => {
 
         <View style={styles.socialButtonsContainer}>
           {isGoogleLoading ? (
-            <TouchableOpacity
-              style={styles.buttonGoogleIsLoading}
-              disabled={true}
-            >
-              <ActivityIndicator color="#fff" size={32} />
-            </TouchableOpacity>
+            <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+              <CustomGoogleButton isGoogleLoading={isGoogleLoading} />
+            </View>
           ) : (
             // <GoogleSigninButton
 
@@ -189,7 +184,6 @@ const LoginScreen = () => {
             isOpen={isMessage}
             onClose={!error ? confirmHandler : cancelHandler}
             onConfirm={!error ? confirmHandler : cancelHandler}
-            isLoading={isLoading}
             icon={
               <FontAwesome
                 name={error ? "close" : success ? "check-circle-o" : "info"}

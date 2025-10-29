@@ -15,28 +15,20 @@ const SettingsComponent = () => {
   const {
     logoutFirebase,
     onPressHandler,
-    isMessage,
-    setIsMessage,
     userData,
+    setIsLogout,
+    isLogout,
     isLoading,
-    isToken
+    isToken,
   } = useAuth();
 
-
-  const logoutFunction = () => {
-    setIsMessage(false);
-    logoutFirebase();
-  }
-
-
-  if(isLoading){
-    return <SharedLoader />
+  if (isLoading) {
+    return <SharedLoader />;
   }
 
   const redirectToLogin = () => {
     router.push("/(z_auth)/login");
   };
-
 
   return (
     <View style={styles.container}>
@@ -51,11 +43,12 @@ const SettingsComponent = () => {
         />
       )}
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
-      {isMessage && (
+      {isLogout && (
         <SharedQuestion
-          isOpen={isMessage}
-          onClose={() => setIsMessage(false)}
-          onLogOut={logoutFunction}
+          isOpen={isLogout}
+          onClose={() => setIsLogout(false)}
+          onLogOut={logoutFirebase}
+          
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
