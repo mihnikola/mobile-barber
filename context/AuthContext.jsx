@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   const [isToken, setIsToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
@@ -147,10 +148,7 @@ export const AuthProvider = ({ children }) => {
       setMessage(null);
       setStatus(null);
       setSuccess(null);
-
-      router.dismissAll();
-      router.push("/(tabs)/(04_settings)")
-
+      setIsLogout(false);
     } catch (error) {
       setError(error);
     }
@@ -162,11 +160,12 @@ export const AuthProvider = ({ children }) => {
       if (isToken) {
         const response = await post("/users/logout", { token: isToken });
         if (response.status === 200) {
+          router.dismissAll();
+          router.push("/(tabs)/(04_settings)");
           signOut();
           logoutHandler();
         }
       }
-
     } catch (error) {
       setError(error);
     }
@@ -189,7 +188,7 @@ export const AuthProvider = ({ children }) => {
       router.push("/(z_auth)/infoHelpCenter");
     }
     if (data === "6") {
-      setIsMessage(true);
+      setIsLogout(true);
     }
   };
   useEffect(() => {
@@ -417,6 +416,9 @@ export const AuthProvider = ({ children }) => {
         message,
         loginViaGoogle,
         signIn,
+        setIsLogout,
+        isLoading,
+        isLogout,
         isGoogleLoading,
       }}
     >

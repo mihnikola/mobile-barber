@@ -35,6 +35,7 @@ export const SRB_LOCALIZATION = {
   BARBERS: {
     title: "Odaberi frizera",
     error: "Greška prilikom uzimanja podataka o zaposlenima...",
+    notFound:"Trenutno nema dostupnih radnika"
   },
   PLACES: {
     title: "Odaberi lokaciju",

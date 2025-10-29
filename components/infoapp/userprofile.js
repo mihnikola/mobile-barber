@@ -21,7 +21,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const userprofile = () => {
-  const { isLoading, userData } = useAuth();
+  const { isLoading, userData, fetchUserData } = useAuth();
   const { localization } = useLocalization();
 
   const [changedImg, setChangedImg] = useState(undefined);
@@ -77,7 +77,8 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    router.push("(auth)");
+    fetchUserData();
+    router.push("/(tabs)/(04_settings)");
   };
 
   const submitChanges = () => {
