@@ -10,10 +10,14 @@ const useInitialData = () => {
   const { localization } = useLocalization();
 
   const getInitialData = async () => {
+  console.log("xqqx")
+
     setIsLoading(true);
     setError(null);
     try {
       const response = await get("/initial");
+
+
       setInitialData(response);
       setIsLoading(false);
     } catch (err) {

@@ -68,7 +68,11 @@ const languageSupport = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.languageItem}
-            onPress={() => changeLocalization(item)}
+            onPress={() => {
+              if (localization.code !== item.code) {
+                changeLocalization(item);
+              }
+            }}
           >
             <Text style={styles.languageText}>{item.label}</Text>
             <FontAwesome

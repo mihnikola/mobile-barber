@@ -32,6 +32,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const { registerForPushNotifications } = usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
+  console.log("sadlkjhsajhdgsajhdgjhg")
   const { company, isLoading } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
 
