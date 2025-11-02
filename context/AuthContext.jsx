@@ -16,6 +16,8 @@ import {
   isErrorWithCode,
   isSuccessResponse,
 } from "@react-native-google-signin/google-signin";
+import { changeLanguage } from "i18next";
+import { getLanguageValue } from "@/helpers/language";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -248,6 +250,9 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     const expoToken = await getExpoTokenStorage();
+    const languageValue = await getLanguageValue();
+
+    console.log("getLanguageValue", languageValue);
     setStatus(null);
     setIsLoading(true);
     setError(null);
@@ -272,7 +277,8 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         setIsLoading(false);
         saveStorage(responseData.token);
-        saveToken(responseData.userId, expoToken);
+        const lang = languageValue === "sr" ? "srp" : "eng";
+        saveToken(responseData.userId, expoToken, lang);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -294,6 +300,7 @@ export const AuthProvider = ({ children }) => {
 
     const { user } = userData;
     const expoToken = await getExpoTokenStorage();
+    const languageValue = await getLanguageValue();
 
     try {
       const responseData = await post("/users/loginViaGoogle", {
@@ -303,7 +310,9 @@ export const AuthProvider = ({ children }) => {
 
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
-        saveTokenViaGoogle(responseData.userId, responseData.token);
+        const lang = languageValue === "sr" ? "srp" : "eng";
+
+        saveTokenViaGoogle(responseData.userId, responseData.token, lang);
       }
 
       if (responseData.status === 500) {
@@ -325,7 +334,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveToken = async (userId, expoToken) => {
+  const saveToken = async (userId, expoToken, lang) => {
     setIsLoading(true);
     if (!expoToken) {
       setIsLoading(false);
@@ -335,6 +344,7 @@ export const AuthProvider = ({ children }) => {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoToken,
         tokenUser: userId,
+        lang,
       });
       if (responseData.status === 200) {
         setIsLoading(false);
@@ -358,7 +368,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveTokenViaGoogle = async (userId, expoToken) => {
+  const saveTokenViaGoogle = async (userId, expoToken, languageValue) => {
     if (!expoToken) {
       setIsLoading(false);
       return;
@@ -368,6 +378,7 @@ export const AuthProvider = ({ children }) => {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoToken,
         tokenUser: userId,
+        lang: languageValue,
       });
       if (responseData.status === 200) {
         setIsGoogleLoading(false);

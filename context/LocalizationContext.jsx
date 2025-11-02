@@ -6,53 +6,51 @@ import { put } from "@/api/apiService";
 import { getStorage } from "@/helpers/token";
 
 const LocalizationContext = createContext(null);
-export const useLocalization = () => {
-  return useContext(LocalizationContext);
-};
+
+export const useLocalization = () => useContext(LocalizationContext);
+
 export const LocalizationProvider = ({ children }) => {
-  const [localization, setLocalization] = useState(SRB_LOCALIZATION);
+  const [localization, setLocalization] = useState(null); // ⚠️ null initially
+  const [loading, setLoading] = useState(true);
+
   const changeFirebaseLocalization = async (lang) => {
     const langData = lang === "en" ? "eng" : "srp";
     try {
       const token = await getStorage();
-      if(!token){
-        return;
-      }
-      const response = await put(`/users/${token}/changeLanguage`, {
-        langData,
-        
-      });
-      console.log("response",response)
+      if (!token) return;
+      await put(`/users/${token}/changeLanguage`, { langData });
     } catch (error) {
-      console.log("error",error)
+      console.log("changeFirebaseLocalization error", error);
     }
   };
-
-  const getLanguageFromStorage = async () => {
-    await getLanguageValue().then((res) => {
-      if (res) {
-        const prom = { code: res };
-        changeLocalization(prom);
-      } else {
-        setLocalization(SRB_LOCALIZATION);
-      }
-    });
-  };
-  useEffect(() => {
-    getLanguageFromStorage();
-  }, []);
 
   const changeLocalization = (language) => {
     const { code } = language;
     changeFirebaseLocalization(code);
     setLanguageValue(code);
-    if (code === "en") {
-      setLocalization(ENG_LOCALIZATION);
-    }
-    if (code === "sr") {
+
+    if (code === "en") setLocalization(ENG_LOCALIZATION);
+    else if (code === "sr") setLocalization(SRB_LOCALIZATION);
+  };
+
+  const getLanguageFromStorage = async () => {
+    try {
+      const code = await getLanguageValue();
+      if (code) changeLocalization({ code });
+      else setLocalization(SRB_LOCALIZATION);
+    } catch (error) {
       setLocalization(SRB_LOCALIZATION);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getLanguageFromStorage();
+  }, []);
+
+  if (loading) return null; // ili loader komponenta
+
   return (
     <LocalizationContext.Provider value={{ localization, changeLocalization }}>
       {children}

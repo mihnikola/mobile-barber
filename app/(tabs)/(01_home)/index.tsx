@@ -1,4 +1,4 @@
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -20,19 +20,18 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldPlaySound: true,
+//     shouldSetBadge: true,
+//     shouldShowBanner: true,
+//     shouldShowList: true,
+//   }),
+// });
 
 export default function App() {
-  const { registerForPushNotifications } = usePushNotifications();
+  // usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  console.log("sadlkjhsajhdgsajhdgjhg")
   const { company, isLoading } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -57,12 +56,11 @@ export default function App() {
     openGoogleMapsRoute(locationData?.mapLink);
   };
 
-  useEffect(() => {
-    setTimeout(async () => {
-      console.log("xxxxxxxxxx");
-      await registerForPushNotifications();
-    }, 1500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(async () => {
+  //     await registerForFirebaseNotifications();
+  //   }, 1500);
+  // }, []);
 
   const openLocationHandler = async () => {
     await fetchLocations();
@@ -75,7 +73,6 @@ export default function App() {
       setModalVisible(true);
     }
   };
-  console.log("isLoading || isLoaderLocation", isLoading, isLoaderLocation);
   if (isLoading || isLoaderLocation) {
     return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
   }

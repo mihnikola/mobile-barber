@@ -3,7 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -14,8 +16,9 @@
     "app/(tabs)/(01_home)/index.jsx",
     "app/(tabs)/notifications.jsx",
     "context/ReservationContext.jsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "app/(z_auth)index.jsx"
-, "components/settings/SettingsComponent.jsx", "components/settings/MenuItem.tsx", "store/useTabsStore.jsx"  ]
+    "app/(z_auth)index.jsx",
+    "components/settings/SettingsComponent.jsx",
+    "components/settings/MenuItem.tsx",
+    "store/useTabsStore.jsx"
+  ]
 }
