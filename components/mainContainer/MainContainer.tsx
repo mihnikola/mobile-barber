@@ -3,21 +3,17 @@ import { Stack, useRootNavigationState, useRouter } from "expo-router";
 import { PermissionsAndroid, Platform } from "react-native";
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
+import InitialComponent from "../initalComponents/InitialComponent";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import SplashScreen from "@/shared-components/SplashScreen";
 
 const MainContainer = () => {
   const router = useRouter();
+
+  // const { initialToken, isLoading, addInitialTokenData } = useAuth();
+
   const navState = useRootNavigationState();
   const [initialNotification, setInitialNotification] = useState(null);
-  const valueX = useRef(null);
-  useEffect(() => {
-    console.log("van");
-    if (navState?.key && initialNotification) {
-      console.log("in", initialNotification);
-
-      // router.replace("(tabs)/(03_calendar)/");
-    }
-  }, [navState?.key]);
-
   useEffect(() => {
     async function setupFCM() {
       // Android 13+ permission
@@ -61,7 +57,7 @@ const MainContainer = () => {
       // Killed / cold start
       const xxxxqweqweqwe = await messaging().getInitialNotification();
       if (xxxxqweqweqwe && navState) {
-        console.log("xxxxqweqweqwe",xxxxqweqweqwe)
+        console.log("xxxxqweqweqwe", xxxxqweqweqwe);
         router.push({
           pathname: "/(tabs)/(03_calendar)/cancelReservation",
           params: { itemId: "68ef6c9f67d47ee2df80c153" },
@@ -79,12 +75,18 @@ const MainContainer = () => {
     setupFCM();
   }, []);
 
-  return (
-    <>
-      {/* Prosledjujemo ref direktno */}
+  // if (isLoading) {
+  //   return <SplashScreen />;
+  // }
 
-      <Stack screenOptions={{ headerShown: false }} initialRouteName="(tabs)" />
-    </>
+  // if (!initialToken) {
+  //   return <InitialComponent addToken={addInitialTokenData} />;
+  // }
+
+  return (
+    // <AuthProvider>
+      <Stack initialRouteName="(tabs)" screenOptions={{ headerShown: false }} />
+    // </AuthProvider>
   );
 };
 
