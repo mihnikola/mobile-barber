@@ -1,4 +1,3 @@
-// import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -11,7 +10,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
-import { usePushNotifications } from "./../../../components/home/hooks/usePushNotifications";
 import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -19,22 +17,23 @@ import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
+import messaging from "@react-native-firebase/messaging";
 
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => ({
-//     shouldPlaySound: true,
-//     shouldSetBadge: true,
-//     shouldShowBanner: true,
-//     shouldShowList: true,
-//   }),
-// });
+import * as Notifications from "expo-notifications";
+// import { usePushNotifications } from "@/components/home/hooks/usePushNotifications";
+
+// 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
+Notifications.setNotificationChannelAsync("default", {
+  name: "Default",
+  importance: Notifications.AndroidImportance.MAX,
+  vibrationPattern: [0, 250, 250, 250],
+  lightColor: "#FF231F7C",
+});
 
 export default function App() {
-  // usePushNotifications();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, isLoading } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
-
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const {
     locationsData,
@@ -43,6 +42,85 @@ export default function App() {
     fetchLocations,
   } = useFetchLocations();
 
+  useEffect(() => {
+   
+
+    const getFcmToken = async () => {
+      try {
+        const token = await messaging().getToken();
+        console.log("✅ FCM Token:", token);
+      } catch (error) {
+        console.error("❌ Error getting FCM token:", error);
+      }
+    };
+    const requestPermission = async () => {
+      const authStatus = await messaging().requestPermission();
+      const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+      if (enabled) {
+        console.log("Notification permission granted.");
+        getFcmToken();
+      } else {
+        console.log("Notification permission denied.");
+      }
+    };
+
+    const unsubscribeOnMessage = messaging().onMessage(
+      async (remoteMessage) => {
+        console.log("📩 Foreground message:", remoteMessage);
+         // Extract information from the remote message
+      const { notification, data } = remoteMessage;
+
+      // Use expo-notifications to schedule a local notification
+      // based on the content of the remote message
+      if (notification) {
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: notification.title || "New Message",
+            body: notification.body,
+            data: data, // Attach data for handling interaction later
+            // You can add a sound, specific channel, etc. here if needed
+            // sound: 'default',
+          },
+          trigger: null, // null means it fires immediately
+        });
+      }
+        // showNotification(remoteMessage.notification);
+      }
+    );
+    const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(
+      (remoteMessage) => {
+        console.log(
+          "📨 App opened from background state:",
+          remoteMessage.notification
+        );
+        // showNotification(remoteMessage.notification);
+        // Navigate or handle as needed
+      }
+    );
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            "🚀 App opened from quit state:",
+            remoteMessage.notification
+          );
+          // showNotification(remoteMessage.notification);
+          // Handle navigation or deep link
+        }
+      });
+
+    // Initialize permissions and token
+    requestPermission();
+
+    return () => {
+      unsubscribeOnMessage();
+      unsubscribeOnNotificationOpened();
+    };
+  }, []);
   const { localization } = useLocalization();
 
   const nextPage = () => {
@@ -55,12 +133,6 @@ export default function App() {
     setModalVisible(false);
     openGoogleMapsRoute(locationData?.mapLink);
   };
-
-  // useEffect(() => {
-  //   setTimeout(async () => {
-  //     await registerForFirebaseNotifications();
-  //   }, 1500);
-  // }, []);
 
   const openLocationHandler = async () => {
     await fetchLocations();
@@ -88,6 +160,7 @@ export default function App() {
       />
     );
   }
+
   if (company) {
     return (
       <View style={styles.container}>
@@ -204,7 +277,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 0
+    marginBottom: 0,
   },
 
   address: {

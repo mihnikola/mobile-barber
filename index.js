@@ -1,5 +1,5 @@
 // index.js
-import { AppRegistry, Linking } from 'react-native';
+import { registerRootComponent } from 'expo';
 import messaging from '@react-native-firebase/messaging';
 import { ExpoRoot } from 'expo-router';
 

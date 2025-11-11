@@ -18,26 +18,14 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.mihailovic93.barberappver2",
+      "package": "com.barber.app",
       "googleServicesFile": "./google-services.json",
-      "permissions": [
-        "INTERNET",
-        "WAKE_LOCK",
-        "RECEIVE_BOOT_COMPLETED",
-        "VIBRATE",
-        "POST_NOTIFICATIONS"
-      ]
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/messaging",
       "@react-native-google-signin/google-signin",
       "expo-router"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "6dbd65c3-f5f4-4479-993e-7bb978ebc2ce"
-      }
-    }
+    ]
   }
 }

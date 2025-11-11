@@ -13,10 +13,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
-import SplashScreen from "@/shared-components/SplashScreen";
 
-const InitialComponent = ({ addToken }) => {
-  const { getInitialData, initialData, isLoading } = useInitialData();
+const InitialComponent = () => {
+  const { getInitialData, initialData } = useInitialData();
+
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
@@ -24,8 +24,10 @@ const InitialComponent = ({ addToken }) => {
 
   useEffect(() => {
     getInitialData();
-
   }, []);
+
+
+
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     if (
@@ -115,9 +117,7 @@ const InitialComponent = ({ addToken }) => {
     );
   };
 
-  if (isLoading) {
-    return <SplashScreen />;
-  }
+
 
   if (initialData?.length) {
     return (
@@ -144,7 +144,6 @@ const InitialComponent = ({ addToken }) => {
         <View style={styles.bottomContainer}>
           <Pagination data={initialData} x={x} screenWidth={SCREEN_WIDTH} />
           <CustomButton
-            addToken={addToken}
             flatListRef={flatListRef}
             flatListIndex={flatListIndex}
             dataLength={initialData?.length}

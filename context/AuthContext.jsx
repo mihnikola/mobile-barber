@@ -28,7 +28,6 @@ export const useAuth = () => {
 
 // Provider component
 export const AuthProvider = ({ children }) => {
-  const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
@@ -44,9 +43,14 @@ export const AuthProvider = ({ children }) => {
 
   const { localization } = useLocalization();
   useEffect(() => {
+    // GoogleSignin.configure({
+    //   webClientId:
+    //     "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+    //   profileImageSize: 150,
+    // });
     GoogleSignin.configure({
       webClientId:
-        "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
+        "812982040815-1vnbh9mpi47mronlfimaa90ce7tsmkc9.apps.googleusercontent.com",
       profileImageSize: 150,
     });
   }, []);
@@ -194,24 +198,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    getInitialTokenData();
-    getTokenData();
+    getTokenData(); //logovan
   }, []);
-
-  //initial Token screen
-  const addInitialTokenData = async () => {
-    const valueToStore = { name: "John Doe", age: 30 };
-    await AsyncStorage.setItem("initialToken", JSON.stringify(valueToStore));
-    setInitialToken(valueToStore);
-  };
-  const getInitialTokenData = async () => {
-    await AsyncStorage.getItem("initialToken").then((res) => {
-      if (res) {
-        setInitialToken(res);
-      }
-      setIsLoading(false);
-    });
-  };
 
   const verificationOTPCode = async () => {
     setIsLoading(true);
@@ -405,9 +393,6 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        getInitialTokenData,
-        addInitialTokenData,
-        initialToken,
         isLoading,
         getTokenData,
         removeTokenData,
