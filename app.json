@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "barber-app-ver2",
-    "slug": "barber-app-ver2",
+    "name": "fta-barber-mob-app",
+    "slug": "fta-barber-mob-app",
     "main": "index.js",
     "version": "1.0.0",
     "orientation": "portrait",

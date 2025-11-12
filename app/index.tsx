@@ -1,8 +1,5 @@
-import { Animated, Image, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { useAuth } from "@/context/AuthContext";
-import InitialComponent from "@/components/initalComponents/InitialComponent";
-import MainContainer from "@/components/mainContainer/MainContainer";
+import { Image, View } from "react-native";
+import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 

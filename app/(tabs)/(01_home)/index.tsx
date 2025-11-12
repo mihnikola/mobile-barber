@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -20,7 +20,6 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 import messaging from "@react-native-firebase/messaging";
 
 import * as Notifications from "expo-notifications";
-// import { usePushNotifications } from "@/components/home/hooks/usePushNotifications";
 
 // 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
 Notifications.setNotificationChannelAsync("default", {
@@ -29,6 +28,8 @@ Notifications.setNotificationChannelAsync("default", {
   vibrationPattern: [0, 250, 250, 250],
   lightColor: "#FF231F7C",
 });
+let hasHandledInitial = false;
+let permissionRequested = false; // globalno, da se permission i token traže samo jednom
 
 export default function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
@@ -42,85 +43,114 @@ export default function App() {
     fetchLocations,
   } = useFetchLocations();
 
+  const redirectReservation = () => {
+    router.replace("(tabs)/(03_calendar)");
+  };
+
+  // 🔐 Dozvole i token — SAMO JEDNOM
   useEffect(() => {
-   
-
-    const getFcmToken = async () => {
+    const requestPermissionAndToken = async () => {
       try {
-        const token = await messaging().getToken();
-        console.log("✅ FCM Token:", token);
+        if (permissionRequested) return; // ⚡️ već urađeno
+        permissionRequested = true;
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+          authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+          authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+        if (enabled) {
+          console.log("✅ Notification permission granted.");
+          const token = await messaging().getToken();
+          console.log("🔑 FCM Token:", token);
+        } else {
+          console.log("🚫 Notification permission denied.");
+        }
       } catch (error) {
-        console.error("❌ Error getting FCM token:", error);
-      }
-    };
-    const requestPermission = async () => {
-      const authStatus = await messaging().requestPermission();
-      const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-      if (enabled) {
-        console.log("Notification permission granted.");
-        getFcmToken();
-      } else {
-        console.log("Notification permission denied.");
+        console.error("❌ Error with notification permission/token:", error);
       }
     };
 
+    requestPermissionAndToken();
+  }, []);
+  useEffect(() => {
+    let isMounted = true; // zaštita ako se komponenta unmountuje tokom async poziva
+
+    // 🔔 Foreground poruke
     const unsubscribeOnMessage = messaging().onMessage(
       async (remoteMessage) => {
         console.log("📩 Foreground message:", remoteMessage);
-         // Extract information from the remote message
-      const { notification, data } = remoteMessage;
+        const { notification, data } = remoteMessage;
 
-      // Use expo-notifications to schedule a local notification
-      // based on the content of the remote message
-      if (notification) {
-        Notifications.scheduleNotificationAsync({
-          content: {
-            title: notification.title || "New Message",
-            body: notification.body,
-            data: data, // Attach data for handling interaction later
-            // You can add a sound, specific channel, etc. here if needed
-            // sound: 'default',
-          },
-          trigger: null, // null means it fires immediately
-        });
-      }
-        // showNotification(remoteMessage.notification);
+        if (notification) {
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: notification.title || "New Message",
+              body: notification.body,
+              data: data,
+            },
+            trigger: null,
+          });
+        }
       }
     );
+
+    // 👆 Klik na lokalnu notifikaciju
+    const notificationResponseListener =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log("👆 Kliknuto na notifikaciju:", response);
+        router.push("/(tabs)/(03_calendar)");
+      });
+
+    // 💡 Primljena notifikacija dok je app otvoren
+    const notificationReceivedListener =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log("🔔 Primljena notifikacija (foreground):", notification);
+      });
+
+    // 📨 App otvorena iz backgrounda
     const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(
       (remoteMessage) => {
         console.log(
-          "📨 App opened from background state:",
-          remoteMessage.notification
+          "📨 App opened from background:",
+          remoteMessage?.notification
         );
-        // showNotification(remoteMessage.notification);
-        // Navigate or handle as needed
+        redirectReservation(remoteMessage);
       }
     );
+
+    // 🚀 App otvorena iz "killed" stanja
     messaging()
       .getInitialNotification()
       .then((remoteMessage) => {
-        if (remoteMessage) {
-          console.log(
-            "🚀 App opened from quit state:",
-            remoteMessage.notification
-          );
-          // showNotification(remoteMessage.notification);
-          // Handle navigation or deep link
-        }
-      });
+        console.log("hasHandledInitial", hasHandledInitial);
 
-    // Initialize permissions and token
-    requestPermission();
+        if (isMounted && remoteMessage && !hasHandledInitial) {
+          hasHandledInitial = true; // ✅ obradi samo jednom
+          console.log("🚀 App opened from quit:", remoteMessage.notification);
+          redirectReservation(remoteMessage);
+        }
+      })
+      .catch((err) => console.log("Error getting initial notification:", err))
+      .finally(() => {
+        // 🧹 Cleanup – u sledećem mountu neće opet proći
+        hasHandledInitial = true;
+      });
+    // requestPermission();
 
     return () => {
+      isMounted = false;
+
       unsubscribeOnMessage();
       unsubscribeOnNotificationOpened();
+      Notifications.removeNotificationSubscription(
+        notificationResponseListener
+      );
+      Notifications.removeNotificationSubscription(
+        notificationReceivedListener
+      );
     };
   }, []);
+
   const { localization } = useLocalization();
 
   const nextPage = () => {
