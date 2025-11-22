@@ -121,22 +121,18 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
         <View style={styles.socialButtonsContainer}>
-          {isGoogleLoading ? (
-            <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
-              <CustomGoogleButton isGoogleLoading={isGoogleLoading} />
-            </View>
-          ) : (
-            // <GoogleSigninButton
-
-            //   style={{ width: "100%", height: 58 }}
-            //   size={GoogleSigninButton.Size.Wide}
-            //   color={GoogleSigninButton.Color.Dark}
-            //   onPress={signIn}
-            // />
-            <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+          {/* {isGoogleLoading ? ( */}
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <CustomGoogleButton
+              onPress={signIn}
+              isGoogleLoading={isGoogleLoading}
+            />
+          </View>
+          {/* ) : (
+            <View style={{ flex: 1, justifyContent: "center" }}>
               <CustomGoogleButton onPress={signIn} />
             </View>
-          )}
+          )} */}
         </View>
 
         <View style={styles.dividerContainer}>
