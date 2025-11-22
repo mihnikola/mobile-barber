@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
 
 export default function RootLayoutCalendar() {
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" options={{ title:"", headerShown: false }} />
+      <Stack.Screen name="index" options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="rateReservation"
         options={{

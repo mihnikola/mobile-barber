@@ -49,7 +49,7 @@ export default function App() {
     const id = notification.data.url;
 
     router.replace({
-      pathname: "/(tabs)/(03_calendar)/cancelReservation",
+      pathname: "/(zz_notification)",
       params: { itemId: id },
     });
   };
