@@ -232,15 +232,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    if (!email || !password) {
+    const expoToken = await getExpoTokenStorage();
+    const languageValue = await getLanguageValue();
+
+    if (!email || !password ) {
       setIsMessage(true);
       setError(localization.LOGIN.error);
       return;
     }
-    const expoToken = await getExpoTokenStorage();
-    const languageValue = await getLanguageValue();
 
-    console.log("getLanguageValue", languageValue);
+    console.log("getLanguageValue", languageValue, expoToken);
     setStatus(null);
     setIsLoading(true);
     setError(null);
@@ -265,7 +266,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         setIsLoading(false);
         saveStorage(responseData.token);
-        const lang = languageValue === "sr" ? "srp" : "eng";
+        const lang = languageValue === "sr" || languageValue === null ? "srp" : "eng";
         saveToken(responseData.userId, expoToken, lang);
       }
     } catch (err) {

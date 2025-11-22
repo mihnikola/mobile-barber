@@ -20,6 +20,7 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 import messaging from "@react-native-firebase/messaging";
 
 import * as Notifications from "expo-notifications";
+import { saveExpoTokenStorage } from "@/helpers/expoToken";
 
 // 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
 Notifications.setNotificationChannelAsync("default", {
@@ -43,8 +44,14 @@ export default function App() {
     fetchLocations,
   } = useFetchLocations();
 
-  const redirectReservation = () => {
-    router.replace("(tabs)/(03_calendar)");
+  const redirectReservation = (notification) => {
+    console.log("notification", notification);
+    const id = notification.data.url;
+
+    router.replace({
+      pathname: "/(tabs)/(03_calendar)/cancelReservation",
+      params: { itemId: id },
+    });
   };
 
   // 🔐 Dozvole i token — SAMO JEDNOM
@@ -62,6 +69,7 @@ export default function App() {
           console.log("✅ Notification permission granted.");
           const token = await messaging().getToken();
           console.log("🔑 FCM Token:", token);
+          await saveExpoTokenStorage(token);
         } else {
           console.log("🚫 Notification permission denied.");
         }
@@ -97,14 +105,26 @@ export default function App() {
     // 👆 Klik na lokalnu notifikaciju
     const notificationResponseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log("👆 Kliknuto na notifikaciju:", response);
-        router.push("/(tabs)/(03_calendar)");
+        console.log(
+          "👆 Kliknuto na notifikaciju:",
+          response?.notification?.request?.content?.data
+        );
+        const notificationdata = response?.notification?.request?.content;
+
+        redirectReservation(notificationdata);
       });
 
     // 💡 Primljena notifikacija dok je app otvoren
     const notificationReceivedListener =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log("🔔 Primljena notifikacija (foreground):", notification);
+        // if (notification) {
+        //   console.log(
+        //     "🔔 Primljena notifikacija (foreground):",
+        //     notification.request.content.data
+        //   );
+        //   const notificationdata = notification.request.content;
+        //   redirectReservation(notificationdata);
+        // }
       });
 
     // 📨 App otvorena iz backgrounda

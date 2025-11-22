@@ -1,13 +1,13 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { BackHandler, ScrollView, StyleSheet, Text, View } from "react-native";
 import useCancelReservation from "./hooks/useCancelReservation";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useFetchReservation from "./hooks/useFetchReservation";
 import HeaderReservationTime from "./HeaderReservationTime";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
@@ -37,6 +37,23 @@ function CancelDetailsComponent() {
     cancelSuccess,
     setCancelSuccess,
   } = useCancelReservation();
+
+  useFocusEffect(
+    useCallback(()=>{
+      const backAction = () => {
+        router.push("/(tabs)/(03_calendar)")
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+
+    },[])
+  )
 
   const cancelReservationHandler = () => {
     setIsCanceling(true);
