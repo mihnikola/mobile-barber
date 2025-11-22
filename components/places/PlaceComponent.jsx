@@ -4,7 +4,7 @@ import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchLocations from "./useFetchLocations";
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { router } from "expo-router";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -12,7 +12,8 @@ import { useCompany } from "@/context/CompanyContext";
 
 const PlaceComponent = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-  const { locationsData, isLoading, error } = useFetchLocations(); 
+  const { locationsData, isLoading, error, fetchLocations } =
+    useFetchLocations();
   const { localization } = useLocalization();
   const { company } = useCompany();
 
@@ -20,6 +21,10 @@ const PlaceComponent = () => {
     updateReservation({ ...reservation, location });
     router.push("/(tabs)/(02_barbers)/services");
   };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

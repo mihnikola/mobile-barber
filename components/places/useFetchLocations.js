@@ -12,6 +12,7 @@ const useFetchLocations = () => {
   const { localization } = useLocalization();
 
   const fetchLocations = async () => {
+    setIsLoading(true);
     setError(null);
     try {
       const response = await get("/places");
@@ -31,9 +32,7 @@ const useFetchLocations = () => {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    fetchLocations();
-  }, []);
+
 
   return { locationsData, isLoading, error, fetchLocations };
 };
