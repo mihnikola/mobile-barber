@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import Loader from "@/components/Loader";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import useReservationHandler from "./hooks/useReservationHandler";
 import AppointmentsComponent from "./AppointmentsComponent";
 import AppointmentsNonToken from "./AppointmentsNonToken";
@@ -13,6 +13,8 @@ export default function ReservationInitial() {
   useFocusEffect(
     useCallback(() => {
       if (isFocused) {
+        console.log("xxxx")
+        router.push("/(tabs)/(03_calendar)");
         checkToken();
       }
     }, [isFocused, reevalueted])
@@ -21,8 +23,8 @@ export default function ReservationInitial() {
   if (isLoading) {
     return <Loader />;
   }
-  if(!token){
-    return <AppointmentsNonToken />
+  if (!token) {
+    return <AppointmentsNonToken />;
   }
 
   if (token) {

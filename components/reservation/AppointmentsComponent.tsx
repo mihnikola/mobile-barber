@@ -7,13 +7,13 @@ import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
-import { useFocusEffect } from "expo-router";
+import {  useFocusEffect } from "expo-router";
 
 const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
   const { company } = useCompany();
-console.log("reservations",reservations[0])
+  console.log("reservations", reservations[0]);
   const { localization } = useLocalization();
 
   useFocusEffect(

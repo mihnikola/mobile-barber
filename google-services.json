@@ -1,73 +1,26 @@
 {
   "project_info": {
-    "project_number": "797653864913",
-    "project_id": "barberappointmentapp-85deb",
-    "storage_bucket": "barberappointmentapp-85deb.firebasestorage.app"
+    "project_number": "284831110803",
+    "project_id": "fta-barber-mob-app",
+    "storage_bucket": "fta-barber-mob-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:797653864913:android:db23aa35a8fd68598090f0",
+        "mobilesdk_app_id": "1:284831110803:android:7f9a283d71042d1062df66",
         "android_client_info": {
-          "package_name": "com.mihailovic93.barberappointmentapp"
+          "package_name": "com.barber.app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "797653864913-j0on398mo5riu9rkms322an19qvdhj3k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mihailovic93.barberappointmentapp",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "797653864913-mi48t5ukn42thrukjuclf1h32nnt6ml7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBbAcrN2w5sNbUIEacrjVJje0Nzlq3OyDE"
+          "current_key": "AIzaSyBO9Cq1-NZVbwXF4GiTGQrppNkPSeHtZ2A"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "797653864913-91mt5qd7betaavc8mfe4q4hbomn5ncvu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:797653864913:android:95349e44e18211b78090f0",
-        "android_client_info": {
-          "package_name": "com.mihailovic93.barberappver2"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "797653864913-mi48t5ukn42thrukjuclf1h32nnt6ml7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBbAcrN2w5sNbUIEacrjVJje0Nzlq3OyDE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "797653864913-91mt5qd7betaavc8mfe4q4hbomn5ncvu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

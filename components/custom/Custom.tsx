@@ -7,8 +7,10 @@ import Animated, {
 
 import getStartedIcon from "@/assets/images/arrowImg.png";
 import { useLocalization } from "@/context/LocalizationContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
-const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
+const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
   const { localization } = useLocalization();
 
   const buttonAnimationStyle = useAnimatedStyle(() => {
@@ -57,7 +59,8 @@ const CustomButton = ({ addToken, flatListRef, flatListIndex, dataLength }) => {
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current.scrollToIndex({ index: flatListIndex.value + 1 });
         } else {
-          addToken("approved");
+          AsyncStorage.setItem("initialToken", "true");
+          router.replace("(tabs)");
         }
       }}
     >

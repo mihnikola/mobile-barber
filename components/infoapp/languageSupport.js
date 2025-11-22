@@ -70,6 +70,7 @@ const languageSupport = () => {
             style={styles.languageItem}
             onPress={() => {
               if (localization.code !== item.code) {
+                
                 changeLocalization(item);
               }
             }}
