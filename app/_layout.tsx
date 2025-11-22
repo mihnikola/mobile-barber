@@ -44,6 +44,17 @@ export default function RootLayout() {
             headerTintColor: "white",
           }}
         />
+         <Stack.Screen
+          name="(zz_notification)"
+          options={{
+            title: "",
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "black",
+            },
+            headerTintColor: "white",
+          }}
+        />
       </Stack>
     </AppInitialized>
   );
