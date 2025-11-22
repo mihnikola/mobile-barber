@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     // });
     GoogleSignin.configure({
       webClientId:
-        "812982040815-1vnbh9mpi47mronlfimaa90ce7tsmkc9.apps.googleusercontent.com",
+        "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
       profileImageSize: 150,
     });
   }, []);

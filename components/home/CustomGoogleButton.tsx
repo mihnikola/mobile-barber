@@ -13,7 +13,7 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
     <>
       {isGoogleLoading && (
         <TouchableOpacity style={styles.button}>
-          <ActivityIndicator size={25} color="white" />
+          <ActivityIndicator size={22} color="white" />
         </TouchableOpacity>
       )}
       {!isGoogleLoading && (
