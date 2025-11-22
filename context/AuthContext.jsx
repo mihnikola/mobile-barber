@@ -30,6 +30,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [isToken, setIsToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -43,11 +44,6 @@ export const AuthProvider = ({ children }) => {
 
   const { localization } = useLocalization();
   useEffect(() => {
-    // GoogleSignin.configure({
-    //   webClientId:
-    //     "296975015881-kres44p2oghegd6ieqrur44ak1t89lpg.apps.googleusercontent.com",
-    //   profileImageSize: 150,
-    // });
     GoogleSignin.configure({
       webClientId:
         "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
@@ -150,7 +146,7 @@ export const AuthProvider = ({ children }) => {
       const x = await removeStorage();
       setIsMessage(false);
       setIsToken(null);
-      setIsLoading(false);
+      setIsLoadingLogin(false);
       setMessage(null);
       setStatus(null);
       setSuccess(null);
@@ -160,7 +156,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const logoutFirebase = async () => {
-    setIsLoading(true);
+    setIsLoadingLogin(true);
     await removeOtpParamsStorage();
     try {
       if (isToken) {
@@ -241,9 +237,8 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    console.log("getLanguageValue", languageValue, expoToken);
     setStatus(null);
-    setIsLoading(true);
+    setIsLoadingLogin(true);
     setError(null);
     try {
       const responseData = await post("/users/login", {
@@ -252,19 +247,19 @@ export const AuthProvider = ({ children }) => {
         expoToken,
       });
       if (responseData.status === 202) {
-        setIsLoading(false);
+        setIsLoadingLogin(false);
         setIsMessage(true);
         setError(localization.LOGIN.errorFields);
       }
       if (responseData.status === 606) {
-        setIsLoading(false);
+        setIsLoadingLogin(false);
         setIsMessage(true);
         setVerificationData({ email, password });
         setStatus(responseData.status);
         setMessage(localization.LOGIN.isVerified);
       }
       if (responseData.status === 200) {
-        setIsLoading(false);
+        setIsLoadingLogin(false);
         saveStorage(responseData.token);
         const lang = languageValue === "sr" || languageValue === null ? "srp" : "eng";
         saveToken(responseData.userId, expoToken, lang);
@@ -279,7 +274,7 @@ export const AuthProvider = ({ children }) => {
 
         setError(localization.SERVER_RESPONSE.error);
       }
-      setIsLoading(false);
+      setIsLoadingLogin(false);
     }
   };
 
@@ -324,9 +319,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const saveToken = async (userId, expoToken, lang) => {
-    setIsLoading(true);
+    setIsLoadingLogin(true);
     if (!expoToken) {
-      setIsLoading(false);
+      setIsLoadingLogin(false);
       return;
     }
     try {
@@ -336,11 +331,11 @@ export const AuthProvider = ({ children }) => {
         lang,
       });
       if (responseData.status === 200) {
-        setIsLoading(false);
+        setIsLoadingLogin(false);
         setIsMessage(true);
         setSuccess(localization.LOGIN.success);
       } else {
-        setIsLoading(false);
+        setIsLoadingLogin(false);
         setIsMessage(true);
         setError(
           `${localization.LOGIN.errorToken} ${
@@ -349,17 +344,15 @@ export const AuthProvider = ({ children }) => {
         );
       }
     } catch (err) {
-      setIsLoading(false);
+      setIsLoadingLogin(false);
       setIsMessage(true);
-      setIsLoading(false);
-
       setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
     }
   };
 
   const saveTokenViaGoogle = async (userId, expoToken, languageValue) => {
     if (!expoToken) {
-      setIsLoading(false);
+      setIsGoogleLoading(false);
       return;
     }
 
@@ -414,9 +407,10 @@ export const AuthProvider = ({ children }) => {
         loginViaGoogle,
         signIn,
         setIsLogout,
-        isLoading,
         isLogout,
         isGoogleLoading,
+        isLoadingLogin,
+        setIsLoadingLogin
       }}
     >
       {children}

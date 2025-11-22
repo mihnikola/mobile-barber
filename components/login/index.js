@@ -36,7 +36,7 @@ const LoginScreen = () => {
 
   const { localization } = useLocalization();
   const {
-    isLoading,
+    isLoadingLogin,
     setIsMessage,
     isMessage,
     error,
@@ -100,6 +100,11 @@ const LoginScreen = () => {
         pathname: "/(tabs)/(03_calendar)",
         params: { reevaluted: true },
       });
+    } else if (data === "settings") {
+      router.push({
+        pathname: "/(tabs)/(04_settings)",
+        params: { reevaluted: true },
+      });
     } else {
       router.push({
         pathname: "/(tabs)/(01_home)",
@@ -121,18 +126,12 @@ const LoginScreen = () => {
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
         <View style={styles.socialButtonsContainer}>
-          {/* {isGoogleLoading ? ( */}
           <View style={{ flex: 1, justifyContent: "center" }}>
             <CustomGoogleButton
               onPress={signIn}
               isGoogleLoading={isGoogleLoading}
             />
           </View>
-          {/* ) : (
-            <View style={{ flex: 1, justifyContent: "center" }}>
-              <CustomGoogleButton onPress={signIn} />
-            </View>
-          )} */}
         </View>
 
         <View style={styles.dividerContainer}>
@@ -165,7 +164,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={isLoading}
+          loading={isLoadingLogin}
           onPress={handleLogin}
           text={localization.LOGIN.submitBtn}
         />

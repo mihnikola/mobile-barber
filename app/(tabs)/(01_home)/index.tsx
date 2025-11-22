@@ -195,9 +195,9 @@ export default function App() {
       setModalVisible(true);
     }
   };
-  if (isLoading || isLoaderLocation) {
-    return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
-  }
+  // if (isLoading || isLoaderLocation) {
+  //   return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
+  // }
   if (modalVisible && locationsData?.length > 1) {
     return (
       <LocationsComponent

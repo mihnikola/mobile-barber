@@ -13,7 +13,6 @@ const AppointmentsComponent = () => {
   const { reservations, isLoading, detailsReservation, getReservationsData } =
     useReservations();
   const { company } = useCompany();
-  console.log("reservations", reservations[0]);
   const { localization } = useLocalization();
 
   useFocusEffect(
@@ -21,9 +20,7 @@ const AppointmentsComponent = () => {
       getReservationsData();
     }, [])
   );
-  if (isLoading) {
-    return <Loader />;
-  }
+ 
 
   return (
     <ScrollView style={styles.container}>

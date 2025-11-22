@@ -8,6 +8,10 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import Loader from "../Loader";
+import { useEffect, useState } from "react";
+import { SharedMessage } from "@/shared-components/SharedMessage";
+import { removeStorage } from "@/helpers/token";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -19,24 +23,42 @@ const SettingsComponent = () => {
     setIsLogout,
     isLogout,
     isLoading,
+    isLoadingLogin,
+    getTokenData,
     isToken,
+    setError,
   } = useAuth();
 
-  if (isLoading) {
+  useEffect(() => {
+    getTokenData();
+  }, []);
+
+  const [loader, setLoader] = useState(false);
+  const [logoutData, setLogoutData] = useState(false);
+
+  const logoutConfirm = async () => {
+    setLoader(true);
+    setIsLogout(false);
+    const x = await logoutFirebase();
+    setLoader(false);
+  };
+
+  if (loader) {
     return <SharedLoader />;
   }
-
   const redirectToLogin = () => {
-    router.push("/(z_auth)/login");
+    router.push({
+      pathname: "/(z_auth)/login",
+      params: { data: "settings" },
+    });
   };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
-      {isToken && (
+      {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
-      )}
-      {!isToken && (
+      ) : (
         <LoginRedirect
           onPress={redirectToLogin}
           title={localization.SETTINGS.clickHere}
@@ -47,14 +69,22 @@ const SettingsComponent = () => {
         <SharedQuestion
           isOpen={isLogout}
           onClose={() => setIsLogout(false)}
-          onLogOut={logoutFirebase}
-          
+          onLogOut={logoutConfirm}
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.leave}
           buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
+        />
+      )}
+      {logoutData && (
+        <SharedMessage
+          buttonText="Odlogovani ste"
+          isLoading={loader}
+          icon={<FontAwesome name="check" size={64} color="white" />}
+          onConfirm={() => setLogoutData(false)}
+          isOpen={logoutData}
         />
       )}
     </View>

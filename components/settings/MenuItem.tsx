@@ -5,19 +5,19 @@ import { Platform, StatusBar, StyleSheet, Switch, Text, TouchableOpacity } from 
     <TouchableOpacity
       style={[styles.menuItem, isLogout && styles.logoutMenuItem]}
       onPress={onPress}
-      disabled={isToggle} // Disable touch feedback for the whole row if it's a toggle
+      disabled={isToggle} 
     >
       <MaterialCommunityIcons
         name={iconName}
         size={24}
-        color={isLogout ? '#E57373' : '#B0B0B0'} // Red for logout, light gray for others
+        color={isLogout ? '#E57373' : '#B0B0B0'} 
         style={styles.menuItemIcon}
       />
       <Text style={[styles.menuItemText, isLogout && styles.logoutText]}>{title}</Text>
       {isToggle ? (
         <Switch
-          trackColor={{ false: '#767577', true: '#81b0ff' }} // Example track colors
-          thumbColor={toggleValue ? '#f5dd4b' : '#f4f3f4'} // Example thumb colors
+          trackColor={{ false: '#767577', true: '#81b0ff' }} 
+          thumbColor={toggleValue ? '#f5dd4b' : '#f4f3f4'} 
           ios_backgroundColor="#3e3e3e"
           onValueChange={onToggle}
           value={toggleValue}

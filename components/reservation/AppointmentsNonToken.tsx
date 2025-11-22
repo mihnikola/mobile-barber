@@ -15,7 +15,10 @@ function AppointmentsNonToken() {
   const { company } = useCompany();
   const { localization } = useLocalization();
   const routeHandler = () => {
-    router.push("/(z_auth)/login");
+    router.push({
+      pathname: "/(z_auth)/login",
+      params: { data: "appointments" },
+    });
   };
   return (
     <ScrollView style={styles.container}>
