@@ -5,6 +5,7 @@ import {
   Animated,
   TouchableOpacity,
   View,
+  Platform,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
@@ -23,12 +24,14 @@ import * as Notifications from "expo-notifications";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
 
 // 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
+//FIREBASE
 Notifications.setNotificationChannelAsync("default", {
   name: "Default",
   importance: Notifications.AndroidImportance.MAX,
   vibrationPattern: [0, 250, 250, 250],
   lightColor: "#FF231F7C",
 });
+//FIREBASE
 let hasHandledInitial = false;
 let permissionRequested = false; // globalno, da se permission i token traže samo jednom
 
@@ -44,9 +47,11 @@ export default function App() {
     fetchLocations,
   } = useFetchLocations();
 
+  //FIREBASE
   const redirectReservation = (notification) => {
-    console.log("notification", notification);
+    console.log("notification zocccccccc", notification);
     const id = notification.data.url;
+    console.log("NE NotificationProvider+++");
 
     router.replace({
       pathname: "/(zz_notification)",
@@ -54,6 +59,7 @@ export default function App() {
     });
   };
 
+  //FIREBASE
   // 🔐 Dozvole i token — SAMO JEDNOM
   useEffect(() => {
     const requestPermissionAndToken = async () => {
@@ -80,53 +86,26 @@ export default function App() {
 
     requestPermissionAndToken();
   }, []);
+
+  //FIREBASE
   useEffect(() => {
     let isMounted = true; // zaštita ako se komponenta unmountuje tokom async poziva
+    const setup = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      console.log("🔔 Notification permission:", status);
 
-    // 🔔 Foreground poruke
-    const unsubscribeOnMessage = messaging().onMessage(
-      async (remoteMessage) => {
-        console.log("📩 Foreground message:", remoteMessage);
-        const { notification, data } = remoteMessage;
-
-        if (notification) {
-          await Notifications.scheduleNotificationAsync({
-            content: {
-              title: notification.title || "New Message",
-              body: notification.body,
-              data: data,
-            },
-            trigger: null,
-          });
-        }
+      // 🔹 2. Android channel (NEOPHODNO za prikaz)
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "Default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+        console.log("📢 Notification channel created");
       }
-    );
-
-    // 👆 Klik na lokalnu notifikaciju
-    const notificationResponseListener =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(
-          "👆 Kliknuto na notifikaciju:",
-          response?.notification?.request?.content?.data
-        );
-        const notificationdata = response?.notification?.request?.content;
-
-        redirectReservation(notificationdata);
-      });
-
-    // 💡 Primljena notifikacija dok je app otvoren
-    const notificationReceivedListener =
-      Notifications.addNotificationReceivedListener((notification) => {
-        // if (notification) {
-        //   console.log(
-        //     "🔔 Primljena notifikacija (foreground):",
-        //     notification.request.content.data
-        //   );
-        //   const notificationdata = notification.request.content;
-        //   redirectReservation(notificationdata);
-        // }
-      });
-
+    };
+    setup();
     // 📨 App otvorena iz backgrounda
     const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(
       (remoteMessage) => {
@@ -135,6 +114,14 @@ export default function App() {
           remoteMessage?.notification
         );
         redirectReservation(remoteMessage);
+      }
+    );
+
+    const clickListener = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log("object",response)
+        const data = response?.notification?.request?.content;
+        redirectReservation(data);
       }
     );
 
@@ -159,17 +146,11 @@ export default function App() {
 
     return () => {
       isMounted = false;
-
-      unsubscribeOnMessage();
       unsubscribeOnNotificationOpened();
-      Notifications.removeNotificationSubscription(
-        notificationResponseListener
-      );
-      Notifications.removeNotificationSubscription(
-        notificationReceivedListener
-      );
+      Notifications.removeNotificationSubscription(clickListener);
     };
   }, []);
+  //END OF FIREBASE
 
   const { localization } = useLocalization();
 

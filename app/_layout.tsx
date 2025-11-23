@@ -4,7 +4,7 @@ import messaging from "@react-native-firebase/messaging";
 
 export default function RootLayout() {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    console.log("Message handled in the background!", remoteMessage);
+    console.log("ajmo Message handled in the background!", remoteMessage);
   });
 
   return (
@@ -48,11 +48,7 @@ export default function RootLayout() {
           name="(zz_notification)"
           options={{
             title: "",
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "black",
-            },
-            headerTintColor: "white",
+            headerShown: false,
           }}
         />
       </Stack>
