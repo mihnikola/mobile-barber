@@ -21,12 +21,10 @@ export default function AppInitialized(props) {
       <LocalizationProvider>
         <CompanyProvider>
           <AuthProvider>
-            <NotificationProvider>
-              <GlobalErrorProvider>
-                <GlobalErrorHandler />
-                <ReservationProvider>{props.children}</ReservationProvider>
-              </GlobalErrorProvider>
-            </NotificationProvider>
+            <GlobalErrorProvider>
+              <GlobalErrorHandler />
+              <ReservationProvider>{props.children}</ReservationProvider>
+            </GlobalErrorProvider>
           </AuthProvider>
         </CompanyProvider>
       </LocalizationProvider>

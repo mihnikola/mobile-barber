@@ -22,15 +22,21 @@ import messaging from "@react-native-firebase/messaging";
 
 import * as Notifications from "expo-notifications";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
+import { registerNotificationListeners } from "@/helpers/notification";
+import { verifyFCMSetup } from "@/helpers/verifyFCMSetup";
+import { getLanguageValue, setLanguageValue } from "@/helpers/language";
 
 // 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
 //FIREBASE
-Notifications.setNotificationChannelAsync("default", {
-  name: "Default",
-  importance: Notifications.AndroidImportance.MAX,
-  vibrationPattern: [0, 250, 250, 250],
-  lightColor: "#FF231F7C",
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
 });
+
 //FIREBASE
 let hasHandledInitial = false;
 let permissionRequested = false; // globalno, da se permission i token traže samo jednom
@@ -40,6 +46,10 @@ export default function App() {
   const { company, isLoading } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
+  useEffect(() => {
+    const cleanup = registerNotificationListeners();
+    return cleanup;
+  }, []);
   const {
     locationsData,
     isLoading: isLoaderLocation,
@@ -49,10 +59,7 @@ export default function App() {
 
   //FIREBASE
   const redirectReservation = (notification) => {
-    console.log("notification zocccccccc", notification);
     const id = notification.data.url;
-    console.log("NE NotificationProvider+++");
-
     router.replace({
       pathname: "/(zz_notification)",
       params: { itemId: id },
@@ -62,29 +69,38 @@ export default function App() {
   //FIREBASE
   // 🔐 Dozvole i token — SAMO JEDNOM
   useEffect(() => {
-    const requestPermissionAndToken = async () => {
+    // const requestPermissionAndToken = async () => {
+    //   try {
+    //     if (permissionRequested) return; // ⚡️ već urađeno
+    //     permissionRequested = true;
+    //     const authStatus = await messaging().requestPermission();
+    //     const enabled =
+    //       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    //       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    //     if (enabled) {
+    //       console.log("✅ Notification permission granted.");
+    //       const token = await messaging().getToken();
+    //       console.log("🔑 FCM Token:", token);
+    //       await saveExpoTokenStorage(token);
+    //     } else {
+    //       console.log("🚫 Notification permission denied.");
+    //     }
+    //   } catch (error) {
+    //     console.error("❌ Error with notification permission/token:", error);
+    //   }
+    // };
+    setTimeout(async () => {
       try {
-        if (permissionRequested) return; // ⚡️ već urađeno
-        permissionRequested = true;
-        const authStatus = await messaging().requestPermission();
-        const enabled =
-          authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-          authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-        if (enabled) {
-          console.log("✅ Notification permission granted.");
-          const token = await messaging().getToken();
-          console.log("🔑 FCM Token:", token);
-          await saveExpoTokenStorage(token);
-        } else {
-          console.log("🚫 Notification permission denied.");
+        const languageValue = await getLanguageValue();
+        if (!languageValue) {
+          await setLanguageValue("sr");
         }
-      } catch (error) {
-        console.error("❌ Error with notification permission/token:", error);
-      }
-    };
+      } catch (error) {}
+    }, 1000);
 
-    requestPermissionAndToken();
+    // requestPermissionAndToken();
+    verifyFCMSetup();
   }, []);
 
   //FIREBASE
@@ -119,7 +135,7 @@ export default function App() {
 
     const clickListener = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log("object",response)
+        console.log("object", response);
         const data = response?.notification?.request?.content;
         redirectReservation(data);
       }

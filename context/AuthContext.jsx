@@ -229,13 +229,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const expoToken = await getExpoTokenStorage();
-    const languageValue = await getLanguageValue();
-
-    if (!email || !password ) {
+    const languageValue  = await getLanguageValue();
+    if (!email || !password) {
       setIsMessage(true);
       setError(localization.LOGIN.error);
       return;
     }
+     if (!languageValue) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noLanguage);
+      return;
+    }
+     if (!expoToken) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noToken);
+      return;
+    }
+   
+
 
     setStatus(null);
     setIsLoadingLogin(true);
@@ -261,7 +272,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         setIsLoadingLogin(false);
         saveStorage(responseData.token);
-        const lang = languageValue === "sr" || languageValue === null ? "srp" : "eng";
+        const lang = languageValue === "sr" || languageValue === null ? "sr" : "en";
         saveToken(responseData.userId, expoToken, lang);
       }
     } catch (err) {
@@ -294,7 +305,7 @@ export const AuthProvider = ({ children }) => {
 
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
-        const lang = languageValue === "sr" ? "srp" : "eng";
+        const lang = languageValue === "sr" ? "sr" : "en";
 
         saveTokenViaGoogle(responseData.userId, responseData.token, lang);
       }

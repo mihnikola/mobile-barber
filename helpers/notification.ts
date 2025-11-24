@@ -1,52 +1,35 @@
-import messaging from "@react-native-firebase/messaging";
+// src/notifications/notificationListeners.ts
 import * as Notifications from "expo-notifications";
 import { router } from "expo-router";
 
-// Globalni foreground listener
-export const setupForegroundListener = () => {
-  // Create Android channel early
-  Notifications.setNotificationChannelAsync("default", {
-    name: "Default",
-    importance: Notifications.AndroidImportance.MAX,
-  });
-
-  // Foreground – convert FCM → Expo local notif
-  const subFG = messaging().onMessage(async (remoteMessage) => {
-    console.log("📩 Foreground FCM:", remoteMessage);
-
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: remoteMessage.notification?.title,
-        body: remoteMessage.notification?.body,
-        data: remoteMessage.data,
-      },
-      trigger: null,
+export function registerNotificationListeners() {
+  // 1️⃣ Foreground message received
+  const receiveListener =
+    Notifications.addNotificationReceivedListener((notification) => {
+      const data = notification.request?.content?.data;
+      console.log("📩 FOREGROUND MESSAGE:", data);
+      
+      // Ovde možeš da radiš state update, Redux,, Zustand itd.
     });
-  });
 
-  // Click on Expo notification (foreground)
+  // 2️⃣ User clicked notification (works in foreground, background, quit)
+  const clickListener =
+    Notifications.addNotificationResponseReceivedListener((response) => {
+      const data = response.notification?.request?.content?.data;
+      console.log("👆 NOTIFICATION CLICK:", data);
 
-  Notifications.addNotificationResponseReceivedListener((response) => {
-    try {
-      const data = response.notification.request.content;
+      // Npr. redirect
+      if (data?.url) {
+        router.push({
+          pathname: "/(zz_notification)",
+          params: { itemId: data.url },
+        });
+      }
+    });
 
-      console.log("👆 NOTIFICATION CLICKED:", data);
-
-      router.push({
-        pathname: "/(zz_notification)",
-        params: { itemId: data },
-      });
-    } catch (err) {
-      console.log("❌ ERROR HANDLING CLICK", err);
-    }
-  });
-
-  //   Notifications.addNotificationResponseReceivedListener((response) => {
-  //     console.log("🔵 CLICK EVENT TRIGGERED", response);
-  //   });
-
+  // Cleanup
   return () => {
-    subFG();
-    Notifications.removeNotificationSubscription(clickListener);
+    receiveListener.remove();
+    clickListener.remove();
   };
-};
+}
