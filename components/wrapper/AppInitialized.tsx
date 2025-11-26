@@ -5,6 +5,7 @@ import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
+import { NotificationProvider } from "@/context/NotificationProvider";
 
 export default function AppInitialized(props) {
   const MyDarkTheme = {

@@ -14,7 +14,6 @@ export default function ReservationInitial() {
     useCallback(() => {
       if (isFocused) {
         console.log("xxxx")
-        router.push("/(tabs)/(03_calendar)");
         checkToken();
       }
     }, [isFocused, reevalueted])

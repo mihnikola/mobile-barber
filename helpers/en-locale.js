@@ -83,6 +83,7 @@ export const ENG_LOCALIZATION = {
     errorId: "Reservation id is not provided.",
     title: "Reservations",
     postError: "Error while submitting your reservation.",
+
     cancelReservation: {
       cancelButton: "Cancel",
       cancelQuestion: "Are you sure you want to cancel this reservation?",
@@ -178,6 +179,8 @@ We reserve the right to modify the terms of use at any time, and users will be n
     },
   },
   LOGIN: {
+    noToken: "You don't have FCM token",
+    noLanguage: "You don't have language code",
     title: "Let's get you Login!",
     description: "Enter your information below",
     or: "Or Login With",

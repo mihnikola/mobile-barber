@@ -2,6 +2,8 @@
 import * as Notifications from "expo-notifications";
 import messaging from "@react-native-firebase/messaging";
 import { Platform } from "react-native";
+import { router } from "expo-router";
+import { saveExpoTokenStorage } from "./expoToken";
 
 export async function verifyFCMSetup() {
   console.log("🔍 [FCM CHECK] Starting verification...");
@@ -31,6 +33,9 @@ export async function verifyFCMSetup() {
     // 4️⃣ Dobij token
     const token = await messaging().getToken();
     if (token) {
+      setTimeout(async () => {
+        await saveExpoTokenStorage(token);
+      }, 1000);
       console.log("✅ [FCM Token]:", token);
     } else {
       console.error("❌ [FCM] Token is NULL (Firebase not issuing token)");
@@ -43,11 +48,26 @@ export async function verifyFCMSetup() {
         content: {
           title: remoteMessage?.notification?.title ?? "Nova poruka",
           body: remoteMessage?.notification?.body ?? "",
+          data: remoteMessage?.data,
         },
         trigger: null,
       });
     });
 
+    const redirectReservation = (notification) => {
+      const id = notification.data.url;
+      router.replace({
+        pathname: "/(zz_notification)",
+        params: { itemId: id },
+      });
+    };
+    Notifications.addNotificationResponseReceivedListener((response) => {
+      const data = response.notification?.request?.content;
+      if (data?.url) {
+        console.log("👆 LOCAL NOTIFICATION CLICKED:", data);
+        redirectReservation(data);
+      }
+    });
     console.log("✅ [FCM] Foreground listener active");
 
     // 6️⃣ Background listener

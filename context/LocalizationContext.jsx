@@ -14,7 +14,7 @@ export const LocalizationProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const changeFirebaseLocalization = async (lang) => {
-    const langData = lang === "en" ? "eng" : "srp";
+    const langData = lang === "en" ? "en" : "sr";
     try {
       const token = await getStorage();
       if (!token) return;

@@ -5,6 +5,7 @@ import {
   Animated,
   TouchableOpacity,
   View,
+  Platform,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
@@ -21,14 +22,22 @@ import messaging from "@react-native-firebase/messaging";
 
 import * as Notifications from "expo-notifications";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
+import { registerNotificationListeners } from "@/helpers/notification";
+import { verifyFCMSetup } from "@/helpers/verifyFCMSetup";
+import { getLanguageValue, setLanguageValue } from "@/helpers/language";
 
 // 📱 Android kanal — OBAVEZAN za prikaz notifikacija iz FCM konzole
-Notifications.setNotificationChannelAsync("default", {
-  name: "Default",
-  importance: Notifications.AndroidImportance.MAX,
-  vibrationPattern: [0, 250, 250, 250],
-  lightColor: "#FF231F7C",
+//FIREBASE
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
 });
+
+//FIREBASE
 let hasHandledInitial = false;
 let permissionRequested = false; // globalno, da se permission i token traže samo jednom
 
@@ -37,6 +46,10 @@ export default function App() {
   const { company, isLoading } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
+  useEffect(() => {
+    const cleanup = registerNotificationListeners();
+    return cleanup;
+  }, []);
   const {
     locationsData,
     isLoading: isLoaderLocation,
@@ -44,89 +57,71 @@ export default function App() {
     fetchLocations,
   } = useFetchLocations();
 
+  //FIREBASE
   const redirectReservation = (notification) => {
-    console.log("notification", notification);
     const id = notification.data.url;
-
     router.replace({
       pathname: "/(zz_notification)",
       params: { itemId: id },
     });
   };
 
+  //FIREBASE
   // 🔐 Dozvole i token — SAMO JEDNOM
   useEffect(() => {
-    const requestPermissionAndToken = async () => {
+    // const requestPermissionAndToken = async () => {
+    //   try {
+    //     if (permissionRequested) return; // ⚡️ već urađeno
+    //     permissionRequested = true;
+    //     const authStatus = await messaging().requestPermission();
+    //     const enabled =
+    //       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    //       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    //     if (enabled) {
+    //       console.log("✅ Notification permission granted.");
+    //       const token = await messaging().getToken();
+    //       console.log("🔑 FCM Token:", token);
+    //       await saveExpoTokenStorage(token);
+    //     } else {
+    //       console.log("🚫 Notification permission denied.");
+    //     }
+    //   } catch (error) {
+    //     console.error("❌ Error with notification permission/token:", error);
+    //   }
+    // };
+    setTimeout(async () => {
       try {
-        if (permissionRequested) return; // ⚡️ već urađeno
-        permissionRequested = true;
-        const authStatus = await messaging().requestPermission();
-        const enabled =
-          authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-          authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-        if (enabled) {
-          console.log("✅ Notification permission granted.");
-          const token = await messaging().getToken();
-          console.log("🔑 FCM Token:", token);
-          await saveExpoTokenStorage(token);
-        } else {
-          console.log("🚫 Notification permission denied.");
+        const languageValue = await getLanguageValue();
+        if (!languageValue) {
+          await setLanguageValue("sr");
         }
-      } catch (error) {
-        console.error("❌ Error with notification permission/token:", error);
-      }
-    };
+      } catch (error) {}
+    }, 1000);
 
-    requestPermissionAndToken();
+    // requestPermissionAndToken();
+    verifyFCMSetup();
   }, []);
+
+  //FIREBASE
   useEffect(() => {
     let isMounted = true; // zaštita ako se komponenta unmountuje tokom async poziva
+    const setup = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      console.log("🔔 Notification permission:", status);
 
-    // 🔔 Foreground poruke
-    const unsubscribeOnMessage = messaging().onMessage(
-      async (remoteMessage) => {
-        console.log("📩 Foreground message:", remoteMessage);
-        const { notification, data } = remoteMessage;
-
-        if (notification) {
-          await Notifications.scheduleNotificationAsync({
-            content: {
-              title: notification.title || "New Message",
-              body: notification.body,
-              data: data,
-            },
-            trigger: null,
-          });
-        }
+      // 🔹 2. Android channel (NEOPHODNO za prikaz)
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "Default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+        console.log("📢 Notification channel created");
       }
-    );
-
-    // 👆 Klik na lokalnu notifikaciju
-    const notificationResponseListener =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(
-          "👆 Kliknuto na notifikaciju:",
-          response?.notification?.request?.content?.data
-        );
-        const notificationdata = response?.notification?.request?.content;
-
-        redirectReservation(notificationdata);
-      });
-
-    // 💡 Primljena notifikacija dok je app otvoren
-    const notificationReceivedListener =
-      Notifications.addNotificationReceivedListener((notification) => {
-        // if (notification) {
-        //   console.log(
-        //     "🔔 Primljena notifikacija (foreground):",
-        //     notification.request.content.data
-        //   );
-        //   const notificationdata = notification.request.content;
-        //   redirectReservation(notificationdata);
-        // }
-      });
-
+    };
+    setup();
     // 📨 App otvorena iz backgrounda
     const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(
       (remoteMessage) => {
@@ -135,6 +130,14 @@ export default function App() {
           remoteMessage?.notification
         );
         redirectReservation(remoteMessage);
+      }
+    );
+
+    const clickListener = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log("object", response);
+        const data = response?.notification?.request?.content;
+        redirectReservation(data);
       }
     );
 
@@ -159,17 +162,11 @@ export default function App() {
 
     return () => {
       isMounted = false;
-
-      unsubscribeOnMessage();
       unsubscribeOnNotificationOpened();
-      Notifications.removeNotificationSubscription(
-        notificationResponseListener
-      );
-      Notifications.removeNotificationSubscription(
-        notificationReceivedListener
-      );
+      Notifications.removeNotificationSubscription(clickListener);
     };
   }, []);
+  //END OF FIREBASE
 
   const { localization } = useLocalization();
 

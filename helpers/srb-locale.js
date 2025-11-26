@@ -184,6 +184,8 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     },
   },
   LOGIN: {
+     noToken: "FCM token nije dostupan",
+    noLanguage: "Jezik nije dostupan ",
     title: "Prijava",
     description: "Molimo Vas da unesete podatke",
     or: "ili popunite formu",
