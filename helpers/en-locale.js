@@ -35,11 +35,13 @@ export const ENG_LOCALIZATION = {
     title: "Choose barber",
     error: "Error while fetching employers...",
     notFound: "There are no available barbers",
+    network:"Something went wrong, please try again later",
   },
   PLACES: {
     title: "Choose location",
     error: "Error while fetching locations...",
     close: "Close",
+    network:"Something went wrong, please try again later",
   },
   DATE: {
     title: "Choose date",

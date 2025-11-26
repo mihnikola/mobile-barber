@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }) => {
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
-      setIsGoogleLoading(false);
       console.log("xxxxxxxxxxxxx");
       if (isSuccessResponse(response)) {
         console.log("wwwwwwwwwwwwwwwww");
@@ -296,6 +295,18 @@ export const AuthProvider = ({ children }) => {
     const { user } = userData;
     const expoToken = await getExpoTokenStorage();
     const languageValue = await getLanguageValue();
+
+    
+     if (!languageValue) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noLanguage);
+      return;
+    }
+     if (!expoToken) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noToken);
+      return;
+    }
 
     try {
       const responseData = await post("/users/loginViaGoogle", {
