@@ -63,9 +63,10 @@ export async function verifyFCMSetup() {
     };
     Notifications.addNotificationResponseReceivedListener((response) => {
       const data = response.notification?.request?.content;
-
-      console.log("👆 LOCAL NOTIFICATION CLICKED:", data);
-      redirectReservation(data);
+      if (data?.url) {
+        console.log("👆 LOCAL NOTIFICATION CLICKED:", data);
+        redirectReservation(data);
+      }
     });
     console.log("✅ [FCM] Foreground listener active");
 

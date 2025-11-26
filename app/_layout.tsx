@@ -1,11 +1,8 @@
 import AppInitialized from "@/components/wrapper/AppInitialized";
 import { Stack } from "expo-router";
-import messaging from "@react-native-firebase/messaging";
 
 export default function RootLayout() {
-  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    console.log("ajmo Message handled in the background!", remoteMessage);
-  });
+ 
 
   return (
     <AppInitialized>

@@ -4,8 +4,8 @@ import { router } from "expo-router";
 
 export const useHomeNotification = () => {
   useEffect(() => {
-    const redirectReservation = (notification: any) => {
-      const id = notification?.data?.url;
+    const redirectReservation = (data: any) => {
+      const id = data?.url;
       if (id) {
         router.replace({
           pathname: "/(zz_notification)",
@@ -14,16 +14,28 @@ export const useHomeNotification = () => {
       }
     };
 
-    // 1️⃣ Background click
-    const unsubscribeBackground = messaging().onNotificationOpenedApp((remoteMessage) => {
-      if (remoteMessage) redirectReservation(remoteMessage);
-    });
+    // 1️⃣ App opened from background
+    // const unsubscribeOpen = messaging().onNotificationOpenedApp(
+    //   (remoteMessage) => {
+    //     console.log("🔥 Background click:", remoteMessage);
+    //     if (remoteMessage?.data) {
+    //       redirectReservation(remoteMessage.data);
+    //     }
+    //   }
+    // );
 
-    // 2️⃣ Killed state
-    messaging().getInitialNotification().then((remoteMessage) => {
-      if (remoteMessage) redirectReservation(remoteMessage);
-    });
+    // 2️⃣ App opened from quit (killed)
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage?.data) {
+          console.log("🚀 Quit click:", remoteMessage);
+          redirectReservation(remoteMessage.data);
+        }
+      });
 
-    return () => unsubscribeBackground();
+    // return () => {
+    //   unsubscribeOpen();
+    // };
   }, []);
 };
