@@ -35,13 +35,17 @@ export const SRB_LOCALIZATION = {
   BARBERS: {
     title: "Odaberi frizera",
     error: "Greška prilikom uzimanja podataka o zaposlenima...",
-    notFound:"Trenutno nema dostupnih radnika"
+    notFound:"Trenutno nema dostupnih radnika",
+    network:"Doslo je do greske. Molimo vas pokusajte kasnije",
+
   },
   PLACES: {
     title: "Odaberi lokaciju",
     error: "Greška prilikom preuzimanja lokacija...",
     title: "Odaberi barber lokaciju",
     close: "Zatvori",
+    network:"Doslo je do greske. Molimo vas pokusajte kasnije",
+
   },
   SERVICES: {
     title: "Cenovnik & Usluge",

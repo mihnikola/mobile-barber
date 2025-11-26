@@ -23,11 +23,11 @@ const useFetchServices = () => {
     }
   };
 
-  useEffect(() => {
-    fetchAllServices();
-  }, []);
+  // useEffect(() => {
+  //   fetchAllServices();
+  // }, []);
 
-  return { serviceData, isLoading, error };
+  return { serviceData, isLoading, error, fetchAllServices };
 };
 
 export default useFetchServices;

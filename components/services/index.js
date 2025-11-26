@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
-import { router } from "expo-router";
+import { router, usePathname } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
@@ -12,7 +12,8 @@ import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
-  const { serviceData, isLoading } = useFetchServices();
+  const { serviceData, isLoading, fetchAllServices } = useFetchServices();
+  const pathname = usePathname();
 
   const { company } = useCompany();
 
@@ -27,6 +28,10 @@ const MenuServices = () => {
     updateReservation({ ...reservation, service });
     router.push("/(tabs)/(02_barbers)/employers");
   };
+
+  useEffect(() => {
+    fetchAllServices(); 
+  }, [pathname]);
 
   const { localization } = useLocalization();
 
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
   },
   captureContainer: {
     position: "absolute",
-    marginHorizontal: 15, 
+    marginHorizontal: 15,
   },
   capture: {
     fontSize: 32,

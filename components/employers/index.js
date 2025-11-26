@@ -76,7 +76,7 @@ const Employers = () => {
       {!isLoading && error && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>
-            Something went wrong, please try again later
+            {localization.BARBERS.network}
           </Text>
         </View>
       )}
