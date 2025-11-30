@@ -32,6 +32,7 @@ const useUserChange = () => {
         type: fileType,
       });
     }
+    console.log("formData",formData)
     try {
       const storedToken = await AsyncStorage.getItem("token");
       const response = await axios.put(
@@ -53,6 +54,7 @@ const useUserChange = () => {
         setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
+      console.log("err",error)
       setIsMessage(true);
       setErrorChange(localization.SETTINGS.ERROR.label);
       setIsLoadingChange(false);

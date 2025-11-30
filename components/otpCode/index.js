@@ -17,6 +17,7 @@ import {
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import WrapperAuth from "../wrapperAuth/WrapperAuth";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -48,7 +49,7 @@ const otpCode = () => {
     setIsVerified,
     verificationOTPCode,
     checkverifyEmail,
-    verificationOTPCodeResend
+    verificationOTPCodeResend,
   } = useSubmitOtpCode();
 
   const handleVerify = async () => {
@@ -110,8 +111,7 @@ const otpCode = () => {
 
   if (verifyData) {
     return (
-      <ScrollView style={styles.container}>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
+      <WrapperAuth>
         <View>
           <Text style={styles.mainTitle}>
             {localization.OTP_CODE.mainTitle}
@@ -153,7 +153,7 @@ const otpCode = () => {
             buttonText={localization.OK.label}
           />
         )}
-      </ScrollView>
+      </WrapperAuth>
     );
   }
 };

@@ -2,8 +2,6 @@ import AppInitialized from "@/components/wrapper/AppInitialized";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
- 
-
   return (
     <AppInitialized>
       <Stack screenOptions={{ headerShown: false }}>
@@ -34,14 +32,10 @@ export default function RootLayout() {
           name="(z_auth)"
           options={{
             title: "",
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "black",
-            },
-            headerTintColor: "white",
+            headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="(zz_notification)"
           options={{
             title: "",

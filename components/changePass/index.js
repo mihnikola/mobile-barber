@@ -12,6 +12,7 @@ import SharedPassword from "@/shared-components/SharedPassword";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import WrapperAuth from "../wrapperAuth/WrapperAuth";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();
@@ -45,8 +46,7 @@ const changePass = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
+    <WrapperAuth>
       <View>
         <Text style={styles.mainTitle}>
           {localization.CHANGE_PASS.mainTitle}
@@ -93,7 +93,7 @@ const changePass = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </ScrollView>
+    </WrapperAuth>
   );
 };
 const styles = StyleSheet.create({
