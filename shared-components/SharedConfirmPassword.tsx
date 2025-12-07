@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: "#ccc",
     fontSize: 14,
-    marginBottom: 8,
-    marginTop: 15,
+    marginTop: 10,
   },
   errorText: {
     color: "red",

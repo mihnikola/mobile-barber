@@ -112,23 +112,24 @@ const otpCode = () => {
   if (verifyData) {
     return (
       <WrapperAuth>
-        <View>
-          <Text style={styles.mainTitle}>
-            {localization.OTP_CODE.mainTitle}
-          </Text>
+        <View style={{ flex: 1 }}>
+          <View>
+            <Text style={styles.mainTitle}>
+              {localization.OTP_CODE.mainTitle}
+            </Text>
+          </View>
+        <View style={{marginTop:20}}>
+            <Text style={styles.subtitle}>
+              {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
+            </Text>
+            <Text style={styles.subtitle}>
+              {localization.OTP_CODE.subtitleSecondary}
+            </Text>
+          </View>
+          <OtpInput code={code} setCode={setCode} />
+          <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
+          {/* <SharedImageForgotPass /> */}
         </View>
-        <View>
-          <Text style={styles.subtitle}>
-            {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
-          </Text>
-          <Text style={styles.subtitle}>
-            {localization.OTP_CODE.subtitleSecondary}
-          </Text>
-        </View>
-        <OtpInput code={code} setCode={setCode} />
-        <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
-        {/* <SharedImageForgotPass /> */}
-
         <View style={styles.btnFooter}>
           <SharedButton
             disabled={code.join("").length < 6}
@@ -195,7 +196,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
     width: 290,
@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: "#ccc",
-    padding: 5,
   },
   socialButtonsContainer: {
     flexDirection: "row",

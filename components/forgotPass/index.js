@@ -41,30 +41,31 @@ const ForgotPassword = () => {
   };
   return (
     <WrapperAuth>
-      <View style={{ alignItems: "center" }}>
-        <Text style={styles.mainTitle}>
-          {localization.FORGOT_PASSWORD.title}
-        </Text>
+      <View style={{ flex: 1}}>
+        <View>
+          <Text style={styles.mainTitle}>
+            {localization.FORGOT_PASSWORD.title}
+          </Text>
 
-        <Text style={styles.subtitle}>
-          {localization.FORGOT_PASSWORD.subtitle}
-        </Text>
+          <Text style={styles.subtitle}>
+            {localization.FORGOT_PASSWORD.subtitle}
+          </Text>
+        </View>
+        <View style={{marginTop:20}}>
+          <SharedInput
+            label={localization.EMAIL.label}
+            value={email}
+            onChangeText={handleEmailChange}
+            placeholder={localization.EMAIL.placeholder}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
+            error={emailError}
+          />
+        </View>
       </View>
 
-      <View style={{ marginTop: 32 }}>
-        <SharedInput
-          label={localization.EMAIL.label}
-          value={email}
-          onChangeText={handleEmailChange}
-          placeholder={localization.EMAIL.placeholder}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          style={styles.input}
-          error={emailError}
-        />
-      </View>
-
-      <View style={{ marginTop: 24 }}>
+      <View>
         <SharedButton
           disabled={emailError.length > 0 || isLoading}
           onPress={navHandler}
@@ -87,17 +88,14 @@ const ForgotPassword = () => {
   );
 };
 const styles = StyleSheet.create({
-
   mainTitle: {
     fontSize: 28,
     fontWeight: "700",
-    marginBottom: 12,
     color: "#000",
   },
   subtitle: {
     fontSize: 16,
     color: "#555",
-    marginBottom: 24,
     lineHeight: 22,
   },
   radiobtn: {
@@ -128,7 +126,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,

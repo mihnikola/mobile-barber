@@ -2,9 +2,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getLanguageValue = async () => {
   try {
-    return await AsyncStorage.getItem("languageValue");
+    const value = await AsyncStorage.getItem("languageValue");
+    return value ?? "sr"; // default to "en" if no value is stored
   } catch (e) {
-    // error reading value
+    // console.error("Error reading language value from AsyncStorage:", e);
+    // return "sr"; // fallback default
   }
 };
 

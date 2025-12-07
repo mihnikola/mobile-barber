@@ -5,7 +5,7 @@ import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
-import { NotificationProvider } from "@/context/NotificationProvider";
+import { InternetProvider } from "@/context/InternetContext";
 
 export default function AppInitialized(props) {
   const MyDarkTheme = {
@@ -18,16 +18,18 @@ export default function AppInitialized(props) {
 
   return (
     <ThemeProvider value={MyDarkTheme}>
-      <LocalizationProvider>
-        <CompanyProvider>
-          <AuthProvider>
-            <GlobalErrorProvider>
-              <GlobalErrorHandler />
-              <ReservationProvider>{props.children}</ReservationProvider>
-            </GlobalErrorProvider>
-          </AuthProvider>
-        </CompanyProvider>
-      </LocalizationProvider>
+      <InternetProvider>
+        <LocalizationProvider>
+          <CompanyProvider>
+            <AuthProvider>
+              <GlobalErrorProvider>
+                <GlobalErrorHandler />
+                <ReservationProvider>{props.children}</ReservationProvider>
+              </GlobalErrorProvider>
+            </AuthProvider>
+          </CompanyProvider>
+        </LocalizationProvider>
+      </InternetProvider>
     </ThemeProvider>
   );
 }

@@ -24,19 +24,21 @@ const useUserChange = () => {
         filename.split(".").pop() === "png"
           ? "image/png"
           : filename.split(".").pop() === "jpg"
-            ? "image/jpg"
-            : "image/jpeg";
+          ? "image/jpg"
+          : "image/jpeg";
       formData.append("image", {
         uri: userData?.image,
         name: filename,
         type: fileType,
       });
     }
-    console.log("formData",formData)
+
+    const obj = Object.fromEntries(formData._parts);
+    console.log("formData", obj);
     try {
       const storedToken = await AsyncStorage.getItem("token");
       const response = await axios.put(
-        `${process.env.EXPO_PUBLIC_API_URL}/users/${storedToken}`,
+        `${process.env.EXPO_PUBLIC_API_URL}users/${storedToken}`,
         formData,
         {
           headers: {
@@ -44,7 +46,7 @@ const useUserChange = () => {
           },
         }
       );
-      console.log("resss",response.status)
+      console.log("resss", response.status);
       if (response.status >= 200 && response.status < 300) {
         setIsMessage(true);
         setMessage(localization.SETTINGS.PROFILE.messageConfirm);
@@ -54,7 +56,7 @@ const useUserChange = () => {
         setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
-      console.log("err",error)
+      console.log("err", error);
       setIsMessage(true);
       setErrorChange(localization.SETTINGS.ERROR.label);
       setIsLoadingChange(false);

@@ -39,6 +39,10 @@ export const SRB_LOCALIZATION = {
     network:"Doslo je do greske. Molimo vas pokusajte kasnije",
 
   },
+   INTERNET:{
+    error:"Molim Vas proverite svoju Internet konekciju.",
+    title:"Nema Internet signala"
+  },
   PLACES: {
     title: "Odaberi lokaciju",
     error: "Greška prilikom preuzimanja lokacija...",

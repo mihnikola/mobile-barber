@@ -18,8 +18,7 @@ function WrapperAuth({ children }) {
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
-          paddingHorizontal: 24,
-          paddingVertical: 32,
+          paddingVertical: 20,
         }}
         keyboardShouldPersistTaps="handled"
       >
