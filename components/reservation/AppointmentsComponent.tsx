@@ -7,20 +7,11 @@ import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
-import {  useFocusEffect } from "expo-router";
 
 const AppointmentsComponent = () => {
-  const { reservations, isLoading, detailsReservation, getReservationsData } =
-    useReservations();
+  const { reservations, isLoading, detailsReservation } = useReservations();
   const { company } = useCompany();
   const { localization } = useLocalization();
-
-  useFocusEffect(
-    useCallback(() => {
-      getReservationsData();
-    }, [])
-  );
- 
 
   return (
     <ScrollView style={styles.container}>

@@ -26,9 +26,7 @@ export const CompanyProvider = ({ children }) => {
         }
     };
     
-    useEffect(() => {
-        getCompany();
-    }, []);
+
 
 
     return (

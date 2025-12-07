@@ -45,7 +45,6 @@ const ResendOtpCodeTimer = ({ resendHandler }) => {
 const styles = StyleSheet.create({
   resendContainer: {
     alignItems: "center",
-    marginVertical: 15,
   },
   resendText: {
     color: "#00AEEF",

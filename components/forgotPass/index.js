@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   StatusBar,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
@@ -13,8 +14,9 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
-import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+// import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
+import WrapperAuth from "../wrapperAuth/WrapperAuth";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -38,38 +40,40 @@ const ForgotPassword = () => {
     setError(null);
   };
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
-      <View>
-        <Text style={styles.mainTitle}>
-          {localization.FORGOT_PASSWORD.title}
-        </Text>
-      </View>
-      <View>
-        <Text style={styles.subtitle}>
-          {localization.FORGOT_PASSWORD.subtitle}
-        </Text>
-      </View>
-      {/* <SharedImageForgotPass /> */}
+    <WrapperAuth>
+      <View style={{ flex: 1}}>
+        <View>
+          <Text style={styles.mainTitle}>
+            {localization.FORGOT_PASSWORD.title}
+          </Text>
 
-      <View style={styles.radiobtn}>
-        <SharedInput
-          label={localization.EMAIL.label}
-          value={email}
-          onChangeText={handleEmailChange}
-          placeholder={localization.EMAIL.placeholder}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          style={styles.input}
-          error={emailError}
+          <Text style={styles.subtitle}>
+            {localization.FORGOT_PASSWORD.subtitle}
+          </Text>
+        </View>
+        <View style={{marginTop:20}}>
+          <SharedInput
+            label={localization.EMAIL.label}
+            value={email}
+            onChangeText={handleEmailChange}
+            placeholder={localization.EMAIL.placeholder}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
+            error={emailError}
+          />
+        </View>
+      </View>
+
+      <View>
+        <SharedButton
+          disabled={emailError.length > 0 || isLoading}
+          onPress={navHandler}
+          loading={isLoading}
+          text={localization.FORGOT_PASSWORD.submitBtn}
         />
       </View>
-      <SharedButton
-        disabled={emailError.length > 0 || isLoading}
-        onPress={navHandler}
-        loading={isLoading}
-        text={localization.FORGOT_PASSWORD.submitBtn}
-      />
+
       {error && (
         <SharedMessage
           isOpen={isMessage || error}
@@ -80,10 +84,20 @@ const ForgotPassword = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </ScrollView>
+    </WrapperAuth>
   );
 };
 const styles = StyleSheet.create({
+  mainTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#000",
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#555",
+    lineHeight: 22,
+  },
   radiobtn: {
     flex: 2,
     flexDirection: "column",
@@ -95,12 +109,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
-  },
+
   image: {
     resizeMode: "contain",
   },
@@ -117,7 +126,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,

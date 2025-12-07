@@ -1,11 +1,15 @@
 import AppInitialized from "@/components/wrapper/AppInitialized";
+import useInternetGuard from "@/services/useInternetGuard";
+import NoInternetModal from "@/shared-components/InternetModal";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
- 
-
+  const isConnected = useInternetGuard();
+  
   return (
     <AppInitialized>
+      <NoInternetModal visible={!isConnected} />
+
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="index"
@@ -34,14 +38,10 @@ export default function RootLayout() {
           name="(z_auth)"
           options={{
             title: "",
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "black",
-            },
-            headerTintColor: "white",
+            headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="(zz_notification)"
           options={{
             title: "",

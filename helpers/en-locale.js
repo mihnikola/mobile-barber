@@ -180,6 +180,10 @@ We reserve the right to modify the terms of use at any time, and users will be n
       imageError: "Upload failed",
     },
   },
+  INTERNET:{
+    error:"Please check your Internet connection.",
+    title:"No Internet"
+  },
   LOGIN: {
     noToken: "You don't have FCM token",
     noLanguage: "You don't have language code",

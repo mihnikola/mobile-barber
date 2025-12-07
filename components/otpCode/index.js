@@ -17,6 +17,7 @@ import {
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import WrapperAuth from "../wrapperAuth/WrapperAuth";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -48,7 +49,7 @@ const otpCode = () => {
     setIsVerified,
     verificationOTPCode,
     checkverifyEmail,
-    verificationOTPCodeResend
+    verificationOTPCodeResend,
   } = useSubmitOtpCode();
 
   const handleVerify = async () => {
@@ -110,25 +111,25 @@ const otpCode = () => {
 
   if (verifyData) {
     return (
-      <ScrollView style={styles.container}>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
-        <View>
-          <Text style={styles.mainTitle}>
-            {localization.OTP_CODE.mainTitle}
-          </Text>
+      <WrapperAuth>
+        <View style={{ flex: 1 }}>
+          <View>
+            <Text style={styles.mainTitle}>
+              {localization.OTP_CODE.mainTitle}
+            </Text>
+          </View>
+        <View style={{marginTop:20}}>
+            <Text style={styles.subtitle}>
+              {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
+            </Text>
+            <Text style={styles.subtitle}>
+              {localization.OTP_CODE.subtitleSecondary}
+            </Text>
+          </View>
+          <OtpInput code={code} setCode={setCode} />
+          <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
+          {/* <SharedImageForgotPass /> */}
         </View>
-        <View>
-          <Text style={styles.subtitle}>
-            {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
-          </Text>
-          <Text style={styles.subtitle}>
-            {localization.OTP_CODE.subtitleSecondary}
-          </Text>
-        </View>
-        <OtpInput code={code} setCode={setCode} />
-        <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
-        {/* <SharedImageForgotPass /> */}
-
         <View style={styles.btnFooter}>
           <SharedButton
             disabled={code.join("").length < 6}
@@ -153,7 +154,7 @@ const otpCode = () => {
             buttonText={localization.OK.label}
           />
         )}
-      </ScrollView>
+      </WrapperAuth>
     );
   }
 };
@@ -195,7 +196,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
     width: 290,
@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: "#ccc",
-    padding: 5,
   },
   socialButtonsContainer: {
     flexDirection: "row",

@@ -39,21 +39,20 @@ function NotificationModal() {
   } = useCancelReservation();
 
   useFocusEffect(
-    useCallback(()=>{
+    useCallback(() => {
       const backAction = () => {
-        router.push("/(tabs)/(03_calendar)")
-      return true;
-    };
+        router.replace("/(tabs)/(03_calendar)");
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
 
-    return () => backHandler.remove();
-
-    },[])
-  )
+      return () => backHandler.remove();
+    }, [])
+  );
 
   const cancelReservationHandler = () => {
     setIsCanceling(true);
@@ -70,8 +69,8 @@ function NotificationModal() {
     setIsCanceling(false);
   };
 
-  if(isLoading || isLoadingReservationData){
-    return <SharedLoader />
+  if (isLoading || isLoadingReservationData) {
+    return <SharedLoader />;
   }
   if (reservationData) {
     return (

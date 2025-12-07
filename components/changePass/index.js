@@ -12,6 +12,7 @@ import SharedPassword from "@/shared-components/SharedPassword";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import WrapperAuth from "../wrapperAuth/WrapperAuth";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();
@@ -45,30 +46,30 @@ const changePass = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
-      <View>
-        <Text style={styles.mainTitle}>
-          {localization.CHANGE_PASS.mainTitle}
-        </Text>
-      </View>
+    <WrapperAuth>
+      <View style={{ flex: 1 }}>
+        <View>
+          <Text style={styles.mainTitle}>
+            {localization.CHANGE_PASS.mainTitle}
+          </Text>
+        </View>
 
-      <View style={styles.textinputContainer}>
-        <SharedPassword
-          label={localization.PASSWORD.label}
-          value={password}
-          onChangeText={handlePasswordChange}
-          placeholder={localization.PASSWORD.placeholder}
-          error={passwordError}
-        />
-        <SharedConfirmPassword
-          label={localization.CONFIRM_PASSWORD.label}
-          value={confirmPassword}
-          onChangeText={handleConfirmPasswordChange}
-          placeholder={localization.CONFIRM_PASSWORD.placeholder}
-        />
+        <View style={styles.textinputContainer}>
+          <SharedPassword
+            label={localization.PASSWORD.label}
+            value={password}
+            onChangeText={handlePasswordChange}
+            placeholder={localization.PASSWORD.placeholder}
+            error={passwordError}
+          />
+          <SharedConfirmPassword
+            label={localization.CONFIRM_PASSWORD.label}
+            value={confirmPassword}
+            onChangeText={handleConfirmPasswordChange}
+            placeholder={localization.CONFIRM_PASSWORD.placeholder}
+          />
+        </View>
       </View>
-      {/* <SharedImageForgotPass /> */}
       <View style={styles.btnFooter}>
         <SharedButton
           loading={isLoading}
@@ -93,7 +94,7 @@ const changePass = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </ScrollView>
+    </WrapperAuth>
   );
 };
 const styles = StyleSheet.create({
@@ -155,7 +156,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   image: {
     resizeMode: "cover",
@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
-    marginVertical: 20,
   },
   subtitle: {
     fontSize: 13,
