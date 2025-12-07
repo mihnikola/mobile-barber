@@ -41,7 +41,7 @@ function CancelDetailsComponent() {
   useFocusEffect(
     useCallback(()=>{
       const backAction = () => {
-        router.push("/(tabs)/(03_calendar)")
+        router.replace("/(tabs)/(03_calendar)")
       return true;
     };
 

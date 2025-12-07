@@ -21,7 +21,6 @@ import { useCompany } from "@/context/CompanyContext";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 
-import useNotifications from "@/services/useNotifications";
 import useInternetGuard from "@/services/useInternetGuard";
 
 export default function App() {
@@ -29,7 +28,6 @@ export default function App() {
   const { company, isLoading, getCompany } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
-  useNotifications(); // <──🔥 SVE notifikacije se sada hendluju ovde
   const isConnected = useInternetGuard();
 
   const {

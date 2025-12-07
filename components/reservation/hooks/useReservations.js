@@ -2,7 +2,7 @@
 import { get } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -12,12 +12,12 @@ const useReservations = () => {
 
   const detailsReservation = (item) => {
     if (item?.past) {
-      router.push({
+      router.replace({
         pathname: "/(tabs)/(03_calendar)/rateReservation",
         params: { itemId: item._id },
       });
     } else {
-      router.push({
+      router.replace({
         pathname: "/(tabs)/(03_calendar)/cancelReservation",
         params: { itemId: item._id },
       });
@@ -37,6 +37,9 @@ const useReservations = () => {
       setIsLoading(false);
     }
   };
+  useEffect(()=>{
+    getReservationsData();
+  },[])
 
   return {
     reservations,

@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import NotificationService from "./NotificationService";
-import { useRouter } from "expo-router";
+import { useRouter, useSegments } from "expo-router";
 
 export default function useNotifications() {
   const router = useRouter();
+  const segments = useSegments();
+  const isRouterReady = segments.length > 0; // kada su segmenti loadovani
 
   useEffect(() => {
+    if (!isRouterReady) return;
+
     const onClick = (data?: any) => {
       if (!data?.url) return;
-
       router.replace({
         pathname: "/(zz_notification)",
         params: { itemId: data.url },
@@ -20,5 +23,5 @@ export default function useNotifications() {
     return () => {
       NotificationService.cleanup();
     };
-  }, []);
+  }, [isRouterReady]);
 }

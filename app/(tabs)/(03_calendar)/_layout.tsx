@@ -1,32 +1,49 @@
-import { Stack } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { router, Stack } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 export default function RootLayoutCalendar() {
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack>
       <Stack.Screen name="index" options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="rateReservation"
         options={{
           title: "",
           headerShown: true,
-          headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
-          },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow
+          headerStyle: { backgroundColor: "black" },
+          headerTintColor: "white",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                router.replace("/(tabs)/(03_calendar)");
+              }}
+            >
+              <Ionicons name="arrow-back" size={24} color="white" />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Stack.Screen
         name="cancelReservation"
-        options={{
+         options={{
           title: "",
           headerShown: true,
-          headerStyle: {
-            backgroundColor: "black", // Replace with your desired color
-          },
-          headerTintColor: "white", // This sets the color of the title text and back button arrow
+          headerStyle: { backgroundColor: "black" },
+          headerTintColor: "white",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                router.replace("/(tabs)/(03_calendar)");
+              }}
+            >
+              <Ionicons name="arrow-back" size={24} color="white" />
+            </TouchableOpacity>
+          ),
         }}
       />
+      
     </Stack>
   );
 }

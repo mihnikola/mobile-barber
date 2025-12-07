@@ -150,6 +150,7 @@ export const AuthProvider = ({ children }) => {
       setStatus(null);
       setSuccess(null);
       setIsLogout(false);
+      router.push("/(tabs)/(04_settings)");
     } catch (error) {
       setError(error);
     }
@@ -162,7 +163,7 @@ export const AuthProvider = ({ children }) => {
         const response = await post("/users/logout", { token: isToken });
         if (response.status === 200) {
           router.dismissAll();
-          router.push("/(tabs)/(04_settings)");
+
           signOut();
           logoutHandler();
         }
@@ -228,24 +229,22 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const expoToken = await getExpoTokenStorage();
-    const languageValue  = await getLanguageValue();
+    const languageValue = await getLanguageValue();
     if (!email || !password) {
       setIsMessage(true);
       setError(localization.LOGIN.error);
       return;
     }
-     if (!languageValue) {
+    if (!languageValue) {
       setIsMessage(true);
       setError(localization.LOGIN.noLanguage);
       return;
     }
-     if (!expoToken) {
+    if (!expoToken) {
       setIsMessage(true);
       setError(localization.LOGIN.noToken);
       return;
     }
-   
-
 
     setStatus(null);
     setIsLoadingLogin(true);
@@ -271,7 +270,8 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         setIsLoadingLogin(false);
         saveStorage(responseData.token);
-        const lang = languageValue === "sr" || languageValue === null ? "sr" : "en";
+        const lang =
+          languageValue === "sr" || languageValue === null ? "sr" : "en";
         saveToken(responseData.userId, expoToken, lang);
       }
     } catch (err) {
@@ -296,13 +296,12 @@ export const AuthProvider = ({ children }) => {
     const expoToken = await getExpoTokenStorage();
     const languageValue = await getLanguageValue();
 
-    
-     if (!languageValue) {
+    if (!languageValue) {
       setIsMessage(true);
       setError(localization.LOGIN.noLanguage);
       return;
     }
-     if (!expoToken) {
+    if (!expoToken) {
       setIsMessage(true);
       setError(localization.LOGIN.noToken);
       return;
@@ -432,7 +431,7 @@ export const AuthProvider = ({ children }) => {
         isLogout,
         isGoogleLoading,
         isLoadingLogin,
-        setIsLoadingLogin
+        setIsLoadingLogin,
       }}
     >
       {children}
