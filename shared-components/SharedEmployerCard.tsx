@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
@@ -23,7 +23,7 @@ const SharedEmployerCard = ({ redirectHandler, data }) => {
           </Text>
         </View>
         <View style={styles.ratingContainer}>
-          <IconSymbol name={"star"} size={16} color="#FFD700" />
+          <MaterialIcons name={"star"} size={16} color="#FFD700" />
           <Text style={styles.reviewText}>
             {`${ratingCount} ${localization.DETAILS.mark}`}
           </Text>

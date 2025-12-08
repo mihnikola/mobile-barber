@@ -2,7 +2,6 @@
   "expo": {
     "name": "fta-barber-mob-app",
     "slug": "fta-barber-mob-app",
-    "main": "index.js",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/adaptive-icon.png",
@@ -14,18 +13,27 @@
     "scheme": "myapp",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.mihailovic93.barberappver2",
-      "supportsTablet": true
+      "bundleIdentifier": "com.barber.app",
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.barber.app",
-      "googleServicesFile": "./google-services.json",
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "googleServicesFile": "./google-services.json"
     },
     "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/messaging",
       "@react-native-google-signin/google-signin",
-      "expo-router"
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ]
   }
 }

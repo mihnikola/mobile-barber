@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const SharedItemServiceCard = (props: any) => {
   const { redirectHandler, data } = props;
@@ -25,7 +25,8 @@ const SharedItemServiceCard = (props: any) => {
           </Text>
         </View>
         <View style={styles.ratingContainer}>
-          <IconSymbol name={"price-change"} size={16} color="#FFD700" />
+          <MaterialIcons name={"price-change"} size={16} color="#FFD700" />
+         
           <Text style={styles.reviewText}>
             {`${localization.DETAILS.price} ${price}`}
           </Text>

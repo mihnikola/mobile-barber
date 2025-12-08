@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 
@@ -19,7 +19,7 @@ const SharedDetailsEmployerCard = ({ data }) => {
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
-            <IconSymbol name={"star"} size={16} color="#FFD700" />
+            <MaterialIcons name={"star"} size={16} color="#FFD700" />
             <Text style={styles.reviewText}>{`${roundValue(
               averageRating
             )}/5`}</Text>

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 
@@ -32,7 +32,7 @@ const SharedItem = (props: any) => {
             </Text>
           </View>
           <View style={styles.ratingContainer}>
-            <IconSymbol
+            <MaterialIcons
               name={price || servicePrice ? "price-change" : "star"}
               size={16}
               color="#FFD700"
@@ -83,7 +83,7 @@ const SharedItem = (props: any) => {
             </Text>
           </View>
           <View style={styles.ratingContainer}>
-            <IconSymbol
+            <MaterialIcons
               name={price || servicePrice ? "price-change" : "star"}
               size={16}
               color="#FFD700"

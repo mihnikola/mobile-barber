@@ -3,9 +3,9 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +17,8 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
         activeOpacity={0.8}>
-        <IconSymbol
-          name="chevron.right"
+        <MaterialIcons
+          name="chevron-right"
           size={18}
           weight="medium"
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}

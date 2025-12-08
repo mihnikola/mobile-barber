@@ -175,19 +175,19 @@ export const AuthProvider = ({ children }) => {
 
   const onPressHandler = (data) => {
     if (data === "1") {
-      router.push("/(z_auth)/infoUserProfile");
+      router.push("/(tabs)/(04_settings)/userprofile");
     }
     if (data === "2") {
-      router.push("/(z_auth)/languageChange");
+      router.push("/(tabs)/(04_settings)/languageSupport");
     }
     if (data === "100") {
-      router.push("/(z_auth)/infoApp");
+      router.push("/(tabs)/(04_settings)/aboutapplication");
     }
     if (data === "200") {
-      router.push("/(z_auth)/infoPrivacy");
+      router.push("/(tabs)/(04_settings)/privacypolicy");
     }
     if (data === "900") {
-      router.push("/(z_auth)/infoHelpCenter");
+      router.push("/(tabs)/(04_settings)/helpSupport");
     }
     if (data === "6") {
       setIsLogout(true);

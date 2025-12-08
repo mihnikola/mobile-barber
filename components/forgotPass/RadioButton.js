@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 
 const RadioButton = (props) => {
   return (
@@ -13,15 +12,21 @@ const RadioButton = (props) => {
       // onPress={props.onPress}
       style={[styles.container, props.active && styles.active]}
     >
-      <View style={[styles.iconContainer, props.active && styles.active]}>
-        <IconSymbol name={props.icon} color={props.color} size={32} />
-      </View>
+     
       <View style={styles.containerInfo}>
         <View>
           <Text style={styles.label}>{props.title}</Text>
         </View>
         <View>
-          <TextInput keyboardType="email-address" autoCapitalize="none" style={styles.value} value={props.value} onChangeText={props.onChangeText} placeholder="Enter a email" placeholderTextColor="black" />
+          <TextInput
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.value}
+            value={props.value}
+            onChangeText={props.onChangeText}
+            placeholder="Enter a email"
+            placeholderTextColor="black"
+          />
         </View>
       </View>
     </View>
@@ -34,7 +39,7 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderRadius: 20,
     flexDirection: "row",
-    marginBottom: 30
+    marginBottom: 30,
   },
   active: {
     borderColor: "white",

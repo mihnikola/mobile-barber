@@ -64,13 +64,11 @@ const useSelectedDate = (initialDate) => {
           const formattedDay = date
             .toLocaleString()
             .split(",")[0]
-            .split("/")[1]
-            .padStart(2, "0");
+            .split("/")[1];
           const formattedMonth = date
             .toLocaleString()
             .split(",")[0]
-            .split("/")[0]
-            .padStart(2, "0");
+            .split("/")[0];
           const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
           const existingProps = markedDates[formattedDate] || {};
           markedDates[formattedDate] = {

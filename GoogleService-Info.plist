@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>284831110803-l32sast6ee888sim24jkpg8hitlkqnqo.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC4ISyfgCqRkoTbHwDz61qlPQ8jz0FXV_0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>284831110803</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.barber.app</string>
+	<key>PROJECT_ID</key>
+	<string>fta-barber-mob-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fta-barber-mob-app.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:284831110803:ios:57abefa91c4d6aa862df66</string>
+</dict>
+</plist>

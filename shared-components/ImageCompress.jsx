@@ -1,5 +1,5 @@
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
@@ -25,7 +25,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
             onPress={pickImage}
             disabled={uploading}
           >
-            <IconSymbol size={45} name="photo" color="white" />
+            <MaterialIcons size={45} name="photo" color="white" />
           </TouchableOpacity>
         </View>
       )}
@@ -40,7 +40,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
           onPress={pickImage}
           disabled={uploading}
         >
-          <IconSymbol size={45} name="photo" color="white" />
+          <MaterialIcons size={45} name="photo" color="white" />
         </TouchableOpacity>
       )}
     </View>

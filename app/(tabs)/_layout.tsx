@@ -1,4 +1,4 @@
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { Tabs } from "expo-router";
 
@@ -20,7 +20,7 @@ export default function TabLayout() {
         options={{
           title: localization.TABS.HOME,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <MaterialIcons size={28} name="home" color={color} />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: localization.TABS.BARBERS,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="content.cut" color={color} />
+            <MaterialIcons size={28} name="content-cut" color={color} />
           ),
         }}
       />
@@ -38,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: localization.TABS.APPOINTMENTS,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="calendar.month" color={color} />
+            <MaterialIcons size={28} name="calendar-month" color={color} />
           ),
         }}
       />
@@ -48,7 +48,7 @@ export default function TabLayout() {
         options={{
           title: localization.TABS.SETTINGS,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="miscellaneous.services" color={color} />
+            <MaterialIcons size={28} name="miscellaneous-services" color={color} />
           ),
         }}
       />

@@ -1,7 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import { Text, View } from "react-native";
-import { IconSymbol } from "../ui/IconSymbol";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const myArray = [
   { arrx: "10000" },
@@ -30,7 +30,7 @@ function ReservationMarkComponent({data}) {
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
-                <IconSymbol
+                <MaterialIcons
                   key={item.arrx}
                   name="star"
                   color="gold"

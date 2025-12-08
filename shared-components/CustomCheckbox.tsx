@@ -1,4 +1,4 @@
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -16,7 +16,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ label, value, onChange 
       <Text style={styles.label}>{label}</Text>
      
       <View style={[styles.checkbox, value && styles.checked]}>
-        {value && <IconSymbol color="white" name='check.cirle' size={20} />}
+        {value && <MaterialIcons color="white" name='check-circle-outline' size={20} />}
       </View>
     </TouchableOpacity>
   );
