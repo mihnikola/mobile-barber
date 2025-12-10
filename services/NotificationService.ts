@@ -1,7 +1,8 @@
 
 import * as Notifications from "expo-notifications";
-import messaging from "@react-native-firebase/messaging";
 import { saveExpoTokenStorage } from "@/helpers/expoToken";
+import { getToken, getMessaging,onMessage,getInitialNotification, onNotificationOpenedApp } from '@react-native-firebase/messaging';
+
 
 export class NotificationService {
   deviceToken: string = "";
@@ -32,7 +33,9 @@ export class NotificationService {
     if (this.deviceToken) return this.deviceToken;
 
     try {
-      const token = await messaging().getToken();
+      // const token = await messaging().getToken();
+      const token = await getToken(getMessaging());
+
       if (token) {
         setTimeout(async () => {
           console.log("token getToken",token)
@@ -51,7 +54,7 @@ export class NotificationService {
 
   // FOREGROUND
   listenToForegroundMessages() {
-    const unsub = messaging().onMessage(async (remoteMessage) => {
+    const unsub = onMessage(getMessaging(),async (remoteMessage) => {
       console.log("📩 Foreground FCM:", remoteMessage);
 
       await Notifications.scheduleNotificationAsync({
@@ -79,7 +82,7 @@ export class NotificationService {
   async handleKilledState(callback: (data: any) => void) {
     if (this.hasHandledInitial) return;
 
-    const initial = await messaging().getInitialNotification();
+    const initial = await getInitialNotification(getMessaging());
     if (initial?.data) {
       console.log("🚀 App opened from KILLED:", initial.data);
       this.hasHandledInitial = true;
@@ -89,7 +92,7 @@ export class NotificationService {
 
   // BACKGROUND STATE
   listenToBackgroundOpens(callback: (data: any) => void) {
-    const unsub = messaging().onNotificationOpenedApp((msg) => {
+    const unsub = onNotificationOpenedApp(getMessaging(),(msg) => {
       if (!msg?.data) return;
 
       // Firebase GARANTUJE: ovo se okida SAMO iz BACKGROUNDA
