@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l.apps.googleusercontent.com</string>
+	<string>284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l</string>
+	<string>com.googleusercontent.apps.284831110803-u696dssmapohte49619rhmsdlselgmfg</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>284831110803-l32sast6ee888sim24jkpg8hitlkqnqo.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.barber.app</string>
+	<string>fta.barber.app</string>
 	<key>PROJECT_ID</key>
 	<string>fta-barber-mob-app</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:284831110803:ios:57abefa91c4d6aa862df66</string>
+	<string>1:284831110803:ios:c156cc85d6b798d362df66</string>
 </dict>
 </plist>

@@ -13,7 +13,10 @@
     "scheme": "myapp",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.barber.app",
+      "entitlements": {
+        "com.apple.developer.applesignin": ["Default"]
+      },
+      "bundleIdentifier": "fta.barber.app",
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist"
     },
@@ -24,10 +27,16 @@
     "plugins": [
       "@react-native-firebase/app",
       "@react-native-firebase/messaging",
-      "@react-native-google-signin/google-signin",
       "expo-router",
       [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.284831110803-u696dssmapohte49619rhmsdlselgmfg"
+        }
+      ],
+      [
         "expo-build-properties",
+
         {
           "ios": {
             "useFrameworks": "static"

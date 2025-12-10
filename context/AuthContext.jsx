@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     GoogleSignin.configure({
       webClientId:
         "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+        iosClientId:"284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com",
       profileImageSize: 150,
     });
   }, []);
@@ -317,7 +318,7 @@ export const AuthProvider = ({ children }) => {
         saveStorage(responseData.token);
         const lang = languageValue === "sr" ? "sr" : "en";
 
-        saveTokenViaGoogle(responseData.userId, responseData.token, lang);
+        saveTokenViaGoogle(responseData.userId, expoToken, lang);
       }
 
       if (responseData.status === 500) {
@@ -404,6 +405,7 @@ export const AuthProvider = ({ children }) => {
       setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
     }
   };
+
 
   return (
     <AuthContext.Provider
