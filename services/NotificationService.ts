@@ -35,6 +35,7 @@ export class NotificationService {
       const token = await messaging().getToken();
       if (token) {
         setTimeout(async () => {
+          console.log("token getToken",token)
           await saveExpoTokenStorage(token);
         }, 1000);
       } else {
@@ -130,21 +131,21 @@ export class NotificationService {
     this.subscriptions.push(() => clickListener.remove());
 
     // 6) Token refresh
-    this.listenToTokenRefresh();
+    // this.listenToTokenRefresh();
   }
 
-  listenToTokenRefresh() {
-    const unsub = messaging().onTokenRefresh((token) => {
-      setTimeout(async () => {
-        await saveExpoTokenStorage(token);
-      }, 1000);
+  // listenToTokenRefresh() {
+  //   const unsub = messaging().onTokenRefresh((token) => {
+  //     setTimeout(async () => {
+  //       await saveExpoTokenStorage(token);
+  //     }, 1000);
 
-      this.deviceToken = token;
-      console.log("🔄 New FCM token:", token);
-    });
+  //     this.deviceToken = token;
+  //     console.log("🔄 New FCM token:", token);
+  //   });
 
-    this.subscriptions.push(unsub);
-  }
+  //   this.subscriptions.push(unsub);
+  // }
 
   cleanup() {
     this.subscriptions.forEach((u) => {
