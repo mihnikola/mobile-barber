@@ -18,6 +18,7 @@ import {
 } from "@/helpers/verificationOtpParams";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -112,13 +113,19 @@ const otpCode = () => {
   if (verifyData) {
     return (
       <WrapperAuth>
+        <SharedBackButton
+          onPress={router.back}
+          absolutePosition={false}
+          styleBtn={{ marginBottom: 30 }}
+        />
+
         <View style={{ flex: 1 }}>
           <View>
             <Text style={styles.mainTitle}>
               {localization.OTP_CODE.mainTitle}
             </Text>
           </View>
-        <View style={{marginTop:20}}>
+          <View style={{ marginTop: 20 }}>
             <Text style={styles.subtitle}>
               {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
             </Text>

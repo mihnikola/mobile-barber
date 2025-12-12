@@ -17,6 +17,8 @@ import useEmail from "./hooks/useEmail";
 // import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import { router } from "expo-router";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -41,7 +43,9 @@ const ForgotPassword = () => {
   };
   return (
     <WrapperAuth>
-      <View style={{ flex: 1}}>
+      <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginBottom: 30}} />
+
+      <View style={{ flex: 1 }}>
         <View>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
@@ -51,7 +55,7 @@ const ForgotPassword = () => {
             {localization.FORGOT_PASSWORD.subtitle}
           </Text>
         </View>
-        <View style={{marginTop:20}}>
+        <View style={{ marginTop: 20 }}>
           <SharedInput
             label={localization.EMAIL.label}
             value={email}

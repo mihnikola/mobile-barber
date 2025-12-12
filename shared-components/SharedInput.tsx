@@ -45,6 +45,7 @@ const SharedInput = (props: any) => {
           ]}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          placeholderTextColor="grey"
           secureTextEntry={props.stylePassword && !isPasswordVisible}
         />
         {props.stylePassword && !props.dataDetectorTypes && (

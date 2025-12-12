@@ -1,6 +1,7 @@
-import ReservationInitialComponent from '@/components/reservation/reservationInitial';
-const Explore = () => {
-    return <ReservationInitialComponent />
+import ReservationInitialComponent from "@/components/reservation/reservationInitial";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
-}
-export default Explore;
+const Explore = () => {
+  return <ReservationInitialComponent />;
+};
+export default withSafeArea(Explore);

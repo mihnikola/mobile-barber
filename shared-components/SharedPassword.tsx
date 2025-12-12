@@ -31,6 +31,7 @@ const SharedPassword = (props: any) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
+          placeholderTextColor="grey"
         />
 
         <TouchableOpacity

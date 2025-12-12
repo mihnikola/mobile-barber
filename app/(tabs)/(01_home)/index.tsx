@@ -17,13 +17,13 @@ import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-// import { SharedLoader } from "@/shared-components/SharedLoader";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 
 import useInternetGuard from "@/services/useInternetGuard";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
-export default function App() {
+function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, isLoading, getCompany } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
@@ -47,7 +47,10 @@ export default function App() {
   const { localization } = useLocalization();
 
   const nextPage = () => {
-    router.push("/(tabs)/(02_barbers)");
+    router.replace({
+      pathname: "/(tabs)/(02_barbers)",
+      params: { data: "1" },
+    });
   };
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
@@ -60,7 +63,6 @@ export default function App() {
   const openLocationHandler = async () => {
     await fetchLocations();
 
-    console.log("openLocationHandler", locationsData);
 
     if (locationsData?.length === 1) {
       openGoogleMapsRoute(locationsData[0]?.mapLink);
@@ -68,9 +70,7 @@ export default function App() {
       setModalVisible(true);
     }
   };
-  // if (isLoading || isLoaderLocation) {
-  //   return <SharedLoader isOpen={isLoaderLocation || isLoading} />;
-  // }
+
   if (modalVisible && locationsData?.length > 1) {
     return (
       <LocationsComponent
@@ -163,24 +163,17 @@ export default function App() {
 
 const styles = StyleSheet.create({
   box: {
-    width: 400,
-    height: 400,
-    position: "absolute",
     alignItems: "center",
     alignSelf: "center",
-    paddingTop: 100,
+    marginTop: Platform.OS === "ios" ? 20 : 90,
+  },
+  boxBook: {
+    marginTop: Platform.OS === "ios" ? 20 : 80,
+    alignSelf: "center",
   },
   container: {
     flex: 1,
     backgroundColor: "#000000",
-  },
-
-  boxBook: {
-    position: "absolute",
-    alignSelf: "center",
-    justifyContent: "center",
-    height: "100%",
-    paddingTop: 330,
   },
 
   locationContent: {
@@ -220,3 +213,5 @@ const styles = StyleSheet.create({
     padding: 15,
   },
 });
+
+export default withSafeArea(App);

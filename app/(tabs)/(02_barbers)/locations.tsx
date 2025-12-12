@@ -1,9 +1,7 @@
 import PlaceComponent from "@/components/places/PlaceComponent";
 
 function locations() {
-  return (
-   <PlaceComponent />
-  )
+  return <PlaceComponent />;
 }
 
-export default locations
+export default locations;

@@ -16,6 +16,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -64,6 +65,8 @@ const DateComponent = () => {
         image={company?.media?.coverImageAppointments}
         title={localization.DATE.title}
       />
+      <SharedBackButton onPress={router.back} />
+
       <View style={styles.calendarContainer}>
         <CalendarList
           markingType="custom"
@@ -89,7 +92,7 @@ const DateComponent = () => {
         />
       </View>
 
-      <View style={styles.timesAndDetails}>
+      <View>
         {!isSunday && (
           <>
             {isLoading && <Loader />}
@@ -129,16 +132,6 @@ const DateComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
-  },
-  capture: {
-    fontSize: 32,
-    color: "white",
-    fontWeight: "500",
-    paddingVertical: 140,
-  },
   coverImage: {
     width: "100%",
     height: 150,
@@ -163,24 +156,15 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     marginTop: 10,
-    width: "100%",
   },
-  greyLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "grey", // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
+
   calendar: {
     borderWidth: 1,
     backgroundColor: "transparent",
-    display: "flex",
     color: "yellow",
     width: "100%",
   },
-  timesAndDetails: {
-    display: "flex",
-  },
+
   buttonContainer: {
     marginVertical: 10,
     marginHorizontal: 10,

@@ -16,7 +16,6 @@ const Summary = ({ data, selectedItem, setSelectedItem }) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     flexDirection: "row",
     gap: 20,
     justifyContent: "space-around",

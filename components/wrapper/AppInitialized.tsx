@@ -7,6 +7,7 @@ import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
 import { InternetProvider } from "@/context/InternetContext";
 import NotificationWrapper from "./NotificationWrapper";
+import { AppointmentProvider } from "@/context/AppointmentContext";
 
 export default function AppInitialized(props) {
   const MyDarkTheme = {
@@ -26,7 +27,9 @@ export default function AppInitialized(props) {
               <NotificationWrapper>
                 <GlobalErrorProvider>
                   <GlobalErrorHandler />
-                  <ReservationProvider>{props.children}</ReservationProvider>
+                  <ReservationProvider>
+                    <AppointmentProvider>{props.children}</AppointmentProvider>
+                  </ReservationProvider>
                 </GlobalErrorProvider>
               </NotificationWrapper>
             </AuthProvider>

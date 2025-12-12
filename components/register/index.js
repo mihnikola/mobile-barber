@@ -5,6 +5,7 @@ import {
   ScrollView,
   StatusBar,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import useEmail from "./hooks/useEmail";
@@ -21,10 +22,10 @@ import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
-import SharedLogo from "@/shared-components/SharedLogo";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 const Register = () => {
   const [userName, setUserName] = useState("");
   const { image } = useLocalSearchParams();
@@ -160,8 +161,6 @@ const Register = () => {
   );
 };
 
-export default Register;
-
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -221,3 +220,5 @@ const styles = StyleSheet.create({
     width: "80%",
   },
 });
+
+export default withKeyboardAvoid(Register);

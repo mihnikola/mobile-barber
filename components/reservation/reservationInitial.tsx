@@ -1,32 +1,19 @@
-import { useCallback } from "react";
 import Loader from "@/components/Loader";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { router, useLocalSearchParams } from "expo-router";
-import useReservationHandler from "./hooks/useReservationHandler";
 import AppointmentsComponent from "./AppointmentsComponent";
 import AppointmentsNonToken from "./AppointmentsNonToken";
+import { useAppointment } from "@/context/AppointmentContext";
+import { useEffect } from "react";
 export default function ReservationInitial() {
-  const { reevalueted } = useLocalSearchParams();
-  const { checkToken, isLoading, token } = useReservationHandler();
-  const isFocused = useIsFocused();
+  const { isToken, getTokenData } = useAppointment();
 
-  useFocusEffect(
-    useCallback(() => {
-      if (isFocused) {
-        console.log("xxxx")
-        checkToken();
-      }
-    }, [isFocused, reevalueted])
-  );
-
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (!token) {
+  useEffect(() => {
+    getTokenData();
+  }, []);
+  console.log("isToken", isToken);
+  if (!isToken) {
     return <AppointmentsNonToken />;
   }
-
-  if (token) {
+  if (isToken) {
     return <AppointmentsComponent />;
   }
 }

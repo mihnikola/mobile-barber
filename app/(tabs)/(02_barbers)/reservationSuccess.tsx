@@ -1,7 +1,8 @@
 import ConfirmBookReservation from "@/components/reservation/ConfirmBookReservation";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const ReservationSuccessScreen = () => {
   return <ConfirmBookReservation />;
 };
 
-export default ReservationSuccessScreen;
+export default withSafeArea(ReservationSuccessScreen);

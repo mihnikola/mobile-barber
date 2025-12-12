@@ -8,6 +8,8 @@ import WhoAreWeCoverImage from "@/components/home/WhoAreWeCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import { useEffect } from "react";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import { router } from "expo-router";
 
 const AboutUsScreen = () => {
   const { company, getCompany, isLoading } = useCompany();
@@ -23,6 +25,9 @@ const AboutUsScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={{ marginBottom: 30, marginTop: 10 }}>
+          <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} />
+        </View>
         <WhoAreWeCoverImage image={company?.media?.logo} />
 
         <View style={styles.contentContainer}>

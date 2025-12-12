@@ -19,6 +19,8 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 
 const userprofile = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -100,90 +102,93 @@ const userprofile = () => {
     setIsMessage(false);
   };
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.imageContainer}>
-        <View style={styles.imageContainerImage}>
-          <ImageCompress
-            handlePickImage={selectedImgHandler}
-            imageValue={userData?.image}
-          />
-        </View>
-      </View>
-      <View style={styles.userDataContainer}>
-        <View>
-          <Text style={styles.inputLabel}>
-            {localization.SETTINGS.PROFILE.email}
-          </Text>
-          <TextInput
-            style={styles.inputDisabled}
-            defaultValue={userData?.email}
-            editable={false}
-            selectTextOnFocus={false}
-          />
-        </View>
-        <View>
-          <SharedPhoneNumber
-            label={localization.SETTINGS.PROFILE.phoneNumber}
-            placeholder="6x xxx xxxx"
-            placeholderTextColor="#888"
-            keyboardType="phone-pad"
-            dataDetectorTypes="phoneNumber"
-            value={
-              phoneNumber !== null
-                ? phoneNumber
-                : userData?.phoneNumber === null
-                ? ""
-                : userData?.phoneNumber?.slice(4)
-            }
-            onChangeText={handlePhoneNumberChange}
-            autoComplete="tel"
-            error={errorPhoneNumber}
-          />
-        </View>
-        <View>
-          <SharedInput
-            label={localization.SETTINGS.PROFILE.name}
-            value={name}
-            onChangeText={handleNameChange}
-            placeholder={localization.SETTINGS.PROFILE.placeholderName}
-            style={styles.input}
-          />
-        </View>
-
-        <SharedButton
-          disabled={!isValidated}
-          onPress={submitChanges}
-          loading={isLoadingChange}
-          text={localization.SETTINGS.PROFILE.btnText}
-        />
-      </View>
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          onClose={!errorChange ? messageHandler : messageHandler2}
-          onConfirm={!errorChange ? messageHandler : messageHandler2}
-          icon={
-            <FontAwesome
-              name={errorChange ? "close" : "check-circle-o"}
-              size={64}
-              color="white"
+  
+      <ScrollView style={styles.container}>
+        <SharedBackButton onPress={router.back} />
+        <View style={styles.imageContainer}>
+          <View style={styles.imageContainerImage}>
+            <ImageCompress
+              handlePickImage={selectedImgHandler}
+              imageValue={userData?.image}
             />
-          }
-          title={
-            message ? localization.SETTINGS.PROFILE.messageConfirm : errorChange
-          }
-          buttonText="Ok"
-        />
-      )}
-      <StatusBar backgroundColor="black" />
-    </ScrollView>
+          </View>
+        </View>
+        <View style={styles.userDataContainer}>
+          <View>
+            <Text style={styles.inputLabel}>
+              {localization.SETTINGS.PROFILE.email}
+            </Text>
+            <TextInput
+              style={styles.inputDisabled}
+              defaultValue={userData?.email}
+              editable={false}
+              selectTextOnFocus={false}
+            />
+          </View>
+          <View>
+            <SharedPhoneNumber
+              label={localization.SETTINGS.PROFILE.phoneNumber}
+              placeholder="6x xxx xxxx"
+              placeholderTextColor="#888"
+              keyboardType="phone-pad"
+              dataDetectorTypes="phoneNumber"
+              value={
+                phoneNumber !== null
+                  ? phoneNumber
+                  : userData?.phoneNumber === null
+                  ? ""
+                  : userData?.phoneNumber?.slice(4)
+              }
+              onChangeText={handlePhoneNumberChange}
+              autoComplete="tel"
+              error={errorPhoneNumber}
+            />
+          </View>
+          <View>
+            <SharedInput
+              label={localization.SETTINGS.PROFILE.name}
+              value={name}
+              onChangeText={handleNameChange}
+              placeholder={localization.SETTINGS.PROFILE.placeholderName}
+              style={styles.input}
+            />
+          </View>
+
+          <SharedButton
+            disabled={!isValidated}
+            onPress={submitChanges}
+            loading={isLoadingChange}
+            text={localization.SETTINGS.PROFILE.btnText}
+          />
+        </View>
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={!errorChange ? messageHandler : messageHandler2}
+            onConfirm={!errorChange ? messageHandler : messageHandler2}
+            icon={
+              <FontAwesome
+                name={errorChange ? "close" : "check-circle-o"}
+                size={64}
+                color="white"
+              />
+            }
+            title={
+              message
+                ? localization.SETTINGS.PROFILE.messageConfirm
+                : errorChange
+            }
+            buttonText="Ok"
+          />
+        )}
+        <StatusBar backgroundColor="black" />
+      </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
   },
 
   inputLabel: {
@@ -297,4 +302,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default userprofile;
+export default withKeyboardAvoid(userprofile);

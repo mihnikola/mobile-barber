@@ -17,11 +17,7 @@ export default function RootLayoutHome() {
         name="whoWeAre"
         options={{
           title: "",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          headerTintColor: "white",
+          headerShown: false,
         }}
       />
     </Stack>

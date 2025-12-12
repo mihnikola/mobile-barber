@@ -6,7 +6,7 @@ const { height } = Dimensions.get("window");
 
 export function useSlideAnimations() {
   const slideAnim = useRef(new Animated.Value(-height)).current;
-  const slideAnimBook = useRef(new Animated.Value(height)).current;
+  const slideAnimBook = useRef(new Animated.Value(height * 5.1)).current;
 
   useEffect(() => {
     Animated.timing(slideAnim, {
@@ -15,13 +15,11 @@ export function useSlideAnimations() {
       useNativeDriver: true,
     }).start();
 
-    setTimeout(() => {
-      Animated.timing(slideAnimBook, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start();
-    }, 400);
+    Animated.timing(slideAnimBook, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
   }, [slideAnim, slideAnimBook]);
 
   return { slideAnim, slideAnimBook };

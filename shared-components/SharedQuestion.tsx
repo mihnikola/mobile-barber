@@ -9,6 +9,8 @@ export const SharedQuestion = ({
   onLogOut,
   buttonTextNo,
 }) => {
+  console.log("isModalQuestion+++", isOpen);
+
   return (
     <Modal
       animationType="fade"
@@ -37,11 +39,11 @@ export const SharedQuestion = ({
 };
 
 const styles = StyleSheet.create({
-    buttons:{
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 20
-    },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+  },
   container: {
     flex: 1, // Takes up the whole screen
     backgroundColor: "#1F2937", // Corresponds to bg-gray-900
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 24, // Corresponds to mb-6
-    
   },
   modalTitle: {
     color: "#FFFFFF", // Corresponds to text-white

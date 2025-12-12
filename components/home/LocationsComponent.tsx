@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemSubtitle: {
+    flex:2,
     fontSize: 16,
     color: "white",
   },

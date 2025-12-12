@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   backImage: {
     width: 200,
     height: 300,
+    resizeMode: "contain",
   },
 });
 

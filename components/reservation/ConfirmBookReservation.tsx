@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import SharedButton from "@/shared-components/SharedButton";
@@ -14,23 +14,18 @@ const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { company } = useCompany();
 
-
-  const { responseData } = useLocalSearchParams();
-
-  const submitReservationHandler = async () => {
-    router.back();
-    router.push({
-      pathname: "/(tabs)/(03_calendar)",
-      params: { reevalueted: 1 },
-    });
+  const confirmSubmitReservation = async () => {
+    try {
+      router.back();
+      router.replace("/(tabs)/(03_calendar)");
+    } catch (error) {
+      console.error(error);
+    }
   };
-  if (!responseData) {
-    return router.push("/(tabs)/(03_calendar)");
-  }
 
-  if (reservation && responseData) {
+  if (reservation) {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <BookSuccess
           image={company?.media?.coverImageAppointments}
           logo={company?.media?.logo}
@@ -40,11 +35,11 @@ const ConfirmBookReservation = () => {
           <Text style={styles.message}>{localization.SALON.success}</Text>
           <Note />
           <SharedButton
-            onPress={submitReservationHandler}
+            onPress={confirmSubmitReservation}
             text={localization.BUTTONS.ok}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 };

@@ -47,7 +47,8 @@ export const AuthProvider = ({ children }) => {
     GoogleSignin.configure({
       webClientId:
         "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
-        iosClientId:"284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com",
+      iosClientId:
+        "284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com",
       profileImageSize: 150,
     });
   }, []);
@@ -151,6 +152,7 @@ export const AuthProvider = ({ children }) => {
       setStatus(null);
       setSuccess(null);
       setIsLogout(false);
+
       router.push("/(tabs)/(04_settings)");
     } catch (error) {
       setError(error);
@@ -163,7 +165,7 @@ export const AuthProvider = ({ children }) => {
       if (isToken) {
         const response = await post("/users/logout", { token: isToken });
         if (response.status === 200) {
-          router.dismissAll();
+          // router.dismissAll();
 
           signOut();
           logoutHandler();
@@ -339,39 +341,6 @@ export const AuthProvider = ({ children }) => {
       }
     }
   };
-
-  const saveToken = async (userId, expoToken, lang) => {
-    setIsLoadingLogin(true);
-    if (!expoToken) {
-      setIsLoadingLogin(false);
-      return;
-    }
-    try {
-      const responseData = await post("/api/saveToken", {
-        tokenExpo: expoToken,
-        tokenUser: userId,
-        lang,
-      });
-      if (responseData.status === 200) {
-        setIsLoadingLogin(false);
-        setIsMessage(true);
-        setSuccess(localization.LOGIN.success);
-      } else {
-        setIsLoadingLogin(false);
-        setIsMessage(true);
-        setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
-          }`
-        );
-      }
-    } catch (err) {
-      setIsLoadingLogin(false);
-      setIsMessage(true);
-      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
-    }
-  };
-
   const saveTokenViaGoogle = async (userId, expoToken, languageValue) => {
     if (!expoToken) {
       setIsGoogleLoading(false);
@@ -406,6 +375,37 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const saveToken = async (userId, expoToken, lang) => {
+    setIsLoadingLogin(true);
+    if (!expoToken) {
+      setIsLoadingLogin(false);
+      return;
+    }
+    try {
+      const responseData = await post("/api/saveToken", {
+        tokenExpo: expoToken,
+        tokenUser: userId,
+        lang,
+      });
+      if (responseData.status === 200) {
+        setIsLoadingLogin(false);
+        setIsMessage(true);
+        setSuccess(localization.LOGIN.success);
+      } else {
+        setIsLoadingLogin(false);
+        setIsMessage(true);
+        setError(
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
+          }`
+        );
+      }
+    } catch (err) {
+      setIsLoadingLogin(false);
+      setIsMessage(true);
+      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
+    }
+  };
 
   return (
     <AuthContext.Provider

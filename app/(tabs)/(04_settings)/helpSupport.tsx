@@ -14,6 +14,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { router } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -25,13 +27,12 @@ const HelpSupportScreen = () => {
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
   };
-    const { company } = useCompany();
+  const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
-
-   
+      <SharedBackButton onPress={router.back} />
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
         title={localization.SETTINGS.HELP.title}

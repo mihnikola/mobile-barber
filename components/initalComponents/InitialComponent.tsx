@@ -17,7 +17,7 @@ import useInitialData from "./useInitialData";
 const InitialComponent = () => {
   const { getInitialData, initialData } = useInitialData();
 
-  const { width: SCREEN_WIDTH } = useWindowDimensions();
+  const { width: SCREEN_WIDTH, height: HEIGHT } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
   const flatListIndex = useSharedValue(0);
@@ -71,7 +71,7 @@ const InitialComponent = () => {
       return {
         opacity: opacityAnimation,
         width: SCREEN_WIDTH * 1.1,
-        height: SCREEN_WIDTH * 1.1,
+        height: SCREEN_WIDTH * 0.9,
         borderRadius: 50,
         transform: [{ translateY: translateYAnimation }],
       };

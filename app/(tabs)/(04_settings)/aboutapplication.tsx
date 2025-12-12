@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { router } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -23,6 +25,7 @@ const aboutapplication = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <SharedBackButton onPress={router.back} />
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <SharedTabHeader
         image={company?.media?.coverImageSettings}

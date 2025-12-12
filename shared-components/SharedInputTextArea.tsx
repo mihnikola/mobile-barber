@@ -4,7 +4,11 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
  * A reusable component for a multiline text input field.
  * @returns {JSX.Element} The multiline text input component.
  */
-const SharedInputTextArea = ({ description, setDescription, placeholderText }): JSX.Element => {
+const SharedInputTextArea = ({
+  description,
+  setDescription,
+  placeholderText,
+}): JSX.Element => {
   return (
     <View style={styles.container}>
       {/* The core multiline TextInput component */}
@@ -14,10 +18,11 @@ const SharedInputTextArea = ({ description, setDescription, placeholderText }): 
         value={description}
         placeholder={placeholderText}
         placeholderTextColor="grey"
-        multiline={true} 
+        multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
         maxLength={170}
+        scrollEnabled={false}
       />
 
       {description?.length > 150 && (
@@ -55,8 +60,7 @@ const styles = StyleSheet.create({
   previewContainer: {
     alignContent: "flex-end",
     alignItems: "flex-end",
-    width: '80%'
-
+    width: "80%",
   },
   previewText: {
     fontSize: 16,

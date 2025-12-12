@@ -1,17 +1,22 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
-import useReservations from "./hooks/useReservations";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { useAppointment } from "@/context/AppointmentContext";
 
 const AppointmentsComponent = () => {
-  const { reservations, isLoading, detailsReservation } = useReservations();
+  const { isLoading, detailsReservation, getReservationsData, reservations } =
+    useAppointment();
   const { company } = useCompany();
   const { localization } = useLocalization();
+
+  useEffect(() => {
+    getReservationsData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

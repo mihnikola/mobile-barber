@@ -2,7 +2,6 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
-import useSubmitReservation from "./hooks/useSubmitReservation";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -11,6 +10,9 @@ import { useCompany } from "@/context/CompanyContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useAppointment } from "@/context/AppointmentContext";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -21,28 +23,29 @@ const Reservation = () => {
     submitReservationHandler,
     isLoading,
     error,
+    setError,
+    setMessage,
+    message,
     description,
     setDescription,
-    setError,
-    setIsMessage,
-    isMessage
-  } = useSubmitReservation();
+  } = useAppointment();
 
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
     setError(null);
-    setIsMessage(false);
+    setMessage(false);
     router.back();
   };
 
   if (reservation) {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
         <HeaderInfo
           image={company?.media?.coverImageAppointments}
           reservation={reservation}
         />
+        <SharedBackButton onPress={router.back} />
 
-        <View style={{ display: "flex", paddingHorizontal: 10, marginTop: 10 }}>
+        <View style={styles.containerData}>
           <View>
             {reservation && <Details data={reservation} />}
             <SharedInputTextArea
@@ -52,31 +55,39 @@ const Reservation = () => {
             />
           </View>
         </View>
-        <View style={{ display: "flex", paddingHorizontal: 25 }}>
+        <View style={styles.btn}>
           <SharedButton
             loading={isLoading}
             onPress={submitReservationHandler}
             text={localization.DATE.book}
           />
         </View>
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={confirmHandler}
-            onConfirm={confirmHandler}
-            icon={<FontAwesome name={"close"} size={64} color="white" />}
-            title={error}
-            buttonText={localization.OK.label}
-          />
-        )}
+        {message?.length > 0 ||
+          (error?.length > 0 && (
+            <SharedMessage
+              isOpen={message || error}
+              onClose={confirmHandler}
+              onConfirm={confirmHandler}
+              icon={<FontAwesome name={"close"} size={64} color="white" />}
+              title={error || message}
+              buttonText={localization.OK.label}
+            />
+          ))}
       </ScrollView>
     );
   }
 };
 
-export default Reservation;
-
 const styles = StyleSheet.create({
+  btn: {
+    display: "flex",
+    paddingHorizontal: 25,
+  },
+  containerData: {
+    display: "flex",
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
   button: {
     display: "flex",
     justifyContent: "center",
@@ -129,3 +140,5 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
 });
+
+export default withKeyboardAvoid(Reservation);

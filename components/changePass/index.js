@@ -13,6 +13,7 @@ import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();
@@ -38,8 +39,9 @@ const changePass = () => {
   const confirmHandler = async () => {
     setIsMessage(false);
     await removeOtpParamsStorage();
-    router.dismissAll();
-    router.push("/(z_auth)/login");
+    // router.dismissAll();
+    // router.replace("/(z_auth)/login");
+    router.back();
   };
   const confirmHandler2 = () => {
     setIsMessage(false);
@@ -47,6 +49,11 @@ const changePass = () => {
 
   return (
     <WrapperAuth>
+      <SharedBackButton
+        onPress={router.back}
+        absolutePosition={false}
+        styleBtn={{ marginBottom: 30 }}
+      />
       <View style={{ flex: 1 }}>
         <View>
           <Text style={styles.mainTitle}>

@@ -10,44 +10,28 @@ export default function RootLayoutBarbers() {
         name="employers"
         options={{
           title: "",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          headerTintColor: "white",
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="services"
         options={{
           title: "",
-          headerShown: locationsData?.length > 1 ? true : false,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          headerTintColor: "white",
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="calendar"
         options={{
           title: "",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          headerTintColor: "white",
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="reservation"
         options={{
           title: "",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          headerTintColor: "white",
+          headerShown: false,
         }}
       />
       <Stack.Screen

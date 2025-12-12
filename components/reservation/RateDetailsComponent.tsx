@@ -16,23 +16,15 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
+import { useAppointment } from "@/context/AppointmentContext";
 
 function RateDetailsComponent() {
   const { itemId } = useLocalSearchParams();
   const [description, setDescription] = useState(null);
-  const {
-    reservationData,
-    isLoading: s,
-    error,
-    fetchReservationDetails,
-  } = useFetchReservation();
-
   const { localization } = useLocalization();
   const { company } = useCompany();
-  
-  useEffect(() => {
-    fetchReservationDetails(itemId);
-  }, []);
+
+
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
   const {
     isLoading,
@@ -42,7 +34,13 @@ function RateDetailsComponent() {
     rateMessage,
     setRateMessage,
     rateReservation,
-  } = useRateReservation();
+    reservationData,
+    fetchReservationDetails
+  } = useAppointment();
+
+    useEffect(() => {
+    fetchReservationDetails(itemId);
+  }, []);
 
   const handleUserRatingChange = (rating: number) => {
     setUserFeedbackRating(rating);
@@ -77,13 +75,13 @@ function RateDetailsComponent() {
           <StarRating onRatingChange={handleUserRatingChange} />
         )}
         {!reservationData?.rating && (
-            <SharedInputTextArea
-              placeholderText={
-                localization.APPOINTMENTS.rateReservation.rateExplanation
-              }
-              description={description}
-              setDescription={setDescription}
-            />
+          <SharedInputTextArea
+            placeholderText={
+              localization.APPOINTMENTS.rateReservation.rateExplanation
+            }
+            description={description}
+            setDescription={setDescription}
+          />
         )}
         {reservationData?.rating?.description?.length > 0 && (
           <View style={styles.descContent}>

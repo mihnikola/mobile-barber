@@ -48,6 +48,13 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
+         <Stack.Screen
+          name="(reservation_notification)"
+          options={{
+            title: "",
+            headerShown: false,
+          }}
+        />
       </Stack>
     </AppInitialized>
   );

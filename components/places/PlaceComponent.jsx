@@ -19,7 +19,10 @@ const PlaceComponent = () => {
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
-    router.push("/(tabs)/(02_barbers)/services");
+    router.push({
+      pathname: "/(tabs)/(02_barbers)/services",
+      params: { backButton: true },
+    });
   };
 
   useEffect(() => {
@@ -46,9 +49,7 @@ const PlaceComponent = () => {
       )}
       {!isLoading && error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            {localization.PLACES.network}
-          </Text>
+          <Text style={styles.errorText}>{localization.PLACES.network}</Text>
         </View>
       )}
     </ScrollView>

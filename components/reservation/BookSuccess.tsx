@@ -7,37 +7,29 @@ import { StyleSheet, Text, View } from "react-native";
 function BookSuccess({ image, logo, reservation }) {
   return (
     <>
-     <SharedCoverImage image={image} />
-        
-        <SharedLogo image={logo} />
+      <SharedCoverImage image={image} />
 
-        <View style={styles.coverContent}>
-          <Text style={styles.timeData}>
-            {reservation?.timeData?.value} -{" "}
-            {addMinutesToTime(
-              reservation?.timeData?.value,
-              reservation?.service?.serviceDuration
-            )}
-          </Text>
-          <Text style={styles.dateData}>
-            {convertDate(
-              reservation?.dateReservation?.dateString ||
-                reservation?.dateReservation
-            )}
-          </Text>
-        </View>
+      <SharedLogo image={logo} />
+
+      <View style={styles.coverContent}>
+        <Text style={styles.timeData}>
+          {reservation?.timeData?.value} -{" "}
+          {addMinutesToTime(
+            reservation?.timeData?.value,
+            reservation?.service?.serviceDuration
+          )}
+        </Text>
+        <Text style={styles.dateData}>
+          {convertDate(
+            reservation?.dateReservation?.dateString ||
+              reservation?.dateReservation
+          )}
+        </Text>
+      </View>
     </>
   );
 }
 const styles = StyleSheet.create({
-    coverLogo: {
-    position: "absolute",
-    display: "flex",
-    alignSelf: "center",
-    marginTop: 50,
-    width: 140,
-    height: 200,
-  },
   infoContainer: {
     flex: 1,
     justifyContent: "space-evenly",

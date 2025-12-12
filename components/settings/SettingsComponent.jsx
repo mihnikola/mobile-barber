@@ -1,4 +1,4 @@
-import { View, StyleSheet, StatusBar, Text } from "react-native";
+import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
@@ -43,9 +43,6 @@ const SettingsComponent = () => {
     setLoader(false);
   };
 
-  if (loader) {
-    return <SharedLoader />;
-  }
   const redirectToLogin = () => {
     router.push({
       pathname: "/(z_auth)/login",
@@ -54,7 +51,7 @@ const SettingsComponent = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="black" />
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
@@ -67,7 +64,7 @@ const SettingsComponent = () => {
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
       {isLogout && (
         <SharedQuestion
-          isOpen={isLogout}
+          isOpen={isLogout && !isLoading}
           onClose={() => setIsLogout(false)}
           onLogOut={logoutConfirm}
           icon={
@@ -80,14 +77,15 @@ const SettingsComponent = () => {
       )}
       {logoutData && (
         <SharedMessage
+          isOpen={logoutData && !isLoading}
           buttonText="Odlogovani ste"
           isLoading={loader}
           icon={<FontAwesome name="check" size={64} color="white" />}
           onConfirm={() => setLogoutData(false)}
-          isOpen={logoutData}
         />
       )}
-    </View>
+      <SharedLoader isOpen={isLoading} />
+    </SafeAreaView>
   );
 };
 

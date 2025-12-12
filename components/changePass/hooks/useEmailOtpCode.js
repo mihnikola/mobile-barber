@@ -31,10 +31,13 @@ const useEmailOtpCode = () => {
     }
 
     setIsLoading(true);
+      console.log("checkEmailValidation+++ email",email);
 
+      
     try {
       const response = await getData("/users/email", { params: { email } });
 
+      console.log("checkEmailValidation+++ response",response);
       if (response.status === 200) {
         if (response.success) {
           const verifyData = {email};

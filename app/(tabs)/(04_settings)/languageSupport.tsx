@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
+import { router } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const languageSupport = () => {
   const { changeLocalization, localization } = useLocalization();
@@ -50,6 +52,7 @@ const languageSupport = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
+      <SharedBackButton onPress={router.back} />
 
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
@@ -70,7 +73,6 @@ const languageSupport = () => {
             style={styles.languageItem}
             onPress={() => {
               if (localization.code !== item.code) {
-                
                 changeLocalization(item);
               }
             }}

@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import { router } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
@@ -13,6 +15,7 @@ const privacypolicy = () => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
+      <SharedBackButton onPress={router.back} />
 
       {/* <SharedTabHeader
         image={company?.media?.coverImageSettings}

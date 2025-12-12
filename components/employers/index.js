@@ -13,6 +13,7 @@ import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import SharedEmployerCard from "@/shared-components/SharedEmployerCard";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -56,6 +57,7 @@ const Employers = () => {
         image={company?.media?.coverImageAppointments}
         title={localization.BARBERS.title}
       />
+    {<SharedBackButton onPress={router.back}/>}
 
       {isLoading && <Loader />}
       {!isLoading && (

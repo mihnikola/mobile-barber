@@ -3,18 +3,22 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
-import { router, usePathname } from "expo-router";
+import { router, useLocalSearchParams, usePathname } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading, fetchAllServices } = useFetchServices();
   const pathname = usePathname();
 
+  const {backButton} = useLocalSearchParams();
+
+  console.log("paramts",backButton)
   const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
@@ -37,6 +41,8 @@ const MenuServices = () => {
 
   return (
     <ScrollView style={styles.container}>
+    {backButton && <SharedBackButton onPress={router.back}/>}
+
       <SharedTabHeader
         image={company?.media?.coverImageAppointments}
         title={localization.SERVICES.title}

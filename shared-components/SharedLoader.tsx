@@ -1,14 +1,7 @@
-import {
-  View,
-  StyleSheet,
-  Modal,
-  ActivityIndicator,
-} from "react-native";
+import { View, StyleSheet, Modal, ActivityIndicator } from "react-native";
 
-export const SharedLoader = ({
-  isOpen,
-  onConfirm,
-}) => {
+export const SharedLoader = ({ isOpen, onConfirm }) => {
+  console.log(isOpen, "SharedLoader");
   return (
     <Modal
       animationType="fade"

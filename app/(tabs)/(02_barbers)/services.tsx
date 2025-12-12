@@ -1,6 +1,7 @@
 import Services from "@/components/services";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 const MenuServices = () => {
   return <Services />;
 };
 
-export default MenuServices;
+export default withSafeArea(MenuServices);
