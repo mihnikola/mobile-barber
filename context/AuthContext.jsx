@@ -18,6 +18,7 @@ import {
 } from "@react-native-google-signin/google-signin";
 import { changeLanguage } from "i18next";
 import { getLanguageValue } from "@/helpers/language";
+import NotificationService from "@/services/NotificationService";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -231,7 +232,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const expoToken = await getExpoTokenStorage();
+    // const expoToken = await getExpoTokenStorage();
+    const expoToken = await NotificationService.getFCMToken();
     const languageValue = await getLanguageValue();
     if (!email || !password) {
       setIsMessage(true);
@@ -296,7 +298,9 @@ export const AuthProvider = ({ children }) => {
     setError(null);
 
     const { user } = userData;
-    const expoToken = await getExpoTokenStorage();
+    // const expoToken = await getExpoTokenStorage();
+    const expoToken = await NotificationService.getFCMToken();
+
     const languageValue = await getLanguageValue();
 
     if (!languageValue) {
