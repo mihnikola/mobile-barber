@@ -42,27 +42,6 @@ const LoginScreen = () => {
   const [userApple, setUserApple] = useState(null);
 
   const { localization } = useLocalization();
-  //dobijanje podataka prvi put appleId sign in
-  //   {
-  //   "authorizationCode": "ce7f5698ecaa14259b86dd629d8a6e2b5.0.sttw.bYmnr1A4M55RmQwkK1BMJw",
-  //   "authorizedScopes": [],
-  //   "email": "blagoje.vukovic93@gmail.com",
-  //   "fullName": {
-  //     "familyName": "Vukovic",
-  //     "givenName": "Blagoje",
-  //     "middleName": null,
-  //     "namePrefix": null,
-  //     "nameSuffix": null,
-  //     "nickname": null
-  //   },
-  //   "identityToken": "eyJraWQiOiJiRnd6bGVSOHRmIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiZnRhLmJhcmJlci5hcHAiLCJleHAiOjE3NjU0NjE0NDAsImlhdCI6MTc2NTM3NTA0MCwic3ViIjoiMDAwMzM2LmI1NDM4NmIxYmY3ODQ1OGI4MGM1ODBiNzUyOTU4NGMxLjEyNTIiLCJub25jZSI6IjQxZjI4YzM1MTMwZDA1N2Y3YWRkOTVjYjQxZjg2YmRhMDNhMWY1MjcwNTkzZTZlZGUzYWRmOTVmMGIwMWQ2N2UiLCJjX2hhc2giOiJmS3g1UlpITjM5UEI4alFxZzJzOWtBIiwiZW1haWwiOiJibGFnb2plLnZ1a292aWM5M0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXV0aF90aW1lIjoxNzY1Mzc1MDQwLCJub25jZV9zdXBwb3J0ZWQiOnRydWUsInJlYWxfdXNlcl9zdGF0dXMiOjJ9.XGmNsJjb7emRiLdWKmCRfJEdvIq86nOGPJI8oLbeto87-wG95atXHd7UftstYMf-8E0EbSdeS540qCydxGMEr_TL56OkTzOK1n6Turm6rGA1xhyTYWxYEP_s0nhSGGfOEEtsx9sq1btR8TPyS0rlRx86TCuw5coPhTpYhKAGn5x2-2PZFFffcfKcG6I9oi5arNrp4x_3GhCAJRcrTtS_oNsjBOWT-gOs4Ax8gIYP4BpJyyJOaXqUyVVUQiQXxqjlCR1Nfo3q5Gsow2deYdfJjZnWNFWfAPKrX8ukzZc9JjHGwIyoo9B99p-ZiukAl5UaSAFhDr5SPehXFDIH_747jQ",
-  //   "nonce": "g81miG2o9AZZiObkny7eZhLXVg-Cyhzx",
-  //   "realUserStatus": 2,
-  //   "state": null,
-  //   "user": "000336.b54386b1bf78458b80c580b7529584c1.1252"
-  // }
-  //cilj je da se napravi logika kad ima sve podatke i kad nema
-  //odnosno kad treba na BE da se jwtcode i odatle nadje email
 
   const {
     isLoadingLogin,
@@ -75,6 +54,7 @@ const LoginScreen = () => {
     verificationOTPCode,
     message,
     isGoogleLoading,
+    isIosLoading,
     signIn,
     signInIos,
   } = useAuth();
@@ -161,14 +141,13 @@ const LoginScreen = () => {
       throw new Error("Apple Sign-In failed - no identify token returned");
     }
 
-    console.log("authToken", appleAuthRequestResponse);
-
-    // const userData = {
-    //   email: appleAuthRequestResponse?.email,
-    //   fullName: appleAuthRequestResponse?.fullName,
-    //   user: appleAuthRequestResponse?.user
-    // }
-    // signInIos(userData, appleAuthRequestResponse.identityToken);
+    const userData = {
+      email: appleAuthRequestResponse?.email,
+      fullName: appleAuthRequestResponse?.fullName,
+      user: appleAuthRequestResponse?.user,
+      token: appleAuthRequestResponse?.identityToken
+    }
+    await signInIos(userData);
   }
 
   return (
