@@ -35,21 +35,19 @@ export const SRB_LOCALIZATION = {
   BARBERS: {
     title: "Odaberi frizera",
     error: "Greška prilikom uzimanja podataka o zaposlenima...",
-    notFound:"Trenutno nema dostupnih radnika",
-    network:"Doslo je do greske. Molimo vas pokusajte kasnije",
-
+    notFound: "Trenutno nema dostupnih radnika",
+    network: "Doslo je do greske. Molimo vas pokusajte kasnije",
   },
-   INTERNET:{
-    error:"Molim Vas proverite svoju Internet konekciju.",
-    title:"Nema Internet signala"
+  INTERNET: {
+    error: "Molim Vas proverite svoju Internet konekciju.",
+    title: "Nema Internet signala",
   },
   PLACES: {
     title: "Odaberi lokaciju",
     error: "Greška prilikom preuzimanja lokacija...",
     title: "Odaberi barber lokaciju",
     close: "Zatvori",
-    network:"Doslo je do greske. Molimo vas pokusajte kasnije",
-
+    network: "Doslo je do greske. Molimo vas pokusajte kasnije",
   },
   SERVICES: {
     title: "Cenovnik & Usluge",
@@ -85,7 +83,7 @@ export const SRB_LOCALIZATION = {
   APPOINTMENTS: {
     noLogin: "Samo ste nekoliko klikova od svojih rezervacija",
     login: "Molim vas prijavite se ovde",
-    error:"Trenutno nemate nijednu rezervaciju",
+    error: "Trenutno nemate nijednu rezervaciju",
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",
     errorMonthlyLimit: "Ne možete napraviti više rezervacija za ovaj mesec.",
@@ -116,6 +114,7 @@ export const SRB_LOCALIZATION = {
       confirmMessage: "Rezervacija je uspešno ocenjena",
       errorMessage: "Rezervacija ne postoji",
       descReservation: "Komentar za uslugu",
+      descRateReservation: "Opis ocene",
     },
     errorFetch: "Greška prilikom preuzimanja rezervacija",
     errorFetchId: "Greška prilikom preuzimanja date rezervacije",
@@ -192,7 +191,7 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     },
   },
   LOGIN: {
-     noToken: "FCM token nije dostupan",
+    noToken: "FCM token nije dostupan",
     noLanguage: "Jezik nije dostupan ",
     title: "Prijava",
     description: "Molimo Vas da unesete podatke",

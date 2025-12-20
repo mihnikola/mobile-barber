@@ -116,10 +116,10 @@ const otpCode = () => {
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
-          styleBtn={{ marginBottom: 30 }}
+          styleBtn={{ marginBottom: 30 , marginHorizontal: 10}}
         />
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginHorizontal: 15 }}>
           <View>
             <Text style={styles.mainTitle}>
               {localization.OTP_CODE.mainTitle}

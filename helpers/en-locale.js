@@ -96,6 +96,7 @@ export const ENG_LOCALIZATION = {
     },
     rateReservation: {
       descReservation: "Description of tretman",
+      descRateReservation: "Rate description",
       rateButton: "Rate",
       rateQuestion: "Are you sure you want to rate this reservation?",
       yesButton: "Yes",

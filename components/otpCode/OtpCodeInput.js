@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: "center",
     marginVertical: 20,
+    
   },
   input: {
     borderWidth: 1,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     color: '#fff',
     borderRadius: 10,
-    width: 50,
+    width: 46,
     height: 60,
     fontSize: 24,
     textAlign: "center",

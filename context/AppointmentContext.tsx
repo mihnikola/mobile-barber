@@ -70,6 +70,7 @@ export const AppointmentProvider = ({ children }) => {
       setError(localization.APPOINTMENTS.rateReservation.errorMessage);
     } finally {
       setIsLoading(false);
+      setDescription(null);
     }
   };
 
