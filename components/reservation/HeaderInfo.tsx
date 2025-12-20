@@ -7,6 +7,7 @@ function HeaderInfo({ image, reservation }) {
   return (
     <>
       <SharedCoverImage image={image} />
+      
       <View style={styles.coverContent}>
         <Text style={styles.timeData}>
           {reservation && reservation?.timeData?.value} -{" "}

@@ -79,6 +79,11 @@ const Reservation = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+  },
+
   btn: {
     display: "flex",
     paddingHorizontal: 25,
@@ -88,57 +93,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
   },
-  button: {
-    display: "flex",
-    justifyContent: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    backgroundColor: "black",
-    borderRadius: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    fontSize: 16,
-    textAlign: "center",
-  },
-
-  timeData: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  position: {
-    fontSize: 16,
-    color: "grey",
-    fontStyle: "italic",
-    padding: 12,
-  },
-  coverContent: {
-    paddingHorizontal: 30,
-    position: "absolute",
-    top: 80,
-  },
-  dateData: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  data: {
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: "black",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-  },
-  coverImage: {
-    width: "100%",
-    height: 180,
-    opacity: 0.2,
-  },
 });
 
-export default withKeyboardAvoid(Reservation);
+export default Reservation;

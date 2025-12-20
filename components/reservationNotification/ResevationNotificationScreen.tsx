@@ -42,28 +42,31 @@ function ResevationNotificationScreen() {
     fetchReservationDetails(itemId);
   }, []);
 
-  
-
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
 
   const renderDescription = () => {
-    const textDescription =
-      reservationData?.rating?.description || reservationData?.description;
-    if (
-      reservationData?.rating?.description ||
-      reservationData?.description ||
-      reservationData?.rating?.rate
-    ) {
+    if (reservationData?.description) {
       return (
         <View style={styles.descContent}>
           <Text style={styles.description}>{`${
             localization.APPOINTMENTS.rateReservation.descReservation
-          } ${":  "}${textDescription}`}</Text>
+          } ${":  "}${reservationData?.description}`}</Text>
+        </View>
+      );
+    }
+  };
+  const renderRateDescription = () => {
+    if (reservationData?.rating?.description) {
+      return (
+        <View style={styles.descContent}>
+          <Text style={styles.description}>{`${
+            localization.APPOINTMENTS.rateReservation.descRateReservation
+          } ${":  "}${reservationData?.rating?.description}`}</Text>
         </View>
       );
     }
 
-    if (past || reservationData?.description)
+    if (past && !reservationData?.rating?.description)
       return (
         <SharedInputTextArea
           placeholderText={
@@ -75,7 +78,7 @@ function ResevationNotificationScreen() {
       );
   };
   const confirmHandler = async () => {
-
+    console.log(":::::::::::::::::")
     router.back();
     setIsModal(false);
   };
@@ -155,16 +158,15 @@ function ResevationNotificationScreen() {
   return (
     <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
       <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <SharedBackButton
-        onPress={router.back}
-        styleBtn={{ marginBottom: 10 }}
-      />
+      <SharedBackButton onPress={router.back} styleBtn={{ marginBottom: 10 }} />
 
       <HeaderReservationTime data={reservationData} />
       <View style={styles.containerCancel}>
         {reservationData && <SharedDetailsReservation data={reservationData} />}
-        {renderStarComponent()}
         {renderDescription()}
+
+        {renderStarComponent()}
+        {renderRateDescription()}
         {renderSharedButton()}
       </View>
 

@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+    paddingTop: 10
   },
   textInputFocused: {
     borderColor: "#2596be",

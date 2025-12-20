@@ -43,10 +43,14 @@ const ForgotPassword = () => {
   };
   return (
     <WrapperAuth>
-      <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginBottom: 30}} />
+      <SharedBackButton
+        onPress={router.back}
+        absolutePosition={false}
+        styleBtn={{ marginBottom: 30, marginHorizontal: 5 }}
+      />
 
       <View style={{ flex: 1 }}>
-        <View>
+        <View style={{ marginHorizontal: 10 }}>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
           </Text>
@@ -55,7 +59,7 @@ const ForgotPassword = () => {
             {localization.FORGOT_PASSWORD.subtitle}
           </Text>
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 20, marginHorizontal: 10 }}>
           <SharedInput
             label={localization.EMAIL.label}
             value={email}
@@ -96,11 +100,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "700",
     color: "#000",
+    marginHorizontal: 10,
   },
   subtitle: {
     fontSize: 16,
     color: "#555",
     lineHeight: 22,
+    marginHorizontal: 10,
   },
   radiobtn: {
     flex: 2,
@@ -125,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
+    paddingVertical: 15,
   },
   mainTitle: {
     fontSize: 22,
