@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isIosLoading, setIosLoading] = useState(false);
   const [verificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
@@ -59,13 +60,9 @@ export const AuthProvider = ({ children }) => {
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
-      console.log("xxxxxxxxxxxxx");
       if (isSuccessResponse(response)) {
-        console.log("wwwwwwwwwwwwwwwww");
-
         loginViaGoogle(response.data);
       } else {
-        // sign in was cancelled by user
         setIsGoogleLoading(false);
       }
     } catch (error) {
@@ -90,13 +87,67 @@ export const AuthProvider = ({ children }) => {
       setIsGoogleLoading(false);
     }
   };
+
+  const saveTokenSignInIos = async (userId, expoToken, lang) => {
+    try {
+      const responseData = await post("/api/saveToken", {
+        tokenExpo: expoToken,
+        tokenUser: userId,
+        lang,
+      });
+      if (responseData.status === 200) {
+        setIsMessage(true);
+        setSuccess(localization.LOGIN.success);
+      }
+    } catch (err) {
+      setIsMessage(true);
+      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
+    }
+  };
+
+  const signInIos = async (userData) => {
+
+    const fcmToken = await NotificationService.getFCMToken();
+    const languageValue = await getLanguageValue();
+
+    if (!fcmToken) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noToken);
+      return;
+    }
+    setIosLoading(true);
+    setError(null);
+    try {
+      const responseData = await post("/users/loginIos", {
+        user: userData,
+        fcmToken,
+      });
+      if (responseData.status === 200) {
+        saveStorage(responseData.token);
+        const lang = languageValue === "sr" || languageValue === null ? "sr" : "en";
+        saveTokenSignInIos(responseData.userId, fcmToken, lang);
+      }
+    } catch (err) {
+      if (err.message.includes("404")) {
+        setIsMessage(true);
+        setError(localization.SERVER_RESPONSE.notFound);
+      } else {
+        setIsMessage(true);
+        setError(localization.SERVER_RESPONSE.error);
+      }
+    } finally {
+      setIosLoading(false);
+    }
+
+
+  }
   const signOut = async () => {
     setIsGoogleLoading(true);
 
     try {
       await GoogleSignin.signOut();
       setIsGoogleLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchUserData = async () => {
@@ -366,8 +417,7 @@ export const AuthProvider = ({ children }) => {
         setIsMessage(true);
 
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
@@ -399,8 +449,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoadingLogin(false);
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
@@ -438,6 +487,9 @@ export const AuthProvider = ({ children }) => {
         isGoogleLoading,
         isLoadingLogin,
         setIsLoadingLogin,
+        signInIos,
+        setIosLoading,
+        isIosLoading,
       }}
     >
       {children}
