@@ -19,6 +19,7 @@ import {
 import { changeLanguage } from "i18next";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
+import { Alert } from "react-native";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -57,8 +58,10 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async () => {
     setIsGoogleLoading(true);
+
     try {
       await GoogleSignin.hasPlayServices();
+
       const response = await GoogleSignin.signIn();
       if (isSuccessResponse(response)) {
         loginViaGoogle(response.data);
@@ -67,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log("error+++", error);
+
       setIsGoogleLoading(false);
 
       if (isErrorWithCode(error)) {
@@ -106,7 +110,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signInIos = async (userData) => {
-
     const fcmToken = await NotificationService.getFCMToken();
     const languageValue = await getLanguageValue();
 
@@ -124,7 +127,8 @@ export const AuthProvider = ({ children }) => {
       });
       if (responseData.status === 200) {
         saveStorage(responseData.token);
-        const lang = languageValue === "sr" || languageValue === null ? "sr" : "en";
+        const lang =
+          languageValue === "sr" || languageValue === null ? "sr" : "en";
         saveTokenSignInIos(responseData.userId, fcmToken, lang);
       }
     } catch (err) {
@@ -138,16 +142,14 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setIosLoading(false);
     }
-
-
-  }
+  };
   const signOut = async () => {
     setIsGoogleLoading(true);
 
     try {
       await GoogleSignin.signOut();
       setIsGoogleLoading(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchUserData = async () => {
@@ -361,6 +363,7 @@ export const AuthProvider = ({ children }) => {
     }
     if (!expoToken) {
       setIsMessage(true);
+      setIsGoogleLoading(false);
       setError(localization.LOGIN.noToken);
       return;
     }
@@ -417,7 +420,8 @@ export const AuthProvider = ({ children }) => {
         setIsMessage(true);
 
         setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
           }`
         );
       }
@@ -449,7 +453,8 @@ export const AuthProvider = ({ children }) => {
         setIsLoadingLogin(false);
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
           }`
         );
       }
