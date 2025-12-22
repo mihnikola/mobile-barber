@@ -84,7 +84,7 @@ const SettingsComponent = () => {
           onConfirm={() => setLogoutData(false)}
         />
       )}
-      <SharedLoader isOpen={isLoading} />
+      <SharedLoader isOpen={isLoading || isLoadingLogin} />
     </SafeAreaView>
   );
 };
