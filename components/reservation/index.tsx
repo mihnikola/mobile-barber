@@ -26,14 +26,18 @@ const Reservation = () => {
     setError,
     setMessage,
     message,
+    setIsError,
+    IsError,
     description,
     setDescription,
   } = useAppointment();
 
+  console.log("errrr", error);
+
   const confirmHandler = async () => {
+    setIsError(false);
     setError(null);
-    setMessage(false);
-    router.back();
+
   };
 
   if (reservation) {
@@ -62,17 +66,16 @@ const Reservation = () => {
             text={localization.DATE.book}
           />
         </View>
-        {message?.length > 0 ||
-          (error?.length > 0 && (
-            <SharedMessage
-              isOpen={message || error}
-              onClose={confirmHandler}
-              onConfirm={confirmHandler}
-              icon={<FontAwesome name={"close"} size={64} color="white" />}
-              title={error || message}
-              buttonText={localization.OK.label}
-            />
-          ))}
+        {IsError && (
+          <SharedMessage
+            isOpen={IsError}
+            onClose={confirmHandler}
+            onConfirm={confirmHandler}
+            icon={<FontAwesome name={"close"} size={64} color="white" />}
+            title={error}
+            buttonText={localization.OK.label}
+          />
+        )}
       </ScrollView>
     );
   }

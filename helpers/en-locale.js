@@ -35,13 +35,13 @@ export const ENG_LOCALIZATION = {
     title: "Choose barber",
     error: "Error while fetching employers...",
     notFound: "There are no available barbers",
-    network:"Something went wrong, please try again later",
+    network: "Something went wrong, please try again later",
   },
   PLACES: {
     title: "Choose location",
     error: "Error while fetching locations...",
     close: "Close",
-    network:"Something went wrong, please try again later",
+    network: "Something went wrong, please try again later",
   },
   DATE: {
     title: "Choose date",
@@ -78,10 +78,10 @@ export const ENG_LOCALIZATION = {
     noLogin: "You're just a few clicks away from your appointments.",
     login: "Please login here",
     error: "You don't have any reservations",
-    errorDailyLimit: "You cannot make more reservation this day",
-    errorWeeklyLimit: "You cannot make more reservation this week",
-    errorMonthlyLimit: "You cannot make more reservation this month",
-    errorYearlyLimit: "You cannot make more reservation this year",
+    errorDailyLimit: "You have reached your maximum number of bookings for today",
+    errorWeeklyLimit: "You have reached your maximum number of bookings for this week",
+    errorMonthlyLimit: "You have reached your maximum number of bookings for this month",
+    errorYearlyLimit: "You have reached your maximum number of bookings for this year",
     errorId: "Reservation id is not provided.",
     title: "Reservations",
     postError: "Error while submitting your reservation.",
@@ -181,9 +181,9 @@ We reserve the right to modify the terms of use at any time, and users will be n
       imageError: "Upload failed",
     },
   },
-  INTERNET:{
-    error:"Please check your Internet connection.",
-    title:"No Internet"
+  INTERNET: {
+    error: "Please check your Internet connection.",
+    title: "No Internet"
   },
   LOGIN: {
     noToken: "You don't have FCM token",
