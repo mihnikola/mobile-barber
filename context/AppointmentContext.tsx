@@ -23,6 +23,7 @@ export const AppointmentProvider = ({ children }) => {
   const [isModalQuestion, setIsModalQuestion] = useState(false);
 
   const [error, setError] = useState(null);
+  const [IsError, setIsError] = useState(false);
 
   const [responseData, setResponseData] = useState(null);
   const [message, setMessage] = useState(null);
@@ -177,19 +178,27 @@ export const AppointmentProvider = ({ children }) => {
         });
       }
       if (response.status === 202) {
+        setIsError(true);
         setError(localization.APPOINTMENTS.errorDailyLimit);
       }
       if (response.status === 203) {
+        setIsError(true);
+
         setError(localization.APPOINTMENTS.errorWeeklyLimit);
       }
       if (response.status === 204) {
+        setIsError(true);
+
         setError(localization.APPOINTMENTS.errorMonthlyLimit);
       }
       if (response.status === 205) {
+        setIsError(true);
+
         setError(localization.APPOINTMENTS.errorYearlyLimit);
       }
     } catch (err) {
-      console.log("err", err);
+      setIsError(true);
+
       setError(localization.APPOINTMENTS.postError);
     } finally {
       setIsLoading(false);
@@ -234,6 +243,8 @@ export const AppointmentProvider = ({ children }) => {
         setIsModalQuestion,
         isModalQuestion,
         getTokenData,
+        setIsError,
+        IsError
       }}
     >
       {children}
