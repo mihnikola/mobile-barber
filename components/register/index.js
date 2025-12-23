@@ -5,7 +5,6 @@ import {
   ScrollView,
   StatusBar,
   Platform,
-  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import useEmail from "./hooks/useEmail";
@@ -72,7 +71,7 @@ const Register = () => {
   };
 
   return (
-    <ScrollView style={styles.safeArea}>
+    <ScrollView style={styles.safeArea} keyboardShouldPersistTaps={"always"}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
       <View style={styles.container}>
         <SharedLogin image={image} />
