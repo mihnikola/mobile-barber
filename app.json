@@ -11,10 +11,15 @@
       "backgroundColor": "#000000"
     },
     "scheme": "myapp",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
+    "experiments": {
+      "bridgeless": false
+    },
     "ios": {
       "entitlements": {
-        "com.apple.developer.applesignin": ["Default"]
+        "com.apple.developer.applesignin": [
+          "Default"
+        ]
       },
       "bundleIdentifier": "fta.barber.app",
       "supportsTablet": true,
@@ -25,18 +30,17 @@
       "googleServicesFile": "./google-services.json"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/messaging",
-      "expo-router",
       [
         "@react-native-google-signin/google-signin",
         {
           "iosUrlScheme": "com.googleusercontent.apps.284831110803-u696dssmapohte49619rhmsdlselgmfg"
         }
       ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/messaging",
+      "expo-router",
       [
         "expo-build-properties",
-
         {
           "ios": {
             "useFrameworks": "static"

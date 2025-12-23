@@ -15,7 +15,11 @@ import {
   GoogleSignin,
   isErrorWithCode,
   isSuccessResponse,
+  GoogleOneTapSignIn
 } from "@react-native-google-signin/google-signin";
+
+
+
 import { changeLanguage } from "i18next";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
@@ -45,52 +49,140 @@ export const AuthProvider = ({ children }) => {
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
 
+
+  const [user, setUser] = useState(null);
+
   const { localization } = useLocalization();
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
-      iosClientId:
-        "284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com",
-      profileImageSize: 150,
-    });
+    if (GoogleOneTapSignIn) {
+      GoogleOneTapSignIn.configure({
+        webClientId: "autoDetect",
+      });
+    } else {
+      console.error("GoogleOneTapSignIn is undefined! Check your native build.");
+    }
   }, []);
 
+
   const signIn = async () => {
-    setIsGoogleLoading(true);
-
     try {
-      await GoogleSignin.hasPlayServices();
+      setIsGoogleLoading(true);
 
-      const response = await GoogleSignin.signIn();
-      if (isSuccessResponse(response)) {
-        loginViaGoogle(response.data);
-      } else {
-        setIsGoogleLoading(false);
+      await GoogleOneTapSignIn.checkPlayServices();
+
+      // Try silent sign-in
+      const signInResponse = await GoogleOneTapSignIn.signIn();
+
+      if (isSuccessResponse(signInResponse)) {
+        setUser(signInResponse.data.user);
+        return;
+      }
+
+      // No saved credentials → create account
+      if (isNoSavedCredentialFoundResponse(signInResponse)) {
+        const createResponse = await GoogleOneTapSignIn.createAccount();
+
+        if (isSuccessResponse(createResponse)) {
+          setUser(createResponse.data.user);
+          return;
+        }
+
+        // Fallback – explicit sign in
+        const explicitResponse =
+          await GoogleOneTapSignIn.presentExplicitSignIn();
+
+        if (isSuccessResponse(explicitResponse)) {
+          setUser(explicitResponse.data.user);
+        }
+      }
+
+      if (isCancelledResponse(signInResponse)) {
+        console.log('User cancelled Google sign in');
       }
     } catch (error) {
-      console.log("error+++", error);
-
-      setIsGoogleLoading(false);
-
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            // operation (eg. sign in) already in progress
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            // Android only, play services not available or outdated
-            break;
-          default:
-          // some other error happened
-        }
-      } else {
-        // an error that's not related to google sign in occurred
-        setIsGoogleLoading(false);
-      }
+      console.error('Google Sign-In error:', error);
+    } finally {
       setIsGoogleLoading(false);
     }
   };
+
+  // 3️⃣ Sign out
+  // const signOut = async () => {
+  //   await GoogleOneTapSignIn.signOut();
+  //   setUser(null);
+  // };
+
+  // const signIn = async () => {
+  //   setIsGoogleLoading(true);
+
+  //   try {
+  //     await GoogleSignin.hasPlayServices();
+
+  //     const response = await GoogleSignin.signIn();
+  //     if (isSuccessResponse(response)) {
+  //       loginViaGoogle(response.data);
+  //     } else {
+  //       setIsGoogleLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.log("error+++", error);
+
+  //     setIsGoogleLoading(false);
+
+  //     if (isErrorWithCode(error)) {
+  //       switch (error.code) {
+  //         case statusCodes.IN_PROGRESS:
+  //           // operation (eg. sign in) already in progress
+  //           break;
+  //         case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+  //           // Android only, play services not available or outdated
+  //           break;
+  //         default:
+  //         // some other error happened
+  //       }
+  //     } else {
+  //       // an error that's not related to google sign in occurred
+  //       setIsGoogleLoading(false);
+  //     }
+  //     setIsGoogleLoading(false);
+  //   }
+  // };
+
+  // const signIn = async () => {
+  //   try {
+  //     await GoogleOneTapSignIn.checkPlayServices();
+  //     const response = await GoogleOneTapSignIn.signIn();
+
+  //     if (isSuccessResponse(response)) {
+  //       // read user's info
+  //       console.log(response.data);
+  //     } else if (isNoSavedCredentialFoundResponse(response)) {
+  //       // Android and Apple only.
+  //       // No saved credential found (user has not signed in yet, or they revoked access)
+  //       // call `createAccount()`
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     if (isErrorWithCode(error)) {
+  //       switch (error.code) {
+  //         case statusCodes.ONE_TAP_START_FAILED:
+  //           // Android-only, you probably have hit rate limiting.
+  //           // You can still call `presentExplicitSignIn` in this case.
+  //           break;
+  //         case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+  //           // Android: play services not available or outdated.
+  //           // Get more details from `error.userInfo`.
+  //           // Web: when calling an unimplemented api (requestAuthorization)
+  //           // or when the Google Client Library is not loaded yet.
+  //           break;
+  //         default:
+  //         // something else happened
+  //       }
+  //     } else {
+  //       // an error that's not related to google sign in occurred
+  //     }
+  //   }
+  // };
 
   const saveTokenSignInIos = async (userId, expoToken, lang) => {
     try {
@@ -149,7 +241,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await GoogleSignin.signOut();
       setIsGoogleLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchUserData = async () => {
@@ -420,8 +512,7 @@ export const AuthProvider = ({ children }) => {
         setIsMessage(true);
 
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
@@ -453,8 +544,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoadingLogin(false);
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
