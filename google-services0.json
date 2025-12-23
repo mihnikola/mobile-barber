@@ -22,14 +22,6 @@
           }
         },
         {
-          "client_id": "284831110803-plu6lqo8dqdsgcm819a15uujse19a38d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.barber.app",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
           "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
           "client_type": 3
         }
