@@ -60,7 +60,9 @@ export const AuthProvider = ({ children }) => {
     setIsGoogleLoading(true);
 
     try {
-      await GoogleSignin.hasPlayServices();
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
 
       const response = await GoogleSignin.signIn();
       if (isSuccessResponse(response)) {
@@ -69,7 +71,7 @@ export const AuthProvider = ({ children }) => {
         setIsGoogleLoading(false);
       }
     } catch (error) {
-      console.log("error+++", error);
+      console.log("Google Sign-In error:", error.code, error.message);
 
       setIsGoogleLoading(false);
 
