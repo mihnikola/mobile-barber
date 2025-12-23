@@ -151,7 +151,7 @@ const LoginScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.containerData}>
+    <ScrollView style={styles.containerData} keyboardShouldPersistTaps={"always"}>
       <View style={styles.container}>
         <SharedLogin image={company?.media?.logo} />
 

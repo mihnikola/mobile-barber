@@ -1,7 +1,7 @@
 export const SRB_LOCALIZATION = {
   TABS: {
     HOME: "Početna",
-    BARBERS: "Zaposleni",
+    BARBERS: "Frizeri",
     APPOINTMENTS: "Rezervacije",
     SETTINGS: "Podešavanje",
   },
