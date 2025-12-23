@@ -46,11 +46,11 @@ const ForgotPassword = () => {
       <SharedBackButton
         onPress={router.back}
         absolutePosition={false}
-        styleBtn={{ marginBottom: 30, marginHorizontal: 5 }}
+        styleBtn={{ marginBottom: 30 }}
       />
 
       <View style={{ flex: 1 }}>
-        <View style={{ marginHorizontal: 10 }}>
+        <View>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
           </Text>
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
             {localization.FORGOT_PASSWORD.subtitle}
           </Text>
         </View>
-        <View style={{ marginTop: 20, marginHorizontal: 10 }}>
+        <View style={{ marginTop: 20 }}>
           <SharedInput
             label={localization.EMAIL.label}
             value={email}

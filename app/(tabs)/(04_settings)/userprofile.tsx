@@ -36,6 +36,7 @@ const userprofile = () => {
     handleChangeUser,
     isMessage,
     setIsMessage,
+    setErrorChange
   } = useUserChange();
 
   const [isValidated, setIsValidated] = useState(false);
@@ -87,14 +88,19 @@ const userprofile = () => {
     const data = {
       phoneNumber:
         phoneNumber !== userData?.phoneNumber?.slice(4) &&
-        phoneNumber !== userData?.phoneNumber &&
-        phoneNumber !== null &&
-        phoneNumber !== "null"
+          phoneNumber !== userData?.phoneNumber &&
+          phoneNumber !== null &&
+          phoneNumber !== "null"
           ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
       image: changedImg === userData?.image ? null : changedImg,
     };
+    if (!data.name && !data.phoneNumber && !data.image) {
+      setIsMessage(true);
+      setErrorChange(localization.SETTINGS.PROFILE.notDataChanged);
+      return;
+    }
     handleChangeUser(data);
   };
 
@@ -102,87 +108,89 @@ const userprofile = () => {
     setIsMessage(false);
   };
   return (
-  
-      <ScrollView style={styles.container}>
-        <SharedBackButton onPress={router.back} />
-        <View style={styles.imageContainer}>
-          <View style={styles.imageContainerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={userData?.image}
-            />
-          </View>
+
+    <ScrollView style={styles.container}>
+      <SharedBackButton onPress={router.back} />
+      <View style={styles.imageContainer}>
+        <View style={styles.imageContainerImage}>
+          <ImageCompress
+            handlePickImage={selectedImgHandler}
+            imageValue={userData?.image}
+          />
         </View>
-        <View style={styles.userDataContainer}>
-          <View>
-            <Text style={styles.inputLabel}>
-              {localization.SETTINGS.PROFILE.email}
-            </Text>
-            <TextInput
-              style={styles.inputDisabled}
-              defaultValue={userData?.email}
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </View>
-          <View>
-            <SharedPhoneNumber
-              label={localization.SETTINGS.PROFILE.phoneNumber}
-              placeholder="6x xxx xxxx"
-              placeholderTextColor="#888"
-              keyboardType="phone-pad"
-              dataDetectorTypes="phoneNumber"
-              value={
-                phoneNumber !== null
-                  ? phoneNumber
-                  : userData?.phoneNumber === null
+      </View>
+      <View style={styles.userDataContainer}>
+        <View>
+          <Text style={styles.inputLabel}>
+            {localization.SETTINGS.PROFILE.email}
+          </Text>
+          <TextInput
+            style={styles.inputDisabled}
+            defaultValue={userData?.email}
+            editable={false}
+            selectTextOnFocus={false}
+          />
+        </View>
+        <View>
+          <SharedPhoneNumber
+            label={localization.SETTINGS.PROFILE.phoneNumber}
+            placeholder="6x xxx xxxx"
+            placeholderTextColor="#888"
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            value={
+              phoneNumber !== null
+                ? phoneNumber
+                : userData?.phoneNumber === null
                   ? ""
                   : userData?.phoneNumber?.slice(4)
-              }
-              onChangeText={handlePhoneNumberChange}
-              autoComplete="tel"
-              error={errorPhoneNumber}
-            />
-          </View>
-          <View>
-            <SharedInput
-              label={localization.SETTINGS.PROFILE.name}
-              value={name}
-              onChangeText={handleNameChange}
-              placeholder={localization.SETTINGS.PROFILE.placeholderName}
-              style={styles.input}
-            />
-          </View>
+            }
+            onChangeText={handlePhoneNumberChange}
+            autoComplete="tel"
+            error={errorPhoneNumber}
+          />
+        </View>
+        <View>
+          <SharedInput
+            label={localization.SETTINGS.PROFILE.name}
+            value={name}
+            onChangeText={handleNameChange}
+            placeholder={localization.SETTINGS.PROFILE.placeholderName}
+            style={styles.input}
+          />
+        </View>
+        <View style={{ marginTop: 50 }}>
 
           <SharedButton
-            disabled={!isValidated}
+            // disabled={!isValidated}
             onPress={submitChanges}
             loading={isLoadingChange}
             text={localization.SETTINGS.PROFILE.btnText}
           />
         </View>
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            onClose={!errorChange ? messageHandler : messageHandler2}
-            onConfirm={!errorChange ? messageHandler : messageHandler2}
-            icon={
-              <FontAwesome
-                name={errorChange ? "close" : "check-circle-o"}
-                size={64}
-                color="white"
-              />
-            }
-            title={
-              message
-                ? localization.SETTINGS.PROFILE.messageConfirm
-                : errorChange
-            }
-            buttonText="Ok"
-          />
-        )}
-        <StatusBar backgroundColor="black" />
-      </ScrollView>
+      </View>
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          onClose={!errorChange ? messageHandler : messageHandler2}
+          onConfirm={!errorChange ? messageHandler : messageHandler2}
+          icon={
+            <FontAwesome
+              name={errorChange ? "close" : "check-circle-o"}
+              size={64}
+              color="white"
+            />
+          }
+          title={
+            message
+              ? localization.SETTINGS.PROFILE.messageConfirm
+              : errorChange
+          }
+          buttonText="Ok"
+        />
+      )}
+      <StatusBar backgroundColor="black" />
+    </ScrollView>
   );
 };
 

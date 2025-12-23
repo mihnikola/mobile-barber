@@ -120,6 +120,7 @@ export const ENG_LOCALIZATION = {
     error: "Error while fetching initial data",
   },
   SETTINGS: {
+
     clickHere: "Click here to Log in",
     changeLanguage: {
       capture: "Change language",
@@ -175,6 +176,7 @@ We reserve the right to modify the terms of use at any time, and users will be n
       loading: "Submitting...",
       btnText: "Submit",
       messageConfirm: "User updated successfully",
+      notDataChanged: "Data did not change",
     },
     ERROR: {
       label: "Error while changing user",

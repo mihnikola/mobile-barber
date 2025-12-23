@@ -69,6 +69,7 @@ const useUserChange = () => {
     message,
     isLoadingChange,
     errorChange,
+    setErrorChange,
     handleChangeUser,
     setIsMessage,
     isMessage,

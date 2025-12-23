@@ -184,6 +184,8 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
       loading: "Šalje se...",
       btnText: "Pošalji",
       messageConfirm: "Korisnik je uspešno ažuriran",
+      notDataChanged: "Podaci nisu izmenjeni",
+
     },
     ERROR: {
       label: "Greška prilikom menjanja korisnika",

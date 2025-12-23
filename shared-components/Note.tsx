@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   data: {
     display: "flex",
     flexDirection: "column",
+    marginRight: 10,
   },
   container: {
     flex: 1,
