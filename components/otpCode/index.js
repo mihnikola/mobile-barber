@@ -31,7 +31,7 @@ const otpCode = () => {
       const result = await getOtpParamsStorage();
       setVerifyData(JSON.parse(result));
       setIsLoaderVerify(false);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     setIsLoaderVerify(true);
@@ -51,10 +51,16 @@ const otpCode = () => {
     verificationOTPCode,
     checkverifyEmail,
     verificationOTPCodeResend,
+    setError,
   } = useSubmitOtpCode();
 
   const handleVerify = async () => {
     const otp = code.join("");
+    if (otp.length !== 6) {
+      setIsMessage(true);
+      setError(localization.OTP_CODE.validCode);
+      return;
+    }
     if (otp.length === 6) {
       if (
         verifyData?.email &&
@@ -116,10 +122,10 @@ const otpCode = () => {
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
-          styleBtn={{ marginBottom: 30 , marginHorizontal: 10}}
+          styleBtn={{ marginBottom: 30 }}
         />
 
-        <View style={{ flex: 1, marginHorizontal: 15 }}>
+        <View style={{ flex: 1 }}>
           <View>
             <Text style={styles.mainTitle}>
               {localization.OTP_CODE.mainTitle}
@@ -139,7 +145,7 @@ const otpCode = () => {
         </View>
         <View style={styles.btnFooter}>
           <SharedButton
-            disabled={code.join("").length < 6}
+            // disabled={code.join("").length < 6}
             onPress={handleVerify}
             text={localization.SUBMIT.label}
             loading={isLoading}

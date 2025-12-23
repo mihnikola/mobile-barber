@@ -17,7 +17,7 @@ export const SharedMessage = ({
   isLoading,
 }) => {
   
-    console.log("isModal+++", isOpen);
+    console.log("isModal+++", isOpen,title);
   return (
     <Modal
       animationType="fade"

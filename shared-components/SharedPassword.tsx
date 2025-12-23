@@ -60,11 +60,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-
     borderColor: "#333",
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white",
     color: "black",
     padding: 15,
     borderRadius: 8,
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: "#ccc",
     fontSize: 14,
-    marginTop: 15,
+    marginTop: 20,
+    marginBottom: 4,
   },
   errorText: {
     color: "red",

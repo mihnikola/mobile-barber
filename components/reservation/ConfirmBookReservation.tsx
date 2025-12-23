@@ -34,6 +34,8 @@ const ConfirmBookReservation = () => {
         <View style={styles.infoContainer}>
           <Text style={styles.message}>{localization.SALON.success}</Text>
           <Note />
+        </View>
+        <View style={{ marginHorizontal: 30, marginVertical: 50 }}>
           <SharedButton
             onPress={confirmSubmitReservation}
             text={localization.BUTTONS.ok}
@@ -49,8 +51,7 @@ export default ConfirmBookReservation;
 const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
-    justifyContent: "space-evenly",
-    alignSelf: "center",
+    marginHorizontal: 20
   },
   message: {
     fontSize: 30,
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontWeight: "900",
+    margin: 10
   },
   container: {
     flex: 1,
