@@ -11,6 +11,9 @@ export const SRB_LOCALIZATION = {
   GOOGLE_BTN: {
     label: "Prijava putem Google naloga",
   },
+  APPLE_BTN: {
+    label: "Prijava putem Apple naloga",
+  },
   BUTTONS: {
     ok: "U redu",
     cancel: "Odustani",

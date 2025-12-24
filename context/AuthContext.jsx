@@ -16,6 +16,10 @@ import {
   isErrorWithCode,
   isSuccessResponse,
 } from "@react-native-google-signin/google-signin";
+import {
+  appleAuth,
+} from "@invertase/react-native-apple-authentication";
+
 import { changeLanguage } from "i18next";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
@@ -32,13 +36,15 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [isToken, setIsToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+  
   // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   // const [isIosLoading, setIosLoading] = useState(false);
+  // const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+
   const [verificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
@@ -70,6 +76,30 @@ export const AuthProvider = ({ children }) => {
       setLoading(null);
     }
   };
+  async function onAppleButtonPress() {
+    withLoading('ios', async () => {
+      // Start the sign-in request
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        // As per the FAQ of react-native-apple-authentication, the name should come first in the following array.
+        // See: https://github.com/invertase/react-native-apple-authentication#faqs
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
+      // Ensure Apple returned a user identityToken
+      if (!appleAuthRequestResponse.identityToken) {
+        throw new Error("Apple Sign-In failed - no identify token returned");
+      }
+
+      const userData = {
+        email: appleAuthRequestResponse?.email,
+        fullName: appleAuthRequestResponse?.fullName,
+        user: appleAuthRequestResponse?.user,
+        token: appleAuthRequestResponse?.identityToken
+      }
+      await signInIos(userData);
+    })
+
+  }
 
   // const signIn = async () => {
   //   setIsGoogleLoading(true);
@@ -170,7 +200,7 @@ export const AuthProvider = ({ children }) => {
       setError(localization.LOGIN.noLanguage);
       return;
     }
-    
+
     setError(null);
     try {
       const responseData = await post("/users/loginIos", {
@@ -578,7 +608,7 @@ export const AuthProvider = ({ children }) => {
         signIn,
         setIsLogout,
         isLogout,
-        signInIos,
+        onAppleButtonPress,
         loading
       }}
     >

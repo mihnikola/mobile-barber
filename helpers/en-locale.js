@@ -24,6 +24,9 @@ export const ENG_LOCALIZATION = {
   GOOGLE_BTN: {
     label: "Sign in with Google",
   },
+  APPLE_BTN: {
+    label: "Sign in with Apple",
+  },
   BUTTONS: {
     ok: "OK",
     cancel: "Cancel",
