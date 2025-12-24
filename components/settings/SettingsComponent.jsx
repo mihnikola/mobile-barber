@@ -21,6 +21,7 @@ const SettingsComponent = () => {
     onPressHandler,
     userData,
     setIsLogout,
+    loading,
     isLogout,
     isLoading,
     isLoadingLogin,
@@ -84,7 +85,8 @@ const SettingsComponent = () => {
           onConfirm={() => setLogoutData(false)}
         />
       )}
-      <SharedLoader isOpen={isLoading || isLoadingLogin} />
+      {/* <SharedLoader isOpen={isLoading || isLoadingLogin} /> */}
+      <SharedLoader isOpen={loading === 'logout'} />
     </SafeAreaView>
   );
 };
