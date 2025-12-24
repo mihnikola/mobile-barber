@@ -28,6 +28,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import CustomGoogleButton from "../home/CustomGoogleButton";
 import { useEffect, useState } from "react";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 
@@ -130,7 +131,11 @@ const LoginScreen = () => {
 
   return (
     <ScrollView style={styles.containerData} keyboardShouldPersistTaps={"always"}>
+      <View>
+        <SharedBackButton onPress={router.back} styleBtn={{top: -5}} />
+      </View>
       <View style={styles.container}>
+
         <SharedLogin image={company?.media?.logo} />
 
         <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
@@ -250,7 +255,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: "black",
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
