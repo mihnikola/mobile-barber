@@ -28,10 +28,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import CustomGoogleButton from "../home/CustomGoogleButton";
 import { useEffect, useState } from "react";
-import {
-  AppleButton,
-  appleAuth,
-} from "@invertase/react-native-apple-authentication";
+
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 
 const LoginScreen = () => {
@@ -39,6 +36,7 @@ const LoginScreen = () => {
 
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
+  const [userApple, setUserApple] = useState(null);
 
   const { localization } = useLocalization();
 
@@ -55,8 +53,8 @@ const LoginScreen = () => {
     loading,
 
     signIn,
-    signInIos,
-    login
+    onAppleButtonPress,
+    login,
   } = useAuth();
 
   const { company } = useCompany();
@@ -128,27 +126,7 @@ const LoginScreen = () => {
   const forgotHandler = () => {
     router.push("/(z_auth)/forgotPass");
   };
-  async function onAppleButtonPress() {
-    // Start the sign-in request
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      // As per the FAQ of react-native-apple-authentication, the name should come first in the following array.
-      // See: https://github.com/invertase/react-native-apple-authentication#faqs
-      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-    });
-    // Ensure Apple returned a user identityToken
-    if (!appleAuthRequestResponse.identityToken) {
-      throw new Error("Apple Sign-In failed - no identify token returned");
-    }
 
-    const userData = {
-      email: appleAuthRequestResponse?.email,
-      fullName: appleAuthRequestResponse?.fullName,
-      user: appleAuthRequestResponse?.user,
-      token: appleAuthRequestResponse?.identityToken
-    }
-    await signInIos(userData);
-  }
 
   return (
     <ScrollView style={styles.containerData} keyboardShouldPersistTaps={"always"}>
@@ -164,25 +142,16 @@ const LoginScreen = () => {
               <View style={styles.socialBtns}>
                 <CustomGoogleButton
                   onPress={signIn}
-                  // isGoogleLoading={isGoogleLoading}
                   isGoogleLoading={loading === 'google'}
                 />
-                <AppleButton
-                  buttonStyle={AppleButton.Style.WHITE}
-                  buttonType={AppleButton.Type.SIGN_IN}
-                  style={{
-                    width: 333, // You must specify a width
-                    height: 45, // You must specify a height
-                  }}
-                  onPress={() => onAppleButtonPress()}
-                />
+                <CustomAppleButton
+                  onPress={onAppleButtonPress}
+                  isAppleLoading={loading === 'ios'} />
               </View>
             ) : (
               <CustomGoogleButton
                 onPress={signIn}
-                // isGoogleLoading={isGoogleLoading}
                 isGoogleLoading={loading === 'google'}
-
               />
             )}
           </View>
