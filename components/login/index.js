@@ -39,24 +39,24 @@ const LoginScreen = () => {
 
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
-  const [userApple, setUserApple] = useState(null);
 
   const { localization } = useLocalization();
 
   const {
-    isLoadingLogin,
     setIsMessage,
     isMessage,
+
     error,
-    login,
     success,
     status,
     verificationOTPCode,
+
     message,
-    isGoogleLoading,
-    isIosLoading,
+    loading,
+
     signIn,
     signInIos,
+    login
   } = useAuth();
 
   const { company } = useCompany();
@@ -164,7 +164,8 @@ const LoginScreen = () => {
               <View style={styles.socialBtns}>
                 <CustomGoogleButton
                   onPress={signIn}
-                  isGoogleLoading={isGoogleLoading}
+                  // isGoogleLoading={isGoogleLoading}
+                  isGoogleLoading={loading === 'google'}
                 />
                 <AppleButton
                   buttonStyle={AppleButton.Style.WHITE}
@@ -179,7 +180,9 @@ const LoginScreen = () => {
             ) : (
               <CustomGoogleButton
                 onPress={signIn}
-                isGoogleLoading={isGoogleLoading}
+                // isGoogleLoading={isGoogleLoading}
+                isGoogleLoading={loading === 'google'}
+
               />
             )}
           </View>
@@ -215,7 +218,8 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <SharedButton
-          loading={isLoadingLogin}
+          // loading={isLoadingLogin}
+          loading={loading === "login"}
           onPress={handleLogin}
           text={localization.LOGIN.submitBtn}
         />

@@ -37,8 +37,8 @@ export const AuthProvider = ({ children }) => {
   const [isLogout, setIsLogout] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [isIosLoading, setIosLoading] = useState(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // const [isIosLoading, setIosLoading] = useState(false);
   const [verificationData, setVerificationData] = useState(null);
 
   const [status, setStatus] = useState(null);
@@ -46,6 +46,12 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   const { localization } = useLocalization();
+
+  const [loading, setLoading] = useState(null);
+  // possible values: null | 'login' | 'google' | 'ios' | 'logout' | 'otp'
+
+
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -56,42 +62,81 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
 
-  const signIn = async () => {
-    setIsGoogleLoading(true);
-
+  const withLoading = async (type, callback) => {
+    setLoading(type);
     try {
-      await GoogleSignin.hasPlayServices({
-        showPlayServicesUpdateDialog: true,
-      });
-
-      const response = await GoogleSignin.signIn();
-      if (isSuccessResponse(response)) {
-        loginViaGoogle(response.data);
-      } else {
-        setIsGoogleLoading(false);
-      }
-    } catch (error) {
-      console.log("Google Sign-In error:", error.code, error.message);
-
-      setIsGoogleLoading(false);
-
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            // operation (eg. sign in) already in progress
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            // Android only, play services not available or outdated
-            break;
-          default:
-          // some other error happened
-        }
-      } else {
-        // an error that's not related to google sign in occurred
-        setIsGoogleLoading(false);
-      }
-      setIsGoogleLoading(false);
+      await callback();
+    } finally {
+      setLoading(null);
     }
+  };
+
+  // const signIn = async () => {
+  //   setIsGoogleLoading(true);
+
+  //   try {
+  //     await GoogleSignin.hasPlayServices({
+  //       showPlayServicesUpdateDialog: true,
+  //     });
+
+  //     const response = await GoogleSignin.signIn();
+  //     if (isSuccessResponse(response)) {
+  //       loginViaGoogle(response.data);
+  //     } else {
+  //       setIsGoogleLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.log("Google Sign-In error:", error.code, error.message);
+
+  //     setIsGoogleLoading(false);
+
+  //     if (isErrorWithCode(error)) {
+  //       switch (error.code) {
+  //         case statusCodes.IN_PROGRESS:
+  //           // operation (eg. sign in) already in progress
+  //           break;
+  //         case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+  //           // Android only, play services not available or outdated
+  //           break;
+  //         default:
+  //         // some other error happened
+  //       }
+  //     } else {
+  //       // an error that's not related to google sign in occurred
+  //       setIsGoogleLoading(false);
+  //     }
+  //     setIsGoogleLoading(false);
+  //   }
+  // };
+
+
+  const signIn = async () => {
+    withLoading('google', async () => {
+      try {
+        await GoogleSignin.hasPlayServices({
+          showPlayServicesUpdateDialog: true,
+        });
+        const response = await GoogleSignin.signIn();
+        if (isSuccessResponse(response)) {
+          await loginViaGoogle(response.data);
+        }
+      } catch (error) {
+        console.log("Google Sign-In error:", error.code, error.message);
+        if (isErrorWithCode(error)) {
+          switch (error.code) {
+            case statusCodes.IN_PROGRESS:
+              // operation (eg. sign in) already in progress
+              break;
+            case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+              // Android only, play services not available or outdated
+              break;
+            default:
+            // some other error happened
+          }
+        }
+      }
+    })
+
   };
 
   const saveTokenSignInIos = async (userId, expoToken, lang) => {
@@ -120,7 +165,12 @@ export const AuthProvider = ({ children }) => {
       setError(localization.LOGIN.noToken);
       return;
     }
-    setIosLoading(true);
+    if (!languageValue) {
+      setIsMessage(true);
+      setError(localization.LOGIN.noLanguage);
+      return;
+    }
+    
     setError(null);
     try {
       const responseData = await post("/users/loginIos", {
@@ -131,7 +181,7 @@ export const AuthProvider = ({ children }) => {
         saveStorage(responseData.token);
         const lang =
           languageValue === "sr" || languageValue === null ? "sr" : "en";
-        saveTokenSignInIos(responseData.userId, fcmToken, lang);
+        await saveToken(responseData.userId, fcmToken, lang);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -141,17 +191,12 @@ export const AuthProvider = ({ children }) => {
         setIsMessage(true);
         setError(localization.SERVER_RESPONSE.error);
       }
-    } finally {
-      setIosLoading(false);
     }
   };
   const signOut = async () => {
-    setIsGoogleLoading(true);
-
     try {
       await GoogleSignin.signOut();
-      setIsGoogleLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchUserData = async () => {
@@ -203,7 +248,7 @@ export const AuthProvider = ({ children }) => {
       const x = await removeStorage();
       setIsMessage(false);
       setIsToken(null);
-      setIsLoadingLogin(false);
+      // setIsLoadingLogin(false);
       setMessage(null);
       setStatus(null);
       setSuccess(null);
@@ -215,21 +260,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const logoutFirebase = async () => {
-    setIsLoadingLogin(true);
-    await removeOtpParamsStorage();
-    try {
-      if (isToken) {
-        const response = await post("/users/logout", { token: isToken });
-        if (response.status === 200) {
-          // router.dismissAll();
 
-          signOut();
-          logoutHandler();
+    withLoading('logout', async () => {
+      // setIsLoadingLogin(true);
+      await removeOtpParamsStorage();
+      try {
+        if (isToken) {
+          const response = await post("/users/logout", { token: isToken });
+          if (response.status === 200) {
+            // router.dismissAll();
+
+            signOut();
+            logoutHandler();
+          }
         }
+      } catch (error) {
+        setError(error);
       }
-    } catch (error) {
-      setError(error);
-    }
+    })
+
   };
 
   const onPressHandler = (data) => {
@@ -286,66 +335,123 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (email, password) => {
-    // const expoToken = await getExpoTokenStorage();
-    const expoToken = await NotificationService.getFCMToken();
-    const languageValue = await getLanguageValue();
-    if (!email || !password) {
-      setIsMessage(true);
-      setError(localization.LOGIN.error);
-      return;
-    }
-    if (!languageValue) {
-      setIsMessage(true);
-      setError(localization.LOGIN.noLanguage);
-      return;
-    }
-    if (!expoToken) {
-      setIsMessage(true);
-      setError(localization.LOGIN.noToken);
-      return;
-    }
+  // const login = async (email, password) => {
+  //   // const expoToken = await getExpoTokenStorage();
+  //   const expoToken = await NotificationService.getFCMToken();
+  //   const languageValue = await getLanguageValue();
+  //   if (!email || !password) {
+  //     setIsMessage(true);
+  //     setError(localization.LOGIN.error);
+  //     return;
+  //   }
+  //   if (!languageValue) {
+  //     setIsMessage(true);
+  //     setError(localization.LOGIN.noLanguage);
+  //     return;
+  //   }
+  //   if (!expoToken) {
+  //     setIsMessage(true);
+  //     setError(localization.LOGIN.noToken);
+  //     return;
+  //   }
 
-    setStatus(null);
-    setIsLoadingLogin(true);
-    setError(null);
-    try {
-      const responseData = await post("/users/login", {
-        email,
-        password,
-        expoToken,
-      });
-      if (responseData.status === 202) {
-        setIsLoadingLogin(false);
-        setIsMessage(true);
-        setError(localization.LOGIN.errorFields);
-      }
-      if (responseData.status === 606) {
-        setIsLoadingLogin(false);
-        setIsMessage(true);
-        setVerificationData({ email, password });
-        setStatus(responseData.status);
-        setMessage(localization.LOGIN.isVerified);
-      }
-      if (responseData.status === 200) {
-        setIsLoadingLogin(false);
-        saveStorage(responseData.token);
-        const lang =
-          languageValue === "sr" || languageValue === null ? "sr" : "en";
-        saveToken(responseData.userId, expoToken, lang);
-      }
-    } catch (err) {
-      if (err.message.includes("404")) {
-        setIsMessage(true);
+  //   setStatus(null);
+  //   setIsLoadingLogin(true);
+  //   setError(null);
+  //   try {
+  //     const responseData = await post("/users/login", {
+  //       email,
+  //       password,
+  //       expoToken,
+  //     });
+  //     if (responseData.status === 202) {
+  //       setIsLoadingLogin(false);
+  //       setIsMessage(true);
+  //       setError(localization.LOGIN.errorFields);
+  //     }
+  //     if (responseData.status === 606) {
+  //       setIsLoadingLogin(false);
+  //       setIsMessage(true);
+  //       setVerificationData({ email, password });
+  //       setStatus(responseData.status);
+  //       setMessage(localization.LOGIN.isVerified);
+  //     }
+  //     if (responseData.status === 200) {
+  //       setIsLoadingLogin(false);
+  //       saveStorage(responseData.token);
+  //       const lang =
+  //         languageValue === "sr" || languageValue === null ? "sr" : "en";
+  //       saveToken(responseData.userId, expoToken, lang);
+  //     }
+  //   } catch (err) {
+  //     if (err.message.includes("404")) {
+  //       setIsMessage(true);
 
-        setError(localization.SERVER_RESPONSE.notFound);
-      } else {
-        setIsMessage(true);
+  //       setError(localization.SERVER_RESPONSE.notFound);
+  //     } else {
+  //       setIsMessage(true);
 
-        setError(localization.SERVER_RESPONSE.error);
+  //       setError(localization.SERVER_RESPONSE.error);
+  //     }
+  //     setIsLoadingLogin(false);
+  //   }
+  // };
+
+  const login = (email, password) => {
+    withLoading("login", async () => {
+      const expoToken = await NotificationService.getFCMToken();
+      const languageValue = await getLanguageValue();
+      if (!email || !password) {
+        setIsMessage(true);
+        setError(localization.LOGIN.error);
+        return;
       }
-      setIsLoadingLogin(false);
-    }
+      if (!languageValue) {
+        setIsMessage(true);
+        setError(localization.LOGIN.noLanguage);
+        return;
+      }
+      if (!expoToken) {
+        setIsMessage(true);
+        setError(localization.LOGIN.noToken);
+        return;
+      }
+
+      setStatus(null);
+      setError(null);
+      try {
+        const responseData = await post("/users/login", {
+          email,
+          password,
+          expoToken,
+        });
+        if (responseData.status === 202) {
+          setIsMessage(true);
+          setError(localization.LOGIN.errorFields);
+        }
+        if (responseData.status === 606) {
+          setIsMessage(true);
+          setVerificationData({ email, password });
+          setStatus(responseData.status);
+          setMessage(localization.LOGIN.isVerified);
+        }
+        if (responseData.status === 200) {
+          saveStorage(responseData.token);
+          const lang =
+            languageValue === "sr" || languageValue === null ? "sr" : "en";
+          await saveToken(responseData.userId, expoToken, lang);
+        }
+      } catch (err) {
+        if (err.message.includes("404")) {
+          setIsMessage(true);
+          setError(localization.SERVER_RESPONSE.notFound);
+        } else {
+          setIsMessage(true);
+          setError(localization.SERVER_RESPONSE.error);
+        }
+      }
+    });
+
   };
 
   const loginViaGoogle = async (userData) => {
@@ -353,7 +459,6 @@ export const AuthProvider = ({ children }) => {
     setError(null);
 
     const { user } = userData;
-    // const expoToken = await getExpoTokenStorage();
     const expoToken = await NotificationService.getFCMToken();
 
     const languageValue = await getLanguageValue();
@@ -365,7 +470,6 @@ export const AuthProvider = ({ children }) => {
     }
     if (!expoToken) {
       setIsMessage(true);
-      setIsGoogleLoading(false);
       setError(localization.LOGIN.noToken);
       return;
     }
@@ -375,37 +479,31 @@ export const AuthProvider = ({ children }) => {
         user,
         expoToken,
       });
-
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
         const lang = languageValue === "sr" ? "sr" : "en";
 
-        saveTokenViaGoogle(responseData.userId, expoToken, lang);
+        await saveToken(responseData.userId, expoToken, lang);
       }
 
       if (responseData.status === 500) {
-        setIsGoogleLoading(false);
         setError(localization.SERVER_RESPONSE.error);
       }
     } catch (err) {
-      setIsGoogleLoading(false);
-
       if (err.message.includes("404")) {
         setIsMessage(true);
-
         setError(localization.SERVER_RESPONSE.notFound);
       } else {
         setIsMessage(true);
-
         setError(localization.SERVER_RESPONSE.error);
       }
     }
   };
   const saveTokenViaGoogle = async (userId, expoToken, languageValue) => {
-    if (!expoToken) {
-      setIsGoogleLoading(false);
-      return;
-    }
+    // if (!expoToken) {
+    //   setIsGoogleLoading(false);
+    //   return;
+    // }
 
     try {
       const responseData = await post("/api/saveToken", {
@@ -414,21 +512,20 @@ export const AuthProvider = ({ children }) => {
         lang: languageValue,
       });
       if (responseData.status === 200) {
-        setIsGoogleLoading(false);
+        // setIsGoogleLoading(false);
         setIsMessage(true);
         setSuccess(localization.LOGIN.success);
       } else {
-        setIsGoogleLoading(false);
+        // setIsGoogleLoading(false);
         setIsMessage(true);
 
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
     } catch (err) {
-      setIsGoogleLoading(false);
+      // setIsGoogleLoading(false);
       setIsMessage(true);
 
       setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
@@ -436,11 +533,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const saveToken = async (userId, expoToken, lang) => {
-    setIsLoadingLogin(true);
-    if (!expoToken) {
-      setIsLoadingLogin(false);
-      return;
-    }
     try {
       const responseData = await post("/api/saveToken", {
         tokenExpo: expoToken,
@@ -448,20 +540,16 @@ export const AuthProvider = ({ children }) => {
         lang,
       });
       if (responseData.status === 200) {
-        setIsLoadingLogin(false);
         setIsMessage(true);
         setSuccess(localization.LOGIN.success);
       } else {
-        setIsLoadingLogin(false);
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${
-            responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
           }`
         );
       }
     } catch (err) {
-      setIsLoadingLogin(false);
       setIsMessage(true);
       setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
     }
@@ -487,16 +575,11 @@ export const AuthProvider = ({ children }) => {
         status,
         verificationOTPCode,
         message,
-        loginViaGoogle,
         signIn,
         setIsLogout,
         isLogout,
-        isGoogleLoading,
-        isLoadingLogin,
-        setIsLoadingLogin,
         signInIos,
-        setIosLoading,
-        isIosLoading,
+        loading
       }}
     >
       {children}
