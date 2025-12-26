@@ -6,8 +6,11 @@ export default function useNotifications() {
   const router = useRouter();
   const segments = useSegments();
   const isRouterReady = segments.length > 0; 
+
+  
   useEffect(() => {
     if (!isRouterReady) return;
+
 
     const onClick = (data?: any) => {
       if (!data?.url) return;

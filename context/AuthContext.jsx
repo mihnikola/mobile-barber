@@ -251,6 +251,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     await getStorage().then((res) => {
       if (res) {
+           console.log("udje lixxxxxxx ",res)
+
         setIsToken(res);
       } else {
         setIsToken(null);
@@ -331,9 +333,10 @@ export const AuthProvider = ({ children }) => {
       setIsLogout(true);
     }
   };
-  useEffect(() => {
-    getTokenData(); //logovan
-  }, []);
+  // useEffect(() => {
+  //   // getTokenData(); //logovan
+  //   removeTokenData();
+  // }, []);
 
   const verificationOTPCode = async () => {
     setIsLoading(true);

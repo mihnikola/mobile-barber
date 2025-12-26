@@ -1,8 +1,9 @@
 // src/hooks/usePassword.js
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 const usePassword = () => {
+  const passwordInputRef = useRef(null);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -34,6 +35,7 @@ const usePassword = () => {
     handlePasswordChange,
     togglePasswordVisibility,
     setPassword,
+    passwordInputRef
   };
 };
 

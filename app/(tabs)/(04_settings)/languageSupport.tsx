@@ -51,7 +51,7 @@ const languageSupport = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedBackButton onPress={router.back} />
 
       <SharedTabHeader

@@ -20,9 +20,9 @@ function WrapperAuth({ children }) {
           justifyContent: "center",
           paddingVertical: 20,
         }}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="always"
       >
-        <StatusBar backgroundColor="black" barStyle="light-content" />
+        {/* <StatusBar backgroundColor="black" barStyle="light-content" /> */}
         {children}
       </ScrollView>
     </KeyboardAvoidingView>

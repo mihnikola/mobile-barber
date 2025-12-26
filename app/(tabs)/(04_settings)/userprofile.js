@@ -1,0 +1,349 @@
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  StatusBar,
+  ScrollView,
+  findNodeHandle,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import ImageCompress from "@/shared-components/ImageCompress";
+import useUserChange from "@/components/infoapp/hooks/useUserChange";
+import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
+import useName from "@/components/infoapp/hooks/useName";
+import { useEffect, useRef, useState } from "react";
+import SharedInput from "@/shared-components/SharedInput";
+import { SharedMessage } from "@/shared-components/SharedMessage";
+import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
+import SharedButton from "@/shared-components/SharedButton";
+import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
+import SharedNameEdit from "@/shared-components/SharedNameEdit";
+import { useAuth } from "@/context/AuthContext";
+import { useLocalization } from "@/context/LocalizationContext";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
+
+const userprofile = () => {
+  const { isLoading, userData, fetchUserData } = useAuth();
+  const { localization } = useLocalization();
+  const scrollRef = useRef(null);
+  const scrollRef2 = useRef(null);
+  const phoneNumberayoutY = useRef(0);
+
+  const [changedImg, setChangedImg] = useState(undefined);
+  const { name, handleNameChange, nameRef } = useName(userData?.name);
+
+  const {
+    message,
+    isLoadingChange,
+    errorChange,
+    handleChangeUser,
+    isMessage,
+    setIsMessage,
+    setErrorChange
+  } = useUserChange();
+
+  const [isValidated, setIsValidated] = useState(false);
+  const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber, phoneNumberRefInput } =
+    usePhoneNumber(userData?.phoneNumber);
+
+  useEffect(() => {
+    setIsValidated(validationFields);
+  }, [phoneNumber, name, changedImg]);
+
+  const validationFields = () => {
+    if (!isValid) {
+      return false;
+    }
+
+    if (phoneNumber === null) {
+      if (name !== userData?.name || changedImg !== userData?.image) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (phoneNumber !== null) {
+      if (
+        phoneNumber !== userData?.phoneNumber?.slice(4) ||
+        name !== userData?.name ||
+        changedImg !== userData?.image
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  const selectedImgHandler = (imgData) => {
+    if (imgData) {
+      setChangedImg(imgData);
+    }
+  };
+
+  const messageHandler = () => {
+    setIsMessage(false);
+    fetchUserData();
+    router.push("/(tabs)/(04_settings)");
+  };
+
+  const submitChanges = () => {
+    const data = {
+      phoneNumber:
+        phoneNumber !== userData?.phoneNumber?.slice(4) &&
+          phoneNumber !== userData?.phoneNumber &&
+          phoneNumber !== null &&
+          phoneNumber !== "null"
+          ? "+381" + phoneNumber
+          : null,
+      name: name !== userData?.name ? name : null,
+      image: changedImg === userData?.image ? null : changedImg,
+    };
+    if (!data.name && !data.phoneNumber && !data.image) {
+      setIsMessage(true);
+      setErrorChange(localization.SETTINGS.PROFILE.notDataChanged);
+      return;
+    }
+    handleChangeUser(data);
+  };
+
+  const messageHandler2 = () => {
+    setIsMessage(false);
+  };
+
+  return (
+
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: "black" }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    >
+      <ScrollView
+        ref={scrollRef}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 50 }}
+      >
+        <View>
+          <SharedBackButton onPress={router.back} />
+        </View>
+        <View style={styles.imageContainer}>
+          <View style={styles.imageContainerImage}>
+            <ImageCompress
+              handlePickImage={selectedImgHandler}
+              imageValue={userData?.image}
+            />
+          </View>
+        </View>
+        <View style={styles.userDataContainer}>
+          <View>
+            <Text style={styles.inputLabel}>
+              {localization.SETTINGS.PROFILE.email}
+            </Text>
+            <TextInput
+              style={styles.inputDisabled}
+              defaultValue={userData?.email}
+              editable={false}
+              selectTextOnFocus={false}
+            />
+          </View>
+          <View>
+            <SharedPhoneNumber
+              label={localization.SETTINGS.PROFILE.phoneNumber}
+              placeholder="6x xxx xxxx"
+              placeholderTextColor="#888"
+              keyboardType="phone-pad"
+              dataDetectorTypes="phoneNumber"
+              value={
+                phoneNumber !== null
+                  ? phoneNumber
+                  : userData?.phoneNumber === null
+                    ? ""
+                    : userData?.phoneNumber?.slice(4)
+              }
+
+              onChangeText={handlePhoneNumberChange}
+              autoComplete="tel"
+              error={errorPhoneNumber}
+              returnKeyType="next"
+
+              onSubmitEditing={() => {
+                const node = findNodeHandle(nameRef.current);
+                if (node) {
+                  scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                    node,
+                    200,
+                    true
+                  );
+                }
+                nameRef.current?.focus();
+              }}
+            />
+          </View>
+
+          <SharedNameEdit
+            label={localization.SETTINGS.PROFILE.name}
+            value={name}
+            ref={nameRef}
+            onChangeText={handleNameChange}
+            placeholder={localization.SETTINGS.PROFILE.placeholderName}
+            style={styles.input}
+            scrollRef={scrollRef}
+          />
+          <View style={{ marginTop: 50 }}>
+
+            <SharedButton
+              disabled={!isValidated}
+              onPress={submitChanges}
+              loading={isLoadingChange}
+              text={localization.SETTINGS.PROFILE.btnText}
+            />
+          </View>
+        </View>
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={!errorChange ? messageHandler : messageHandler2}
+            onConfirm={!errorChange ? messageHandler : messageHandler2}
+            icon={
+              <FontAwesome
+                name={errorChange ? "close" : "check-circle-o"}
+                size={64}
+                color="white"
+              />
+            }
+            title={
+              message
+                ? localization.SETTINGS.PROFILE.messageConfirm
+                : errorChange
+            }
+            buttonText="Ok"
+          />
+        )}
+        {/* <StatusBar backgroundColor="black" /> */}
+      </ScrollView>
+    </KeyboardAvoidingView>
+
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  inputLabel: {
+    color: "#ccc",
+    fontSize: 14,
+    marginBottom: 8,
+    marginTop: 15,
+  },
+  phoneNumberInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#333",
+    paddingHorizontal: 10,
+  },
+  phoneNumberInput: {
+    backgroundColor: "white",
+    color: "black",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    padding: 10,
+    textAlign: "center",
+  },
+  input: {
+    backgroundColor: "white",
+    color: "black",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+  inputDisabled: {
+    backgroundColor: "grey",
+    color: "black",
+    padding: 15,
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+  unbutton: {
+    textAlign: "center",
+    marginVertical: 30,
+    backgroundColor: "black",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "grey",
+  },
+  unButtonText: {
+    color: "grey",
+    fontSize: 16,
+    padding: 10,
+    textAlign: "center",
+    backgroundColor: "black",
+  },
+  button: {
+    padding: 5,
+    backgroundColor: "black",
+    borderColor: "white",
+    borderWidth: 1,
+    textAlign: "center",
+    marginVertical: 60,
+  },
+
+  userDataContainer: {
+    flex: 2,
+    backgroundColor: "black",
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
+  imageContainerImage: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  textInput: {
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    backgroundColor: "white",
+    padding: 10,
+  },
+  imageContainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "black",
+  },
+  containerInfo: {
+    marginTop: 20,
+    flexDirection: "column",
+    backgroundColor: "black",
+    gap: 10,
+  },
+  headerImage: {
+    width: "100%",
+    height: 300,
+    opacity: 0.3,
+  },
+  icon: {
+    marginRight: 5,
+    alignSelf: "flex-end",
+  },
+});
+
+export default withKeyboardAvoid(userprofile);

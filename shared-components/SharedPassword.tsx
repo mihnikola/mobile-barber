@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -9,7 +9,8 @@ import {
   View,
 } from "react-native";
 
-const SharedPassword = (props: any) => {
+  const SharedPassword = forwardRef((props: any, ref) => {
+  
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -31,6 +32,7 @@ const SharedPassword = (props: any) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
+          ref={ref}
           placeholderTextColor="grey"
         />
 
@@ -50,7 +52,7 @@ const SharedPassword = (props: any) => {
       ) : null}
     </>
   );
-};
+});
 const styles = StyleSheet.create({
   passwordInputContainer: {
     flexDirection: "row",

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 
-const SharedPhoneNumber = (props: any) => {
+const SharedPhoneNumber = forwardRef((props: any, ref) => {
+
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -22,13 +23,14 @@ const SharedPhoneNumber = (props: any) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            alignItems:"center",
+            alignItems: "center",
           }}
         >
           <Text style={styles.prefixText}>+381</Text>
 
           <TextInput
             {...props}
+            ref={ref}
             style={styles.phoneNumberInput}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -40,7 +42,7 @@ const SharedPhoneNumber = (props: any) => {
       ) : null}
     </>
   );
-};
+});
 const styles = StyleSheet.create({
   prefixText: {
     color: "black",
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "white",
     width: "70%",
-    
+
   },
   inputLabel: {
     color: "#ccc",

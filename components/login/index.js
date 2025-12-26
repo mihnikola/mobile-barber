@@ -1,11 +1,10 @@
 import {
-  ActivityIndicator,
   BackHandler,
   Dimensions,
+  findNodeHandle,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -21,24 +20,22 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import CustomGoogleButton from "../home/CustomGoogleButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 
 const LoginScreen = () => {
   const { data } = useLocalSearchParams();
-
   const { email, handleEmailChange } = useEmail();
-  const { password, handlePasswordChange } = usePassword();
-  const [userApple, setUserApple] = useState(null);
+  const { password, handlePasswordChange, passwordInputRef } = usePassword();
+  const scrollRef = useRef(null);
 
+  const passwordLayoutY = useRef(0);
   const { localization } = useLocalization();
 
   const {
@@ -129,10 +126,12 @@ const LoginScreen = () => {
   };
 
 
+
+
   return (
-    <ScrollView style={styles.containerData} keyboardShouldPersistTaps={"always"}>
+    <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled">
       <View>
-        <SharedBackButton onPress={router.back} styleBtn={{top: -5}} />
+        <SharedBackButton onPress={router.back} styleBtn={{ top: -5 }} />
       </View>
       <View style={styles.container}>
 
@@ -171,6 +170,18 @@ const LoginScreen = () => {
         <SharedInput
           label={localization.EMAIL.label}
           value={email}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            const node = findNodeHandle(passwordInputRef.current);
+            if (node) {
+              scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                node,
+                80,
+                true
+              );
+            }
+            passwordInputRef.current?.focus();
+          }}
           onChangeText={handleEmailChange}
           placeholder={localization.EMAIL.placeholder}
           keyboardType="email-address"
@@ -178,9 +189,11 @@ const LoginScreen = () => {
           style={styles.input}
         />
 
+
         <SharedPassword
           label={localization.PASSWORD.label}
           value={password}
+          ref={passwordInputRef}
           onChangeText={handlePasswordChange}
           placeholder={localization.PASSWORD.placeholder}
         />
@@ -230,9 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 15,
   },
-  containerData: {
-    flex: 1,
-  },
+
   buttonGoogleIsLoading: {
     backgroundColor: "#4285A0",
     height: 58,

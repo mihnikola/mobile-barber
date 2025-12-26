@@ -1,7 +1,8 @@
 // src/hooks/useConfirmPassword.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 const useConfirmPassword = (password) => {
+  const confirmPasswordInputRef = useRef(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordConfirmError, setPasswordConfirmError] = useState('');
   const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState(false);
@@ -32,6 +33,7 @@ const useConfirmPassword = (password) => {
     handleConfirmPasswordChange,
     togglePasswordConfirmVisibility,
     setConfirmPassword,
+    confirmPasswordInputRef
   };
 };
 

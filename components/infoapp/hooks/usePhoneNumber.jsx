@@ -1,17 +1,17 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const usePhoneNumber = (phoneNumberValue) => {
+  const phoneNumberRefInput = useRef(null);
 
-  
   const [phoneNumber, setPhoneNumber] = useState(phoneNumberValue?.slice(4) || null);
   const [isValid, setIsValid] = useState(true);
   const [errorPhoneNumber, setErrorPhoneNumber] = useState("");
 
-    const { localization } = useLocalization();
-  
+  const { localization } = useLocalization();
+
   const serbianPhoneRegex = /^\d{8,9}$/;
- 
+
 
   const validateSerbianPhoneNumber = (number) => {
 
@@ -41,7 +41,8 @@ const usePhoneNumber = (phoneNumberValue) => {
     handlePhoneNumberChange,
     phoneNumber,
     errorPhoneNumber,
-    isValid
+    isValid,
+    phoneNumberRefInput
   };
 };
 

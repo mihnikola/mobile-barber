@@ -32,11 +32,12 @@ const Employers = () => {
   const getStorageToken = async () => {
     try {
       const getToken = await getStorage();
+      console.log("getTOken",getToken);
       if (getToken) {
         router.push("/(tabs)/(02_barbers)/calendar");
       } else {
         router.push({
-          pathname: "/(z_auth)/login",
+          pathname: "/(z_auth)/",
           params: { data: "calendar" },
         });
       }

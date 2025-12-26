@@ -18,11 +18,11 @@ const DateReservation: React.FC = () => {
     await getStorage("token")
       .then((res) => {
         if (res) {
-
+          console.log("xxxgetTokenStoragegetTokenStoragexxxx")
           setIsLoggedIn(res);
           setIsLoading(false);
         } else {
-          router.push({pathname :"/(z_auth)/login", params: {data: 1}})
+          router.push({pathname :"/(z_auth)/", params: {data: 1}})
           setIsLoading(false);
         }
       })

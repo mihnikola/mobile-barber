@@ -5,8 +5,9 @@ import {
   ScrollView,
   StatusBar,
   Platform,
+  findNodeHandle,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import useEmail from "./hooks/useEmail";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
@@ -26,7 +27,15 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 const Register = () => {
-  const [userName, setUserName] = useState("");
+  const refName = useRef(null);
+  const [name, setName] = useState("");
+  const scrollRef = useRef(null);
+  const emailLayoutY = useRef(0);
+  const phoneNumberLayoutY = useRef(0);
+  const passwordLayoutY = useRef(0);
+  const passwordConfirmLayoutY = useRef(0);
+
+
   const { image } = useLocalSearchParams();
   const { localization } = useLocalization();
   const {
@@ -37,16 +46,31 @@ const Register = () => {
     success,
     handleSubmit: handleRegistration,
   } = useRegisterForm();
-  const { email, emailError, handleEmailChange } = useEmail();
-  const { phoneNumber, handlePhoneNumberChange, errorPhoneNumber } =
+  // const { emailInputRef, emailError, handleEmailChange } = useEmail();
+  const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
+
+  const { phoneNumber, handlePhoneNumberChange, errorPhoneNumber, phoneNumberInputRef } =
     usePhoneNumber();
-  const { password, passwordError, handlePasswordChange } = usePassword();
-  const { confirmPassword, handleConfirmPasswordChange } =
+  const { password, passwordError, handlePasswordChange, passwordInputRef } = usePassword();
+  const { confirmPassword, handleConfirmPasswordChange, confirmPasswordInputRef } =
     useConfirmPassword(password);
 
   const handleRegister = () => {
+    // const data = {
+    //   name,
+    //   email,
+    //   password,
+    //   phoneNumber,
+    //   emailError,
+    //   passwordError,
+    //   confirmPassword,
+    // };
+
+    // console.log("data", data)
+
+
     handleRegistration({
-      name: userName,
+      name,
       email,
       password,
       phoneNumber,
@@ -71,57 +95,124 @@ const Register = () => {
   };
 
   return (
-    <ScrollView style={styles.safeArea} keyboardShouldPersistTaps={"always"}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
+
+    <ScrollView ref={scrollRef} keyboardDismissMode="interactive"
+      style={styles.safeArea} contentContainerStyle={{ flexGrow: 1, padding: 20, paddingBottom: 20 }} keyboardShouldPersistTaps="always">
       <View style={styles.container}>
+        {/* <View style={{ flex: 1 }}> */}
         <SharedLogin image={image} />
 
         <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
         <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
 
         <SharedInput
+          autoFocus
           label={localization.NAME.label}
           placeholder={localization.NAME.placeholder}
-          value={userName}
+          ref={refName}
+          returnKeyType="next"
+          onSubmitEditing={() => emailInputRef.current.focus()}
           style={styles.input}
-          onChangeText={setUserName}
+          value={name}
+          onChangeText={setName}
         />
-        <SharedInput
-          label={localization.EMAIL.label}
-          placeholder={localization.EMAIL.placeholder}
-          keyboardType="email-address"
-          value={email}
-          autoCapitalize="none"
-          onChangeText={handleEmailChange}
-          style={styles.input}
-          error={emailError}
-        />
+        <View
+          onLayout={(e) => {
+            emailLayoutY.current = e.nativeEvent.layout.y;
+          }}
+        >
 
-        <SharedPhoneNumber
-          label={localization.PHONENUMBER.label}
-          placeholder="6x xxx xxxx"
-          placeholderTextColor="#888"
-          keyboardType="phone-pad"
-          dataDetectorTypes="phoneNumber"
-          value={phoneNumber}
-          onChangeText={handlePhoneNumberChange}
-          autoComplete="tel"
-          error={errorPhoneNumber}
-        />
+          <SharedInput
+            label={localization.EMAIL.label}
+            placeholder={localization.EMAIL.placeholder}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
+            value={email}
+            error={emailError}
+            onChangeText={handleEmailChange}
+            ref={emailInputRef}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              phoneNumberInputRef.current?.focus();
+              scrollRef.current?.scrollTo({
+                y: emailLayoutY.current - 20,
+                animated: true,
+              });
+            }}
+          />
+        </View>
+        <View
+          onLayout={(e) => {
+            phoneNumberLayoutY.current = e.nativeEvent.layout.y;
+          }}
+        >
 
-        <SharedPassword
-          label={localization.PASSWORD.label}
-          value={password}
-          onChangeText={handlePasswordChange}
-          placeholder={localization.PASSWORD.placeholder}
-          error={passwordError}
-        />
-        <SharedConfirmPassword
-          label={localization.CONFIRM_PASSWORD.label}
-          value={confirmPassword}
-          onChangeText={handleConfirmPasswordChange}
-          placeholder={localization.CONFIRM_PASSWORD.placeholder}
-        />
+          <SharedPhoneNumber
+            label={localization.PHONENUMBER.label}
+            placeholder="6x xxx xxxx"
+            placeholderTextColor="#888"
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            value={phoneNumber}
+            onChangeText={handlePhoneNumberChange}
+            autoComplete="tel"
+            ref={phoneNumberInputRef}
+            error={errorPhoneNumber}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              const node = findNodeHandle(passwordInputRef.current);
+              if (node) {
+                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                  node,
+                  80,
+                  true
+                );
+              }
+              passwordInputRef.current?.focus();
+            }}
+          />
+        </View>
+        <View onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}>
+
+          <SharedPassword
+            label={localization.PASSWORD.label}
+            value={password}
+            onChangeText={handlePasswordChange}
+            placeholder={localization.PASSWORD.placeholder}
+            error={passwordError}
+            ref={passwordInputRef}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              const node = findNodeHandle(confirmPasswordInputRef.current);
+              if (node) {
+                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                  node,
+                  80,
+                  true
+                );
+              }
+              confirmPasswordInputRef.current?.focus();
+            }}
+          />
+        </View>
+        <View
+          onLayout={(e) =>
+            (passwordConfirmLayoutY.current = e.nativeEvent.layout.y)
+          }
+        >
+
+          <SharedConfirmPassword
+            label={localization.CONFIRM_PASSWORD.label}
+            value={confirmPassword}
+            ref={confirmPasswordInputRef}
+            onFocus={() => {
+              scrollRef.current?.scrollToEnd({ animated: true });
+            }}
+            onChangeText={handleConfirmPasswordChange}
+            placeholder={localization.CONFIRM_PASSWORD.placeholder}
+          />
+        </View>
 
         <SharedButton
           disabled={
@@ -167,7 +258,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   container: {
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "black",
     paddingTop: Platform.OS === "android" ? 20 : 0,

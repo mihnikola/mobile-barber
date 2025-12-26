@@ -20,5 +20,5 @@
     "components/settings/SettingsComponent.jsx",
     "components/settings/MenuItem.tsx",
     "store/useTabsStore.jsx"
-  ]
+, "app/(tabs)/(04_settings)/userprofile.js"  ]
 }

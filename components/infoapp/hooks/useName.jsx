@@ -1,6 +1,7 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 const useName = (userName) => {
+  const nameRef = useRef(null);
   const [name, setName] = useState(userName || "");
 
   // Update state when userName becomes available
@@ -14,7 +15,7 @@ const useName = (userName) => {
     setName(text);
   }, []);
 
-  return { name, handleNameChange, setName };
+  return { name, handleNameChange, setName, nameRef };
 };
 
 export default useName;

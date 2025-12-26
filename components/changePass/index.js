@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
+import { View, Text, StatusBar, StyleSheet, Platform, findNodeHandle } from "react-native";
 import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
@@ -19,8 +19,8 @@ const changePass = () => {
   const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
-  const { password, passwordError, handlePasswordChange } = usePassword();
-  const { confirmPassword, handleConfirmPasswordChange } =
+  const { password, passwordError, handlePasswordChange, passwordInputRef } = usePassword();
+  const { confirmPassword, handleConfirmPasswordChange, passwordConfirmInputRef } =
     useConfirmPassword(password);
 
   const {
@@ -68,10 +68,23 @@ const changePass = () => {
             onChangeText={handlePasswordChange}
             placeholder={localization.PASSWORD.placeholder}
             error={passwordError}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              const node = findNodeHandle(passwordInputRef.current);
+              if (node) {
+                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                  node,
+                  80,
+                  true
+                );
+              }
+              passwordConfirmInputRef.current?.focus();
+            }}
           />
           <SharedConfirmPassword
             label={localization.CONFIRM_PASSWORD.label}
             value={confirmPassword}
+            ref={passwordConfirmInputRef}
             onChangeText={handleConfirmPasswordChange}
             placeholder={localization.CONFIRM_PASSWORD.placeholder}
           />
@@ -79,6 +92,8 @@ const changePass = () => {
       </View>
       <View style={styles.btnFooter}>
         <SharedButton
+          ref={passwordConfirmInputRef}
+
           loading={isLoading}
           text={localization.SUBMIT.label}
           disabled={isLoading || passwordError.length > 0}

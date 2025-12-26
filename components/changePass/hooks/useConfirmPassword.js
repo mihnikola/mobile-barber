@@ -1,12 +1,12 @@
 // src/hooks/useConfirmPassword.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 const useConfirmPassword = (password) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordConfirmError, setPasswordConfirmError] = useState('');
   const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState(false);
   const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$/;
-
+  const passwordConfirmInputRef = useRef(null);
   const handleConfirmPasswordChange = useCallback((text) => {
     const trimmedPass = text.trim();
     setConfirmPassword(trimmedPass);
@@ -32,7 +32,8 @@ const useConfirmPassword = (password) => {
     handleConfirmPasswordChange,
     togglePasswordConfirmVisibility,
     setConfirmPassword,
-    setIsPasswordConfirmVisible
+    setIsPasswordConfirmVisible,
+    passwordConfirmInputRef
   };
 };
 

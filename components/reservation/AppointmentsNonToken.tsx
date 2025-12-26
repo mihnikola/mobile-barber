@@ -16,7 +16,7 @@ function AppointmentsNonToken() {
   const { localization } = useLocalization();
   const routeHandler = () => {
     router.push({
-      pathname: "/(z_auth)/login",
+      pathname: "/(z_auth)/",
       params: { data: "appointments" },
     });
   };

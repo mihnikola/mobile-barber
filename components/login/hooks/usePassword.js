@@ -1,7 +1,8 @@
 // src/hooks/useEmail.js
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 const usePassword = () => {
+  const passwordInputRef = useRef(null);
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -14,7 +15,7 @@ const usePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
   }, [isPasswordVisible]);
 
-  return { password, handlePasswordChange, setPassword, togglePasswordVisibility, isPasswordVisible };
+  return { password, handlePasswordChange, setPassword, togglePasswordVisibility, isPasswordVisible, passwordInputRef };
 };
 
 export default usePassword;

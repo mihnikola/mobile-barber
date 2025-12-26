@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-const SharedInput = (props: any) => {
+const SharedInput = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -43,7 +43,10 @@ const SharedInput = (props: any) => {
             props.style,
             !props.stylePassword && isFocused && styles.textInputFocused,
           ]}
+          ref={ref}
+          value={props.value ?? ""}
           onFocus={() => setIsFocused(true)}
+          onChangeText={props.onChangeText}
           onBlur={() => setIsFocused(false)}
           placeholderTextColor="grey"
           secureTextEntry={props.stylePassword && !isPasswordVisible}
@@ -64,7 +67,8 @@ const SharedInput = (props: any) => {
       ) : null}
     </>
   );
-};
+});
+
 const styles = StyleSheet.create({
   prefixText: {
     color: "black",

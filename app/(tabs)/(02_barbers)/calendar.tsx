@@ -16,12 +16,12 @@ const Calendar = () => {
       } else {
         // router.dismissAll();
         router.push({
-          pathname: "/(z_auth)/login",
+          pathname: "/(z_auth)/",
           params: { data: "calendar" },
         });
       }
     } catch (error) {
-      router.push("/(z_auth)/login");
+      router.push("/(z_auth)/");
     }
   };
   // useEffect that runs when the screen is focused

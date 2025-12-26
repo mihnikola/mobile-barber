@@ -1,6 +1,6 @@
 // src/hooks/usePassword.js
 import { useLocalization } from "@/context/LocalizationContext";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 const usePassword = () => {
   const [password, setPassword] = useState("");
@@ -8,7 +8,7 @@ const usePassword = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const strongPasswordRegex =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]).{8,}$/;
-
+  const passwordInputRef = useRef(null);
   const { localization } = useLocalization();
 
   const handlePasswordChange = useCallback((text) => {
@@ -35,6 +35,7 @@ const usePassword = () => {
     togglePasswordVisibility,
     setPassword,
     setIsPasswordVisible,
+    passwordInputRef
   };
 };
 

@@ -101,7 +101,7 @@ const otpCode = () => {
     ) {
       await removeOtpParamsStorage();
 
-      router.push("/(z_auth)/login");
+      router.push("/(z_auth)/");
     }
   };
 

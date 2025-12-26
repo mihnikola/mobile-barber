@@ -46,14 +46,14 @@ const SettingsComponent = () => {
 
   const redirectToLogin = () => {
     router.push({
-      pathname: "/(z_auth)/login",
+      pathname: "/(z_auth)/",
       params: { data: "settings" },
     });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="black" />
+      {/* <StatusBar barStyle="dark-content" backgroundColor="black" /> */}
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
       ) : (

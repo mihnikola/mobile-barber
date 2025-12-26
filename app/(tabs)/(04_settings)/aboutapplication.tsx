@@ -26,7 +26,7 @@ const aboutapplication = () => {
   return (
     <ScrollView style={styles.container}>
       <SharedBackButton onPress={router.back} />
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
         title={localization.SETTINGS.ABOUTAPP.title}

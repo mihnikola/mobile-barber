@@ -10,6 +10,7 @@ export class NotificationService {
   hasReceivedForeground = false;
   hasHandledInitial = false; // ⚡ Ključni flag – sprečava pogrešne triggere
 
+  
   constructor() {
     this.setForegroundHandler();
   }
@@ -105,6 +106,7 @@ export class NotificationService {
 
   initializeListeners(onClick: (data?: any) => void) {
     // 1) Permissions + token
+
     this.requestPermission();
     this.getFCMToken();
 
