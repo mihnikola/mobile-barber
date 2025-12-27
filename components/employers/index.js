@@ -5,7 +5,7 @@ import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
@@ -18,9 +18,14 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
+  const { reevaluted } = useLocalSearchParams();
 
   const { location, service } = reservation;
-
+  useEffect(() => {
+    if (reevaluted) {
+      router.push("/(tabs)/(02_barbers)/calendar");
+    }
+  }, [reevaluted]);
   const { company } = useCompany();
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const Employers = () => {
   const getStorageToken = async () => {
     try {
       const getToken = await getStorage();
-      console.log("getTOken",getToken);
+      console.log("getTOken", getToken);
       if (getToken) {
         router.push("/(tabs)/(02_barbers)/calendar");
       } else {
@@ -58,7 +63,7 @@ const Employers = () => {
         image={company?.media?.coverImageAppointments}
         title={localization.BARBERS.title}
       />
-    {<SharedBackButton onPress={router.back}/>}
+      {<SharedBackButton onPress={router.back} />}
 
       {isLoading && <Loader />}
       {!isLoading && (
@@ -78,9 +83,7 @@ const Employers = () => {
       )}
       {!isLoading && error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            {localization.BARBERS.network}
-          </Text>
+          <Text style={styles.errorText}>{localization.BARBERS.network}</Text>
         </View>
       )}
     </ScrollView>

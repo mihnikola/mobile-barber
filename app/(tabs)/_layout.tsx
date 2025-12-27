@@ -27,6 +27,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(02_barbers)"
         options={{
+          href: "/(tabs)/(02_barbers)", // 👈 FORCE index
           title: localization.TABS.BARBERS,
           tabBarIcon: ({ color }) => (
             <MaterialIcons size={28} name="content-cut" color={color} />
@@ -48,7 +49,11 @@ export default function TabLayout() {
         options={{
           title: localization.TABS.SETTINGS,
           tabBarIcon: ({ color }) => (
-            <MaterialIcons size={28} name="miscellaneous-services" color={color} />
+            <MaterialIcons
+              size={28}
+              name="miscellaneous-services"
+              color={color}
+            />
           ),
         }}
       />

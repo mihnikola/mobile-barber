@@ -15,6 +15,7 @@ export default function RootLayout() {
           name="index"
           options={{ title: "", headerShown: false, animation: "fade" }}
         />
+        
         <Stack.Screen
           name="introScreen"
           options={{
@@ -34,6 +35,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
+        
         <Stack.Screen
           name="(z_auth)"
           options={{

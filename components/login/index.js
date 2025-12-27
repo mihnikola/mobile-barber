@@ -25,6 +25,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import CustomGoogleButton from "../home/CustomGoogleButton";
+import CustomAppleButton from "../home/CustomAppleButton";
 import { useEffect, useRef, useState } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
@@ -89,11 +90,16 @@ const LoginScreen = () => {
 
   const redirectValidation = () => {
     setIsMessage(false);
+
     if (data === "calendar") {
-      router.push({
-        pathname: "/(tabs)/(02_barbers)/calendar",
-        params: { reevaluted: true },
+      router.back();
+      router.setParams({
+        reevaluted: true,
       });
+      // router.push({
+      //   pathname: "/(tabs)/(02_barbers)/calendar",
+      //   params: { reevaluted: true },
+      // });
     } else if (data === "appointments") {
       router.push({
         pathname: "/(tabs)/(03_calendar)",
@@ -125,16 +131,12 @@ const LoginScreen = () => {
     router.push("/(z_auth)/forgotPass");
   };
 
-
-
-
   return (
     <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled">
       <View>
         <SharedBackButton onPress={router.back} styleBtn={{ top: -5 }} />
       </View>
       <View style={styles.container}>
-
         <SharedLogin image={company?.media?.logo} />
 
         <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
@@ -146,16 +148,17 @@ const LoginScreen = () => {
               <View style={styles.socialBtns}>
                 <CustomGoogleButton
                   onPress={signIn}
-                  isGoogleLoading={loading === 'google'}
+                  isGoogleLoading={loading === "google"}
                 />
                 <CustomAppleButton
                   onPress={onAppleButtonPress}
-                  isAppleLoading={loading === 'ios'} />
+                  isAppleLoading={loading === "ios"}
+                />
               </View>
             ) : (
               <CustomGoogleButton
                 onPress={signIn}
-                isGoogleLoading={loading === 'google'}
+                isGoogleLoading={loading === "google"}
               />
             )}
           </View>
@@ -188,7 +191,6 @@ const LoginScreen = () => {
           autoCapitalize="none"
           style={styles.input}
         />
-
 
         <SharedPassword
           label={localization.PASSWORD.label}
