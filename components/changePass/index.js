@@ -92,11 +92,9 @@ const changePass = () => {
       </View>
       <View style={styles.btnFooter}>
         <SharedButton
-          ref={passwordConfirmInputRef}
-
           loading={isLoading}
           text={localization.SUBMIT.label}
-          disabled={isLoading || passwordError.length > 0}
+          // disabled={isLoading || passwordError.length > 0}
           onPress={submitChanges}
         />
       </View>
