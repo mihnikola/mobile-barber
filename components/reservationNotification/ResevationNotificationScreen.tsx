@@ -39,7 +39,6 @@ function ResevationNotificationScreen() {
     isInitialLoading
   } = useAppointment();
 
-  console.log("isModal sto ne otvaras u usta ti ga spicim ", isModal)
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -80,7 +79,6 @@ function ResevationNotificationScreen() {
       );
   };
   const confirmHandler = async () => {
-    console.log(":::::::::::::::::");
     router.back();
     setIsModal(false);
   };
@@ -104,7 +102,6 @@ function ResevationNotificationScreen() {
   };
 
   const sharedQuestionHandler = () => {
-    console.log("sharedQuestionHandler close question");
     setIsModalQuestion(false);
 
     setTimeout(async () => {
