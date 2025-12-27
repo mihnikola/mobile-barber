@@ -17,12 +17,11 @@ export const LocalizationProvider = ({ children }) => {
     const langData = lang === "en" ? "en" : "sr";
     try {
       const token = await getStorage();
-      console.log("changeFirebaseLocalization",token)
 
       if (!token) return;
       await put(`/users/${token}/changeLanguage`, { langData });
     } catch (error) {
-      console.log("changeFirebaseLocalization error", error);
+      console.log("LocalizationContext error", error);
     }
   };
 

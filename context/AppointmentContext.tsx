@@ -79,7 +79,6 @@ export const AppointmentProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
 
-    console.log("reservation cancel id++", reservationId);
     if (!reservationId) {
       setError("Reservation ID is missing.");
       return false;
@@ -91,12 +90,10 @@ export const AppointmentProvider = ({ children }) => {
         status: 1,
       });
 
-      console.log("response", response);
 
       setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
       // await getReservationsData();
     } catch (err) {
-      console.log("::::errorcina", err);
       setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
     } finally {
       setIsLoading(false);
@@ -136,7 +133,6 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const reservationDataResponse = await get("/availabilities");
-      console.log("appointemests", reservationDataResponse.length);
       setReservations([...reservationDataResponse]);
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetch);

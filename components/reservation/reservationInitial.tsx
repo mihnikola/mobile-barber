@@ -9,7 +9,6 @@ export default function ReservationInitial() {
   useEffect(() => {
     getTokenData();
   }, []);
-  console.log("isToken", isToken);
   if (!isToken) {
     return <AppointmentsNonToken />;
   }
