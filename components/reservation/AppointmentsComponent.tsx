@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
@@ -7,6 +7,8 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { useAppointment } from "@/context/AppointmentContext";
+import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect } from "expo-router";
 
 const AppointmentsComponent = () => {
   const { isLoading, detailsReservation, getReservationsData, reservations } =
@@ -14,9 +16,14 @@ const AppointmentsComponent = () => {
   const { company } = useCompany();
   const { localization } = useLocalization();
 
-  useEffect(() => {
-    getReservationsData();
-  }, []);
+  const isFocused = useIsFocused();
+  
+  useFocusEffect(
+    useCallback(() => {
+      console.log("ironMaiden+++")
+      getReservationsData();
+    }, [isFocused])
+  );
 
   return (
     <ScrollView style={styles.container}>

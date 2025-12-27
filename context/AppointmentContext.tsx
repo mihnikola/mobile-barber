@@ -21,7 +21,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isModalQuestion, setIsModalQuestion] = useState(false);
-
+  const [isInitialLoading, setIsInitialLoading] = useState(false);
   const [error, setError] = useState(null);
   const [IsError, setIsError] = useState(false);
 
@@ -57,6 +57,7 @@ export const AppointmentProvider = ({ children }) => {
       setError("Reservation ID is missing.");
       return false;
     }
+    setIsModal(true);
 
     try {
       await put(`/availabilities/${reservationId}`, {
@@ -64,9 +65,8 @@ export const AppointmentProvider = ({ children }) => {
         rate: rating,
         description,
       });
-      setIsModal(true);
       setMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
-      await getReservationsData();
+      // await getReservationsData();
     } catch (err) {
       setError(localization.APPOINTMENTS.rateReservation.errorMessage);
     } finally {
@@ -79,22 +79,24 @@ export const AppointmentProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
 
-    console.log("reservation id++", reservationId);
+    console.log("reservation cancel id++", reservationId);
     if (!reservationId) {
       setError("Reservation ID is missing.");
       return false;
     }
+    setIsModal(true);
+
     try {
       const response = await put(`/availabilities/${reservationId}`, {
         status: 1,
       });
-      setIsModal(true);
 
       console.log("response", response);
 
       setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
-      await getReservationsData();
+      // await getReservationsData();
     } catch (err) {
+      console.log("::::errorcina", err);
       setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
     } finally {
       setIsLoading(false);
@@ -102,11 +104,11 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const fetchReservationDetails = async (reservationId) => {
-    setIsLoading(true);
+    setIsInitialLoading(true);
     setError(null);
 
     if (!reservationId) {
-      setIsLoading(false);
+      setIsInitialLoading(false);
       setError(localization.APPOINTMENTS.errorId);
       return;
     }
@@ -125,7 +127,7 @@ export const AppointmentProvider = ({ children }) => {
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetchId);
     } finally {
-      setIsLoading(false);
+      setIsInitialLoading(false);
     }
   };
   const getReservationsData = async () => {
@@ -167,7 +169,7 @@ export const AppointmentProvider = ({ children }) => {
       });
 
       if (response.status === 201) {
-        await getReservationsData();
+        // await getReservationsData();
         setResponseData(response);
         router.dismissAll();
         router.push({
@@ -232,6 +234,7 @@ export const AppointmentProvider = ({ children }) => {
         cancelReservation,
         fetchReservationDetails,
         reservationData,
+        setReservationData,
         message,
         setMessage,
         submitReservationHandler,
@@ -244,7 +247,9 @@ export const AppointmentProvider = ({ children }) => {
         isModalQuestion,
         getTokenData,
         setIsError,
-        IsError
+        IsError,
+        setIsInitialLoading,
+        isInitialLoading,
       }}
     >
       {children}
