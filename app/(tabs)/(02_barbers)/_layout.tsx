@@ -6,6 +6,7 @@ export default function RootLayoutBarbers() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "", headerShown: false }} />
+      
       <Stack.Screen
         name="employers"
         options={{
