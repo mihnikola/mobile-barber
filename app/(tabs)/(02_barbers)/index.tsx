@@ -13,15 +13,15 @@ const EmployersComponent = () => {
   const { data } = useLocalSearchParams();
   console.log("data", data);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (data) router.dismissAll();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if (data) router.dismissAll();
+  //   }, [])
+  // );
 
   useEffect(() => {
     fetchLocations();
-  }, []);
+  }, [data]);
 
   if (isLoading) {
     return <SharedLoader />;

@@ -7,7 +7,7 @@ const useFetchLocations = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
 
   const [locationsData, setLocationsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
 
