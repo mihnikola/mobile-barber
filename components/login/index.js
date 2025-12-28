@@ -133,11 +133,12 @@ const LoginScreen = () => {
 
   return (
     <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled">
-      <View>
-        <SharedBackButton onPress={router.back} styleBtn={{ top: -5 }} />
-      </View>
       <View style={styles.container}>
-        <SharedLogin image={company?.media?.logo} />
+        <SharedBackButton onPress={router.back} />
+
+        <View style={{ alignItems: "center" }}>
+          <SharedLogin image={company?.media?.logo} />
+        </View>
 
         <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
         <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
@@ -268,9 +269,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 25,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   logo: {
     width: 120,

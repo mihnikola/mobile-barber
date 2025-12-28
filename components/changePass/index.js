@@ -1,4 +1,11 @@
-import { View, Text, StatusBar, StyleSheet, Platform, findNodeHandle } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  Platform,
+  findNodeHandle,
+} from "react-native";
 import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
@@ -19,9 +26,13 @@ const changePass = () => {
   const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
-  const { password, passwordError, handlePasswordChange, passwordInputRef } = usePassword();
-  const { confirmPassword, handleConfirmPasswordChange, passwordConfirmInputRef } =
-    useConfirmPassword(password);
+  const { password, passwordError, handlePasswordChange, passwordInputRef } =
+    usePassword();
+  const {
+    confirmPassword,
+    handleConfirmPasswordChange,
+    passwordConfirmInputRef,
+  } = useConfirmPassword(password);
 
   const {
     handlePatchUser,
@@ -33,7 +44,8 @@ const changePass = () => {
   } = useChangePasswordHandler();
 
   const submitChanges = () => {
-    handlePatchUser(data, password, confirmPassword);
+    if (passwordError?.length === 0)
+      handlePatchUser(data, password, confirmPassword);
   };
 
   const confirmHandler = async () => {
@@ -94,7 +106,7 @@ const changePass = () => {
         <SharedButton
           loading={isLoading}
           text={localization.SUBMIT.label}
-          // disabled={isLoading || passwordError.length > 0}
+          disabled={password.length > 0 && passwordError.length > 0}
           onPress={submitChanges}
         />
       </View>

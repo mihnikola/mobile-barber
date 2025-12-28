@@ -2,17 +2,24 @@ import Loader from "@/components/Loader";
 import AppointmentsComponent from "./AppointmentsComponent";
 import AppointmentsNonToken from "./AppointmentsNonToken";
 import { useAppointment } from "@/context/AppointmentContext";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { useFocusEffect } from "expo-router";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 export default function ReservationInitial() {
-  const { isToken, getTokenData } = useAppointment();
+  const { isToken, isLoadingToken, getTokenData } = useAppointment();
 
-  useEffect(() => {
-    getTokenData();
-  }, []);
-  if (!isToken) {
+  useFocusEffect(
+    useCallback(() => {
+      getTokenData();
+    }, [])
+  );
+  // if(isLoadingToken){
+  //   return <SharedLoader isOpen={isLoadingToken} />
+  // }
+  if (!isToken && !isLoadingToken) {
     return <AppointmentsNonToken />;
   }
-  if (isToken) {
+  if (isToken && !isLoadingToken) {
     return <AppointmentsComponent />;
   }
 }
