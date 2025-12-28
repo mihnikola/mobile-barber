@@ -26,6 +26,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -34,7 +35,6 @@ const Register = () => {
   const phoneNumberLayoutY = useRef(0);
   const passwordLayoutY = useRef(0);
   const passwordConfirmLayoutY = useRef(0);
-
 
   const { image } = useLocalSearchParams();
   const { localization } = useLocalization();
@@ -49,11 +49,19 @@ const Register = () => {
   // const { emailInputRef, emailError, handleEmailChange } = useEmail();
   const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
 
-  const { phoneNumber, handlePhoneNumberChange, errorPhoneNumber, phoneNumberInputRef } =
-    usePhoneNumber();
-  const { password, passwordError, handlePasswordChange, passwordInputRef } = usePassword();
-  const { confirmPassword, handleConfirmPasswordChange, confirmPasswordInputRef } =
-    useConfirmPassword(password);
+  const {
+    phoneNumber,
+    handlePhoneNumberChange,
+    errorPhoneNumber,
+    phoneNumberInputRef,
+  } = usePhoneNumber();
+  const { password, passwordError, handlePasswordChange, passwordInputRef } =
+    usePassword();
+  const {
+    confirmPassword,
+    handleConfirmPasswordChange,
+    confirmPasswordInputRef,
+  } = useConfirmPassword(password);
 
   const handleRegister = () => {
     // const data = {
@@ -67,7 +75,6 @@ const Register = () => {
     // };
 
     // console.log("data", data)
-
 
     handleRegistration({
       name,
@@ -95,13 +102,20 @@ const Register = () => {
   };
 
   return (
+    <ScrollView
+      ref={scrollRef}
+      keyboardDismissMode="interactive"
+      style={styles.safeArea}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+      keyboardShouldPersistTaps="always"
+    >
+      <SharedBackButton onPress={router.back} />
 
-    <ScrollView ref={scrollRef} keyboardDismissMode="interactive"
-      style={styles.safeArea} contentContainerStyle={{ flexGrow: 1, padding: 20, paddingBottom: 20 }} keyboardShouldPersistTaps="always">
       <View style={styles.container}>
         {/* <View style={{ flex: 1 }}> */}
-        <SharedLogin image={image} />
-
+        <View style={{ alignItems: "center" }}>
+          <SharedLogin image={image} />
+        </View>
         <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
         <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
 
@@ -121,7 +135,6 @@ const Register = () => {
             emailLayoutY.current = e.nativeEvent.layout.y;
           }}
         >
-
           <SharedInput
             label={localization.EMAIL.label}
             placeholder={localization.EMAIL.placeholder}
@@ -147,7 +160,6 @@ const Register = () => {
             phoneNumberLayoutY.current = e.nativeEvent.layout.y;
           }}
         >
-
           <SharedPhoneNumber
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
@@ -173,8 +185,9 @@ const Register = () => {
             }}
           />
         </View>
-        <View onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}>
-
+        <View
+          onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}
+        >
           <SharedPassword
             label={localization.PASSWORD.label}
             value={password}
@@ -201,7 +214,6 @@ const Register = () => {
             (passwordConfirmLayoutY.current = e.nativeEvent.layout.y)
           }
         >
-
           <SharedConfirmPassword
             label={localization.CONFIRM_PASSWORD.label}
             value={confirmPassword}
@@ -254,15 +266,15 @@ const Register = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingVertical: 10,
     backgroundColor: "black",
   },
-  container: {
-    // flex: 1,
+ container: {
+    flex: 1,
     paddingHorizontal: 20,
+    paddingVertical: 25,
     backgroundColor: "black",
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
+  
   logo: {
     width: 120,
     height: 100,
