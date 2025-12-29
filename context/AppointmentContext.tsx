@@ -31,7 +31,7 @@ export const AppointmentProvider = ({ children }) => {
   const [reservationData, setReservationData] = useState(null);
   const [description, setDescription] = useState(null);
 
-  const { isToken, getTokenData } = useAuth();
+  const { isToken, isLoading: isLoadingToken, getTokenData } = useAuth();
   const { localization } = useLocalization();
   const { reservation } = useContext(ReservationContext);
 
@@ -89,7 +89,6 @@ export const AppointmentProvider = ({ children }) => {
       const response = await put(`/availabilities/${reservationId}`, {
         status: 1,
       });
-
 
       setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
       // await getReservationsData();
@@ -165,7 +164,7 @@ export const AppointmentProvider = ({ children }) => {
       });
 
       if (response.status === 201) {
-        // await getReservationsData();
+        await getReservationsData();
         setResponseData(response);
         router.dismissAll();
         router.push({
@@ -200,6 +199,7 @@ export const AppointmentProvider = ({ children }) => {
       setError(localization.APPOINTMENTS.postError);
     } finally {
       setIsLoading(false);
+      setDescription(null);
     }
   };
   const submitReservationHandler = async () => {
@@ -246,6 +246,7 @@ export const AppointmentProvider = ({ children }) => {
         IsError,
         setIsInitialLoading,
         isInitialLoading,
+        isLoadingToken,
       }}
     >
       {children}

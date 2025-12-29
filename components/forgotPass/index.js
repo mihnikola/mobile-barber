@@ -75,7 +75,7 @@ const ForgotPassword = () => {
 
       <View>
         <SharedButton
-          // disabled={emailError.length > 0 || isLoading}
+          disabled={emailError.length > 0 && email.length > 0}
           onPress={navHandler}
           loading={isLoading}
           text={localization.FORGOT_PASSWORD.submitBtn}
