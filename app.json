@@ -14,11 +14,17 @@
     "newArchEnabled": true,
     "ios": {
       "entitlements": {
-        "com.apple.developer.applesignin": ["Default"]
+        "com.apple.developer.applesignin": [
+          "Default",
+          "Default"
+        ]
       },
       "bundleIdentifier": "fta.barber.app",
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.barber.app",
@@ -36,13 +42,21 @@
       ],
       [
         "expo-build-properties",
-
         {
           "ios": {
             "useFrameworks": "static"
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "941cbfd2-53f9-4a71-b399-0133e55dcfa0"
+      }
+    },
+    "owner": "fusion-tech-agency"
   }
 }
