@@ -79,7 +79,7 @@ const DateComponent = () => {
           }}
           current={localDateString}
           minDate={localDateString}
-          futureScrollRange={2}
+          futureScrollRange={5}
           pastScrollRange={0}
           markedDates={markedDates}
           horizontal
