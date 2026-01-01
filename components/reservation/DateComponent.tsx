@@ -84,7 +84,6 @@ const DateComponent = () => {
           markedDates={markedDates}
           horizontal
           pagingEnabled
-          hideExtraDays
           onDayPress={(months) => {
             handleDayPress(months);
             setSelectedItem(null);
