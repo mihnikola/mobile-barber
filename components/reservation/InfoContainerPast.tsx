@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     alignItems: "flex-start",
-    gap: 9,
+    gap: 7,
   },
 });
 
