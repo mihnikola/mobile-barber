@@ -10,10 +10,9 @@ import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 
-const PlaceComponent = () => {
+const PlaceComponent = ({locationsData}) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-  const { locationsData, isLoading, error, fetchLocations } =
-    useFetchLocations();
+  const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
   const { company } = useCompany();
 
@@ -24,10 +23,6 @@ const PlaceComponent = () => {
       params: { backButton: true },
     });
   };
-
-  useEffect(() => {
-    fetchLocations();
-  }, []);
 
   return (
     <ScrollView style={styles.container}>

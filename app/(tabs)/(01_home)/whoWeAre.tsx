@@ -19,7 +19,7 @@ const AboutUsScreen = () => {
   }, []);
 
   if (isLoading) {
-    return <SharedLoader />;
+    return <SharedLoader isOpen={isLoading} />;
   }
 
   return (
