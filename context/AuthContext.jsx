@@ -280,15 +280,13 @@ export const AuthProvider = ({ children }) => {
   const logoutHandler = async () => {
     try {
       const x = await removeStorage();
+      setUserData(null);
       setIsMessage(false);
       setIsToken(null);
-      // setIsLoadingLogin(false);
       setMessage(null);
       setStatus(null);
       setSuccess(null);
       setIsLogout(false);
-
-      // router.push("/(tabs)/(04_settings)");
     } catch (error) {
       setError(error);
     }

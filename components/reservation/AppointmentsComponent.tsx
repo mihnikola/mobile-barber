@@ -20,7 +20,6 @@ const AppointmentsComponent = () => {
   
   useFocusEffect(
     useCallback(() => {
-      console.log("ironMaiden+++")
       getReservationsData();
     }, [isFocused])
   );

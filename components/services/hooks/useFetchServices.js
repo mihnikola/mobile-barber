@@ -23,9 +23,9 @@ const useFetchServices = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchAllServices();
-  // }, []);
+  useEffect(() => {
+    fetchAllServices();
+  }, []);
 
   return { serviceData, isLoading, error, fetchAllServices };
 };

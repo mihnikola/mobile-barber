@@ -14,11 +14,11 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading, fetchAllServices } = useFetchServices();
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   const {backButton} = useLocalSearchParams();
 
-  console.log("paramts",backButton)
+  // console.log("paramts",backButton)
   const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
@@ -33,9 +33,9 @@ const MenuServices = () => {
     router.push("/(tabs)/(02_barbers)/employers");
   };
 
-  useEffect(() => {
-    fetchAllServices(); 
-  }, [pathname]);
+  // useEffect(() => {
+  //   fetchAllServices(); 
+  // }, [pathname]);
 
   const { localization } = useLocalization();
 

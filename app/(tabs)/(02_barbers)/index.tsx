@@ -2,32 +2,18 @@ import useFetchLocations from "../../../components/places/useFetchLocations";
 import PlaceComponent from "../../../components/places/PlaceComponent";
 import { SharedLoader } from "../../../shared-components/SharedLoader";
 import Services from "../../../components/services";
-import { useCallback, useEffect } from "react";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 
 const EmployersComponent = () => {
-  const { locationsData, isLoading, error, fetchLocations } =
+  const { locationsData, isLoading, error } =
     useFetchLocations();
 
-  const { data } = useLocalSearchParams();
-  console.log("data", data);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     if (data) router.dismissAll();
-  //   }, [])
-  // );
-
-  useEffect(() => {
-    fetchLocations();
-  }, [data]);
 
   if (isLoading) {
-    return <SharedLoader />;
+    return <SharedLoader isOpen={isLoading} />;
   }
   if (locationsData.length > 1) {
-    return <PlaceComponent />;
+    return <PlaceComponent locationsData={locationsData} />;
   } else {
     return <Services />;
   }
