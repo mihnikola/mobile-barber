@@ -1,5 +1,5 @@
-import { View, StyleSheet, ScrollView } from "react-native";
-import React, { useContext } from "react";
+import { View, StyleSheet, ScrollView, BackHandler } from "react-native";
+import React, { useContext, useEffect } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
 import SharedButton from "@/shared-components/SharedButton";
@@ -13,6 +13,7 @@ import { router } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -33,12 +34,32 @@ const Reservation = () => {
   } = useAppointment();
 
   console.log("errrr", error);
+  const { saveLastTab } = useLastPathNavigation();
 
   const confirmHandler = async () => {
     setIsError(false);
     setError(null);
-
   };
+
+  useEffect(() => {
+    const backAction = () => {
+      router.back();
+      saveLastTab("/(tabs)/(02_barbers)/calendar");
+
+      return true; // Returning true means we have handled the event and default behavior is prevented
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup function to remove the event listener
+  }, []);
+    const routerBackHandler = () => {
+      router.back();
+      saveLastTab("/(tabs)/(02_barbers)/calendar");
+    };
 
   if (reservation) {
     return (
@@ -47,7 +68,7 @@ const Reservation = () => {
           image={company?.media?.coverImageAppointments}
           reservation={reservation}
         />
-        <SharedBackButton onPress={router.back} />
+        <SharedBackButton onPress={routerBackHandler} />
 
         <View style={styles.containerData}>
           <View>

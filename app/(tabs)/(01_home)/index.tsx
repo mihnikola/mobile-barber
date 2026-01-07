@@ -22,6 +22,7 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 
 import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
@@ -29,6 +30,7 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
+  const { lastPath } = useLastPathNavigation();
 
   const {
     locationsData,
@@ -47,10 +49,9 @@ function App() {
   const { localization } = useLocalization();
 
   const nextPage = () => {
-    router.replace({
-      pathname: "/(tabs)/(02_barbers)",
-      params: { data: "1" },
-    });
+    console.log("xxxx");
+    router.navigate(lastPath ?? "/(tabs)/(02_barbers)");
+
   };
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
@@ -62,7 +63,6 @@ function App() {
 
   const openLocationHandler = async () => {
     await fetchLocations();
-
 
     if (locationsData?.length === 1) {
       openGoogleMapsRoute(locationsData[0]?.mapLink);

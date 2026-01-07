@@ -11,6 +11,7 @@ import {
 } from "@/helpers";
 import ReservationContext from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
+import { useLastPathNavigation } from "./NavigationContext";
 
 const AppointmentContext = createContext(null);
 export const useAppointment = () => {
@@ -35,6 +36,7 @@ export const AppointmentProvider = ({ children }) => {
   const { localization } = useLocalization();
   const { reservation } = useContext(ReservationContext);
 
+  const {saveLastTab} = useLastPathNavigation();
   const [isModal, setIsModal] = useState(false);
 
   const detailsReservation = (item) => {
@@ -167,6 +169,7 @@ export const AppointmentProvider = ({ children }) => {
         await getReservationsData();
         setResponseData(response);
         router.dismissAll();
+        saveLastTab(null);
         router.push({
           pathname: "/(tabs)/(02_barbers)/reservationSuccess",
           params: {
