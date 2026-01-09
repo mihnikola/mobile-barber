@@ -1,6 +1,8 @@
 import { useCompany } from "@/context/CompanyContext";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import SharedTitle from "@/shared-components/SharedTitle";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -22,10 +24,8 @@ function AppointmentsNonToken() {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader
-        image={company?.media?.coverImageAppointments}
-        title={localization.APPOINTMENTS.title}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedTitle title={localization.APPOINTMENTS.title} />
       <View style={styles.card}>
         <Text style={styles.description}>
           {localization.APPOINTMENTS.noLogin}

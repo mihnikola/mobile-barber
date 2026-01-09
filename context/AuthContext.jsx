@@ -280,6 +280,7 @@ export const AuthProvider = ({ children }) => {
   const logoutHandler = async () => {
     try {
       const x = await removeStorage();
+
       setUserData(null);
       setIsMessage(false);
       setIsToken(null);
@@ -287,6 +288,7 @@ export const AuthProvider = ({ children }) => {
       setStatus(null);
       setSuccess(null);
       setIsLogout(false);
+      // router.dismissAll();
     } catch (error) {
       setError(error);
     }
@@ -299,8 +301,6 @@ export const AuthProvider = ({ children }) => {
         if (isToken) {
           const response = await post("/users/logout", { token: isToken });
           if (response.status === 200) {
-            // router.dismissAll();
-
             signOut();
             logoutHandler();
           }

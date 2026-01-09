@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -33,10 +34,9 @@ const HelpSupportScreen = () => {
     <ScrollView style={styles.container}>
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedBackButton onPress={router.back} />
-      <SharedTabHeader
-        image={company?.media?.coverImageSettings}
-        title={localization.SETTINGS.HELP.title}
-      />
+    
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedTitle title={localization.SETTINGS.HELP.title} />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>

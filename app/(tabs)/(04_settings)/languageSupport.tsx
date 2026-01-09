@@ -11,10 +11,11 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const languageSupport = () => {
   const { changeLocalization, localization } = useLocalization();
@@ -54,10 +55,9 @@ const languageSupport = () => {
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedBackButton onPress={router.back} />
 
-      <SharedTabHeader
-        image={company?.media?.coverImageSettings}
-        title={localization.SETTINGS.changeLanguage.capture}
-      />
+     
+       <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedTitle title={localization.SETTINGS.changeLanguage.capture} />
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
