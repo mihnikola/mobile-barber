@@ -1,50 +1,49 @@
-import React, { createContext, useContext, useRef } from "react";
-import { useRootNavigationState, useRouter } from "expo-router";
+import React, { createContext, useContext, useState } from "react";
 
-const NavigationContext = createContext(null);
+export const NavigationContext = createContext(null);
 
 export const NavigationProvider = ({ children }) => {
-  const router = useRouter();
-  const routerRef = useRef(router);
-  const navState = useRootNavigationState();
+  const [lastPath, setLastPath] = useState(null);
+  const [btnValue, setBtnValue] = useState(false);
 
-  // Čuvamo router ref tako da može biti dostupan kasnije
-  routerRef.current = router;
-
-  const navigate = (path) => {
-    if (routerRef.current) {
-      console.log("objectdara", path);
-      routerRef.current.replace(path);
-      console.log("madara", path);
-    } else {
-      console.warn("Router is not ready yet!");
-    }
+  const saveLastTab = (path, btn) => {
+    if (btn) setBtnValue(true);
+    setLastPath(path);
   };
 
-  useEffect(() => {
-    if (navState?.key && pendingScreen.current && !hasRedirected.current) {
-      // ✅ Router je sada spreman
-      navigate();
-      
-      router.replace(pendingScreen.current);
-      hasRedirected.current = true; // da se ne izvrši opet
-    }
-  }, [navState?.key]);
-
   return (
-    <NavigationContext.Provider value={{ navigate, router: routerRef.current }}>
+    <NavigationContext.Provider value={{ lastPath, saveLastTab, btnValue }}>
       {children}
     </NavigationContext.Provider>
   );
 };
 
-// Hook za lak pristup
-export const useNavigationService = () => {
+/* ───────────────────────────── */
+/* Custom Hooks                  */
+/* ───────────────────────────── */
+
+export const useNavigation = () => {
   const context = useContext(NavigationContext);
+
+  if (!context) {
+    throw new Error("useNavigation must be used inside NavigationProvider");
+  }
+
+  return context;
+};
+
+export const useLastPathNavigation = () => {
+  const context = useContext(NavigationContext);
+
   if (!context) {
     throw new Error(
-      "useNavigationService must be used within a NavigationProvider"
+      "useLastPathNavigation must be used inside NavigationProvider"
     );
   }
-  return context;
+
+  return {
+    lastPath: context.lastPath,
+    btnValue: context.btnValue,
+    saveLastTab: context.saveLastTab,
+  };
 };

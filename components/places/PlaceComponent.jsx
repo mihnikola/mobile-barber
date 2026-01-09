@@ -9,25 +9,24 @@ import { router } from "expo-router";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
-const PlaceComponent = () => {
+const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-  const { locationsData, isLoading, error, fetchLocations } =
-    useFetchLocations();
+  const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
   const { company } = useCompany();
+  const { saveLastTab } = useLastPathNavigation();
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
+    const pathName = "/(tabs)/(02_barbers)/services";
     router.push({
-      pathname: "/(tabs)/(02_barbers)/services",
+      pathname: pathName,
       params: { backButton: true },
     });
+    saveLastTab(pathName,true);
   };
-
-  useEffect(() => {
-    fetchLocations();
-  }, []);
 
   return (
     <ScrollView style={styles.container}>

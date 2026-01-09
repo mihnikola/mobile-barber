@@ -1,12 +1,15 @@
 import DateComponent from "@/components/reservation/DateComponent";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { BackHandler } from "react-native";
 
 const Calendar = () => {
   const [check, setCheck] = useState(false);
   const { reevaluted } = useLocalSearchParams();
+  const { saveLastTab } = useLastPathNavigation();
 
   const checkToken = async () => {
     try {
@@ -31,6 +34,21 @@ const Calendar = () => {
       checkToken();
     }, [isF, reevaluted])
   ); // Dependency on isFocused to trigger the effect
+    useEffect(() => {
+    const backAction = () => {
+      console.log("xxqqqqqqqqq");
+      router.back();
+      saveLastTab("/(tabs)/(02_barbers)/employers");
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup function to remove the event listener
+  }, []);
   if (check) {
     return <DateComponent />;
   }

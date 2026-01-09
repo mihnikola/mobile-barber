@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView, Text, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Image,
+  BackHandler,
+} from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
 import Loader from "@/components/Loader"; // Adjust the path if needed
@@ -17,6 +24,7 @@ import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -26,6 +34,9 @@ const DateComponent = () => {
 
   const { localization } = useLocalization();
   const { company } = useCompany();
+  const { saveLastTab } = useLastPathNavigation();
+
+  const pathName = "/(tabs)/(02_barbers)/reservation";
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);
@@ -44,7 +55,8 @@ const DateComponent = () => {
         dateReservation: selectedDate,
         timeData: selectedItem,
       });
-      router.push("/(tabs)/(02_barbers)/reservation");
+      router.push(pathName);
+      saveLastTab(pathName);
     }
   };
 
@@ -59,13 +71,17 @@ const DateComponent = () => {
     return <SharedLoader />;
   }
 
+  const routerBackHandler = () => {
+    router.back();
+    saveLastTab("/(tabs)/(02_barbers)/employers");
+  };
   return (
     <ScrollView style={styles.container}>
       <SharedTabHeader
         image={company?.media?.coverImageAppointments}
         title={localization.DATE.title}
       />
-      <SharedBackButton onPress={router.back} />
+      <SharedBackButton onPress={routerBackHandler} />
 
       <View style={styles.calendarContainer}>
         <CalendarList
@@ -79,12 +95,11 @@ const DateComponent = () => {
           }}
           current={localDateString}
           minDate={localDateString}
-          futureScrollRange={2}
+          futureScrollRange={5}
           pastScrollRange={0}
           markedDates={markedDates}
           horizontal
           pagingEnabled
-          hideExtraDays
           onDayPress={(months) => {
             handleDayPress(months);
             setSelectedItem(null);

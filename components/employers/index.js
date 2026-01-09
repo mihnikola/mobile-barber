@@ -1,9 +1,8 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
 import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
-import SharedItem from "@/shared-components/SharedItem";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -12,20 +11,24 @@ import { useCompany } from "@/context/CompanyContext";
 import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
-import SharedEmployerCard from "@/shared-components/SharedEmployerCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const { reevaluted } = useLocalSearchParams();
+  const { saveLastTab } = useLastPathNavigation();
+  const pathName = "/(tabs)/(02_barbers)/calendar";
 
   const { location, service } = reservation;
   useEffect(() => {
     if (reevaluted) {
-      router.push("/(tabs)/(02_barbers)/calendar");
+      router.push(pathName);
+      saveLastTab(pathName);
     }
   }, [reevaluted]);
+
   const { company } = useCompany();
 
   useEffect(() => {
@@ -37,9 +40,9 @@ const Employers = () => {
   const getStorageToken = async () => {
     try {
       const getToken = await getStorage();
-      console.log("getTOken", getToken);
       if (getToken) {
-        router.push("/(tabs)/(02_barbers)/calendar");
+        router.push(pathName);
+        saveLastTab(pathName);
       } else {
         router.push({
           pathname: "/(z_auth)/",
@@ -56,14 +59,31 @@ const Employers = () => {
   };
 
   const { localization } = useLocalization();
+  useEffect(() => {
+    const backAction = () => {
+      router.back();
+      saveLastTab("/(tabs)/(02_barbers)/services");
+      return true; // Returning true means we have handled the event and default behavior is prevented
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup function to remove the event listener
+  }, []);
+  const routerBackHandler = () => {
+    router.back();
+    saveLastTab("/(tabs)/(02_barbers)/services");
+  };
   return (
     <ScrollView style={styles.container}>
       <SharedTabHeader
         image={company?.media?.coverImageAppointments}
         title={localization.BARBERS.title}
       />
-      {<SharedBackButton onPress={router.back} />}
+      {<SharedBackButton onPress={routerBackHandler} />}
 
       {isLoading && <Loader />}
       {!isLoading && (

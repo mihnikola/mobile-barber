@@ -88,7 +88,7 @@ const userprofile = () => {
   const messageHandler = () => {
     setIsMessage(false);
     fetchUserData();
-    router.push("/(tabs)/(04_settings)");
+    router.back();
   };
 
   const submitChanges = () => {

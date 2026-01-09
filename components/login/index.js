@@ -2,7 +2,6 @@ import {
   BackHandler,
   Dimensions,
   findNodeHandle,
-  KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
@@ -17,7 +16,7 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { useAuth } from "@/context/AuthContext";
@@ -26,17 +25,15 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import CustomGoogleButton from "../home/CustomGoogleButton";
 import CustomAppleButton from "../home/CustomAppleButton";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 
 const LoginScreen = () => {
-  const { data } = useLocalSearchParams();
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange, passwordInputRef } = usePassword();
   const scrollRef = useRef(null);
 
-  const passwordLayoutY = useRef(0);
   const { localization } = useLocalization();
 
   const {
@@ -54,6 +51,8 @@ const LoginScreen = () => {
     signIn,
     onAppleButtonPress,
     login,
+
+    redirectValidation
   } = useAuth();
 
   const { company } = useCompany();
@@ -88,35 +87,7 @@ const LoginScreen = () => {
     setIsMessage(false);
   };
 
-  const redirectValidation = () => {
-    setIsMessage(false);
-
-    if (data === "calendar") {
-      router.back();
-      router.setParams({
-        reevaluted: true,
-      });
-      // router.push({
-      //   pathname: "/(tabs)/(02_barbers)/calendar",
-      //   params: { reevaluted: true },
-      // });
-    } else if (data === "appointments") {
-      router.push({
-        pathname: "/(tabs)/(03_calendar)",
-        params: { reevaluted: true },
-      });
-    } else if (data === "settings") {
-      router.push({
-        pathname: "/(tabs)/(04_settings)",
-        params: { reevaluted: true },
-      });
-    } else {
-      router.push({
-        pathname: "/(tabs)/(01_home)",
-        params: { reevaluted: true },
-      });
-    }
-  };
+  
   const confirmHandler = async () => {
     if (status === 606) {
       verificationOTPCode();

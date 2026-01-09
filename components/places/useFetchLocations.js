@@ -33,6 +33,9 @@ const useFetchLocations = () => {
     }
   };
 
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   return { locationsData, isLoading, error, fetchLocations };
 };

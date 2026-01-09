@@ -16,9 +16,7 @@ import {
   isErrorWithCode,
   isSuccessResponse,
 } from "@react-native-google-signin/google-signin";
-import {
-  appleAuth,
-} from "@invertase/react-native-apple-authentication";
+import { appleAuth } from "@invertase/react-native-apple-authentication";
 
 import { changeLanguage } from "i18next";
 import { getLanguageValue } from "@/helpers/language";
@@ -40,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   const [isLogout, setIsLogout] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  
+
   // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   // const [isIosLoading, setIosLoading] = useState(false);
   // const [isLoadingLogin, setIsLoadingLogin] = useState(false);
@@ -55,8 +53,6 @@ export const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(null);
   // possible values: null | 'login' | 'google' | 'ios' | 'logout' | 'otp'
-
-
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -77,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   async function onAppleButtonPress() {
-    withLoading('ios', async () => {
+    withLoading("ios", async () => {
       // Start the sign-in request
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -94,11 +90,10 @@ export const AuthProvider = ({ children }) => {
         email: appleAuthRequestResponse?.email,
         fullName: appleAuthRequestResponse?.fullName,
         user: appleAuthRequestResponse?.user,
-        token: appleAuthRequestResponse?.identityToken
-      }
+        token: appleAuthRequestResponse?.identityToken,
+      };
       await signInIos(userData);
-    })
-
+    });
   }
 
   // const signIn = async () => {
@@ -139,9 +134,17 @@ export const AuthProvider = ({ children }) => {
   //   }
   // };
 
+  const redirectValidation = async () => {
+    await getTokenData();
+    setIsMessage(false);
+    router.back();
+    router.setParams({
+      reevaluted: true,
+    });
+  };
 
   const signIn = async () => {
-    withLoading('google', async () => {
+    withLoading("google", async () => {
       try {
         await GoogleSignin.hasPlayServices({
           showPlayServicesUpdateDialog: true,
@@ -165,8 +168,7 @@ export const AuthProvider = ({ children }) => {
           }
         }
       }
-    })
-
+    });
   };
 
   const saveTokenSignInIos = async (userId, expoToken, lang) => {
@@ -226,7 +228,7 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchUserData = async () => {
@@ -251,7 +253,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     await getStorage().then((res) => {
       if (res) {
-           console.log("udje lixxxxxxx ",res)
+        console.log("udje lixxxxxxx ", res);
 
         setIsToken(res);
       } else {
@@ -278,22 +280,19 @@ export const AuthProvider = ({ children }) => {
   const logoutHandler = async () => {
     try {
       const x = await removeStorage();
+      setUserData(null);
       setIsMessage(false);
       setIsToken(null);
-      // setIsLoadingLogin(false);
       setMessage(null);
       setStatus(null);
       setSuccess(null);
       setIsLogout(false);
-
-      router.push("/(tabs)/(04_settings)");
     } catch (error) {
       setError(error);
     }
   };
   const logoutFirebase = async () => {
-
-    withLoading('logout', async () => {
+    withLoading("logout", async () => {
       // setIsLoadingLogin(true);
       await removeOtpParamsStorage();
       try {
@@ -309,8 +308,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         setError(error);
       }
-    })
-
+    });
   };
 
   const onPressHandler = (data) => {
@@ -484,7 +482,6 @@ export const AuthProvider = ({ children }) => {
         }
       }
     });
-
   };
 
   const loginViaGoogle = async (userData) => {
@@ -553,7 +550,8 @@ export const AuthProvider = ({ children }) => {
         setIsMessage(true);
 
         setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
           }`
         );
       }
@@ -578,7 +576,8 @@ export const AuthProvider = ({ children }) => {
       } else {
         setIsMessage(true);
         setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"
+          `${localization.LOGIN.errorToken} ${
+            responseData?.message || "Unknown error"
           }`
         );
       }
@@ -612,7 +611,8 @@ export const AuthProvider = ({ children }) => {
         setIsLogout,
         isLogout,
         onAppleButtonPress,
-        loading
+        loading,
+        redirectValidation,
       }}
     >
       {children}

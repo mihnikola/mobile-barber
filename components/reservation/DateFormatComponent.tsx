@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: 13,
+    padding: 10,
   },
 
   dateContainer: {

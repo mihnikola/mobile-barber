@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 const InfoContainerFuture = ({ item }) => {
   return (
+    <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
           <Text style={styles.captureDateBold}>{item.service?.name}</Text>
@@ -14,17 +15,18 @@ const InfoContainerFuture = ({ item }) => {
               item?.service?.duration
             )}
           </Text>
-          <View style={styles.addressContainer}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.captureDateLocation}
-            >
-              {item?.place?.address}
-            </Text>
-          </View>
+        </View>
+        <View style={styles.addressContainer}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={styles.captureDateLocation}
+          >
+            {item?.place?.address}
+          </Text>
         </View>
       </View>
+    </View>
   );
 };
 

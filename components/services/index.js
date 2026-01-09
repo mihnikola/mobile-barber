@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
@@ -10,15 +10,17 @@ import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading, fetchAllServices } = useFetchServices();
-  const pathname = usePathname();
+  // const pathname = usePathname();
+  const { saveLastTab, btnValue } = useLastPathNavigation();
 
-  const {backButton} = useLocalSearchParams();
+  const { backButton } = useLocalSearchParams();
 
-  console.log("paramts",backButton)
+  // console.log("paramts",backButton)
   const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
@@ -30,18 +32,38 @@ const MenuServices = () => {
       image: serviceData.image,
     };
     updateReservation({ ...reservation, service });
-    router.push("/(tabs)/(02_barbers)/employers");
+    const pathName = "/(tabs)/(02_barbers)/employers";
+    router.push(pathName);
+    saveLastTab(pathName);
   };
 
-  useEffect(() => {
-    fetchAllServices(); 
-  }, [pathname]);
+  // useEffect(() => {
+  //   fetchAllServices();
+  // }, [pathname]);
 
   const { localization } = useLocalization();
+  useEffect(() => {
+    const backAction = () => {
+      router.back();
+      saveLastTab(null);
+      return true; // Returning true means we have handled the event and default behavior is prevented
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup function to remove the event listener
+  }, []);
+  const routerBackHandler = () => {
+    router.back();
+    saveLastTab(null);
+  };
   return (
     <ScrollView style={styles.container}>
-    {backButton && <SharedBackButton onPress={router.back}/>}
+      {backButton  && <SharedBackButton onPress={routerBackHandler} />}
+      {btnValue  && <SharedBackButton onPress={routerBackHandler} />}
 
       <SharedTabHeader
         image={company?.media?.coverImageAppointments}
