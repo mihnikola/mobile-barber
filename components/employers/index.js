@@ -6,13 +6,14 @@ import Loader from "@/components/Loader";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useLastPathNavigation } from "@/context/NavigationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -79,10 +80,8 @@ const Employers = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader
-        image={company?.media?.coverImageAppointments}
-        title={localization.BARBERS.title}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      {!isLoading && <SharedTitle title={localization.BARBERS.title} />}
       {<SharedBackButton onPress={routerBackHandler} />}
 
       {isLoading && <Loader />}

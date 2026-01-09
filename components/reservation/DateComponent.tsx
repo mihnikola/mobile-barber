@@ -20,11 +20,12 @@ import { calendarLocales } from "@/helpers/calendarLocales";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useLastPathNavigation } from "@/context/NavigationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const DateComponent = () => {
   const currentDate = new Date();
@@ -77,11 +78,10 @@ const DateComponent = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader
-        image={company?.media?.coverImageAppointments}
-        title={localization.DATE.title}
-      />
       <SharedBackButton onPress={routerBackHandler} />
+
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedTitle title={localization.DATE.title} />
 
       <View style={styles.calendarContainer}>
         <CalendarList

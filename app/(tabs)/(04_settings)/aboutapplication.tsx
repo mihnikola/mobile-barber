@@ -9,10 +9,10 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -27,10 +27,9 @@ const aboutapplication = () => {
     <ScrollView style={styles.container}>
       <SharedBackButton onPress={router.back} />
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-      <SharedTabHeader
-        image={company?.media?.coverImageSettings}
-        title={localization.SETTINGS.ABOUTAPP.title}
-      />
+
+      <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>
