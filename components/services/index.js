@@ -6,11 +6,12 @@ import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams, usePathname } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useLastPathNavigation } from "@/context/NavigationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -37,6 +38,7 @@ const MenuServices = () => {
     saveLastTab(pathName);
   };
 
+  console.log("oc res", reservation);
   // useEffect(() => {
   //   fetchAllServices();
   // }, [pathname]);
@@ -44,8 +46,14 @@ const MenuServices = () => {
   const { localization } = useLocalization();
   useEffect(() => {
     const backAction = () => {
-      router.back();
+      if (reservation?.location?.address) {
+        router.back();
+      } else {
+        router.navigate("/(tabs)/(01_home)");
+      }
+
       saveLastTab(null);
+
       return true; // Returning true means we have handled the event and default behavior is prevented
     };
 
@@ -62,13 +70,11 @@ const MenuServices = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      {backButton  && <SharedBackButton onPress={routerBackHandler} />}
-      {btnValue  && <SharedBackButton onPress={routerBackHandler} />}
+      {backButton && <SharedBackButton onPress={routerBackHandler} />}
+      {btnValue && <SharedBackButton onPress={routerBackHandler} />}
 
-      <SharedTabHeader
-        image={company?.media?.coverImageAppointments}
-        title={localization.SERVICES.title}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      {!isLoading && <SharedTitle title={localization.SERVICES.title} />}
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length > 0 && !isLoading && (

@@ -7,7 +7,13 @@ const InfoContainerFuture = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <Text style={styles.captureDateBold}>{item.service?.name}</Text>
+          <Text
+            style={styles.captureDateBold}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
+            {item.service?.name}
+          </Text>
           <Text style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
             {addMinutesToTime(
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
   },
 
   captureDateBold: {
-    fontSize: 20,
+    fontSize: 18,
     color: "white",
     fontWeight: "900",
   },
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     alignItems: "flex-start",
-    gap: 7,
+    gap: 12,
   },
 });
 

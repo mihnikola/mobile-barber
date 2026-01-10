@@ -14,6 +14,7 @@ import { useAppointment } from "@/context/AppointmentContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useLastPathNavigation } from "@/context/NavigationContext";
+import { useAuth } from "@/context/AuthContext";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -56,10 +57,11 @@ const Reservation = () => {
 
     return () => backHandler.remove(); // Cleanup function to remove the event listener
   }, []);
-    const routerBackHandler = () => {
-      router.back();
-      saveLastTab("/(tabs)/(02_barbers)/calendar");
-    };
+
+  const routerBackHandler = () => {
+    router.back();
+    saveLastTab("/(tabs)/(02_barbers)/calendar");
+  };
 
   if (reservation) {
     return (

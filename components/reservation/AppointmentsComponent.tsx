@@ -4,11 +4,12 @@ import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { useCompany } from "@/context/CompanyContext";
 import { useAppointment } from "@/context/AppointmentContext";
 import { useIsFocused } from "@react-navigation/native";
 import { useFocusEffect } from "expo-router";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedTitle from "@/shared-components/SharedTitle";
 
 const AppointmentsComponent = () => {
   const { isLoading, detailsReservation, getReservationsData, reservations } =
@@ -26,10 +27,8 @@ const AppointmentsComponent = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedTabHeader
-        image={company?.media?.coverImageAppointments}
-        title={localization.APPOINTMENTS.title}
-      />
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      {!isLoading && <SharedTitle title={localization.APPOINTMENTS.title} />}
       {isLoading && <Loader />}
 
       {!isLoading && reservations?.length ? (

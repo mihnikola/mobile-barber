@@ -12,9 +12,11 @@ import Loader from "../Loader";
 import { useEffect, useState } from "react";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { removeStorage } from "@/helpers/token";
+import { useLastPathNavigation } from "@/context/NavigationContext";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
+  const { saveLastTab } = useLastPathNavigation();
 
   const {
     logoutFirebase,
@@ -42,6 +44,8 @@ const SettingsComponent = () => {
     setIsLogout(false);
     const x = await logoutFirebase();
     setLoader(false);
+    saveLastTab(null);
+    global.resetTabs();
   };
 
   const redirectToLogin = () => {
@@ -86,7 +90,7 @@ const SettingsComponent = () => {
         />
       )}
       {/* <SharedLoader isOpen={isLoading || isLoadingLogin} /> */}
-      <SharedLoader isOpen={loading === 'logout'} />
+      <SharedLoader isOpen={loading === "logout"} />
     </SafeAreaView>
   );
 };

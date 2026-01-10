@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 
 export default function RootLayout() {
   const isConnected = useInternetGuard();
-  
+
   return (
     <AppInitialized>
       <NoInternetModal visible={!isConnected} />
@@ -15,7 +15,7 @@ export default function RootLayout() {
           name="index"
           options={{ title: "", headerShown: false, animation: "fade" }}
         />
-        
+
         <Stack.Screen
           name="introScreen"
           options={{
@@ -35,7 +35,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
-        
+
         <Stack.Screen
           name="(z_auth)"
           options={{
@@ -50,7 +50,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="(reservation_notification)"
           options={{
             title: "",

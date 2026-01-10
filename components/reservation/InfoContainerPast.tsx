@@ -10,7 +10,13 @@ const InfoContainerPast = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <Text style={styles.captureDateBoldPast}>{item.service?.name}</Text>
+          <Text
+            style={styles.captureDateBoldPast}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
+            {item.service?.name}
+          </Text>
           <Text style={styles.captureDatePast}>
             {convertToDayTime(item?.startDate)} -{" "}
             {addMinutesToTime(
@@ -41,6 +47,13 @@ const InfoContainerPast = ({ item }) => {
 };
 
 const styles = StyleSheet.create({
+  captureDateBoldPast: {
+    fontSize: 18,
+    color: "gray",
+    fontWeight: "900",
+    marginRight: 10,
+  },
+
   addressContainer: {
     flexDirection: "row",
   },
@@ -69,15 +82,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 
-  captureDateBoldPast: {
-    fontSize: 20,
-    color: "gray",
-    fontWeight: "900",
-  },
   infoContainer: {
     flex: 1,
     alignItems: "flex-start",
-    gap: 7,
+    gap: 12,
   },
 });
 
