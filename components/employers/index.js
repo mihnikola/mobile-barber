@@ -1,4 +1,4 @@
-import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
@@ -11,7 +11,6 @@ import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import { useLastPathNavigation } from "@/context/NavigationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 
@@ -19,14 +18,12 @@ const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const { reevaluted } = useLocalSearchParams();
-  const { saveLastTab } = useLastPathNavigation();
   const pathName = "/(tabs)/(02_barbers)/calendar";
 
   const { location, service } = reservation;
   useEffect(() => {
     if (reevaluted) {
-      router.push(pathName);
-      saveLastTab(pathName);
+      router.push({ pathname: pathName, params: { reevaluted } });
     }
   }, [reevaluted]);
 
@@ -41,9 +38,9 @@ const Employers = () => {
   const getStorageToken = async () => {
     try {
       const getToken = await getStorage();
+      console.log("getStorageToken Employers");
       if (getToken) {
         router.push(pathName);
-        saveLastTab(pathName);
       } else {
         router.push({
           pathname: "/(z_auth)/",
@@ -60,23 +57,9 @@ const Employers = () => {
   };
 
   const { localization } = useLocalization();
-  useEffect(() => {
-    const backAction = () => {
-      router.back();
-      saveLastTab("/(tabs)/(02_barbers)/services");
-      return true; // Returning true means we have handled the event and default behavior is prevented
-    };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove(); // Cleanup function to remove the event listener
-  }, []);
   const routerBackHandler = () => {
     router.back();
-    saveLastTab("/(tabs)/(02_barbers)/services");
   };
   return (
     <ScrollView style={styles.container}>

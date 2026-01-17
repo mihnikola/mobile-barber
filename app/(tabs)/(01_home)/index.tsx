@@ -7,7 +7,6 @@ import {
   View,
   Platform,
   Alert,
-  BackHandler,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
@@ -22,7 +21,6 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 
 import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
-import { useLastPathNavigation } from "@/context/NavigationContext";
 
 function App() {
   const { slideAnim, slideAnimBook } = useSlideAnimations();
@@ -30,7 +28,6 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
-  const { lastPath } = useLastPathNavigation();
 
   const {
     locationsData,
@@ -50,7 +47,7 @@ function App() {
 
   const nextPage = () => {
     console.log("xxxx");
-    router.navigate(lastPath ?? "/(tabs)/(02_barbers)");
+    router.navigate("/(tabs)/(02_barbers)");
 
   };
   const onAboutUs = () => {

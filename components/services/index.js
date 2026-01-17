@@ -9,7 +9,6 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import { useLastPathNavigation } from "@/context/NavigationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 
@@ -17,7 +16,6 @@ const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading, fetchAllServices } = useFetchServices();
   // const pathname = usePathname();
-  const { saveLastTab, btnValue } = useLastPathNavigation();
 
   const { backButton } = useLocalSearchParams();
 
@@ -35,7 +33,6 @@ const MenuServices = () => {
     updateReservation({ ...reservation, service });
     const pathName = "/(tabs)/(02_barbers)/employers";
     router.push(pathName);
-    saveLastTab(pathName);
   };
 
   console.log("oc res", reservation);
@@ -44,34 +41,13 @@ const MenuServices = () => {
   // }, [pathname]);
 
   const { localization } = useLocalization();
-  useEffect(() => {
-    const backAction = () => {
-      if (reservation?.location?.address) {
-        router.back();
-      } else {
-        router.navigate("/(tabs)/(01_home)");
-      }
-
-      saveLastTab(null);
-
-      return true; // Returning true means we have handled the event and default behavior is prevented
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove(); // Cleanup function to remove the event listener
-  }, []);
+ 
   const routerBackHandler = () => {
     router.back();
-    saveLastTab(null);
   };
   return (
     <ScrollView style={styles.container}>
       {backButton && <SharedBackButton onPress={routerBackHandler} />}
-      {btnValue && <SharedBackButton onPress={routerBackHandler} />}
 
       <SharedCoverImage image={company?.media?.coverImageAppointments} />
       {!isLoading && <SharedTitle title={localization.SERVICES.title} />}

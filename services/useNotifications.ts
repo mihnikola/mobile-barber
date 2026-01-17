@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import NotificationService from "./NotificationService";
 import { useRouter, useSegments } from "expo-router";
-import { useAuth } from "@/context/AuthContext";
+// import { useAuth } from "@/context/AuthContext";
 
 export default function useNotifications() {
   const router = useRouter();
   const segments = useSegments();
-  const { isToken } = useAuth();
+  // const { isToken } = useAuth();
 
   const isRouterReady = segments.length > 0;
 
   useEffect(() => {
-    if (!isRouterReady || !isToken) return;
+    if (!isRouterReady) return;
 
     const onClick = (data) => {
       if (!data?.url) return;
@@ -30,5 +30,5 @@ export default function useNotifications() {
     return () => {
       NotificationService.cleanup();
     };
-  }, [isRouterReady, isToken]);
+  }, [isRouterReady]);
 }

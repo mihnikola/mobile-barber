@@ -8,7 +8,6 @@ import { useContext, useEffect } from "react";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { useLastPathNavigation } from "@/context/NavigationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 
@@ -17,7 +16,6 @@ const PlaceComponent = ({ locationsData }) => {
   const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
   const { company } = useCompany();
-  const { saveLastTab } = useLastPathNavigation();
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
@@ -26,21 +24,7 @@ const PlaceComponent = ({ locationsData }) => {
       pathname: pathName,
       params: { backButton: true },
     });
-    saveLastTab(pathName, true);
   };
-  useEffect(() => {
-    const backAction = () => {
-      router.navigate("/(tabs)/(01_home)");
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove(); // Cleanup function to remove the event listener
-  }, []);
 
   return (
     <ScrollView style={styles.container}>
