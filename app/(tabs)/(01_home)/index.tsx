@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
-import { router } from "expo-router";
-import { useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
+import { router, useNavigation } from "expo-router";
+import { usePersistentSlideAnimations as useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
 import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -28,6 +28,11 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
+  const navigation = useNavigation();
+
+  // 🔒 Guards to prevent re-fetch on reset remount
+  const hasFetchedCompany = useRef(false);
+  const hasFetchedLocations = useRef(false);
 
   const {
     locationsData,
@@ -37,19 +42,36 @@ function App() {
   } = useFetchLocations();
 
   useEffect(() => {
-    if (isConnected) {
+    if (!isConnected) return;
+
+    if (!hasFetchedCompany.current) {
       getCompany();
+      hasFetchedCompany.current = true;
+    }
+
+    if (!hasFetchedLocations.current) {
       fetchLocations();
+      hasFetchedLocations.current = true;
     }
   }, [isConnected]);
 
   const { localization } = useLocalization();
 
   const nextPage = () => {
-    console.log("xxxx");
-    router.navigate("/(tabs)/(02_barbers)");
-
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: "(02_barbers)",
+          state: {
+            index: 0,
+            routes: [{ name: "(02_barbers)" }],
+          },
+        },
+      ],
+    });
   };
+
   const onAboutUs = () => {
     router.push("/(tabs)/(01_home)/whoWeAre");
   };
