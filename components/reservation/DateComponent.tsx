@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -18,16 +18,42 @@ import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import { useLastPathNavigation } from "@/context/NavigationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const DateComponent = () => {
+const DateComponent = ({reevaluted}) => {
+  const [check, setCheck] = useState(false);
+
+  const checkToken = async () => {
+    try {
+      const storedToken = await AsyncStorage.getItem("token");
+      if (storedToken) {
+        setCheck(true);
+      } else {
+        router.push({
+          pathname: "/(z_auth)/",
+          params: { data: "calendar" },
+        });
+      }
+    } catch (error) {
+      router.push("/(z_auth)/");
+    }
+  };
+
+  const isF = useIsFocused();
+  useFocusEffect(
+    useCallback(() => {
+      checkToken();
+    }, [isF, reevaluted]),
+  );
+
   const currentDate = new Date();
 
   const today = new Date();
@@ -35,7 +61,6 @@ const DateComponent = () => {
 
   const { localization } = useLocalization();
   const { company } = useCompany();
-  const { saveLastTab } = useLastPathNavigation();
 
   const pathName = "/(tabs)/(02_barbers)/reservation";
 
@@ -46,7 +71,7 @@ const DateComponent = () => {
   const { timesData, isLoading, error, resetError } = useFetchTimes(
     selectedDate,
     reservation,
-    isSunday
+    isSunday,
   );
   const reportHandler = () => {
     const { employer, service } = reservation;
@@ -57,7 +82,6 @@ const DateComponent = () => {
         timeData: selectedItem,
       });
       router.push(pathName);
-      saveLastTab(pathName);
     }
   };
 
@@ -74,76 +98,77 @@ const DateComponent = () => {
 
   const routerBackHandler = () => {
     router.back();
-    saveLastTab("/(tabs)/(02_barbers)/employers");
   };
-  return (
-    <ScrollView style={styles.container}>
-      <SharedBackButton onPress={routerBackHandler} />
+  if (check) {
+    return (
+      <ScrollView style={styles.container}>
+        <SharedBackButton onPress={routerBackHandler} />
 
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <SharedTitle title={localization.DATE.title} />
+        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedTitle title={localization.DATE.title} />
 
-      <View style={styles.calendarContainer}>
-        <CalendarList
-          markingType="custom"
-          key={localization.code}
-          style={styles.calendar}
-          theme={calendarTheme}
-          onVisibleMonthsChange={(months) => {
-            setSelectedItem(null);
-            handleDayPress({});
-          }}
-          current={localDateString}
-          minDate={localDateString}
-          futureScrollRange={5}
-          pastScrollRange={0}
-          markedDates={markedDates}
-          horizontal
-          pagingEnabled
-          onDayPress={(months) => {
-            handleDayPress(months);
-            setSelectedItem(null);
-          }}
-        />
-      </View>
-
-      <View>
-        {!isSunday && (
-          <>
-            {isLoading && <Loader />}
-            {resetError && <NotSummary text={localization.DATE.chooseDate} />}
-            {!isLoading && !error && timesData.length > 0 && !resetError && (
-              <Summary
-                data={timesData}
-                setSelectedItem={setSelectedItem}
-                selectedItem={selectedItem}
-              />
-            )}
-            {!isLoading && timesData.length === 0 && !resetError && (
-              <NotSummary text={localization.DATE.noAvailableDates} />
-            )}
-          </>
-        )}
-        {isSunday && (
-          <View style={styles.notWorkingDays}>
-            <Text style={styles.notWorkingDaysContent}>
-              {localization.DATE.holidaySunday}
-            </Text>
-          </View>
-        )}
-      </View>
-      {selectedItem && (
-        <View style={styles.buttonContainer}>
-          <SharedButtonDateReservation
-            loading={isLoading}
-            disabled={isLoading}
-            onPress={reportHandler}
-            text={localization.DATE.continue}
+        <View style={styles.calendarContainer}>
+          <CalendarList
+            markingType="custom"
+            key={localization.code}
+            style={styles.calendar}
+            theme={calendarTheme}
+            onVisibleMonthsChange={(months) => {
+              setSelectedItem(null);
+              handleDayPress({});
+            }}
+            current={localDateString}
+            minDate={localDateString}
+            futureScrollRange={5}
+            pastScrollRange={0}
+            markedDates={markedDates}
+            horizontal
+            pagingEnabled
+            onDayPress={(months) => {
+              handleDayPress(months);
+              setSelectedItem(null);
+            }}
           />
         </View>
-      )}
-    </ScrollView>
-  );
+
+        <View>
+          {!isSunday && (
+            <>
+              {isLoading && <Loader />}
+              {resetError && <NotSummary text={localization.DATE.chooseDate} />}
+              {!isLoading && !error && timesData.length > 0 && !resetError && (
+                <Summary
+                  data={timesData}
+                  setSelectedItem={setSelectedItem}
+                  selectedItem={selectedItem}
+                />
+              )}
+              {!isLoading && timesData.length === 0 && !resetError && (
+                <NotSummary text={localization.DATE.noAvailableDates} />
+              )}
+            </>
+          )}
+          {isSunday && (
+            <View style={styles.notWorkingDays}>
+              <Text style={styles.notWorkingDaysContent}>
+                {localization.DATE.holidaySunday}
+              </Text>
+            </View>
+          )}
+        </View>
+        {selectedItem && (
+          <View style={styles.buttonContainer}>
+            <SharedButtonDateReservation
+              loading={isLoading}
+              disabled={isLoading}
+              onPress={reportHandler}
+              text={localization.DATE.continue}
+            />
+          </View>
+        )}
+      </ScrollView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

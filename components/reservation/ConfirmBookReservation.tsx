@@ -7,9 +7,11 @@ import Note from "@/shared-components/Note";
 import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useCompany } from "@/context/CompanyContext";
+import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
+  useDismissOnUnauthorizedFocus();
 
   const { reservation } = useContext(ReservationContext)!;
   const { company } = useCompany();
