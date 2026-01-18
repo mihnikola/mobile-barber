@@ -67,7 +67,7 @@ function ResevationNotificationScreen() {
       );
     }
 
-    if (past && !reservationData?.rating?.description)
+    if (past && !reservationData?.rating?.description && !reservationData?.rating)
       return (
         <SharedInputTextArea
           placeholderText={
