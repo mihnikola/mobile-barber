@@ -14,11 +14,12 @@ const useFetchServices = () => {
     setError(null);
     try {
       const response = await get("/services/client");
-      setServicesData(response);
-      setIsLoading(false);
+      if (response.status === 200) {
+        setServicesData(response.data);
+      }
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
-
+    } finally {
       setIsLoading(false);
     }
   };

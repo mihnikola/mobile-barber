@@ -14,7 +14,7 @@ const SharedDetailsServiceCard = (props: any) => {
     <View key={id} style={styles.card}>
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{localization.code === 'en' ? name.nameEn : name.nameLocal}</Text>
         <View style={styles.locationContainer}>
           <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
           <Text style={styles.locationText}>
