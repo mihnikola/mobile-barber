@@ -36,7 +36,7 @@ export const AppointmentProvider = ({ children }) => {
   const { localization } = useLocalization();
   const { reservation } = useContext(ReservationContext);
 
-  const {saveLastTab} = useLastPathNavigation();
+  const { saveLastTab } = useLastPathNavigation();
   const [isModal, setIsModal] = useState(false);
 
   const detailsReservation = (item) => {
@@ -116,7 +116,7 @@ export const AppointmentProvider = ({ children }) => {
       const startDateTime = convertToDayTime(response?.startDate);
       const finishedTime = addMinutesToTime(
         convertToDayTime(response?.startDate),
-        response?.service?.duration
+        response?.service?.duration,
       );
 
       const eventDate = convertNameAndDate(response?.startDate);
@@ -133,8 +133,10 @@ export const AppointmentProvider = ({ children }) => {
     setError(null);
 
     try {
-      const reservationDataResponse = await get("/availabilities");
-      setReservations([...reservationDataResponse]);
+      const response = await get("/availabilities");
+      if (response.status === 200) {
+        setReservations([...response.data]);
+      }
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetch);
     } finally {
