@@ -14,6 +14,8 @@ export default function useNotifications() {
     if (!isRouterReady) return;
 
     const onClick = (data) => {
+
+      console.log("AJMO LEPOTANE MAWI", data)
       if (!data?.url) return;
 
       router.push({

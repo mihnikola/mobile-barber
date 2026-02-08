@@ -5,7 +5,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect, useState } from "react";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
@@ -17,6 +16,7 @@ import ReservationMarkComponent from "@/components/reservation/ReservationMarkCo
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
+import Loader from "../Loader";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
@@ -36,12 +36,11 @@ function ResevationNotificationScreen() {
     isModal,
     setDescription,
     description,
-    isInitialLoading
   } = useAppointment();
 
   useEffect(() => {
     fetchReservationDetails(itemId);
-  }, []);
+  }, [notification]);
 
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
 
@@ -67,7 +66,11 @@ function ResevationNotificationScreen() {
       );
     }
 
-    if (past && !reservationData?.rating?.description && !reservationData?.rating)
+    if (
+      past &&
+      !reservationData?.rating?.description &&
+      !reservationData?.rating
+    )
       return (
         <SharedInputTextArea
           placeholderText={
@@ -143,7 +146,7 @@ function ResevationNotificationScreen() {
 
     return (
       <SharedQuestion
-        isOpen={isModalQuestion && !isInitialLoading && !isLoading} 
+        isOpen={isModalQuestion && !isLoading}
         onClose={() => setIsModalQuestion(false)}
         onLogOut={submitAppointment}
         icon={<FontAwesome name="question-circle-o" size={64} color="white" />}
@@ -153,52 +156,49 @@ function ResevationNotificationScreen() {
       />
     );
   };
-  if (isInitialLoading) {
-    return <SharedLoader isOpen={isInitialLoading} />;
-  }
 
-  if (reservationData)
-    return (
-      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-        <SharedCoverImage image={company?.media?.coverImageAppointments} />
-        <SharedBackButton
-          onPress={router.back}
-          styleBtn={{ marginBottom: 10 }}
+  return (
+    <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
+      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedBackButton onPress={router.back} styleBtn={{ marginBottom: 10 }} />
+
+      {!isLoading && reservationData && (
+        <>
+          <HeaderReservationTime data={reservationData} />
+          <View style={styles.containerCancel}>
+            {reservationData && (
+              <SharedDetailsReservation data={reservationData} />
+            )}
+            {renderDescription()}
+
+            {renderStarComponent()}
+            {renderRateDescription()}
+            {renderSharedButton()}
+          </View>
+        </>
+      )}
+
+      {isModalQuestion && renderQuestion()}
+
+      {isModal && !isLoading && (
+        <SharedMessage
+          isOpen={isModal && !isLoading}
+          onClose={confirmHandler}
+          onConfirm={confirmHandler}
+          icon={
+            <FontAwesome
+              name={error ? "close" : "check-circle-o"}
+              size={64}
+              color="white"
+            />
+          }
+          title={error || message}
+          buttonText="Ok"
         />
-
-        <HeaderReservationTime data={reservationData} />
-        <View style={styles.containerCancel}>
-          {reservationData && (
-            <SharedDetailsReservation data={reservationData} />
-          )}
-          {renderDescription()}
-
-          {renderStarComponent()}
-          {renderRateDescription()}
-          {renderSharedButton()}
-        </View>
-
-        {isModalQuestion && renderQuestion()}
-
-        {isModal && !isInitialLoading && !isLoading && (
-          <SharedMessage
-            isOpen={isModal && !isInitialLoading && !isLoading}
-            onClose={confirmHandler}
-            onConfirm={confirmHandler}
-            icon={
-              <FontAwesome
-                name={error ? "close" : "check-circle-o"}
-                size={64}
-                color="white"
-              />
-            }
-            title={error || message}
-            buttonText="Ok"
-          />
-        )}
-        <SharedLoader isOpen={isLoading} />
-      </ScrollView>
-    );
+      )}
+      {isLoading && <Loader />}
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
