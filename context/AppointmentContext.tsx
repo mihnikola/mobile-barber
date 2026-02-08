@@ -22,7 +22,6 @@ export const AppointmentProvider = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isModalQuestion, setIsModalQuestion] = useState(false);
-  const [isInitialLoading, setIsInitialLoading] = useState(false);
   const [error, setError] = useState(null);
   const [IsError, setIsError] = useState(false);
 
@@ -102,11 +101,11 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const fetchReservationDetails = async (reservationId) => {
-    setIsInitialLoading(true);
+    setIsLoading(true);
     setError(null);
 
     if (!reservationId) {
-      setIsInitialLoading(false);
+      setIsLoading(false);
       setError(localization.APPOINTMENTS.errorId);
       return;
     }
@@ -125,7 +124,7 @@ export const AppointmentProvider = ({ children }) => {
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetchId);
     } finally {
-      setIsInitialLoading(false);
+      setIsLoading(false);
     }
   };
   const getReservationsData = async () => {
@@ -249,8 +248,6 @@ export const AppointmentProvider = ({ children }) => {
         getTokenData,
         setIsError,
         IsError,
-        setIsInitialLoading,
-        isInitialLoading,
         isLoadingToken,
       }}
     >

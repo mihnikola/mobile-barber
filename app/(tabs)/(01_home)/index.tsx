@@ -21,8 +21,10 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 
 import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { useAuth } from "@/context/AuthContext";
 
 function App() {
+  const { getTokenData } = useAuth();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const { company, isLoading, getCompany } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,8 +33,8 @@ function App() {
   const navigation = useNavigation();
 
   // 🔒 Guards to prevent re-fetch on reset remount
-  const hasFetchedCompany = useRef(false);
-  const hasFetchedLocations = useRef(false);
+  // const hasFetchedCompany = useRef(false);
+  // const hasFetchedLocations = useRef(false);
 
   const {
     locationsData,
@@ -43,16 +45,21 @@ function App() {
 
   useEffect(() => {
     if (!isConnected) return;
+    getCompany();
+    getTokenData();
+    fetchLocations();
 
-    if (!hasFetchedCompany.current) {
-      getCompany();
-      hasFetchedCompany.current = true;
-    }
+    // if (!hasFetchedCompany.current) {
+    //   getCompany();
+    //   getTokenData();
+    //   console.log("xxxxxxxxxxx dje si");
+    //   hasFetchedCompany.current = true;
+    // }
 
-    if (!hasFetchedLocations.current) {
-      fetchLocations();
-      hasFetchedLocations.current = true;
-    }
+    // if (!hasFetchedLocations.current) {
+    //   fetchLocations();
+    //   hasFetchedLocations.current = true;
+    // }
   }, [isConnected]);
 
   const { localization } = useLocalization();

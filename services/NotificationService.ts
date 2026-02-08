@@ -36,17 +36,11 @@ export class NotificationService {
     if (this.deviceToken) return this.deviceToken;
 
     try {
-      // const token = await messaging().getToken();
       const token = await getToken(getMessaging());
 
       console.log("token",token);
       if (token) {
         this.deviceToken = token;
-        // setTimeout(async () => {
-          // console.log("token getToken",token)
-          // await saveExpoTokenStorage(token);
-        // }, 1000);
-     
       }
     } catch (err) {
       console.log("Error getting FCM token", err);
