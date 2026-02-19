@@ -17,24 +17,27 @@ const useSubmitOtpCode = () => {
   const checkOtpCodeValidation = async (email, otpCode) => {
     setIsLoading(true);
     setError(null);
+    console.log("checkOtpCodeValidation+++-+ email, otpCode-", email, otpCode);
+
     try {
       const response = await getData("/users/otpcode", {
         email,
         otpCode,
       });
+      console.log("checkOtpCodeValidation+++-+-", response);
+      setIsMessage(true);
+
       if (response.status === 200) {
-        setIsMessage(true);
         setMessage(localization.OTP_CODE.validSuccess);
-        setIsLoading(false);
       }
       if (response.status === 300) {
-        setIsMessage(true);
         setError(localization.OTP_CODE.validError);
-        setIsLoading(false);
       }
     } catch (err) {
       setIsMessage(true);
+
       setError(localization.OTP_CODE.validError);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -42,28 +45,30 @@ const useSubmitOtpCode = () => {
   const checkOtpCodeVerification = async (email, password, otpCode) => {
     setIsLoading(true);
     setError(null);
+    console.log("checkOtpCodeVerificationzzzzzzzzzzz", email, otpCode);
+
     try {
       const response = await post("/users/loginVerify", {
         email,
         password,
         otpCode,
       });
+      console.log("checkOtpCodeVerificatio  loginVerify", response);
+      setIsMessage(true);
+
       if (response.status === 69) {
         saveStorage(response.token);
-        saveToken(response.userId, localization.LOGIN.successVerified);
+        setMessage(localization.LOGIN.successVerified);
       }
       if (response.status === 202) {
-
-        setIsMessage(true);
         setError(localization.OTP_CODE.validError);
-        setIsLoading(false);
       }
     } catch (err) {
-
-      setIsLoading(false);
-      setError(localization.OTP_CODE.validError);
-
       setIsMessage(true);
+
+      setError(localization.OTP_CODE.validError);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -87,39 +92,39 @@ const useSubmitOtpCode = () => {
     }
   };
 
-  const saveToken = async (userId, messageData) => {
-    setIsLoading(true);
-    const expoTokenData = await getExpoTokenStorage();
+  // const saveToken = async (userId, messageData) => {
+  //   setIsLoading(true);
+  //   const expoTokenData = await getExpoTokenStorage();
 
-    if (!expoTokenData) {
-      return;
-    }
-    try {
-      const responseData = await post("/api/saveToken", {
-        tokenExpo: expoTokenData,
-        tokenUser: userId,
-      });
+  //   if (!expoTokenData) {
+  //     return;
+  //   }
+  //   try {
+  //     const responseData = await post("/api/saveToken", {
+  //       tokenExpo: expoTokenData,
+  //       tokenUser: userId,
+  //     });
 
-      if (responseData.status === 200) {
-        setIsMessage(true);
-        setIsLoading(false);
-        setMessage(messageData);
-        setIsVerified(true);
-      } else {
+  //     if (responseData.status === 200) {
+  //       setIsMessage(true);
+  //       setIsLoading(false);
+  //       setMessage(messageData);
+  //       setIsVerified(true);
+  //     } else {
 
-        setIsLoading(false);
-        setIsMessage(true);
+  //       setIsLoading(false);
+  //       setIsMessage(true);
 
-        setError(localization.LOGIN.errorToken);
-      }
-    } catch (err) {
+  //       setError(localization.LOGIN.errorToken);
+  //     }
+  //   } catch (err) {
 
-      setIsLoading(false);
-      setIsMessage(true);
+  //     setIsLoading(false);
+  //     setIsMessage(true);
 
-      setError(localization.LOGIN.errorToken);
-    }
-  };
+  //     setError(localization.LOGIN.errorToken);
+  //   }
+  // };
 
   const verificationOTPCode = async (paramsData) => {
     const { email, password } = paramsData;
@@ -146,7 +151,7 @@ const useSubmitOtpCode = () => {
 
   const verificationOTPCodeResend = async (paramsData) => {
     const { email, password } = paramsData;
-  
+
     setError(null);
     try {
       const response = await getData("/users/sendOTPviaLogin", {
@@ -175,7 +180,7 @@ const useSubmitOtpCode = () => {
     checkOtpCodeVerification,
     isVerified,
     checkverifyEmail,
-    verificationOTPCodeResend
+    verificationOTPCodeResend,
   };
 };
 

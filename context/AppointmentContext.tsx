@@ -112,15 +112,18 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const response = await get(`/availabilities/${reservationId}`);
-      const startDateTime = convertToDayTime(response?.startDate);
-      const finishedTime = addMinutesToTime(
-        convertToDayTime(response?.startDate),
-        response?.service?.duration,
-      );
+      const {status, data} = response;
+      if (status === 200) {
+        const startDateTime = convertToDayTime(data?.startDate);
+        const finishedTime = addMinutesToTime(
+          convertToDayTime(data?.startDate),
+          data?.service?.duration,
+        );
 
-      const eventDate = convertNameAndDate(response?.startDate);
-      const result = { ...response, startDateTime, finishedTime, eventDate };
-      setReservationData(result);
+        const eventDate = convertNameAndDate(data?.startDate);
+        const result = { ...data, startDateTime, finishedTime, eventDate };
+        setReservationData(result);
+      }
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetchId);
     } finally {
@@ -133,8 +136,9 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const response = await get("/availabilities");
+      // console.log("getReservationsData",response)
       if (response.status === 200) {
-        setReservations([...response.data]);
+        setReservations(response.data);
       }
     } catch (err) {
       setError(localization.APPOINTMENTS.errorFetch);
@@ -153,6 +157,13 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
       return;
     }
+    console.log("submitReservation employer.id", employer.id);
+    console.log("|||service,", service);
+    console.log("timeData", timeData);
+    console.log("dateReservation", dateReservation);
+    console.log(",tokenData", tokenData);
+    console.log(",description", description);
+    console.log(",location", location);
 
     try {
       const response = await post("/availabilities", {

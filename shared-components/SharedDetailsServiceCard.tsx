@@ -8,13 +8,13 @@ const SharedDetailsServiceCard = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
-
+console.log("SharedDetailsServiceCard+++",data)
   const rateEmployerHandler = () => {};
   return (
     <View key={id} style={styles.card}>
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{localization.code === 'en' ? name.nameEn : name.nameLocal}</Text>
+        <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
           <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
           <Text style={styles.locationText}>

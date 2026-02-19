@@ -19,6 +19,7 @@ import {
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import Loader from "../Loader";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -27,14 +28,15 @@ const otpCode = () => {
   const { localization } = useLocalization();
 
   const getOtpParams = async () => {
+    setIsLoaderVerify(true);
+
     try {
       const result = await getOtpParamsStorage();
       setVerifyData(JSON.parse(result));
       setIsLoaderVerify(false);
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
-    setIsLoaderVerify(true);
     getOtpParams();
   }, []);
 
@@ -69,8 +71,11 @@ const otpCode = () => {
       ) {
         checkverifyEmail(verifyData?.email, otp);
       } else if (verifyData?.email && verifyData?.password) {
+        console.log("checkOtpCodeVerification otpCode",verifyData)
         checkOtpCodeVerification(verifyData?.email, verifyData?.password, otp);
       } else {
+        console.log("checkOtpCodeValidation otpCode",verifyData)
+
         checkOtpCodeValidation(verifyData?.email, otp);
       }
     } else {
@@ -112,9 +117,9 @@ const otpCode = () => {
     setIsMessage(false);
   };
 
-  if (isLoaderVerify) {
-    return <SharedLoader />;
-  }
+  // if (isLoaderVerify) {
+  //   return <SharedLoader />;
+  // }
 
   if (verifyData) {
     return (
@@ -151,6 +156,7 @@ const otpCode = () => {
             loading={isLoading}
           />
         </View>
+        {isLoaderVerify && <Loader />}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}

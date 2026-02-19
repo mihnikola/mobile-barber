@@ -15,7 +15,7 @@ const InfoContainerPast = ({ item }) => {
             numberOfLines={2}
             ellipsizeMode="tail"
           >
-            {localization.code === 'en' ? item.service?.name?.nameEn : item.service?.name?.nameLocal}
+            {item.service?.name}
           </Text>
           <Text style={styles.captureDatePast}>
             {convertToDayTime(item?.startDate)} -{" "}

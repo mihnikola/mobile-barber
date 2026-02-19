@@ -210,9 +210,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     display: "flex",
   },
-  noWrapper: {
-    display: "none",
-  },
+
   btnSubmitContainer: {
     display: "flex",
     marginVertical: 20,
