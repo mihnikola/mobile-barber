@@ -45,6 +45,8 @@ const useRegisterForm = () => {
 
     try {
       const result = await post(`/users`, sendUserData);
+
+      console.log("xxxxxxxxxxxxx",result)
       setIsMessage(true);
 
       if (result.status === 400) {

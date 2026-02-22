@@ -21,6 +21,7 @@ export const AppointmentProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(null);
   const [isModalQuestion, setIsModalQuestion] = useState(false);
   const [error, setError] = useState(null);
   const [IsError, setIsError] = useState(false);
@@ -49,86 +50,100 @@ export const AppointmentProvider = ({ children }) => {
       },
     });
   };
-
-  const rateReservation = async (reservationId, rating, description) => {
-    setError(null);
-    setIsLoading(true);
-
-    if (!reservationId) {
-      setError("Reservation ID is missing.");
-      return false;
-    }
-    setIsModal(true);
-
+  const withLoading = async (type, callback) => {
+    setLoading(type);
     try {
-      await put(`/availabilities/${reservationId}`, {
-        status: 0,
-        rate: rating,
-        description,
-      });
-      setMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
-      // await getReservationsData();
-    } catch (err) {
-      setError(localization.APPOINTMENTS.rateReservation.errorMessage);
+      await callback();
     } finally {
-      setIsLoading(false);
-      setDescription(null);
+      setLoading(null);
     }
+  };
+  const rateReservation = async (reservationId, rating, description) => {
+    withLoading("rating", async () => {
+      setError(null);
+      if (!reservationId) {
+        setIsLoading(null);
+
+        setError("Reservation ID is missing.");
+        return false;
+      }
+      setIsModal(true);
+
+      try {
+        await put(`/availabilities/${reservationId}`, {
+          status: 0,
+          rate: rating,
+          description,
+        });
+        setMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
+        await getReservationsData();
+      } catch (err) {
+        setError(localization.APPOINTMENTS.rateReservation.errorMessage);
+      } finally {
+        setLoading(null);
+        setDescription(null);
+      }
+    });
   };
 
   const cancelReservation = async (reservationId) => {
-    setIsLoading(true);
-    setError(null);
+    withLoading("cancelling", async () => {
+      setError(null);
 
-    if (!reservationId) {
-      setError("Reservation ID is missing.");
-      return false;
-    }
-    setIsModal(true);
+      if (!reservationId) {
+        setLoading(null);
 
-    try {
-      const response = await put(`/availabilities/${reservationId}`, {
-        status: 1,
-      });
+        setError("Reservation ID is missing.");
+        return false;
+      }
+      setIsModal(true);
 
-      setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
-      // await getReservationsData();
-    } catch (err) {
-      setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
+      try {
+        const response = await put(`/availabilities/${reservationId}`, {
+          status: 1,
+        });
+
+        setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
+        await getReservationsData();
+      } catch (err) {
+        setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
+      } finally {
+        setLoading(null);
+      }
+    });
   };
 
   const fetchReservationDetails = async (reservationId) => {
-    setIsLoading(true);
-    setError(null);
+    withLoading("fetchById", async () => {
+      setError(null);
 
-    if (!reservationId) {
-      setIsLoading(false);
-      setError(localization.APPOINTMENTS.errorId);
-      return;
-    }
+      if (!reservationId) {
+        setLoading(null);
 
-    try {
-      const response = await get(`/availabilities/${reservationId}`);
-      const {status, data} = response;
-      if (status === 200) {
-        const startDateTime = convertToDayTime(data?.startDate);
-        const finishedTime = addMinutesToTime(
-          convertToDayTime(data?.startDate),
-          data?.service?.duration,
-        );
-
-        const eventDate = convertNameAndDate(data?.startDate);
-        const result = { ...data, startDateTime, finishedTime, eventDate };
-        setReservationData(result);
+        setError(localization.APPOINTMENTS.errorId);
+        return;
       }
-    } catch (err) {
-      setError(localization.APPOINTMENTS.errorFetchId);
-    } finally {
-      setIsLoading(false);
-    }
+
+      try {
+        const response = await get(`/availabilities/${reservationId}`);
+        const { status, data } = response;
+        if (status === 200) {
+          const startDateTime = convertToDayTime(data?.startDate);
+          const finishedTime = addMinutesToTime(
+            convertToDayTime(data?.startDate),
+            data?.service?.duration,
+          );
+
+          const eventDate = convertNameAndDate(data?.startDate);
+          const result = { ...data, startDateTime, finishedTime, eventDate };
+          setReservationData(result);
+        }
+      } catch (err) {
+        setError(localization.APPOINTMENTS.errorFetchId);
+      } finally {
+        setLoading(null);
+      }
+    });
   };
   const getReservationsData = async () => {
     setIsLoading(true);
@@ -254,6 +269,7 @@ export const AppointmentProvider = ({ children }) => {
         setDescription,
         description,
         setIsLoading,
+        loading,
         setIsModalQuestion,
         isModalQuestion,
         getTokenData,

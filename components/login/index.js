@@ -76,6 +76,8 @@ const LoginScreen = () => {
     return () => backHandler.remove();
   }, []);
 
+  
+
   const navigateToRegister = () => {
     router.push({
       pathname: "(z_auth)/register",
@@ -91,6 +93,7 @@ const LoginScreen = () => {
   const confirmHandler = async () => {
     if (status === 606) {
       console.log("object",status)
+
       verificationOTPCode();
     } else {
       setIsMessage(false);
@@ -102,6 +105,11 @@ const LoginScreen = () => {
   const forgotHandler = () => {
     router.push("/(z_auth)/forgotPass");
   };
+
+
+
+
+
 
   return (
     <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled">
@@ -193,6 +201,7 @@ const LoginScreen = () => {
         />
         {isMessage && (
           <SharedMessage
+            isLoading={loading}
             isOpen={isMessage}
             onClose={!error ? confirmHandler : cancelHandler}
             onConfirm={!error ? confirmHandler : cancelHandler}

@@ -32,16 +32,23 @@ export const calendarTheme = {
   textDisabledColor: "grey",
 };
 export function convertToMonthName(dateString) {
-  // Convert the string to a Date object
-  const date = new Date(dateString);
-
-  // Get the month name (e.g., January)
-  const monthName = date
-    .toLocaleString("en-US", { month: "long" })
-    .substring(0, 3)
-    .toUpperCase();
-
-  return monthName; // Output: January
+  const parts = dateString.split(".");
+  const monthNumber = Number(parts[1].trim());
+  const monthsShort = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+  return monthsShort[monthNumber - 1];
 }
 
 export function convertDayInitalValue(data) {
@@ -52,19 +59,13 @@ export function convertDayInitalValue(data) {
 }
 
 export function convertToDay(dateString) {
-  // Convert the string to a Date object
-  const date = new Date(dateString);
-
-  // Get the day of the month
-  const day = date.getDate();
-
-  return day; // Output: January
+  return dateString.split(".")[0];
 }
 export function structureData(response) {
   const startDateTime = convertToDayTime(response?.startDate);
   const finishedTime = addMinutesToTime(
     convertToDayTime(response?.startDate),
-    response?.service?.duration
+    response?.service?.duration,
   );
   const eventDate = convertDate(response?.startDate);
   console.log("startDateTime", startDateTime, finishedTime, eventDate);
@@ -78,7 +79,7 @@ export function structureData(response) {
 }
 export function convertToDayTime(dateString) {
   // Convert the string to a Date object
-  const [date, time] = dateString.split("T");
+  const [date, time] = dateString.split(" ");
   const [hours, minutes] = time.split(":");
 
   const formattedMinutes = minutes.length === 1 ? "0" + minutes : minutes;
@@ -128,8 +129,8 @@ export function getTimeForUTCOffset(offsetHours) {
         now.getUTCHours() - offsetHoursV, // Apply the offset directly to UTC hours
         now.getUTCMinutes(),
         now.getUTCSeconds(),
-        now.getUTCMilliseconds()
-      )
+        now.getUTCMilliseconds(),
+      ),
     );
   } else {
     // 2. Create a *new* Date object to represent the time at the specific UTC offset.
@@ -142,8 +143,8 @@ export function getTimeForUTCOffset(offsetHours) {
         now.getUTCHours() + offsetHoursV, // Apply the offset directly to UTC hours
         now.getUTCMinutes(),
         now.getUTCSeconds(),
-        now.getUTCMilliseconds()
-      )
+        now.getUTCMilliseconds(),
+      ),
     );
   }
 
@@ -174,20 +175,17 @@ export function convertNameAndDate(value) {
   const year = date.getFullYear();
   return `${dayNameSr} ${day}-${month}-${year}`;
 }
-export const convertDateDetails = (item) => {
-  const itemValue = item?.split(" ")[1];
-  const [day, month, year] = itemValue.split("-").map(Number);
-  const date = new Date(year, month - 1, day);
-
+export const convertDateDetails = (dateStr) => {
   const { localization } = useLocalization();
+  const [day, month, year] = dateStr.split(".").map((s) => s.trim());
+  const dateObj = new Date(Number(year), Number(month) - 1, Number(day));
   let weekdays = [];
   if (localization.code === "en") {
     weekdays = dayNamesEng;
   } else {
     weekdays = dayNamesRs;
   }
-  const dayOfWeek = weekdays[date.getDay()];
-  return `${dayOfWeek} ${itemValue}`;
+  return `${weekdays[dateObj.getDay()]} ${day}-${month}-${year}`;
 };
 export const convertDate = (item) => {
   const date = new Date(item);
@@ -224,7 +222,7 @@ export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   const timeAndAmPm = parts[1].split(" ");
   if (timeAndAmPm.length < 1) {
     console.error(
-      "Invalid input format: Missing AM/PM indicator or space after time."
+      "Invalid input format: Missing AM/PM indicator or space after time.",
     );
     return null;
   }

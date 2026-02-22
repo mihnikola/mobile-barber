@@ -80,14 +80,16 @@ const useSubmitOtpCode = () => {
         email,
         otpCode,
       });
+
       if (response.status === 200) {
         setIsMessage(true);
+
         setMessage(localization.LOGIN.successVerified);
-        setIsLoading(false);
       }
     } catch (err) {
       setIsMessage(true);
-      setError(localization.LOGIN.alreadyVerify);
+      setError(localization.OTP_CODE.validError);
+    } finally {
       setIsLoading(false);
     }
   };

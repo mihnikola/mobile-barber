@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
@@ -17,13 +17,18 @@ const AppointmentsComponent = () => {
   const { company } = useCompany();
   const { localization } = useLocalization();
 
-  const isFocused = useIsFocused();
-  
-  useFocusEffect(
-    useCallback(() => {
-      getReservationsData();
-    }, [isFocused])
-  );
+  // const isFocused = useIsFocused();
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+  //     getReservationsData();
+  //   }, [isFocused])
+  // );
+  useEffect(() => {
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    getReservationsData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

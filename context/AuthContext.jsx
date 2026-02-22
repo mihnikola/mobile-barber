@@ -219,7 +219,7 @@ export const AuthProvider = ({ children }) => {
       setError(error);
     }
   };
-  
+
   const logoutFirebase = async () => {
     withLoading("logout", async () => {
       // setIsLoadingLogin(true);
@@ -259,32 +259,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
   const verificationOTPCode = async () => {
-    setIsLoading(true);
-    const { email } = verificationData;
-    try {
-      const response = await getData("/users/sendOTPviaLogin", {
-        params: { email },
-      });
+    withLoading("verification", async () => {
+      const { email } = verificationData;
+      try {
+        const response = await getData("/users/sendOTPviaLogin", {
+          params: { email },
+        });
 
-      if (response.status === 200) {
-        await saveOtpParamsStorage(verificationData);
-        setIsMessage(false);
-        router.push("/(z_auth)/otpCode");
+        if (response.status === 200) {
+          await saveOtpParamsStorage(verificationData);
+          setIsMessage(false);
+          router.push("/(z_auth)/otpCode");
+        }
+        if (response.status === 500) {
+          setError(response.message);
+        }
+        if (response.status === 404) {
+          setError(response.message);
+        }
+      } catch (err) {
+        setError(localization.SERVER_RESPONSE.error);
+      } finally {
+        setIsLoading(false);
       }
-      if (response.status === 500) {
-        setError(response.message);
-      }
-      if (response.status === 404) {
-        setError(response.message);
-      }
-    } catch (err) {
-      setError(localization.SERVER_RESPONSE.error);
-    }finally{
-      setIsLoading(false);
-
-    }
+    });
   };
 
   const login = (email, password) => {

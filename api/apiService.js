@@ -53,6 +53,7 @@ instance.interceptors.response.use(
 );
 
 const get = async (url, config = {}) => {
+  console.log("object",url)
   try {
     const response = await instance.get(url, config);
     return response.data;

@@ -16,8 +16,7 @@ export const SharedMessage = ({
   onConfirm,
   isLoading,
 }) => {
-  
-    console.log("isModal+++", isOpen,title);
+
   return (
     <Modal
       animationType="fade"
@@ -30,11 +29,16 @@ export const SharedMessage = ({
           <View style={styles.iconContainer}>{icon}</View>
 
           <Text style={styles.modalTitle}>{title}</Text>
-          <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
+          <TouchableOpacity onPress={onConfirm} style={styles.actionButton} disabled={isLoading === "verification"}>
             {!isLoading && (
               <Text style={styles.actionButtonText}>{buttonText}</Text>
             )}
-            {isLoading && <ActivityIndicator size={25} color="black" />}
+            {isLoading && (
+              <ActivityIndicator
+                size={25}
+                color={isLoading === "verification" ? "white" : "black"}
+              />
+            )}
           </TouchableOpacity>
         </View>
       </View>

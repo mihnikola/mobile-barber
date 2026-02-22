@@ -6,7 +6,6 @@ import SharedDetailsServiceCard from "./SharedDetailsServiceCard";
 
 const SharedDetailsReservation = ({ data }) => {
   const { employer, service } = data;
-
   return (
     <View style={{ display: "flex", flexDirection: "column" }}>
       <SharedDetailsEmployerCard data={employer}/>

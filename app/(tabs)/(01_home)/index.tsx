@@ -62,7 +62,6 @@ function App() {
   }, [isConnected]);
 
   const { localization } = useLocalization();
-
   const nextPage = () => {
     navigation.reset({
       index: 0,

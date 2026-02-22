@@ -9,7 +9,8 @@ const HeaderReservationTime = ({ data }) => {
           {data?.startDateTime} - {data?.finishedTime}
         </Text>
         <Text style={styles.dateData}>
-          {convertDateDetails(data?.eventDate)}
+          {/* {convertDateDetails(data?.eventDate)} */}
+          {convertDateDetails(data?.startDate)}
         </Text>
         <Text style={styles.locationData}>{data?.place}</Text>
       </View>
