@@ -214,7 +214,7 @@ We reserve the right to modify the terms of use at any time, and users will be n
     notMatch: "Entered passwords do not match.",
     errorFields: "Incorrect email or password",
     errorPass: "Incorrect password",
-    successVerified: "Your account has been verified!",
+    successVerified: "Account verification completed successfully. Please log in to continue.",
     expiredVerification: "Invalid or expired verification code.",
     alreadyVerify: "User already verified.",
   },
@@ -238,7 +238,7 @@ We reserve the right to modify the terms of use at any time, and users will be n
   },
   REGISTER: {
     title: "Register your account",
-    emailError: "Email already exists.",
+    emailError: "The provided email address is already in use.",
     description: "Enter your information below",
 
     submitBtn: "Register",
