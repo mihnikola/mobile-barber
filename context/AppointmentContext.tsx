@@ -85,6 +85,7 @@ export const AppointmentProvider = ({ children }) => {
       }
     });
   };
+  
 
   const cancelReservation = async (reservationId) => {
     withLoading("cancelling", async () => {
@@ -102,7 +103,7 @@ export const AppointmentProvider = ({ children }) => {
         const response = await put(`/availabilities/${reservationId}`, {
           status: 1,
         });
-
+        console.log("response",response)
         setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
         await getReservationsData();
       } catch (err) {
