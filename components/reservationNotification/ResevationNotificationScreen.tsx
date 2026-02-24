@@ -1,6 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { BackHandler, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -16,7 +16,7 @@ import ReservationMarkComponent from "@/components/reservation/ReservationMarkCo
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
-import Loader from "../Loader";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
@@ -27,9 +27,9 @@ function ResevationNotificationScreen() {
     fetchReservationDetails,
     rateReservation,
     cancelReservation,
-    isLoading,
     error,
     message,
+    loading,
     isModalQuestion,
     setIsModalQuestion,
     setIsModal,
@@ -99,17 +99,13 @@ function ResevationNotificationScreen() {
   const sharedRateQuestionHandler = () => {
     setIsModalQuestion(false);
 
-    setTimeout(async () => {
-      await rateReservation(itemId, userFeedbackRating, description);
-    }, 500);
+    rateReservation(itemId, userFeedbackRating, description);
   };
 
   const sharedQuestionHandler = () => {
     setIsModalQuestion(false);
 
-    setTimeout(async () => {
-      await cancelReservation(itemId);
-    }, 500);
+    cancelReservation(itemId);
   };
   const modalReservationHandler = () => {
     setIsModalQuestion(true);
@@ -119,6 +115,7 @@ function ResevationNotificationScreen() {
     const buttonLabel = past
       ? localization.APPOINTMENTS.rateReservation.rateUs
       : localization.APPOINTMENTS.cancelReservation.cancelButton;
+      
     if (!reservationData?.rating) {
       return (
         <View style={styles.btnSubmitContainer}>
@@ -146,7 +143,7 @@ function ResevationNotificationScreen() {
 
     return (
       <SharedQuestion
-        isOpen={isModalQuestion && !isLoading}
+        isOpen={isModalQuestion}
         onClose={() => setIsModalQuestion(false)}
         onLogOut={submitAppointment}
         icon={<FontAwesome name="question-circle-o" size={64} color="white" />}
@@ -157,12 +154,28 @@ function ResevationNotificationScreen() {
     );
   };
 
+  if (
+    loading === "rating" ||
+    loading === "cancelling" ||
+    loading === "fetchById"
+  ) {
+    return (
+      <SharedLoader
+        isOpen={
+          loading === "rating" ||
+          loading === "cancelling" ||
+          loading === "fetchById"
+        }
+      />
+    );
+  }
+
   return (
     <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
       <SharedCoverImage image={company?.media?.coverImageAppointments} />
       <SharedBackButton onPress={router.back} styleBtn={{ marginBottom: 10 }} />
 
-      {!isLoading && reservationData && (
+      {reservationData && (
         <>
           <HeaderReservationTime data={reservationData} />
           <View style={styles.containerCancel}>
@@ -180,9 +193,9 @@ function ResevationNotificationScreen() {
 
       {isModalQuestion && renderQuestion()}
 
-      {isModal && !isLoading && (
+      {isModal && (
         <SharedMessage
-          isOpen={isModal && !isLoading}
+          isOpen={isModal}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           icon={
@@ -196,7 +209,6 @@ function ResevationNotificationScreen() {
           buttonText="Ok"
         />
       )}
-      {isLoading && <Loader />}
     </ScrollView>
   );
 }
@@ -210,9 +222,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     display: "flex",
   },
-  noWrapper: {
-    display: "none",
-  },
+
   btnSubmitContainer: {
     display: "flex",
     marginVertical: 20,

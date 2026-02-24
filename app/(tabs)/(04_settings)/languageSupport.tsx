@@ -16,12 +16,13 @@ import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import Loader from "@/components/Loader";
 
 const languageSupport = () => {
-  const { changeLocalization, localization } = useLocalization();
+  const { changeLocalization, localization, isLoading } = useLocalization();
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
-
   const { company } = useCompany();
 
   const languageLabels = {
@@ -50,6 +51,7 @@ const languageSupport = () => {
     setFilteredLanguages(LANGUAGES);
   }, [localization.code]);
 
+
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
@@ -65,6 +67,7 @@ const languageSupport = () => {
         value={search}
         onChangeText={handleSearch}
       />
+      {!isLoading && 
       <FlatList
         data={filteredLanguages}
         keyExtractor={(item) => item.code}
@@ -86,6 +89,8 @@ const languageSupport = () => {
           </TouchableOpacity>
         )}
       />
+      }
+      {isLoading && <Loader />}
     </View>
   );
 };

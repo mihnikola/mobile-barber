@@ -1,7 +1,7 @@
 // src/hooks/useRegisterForm.js
 import { useState } from "react";
-import axios from "axios";
 import { useLocalization } from "@/context/LocalizationContext";
+import { post } from "@/api/apiService";
 
 const useRegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -44,31 +44,26 @@ const useRegisterForm = () => {
     setError(null);
 
     try {
-      const result = await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}/users`,
-        sendUserData
-      );
+      const result = await post(`/users`, sendUserData);
+
+      console.log("xxxxxxxxxxxxx",result)
+      setIsMessage(true);
 
       if (result.status === 400) {
-        setIsMessage(true);
         setError(localization.LOGIN.error);
-      } else if (result.status === 202) {
-        setIsMessage(true);
+      }
+      if (result.status === 202) {
         setError(localization.REGISTER.emailError);
-      } else if (result.status === 200) {
-        setIsMessage(true);
+      }
+      if (result.status === 200) {
         setSuccess(localization.REGISTER.createUser);
-      } else {
-        setIsMessage(true);
-        setError(localization.REGISTER.postError);
       }
     } catch (errorx) {
+      setIsMessage(true);
       if (errorx.message.includes("404")) {
-        setIsMessage(true);
         setError(localization.SERVER_RESPONSE.notFound);
       } else {
-        setIsMessage(true);
-        setError(localization.SERVER_RESPONSE.error);
+        setError(localization.REGISTER.postError);
       }
     } finally {
       setLoading(false);

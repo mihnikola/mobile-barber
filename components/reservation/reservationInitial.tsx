@@ -16,10 +16,10 @@ export default function ReservationInitial() {
   // if(isLoadingToken){
   //   return <SharedLoader isOpen={isLoadingToken} />
   // }
-  if (!isToken && !isLoadingToken) {
+  if (!isToken) {
     return <AppointmentsNonToken />;
   }
-  if (isToken && !isLoadingToken) {
+  if (isToken) {
     return <AppointmentsComponent />;
   }
 }

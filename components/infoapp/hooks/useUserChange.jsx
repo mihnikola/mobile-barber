@@ -33,12 +33,11 @@ const useUserChange = () => {
       });
     }
 
-    const obj = Object.fromEntries(formData._parts);
-    console.log("formData", obj);
+    Object.fromEntries(formData._parts);
     try {
       const storedToken = await AsyncStorage.getItem("token");
       const response = await axios.put(
-        `${process.env.EXPO_PUBLIC_API_URL}users/${storedToken}`,
+        `${process.env.EXPO_PUBLIC_API_URL}/users/${storedToken}`,
         formData,
         {
           headers: {
@@ -46,20 +45,15 @@ const useUserChange = () => {
           },
         }
       );
-      console.log("resss", response.status);
+      setIsMessage(true);
       if (response.status >= 200 && response.status < 300) {
-        setIsMessage(true);
         setMessage(localization.SETTINGS.PROFILE.messageConfirm);
       } else {
-        setIsMessage(true);
-
         setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
-      console.log("err", error);
       setIsMessage(true);
       setErrorChange(localization.SETTINGS.ERROR.label);
-      setIsLoadingChange(false);
     } finally {
       setIsLoadingChange(false);
     }

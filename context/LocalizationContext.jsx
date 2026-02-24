@@ -12,8 +12,11 @@ export const useLocalization = () => useContext(LocalizationContext);
 export const LocalizationProvider = ({ children }) => {
   const [localization, setLocalization] = useState(null); // ⚠️ null initially
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const changeFirebaseLocalization = async (lang) => {
+    setIsLoading(true);
+
     const langData = lang === "en" ? "en" : "sr";
     try {
       const token = await getStorage();
@@ -22,6 +25,8 @@ export const LocalizationProvider = ({ children }) => {
       await put(`/users/${token}/changeLanguage`, { langData });
     } catch (error) {
       console.log("LocalizationContext error", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,7 +58,7 @@ export const LocalizationProvider = ({ children }) => {
   if (loading) return null; // ili loader komponenta
 
   return (
-    <LocalizationContext.Provider value={{ localization, changeLocalization }}>
+    <LocalizationContext.Provider value={{ localization, changeLocalization, isLoading }}>
       {children}
     </LocalizationContext.Provider>
   );

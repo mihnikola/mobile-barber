@@ -35,7 +35,6 @@ function App() {
   // 🔒 Guards to prevent re-fetch on reset remount
   // const hasFetchedCompany = useRef(false);
   // const hasFetchedLocations = useRef(false);
-
   const {
     locationsData,
     isLoading: isLoaderLocation,
@@ -63,7 +62,6 @@ function App() {
   }, [isConnected]);
 
   const { localization } = useLocalization();
-
   const nextPage = () => {
     navigation.reset({
       index: 0,

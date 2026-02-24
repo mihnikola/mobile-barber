@@ -4,7 +4,6 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const InfoContainerFuture = ({ item }) => {
-  const {localization} = useLocalization();
   return (
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
@@ -14,7 +13,7 @@ const InfoContainerFuture = ({ item }) => {
             numberOfLines={2}
             ellipsizeMode="tail"
           >
-            {localization.code === 'en' ? item.service?.name?.nameEn : item.service?.name?.nameLocal}
+            {item.service?.name}
           </Text>
           <Text style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
