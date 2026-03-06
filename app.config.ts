@@ -2,7 +2,7 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
-    name: "fta-barber-mob-app",
+    name: "Barber App",
     slug: "fta-barber-mob-app",
     version: "1.0.0",
     orientation: "portrait",
@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
     },
     android: {
-        package: "com.barber.app",
+        package: "fta.barber.app",
         googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./firebase/google-services.json",
     },
     plugins: [
@@ -43,6 +43,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-build-properties",
             {
+                // TODO - remove the android config after Expo upgrade task is completed
+                android: {
+                    targetSdkVersion: 35
+                },
                 ios: {
                     useFrameworks: "static",
                 },
