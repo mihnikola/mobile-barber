@@ -20,7 +20,6 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
-  const { itemId, past, rating, notification } = useLocalSearchParams();
   const { company } = useCompany();
   const {
     reservationData,
@@ -38,9 +37,11 @@ function ResevationNotificationScreen() {
     description,
   } = useAppointment();
 
+  const { itemId, past, rating } = useLocalSearchParams();
+
   useEffect(() => {
     fetchReservationDetails(itemId);
-  }, [notification]);
+  }, [itemId]);
 
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
 
