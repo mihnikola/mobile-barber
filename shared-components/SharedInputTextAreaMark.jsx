@@ -1,17 +1,12 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 
-/**
- * A reusable component for a multiline text input field.
- * @returns {JSX.Element} The multiline text input component.
- */
-const SharedInputTextArea = ({
+const SharedInputTextAreaMark = ({
   description,
   setDescription,
   placeholderText,
-}): JSX.Element => {
+}) => {
   return (
     <View style={styles.container}>
-      {/* The core multiline TextInput component */}
       <TextInput
         style={styles.textInput}
         onChangeText={setDescription}
@@ -37,26 +32,15 @@ const SharedInputTextArea = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 15,
     alignItems: "center",
     justifyContent: "center",
-     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
-    borderRadius: 12,
-    padding: 5,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    flexDirection: "row",
   },
 
   textInput: {
-    width: "90%",
+    width: "100%",
     minHeight: 100,
-
 
     fontSize: 14,
     color: "white",
@@ -75,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SharedInputTextArea;
+export default SharedInputTextAreaMark;

@@ -35,7 +35,6 @@ const MenuServices = () => {
     router.push(pathName);
   };
 
-  console.log("oc res", reservation);
   // useEffect(() => {
   //   fetchAllServices();
   // }, [pathname]);

@@ -116,7 +116,7 @@ export const AppointmentProvider = ({ children }) => {
   const fetchReservationDetails = async (reservationId) => {
     withLoading("fetchById", async () => {
       setError(null);
-
+      setDescription(null);
       if (!reservationId) {
         setLoading(null);
 

@@ -38,7 +38,6 @@ const Employers = () => {
   const getStorageToken = async () => {
     try {
       const getToken = await getStorage();
-      console.log("getStorageToken Employers");
       if (getToken) {
         router.push(pathName);
       } else {

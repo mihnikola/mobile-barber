@@ -1,13 +1,12 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { useAppointment } from "@/context/AppointmentContext";
-import { useIsFocused } from "@react-navigation/native";
-import { useFocusEffect } from "expo-router";
+
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 
@@ -17,16 +16,8 @@ const AppointmentsComponent = () => {
   const { company } = useCompany();
   const { localization } = useLocalization();
 
-  // const isFocused = useIsFocused();
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-  //     getReservationsData();
-  //   }, [isFocused])
-  // );
   useEffect(() => {
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     getReservationsData();
   }, []);
 

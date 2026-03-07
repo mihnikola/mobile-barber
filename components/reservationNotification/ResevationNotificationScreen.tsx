@@ -11,7 +11,7 @@ import { useCompany } from "@/context/CompanyContext";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import StarRating from "@/components/reservation/StarRateComponent";
-import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
+import SharedInputTextAreaMark from "@/shared-components/SharedInputTextAreaMark";
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
@@ -48,10 +48,19 @@ function ResevationNotificationScreen() {
   const renderDescription = () => {
     if (reservationData?.description) {
       return (
-        <View style={styles.descContent}>
-          <Text style={styles.description}>{`${
-            localization.APPOINTMENTS.rateReservation.descReservation
-          } ${":  "}${reservationData?.description}`}</Text>
+        <View style={styles.card}>
+          <View style={styles.descContent}>
+            <View>
+              <Text style={styles.descriptionLabel}>
+                {localization.APPOINTMENTS.rateReservation.descReservation}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.descriptionValue}>
+                {reservationData?.description}
+              </Text>
+            </View>
+          </View>
         </View>
       );
     }
@@ -59,11 +68,29 @@ function ResevationNotificationScreen() {
   const renderRateDescription = () => {
     if (reservationData?.rating?.description) {
       return (
-        <View style={styles.descContent}>
-          <Text style={styles.description}>{`${
-            localization.APPOINTMENTS.rateReservation.descRateReservation
-          } ${":  "}${reservationData?.rating?.description}`}</Text>
-        </View>
+        <>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: "#414141",
+              width: "100%",
+              marginTop: 2,
+              marginBottom: 5,
+            }}
+          />
+          <View style={styles.descContent}>
+            <View>
+              <Text style={styles.descriptionLabel}>
+                {localization.APPOINTMENTS.rateReservation.descRateReservation}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.descriptionValue}>
+                {reservationData?.rating?.description}
+              </Text>
+            </View>
+          </View>
+        </>
       );
     }
 
@@ -73,13 +100,23 @@ function ResevationNotificationScreen() {
       !reservationData?.rating
     )
       return (
-        <SharedInputTextArea
-          placeholderText={
-            localization.APPOINTMENTS.rateReservation.rateExplanation
-          }
-          description={description}
-          setDescription={setDescription}
-        />
+        <>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: "#414141",
+              width: "100%",
+              marginTop: 2,
+            }}
+          />
+          <SharedInputTextAreaMark
+            placeholderText={
+              localization.APPOINTMENTS.rateReservation.rateExplanation
+            }
+            description={description}
+            setDescription={setDescription}
+          />
+        </>
       );
   };
   const confirmHandler = async () => {
@@ -116,7 +153,7 @@ function ResevationNotificationScreen() {
     const buttonLabel = past
       ? localization.APPOINTMENTS.rateReservation.rateUs
       : localization.APPOINTMENTS.cancelReservation.cancelButton;
-      
+
     if (!reservationData?.rating) {
       return (
         <View style={styles.btnSubmitContainer}>
@@ -172,25 +209,34 @@ function ResevationNotificationScreen() {
   }
 
   return (
-    <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      <SharedBackButton onPress={router.back} styleBtn={{ marginBottom: 10 }} />
+    <View style={{ flex: 1 }}>
+      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
+        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedBackButton
+          onPress={router.back}
+          styleBtn={{ marginBottom: 10 }}
+        />
 
-      {reservationData && (
-        <>
-          <HeaderReservationTime data={reservationData} />
-          <View style={styles.containerCancel}>
-            {reservationData && (
-              <SharedDetailsReservation data={reservationData} />
-            )}
-            {renderDescription()}
+        {reservationData && (
+          <>
+            <HeaderReservationTime data={reservationData} />
+            <View style={styles.containerCancel}>
+              {reservationData && (
+                <SharedDetailsReservation data={reservationData} />
+              )}
 
-            {renderStarComponent()}
-            {renderRateDescription()}
-            {renderSharedButton()}
-          </View>
-        </>
-      )}
+              {renderDescription()}
+              {past && (
+                <View style={styles.card}>
+                  {renderStarComponent()}
+                  {renderRateDescription()}
+                </View>
+              )}
+            </View>
+          </>
+        )}
+      </ScrollView>
+      {renderSharedButton()}
 
       {isModalQuestion && renderQuestion()}
 
@@ -210,7 +256,7 @@ function ResevationNotificationScreen() {
           buttonText="Ok"
         />
       )}
-    </ScrollView>
+    </View>
   );
 }
 
@@ -219,13 +265,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+  descriptionLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginBottom: 5,
+  },
+  descriptionValue: {
+    fontSize: 14,
+    color: "#CCCCCC",
+  },
   containerWrapper: {
     marginTop: 10,
-    display: "flex",
   },
 
   btnSubmitContainer: {
-    display: "flex",
     marginVertical: 20,
     marginHorizontal: 20,
   },
@@ -235,11 +289,23 @@ const styles = StyleSheet.create({
   description: {
     color: "white",
   },
+  card: {
+    flexDirection: "column",
+    backgroundColor: "#1E1E1E",
+    borderRadius: 12,
+    marginVertical: 8,
+    marginHorizontal: 15,
+    padding: 12,
+    alignItems: "flex-start",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   descContent: {
     marginVertical: 1,
-    marginHorizontal: 10,
-    alignItems: "center",
-    padding: 12,
+    alignItems: "flex-start",
   },
 });
 export default withKeyboardAvoid(ResevationNotificationScreen);

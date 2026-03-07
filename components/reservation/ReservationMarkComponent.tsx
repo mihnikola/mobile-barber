@@ -10,22 +10,29 @@ const myArray = [
   { arrx: "4545453" },
   { arrx: "asdasdasd" },
 ];
-function ReservationMarkComponent({data}) {
+function ReservationMarkComponent({ data }) {
   const { localization } = useLocalization();
 
   return (
-    <View style={{ alignItems: "center" }}>
-      <Text style={{ color: "white", fontSize: 20 }}>
-        {localization.APPOINTMENTS.rateReservation.ratedInfo}
-      </Text>
+    <View style={{ alignItems: "flex-start" }}>
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
+          alignItems: "flex-start",
           gap: 4,
+          marginBottom: 5,
         }}
       >
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "bold",
+            color: "#FFFFFF",
+            marginBottom: 5,
+          }}
+        >
+          {localization.APPOINTMENTS.rateReservation.rated}
+        </Text>
+
         <Text style={{ color: "white", fontSize: 40 }}>
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
@@ -34,7 +41,7 @@ function ReservationMarkComponent({data}) {
                   key={item.arrx}
                   name="star"
                   color="gold"
-                  size={40}
+                  size={23}
                 />
               );
             }
