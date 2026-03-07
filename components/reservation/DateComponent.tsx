@@ -99,7 +99,6 @@ const DateComponent = ({reevaluted}) => {
   const routerBackHandler = () => {
     router.back();
   };
-  console.log("timesData",timesData)
   if (check) {
     return (
       <ScrollView style={styles.container}>

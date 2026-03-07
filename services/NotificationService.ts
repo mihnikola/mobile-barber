@@ -31,14 +31,12 @@ export class NotificationService {
   }
 
   async getFCMToken() {
-          console.log("this.deviceToken",this.deviceToken);
 
     if (this.deviceToken) return this.deviceToken;
 
     try {
       const token = await getToken(getMessaging());
 
-      console.log("token",token);
       if (token) {
         this.deviceToken = token;
       }

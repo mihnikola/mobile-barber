@@ -31,7 +31,6 @@ const Reservation = () => {
     setDescription,
   } = useAppointment();
 
-  console.log("errrr", error);
 
   const confirmHandler = async () => {
     setIsError(false);

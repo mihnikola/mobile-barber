@@ -92,7 +92,6 @@ const LoginScreen = () => {
   
   const confirmHandler = async () => {
     if (status === 606) {
-      console.log("object",status)
 
       verificationOTPCode();
     } else {

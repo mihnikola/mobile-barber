@@ -1,11 +1,7 @@
 import {
   View,
   Text,
-  Image,
-  ScrollView,
   StyleSheet,
-  StatusBar,
-  KeyboardAvoidingView,
 } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
@@ -14,7 +10,6 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
-// import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";

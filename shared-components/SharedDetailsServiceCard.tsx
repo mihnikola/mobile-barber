@@ -8,7 +8,6 @@ const SharedDetailsServiceCard = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
-console.log("SharedDetailsServiceCard+++",data)
   const rateEmployerHandler = () => {};
   return (
     <View key={id} style={styles.card}>

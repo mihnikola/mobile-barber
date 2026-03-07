@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 // npm install @expo/vector-icons
 // or yarn add @expo/vector-icons
 import { FontAwesome } from "@expo/vector-icons";
+import { useLocalization } from "@/context/LocalizationContext";
 
 // StarRating component props
 interface StarRatingProps {
@@ -23,6 +24,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   emptyColor = "#CCCCCC", // Light gray
   onRatingChange,
 }) => {
+  const {localization} = useLocalization();
   const [currentRating, setCurrentRating] = useState(initialRating);
 
   // Function to handle star press
@@ -48,7 +50,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             size={starSize}
             color={i <= currentRating ? filledColor : emptyColor}
           />
-        </TouchableOpacity>
+        </TouchableOpacity>,
       );
     }
     return stars;
@@ -60,18 +62,25 @@ const StarRating: React.FC<StarRatingProps> = ({
         display: "flex",
         width: "100%",
         justifyContent: "center",
-        alignItems: "center",
-        gap:20
+        alignItems: "flex-start",
+        gap:10,
       }}
     >
-      <View style={{ display: "flex", flexDirection: "row" }}>
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: "bold",
+          color: "#FFFFFF",
+        }}
+      >
+        {localization.APPOINTMENTS.rateReservation.rateUs}
+      </Text>
+
+      <View style={{  flexDirection: "row", marginBottom:5 }}>
         {renderStars()}
       </View>
-      
     </View>
   );
 };
-
-
 
 export default StarRating;

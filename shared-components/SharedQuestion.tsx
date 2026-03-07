@@ -9,7 +9,6 @@ export const SharedQuestion = ({
   onLogOut,
   buttonTextNo,
 }) => {
-  console.log("isModalQuestion+++", isOpen);
 
   return (
     <Modal
