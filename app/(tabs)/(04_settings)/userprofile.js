@@ -43,12 +43,17 @@ const userprofile = () => {
     handleChangeUser,
     isMessage,
     setIsMessage,
-    setErrorChange
+    setErrorChange,
   } = useUserChange();
 
   const [isValidated, setIsValidated] = useState(false);
-  const { phoneNumber, isValid, handlePhoneNumberChange, errorPhoneNumber, phoneNumberRefInput } =
-    usePhoneNumber(userData?.phoneNumber);
+  const {
+    phoneNumber,
+    isValid,
+    handlePhoneNumberChange,
+    errorPhoneNumber,
+    phoneNumberRefInput,
+  } = usePhoneNumber(userData?.phoneNumber);
 
   useEffect(() => {
     setIsValidated(validationFields);
@@ -95,9 +100,9 @@ const userprofile = () => {
     const data = {
       phoneNumber:
         phoneNumber !== userData?.phoneNumber?.slice(4) &&
-          phoneNumber !== userData?.phoneNumber &&
-          phoneNumber !== null &&
-          phoneNumber !== "null"
+        phoneNumber !== userData?.phoneNumber &&
+        phoneNumber !== null &&
+        phoneNumber !== "null"
           ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
@@ -116,7 +121,6 @@ const userprofile = () => {
   };
 
   return (
-
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: "black" }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -164,37 +168,36 @@ const userprofile = () => {
                     ? ""
                     : userData?.phoneNumber?.slice(4)
               }
-
               onChangeText={handlePhoneNumberChange}
               autoComplete="tel"
               error={errorPhoneNumber}
               returnKeyType="next"
-
               onSubmitEditing={() => {
                 const node = findNodeHandle(nameRef.current);
                 if (node) {
                   scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                     node,
                     200,
-                    true
+                    true,
                   );
                 }
                 nameRef.current?.focus();
               }}
             />
           </View>
+          <View>
+            <SharedNameEdit
+              label={localization.SETTINGS.PROFILE.name}
+              value={name}
+              ref={nameRef}
+              onChangeText={handleNameChange}
+              placeholder={localization.SETTINGS.PROFILE.placeholderName}
+              style={styles.input}
+              scrollRef={scrollRef}
+            />
+          </View>
 
-          <SharedNameEdit
-            label={localization.SETTINGS.PROFILE.name}
-            value={name}
-            ref={nameRef}
-            onChangeText={handleNameChange}
-            placeholder={localization.SETTINGS.PROFILE.placeholderName}
-            style={styles.input}
-            scrollRef={scrollRef}
-          />
           <View style={{ marginTop: 50 }}>
-
             <SharedButton
               disabled={!isValidated}
               onPress={submitChanges}
@@ -226,7 +229,6 @@ const userprofile = () => {
         {/* <StatusBar backgroundColor="black" /> */}
       </ScrollView>
     </KeyboardAvoidingView>
-
   );
 };
 

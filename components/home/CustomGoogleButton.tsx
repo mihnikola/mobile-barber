@@ -33,11 +33,11 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#424242",
+    backgroundColor: "#1C1C1E",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 15,
     paddingHorizontal: 24,
     borderRadius: 8,
     elevation: 3,
@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     minWidth: 220,
+    borderWidth: 1,
+    borderColor: "white",
+    marginTop: 20,
+    marginBottom: 30,
   },
   icon: {
     width: 20,

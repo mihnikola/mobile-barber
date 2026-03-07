@@ -34,7 +34,7 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 15 },
-  inputLabel: { color: "#ccc", fontSize: 14, marginBottom: 8 },
+  inputLabel: { color: "#ccc", fontSize: 14,  marginTop: 15, marginBottom: 8 },
   errorText: { color: "red", marginTop: 5 },
   focusedBorder: { borderColor: "#2596be" },
 });

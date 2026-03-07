@@ -14,6 +14,9 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { removeStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 
+
+
+
 const SettingsComponent = () => {
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
@@ -76,7 +79,7 @@ const SettingsComponent = () => {
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
           title={localization.SETTINGS.LOGOUT.question}
-          buttonTextYes={localization.SETTINGS.LOGOUT.leave}
+          buttonTextYes={localization.SETTINGS.LOGOUT.title}
           buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}

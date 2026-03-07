@@ -22,7 +22,6 @@ export default function useNotifications() {
         pathname: "/(reservation_notification)/",
         params: {
           itemId: data.url,
-          notification: 1,
         },
       });
     };
