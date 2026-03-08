@@ -18,6 +18,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/components/Loader";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const languageSupport = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -142,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default languageSupport;
+export default withSafeArea(languageSupport);

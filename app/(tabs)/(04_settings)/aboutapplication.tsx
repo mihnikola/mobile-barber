@@ -13,6 +13,7 @@ import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedTitle from "@/shared-components/SharedTitle";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -84,10 +85,6 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
   },
-  title: {
-    fontSize: 16,
-    color: "#FFFFFF",
-  },
   subTitle: {
     fontSize: 12,
     color: "#B0B0B0",
@@ -135,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default aboutapplication;
+export default withSafeArea(aboutapplication);

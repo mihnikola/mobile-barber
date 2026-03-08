@@ -13,13 +13,13 @@ import { useEffect, useState } from "react";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { removeStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "@/context/NavigationContext";
-
-
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import withSafeArea from "../wrapper/WrapperSafeArea";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
+  const insets = useSafeAreaInsets();
 
   const {
     logoutFirebase,
@@ -59,7 +59,7 @@ const SettingsComponent = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="black" /> */}
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
@@ -97,11 +97,12 @@ const SettingsComponent = () => {
     </SafeAreaView>
   );
 };
-
-export default SettingsComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
   },
 });
+
+
+export default withSafeArea(SettingsComponent);

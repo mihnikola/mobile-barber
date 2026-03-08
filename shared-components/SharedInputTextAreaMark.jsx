@@ -41,21 +41,20 @@ const styles = StyleSheet.create({
   textInput: {
     width: "100%",
     minHeight: 100,
-
     fontSize: 14,
     color: "white",
-
-    // Note: The `textAlignVertical` prop is for Android to ensure text starts at the top.
-    // iOS handles this automatically.
   },
   previewContainer: {
+    position: 'absolute',
     alignContent: "flex-end",
     alignItems: "flex-end",
-    width: "80%",
+    width: "100%",
+    bottom: 2
   },
   previewText: {
-    fontSize: 16,
-    color: "grey",
+    fontSize: 9,
+    color: "red",
+    opacity: 0.7
   },
 });
 

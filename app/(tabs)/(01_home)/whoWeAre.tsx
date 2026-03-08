@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const AboutUsScreen = () => {
   const { company, getCompany, isLoading } = useCompany();
@@ -68,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AboutUsScreen;
+export default  withSafeArea(AboutUsScreen);

@@ -25,6 +25,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const userprofile = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -45,6 +46,7 @@ const userprofile = () => {
     setIsMessage,
     setErrorChange,
   } = useUserChange();
+  const insets = useSafeAreaInsets();
 
   const [isValidated, setIsValidated] = useState(false);
   const {
@@ -129,7 +131,10 @@ const userprofile = () => {
       <ScrollView
         ref={scrollRef}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: 50 }}
+        contentContainerStyle={{
+          paddingTop: insets.top,
+          paddingBottom: 50,
+        }}
       >
         <View>
           <SharedBackButton onPress={router.back} />

@@ -5,6 +5,7 @@ import { useCompany } from "@/context/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
@@ -113,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default privacypolicy;
+export default withSafeArea(privacypolicy);

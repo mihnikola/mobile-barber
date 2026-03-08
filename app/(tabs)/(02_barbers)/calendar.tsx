@@ -1,4 +1,5 @@
 import DateComponent from "@/components/reservation/DateComponent";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { useLocalSearchParams } from "expo-router";
 
@@ -9,4 +10,4 @@ const Calendar = () => {
   return <DateComponent reevaluted={reevaluted} />;
 };
 
-export default Calendar;
+export default withSafeArea(Calendar);

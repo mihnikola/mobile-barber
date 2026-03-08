@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     alignItems: "center",
     justifyContent: "center",
-     flexDirection: "row",
+    flexDirection: "row",
     backgroundColor: "#1E1E1E",
     borderRadius: 12,
     padding: 5,
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     width: "90%",
     minHeight: 100,
 
-
     fontSize: 14,
     color: "white",
 
@@ -65,13 +64,16 @@ const styles = StyleSheet.create({
     // iOS handles this automatically.
   },
   previewContainer: {
+    position: "absolute",
     alignContent: "flex-end",
     alignItems: "flex-end",
-    width: "80%",
+    width: "100%",
+    bottom: 2,
   },
   previewText: {
-    fontSize: 16,
-    color: "grey",
+    fontSize: 9,
+    color: "red",
+    opacity: 0.7
   },
 });
 

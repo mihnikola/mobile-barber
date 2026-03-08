@@ -28,11 +28,13 @@ import CustomAppleButton from "../home/CustomAppleButton";
 import { useEffect, useRef } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange, passwordInputRef } = usePassword();
   const scrollRef = useRef(null);
+  const insets = useSafeAreaInsets();
 
   const { localization } = useLocalization();
 
@@ -52,7 +54,7 @@ const LoginScreen = () => {
     onAppleButtonPress,
     login,
 
-    redirectValidation
+    redirectValidation,
   } = useAuth();
 
   const { company } = useCompany();
@@ -70,13 +72,11 @@ const LoginScreen = () => {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
   }, []);
-
-  
 
   const navigateToRegister = () => {
     router.push({
@@ -89,10 +89,8 @@ const LoginScreen = () => {
     setIsMessage(false);
   };
 
-  
   const confirmHandler = async () => {
     if (status === 606) {
-
       verificationOTPCode();
     } else {
       setIsMessage(false);
@@ -106,12 +104,14 @@ const LoginScreen = () => {
   };
 
 
-
-
-
-
   return (
-    <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      ref={scrollRef}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{
+        paddingTop: insets.top,
+      }}
+    >
       <View style={styles.container}>
         <SharedBackButton onPress={router.back} />
 
@@ -160,7 +160,7 @@ const LoginScreen = () => {
               scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                 node,
                 80,
-                true
+                true,
               );
             }
             passwordInputRef.current?.focus();

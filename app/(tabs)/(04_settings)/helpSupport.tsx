@@ -17,6 +17,7 @@ import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -129,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HelpSupportScreen;
+export default withSafeArea(HelpSupportScreen);
