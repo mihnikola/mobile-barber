@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     name: "Barber App",
     slug: "fta-barber-mob-app",
-    version: "1.0.0",
+    version: "1.0.9",
     orientation: "portrait",
     icon: "./assets/images/adaptive-icon.png",
     userInterfaceStyle: "automatic",
