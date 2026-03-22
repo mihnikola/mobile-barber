@@ -45,6 +45,8 @@ export const ENG_LOCALIZATION = {
     error: "Locations data not available",
     close: "Close",
     network: "Something went wrong, please try again later",
+    noFound: "Locations are not available"
+
   },
   DATE: {
     title: "Choose date",

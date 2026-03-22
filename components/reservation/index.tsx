@@ -43,6 +43,7 @@ const Reservation = () => {
 
   if (reservation) {
     return (
+      
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
         <HeaderInfo
           image={company?.media?.coverImageAppointments}

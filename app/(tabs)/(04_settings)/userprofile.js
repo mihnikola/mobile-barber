@@ -8,6 +8,7 @@ import {
   findNodeHandle,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
@@ -126,13 +127,13 @@ const userprofile = () => {
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: "black" }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      keyboardVerticalOffset={insets.top}
     >
       <ScrollView
         ref={scrollRef}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
-          paddingTop: insets.top,
+          paddingTop: insets.top > 20 ? insets.top - 10 : insets.top,
           paddingBottom: 50,
         }}
       >

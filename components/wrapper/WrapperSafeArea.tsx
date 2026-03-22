@@ -7,7 +7,7 @@ export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
     const insets = useSafeAreaInsets();
 
     return (
-      <SafeAreaView  style={[styles.safeArea, { paddingTop: insets.top }]}>
+      <SafeAreaView  style={[styles.safeArea,  { paddingTop: insets.top > 20 ? insets.top - 10 : insets.top },]}>
         <WrapperComponent {...props} />
       </SafeAreaView>
     );

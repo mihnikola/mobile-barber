@@ -1,4 +1,11 @@
-import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Text,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
@@ -59,8 +66,15 @@ const SettingsComponent = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+    <SafeAreaView
+      edges={["left", "right", "bottom"]}
+      style={[
+        styles.container,
+        { paddingTop: insets.top > 20 ? insets.top - 10 : insets.top },
+      ]}
+    >
       {/* <StatusBar barStyle="dark-content" backgroundColor="black" /> */}
+
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
       ) : (
@@ -83,6 +97,7 @@ const SettingsComponent = () => {
           buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
+
       {logoutData && (
         <SharedMessage
           isOpen={logoutData && !isLoading}
@@ -103,6 +118,5 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
 });
-
 
 export default withSafeArea(SettingsComponent);

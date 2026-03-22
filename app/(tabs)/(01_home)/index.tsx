@@ -164,21 +164,23 @@ function App() {
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={openLocationHandler}
-            style={styles.btnLocationContent}
-          >
-            <FontAwesome name="location-arrow" size={28} color="white" />
-            <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>
-                {localization.HOME.locationBtn}
-              </Text>
-              <Text style={styles.address}>
-                {localization.HOME.locationBtnDesc}
-              </Text>
-            </View>
-            <FontAwesome name="chevron-right" size={28} color="white" />
-          </TouchableOpacity>
+          {locationsData?.length > 0 && (
+              <TouchableOpacity
+                onPress={openLocationHandler}
+                style={styles.btnLocationContent}
+              >
+                <FontAwesome name="location-arrow" size={28} color="white" />
+                <View style={styles.locationContent}>
+                  <Text style={styles.titleLocation}>
+                    {localization.HOME.locationBtn}
+                  </Text>
+                  <Text style={styles.address}>
+                    {localization.HOME.locationBtnDesc}
+                  </Text>
+                </View>
+                <FontAwesome name="chevron-right" size={28} color="white" />
+              </TouchableOpacity>
+          )}
         </Animated.View>
       </View>
     );
