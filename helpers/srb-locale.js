@@ -51,6 +51,7 @@ export const SRB_LOCALIZATION = {
     title: "Odaberite lokaciju",
     close: "Zatvori",
     network: "Došlo je do greške. Molimo pokušajte kasnije",
+    noFound: "Trenutno nema lokacija"
   },
   SERVICES: {
     title: "Cenovnik & Usluge",

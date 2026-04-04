@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 10,
   },
 });
 export default MenuItemContainer;

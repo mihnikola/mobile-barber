@@ -2,6 +2,7 @@ import {
   BackHandler,
   Dimensions,
   findNodeHandle,
+  KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
@@ -105,17 +106,23 @@ const LoginScreen = () => {
 
 
   return (
-    <ScrollView
-      ref={scrollRef}
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{
-        paddingTop: insets.top,
-      }}
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: "black" }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={insets.top} 
     >
-      <View style={styles.container}>
+      <ScrollView
+        ref={scrollRef}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+          paddingBottom: 25,
+          paddingTop: insets.top > 20 ? insets.top - 10 : insets.top,
+        }}
+      >
+        <View style={styles.container}>
         <SharedBackButton onPress={router.back} />
 
-        <View style={{ alignItems: "center" }}>
+        <View style={styles.logoImage}>
           <SharedLogin image={company?.media?.logo} />
         </View>
 
@@ -217,6 +224,7 @@ const LoginScreen = () => {
         )}
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -240,16 +248,21 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
+  logoImage:{
+    alignItems:"center",
+    marginTop: 10
+
+  },
 
   iconStyle: {
     width: 30,
     height: 30,
     resizeMode: "cover",
   },
-  container: {
+container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 25,
+    paddingBottom: 10,
     backgroundColor: "black",
   },
   logo: {

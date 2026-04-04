@@ -11,7 +11,7 @@ export default function withKeyboardAvoid<T>(
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={[styles.safeArea, { paddingTop: insets.top }]}
+        style={[styles.safeArea,  { paddingTop: insets.top > 20 ? insets.top - 10 : insets.top }]}
         keyboardVerticalOffset={10}
       >
         <WrapperComponent {...props} />
