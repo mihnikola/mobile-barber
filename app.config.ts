@@ -1,10 +1,12 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
+const APP_VERSION = '1.1.1'
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     name: "Barber App",
     slug: "fta-barber-mob-app",
-    version: "1.1.1",
+    version: APP_VERSION,
     orientation: "portrait",
     icon: "./assets/images/adaptive-icon.png",
     userInterfaceStyle: "automatic",
@@ -62,4 +64,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
     },
     owner: "fusion-tech-agency",
+    updates: {
+        url: "https://u.expo.dev/941cbfd2-53f9-4a71-b399-0133e55dcfa0",
+    },
+    runtimeVersion: APP_VERSION
 });
