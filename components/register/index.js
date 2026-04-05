@@ -64,17 +64,6 @@ const Register = () => {
   } = useConfirmPassword(password);
 
   const handleRegister = () => {
-    // const data = {
-    //   name,
-    //   email,
-    //   password,
-    //   phoneNumber,
-    //   emailError,
-    //   passwordError,
-    //   confirmPassword,
-    // };
-
-    // console.log("data", data)
 
     handleRegistration({
       name,

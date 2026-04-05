@@ -45,8 +45,7 @@ export const ENG_LOCALIZATION = {
     error: "Locations data not available",
     close: "Close",
     network: "Something went wrong, please try again later",
-    noFound: "Locations are not available"
-
+    noFound: "Locations are not available",
   },
   DATE: {
     title: "Choose date",
@@ -64,6 +63,8 @@ export const ENG_LOCALIZATION = {
     second:
       "2. Cancellations must be made at least 180 minutes before the appointment.",
     success: "Your appointment is successfully booked!",
+    pendingTitle: `All set! Your request has been sent.`,
+    pendingSubTitle:"Your barber will reply soon."
   },
   SERVICES: {
     title: "Pricing & Services",
@@ -216,7 +217,8 @@ We reserve the right to modify the terms of use at any time, and users will be n
     notMatch: "Entered passwords do not match.",
     errorFields: "Incorrect email or password",
     errorPass: "Incorrect password",
-    successVerified: "Account verification completed successfully. Please log in to continue.",
+    successVerified:
+      "Account verification completed successfully. Please log in to continue.",
     expiredVerification: "Invalid or expired verification code.",
     alreadyVerify: "User already verified.",
   },

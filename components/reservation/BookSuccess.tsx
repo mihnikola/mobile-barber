@@ -38,13 +38,6 @@ const styles = StyleSheet.create({
   checkbox: {
     marginRight: 10,
   },
-  message: {
-    fontSize: 30,
-    padding: 20,
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "900",
-  },
 
   reservation: {
     display: "flex",
@@ -54,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   timeData: {
-    fontSize: 30,
+    fontSize: 22,
 
     color: "#fff",
     fontWeight: "900",
@@ -74,7 +67,7 @@ const styles = StyleSheet.create({
     padding: 10, // Add padding to make the space visible from the edges
   },
   dateData: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#fff",
     fontWeight: "700",
   },

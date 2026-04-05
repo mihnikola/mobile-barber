@@ -16,6 +16,9 @@ const ConfirmBookReservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { company } = useCompany();
 
+  const params = useLocalSearchParams();
+  console.log("params,", params);
+
   const confirmSubmitReservation = async () => {
     try {
       router.back();
@@ -34,7 +37,21 @@ const ConfirmBookReservation = () => {
           reservation={reservation}
         />
         <View style={styles.infoContainer}>
-          <Text style={styles.message}>{localization.SALON.success}</Text>
+          <Text
+            style={[
+              styles.message,
+              params?.status === "0" && styles.messageApproved,
+            ]}
+          >
+            {params?.status === "0"
+              ? localization.SALON.success
+              : localization.SALON.pendingTitle}
+          </Text>
+          {params?.status !== "0" && (
+            <Text style={styles.pendingSubTitle}>
+              {localization.SALON.pendingSubTitle}
+            </Text>
+          )}
           <Note />
         </View>
         <View style={{ marginHorizontal: 30, marginVertical: 50 }}>
@@ -53,16 +70,27 @@ export default ConfirmBookReservation;
 const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
-    marginHorizontal: 20
+    marginHorizontal: 20,
+  },
+  pendingSubTitle: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "600",
+    margin: 10,
   },
   message: {
-    fontSize: 30,
-    padding: 20,
+    fontSize: 21,
+    padding: 10,
+    margin: 10,
     color: "#fff",
     textAlign: "center",
     fontWeight: "900",
-    margin: 10
   },
+  messageApproved: {
+    fontSize: 30,
+    padding: 20,
+  },
+
   container: {
     flex: 1,
     backgroundColor: "black",

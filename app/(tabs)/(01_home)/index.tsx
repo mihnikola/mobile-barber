@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   Platform,
-  Alert,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
@@ -22,6 +21,7 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
+import LocationNotFound from "@/components/home/LocationNotFound";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -107,6 +107,16 @@ function App() {
       />
     );
   }
+  if (modalVisible && locationsData?.length === 0) {
+    return (
+      <LocationNotFound
+        modalVisible={modalVisible}
+        title={localization.PLACES.noFound}
+        buttonText={localization.PLACES.close}
+        setModalVisible={setModalVisible}
+      />
+    );
+  }
 
   if (company) {
     return (
@@ -164,23 +174,22 @@ function App() {
             </View>
             <FontAwesome name="chevron-right" size={28} color="white" />
           </TouchableOpacity>
-          {locationsData?.length > 0 && (
-              <TouchableOpacity
-                onPress={openLocationHandler}
-                style={styles.btnLocationContent}
-              >
-                <FontAwesome name="location-arrow" size={28} color="white" />
-                <View style={styles.locationContent}>
-                  <Text style={styles.titleLocation}>
-                    {localization.HOME.locationBtn}
-                  </Text>
-                  <Text style={styles.address}>
-                    {localization.HOME.locationBtnDesc}
-                  </Text>
-                </View>
-                <FontAwesome name="chevron-right" size={28} color="white" />
-              </TouchableOpacity>
-          )}
+
+          <TouchableOpacity
+            onPress={openLocationHandler}
+            style={styles.btnLocationContent}
+          >
+            <FontAwesome name="location-arrow" size={28} color="white" />
+            <View style={styles.locationContent}>
+              <Text style={styles.titleLocation}>
+                {localization.HOME.locationBtn}
+              </Text>
+              <Text style={styles.address}>
+                {localization.HOME.locationBtnDesc}
+              </Text>
+            </View>
+            <FontAwesome name="chevron-right" size={28} color="white" />
+          </TouchableOpacity>
         </Animated.View>
       </View>
     );

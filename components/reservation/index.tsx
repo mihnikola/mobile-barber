@@ -1,4 +1,10 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
@@ -9,28 +15,26 @@ import HeaderInfo from "./HeaderInfo";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const Reservation = () => {
-  
   const { reservation } = useContext(ReservationContext)!;
   const { localization } = useLocalization();
+  const {status} = useLocalSearchParams();
+  console.log("responseData++++++",status)
   const { company } = useCompany();
   const {
     submitReservationHandler,
     isLoading,
     error,
     setError,
-    setMessage,
-    message,
     setIsError,
     IsError,
     description,
     setDescription,
   } = useAppointment();
-
 
   const confirmHandler = async () => {
     setIsError(false);
@@ -43,42 +47,51 @@ const Reservation = () => {
 
   if (reservation) {
     return (
-      
-      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-        <HeaderInfo
-          image={company?.media?.coverImageAppointments}
-          reservation={reservation}
-        />
-        <SharedBackButton onPress={routerBackHandler} />
+      // <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <HeaderInfo
+            image={company?.media?.coverImageAppointments}
+            reservation={reservation}
+          />
+          <SharedBackButton onPress={routerBackHandler} />
 
-        <View style={styles.containerData}>
-          <View>
-            {reservation && <Details data={reservation} />}
-            <SharedInputTextArea
-              placeholderText={localization.DATE.detailsReservation}
-              description={description}
-              setDescription={setDescription}
+          <View style={styles.containerData}>
+            <View>{reservation && <Details data={reservation} />}</View>
+            <View>
+              <SharedInputTextArea
+                placeholderText={localization.DATE.detailsReservation}
+                description={description}
+                setDescription={setDescription}
+              />
+            </View>
+          </View>
+          <View style={styles.btn}>
+            <SharedButton
+              loading={isLoading}
+              onPress={submitReservationHandler}
+              text={localization.DATE.book}
             />
           </View>
-        </View>
-        <View style={styles.btn}>
-          <SharedButton
-            loading={isLoading}
-            onPress={submitReservationHandler}
-            text={localization.DATE.book}
-          />
-        </View>
-        {IsError && (
-          <SharedMessage
-            isOpen={IsError}
-            onClose={confirmHandler}
-            onConfirm={confirmHandler}
-            icon={<FontAwesome name={"close"} size={64} color="white" />}
-            title={error}
-            buttonText={localization.OK.label}
-          />
-        )}
-      </ScrollView>
+          {IsError && (
+            <SharedMessage
+              isOpen={IsError}
+              onClose={confirmHandler}
+              onConfirm={confirmHandler}
+              icon={<FontAwesome name={"close"} size={64} color="white" />}
+              title={error}
+              buttonText={localization.OK.label}
+            />
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 };

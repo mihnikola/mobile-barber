@@ -102,7 +102,6 @@ export const AppointmentProvider = ({ children }) => {
         const response = await put(`/availabilities/${reservationId}`, {
           status: 1,
         });
-        console.log("response",response)
         setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
         await getReservationsData();
       } catch (err) {
@@ -151,7 +150,6 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const response = await get("/availabilities");
-      // console.log("getReservationsData",response)
       if (response.status === 200) {
         setReservations(response.data);
       }
@@ -172,13 +170,7 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
       return;
     }
-    console.log("submitReservation employer.id", employer.id);
-    console.log("|||service,", service);
-    console.log("timeData", timeData);
-    console.log("dateReservation", dateReservation);
-    console.log(",tokenData", tokenData);
-    console.log(",description", description);
-    console.log(",location", location);
+
 
     try {
       const response = await post("/availabilities", {
@@ -194,13 +186,15 @@ export const AppointmentProvider = ({ children }) => {
 
       if (response.status === 201) {
         await getReservationsData();
+        console.log("response",response)
+        //updateReservation()
         setResponseData(response);
         router.dismissAll();
         saveLastTab(null);
         router.push({
           pathname: "/(tabs)/(02_barbers)/reservationSuccess",
           params: {
-            responseData: response,
+            status: response.data.status,
           },
         });
       }

@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
-  const { _id: id, value } = data;
+  const { value } = data;
   const handlerPressDate = (data) => {
     setSelectedItem(data);
   };
@@ -11,15 +11,15 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
     <TouchableOpacity
       style={[
         styles.content,
-        selectedItem?._id === id && styles.selectedContent, // Apply selected style
+        selectedItem?.value === value && styles.selectedContent, // Apply selected style
       ]}
-      key={id}
+      key={value}
       onPress={() => handlerPressDate(data)}
     >
       <Text
         style={[
           styles.time,
-          selectedItem?._id === id && styles.selectedTime, // Apply selected style
+          selectedItem?.value === value && styles.selectedTime, // Apply selected style
         ]}
       >
         {value}
@@ -32,31 +32,25 @@ const styles = StyleSheet.create({
   content: {
     width: 100,
     height: 50,
-    backgroundColor: "#1C1C1E",
     justifyContent: "center",
     borderColor: "white",
-    color: "white",
     alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
   },
-  // btn: {
-  //   paddingVertical: 15,
-  //   marginTop: 20,
-  //   marginBottom: 30,
-  // },
   selectedTime: {
-    color: "black",
+    color: "#000000",
   },
   selectedContent: {
-    backgroundColor: "white", // Green background when selected
-    borderColor: "black", // Darker border when selected
+    backgroundColor: "#fff",
+    borderColor: "#000",
   },
   time: {
     display: "flex",
     fontSize: 16,
     color: "white",
     fontWeight: "800",
+    borderColor: "#ffffff",
   },
 });
 

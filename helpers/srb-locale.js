@@ -51,7 +51,7 @@ export const SRB_LOCALIZATION = {
     title: "Odaberite lokaciju",
     close: "Zatvori",
     network: "Došlo je do greške. Molimo pokušajte kasnije",
-    noFound: "Trenutno nema lokacija"
+    noFound: "Trenutno nema lokacija",
   },
   SERVICES: {
     title: "Cenovnik & Usluge",
@@ -73,6 +73,8 @@ export const SRB_LOCALIZATION = {
     second:
       "2. Otkazivanje se mora izvršiti najmanje 180 minuta pre zakazanog termina.",
     success: "Vaš termin je uspešno zakazan!",
+    pendingTitle: "Vaš zahtev je uspešno poslat!",
+    pendingSubTitle:"Očekujte odobrenje od strane frizera u najkraćem roku."
   },
   TIMES: {
     error:
@@ -215,7 +217,8 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     isVerified:
       "Vaš nalog nije verifikovan. Verifikacioni kod će biti poslat na Vaš email.",
     errorPass: "Netačna lozinka",
-    successVerified: "Uspešno ste verifikovali nalog! Sada se možete prijaviti i početi sa korišćenjem aplikacije.",
+    successVerified:
+      "Uspešno ste verifikovali nalog! Sada se možete prijaviti i početi sa korišćenjem aplikacije.",
     expiredVerification: "Uneti otp kod je nevalidan ili je istekao.",
     alreadyVerify: "Korisnik je već verifikovan.",
   },
