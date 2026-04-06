@@ -47,14 +47,12 @@ const Reservation = () => {
 
   if (reservation) {
     return (
-      // <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior="padding"
       >
         <ScrollView
           style={styles.container}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
           keyboardShouldPersistTaps="handled"
         >
           <HeaderInfo
