@@ -85,6 +85,7 @@ export const ENG_LOCALIZATION = {
     noLogin: "You're just a few clicks away from your appointments.",
     login: "Please login here",
     error: "You don't have any reservations",
+    distinctReservation: "This time slot is already booked. Please choose another time.",
     errorDailyLimit: "You have reached a maximum number of bookings for today",
     errorWeeklyLimit:
       "You have reached a maximum number of bookings for this week",

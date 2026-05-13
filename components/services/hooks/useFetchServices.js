@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { get } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
 
-const useFetchServices = () => {
+const useFetchServices = (reservation) => {
   const [serviceData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,8 +12,9 @@ const useFetchServices = () => {
   const fetchAllServices = async () => {
     setIsLoading(true);
     setError(null);
+    const { location } = reservation;
     try {
-      const response = await get("/services/client");
+      const response = await get(`/services/location/${location.id}`);
       if (response.status === 200) {
         setServicesData(response.data);
       }

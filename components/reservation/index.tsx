@@ -22,8 +22,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
   const { localization } = useLocalization();
-  const {status} = useLocalSearchParams();
-  console.log("responseData++++++",status)
+  const { status } = useLocalSearchParams();
   const { company } = useCompany();
   const {
     submitReservationHandler,
@@ -34,11 +33,19 @@ const Reservation = () => {
     IsError,
     description,
     setDescription,
+    setDistinctReservation,
+    distinctReservation,
+    refreshCalendarReservation
   } = useAppointment();
 
-  const confirmHandler = async () => {
+  const confirmHandler = () => {
     setIsError(false);
     setError(null);
+  };
+
+  const confirmDistinctHandler = async () => {
+    setDistinctReservation(null);
+    await refreshCalendarReservation();
   };
 
   const routerBackHandler = () => {
@@ -47,10 +54,7 @@ const Reservation = () => {
 
   if (reservation) {
     return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior="padding"
-      >
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ScrollView
           style={styles.container}
           keyboardShouldPersistTaps="handled"
@@ -85,6 +89,16 @@ const Reservation = () => {
               onConfirm={confirmHandler}
               icon={<FontAwesome name={"close"} size={64} color="white" />}
               title={error}
+              buttonText={localization.OK.label}
+            />
+          )}
+          {distinctReservation?.length > 0 && (
+            <SharedMessage
+              isOpen={distinctReservation?.length > 0}
+              onClose={confirmDistinctHandler}
+              onConfirm={confirmDistinctHandler}
+              icon={<FontAwesome name={"close"} size={64} color="white" />}
+              title={distinctReservation}
               buttonText={localization.OK.label}
             />
           )}

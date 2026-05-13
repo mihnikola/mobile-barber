@@ -3,6 +3,7 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import SharedImageInitials from "./SharedInitialsName";
 
 const SharedEmployerCard = ({ redirectHandler, data }) => {
   const { id, image, name, seniority, ratingCount } = data;
@@ -13,7 +14,11 @@ const SharedEmployerCard = ({ redirectHandler, data }) => {
       onPress={() => redirectHandler(data)}
       style={styles.card}
     >
-      {image && <Image source={{ uri: image }} style={styles.profileImage} />}
+      {image ? (
+        <Image source={{ uri: image }} style={styles.profileImage} />
+      ) : (
+        <SharedImageInitials name={name} />
+      )}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
@@ -37,7 +42,7 @@ const SharedEmployerCard = ({ redirectHandler, data }) => {
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E", 
+    backgroundColor: "#1E1E1E",
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,

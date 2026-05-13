@@ -25,7 +25,7 @@ export const AppointmentProvider = ({ children }) => {
   const [isModalQuestion, setIsModalQuestion] = useState(false);
   const [error, setError] = useState(null);
   const [IsError, setIsError] = useState(false);
-
+  const [distinctReservation, setDistinctReservation] = useState(null);
   const [responseData, setResponseData] = useState(null);
   const [message, setMessage] = useState(null);
 
@@ -84,7 +84,13 @@ export const AppointmentProvider = ({ children }) => {
       }
     });
   };
-  
+  const refreshCalendarReservation = async () => {
+    router.back();
+    router.replace({
+      pathname: "/(tabs)/(02_barbers)/calendar",
+      params: { reevaluted: 1 },
+    });
+  };
 
   const cancelReservation = async (reservationId) => {
     withLoading("cancelling", async () => {
@@ -171,7 +177,6 @@ export const AppointmentProvider = ({ children }) => {
       return;
     }
 
-
     try {
       const response = await post("/availabilities", {
         employerId: employer.id,
@@ -184,10 +189,11 @@ export const AppointmentProvider = ({ children }) => {
         location,
       });
 
+      if (response.status === 209) {
+        setDistinctReservation(localization.APPOINTMENTS.distinctReservation);
+      }
       if (response.status === 201) {
         await getReservationsData();
-        console.log("response",response)
-        //updateReservation()
         setResponseData(response);
         router.dismissAll();
         saveLastTab(null);
@@ -219,7 +225,6 @@ export const AppointmentProvider = ({ children }) => {
       }
     } catch (err) {
       setIsError(true);
-
       setError(localization.APPOINTMENTS.postError);
     } finally {
       setIsLoading(false);
@@ -270,6 +275,9 @@ export const AppointmentProvider = ({ children }) => {
         setIsError,
         IsError,
         isLoadingToken,
+        setDistinctReservation,
+        distinctReservation,
+        refreshCalendarReservation,
       }}
     >
       {children}

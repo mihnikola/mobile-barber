@@ -3,6 +3,7 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
+import SharedImageInitials from "./SharedInitialsName";
 
 const SharedItemEmployerCard = (props: any) => {
   const { redirectHandler, data } = props;
@@ -14,7 +15,11 @@ const SharedItemEmployerCard = (props: any) => {
       onPress={() => redirectHandler(data)}
       style={styles.card}
     >
-      {image && <Image source={{ uri: image }} style={styles.profileImage} />}
+      {image ? (
+        <Image source={{ uri: image }} style={styles.profileImage} />
+      ) : (
+        <SharedImageInitials name={name} />
+      )}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>

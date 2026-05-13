@@ -175,6 +175,109 @@ export function convertNameAndDate(value) {
   const year = date.getFullYear();
   return `${dayNameSr} ${day}-${month}-${year}`;
 }
+const formatDateBrate = (input, code) => {
+  const months = [
+    "januar",
+    "februar",
+    "mart",
+    "april",
+    "maj",
+    "jun",
+    "jul",
+    "avgust",
+    "septembar",
+    "oktobar",
+    "novembar",
+    "decembar",
+  ];
+  const monthsEn = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
+  let monthName;
+
+  const [day, month, year] = input.split(".").map((s) => s.trim());
+  monthName =
+    code === "sr"
+      ? months[parseInt(month, 10) - 1]
+      : monthsEn[parseInt(month, 10) - 1];
+
+  return `${day}. ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}.`;
+};
+
+const formatDatePrettier = (input, code) => {
+  const months = [
+    "januar",
+    "februar",
+    "mart",
+    "april",
+    "maj",
+    "jun",
+    "jul",
+    "avgust",
+    "septembar",
+    "oktobar",
+    "novembar",
+    "decembar",
+  ];
+  const monthsEn = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
+  let monthName;
+
+  const [year, month, day] = input.split("-").map((s) => s.trim());
+  monthName =
+    code === "sr"
+      ? months[parseInt(month, 10) - 1]
+      : monthsEn[parseInt(month, 10) - 1];
+
+  return `${day}. ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}.`;
+};
+
+
+
+export const getInitialsName = (mrk) => {
+  if (!mrk) {
+    return;
+  }
+  const words = mrk?.trim().split(/\s+/);
+  const numWords = words.length;
+  if (numWords > 2) {
+    return words[0].substring(0, 2).toUpperCase();
+  }
+  if (numWords === 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  if (numWords === 1 && words[0] !== "") {
+    return words[0].substring(0, 2).toUpperCase();
+  }
+  return "";
+};
+
+
+
+
 export const convertDateDetails = (dateStr) => {
   const { localization } = useLocalization();
   const [day, month, year] = dateStr.split(".").map((s) => s.trim());
@@ -185,7 +288,9 @@ export const convertDateDetails = (dateStr) => {
   } else {
     weekdays = dayNamesRs;
   }
-  return `${weekdays[dateObj.getDay()]} ${day}-${month}-${year}`;
+  return `${weekdays[dateObj.getDay()]} ${formatDateBrate(dateStr, localization.code)}`;
+
+  // return `${weekdays[dateObj.getDay()]} ${day}-${month}-${year}`;
 };
 export const convertDate = (item) => {
   const date = new Date(item);
@@ -200,12 +305,13 @@ export const convertDate = (item) => {
   const dayOfWeek = weekdays[date.getDay()];
 
   // Format the date to day-month-year
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
+  // const day = String(date.getDate()).padStart(2, "0");
+  // const month = String(date.getMonth() + 1).padStart(2, "0");
+  // const year = date.getFullYear();
+  const result = date.toISOString().split("T")[0];
 
   // Combine everything into the desired format
-  return `${dayOfWeek} ${day}-${month}-${year}`;
+  return `${dayOfWeek}  ${formatDatePrettier(result, localization.code)}`;
 };
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {

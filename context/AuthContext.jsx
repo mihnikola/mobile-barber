@@ -365,7 +365,6 @@ export const AuthProvider = ({ children }) => {
         user,
         expoToken,
       });
-      console.log("responseData", responseData);
       setIsMessage(true);
 
       if (responseData.status === 200 || responseData.status === 300) {

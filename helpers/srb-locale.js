@@ -74,7 +74,7 @@ export const SRB_LOCALIZATION = {
       "2. Otkazivanje se mora izvršiti najmanje 180 minuta pre zakazanog termina.",
     success: "Vaš termin je uspešno zakazan!",
     pendingTitle: "Vaš zahtev je uspešno poslat!",
-    pendingSubTitle:"Očekujte odobrenje od strane frizera u najkraćem roku."
+    pendingSubTitle: "Očekujte odobrenje od strane frizera u najkraćem roku.",
   },
   TIMES: {
     error:
@@ -90,6 +90,8 @@ export const SRB_LOCALIZATION = {
     noLogin: "Samo nekoliko klikova deli vas od vaših rezervacija",
     login: "Molimo vas prijavite se ovde",
     error: "Trenutno nemate nijednu rezervaciju",
+    distinctReservation:
+      "Ovaj termin je već rezervisan. Izaberite drugi termin.",
     errorDailyLimit: "Dostigli ste maksimum rezervacija za ovaj dan.",
     errorWeeklyLimit: "Dostigli ste maksimum rezervacija za ovu nedelju.",
     errorMonthlyLimit: "Dostigli ste maksimum rezervacija za ovaj mesec.",

@@ -14,7 +14,7 @@ import SharedTitle from "@/shared-components/SharedTitle";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
-  const { serviceData, isLoading, fetchAllServices } = useFetchServices();
+  const { serviceData, isLoading, fetchAllServices } = useFetchServices(reservation);
   // const pathname = usePathname();
 
   const { backButton } = useLocalSearchParams();

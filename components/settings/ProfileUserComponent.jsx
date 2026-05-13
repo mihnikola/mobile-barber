@@ -1,3 +1,4 @@
+import SharedImageInitials from "@/shared-components/SharedInitialsName";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
@@ -6,7 +7,11 @@ import { Image, Text, View } from "react-native";
 const ProfileUserComponent = ({ data, onPress }) => {
   return (
     <View style={styles.profileSection}>
-      <Image source={{ uri: data?.image }} style={styles.profileImage} />
+      {data?.image ? (
+        <Image source={{ uri: data?.image }} style={styles.profileImage} />
+      ) : (
+        <SharedImageInitials name={data?.name} profile />
+      )}
       <View style={styles.profileInfo}>
         <Text style={styles.profileName}>{data?.name}</Text>
         <Text style={styles.profileEmail}>{data?.email}</Text>

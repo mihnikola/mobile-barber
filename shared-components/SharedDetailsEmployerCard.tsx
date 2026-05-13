@@ -3,25 +3,30 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
-
+import SharedImageInitials from "./SharedInitialsName";
 
 const SharedDetailsEmployerCard = ({ data }) => {
   const { _id, image, name, averageRating, userCount, seniority } = data;
 
-
   return (
     <View key={_id} style={styles.card}>
-      {image && <Image source={{ uri: image }} style={styles.profileImage} />}
+      {image ? (
+        <Image source={{ uri: image }} style={styles.profileImage} />
+      ) : (
+        <SharedImageInitials name={name} />
+      )}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{seniority?.title || seniority}</Text>
+          <Text style={styles.locationText}>
+            {seniority?.title || seniority}
+          </Text>
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
             <MaterialIcons name={"star"} size={16} color="#FFD700" />
             <Text style={styles.reviewText}>{`${roundValue(
-              averageRating
+              averageRating,
             )}/5`}</Text>
           </View>
 

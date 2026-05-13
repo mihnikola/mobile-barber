@@ -10,66 +10,69 @@ const useFetchTimes = (date, reservation, isSunday) => {
   const [resetError, setResetError] = useState(false);
   const { localization } = useLocalization();
 
-  const fetchTimes = useCallback(
-    async (selectedDate) => {
-      setResetError(false);
-      setIsLoading(true);
-      setError(null);
-      if (!selectedDate) {
+  const fetchTimes = async (selectedDate) => {
+    setResetError(false);
+    setIsLoading(true);
+    setError(null);
+    if (!selectedDate) {
+      setIsLoading(false);
+      return; // Don't fetch if no date is selected
+    }
+    const { employer, service } = reservation;
+
+    if (!employer || !service) {
+      setIsLoading(false);
+      setError(localization.TIMES.error);
+      return;
+    }
+
+    const serviceData = {
+      id: service.serviceId,
+      duration: service.serviceDuration,
+    };
+    const employerData = {
+      id: employer.id,
+    };
+
+    const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
+
+    if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
+      try {
+        const response = await getData("/times", {
+          date: selectedDate,
+          employer: employerData,
+          service: serviceData,
+          dateTimeStampValue,
+        });
+
+        setTimesData(response);
         setIsLoading(false);
-        return; // Don't fetch if no date is selected
-      }
-      const { employer, service } = reservation;
-
-      if (!employer || !service) {
-        setIsLoading(false);
-        setError(localization.TIMES.error);
-        return;
-      }
-
-      const serviceData = {
-        id: service.serviceId,
-        duration: service.serviceDuration,
-      };
-      const employerData = {
-        id: employer.id,
-      };
-
-
-      const dateTimeStampValue = getTimeForUTCOffset(getCurrentUTCOffset());
-
-      if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
-        try {
-
-          const response = await getData("/times", {
-            date: selectedDate,
-            employer: employerData,
-            service: serviceData,
-            dateTimeStampValue,
-          });
-
-          setTimesData(response);
-          setIsLoading(false);
-        } catch (err) {
-          setError(localization.TIMES.errorFetch);
-          setIsLoading(false);
-        }
-      } else {
-        setTimesData([]);
-        setResetError(true);
+      } catch (err) {
+        setError(localization.TIMES.errorFetch);
         setIsLoading(false);
       }
-    },
-    [reservation]
-  ); // Dependencies for useCallback
+    } else {
+      setTimesData([]);
+      setResetError(true);
+      setIsLoading(false);
+    }
+  };
+
+
 
   useEffect(() => {
     if (date && !isSunday) {
       fetchTimes(date);
     }
-  }, [date, fetchTimes]);
+  }, [date]);
 
-  return { timesData, isLoading, error, fetchTimes, resetError };
+  return {
+    timesData,
+    isLoading,
+    error,
+    fetchTimes,
+    resetError,
+  };
 };
 
 export default useFetchTimes;

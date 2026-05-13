@@ -20,7 +20,6 @@ export const LocalizationProvider = ({ children }) => {
     const langData = lang === "en" ? "en" : "sr";
     try {
       const token = await getStorage();
-
       if (!token) return;
       await put(`/users/${token}/changeLanguage`, { langData });
     } catch (error) {
