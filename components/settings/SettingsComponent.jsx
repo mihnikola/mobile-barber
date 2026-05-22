@@ -1,11 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  Text,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
@@ -20,7 +13,10 @@ import { useEffect, useState } from "react";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { removeStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "@/context/NavigationContext";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  useSafeAreaInsets,
+  SafeAreaView,
+} from "react-native-safe-area-context";
 import withSafeArea from "../wrapper/WrapperSafeArea";
 
 const SettingsComponent = () => {
@@ -66,13 +62,7 @@ const SettingsComponent = () => {
   };
 
   return (
-    <SafeAreaView
-      edges={["left", "right", "bottom"]}
-      style={[
-        styles.container,
-        { paddingTop: insets.top > 20 ? insets.top - 10 : insets.top },
-      ]}
-    >
+    <ScrollView style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="black" /> */}
 
       {isToken ? (
@@ -109,7 +99,7 @@ const SettingsComponent = () => {
       )}
       {/* <SharedLoader isOpen={isLoading || isLoadingLogin} /> */}
       <SharedLoader isOpen={loading === "logout"} />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
