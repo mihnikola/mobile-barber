@@ -42,16 +42,19 @@ const SettingsComponent = () => {
     getTokenData();
   }, []);
 
-  const [loader, setLoader] = useState(false);
   const [logoutData, setLogoutData] = useState(false);
 
   const logoutConfirm = async () => {
-    setLoader(true);
     setIsLogout(false);
+
     const x = await logoutFirebase();
-    setLoader(false);
     saveLastTab(null);
-    global.resetTabs();
+    // Pozovi funkciju samo ako stvarno postoji
+    if (typeof global.resetTabs === "function") {
+      global.resetTabs();
+    } else {
+      console.warn("global.resetTabs nije definisan u ovom momentu.");
+    }
   };
 
   const redirectToLogin = () => {
@@ -76,7 +79,7 @@ const SettingsComponent = () => {
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
       {isLogout && (
         <SharedQuestion
-          isOpen={isLogout && !isLoading}
+          isOpen={isLogout}
           onClose={() => setIsLogout(false)}
           onLogOut={logoutConfirm}
           icon={
