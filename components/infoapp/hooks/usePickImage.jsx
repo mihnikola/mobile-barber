@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import { Alert } from "react-native";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB

@@ -228,7 +228,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 0,
   },
 
   address: {

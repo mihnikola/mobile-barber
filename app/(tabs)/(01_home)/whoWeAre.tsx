@@ -24,44 +24,39 @@ const AboutUsScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={{ marginBottom: 30, marginTop: 10 }}>
-          <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} />
-        </View>
-        <WhoAreWeCoverImage image={company?.media?.logo} />
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={{ marginBottom: 30, marginTop: 10 }}>
+        <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} />
+      </View>
+      <WhoAreWeCoverImage image={company?.media?.logo} />
 
-        <View style={styles.contentContainer}>
-          <AboutUsInfo
-            title={company?.aboutUs?.title}
-            text={company?.aboutUs?.text}
-            textThree={company?.aboutUs?.textThree}
-            textTwo={company?.aboutUs?.textTwo}
-          />
+      <View style={styles.contentContainer}>
+        <AboutUsInfo
+          title={company?.aboutUs?.title}
+          text={company?.aboutUs?.text}
+          textThree={company?.aboutUs?.textThree}
+          textTwo={company?.aboutUs?.textTwo}
+        />
 
-          <ListAboutUs contact={company?.contact} />
-        </View>
-        <OnboardingComponent reviews={company?.reviews} />
+        <ListAboutUs contact={company?.contact} />
+      </View>
+      <OnboardingComponent reviews={company?.reviews} />
 
-        <View style={styles.contentContainer}>
-          <ContactUs
-            workDays={company?.aboutUs?.workDays}
-            workSaturday={company?.aboutUs?.workSaturday}
-            holidays={company?.aboutUs?.holidays}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <View style={styles.contentContainer}>
+        <ContactUs
+          workDays={company?.aboutUs?.workDays}
+          workSaturday={company?.aboutUs?.workSaturday}
+          holidays={company?.aboutUs?.holidays}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "black",
-  },
   scrollViewContent: {
     flexGrow: 1,
+    backgroundColor: "black",
   },
   contentContainer: {
     paddingHorizontal: 10,
@@ -69,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default  withSafeArea(AboutUsScreen);
+export default withSafeArea(AboutUsScreen);

@@ -1,13 +1,18 @@
 import { ComponentType } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StatusBar, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
   return function (props: T & JSX.IntrinsicAttributes) {
-    const insets = useSafeAreaInsets();
+    // const insets = useSafeAreaInsets();
 
     return (
-      <SafeAreaView  style={[styles.safeArea,  { paddingTop: insets.top > 20 ? insets.top - 10 : insets.top },]}>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="transparent"
+          translucent
+        />
         <WrapperComponent {...props} />
       </SafeAreaView>
     );
@@ -17,5 +22,6 @@ export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: "#000",
   },
 });

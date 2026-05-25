@@ -2,7 +2,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useState } from "react";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import { Alert } from "react-native";
 
 const useUserChange = () => {
@@ -50,31 +50,24 @@ const useUserChange = () => {
     try {
       const storedToken = await AsyncStorage.getItem("token");
 
-      // Alert.alert("storedToken", storedToken);
-      // Alert.alert("endpoint", process.env.EXPO_PUBLIC_API_URL);
-      // fetch automatski postavlja multipart boundary
-      const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}users/${storedToken}`,
-        {
-          method: "PUT",
-          body: formData,
-          headers: {
-            Accept: "application/json",
-            // Ne postavljaj "Content-Type" — fetch sam dodaje multipart boundary
-          },
+      const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
+      const apiUrl = `${baseUrl}/users/${storedToken}`;
+      const response = await fetch(apiUrl, {
+        method: "PUT",
+        body: formData,
+        headers: {
+          Accept: "application/json",
         },
-      );
-
-      setIsMessage(true);
+      });
 
       if (response.ok) {
-        // response.status >= 200 && < 300
+        setIsMessage(true);
         setMessage(localization.SETTINGS.PROFILE.messageConfirm);
       } else {
+        setIsMessage(true);
         setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
-      // Alert.alert("error catch ", error);
       setIsMessage(true);
       setErrorChange(localization.SETTINGS.ERROR.label);
     } finally {
