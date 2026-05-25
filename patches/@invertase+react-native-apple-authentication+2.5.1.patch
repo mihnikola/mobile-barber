@@ -1,0 +1,21 @@
+diff --git a/node_modules/@invertase/react-native-apple-authentication/lib/index.js b/node_modules/@invertase/react-native-apple-authentication/lib/index.js
+index 73cbd95..5893faa 100644
+--- a/node_modules/@invertase/react-native-apple-authentication/lib/index.js
++++ b/node_modules/@invertase/react-native-apple-authentication/lib/index.js
+@@ -20,7 +20,15 @@ import { NativeModules } from 'react-native';
+ import AppleAuthModule from './AppleAuthModule';
+ const { RNAppleAuthModule, RNAppleAuthModuleAndroid } = NativeModules;
+ 
+-export { default as AppleButton } from './AppleButton';
++import { Platform } from 'react-native';
++export const AppleButton = Platform.select({
++  ios: require('./AppleButton.ios.js').default,
++  android: require('./AppleButton.android.js').default,
++  macos: require('./AppleButton.macos.js').default,
++  default: require('./AppleButton.shared.js').default,
++});
++
++//export { default as AppleButton } from './AppleButton';
+ 
+ /**
+  * iOS

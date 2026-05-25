@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
-const APP_VERSION = '1.1.6'
+const APP_VERSION = '1.1.5'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -15,7 +15,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         backgroundColor: "#000000",
     },
     scheme: "myapp",
-    newArchEnabled: true,
     ios: {
         entitlements: {
             "com.apple.developer.applesignin": ["Default", "Default"],
@@ -45,12 +44,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-build-properties",
             {
-                // TODO - remove the android config after Expo upgrade task is completed
-                android: {
-                    targetSdkVersion: 35
-                },
                 ios: {
                     useFrameworks: "static",
+                    podfileProperties: {
+                        "use_modular_headers!": true
+                    },
+                    buildReactNativeFromSource: true
                 },
             },
         ],
