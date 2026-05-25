@@ -49,12 +49,7 @@ const SettingsComponent = () => {
 
     const x = await logoutFirebase();
     saveLastTab(null);
-    // Pozovi funkciju samo ako stvarno postoji
-    if (typeof global.resetTabs === "function") {
-      global.resetTabs();
-    } else {
-      console.warn("global.resetTabs nije definisan u ovom momentu.");
-    }
+   
   };
 
   const redirectToLogin = () => {

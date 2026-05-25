@@ -156,7 +156,9 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
-    } catch (error) {}
+    } catch (error) {
+      console.log("Google SignOut Error:", error);
+    }
   };
 
   const fetchUserData = async () => {
@@ -207,15 +209,16 @@ export const AuthProvider = ({ children }) => {
     try {
       const x = await removeStorage();
 
-      setUserData(null);
-      setIsMessage(false);
-      setIsToken(null);
-      setMessage(null);
-      setStatus(null);
-      setSuccess(null);
-      setIsLogout(false);
-      // router.dismissAll();
+      unstable_batchedUpdates(() => {
+        setUserData(null);
+        setIsMessage(false);
+        setIsToken(null);
+        setMessage(null);
+        setStatus(null);
+        setSuccess(null);
+      });
     } catch (error) {
+      console.log("logoutHandler err",error)
       setError(error);
     }
   };
@@ -228,11 +231,12 @@ export const AuthProvider = ({ children }) => {
         if (isToken) {
           const response = await post("/users/logout", { token: isToken });
           if (response.status === 200) {
-            signOut();
-            logoutHandler();
+            await signOut(); // IMPORTANT
+            await logoutHandler(); // IMPORTANT
           }
         }
       } catch (error) {
+        console.log("logoutFirebase err",error)
         setError(error);
       }
     });
