@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { Alert, ScrollView, StyleSheet } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
@@ -13,16 +13,16 @@ import { useEffect, useState } from "react";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { removeStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "@/context/NavigationContext";
-import {
-  useSafeAreaInsets,
-  SafeAreaView,
-} from "react-native-safe-area-context";
+// import {
+//   useSafeAreaInsets,
+//   SafeAreaView,
+// } from "react-native-safe-area-context";
 import withSafeArea from "../wrapper/WrapperSafeArea";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
 
   const {
     logoutFirebase,
@@ -31,25 +31,40 @@ const SettingsComponent = () => {
     setIsLogout,
     loading,
     isLogout,
-    isLoading,
-    isLoadingLogin,
     getTokenData,
+    setLoading,
     isToken,
     setError,
+    logoutHandler,
   } = useAuth();
 
   useEffect(() => {
     getTokenData();
   }, []);
 
-  const [logoutData, setLogoutData] = useState(false);
-
   const logoutConfirm = async () => {
     setIsLogout(false);
-
-    const x = await logoutFirebase();
+    setLoading("logout");
     saveLastTab(null);
-   
+
+    setTimeout(async () => {
+      try {
+        // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
+        await logoutFirebase();
+
+        console.log("logoutFirebase je završen, sada gasim loader...");
+      } catch (error) {
+        console.log("Greška tokom logout procesa:", error);
+      } finally {
+        // 3. TEK OVDE gasimo loader (unutar finally bloka, što garantuje
+        // da će se izvršiti čak i ako server baci grešku)
+        setLoading(null);
+
+        setTimeout(() => {
+          logoutHandler();
+        }, 100);
+      }
+    }, 1000);
   };
 
   const redirectToLogin = () => {
@@ -61,8 +76,6 @@ const SettingsComponent = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <StatusBar barStyle="dark-content" backgroundColor="black" /> */}
-
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
       ) : (
@@ -86,7 +99,7 @@ const SettingsComponent = () => {
         />
       )}
 
-      {logoutData && (
+      {/* {logoutData && (
         <SharedMessage
           isOpen={logoutData && !isLoading}
           buttonText="Odlogovani ste"
@@ -94,7 +107,7 @@ const SettingsComponent = () => {
           icon={<FontAwesome name="check" size={64} color="white" />}
           onConfirm={() => setLogoutData(false)}
         />
-      )}
+      )} */}
       {/* <SharedLoader isOpen={isLoading || isLoadingLogin} /> */}
       <SharedLoader isOpen={loading === "logout"} />
     </ScrollView>

@@ -16,6 +16,7 @@ import {
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
+import { Alert, unstable_batchedUpdates } from "react-native";
 export const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -155,9 +156,12 @@ export const AuthProvider = ({ children }) => {
   };
   const signOut = async () => {
     try {
-      await GoogleSignin.signOut();
+      // const isSignedIn = await GoogleSignin.isSignedIn();
+      // if (isSignedIn) {
+        await GoogleSignin.signOut();
+      // }
     } catch (error) {
-      console.log("Google SignOut Error:", error);
+      console.log("Greška:", error);
     }
   };
 
@@ -205,41 +209,46 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const logoutHandler = async () => {
+  const logoutHandler = () => {
     try {
-      const x = await removeStorage();
+      console.log("1. Pokrećem logout...");
 
-      unstable_batchedUpdates(() => {
-        setUserData(null);
-        setIsMessage(false);
-        setIsToken(null);
-        setMessage(null);
-        setStatus(null);
-        setSuccess(null);
-      });
+      // KLJUČ: Prvo i jedino menjamo token da navigacija odmah prebaci korisnika na Login
+      setIsToken(null);
+
+      // Sve ostale state-ove čistimo sa malim zakašnjenjem,
+      // tek kada se ekran bezbedno promeni i stari ekran uništi!
+      setTimeout(() => {
+        try {
+          setUserData(null);
+          setIsMessage(false);
+          setMessage(null);
+          setStatus(null);
+          setSuccess(null);
+          console.log("3. Svi podaci iz memorije uspešno očišćeni.");
+        } catch (e) {
+          console.log("Greška unutar setTimeout u logoutHandleru:", e);
+        }
+      }, 150); // 150ms je dovoljno da iOS završi navigacionu animaciju
     } catch (error) {
-      console.log("logoutHandler err",error)
       setError(error);
     }
   };
 
   const logoutFirebase = async () => {
-    withLoading("logout", async () => {
-      // setIsLoadingLogin(true);
-      await removeOtpParamsStorage();
-      try {
-        if (isToken) {
-          const response = await post("/users/logout", { token: isToken });
-          if (response.status === 200) {
-            await signOut(); // IMPORTANT
-            await logoutHandler(); // IMPORTANT
-          }
+    await removeOtpParamsStorage();
+
+    try {
+      if (isToken) {
+        const response = await post("/users/logout", { token: isToken });
+        if (response.status === 200) {
+          await removeStorage();
+          await signOut();
         }
-      } catch (error) {
-        console.log("logoutFirebase err",error)
-        setError(error);
       }
-    });
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const onPressHandler = (data) => {
@@ -416,7 +425,9 @@ export const AuthProvider = ({ children }) => {
         isLogout,
         onAppleButtonPress,
         loading,
+        setLoading,
         redirectValidation,
+        logoutHandler
       }}
     >
       {children}
