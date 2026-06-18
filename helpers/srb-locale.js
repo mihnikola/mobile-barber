@@ -88,6 +88,9 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    pending:"Na čekanju",
+    rejected:"Odbijeno",
+    approved:"Odobreno",
     noLogin: "Samo nekoliko klikova deli vas od vaših rezervacija",
     login: "Molimo vas prijavite se ovde",
     error: "Trenutno nemate nijednu rezervaciju",

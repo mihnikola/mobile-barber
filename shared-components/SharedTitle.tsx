@@ -1,10 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-function SharedTitle({ title }) {
+function SharedTitle({ title, topInset = 0 }) {
+  const topValue = topInset === 1 ? 106 : 143;
   return (
     <View style={styles.captureContainer}>
-      <Text style={styles.capture}>{title}</Text>
+      <Text style={[styles.capture, { paddingVertical: topValue }]}>
+        {title}
+      </Text>
     </View>
   );
 }
@@ -17,7 +20,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: "white",
     fontWeight: "500",
-    paddingVertical: 143,
   },
 });
 export default SharedTitle;

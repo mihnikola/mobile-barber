@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
@@ -9,35 +9,43 @@ import { useAppointment } from "@/context/AppointmentContext";
 
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import AppointmentsStatuses from "./AppointmentsStatuses";
 
 const AppointmentsComponent = () => {
-  const { isLoading, detailsReservation, getReservationsData, reservations } =
-    useAppointment();
+  const {
+    isLoading,
+    detailsReservation,
+    getReservationsData,
+    reservations,
+    active,
+    handleStatus,
+  } = useAppointment();
   const { company } = useCompany();
   const { localization } = useLocalization();
 
-
   useEffect(() => {
     getReservationsData();
-  }, []);
+  }, [active]);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <SharedCoverImage image={company?.media?.coverImageAppointments} />
-      {!isLoading && <SharedTitle title={localization.APPOINTMENTS.title} />}
+
+      <AppointmentsStatuses handleStatus={handleStatus} active={active} />
+
+      <SharedTitle title={localization.APPOINTMENTS.title} topInset={1} />
+
       {isLoading && <Loader />}
 
       {!isLoading && reservations?.length ? (
-        <View style={styles.containerReservationData}>
-          <CardReservation
-            reservations={reservations}
-            redirectScreen={detailsReservation}
-          />
-        </View>
+        <CardReservation
+          reservations={reservations}
+          redirectScreen={detailsReservation}
+        />
       ) : (
         !isLoading && <CardNoReservation />
       )}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -47,24 +55,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-  },
-  coverImage: {
-    width: "100%",
-    height: 200,
-    opacity: 0.2,
-  },
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
-  },
-  capture: {
-    fontSize: 32,
-    color: "white",
-    fontWeight: "500",
-    paddingVertical: 140,
-  },
-
-  containerReservationData: {
-    marginTop: 10,
   },
 });

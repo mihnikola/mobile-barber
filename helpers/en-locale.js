@@ -83,6 +83,9 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
+    pending:"Pending",
+    rejected:"Rejected",
+    approved:"Approved",
     noLogin: "You're just a few clicks away from your appointments.",
     login: "Please login here",
     error: "You don't have any reservations",

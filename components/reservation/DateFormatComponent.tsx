@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
   dateContainerPast: {
     borderWidth: 1,
     borderColor: "gray",
-    borderLeftWidth: 3,
-    borderLeftColor: "green",
+    borderLeftWidth: 1,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -35,8 +34,7 @@ const styles = StyleSheet.create({
   dateContainer: {
     borderWidth: 1,
     borderColor: "white",
-    borderLeftWidth: 3,
-    borderLeftColor: "green",
+    borderLeftWidth: 1,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
