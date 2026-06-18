@@ -56,6 +56,7 @@ export const SRB_LOCALIZATION = {
   SERVICES: {
     title: "Cenovnik & Usluge",
     errorFetch: "Podaci o uslugama trenutno nisu dostupni",
+    notAvailable:"Zakazivanje na ovoj lokaciji trenutno nije dostupno.",
   },
   DATE: {
     title: "Odaberite termin",

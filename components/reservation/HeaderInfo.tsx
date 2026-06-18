@@ -2,28 +2,33 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function HeaderInfo({ image, reservation }) {
+  const insets = useSafeAreaInsets();
+
   return (
     <>
-      <SharedCoverImage image={image} />
-      
+      <SharedCoverImage topInset={insets.top} image={image} />
+
       <View style={styles.coverContent}>
         <Text style={styles.timeData}>
           {reservation && reservation?.timeData?.value} -{" "}
           {reservation &&
             addMinutesToTime(
               reservation?.timeData?.value,
-              reservation?.service?.serviceDuration
+              reservation?.service?.serviceDuration,
             )}
         </Text>
         <Text style={styles.dateData}>
           {convertDate(
             reservation?.dateReservation?.dateString ||
-              reservation?.dateReservation
+              reservation?.dateReservation,
           )}
         </Text>
-        <Text style={styles.dateData}>{reservation?.location.address || reservation?.location[0].address}</Text>
+        <Text style={styles.dateData}>
+          {reservation?.location.address || reservation?.location[0].address}
+        </Text>
       </View>
     </>
   );
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
   coverContent: {
     paddingHorizontal: 30,
     position: "absolute",
-    top: 100,
+    top: 135,
   },
   dateData: {
     fontSize: 20,

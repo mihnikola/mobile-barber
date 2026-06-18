@@ -64,11 +64,12 @@ export const ENG_LOCALIZATION = {
       "2. Cancellations must be made at least 180 minutes before the appointment.",
     success: "Your appointment is successfully booked!",
     pendingTitle: `All set! Your request has been sent.`,
-    pendingSubTitle:"Your barber will reply soon."
+    pendingSubTitle: "Your barber will reply soon.",
   },
   SERVICES: {
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
+    notAvailable: "Appointments cannot currently be scheduled at the selected location.",
   },
   DETAILS: {
     price: "Price",
@@ -85,7 +86,8 @@ export const ENG_LOCALIZATION = {
     noLogin: "You're just a few clicks away from your appointments.",
     login: "Please login here",
     error: "You don't have any reservations",
-    distinctReservation: "This time slot is already booked. Please choose another time.",
+    distinctReservation:
+      "This time slot is already booked. Please choose another time.",
     errorDailyLimit: "You have reached a maximum number of bookings for today",
     errorWeeklyLimit:
       "You have reached a maximum number of bookings for this week",

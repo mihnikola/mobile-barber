@@ -1,11 +1,16 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-function SharedCoverImage({image}) {
+function SharedCoverImage({ image, topInset = 0 }) {
   return (
     <Image
-      source={{uri:image}}
-      style={styles.coverImage}
+      source={{ uri: image }}
+      style={[
+        styles.coverImage,
+        {
+          marginTop: topInset,
+        },
+      ]}
     />
   );
 }

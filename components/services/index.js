@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
-import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
+import { useContext } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
-import { router, useLocalSearchParams, usePathname } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 
 import { useCompany } from "@/context/CompanyContext";
@@ -14,12 +14,8 @@ import SharedTitle from "@/shared-components/SharedTitle";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
-  const { serviceData, isLoading, fetchAllServices } = useFetchServices(reservation);
-  // const pathname = usePathname();
-
+  const { serviceData, isLoading } = useFetchServices(reservation);
   const { backButton } = useLocalSearchParams();
-
-  // console.log("paramts",backButton)
   const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
@@ -34,16 +30,12 @@ const MenuServices = () => {
     const pathName = "/(tabs)/(02_barbers)/employers";
     router.push(pathName);
   };
-
-  // useEffect(() => {
-  //   fetchAllServices();
-  // }, [pathname]);
-
   const { localization } = useLocalization();
- 
+
   const routerBackHandler = () => {
     router.back();
   };
+
   return (
     <ScrollView style={styles.container}>
       {backButton && <SharedBackButton onPress={routerBackHandler} />}
@@ -52,6 +44,13 @@ const MenuServices = () => {
       {!isLoading && <SharedTitle title={localization.SERVICES.title} />}
 
       {serviceData.length === 0 && isLoading && <Loader />}
+      {serviceData.length === 0 && !isLoading && (
+        <View style={{ marginVertical: 30, marginHorizontal: 20 }}>
+          <Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>
+            {localization.SERVICES.notAvailable}
+          </Text>
+        </View>
+      )}
       {serviceData.length > 0 && !isLoading && (
         <View style={styles.contentContainer}>
           {serviceData?.map((item) => (
@@ -72,28 +71,9 @@ export default MenuServices;
 const styles = StyleSheet.create({
   contentContainer: {
     marginTop: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15,
-  },
-  capture: {
-    fontSize: 32,
-    color: "white",
-    fontWeight: "500",
-    paddingVertical: 140,
   },
   container: {
     flex: 1,
-    backgroundColor: "black",
-  },
-  coverImage: {
-    width: "100%",
-    height: 180,
-    opacity: 0.2,
+    backgroundColor: "#000",
   },
 });

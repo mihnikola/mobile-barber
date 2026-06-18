@@ -17,7 +17,7 @@ import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 const { width } = Dimensions.get("window");
 import { useAuth } from "@/context/AuthContext";
@@ -36,6 +36,7 @@ const LoginScreen = () => {
   const { password, handlePasswordChange, passwordInputRef } = usePassword();
   const scrollRef = useRef(null);
   const insets = useSafeAreaInsets();
+  const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
 
@@ -96,7 +97,7 @@ const LoginScreen = () => {
     } else {
       setIsMessage(false);
       setTimeout(() => {
-        redirectValidation();
+        redirectValidation(data);
       }, 500);
     }
   };

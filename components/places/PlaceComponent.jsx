@@ -1,4 +1,4 @@
-import { ScrollView, Image, StyleSheet, View, BackHandler } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
@@ -54,12 +54,6 @@ const PlaceComponent = ({ locationsData }) => {
 export default PlaceComponent;
 
 const styles = StyleSheet.create({
-  coverImage: {
-    width: "100%",
-    height: 200,
-    opacity: 0.2,
-  },
-
   contentContainer: {
     marginTop: 10,
     display: "flex",
@@ -68,21 +62,10 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
 
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
-  },
-  capture: {
-    fontSize: 32,
-    color: "white",
-    fontWeight: "500",
-    paddingVertical: 130,
-  },
-
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "black",
+    backgroundColor: "#000",
   },
   errorContainer: {
     display: "flex",

@@ -80,13 +80,22 @@ export const AuthProvider = ({ children }) => {
     });
   }
 
-  const redirectValidation = async () => {
+  const redirectValidation = async (data) => {
     await getTokenData();
     setIsMessage(false);
-    router.back();
-    router.setParams({
-      reevaluted: true,
-    });
+    if (data === "calendar") {
+      router.back();
+
+      router.setParams({
+        reevaluted: true,
+      });
+      router.push("/(tabs)/(02_barbers)/calendar");
+    } else {
+      router.back();
+      router.setParams({
+        reevaluted: true,
+      });
+    }
   };
 
   const signIn = async () => {
@@ -158,7 +167,7 @@ export const AuthProvider = ({ children }) => {
     try {
       // const isSignedIn = await GoogleSignin.isSignedIn();
       // if (isSignedIn) {
-        await GoogleSignin.signOut();
+      await GoogleSignin.signOut();
       // }
     } catch (error) {
       console.log("Greška:", error);
@@ -427,7 +436,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         setLoading,
         redirectValidation,
-        logoutHandler
+        logoutHandler,
       }}
     >
       {children}

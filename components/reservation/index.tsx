@@ -35,7 +35,7 @@ const Reservation = () => {
     setDescription,
     setDistinctReservation,
     distinctReservation,
-    refreshCalendarReservation
+    refreshCalendarReservation,
   } = useAppointment();
 
   const confirmHandler = () => {
@@ -63,7 +63,10 @@ const Reservation = () => {
             image={company?.media?.coverImageAppointments}
             reservation={reservation}
           />
-          <SharedBackButton onPress={routerBackHandler} />
+          <SharedBackButton
+            onPress={routerBackHandler}
+            styleBtn={{ marginLeft: 8, marginTop: 20 }}
+          />
 
           <View style={styles.containerData}>
             <View>{reservation && <Details data={reservation} />}</View>

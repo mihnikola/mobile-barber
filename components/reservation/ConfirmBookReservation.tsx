@@ -17,7 +17,6 @@ const ConfirmBookReservation = () => {
   const { company } = useCompany();
 
   const params = useLocalSearchParams();
-  console.log("params,", params);
 
   const confirmSubmitReservation = async () => {
     try {

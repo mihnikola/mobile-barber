@@ -311,7 +311,7 @@ export const convertDate = (item) => {
   const result = date.toISOString().split("T")[0];
 
   // Combine everything into the desired format
-  return `${dayOfWeek}  ${formatDatePrettier(result, localization.code)}`;
+  return `${dayOfWeek} ${formatDatePrettier(result, localization.code)}`;
 };
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
