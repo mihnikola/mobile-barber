@@ -88,6 +88,9 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    pending:"Na čekanju",
+    rejected:"Odbijeno",
+    approved:"Odobreno",
     noLogin: "Samo nekoliko klikova deli vas od vaših rezervacija",
     login: "Molimo vas prijavite se ovde",
     error: "Trenutno nemate nijednu rezervaciju",
@@ -107,6 +110,7 @@ export const SRB_LOCALIZATION = {
       yesButton: "Da",
       noButton: "Ne",
       confirmMessage: "Rezervacija je uspešno otkazana",
+      rejectedMessage: "Rezervacija je odbijena",
       errorMessage: "Rezervacija ne postoji",
     },
     rateReservation: {
@@ -125,6 +129,7 @@ export const SRB_LOCALIZATION = {
       descReservation: "Komentar za uslugu",
       descRateReservation: "Opis ocene",
     },
+    
     errorFetch: "Podaci o rezervacijama trenutno nisu dostupni",
     errorFetchId: "Podaci o rezervaciji trenutno nisu dostupni",
     description: "Vaš Opis:",

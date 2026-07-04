@@ -30,6 +30,7 @@ const MenuServices = () => {
     const pathName = "/(tabs)/(02_barbers)/employers";
     router.push(pathName);
   };
+
   const { localization } = useLocalization();
 
   const routerBackHandler = () => {
@@ -45,12 +46,13 @@ const MenuServices = () => {
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length === 0 && !isLoading && (
-        <View style={{ marginVertical: 30, marginHorizontal: 20 }}>
-          <Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>
+        <View style={styles.notAvailableContainer}>
+          <Text style={styles.notAvailable}>
             {localization.SERVICES.notAvailable}
           </Text>
         </View>
       )}
+
       {serviceData.length > 0 && !isLoading && (
         <View style={styles.contentContainer}>
           {serviceData?.map((item) => (
@@ -69,6 +71,15 @@ const MenuServices = () => {
 export default MenuServices;
 
 const styles = StyleSheet.create({
+  notAvailableContainer: {
+    marginVertical: 30,
+    marginHorizontal: 20,
+  },
+  notAvailable: {
+    color: "white",
+    fontSize: 20,
+    textAlign: "center",
+  },
   contentContainer: {
     marginTop: 10,
   },

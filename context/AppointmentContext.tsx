@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
-import { get, post, put } from "@/api/apiService";
+import { get, getData, post, put } from "@/api/apiService";
 import {
   addMinutesToTime,
   convertNameAndDate,
@@ -36,6 +36,11 @@ export const AppointmentProvider = ({ children }) => {
   const { localization } = useLocalization();
   const { reservation } = useContext(ReservationContext);
 
+  const [active, setActive] = useState("pending");
+  const handleStatus = (id) => {
+    setActive(id);
+  };
+
   const { saveLastTab } = useLastPathNavigation();
   const [isModal, setIsModal] = useState(false);
 
@@ -46,6 +51,7 @@ export const AppointmentProvider = ({ children }) => {
         itemId: item._id,
         past: item?.past,
         rating: item?.rating,
+        status: item.status
       },
     });
   };
@@ -150,12 +156,21 @@ export const AppointmentProvider = ({ children }) => {
       }
     });
   };
+
   const getReservationsData = async () => {
     setIsLoading(true);
     setError(null);
-
+    const STATUS_MAP = {
+      pending: 2,
+      rejected: 1,
+      approved: 0,
+    };
+    const numericStatus = STATUS_MAP[active];
+    //ovde mi trebaju statusi pending/rejected/approved
     try {
-      const response = await get("/availabilities");
+      const response = await getData("/availabilities", {
+        activeStatus: numericStatus,
+      });
       if (response.status === 200) {
         setReservations(response.data);
       }
@@ -278,6 +293,8 @@ export const AppointmentProvider = ({ children }) => {
         setDistinctReservation,
         distinctReservation,
         refreshCalendarReservation,
+        handleStatus,
+        active,
       }}
     >
       {children}
