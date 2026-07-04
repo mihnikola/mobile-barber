@@ -37,7 +37,7 @@ function ResevationNotificationScreen() {
     description,
   } = useAppointment();
 
-  const { itemId, past, rating } = useLocalSearchParams();
+  const { itemId, past, rating, status } = useLocalSearchParams();
 
   useEffect(() => {
     fetchReservationDetails(itemId);
@@ -165,6 +165,7 @@ function ResevationNotificationScreen() {
       );
     }
   };
+
   const renderQuestion = () => {
     const titleQuestion = !past
       ? localization.APPOINTMENTS.cancelReservation.cancelQuestion
@@ -207,7 +208,15 @@ function ResevationNotificationScreen() {
       />
     );
   }
-
+  const renderRejectionTitle = () => {
+    return (
+      <View style={styles.missed}>
+        <Text style={styles.textBoldRejected}>
+          {localization.APPOINTMENTS.cancelReservation.rejectedMessage}
+        </Text>
+      </View>
+    );
+  };
   return (
     <View style={{ flex: 1 }}>
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
@@ -226,17 +235,19 @@ function ResevationNotificationScreen() {
               )}
 
               {renderDescription()}
-              {past && (
+
+              {past && status !== "1" && (
                 <View style={styles.card}>
                   {renderStarComponent()}
                   {renderRateDescription()}
                 </View>
               )}
             </View>
+            {status === "1" && renderRejectionTitle()}
           </>
         )}
       </ScrollView>
-      {renderSharedButton()}
+      {status !== "1" && renderSharedButton()}
 
       {isModalQuestion && renderQuestion()}
 
@@ -270,6 +281,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFFFFF",
     marginBottom: 5,
+  },
+  textBoldRejected: {
+    color: "grey",
+    fontSize: 24,
+  },
+  textBoldSuccess: {
+    color: "grey",
+    fontSize: 24,
+    textAlign: "center",
+  },
+  missed: {
+    height: "50%",
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
   },
   descriptionValue: {
     fontSize: 14,

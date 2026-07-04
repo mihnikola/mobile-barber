@@ -65,7 +65,7 @@ const Reservation = () => {
           />
           <SharedBackButton
             onPress={routerBackHandler}
-            styleBtn={{ marginLeft: 8, marginTop: 20 }}
+            styleBtn={{ marginLeft: 8, marginTop: 30 }}
           />
 
           <View style={styles.containerData}>

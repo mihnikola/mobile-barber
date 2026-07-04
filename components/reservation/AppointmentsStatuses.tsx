@@ -1,5 +1,4 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-// Uzimamo tačnu širinu ekrana telefona
 const { width } = Dimensions.get("window");
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
@@ -18,17 +16,18 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
       id: "pending",
       label: localization.APPOINTMENTS.pending,
       color: "#eab308",
-    }, // Žuta/Zlatna
-    {
-      id: "rejected",
-      label: localization.APPOINTMENTS.rejected,
-      color: "#ef4444",
-    }, // Crvena
+    },
+
     {
       id: "approved",
       label: localization.APPOINTMENTS.approved,
       color: "#22c55e",
-    }, // Zelena
+    },
+    {
+      id: "rejected",
+      label: localization.APPOINTMENTS.rejected,
+      color: "#c52222",
+    },
   ];
   return (
     <View style={styles.container}>
@@ -41,7 +40,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
             onPress={() => handleStatus(status.id)}
             style={[
               styles.tab,
-              { borderBottomColor: isActive ? "#fff" : "#000" },
+              { borderColor: isActive ? "#999090" : "#3d3d3d" },
             ]}
           >
             <View style={[styles.dot, { backgroundColor: status.color }]} />
@@ -57,6 +56,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
 
 const styles = StyleSheet.create({
   container: {
+    gap: 2,
     width: width, // Širina celog ekrana
     height: 50, // Fiksna visina zahtevana po specifikaciji
     flexDirection: "row", // Ređa elemente horizontalno u red
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: "#000000", // Dark background from your image
     color: "white",
+    borderColor: '#8a2727',
+    borderBottomColor: "#000"
   },
   dot: {
     width: 12, // Prečnik kružića

@@ -51,6 +51,7 @@ export const AppointmentProvider = ({ children }) => {
         itemId: item._id,
         past: item?.past,
         rating: item?.rating,
+        status: item.status
       },
     });
   };

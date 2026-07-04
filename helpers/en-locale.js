@@ -69,7 +69,8 @@ export const ENG_LOCALIZATION = {
   SERVICES: {
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
-    notAvailable: "Appointments cannot currently be scheduled at the selected location.",
+    notAvailable:
+      "Appointments cannot currently be scheduled at the selected location.",
   },
   DETAILS: {
     price: "Price",
@@ -83,9 +84,9 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
-    pending:"Pending",
-    rejected:"Rejected",
-    approved:"Approved",
+    pending: "Pending",
+    rejected: "Rejected",
+    approved: "Approved",
     noLogin: "You're just a few clicks away from your appointments.",
     login: "Please login here",
     error: "You don't have any reservations",
@@ -109,6 +110,7 @@ export const ENG_LOCALIZATION = {
       noButton: "No",
       confirmMessage: "Reservation is cancelled successfully",
       errorMessage: "Reservation does not exist",
+      rejectedMessage: "Reservation is rejected",
     },
     rateReservation: {
       descReservation: "Instructions",

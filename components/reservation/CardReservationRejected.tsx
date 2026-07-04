@@ -1,27 +1,24 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
-import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
 
-const CardReservationItem = ({ redirectScreen, item }) => {
-  
+const CardReservationRejected = ({ redirectScreen, item }) => {
   return (
     <TouchableOpacity
       style={styles.cardReservation}
       key={item._id}
       onPress={() => redirectScreen(item)}
     >
-      <DateFormatComponent item={item} />
-      {!item?.past && <InfoContainerFuture item={item} />}
-      {item?.past && <InfoContainerPast item={item} />}
+      <DateFormatComponent item={item} rejected={1} />
+      <InfoContainerFuture item={item} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   cardReservation: {
-    backgroundColor: "#1E1E1E", 
+    backgroundColor: "#1E1E1E",
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,
@@ -33,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardReservationItem;
+export default CardReservationRejected;

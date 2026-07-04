@@ -1,6 +1,5 @@
 
 import * as Notifications from "expo-notifications";
-import { saveExpoTokenStorage } from "@/helpers/expoToken";
 import { getToken, getMessaging,onMessage,getInitialNotification, onNotificationOpenedApp } from '@react-native-firebase/messaging';
 
 
@@ -52,6 +51,7 @@ export class NotificationService {
     const unsub = onMessage(getMessaging(),async (remoteMessage) => {
       console.log("📩 Foreground FCM:", remoteMessage);
 
+      
       await Notifications.scheduleNotificationAsync({
         content: {
           title:

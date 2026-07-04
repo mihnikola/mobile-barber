@@ -2,18 +2,18 @@ import { convertToDay, convertToDayTime, convertToMonthName } from "@/helpers";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const DateFormatComponent = ({ item }) => {
+const DateFormatComponent = ({ item, rejected }) => {
   return (
-    <View style={item?.past ? styles.dateContainerPast : styles.dateContainer}>
-      <Text style={item?.past ? styles.captureDatePast : styles.captureDate}>
+    <View style={item?.past && !rejected ? styles.dateContainerPast : styles.dateContainer}>
+      <Text style={item?.past && !rejected  ? styles.captureDatePast : styles.captureDate}>
         {convertToMonthName(item?.startDate)}
       </Text>
       <Text
-        style={item?.past ? styles.captureDateBoldPast : styles.captureDateBold}
+        style={item?.past && !rejected ? styles.captureDateBoldPast : styles.captureDateBold}
       >
         {convertToDay(item?.startDate)}
       </Text>
-      <Text style={item?.past ? styles.captureDatePast : styles.captureDate}>
+      <Text style={item?.past && !rejected ? styles.captureDatePast : styles.captureDate}>
         {convertToDayTime(item?.startDate)}
       </Text>
     </View>

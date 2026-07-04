@@ -1,5 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
+import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -19,7 +20,7 @@ const InfoContainerFuture = ({ item }) => {
             {convertToDayTime(item?.startDate)} -{" "}
             {addMinutesToTime(
               convertToDayTime(item?.startDate),
-              item?.service?.duration
+              item?.service?.duration,
             )}
           </Text>
         </View>
@@ -33,6 +34,20 @@ const InfoContainerFuture = ({ item }) => {
           </Text>
         </View>
       </View>
+      <View>
+        <Text style={styles.rating}>
+          {item.status === 2 && (
+            <FontAwesome name={"clock-o"} size={16} color="#ffd900ff" />
+          )}
+
+          {item.status === 1 && (
+            <FontAwesome name={"window-close"} size={16} color="#c52222" />
+          )}
+          {item.status === 0 && (
+            <FontAwesome name={"check-circle-o"} size={20} color="#22dd1b" />
+          )}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -40,6 +55,9 @@ const InfoContainerFuture = ({ item }) => {
 const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: "row",
+  },
+  rating: {
+    color: "gray",
   },
   columnContainer: {
     flex: 1,
@@ -49,11 +67,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flex: 1,
   },
+
   captureDateContent: {
     fontSize: 18,
     color: "white",
     textAlign: "center",
     fontWeight: "500",
+  },
+  fade: {
+    color: "#707070",
   },
   captureDateLocation: {
     color: "#ffd900ff",
