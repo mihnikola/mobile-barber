@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const { width } = Dimensions.get("window");
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
   const { localization } = useLocalization();
@@ -56,17 +55,10 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 2,
-    width: width, // Širina celog ekrana
-    height: 50, // Fiksna visina zahtevana po specifikaciji
+    gap: 1,
     flexDirection: "row", // Ređa elemente horizontalno u red
     alignItems: "center", // Centrira tekst i kružiće vertikalno unutar 20px
     justifyContent: "space-around",
-    position: "absolute",
-    bottom: 20,
-    top: 142,
-    marginTop: 10,
-    // DODAJ OVE DVE LINIJE:
     zIndex: 9999, // Gura komponentu na sam vrh slojeva (iOS)
     elevation: 5, // Gura komponentu na sam vrh slojeva (Android)
   },
@@ -89,15 +81,15 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000"
   },
   dot: {
-    width: 12, // Prečnik kružića
-    height: 12,
+    width: 9, // Prečnik kružića
+    height: 9,
     borderRadius: 3.5, // Pravi savršen krug
-    marginRight: 6, // Razmak između kružića i teksta
+    marginRight: 3, // Razmak između kružića i teksta
   },
   text: {
     color: "#a3a3a3", // Neutralna svetlo-siva boja teksta za neaktivne elemente
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
     fontWeight: "500", // Srednje podebljan tekst za bolju čitljivost
-    letterSpacing: 0.8, // Blagi razmak između slova za "premium" izgled
+    letterSpacing: 0.2, // Blagi razmak između slova za "premium" izgled
   },
 });

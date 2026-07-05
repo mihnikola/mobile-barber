@@ -17,6 +17,7 @@ import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import { coverImageAppointments } from "@/constants";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
@@ -220,7 +221,7 @@ function ResevationNotificationScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedCoverImage image={coverImageAppointments} />
         <SharedBackButton
           onPress={router.back}
           styleBtn={{ marginBottom: 10 }}

@@ -13,6 +13,7 @@ import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import { coverImageAppointments } from "@/constants";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -62,7 +63,7 @@ const Employers = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedCoverImage image={coverImageAppointments} />
       {!isLoading && <SharedTitle title={localization.BARBERS.title} />}
       {<SharedBackButton onPress={routerBackHandler} />}
 

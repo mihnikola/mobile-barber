@@ -27,6 +27,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { coverImageAppointments } from "@/constants";
 
 const DateComponent = ({reevaluted}) => {
   const [check, setCheck] = useState(false);
@@ -104,7 +105,7 @@ const DateComponent = ({reevaluted}) => {
       <ScrollView style={styles.container}>
         <SharedBackButton onPress={routerBackHandler} />
 
-        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedCoverImage image={coverImageAppointments} />
         <SharedTitle title={localization.DATE.title} />
 
         <View style={styles.calendarContainer}>

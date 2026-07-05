@@ -17,6 +17,7 @@ import { useCompany } from "@/context/CompanyContext";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useAppointment } from "@/context/AppointmentContext";
+import { coverImageAppointments } from "@/constants";
 
 function RateDetailsComponent() {
   const { itemId } = useLocalSearchParams();
@@ -66,7 +67,7 @@ function RateDetailsComponent() {
   if (reservationData) {
     return (
       <ScrollView style={styles.container}>
-        <SharedCoverImage image={company?.media?.coverImageAppointments} />
+        <SharedCoverImage image={coverImageAppointments} />
         <HeaderReservationTime data={reservationData} />
         <View style={styles.containerWrapper}>
           <SharedDetailsReservation data={reservationData} />

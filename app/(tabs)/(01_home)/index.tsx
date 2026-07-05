@@ -22,11 +22,12 @@ import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
+import { coverHomeImage, logoImage } from "@/constants";
 
 function App() {
   const { getTokenData } = useAuth();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const { company, isLoading, getCompany } = useCompany();
+  const { company } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
@@ -44,21 +45,10 @@ function App() {
 
   useEffect(() => {
     if (!isConnected) return;
-    getCompany();
     getTokenData();
     fetchLocations();
 
-    // if (!hasFetchedCompany.current) {
-    //   getCompany();
-    //   getTokenData();
-    //   console.log("xxxxxxxxxxx dje si");
-    //   hasFetchedCompany.current = true;
-    // }
-
-    // if (!hasFetchedLocations.current) {
-    //   fetchLocations();
-    //   hasFetchedLocations.current = true;
-    // }
+  
   }, [isConnected]);
 
   const { localization } = useLocalization();
@@ -121,7 +111,7 @@ function App() {
   if (company) {
     return (
       <View style={styles.container}>
-        <HomeCoverImage image={company?.media?.coverImageHome} />
+        <HomeCoverImage image={coverHomeImage} />
 
         <Animated.View
           style={[
@@ -131,7 +121,7 @@ function App() {
             },
           ]}
         >
-          <HomeImage image={company?.media?.logo} />
+          <HomeImage image={logoImage} />
         </Animated.View>
 
         <Animated.View

@@ -18,6 +18,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { coverSettingsImage } from "@/constants";
 
 const companyInfo = {
   name: "Fucking Ozzy Osbourne",
@@ -36,7 +37,7 @@ const HelpSupportScreen = () => {
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedBackButton onPress={router.back} />
     
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedCoverImage image={coverSettingsImage} />
       <SharedTitle title={localization.SETTINGS.HELP.title} />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>

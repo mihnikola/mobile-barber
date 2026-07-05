@@ -11,6 +11,7 @@ import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import { coverImageAppointments } from "@/constants";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -41,7 +42,7 @@ const MenuServices = () => {
     <ScrollView style={styles.container}>
       {backButton && <SharedBackButton onPress={routerBackHandler} />}
 
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedCoverImage image={coverImageAppointments} />
       {!isLoading && <SharedTitle title={localization.SERVICES.title} />}
 
       {serviceData.length === 0 && isLoading && <Loader />}

@@ -1,3 +1,4 @@
+import { coverImageAppointments } from "@/constants";
 import { useCompany } from "@/context/CompanyContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
@@ -24,7 +25,7 @@ function AppointmentsNonToken() {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedCoverImage image={coverImageAppointments} />
       <SharedTitle title={localization.APPOINTMENTS.title} />
       <View style={styles.card}>
         <Text style={styles.description}>

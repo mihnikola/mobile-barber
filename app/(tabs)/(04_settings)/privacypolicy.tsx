@@ -6,6 +6,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { coverSettingsImage } from "@/constants";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
@@ -22,7 +23,7 @@ const privacypolicy = () => {
         image={company?.media?.coverImageSettings}
         title={localization.SETTINGS.LEGAL.title}
       /> */}
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedCoverImage image={coverSettingsImage} />
       <View style={styles.captureContainer}>
         {localization.code === "en" && (
           <Text style={styles.engCapture}>

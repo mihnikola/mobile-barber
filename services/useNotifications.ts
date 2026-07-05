@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import NotificationService from "./NotificationService";
 import { useRouter, useSegments } from "expo-router";
-// import { useAuth } from "@/context/AuthContext";
 
 export default function useNotifications() {
   const router = useRouter();
   const segments = useSegments();
-  // const { isToken } = useAuth();
 
   const isRouterReady = segments.length > 0;
 
@@ -14,8 +12,10 @@ export default function useNotifications() {
     if (!isRouterReady) return;
 
     const onClick = (data) => {
-      if (!data?.url)
+      if (!data || data.url === null || data.url === undefined) {
         router.push("/(tabs)/");
+        return;
+      }
 
       router.push({
         pathname: "/(reservation_notification)/",

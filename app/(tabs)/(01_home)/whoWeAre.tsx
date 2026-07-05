@@ -13,15 +13,9 @@ import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const AboutUsScreen = () => {
-  const { company, getCompany, isLoading } = useCompany();
+  const { company } = useCompany();
 
-  useEffect(() => {
-    getCompany();
-  }, []);
 
-  if (isLoading) {
-    return <SharedLoader isOpen={isLoading} />;
-  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>

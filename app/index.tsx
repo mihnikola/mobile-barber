@@ -2,8 +2,11 @@ import { Image, View } from "react-native";
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+import { useCompany } from "@/context/CompanyContext";
 
 const SplashScreen = () => {
+  const { getCompany } = useCompany();
+
   const getInitialTokenData = async () => {
     const result = await AsyncStorage.getItem("initialToken");
     setTimeout(() => {
@@ -12,6 +15,8 @@ const SplashScreen = () => {
   };
 
   useEffect(() => {
+    getCompany();
+
     getInitialTokenData();
   }, []);
 

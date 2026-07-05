@@ -10,6 +10,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
+import { coverImageAppointments } from "@/constants";
 
 const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -28,7 +29,7 @@ const PlaceComponent = ({ locationsData }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={company?.media?.coverImageAppointments} />
+      <SharedCoverImage image={coverImageAppointments} />
       {!isLoading && <SharedTitle title={localization.PLACES.title} />}
       {isLoading && <Loader />}
       {!isLoading && (

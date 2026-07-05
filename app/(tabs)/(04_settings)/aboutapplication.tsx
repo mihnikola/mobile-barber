@@ -14,6 +14,7 @@ import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { coverSettingsImage } from "@/constants";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -27,9 +28,7 @@ const aboutapplication = () => {
   return (
     <ScrollView style={styles.container}>
       <SharedBackButton onPress={router.back} />
-      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-
-      <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedCoverImage image={coverSettingsImage} />
       <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>

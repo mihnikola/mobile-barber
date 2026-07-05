@@ -19,6 +19,7 @@ import SharedTitle from "@/shared-components/SharedTitle";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/components/Loader";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { coverSettingsImage } from "@/constants";
 
 const languageSupport = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -59,7 +60,7 @@ const languageSupport = () => {
       <SharedBackButton onPress={router.back} />
 
      
-       <SharedCoverImage image={company?.media?.coverImageSettings} />
+      <SharedCoverImage image={coverSettingsImage} />
       <SharedTitle title={localization.SETTINGS.changeLanguage.capture} />
       <TextInput
         style={styles.search}

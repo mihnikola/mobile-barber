@@ -18,6 +18,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { coverImageAppointments } from "@/constants";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -60,7 +61,7 @@ const Reservation = () => {
           keyboardShouldPersistTaps="handled"
         >
           <HeaderInfo
-            image={company?.media?.coverImageAppointments}
+            image={coverImageAppointments}
             reservation={reservation}
           />
           <SharedBackButton

@@ -8,6 +8,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useCompany } from "@/context/CompanyContext";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
+import { coverImageAppointments, logoImage } from "@/constants";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -31,8 +32,8 @@ const ConfirmBookReservation = () => {
     return (
       <ScrollView style={styles.container}>
         <BookSuccess
-          image={company?.media?.coverImageAppointments}
-          logo={company?.media?.logo}
+          image={coverImageAppointments}
+          logo={logoImage}
           reservation={reservation}
         />
         <View style={styles.infoContainer}>
