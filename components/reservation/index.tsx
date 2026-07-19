@@ -66,7 +66,7 @@ const Reservation = () => {
           />
           <SharedBackButton
             onPress={routerBackHandler}
-            styleBtn={{ marginLeft: 8, marginTop: 30 }}
+            styleBtn={{ marginTop: 35 }}
           />
 
           <View style={styles.containerData}>
@@ -120,11 +120,10 @@ const styles = StyleSheet.create({
 
   btn: {
     display: "flex",
-    paddingHorizontal: 25,
+    paddingHorizontal: 15,
   },
   containerData: {
     display: "flex",
-    paddingHorizontal: 10,
     marginTop: 10,
   },
 });

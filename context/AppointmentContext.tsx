@@ -51,7 +51,7 @@ export const AppointmentProvider = ({ children }) => {
         itemId: item._id,
         past: item?.past,
         rating: item?.rating,
-        status: item.status
+        status: item.status,
       },
     });
   };
@@ -157,7 +157,7 @@ export const AppointmentProvider = ({ children }) => {
     });
   };
 
-  const getReservationsData = async () => {
+  const getReservationsData = async (status = null) => {
     setIsLoading(true);
     setError(null);
     const STATUS_MAP = {
@@ -169,7 +169,7 @@ export const AppointmentProvider = ({ children }) => {
     //ovde mi trebaju statusi pending/rejected/approved
     try {
       const response = await getData("/availabilities", {
-        activeStatus: numericStatus,
+        activeStatus: status || numericStatus,
       });
       if (response.status === 200) {
         setReservations(response.data);
@@ -204,11 +204,19 @@ export const AppointmentProvider = ({ children }) => {
         location,
       });
 
+
       if (response.status === 209) {
         setDistinctReservation(localization.APPOINTMENTS.distinctReservation);
       }
       if (response.status === 201) {
-        await getReservationsData();
+        const statusValue = response.data.status;
+        const STATUS_DATA = {
+          2: "pending",
+          1: "rejected",
+          0: "approved",
+        };
+        setActive(STATUS_DATA[statusValue]);
+        await getReservationsData(statusValue);
         setResponseData(response);
         router.dismissAll();
         saveLastTab(null);
@@ -239,6 +247,7 @@ export const AppointmentProvider = ({ children }) => {
         setError(localization.APPOINTMENTS.errorYearlyLimit);
       }
     } catch (err) {
+      console.log("setError", err);
       setIsError(true);
       setError(localization.APPOINTMENTS.postError);
     } finally {

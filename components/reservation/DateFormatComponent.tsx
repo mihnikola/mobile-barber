@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderLeftWidth: 1,
+    borderRadius: 20,
+
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -39,6 +41,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+    borderRadius: 20,
+
   },
   captureDate: {
     fontSize: 18,

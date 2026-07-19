@@ -2,6 +2,7 @@ import ReservationInitialComponent from "@/components/reservation/reservationIni
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 
 const Explore = () => {
+  
   return <ReservationInitialComponent />;
 };
 export default withSafeArea(Explore);

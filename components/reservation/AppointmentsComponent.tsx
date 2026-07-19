@@ -1,10 +1,9 @@
-import { View, ScrollView, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
 import Loader from "@/components/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import { useAppointment } from "@/context/AppointmentContext";
 
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
@@ -21,7 +20,6 @@ const AppointmentsComponent = () => {
     active,
     handleStatus,
   } = useAppointment();
-  const { company } = useCompany();
   const { localization } = useLocalization();
 
   useEffect(() => {

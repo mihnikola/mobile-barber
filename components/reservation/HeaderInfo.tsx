@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   coverContent: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     position: "absolute",
     top: 135,
   },
