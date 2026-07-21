@@ -1,29 +1,19 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import { useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  Platform,
-  StatusBar,
-} from "react-native";
-import { useCompany } from "@/context/CompanyContext";
+import { View, Text, ScrollView, StyleSheet, Platform } from "react-native";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
+import * as Application from "expo-application";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
-  const appVersion = "1.0.2";
-  const developerName = "FusionTech Agency";
+  const developerName = "Munja Trans";
+  const appVersion = Application.nativeApplicationVersion;
 
   const { localization } = useLocalization();
-
-  const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>

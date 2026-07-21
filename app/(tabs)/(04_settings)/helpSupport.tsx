@@ -1,5 +1,5 @@
 // HelpSupportScreen.js
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,12 +7,9 @@ import {
   TouchableOpacity,
   Linking,
   ScrollView,
-  Image,
-  StatusBar,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
@@ -21,8 +18,8 @@ import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 
 const companyInfo = {
-  name: "Fucking Ozzy Osbourne",
-  email: "support@osbourne.com",
+  name: "MUNJA TRANS",
+  email: "support@munjatrans.com",
 };
 
 const HelpSupportScreen = () => {
@@ -30,13 +27,11 @@ const HelpSupportScreen = () => {
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${companyInfo.email}`);
   };
-  const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>
-      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
       <SharedBackButton onPress={router.back} />
-    
+
       <SharedCoverImage image={coverSettingsImage} />
       <SharedTitle title={localization.SETTINGS.HELP.title} />
       <View style={styles.sectionContainer}>
@@ -132,3 +127,4 @@ const styles = StyleSheet.create({
 });
 
 export default withSafeArea(HelpSupportScreen);
+// export default HelpSupportScreen;
