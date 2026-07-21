@@ -1,7 +1,9 @@
 // GlobalErrorContext.jsx
-import { registerErrorHandler } from "@/helpers/error-handler";
+import { registerGlobalHandler } from "@/helpers/error-handler";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLocalization } from "./LocalizationContext";
+import { router } from "expo-router";
 
 const GlobalErrorContext = createContext();
 
@@ -9,23 +11,30 @@ export const useGlobalError = () => useContext(GlobalErrorContext);
 
 export const GlobalErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
-  const {localization} = useLocalization();
-  const showError = (title) => {
-
-    setError({ title: localization.Authorization.error });
-  };
+  const { localization } = useLocalization();
 
   const hideError = () => {
+    router.replace("/(tabs)/(01_home)/");
     setError(null);
   };
 
   // Register the showError function when the provider mounts
   useEffect(() => {
-    registerErrorHandler(showError);
+    registerGlobalHandler((data) => {
+      switch (data.type) {
+        case "ACCOUNT_DELETED":
+          setError({ title: localization.DETERMINATION.error });
+          break;
+
+        case "UNAUTHORIZED_TOKEN":
+          setError({ title: localization.AUTHORIZATION.error });
+          break;
+      }
+    });
   }, []);
 
   return (
-    <GlobalErrorContext.Provider value={{ error, showError, hideError }}>
+    <GlobalErrorContext.Provider value={{ error, hideError }}>
       {children}
     </GlobalErrorContext.Provider>
   );

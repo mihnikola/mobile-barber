@@ -5,8 +5,11 @@ export const SRB_LOCALIZATION = {
     APPOINTMENTS: "Rezervacije",
     SETTINGS: "Podešavanja",
   },
-  Authorization: {
+  AUTHORIZATION: {
     error: "Ulogovani ste na drugom uredjaju",
+  },
+  DETERMINATION: {
+    error: "Pristup vašem nalogu je onemogućen.",
   },
   GOOGLE_BTN: {
     label: "Prijava putem Google naloga",
@@ -56,7 +59,7 @@ export const SRB_LOCALIZATION = {
   SERVICES: {
     title: "Cenovnik & Usluge",
     errorFetch: "Podaci o uslugama trenutno nisu dostupni",
-    notAvailable:"Zakazivanje na ovoj lokaciji trenutno nije dostupno.",
+    notAvailable: "Zakazivanje na ovoj lokaciji trenutno nije dostupno.",
   },
   DATE: {
     title: "Odaberite termin",
@@ -88,9 +91,9 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
-    pending:"Na čekanju",
-    rejected:"Odbijeno",
-    approved:"Odobreno",
+    pending: "Na čekanju",
+    rejected: "Odbijeno",
+    approved: "Odobreno",
     noLogin: "Samo nekoliko klikova deli vas od vaših rezervacija",
     login: "Molimo vas prijavite se ovde",
     error: "Trenutno nemate nijednu rezervaciju",
@@ -129,7 +132,7 @@ export const SRB_LOCALIZATION = {
       descReservation: "Komentar za uslugu",
       descRateReservation: "Opis ocene",
     },
-    
+
     errorFetch: "Podaci o rezervacijama trenutno nisu dostupni",
     errorFetchId: "Podaci o rezervaciji trenutno nisu dostupni",
     description: "Vaš Opis:",

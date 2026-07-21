@@ -12,6 +12,7 @@ export default function useNotifications() {
     if (!isRouterReady) return;
 
     const onClick = (data) => {
+      console.log("data", data);
       if (!data || data.url === null || data.url === undefined) {
         router.push("/(tabs)/");
         return;
@@ -21,6 +22,7 @@ export default function useNotifications() {
         pathname: "/(reservation_notification)/",
         params: {
           itemId: data.url,
+          notification: 1,
         },
       });
     };

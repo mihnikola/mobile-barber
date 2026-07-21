@@ -38,10 +38,10 @@ function ResevationNotificationScreen() {
     description,
   } = useAppointment();
 
-  const { itemId, past, rating, status } = useLocalSearchParams();
+  const { itemId, past, rating, status, notification } = useLocalSearchParams();
 
   useEffect(() => {
-    fetchReservationDetails(itemId);
+    fetchReservationDetails(itemId,notification);
   }, [itemId]);
 
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
@@ -155,7 +155,7 @@ function ResevationNotificationScreen() {
       ? localization.APPOINTMENTS.rateReservation.rateUs
       : localization.APPOINTMENTS.cancelReservation.cancelButton;
 
-    if (!reservationData?.rating) {
+    if (!reservationData?.rating && Number(reservationData?.status) !== 1) {
       return (
         <View style={styles.btnSubmitContainer}>
           <SharedButtonDateReservation
@@ -237,18 +237,18 @@ function ResevationNotificationScreen() {
 
               {renderDescription()}
 
-              {past && status !== "1" && (
+              {past && (status !== "1" || Number(reservationData?.status) !== 1) && (
                 <View style={styles.card}>
                   {renderStarComponent()}
                   {renderRateDescription()}
                 </View>
               )}
             </View>
-            {status === "1" && renderRejectionTitle()}
+            {(status === "1" || Number(reservationData?.status) === 1) && renderRejectionTitle()}
           </>
         )}
       </ScrollView>
-      {status !== "1" && renderSharedButton()}
+      {(status !== "1" || Number(reservationData?.status) !== 1) && renderSharedButton()}
 
       {isModalQuestion && renderQuestion()}
 

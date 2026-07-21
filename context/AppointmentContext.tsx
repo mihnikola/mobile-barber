@@ -124,7 +124,10 @@ export const AppointmentProvider = ({ children }) => {
     });
   };
 
-  const fetchReservationDetails = async (reservationId) => {
+  const fetchReservationDetails = async (
+    reservationId,
+    notification = null,
+  ) => {
     withLoading("fetchById", async () => {
       setError(null);
       setDescription(null);
@@ -148,6 +151,17 @@ export const AppointmentProvider = ({ children }) => {
           const eventDate = convertNameAndDate(data?.startDate);
           const result = { ...data, startDateTime, finishedTime, eventDate };
           setReservationData(result);
+
+          if (notification === "1") {
+            const STATUS_DATA = {
+              2: "pending",
+              1: "rejected",
+              0: "approved",
+            };
+            const statusValue = STATUS_DATA[data?.status];
+            setActive(statusValue);
+            await getReservationsData(statusValue);
+          }
         }
       } catch (err) {
         setError(localization.APPOINTMENTS.errorFetchId);
@@ -165,12 +179,15 @@ export const AppointmentProvider = ({ children }) => {
       rejected: 1,
       approved: 0,
     };
+
     const numericStatus = STATUS_MAP[active];
+
     //ovde mi trebaju statusi pending/rejected/approved
     try {
       const response = await getData("/availabilities", {
         activeStatus: status || numericStatus,
       });
+
       if (response.status === 200) {
         setReservations(response.data);
       }
@@ -180,6 +197,7 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
+
   const submitReservation = async (tokenData) => {
     setIsLoading(true);
     setError(null);
@@ -203,7 +221,6 @@ export const AppointmentProvider = ({ children }) => {
         description,
         location,
       });
-
 
       if (response.status === 209) {
         setDistinctReservation(localization.APPOINTMENTS.distinctReservation);
