@@ -148,6 +148,9 @@ export const AuthProvider = ({ children }) => {
         fcmToken,
       });
       setIsMessage(true);
+      if (responseData.status === 208) {
+        setError(localization.DETERMINATION.error);
+      }
 
       if (responseData.status === 200) {
         saveStorage(responseData.token);
@@ -337,6 +340,9 @@ export const AuthProvider = ({ children }) => {
           expoToken,
         });
         setIsMessage(true);
+        if (responseData.status === 208) {
+          setError(localization.DETERMINATION.error);
+        }
         if (responseData.status === 202) {
           setError(localization.LOGIN.errorFields);
         }
@@ -388,6 +394,10 @@ export const AuthProvider = ({ children }) => {
         expoToken,
       });
       setIsMessage(true);
+      if (responseData.status === 208) {
+        await GoogleSignin.signOut();
+        setError(localization.DETERMINATION.error);
+      }
 
       if (responseData.status === 200 || responseData.status === 300) {
         saveStorage(responseData.token);
