@@ -3,7 +3,6 @@ import {
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
@@ -11,14 +10,13 @@ import Details from "@/shared-components/Details";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
-import HeaderInfo from "./HeaderInfo";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -49,10 +47,6 @@ const Reservation = () => {
     await refreshCalendarReservation();
   };
 
-  const routerBackHandler = () => {
-    router.back();
-  };
-
   if (reservation) {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
@@ -60,13 +54,10 @@ const Reservation = () => {
           style={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          <HeaderInfo
+          <HeaderCoverImageContainer
+            title={localization.DATE.title}
             image={coverImageAppointments}
             reservation={reservation}
-          />
-          <SharedBackButton
-            onPress={routerBackHandler}
-            styleBtn={{ marginTop: 35 }}
           />
 
           <View style={styles.containerData}>
@@ -119,11 +110,9 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    display: "flex",
     paddingHorizontal: 15,
   },
   containerData: {
-    display: "flex",
     marginTop: 10,
   },
 });

@@ -1,43 +1,23 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
-import { useCompany } from "@/context/CompanyContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import { router } from "expo-router";
-import SharedBackButton from "@/shared-components/SharedBackButton";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
 
   const { localization } = useLocalization();
-  const { company } = useCompany();
 
   return (
     <ScrollView style={styles.container}>
-      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-      <SharedBackButton onPress={router.back} />
-
-      {/* <SharedTabHeader
-        image={company?.media?.coverImageSettings}
+      <HeaderCoverImageContainer
         title={localization.SETTINGS.LEGAL.title}
-      /> */}
-      <SharedCoverImage image={coverSettingsImage} />
-      <View style={styles.captureContainer}>
-        {localization.code === "en" && (
-          <Text style={styles.engCapture}>
-            {localization.SETTINGS.LEGAL.title}
-          </Text>
-        )}
-        {localization.code === "sr" && (
-          <Text style={styles.srbCapture}>
-            {localization.SETTINGS.LEGAL.title}
-          </Text>
-        )}
-      </View>
+        image={coverSettingsImage}
+      />
+
       <View style={styles.sectionContainer}>
-         <Text style={styles.paragraph}>
+        <Text style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.paragraph}
         </Text>
         <Text style={styles.paragraphTitle}>
@@ -66,10 +46,9 @@ const styles = StyleSheet.create({
   },
 
   sectionContainer: {
-    padding: 10,
+    padding: 20,
   },
   captureContainer: {
-    position: "absolute",
     marginHorizontal: 15,
   },
   headerImage: {
@@ -97,7 +76,7 @@ const styles = StyleSheet.create({
   paragraphTitle: {
     fontSize: 25,
     color: "white",
-    padding:10,
+    padding: 10,
   },
 
   paragraph: {

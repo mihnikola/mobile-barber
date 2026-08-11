@@ -1,4 +1,4 @@
-import { StyleSheet, Image, useWindowDimensions } from "react-native";
+import { StyleSheet, Image, useWindowDimensions, ImageBackground } from "react-native";
 import React from "react";
 
 type HomeCoverImageProps = {
@@ -8,7 +8,7 @@ type HomeCoverImageProps = {
 const HomeCoverImage: React.FC<HomeCoverImageProps> = ({ image }) => {
   const { height, width } = useWindowDimensions();
   return (
-    <Image 
+    <ImageBackground 
       source={{ uri: image }} 
       style={[styles.backImage, { width, height }]} 
     />
@@ -17,11 +17,7 @@ const HomeCoverImage: React.FC<HomeCoverImageProps> = ({ image }) => {
 
 const styles = StyleSheet.create({
   backImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+   
     opacity: 0.4,
   },
 });

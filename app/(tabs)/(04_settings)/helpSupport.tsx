@@ -10,12 +10,9 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
-import { router } from "expo-router";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const companyInfo = {
   name: "MUNJA TRANS",
@@ -30,10 +27,10 @@ const HelpSupportScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedBackButton onPress={router.back} />
-
-      <SharedCoverImage image={coverSettingsImage} />
-      <SharedTitle title={localization.SETTINGS.HELP.title} />
+      <HeaderCoverImageContainer
+        title={localization.SETTINGS.HELP.title}
+        image={coverSettingsImage}
+      />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>
@@ -63,10 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000000ff",
   },
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
-  },
+
   sectionContainer: {
     padding: 20,
   },
@@ -90,11 +84,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#333333",
     marginBottom: 20,
   },
-  headerImage: {
-    width: "100%",
-    height: 180,
-    opacity: 0.2,
-  },
+ 
   infoLabel: {
     fontSize: 16,
     color: "#B0B0B0",

@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
-  
+
   useEffect(() => {
     if (selectedImageUri) {
       handlePickImage(selectedImageUri);
@@ -68,13 +68,12 @@ const styles = StyleSheet.create({
   },
   button: {
     position: "absolute",
-    right:0,
-    bottom: 10
+    right: 0,
+    bottom: 10,
   },
   buttonPlaceholder: {
     position: "absolute",
-    right:20,
-    bottom: 30
-
+    right: 20,
+    bottom: 30,
   },
 });

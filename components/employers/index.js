@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
@@ -14,6 +14,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -26,6 +27,7 @@ const Employers = () => {
       router.push({ pathname: pathName, params: { reevaluted } });
     }
   }, [reevaluted]);
+  const { localization } = useLocalization();
 
   const { company } = useCompany();
 
@@ -56,16 +58,9 @@ const Employers = () => {
     getStorageToken();
   };
 
-  const { localization } = useLocalization();
-
-  const routerBackHandler = () => {
-    router.back();
-  };
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={coverImageAppointments} />
-      {!isLoading && <SharedTitle title={localization.BARBERS.title} />}
-      {<SharedBackButton onPress={routerBackHandler} />}
+      <HeaderCoverImageContainer title={localization.BARBERS.title} image={coverImageAppointments}  />
 
       {isLoading && <Loader />}
       {!isLoading && (
@@ -95,10 +90,23 @@ const Employers = () => {
 export default Employers;
 
 const styles = StyleSheet.create({
-  coverImage: {
+  heroHeader: {
     width: "100%",
-    height: 200,
-    opacity: 0.2,
+    justifyContent: "flex-end", // Gura tekst na dno slike
+    backgroundColor: "#1a1a1a", // Rezervna tamna pozadina dok se slika učitava
+  },
+  backgroundImage: {
+    opacity: 0.5,
+  },
+  titleWrapper: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingBottom: 20, // Razmak od donje ivice
+  },
+  capture: {
+    fontSize: 28,
+    color: "#FFFFFF", // Obavezno definisati belu boju
+    fontWeight: "bold",
   },
 
   contentContainer: {
@@ -109,10 +117,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
 
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15,
-  },
+ 
   capture: {
     fontSize: 32,
     color: "white",

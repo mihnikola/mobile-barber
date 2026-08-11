@@ -7,6 +7,7 @@ import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const aboutapplication = () => {
   const appName = "Barber Demo";
@@ -17,9 +18,14 @@ const aboutapplication = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedBackButton onPress={router.back} />
+      {/* <SharedBackButton onPress={router.back} />
       <SharedCoverImage image={coverSettingsImage} />
-      <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} />
+      <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} /> */}
+
+        <HeaderCoverImageContainer
+        title={localization.SETTINGS.ABOUTAPP.title}
+        image={coverSettingsImage}
+      />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>
@@ -58,10 +64,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     padding: 20,
   },
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15, // Side padding for the list
-  },
+
   capture: {
     fontSize: 25,
     color: "white",

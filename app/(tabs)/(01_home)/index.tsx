@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  ImageBackground,
+  useWindowDimensions,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
@@ -22,7 +24,7 @@ import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
-import { coverHomeImage, logoImage } from "@/constants";
+import { logoImage } from "@/constants";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -32,6 +34,7 @@ function App() {
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
   const navigation = useNavigation();
+  const { height, width } = useWindowDimensions();
 
   // 🔒 Guards to prevent re-fetch on reset remount
   // const hasFetchedCompany = useRef(false);
@@ -47,8 +50,6 @@ function App() {
     if (!isConnected) return;
     getTokenData();
     fetchLocations();
-
-  
   }, [isConnected]);
 
   const { localization } = useLocalization();
@@ -111,76 +112,80 @@ function App() {
   if (company) {
     return (
       <View style={styles.container}>
-        <HomeCoverImage image={coverHomeImage} />
-
-        <Animated.View
-          style={[
-            styles.box,
-            {
-              transform: [{ translateY: slideAnim }],
-            },
-          ]}
+        {/* <HomeCoverImage image={coverHomeImage} /> */}
+        <ImageBackground
+          source={require("../../../assets/images/homeImage.png")}
+          style={[styles.backImage, { width, height }]}
         >
-          <HomeImage image={logoImage} />
-        </Animated.View>
-
-        <Animated.View
-          style={[
-            styles.boxBook,
-            {
-              transform: [{ translateY: slideAnimBook }],
-            },
-          ]}
-        >
-          <TouchableOpacity
-            onPress={nextPage}
-            style={styles.btnLocationContent}
+          <Animated.View
+            style={[
+              styles.box,
+              {
+                transform: [{ translateY: slideAnim }],
+              },
+            ]}
           >
-            <FontAwesome name="calendar" size={28} color="white" />
+            <HomeImage image={logoImage} />
+          </Animated.View>
 
-            <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>
-                {localization.HOME.bookingBtn}
-              </Text>
-              <Text style={styles.address}>
-                {localization.HOME.bookingBtnDesc}
-              </Text>
-            </View>
-
-            <FontAwesome name="chevron-right" size={28} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={onAboutUs}
-            style={styles.btnLocationContent}
+          <Animated.View
+            style={[
+              styles.boxBook,
+              {
+                transform: [{ translateY: slideAnimBook }],
+              },
+            ]}
           >
-            <FontAwesome name="home" size={28} color="white" />
-            <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>
-                {localization.HOME.aboutUsBtn}
-              </Text>
-              <Text style={styles.address}>
-                {localization.HOME.aboutUsBtnDesc}
-              </Text>
-            </View>
-            <FontAwesome name="chevron-right" size={28} color="white" />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={nextPage}
+              style={styles.btnLocationContent}
+            >
+              <FontAwesome name="calendar" size={28} color="white" />
 
-          <TouchableOpacity
-            onPress={openLocationHandler}
-            style={styles.btnLocationContent}
-          >
-            <FontAwesome name="location-arrow" size={28} color="white" />
-            <View style={styles.locationContent}>
-              <Text style={styles.titleLocation}>
-                {localization.HOME.locationBtn}
-              </Text>
-              <Text style={styles.address}>
-                {localization.HOME.locationBtnDesc}
-              </Text>
-            </View>
-            <FontAwesome name="chevron-right" size={28} color="white" />
-          </TouchableOpacity>
-        </Animated.View>
+              <View style={styles.locationContent}>
+                <Text style={styles.titleLocation}>
+                  {localization.HOME.bookingBtn}
+                </Text>
+                <Text style={styles.address}>
+                  {localization.HOME.bookingBtnDesc}
+                </Text>
+              </View>
+
+              <FontAwesome name="chevron-right" size={28} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={onAboutUs}
+              style={styles.btnLocationContent}
+            >
+              <FontAwesome name="home" size={28} color="white" />
+              <View style={styles.locationContent}>
+                <Text style={styles.titleLocation}>
+                  {localization.HOME.aboutUsBtn}
+                </Text>
+                <Text style={styles.address}>
+                  {localization.HOME.aboutUsBtnDesc}
+                </Text>
+              </View>
+              <FontAwesome name="chevron-right" size={28} color="white" />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={openLocationHandler}
+              style={styles.btnLocationContent}
+            >
+              <FontAwesome name="location-arrow" size={28} color="white" />
+              <View style={styles.locationContent}>
+                <Text style={styles.titleLocation}>
+                  {localization.HOME.locationBtn}
+                </Text>
+                <Text style={styles.address}>
+                  {localization.HOME.locationBtnDesc}
+                </Text>
+              </View>
+              <FontAwesome name="chevron-right" size={28} color="white" />
+            </TouchableOpacity>
+          </Animated.View>
+        </ImageBackground>
       </View>
     );
   }
@@ -191,6 +196,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     marginTop: Platform.OS === "ios" ? 20 : 90,
+  },
+  backImage: {
+    // opacity: 0.8,
   },
   boxBook: {
     marginTop: Platform.OS === "ios" ? 20 : 80,

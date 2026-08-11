@@ -1,6 +1,7 @@
 import { coverImageAppointments } from "@/constants";
 import { useCompany } from "@/context/CompanyContext";
 import { useLocalization } from "@/context/LocalizationContext";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import SharedTitle from "@/shared-components/SharedTitle";
@@ -25,8 +26,12 @@ function AppointmentsNonToken() {
   };
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={coverImageAppointments} />
-      <SharedTitle title={localization.APPOINTMENTS.title} />
+      {/* <SharedCoverImage image={coverImageAppointments} /> */}
+      {/* <SharedTitle title={localization.APPOINTMENTS.title} /> */}
+      <HeaderCoverImageContainer
+        title={localization.APPOINTMENTS.title}
+        image={coverImageAppointments}
+      />
       <View style={styles.card}>
         <Text style={styles.description}>
           {localization.APPOINTMENTS.noLogin}

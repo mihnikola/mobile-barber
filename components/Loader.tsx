@@ -1,8 +1,10 @@
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 
 const Loader = () => {
+  const { height } = useWindowDimensions();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { minHeight: height * 0.5 }]}>
       <ActivityIndicator size="large" color="#b9b9b9ff" />
     </View>
   );
@@ -11,10 +13,10 @@ const Loader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black"
+    width: "100%",
+    justifyContent: "center",  // Centriranje po vertikali
+    alignItems: "center",      // Centriranje po horizontali
+    backgroundColor: "#000",
   },
 });
 

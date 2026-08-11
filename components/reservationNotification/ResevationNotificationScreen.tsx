@@ -1,15 +1,13 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import { useCompany } from "@/context/CompanyContext";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
-import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import StarRating from "@/components/reservation/StarRateComponent";
 import SharedInputTextAreaMark from "@/shared-components/SharedInputTextAreaMark";
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
@@ -18,10 +16,12 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+
+const { height: windowHeight } = Dimensions.get("window");
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
-  const { company } = useCompany();
   const {
     reservationData,
     fetchReservationDetails,
@@ -39,9 +39,8 @@ function ResevationNotificationScreen() {
   } = useAppointment();
 
   const { itemId, past, rating, status, notification } = useLocalSearchParams();
-
   useEffect(() => {
-    fetchReservationDetails(itemId,notification);
+    fetchReservationDetails(itemId, notification);
   }, [itemId]);
 
   const [userFeedbackRating, setUserFeedbackRating] = useState(5);
@@ -221,34 +220,33 @@ function ResevationNotificationScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-        <SharedCoverImage image={coverImageAppointments} />
-        <SharedBackButton
-          onPress={router.back}
-          styleBtn={{ marginBottom: 10 }}
+        <HeaderCoverImageContainer
+          image={coverImageAppointments}
+          reservationData={reservationData}
         />
 
         {reservationData && (
           <>
-            <HeaderReservationTime data={reservationData} />
             <View style={styles.containerCancel}>
               {reservationData && (
                 <SharedDetailsReservation data={reservationData} />
               )}
-
               {renderDescription()}
-
-              {past && (status !== "1" || Number(reservationData?.status) !== 1) && (
-                <View style={styles.card}>
-                  {renderStarComponent()}
-                  {renderRateDescription()}
-                </View>
-              )}
+              {past &&
+                (status !== "1" || Number(reservationData?.status) !== 1) && (
+                  <View style={styles.card}>
+                    {renderStarComponent()}
+                    {renderRateDescription()}
+                  </View>
+                )}
             </View>
-            {(status === "1" || Number(reservationData?.status) === 1) && renderRejectionTitle()}
+            {(status === "1" || Number(reservationData?.status) === 1) &&
+              renderRejectionTitle()}
           </>
         )}
       </ScrollView>
-      {(status !== "1" || Number(reservationData?.status) !== 1) && renderSharedButton()}
+      {(status !== "1" || Number(reservationData?.status) !== 1) &&
+        renderSharedButton()}
 
       {isModalQuestion && renderQuestion()}
 
@@ -285,7 +283,9 @@ const styles = StyleSheet.create({
   },
   textBoldRejected: {
     color: "grey",
-    fontSize: 24,
+    fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
+    textAlign: "center",
+    fontWeight: "bold",
   },
   textBoldSuccess: {
     color: "grey",
@@ -293,10 +293,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   missed: {
-    height: "50%",
-    alignSelf: "stretch",
+    minHeight: windowHeight * 0.4, // Zauzima 40% visine ekrana
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 20,
   },
   descriptionValue: {
     fontSize: 14,

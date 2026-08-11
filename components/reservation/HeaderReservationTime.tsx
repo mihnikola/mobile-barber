@@ -1,42 +1,51 @@
 import { convertDateDetails } from "@/helpers";
-import { StyleSheet, Text, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
-  if (data) {
-    return (
-      <View style={styles.coverContent}>
+  if (!data) return null;
+
+  return (
+    <View style={styles.coverContent}>
+      <View>
+        <TouchableOpacity hitSlop={20} onPress={router.back}>
+          <MaterialIcons name="arrow-back" size={25} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View>
         <Text style={styles.timeData}>
           {data?.startDateTime} - {data?.finishedTime}
         </Text>
         <Text style={styles.dateData}>
-          {/* {convertDateDetails(data?.eventDate)} */}
           {convertDateDetails(data?.startDate)}
         </Text>
-        <Text style={styles.locationData}>{data?.place}</Text>
+        <Text style={styles.dateData}>{data?.place}</Text>
       </View>
-    );
-  }
+    </View>
+  );
 };
+
 const styles = StyleSheet.create({
-  locationData: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "700",
-  },
-  dateData: {
-    fontSize: 25,
-    color: "#fff",
-    fontWeight: "700",
+  coverContent: {
+    justifyContent: "space-between",
+    height: "100%",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   timeData: {
     fontSize: 20,
     color: "#fff",
     fontWeight: "bold",
   },
-  coverContent: {
-    paddingHorizontal: 20,
-    position: "absolute",
-    top: 100,
+  dateData: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  locationData: {
+    color: "#fff",
+    fontWeight: "700",
   },
 });
 

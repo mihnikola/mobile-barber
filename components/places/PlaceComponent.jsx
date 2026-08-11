@@ -11,6 +11,7 @@ import { useCompany } from "@/context/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -29,8 +30,12 @@ const PlaceComponent = ({ locationsData }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <SharedCoverImage image={coverImageAppointments} />
-      {!isLoading && <SharedTitle title={localization.PLACES.title} />}
+      <HeaderCoverImageContainer
+        title={localization.PLACES.title}
+        image={coverImageAppointments}
+        hidden
+      />
+
       {isLoading && <Loader />}
       {!isLoading && (
         <View style={styles.contentContainer}>
@@ -57,7 +62,6 @@ export default PlaceComponent;
 const styles = StyleSheet.create({
   contentContainer: {
     marginTop: 10,
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
@@ -65,7 +69,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    flexDirection: "column",
     backgroundColor: "#000",
   },
   errorContainer: {

@@ -10,6 +10,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import AppointmentsStatuses from "./AppointmentsStatuses";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const AppointmentsComponent = () => {
   const {
@@ -26,15 +27,20 @@ const AppointmentsComponent = () => {
     getReservationsData();
   }, [active]);
 
- 
-
   return (
     <View style={styles.container}>
-      <SharedCoverImage image={coverImageAppointments} appointmentImage={1} />
+      {/* <SharedCoverImage image={coverImageAppointments} appointmentImage={1} /> */}
 
-      <AppointmentsStatuses handleStatus={handleStatus} active={active} />
+      {/* <AppointmentsStatuses handleStatus={handleStatus} active={active} /> */}
 
-      <SharedTitle title={localization.APPOINTMENTS.title} topInset={1} />
+      {/* <SharedTitle title={localization.APPOINTMENTS.title} topInset={1} /> */}
+
+      <HeaderCoverImageContainer
+        title={localization.APPOINTMENTS.title}
+        image={coverImageAppointments}
+        hidden
+        status
+      />
 
       {isLoading && <Loader />}
 

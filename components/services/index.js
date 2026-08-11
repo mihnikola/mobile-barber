@@ -5,19 +5,17 @@ import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-
-import { useCompany } from "@/context/CompanyContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices(reservation);
   const { backButton } = useLocalSearchParams();
-  const { company } = useCompany();
 
   const funcDateTimeReservation = async (serviceData) => {
     const service = {
@@ -34,16 +32,13 @@ const MenuServices = () => {
 
   const { localization } = useLocalization();
 
-  const routerBackHandler = () => {
-    router.back();
-  };
-
   return (
     <ScrollView style={styles.container}>
-      {backButton && <SharedBackButton onPress={routerBackHandler} />}
-
-      <SharedCoverImage image={coverImageAppointments} />
-      {!isLoading && <SharedTitle title={localization.SERVICES.title} />}
+      <HeaderCoverImageContainer
+        title={localization.SERVICES.title}
+        image={coverImageAppointments}
+        hidden={!backButton}
+      />
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length === 0 && !isLoading && (

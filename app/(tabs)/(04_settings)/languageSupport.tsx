@@ -20,6 +20,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/components/Loader";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 
 const languageSupport = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -44,7 +45,7 @@ const languageSupport = () => {
   const handleSearch = (text) => {
     setSearch(text);
     const filtered = LANGUAGES.filter((lang) =>
-      lang.label.toLowerCase().includes(text.toLowerCase())
+      lang.label.toLowerCase().includes(text.toLowerCase()),
     );
     setFilteredLanguages(filtered);
   };
@@ -53,15 +54,19 @@ const languageSupport = () => {
     setFilteredLanguages(LANGUAGES);
   }, [localization.code]);
 
-
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-      <SharedBackButton onPress={router.back} />
+      {/* <SharedBackButton onPress={router.back} />
 
      
       <SharedCoverImage image={coverSettingsImage} />
-      <SharedTitle title={localization.SETTINGS.changeLanguage.capture} />
+      <SharedTitle title={localization.SETTINGS.changeLanguage.capture} /> */}
+
+      <HeaderCoverImageContainer
+        title={localization.SETTINGS.changeLanguage.capture}
+        image={coverSettingsImage}
+      />
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
@@ -69,29 +74,29 @@ const languageSupport = () => {
         value={search}
         onChangeText={handleSearch}
       />
-      {!isLoading && 
-      <FlatList
-        data={filteredLanguages}
-        keyExtractor={(item) => item.code}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.languageItem}
-            onPress={() => {
-              if (localization.code !== item.code) {
-                changeLocalization(item);
-              }
-            }}
-          >
-            <Text style={styles.languageText}>{item.label}</Text>
-            <FontAwesome
-              name={localization.code === item.code && "check-circle-o"}
-              size={28}
-              color="white"
-            />
-          </TouchableOpacity>
-        )}
-      />
-      }
+      {!isLoading && (
+        <FlatList
+          data={filteredLanguages}
+          keyExtractor={(item) => item.code}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.languageItem}
+              onPress={() => {
+                if (localization.code !== item.code) {
+                  changeLocalization(item);
+                }
+              }}
+            >
+              <Text style={styles.languageText}>{item.label}</Text>
+              <FontAwesome
+                name={localization.code === item.code && "check-circle-o"}
+                size={28}
+                color="white"
+              />
+            </TouchableOpacity>
+          )}
+        />
+      )}
       {isLoading && <Loader />}
     </View>
   );
@@ -101,10 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
-  captureContainer: {
-    position: "absolute",
-    marginHorizontal: 15,
-  },
+  
   headerImage: {
     width: "100%",
     height: 180,

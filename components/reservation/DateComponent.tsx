@@ -28,8 +28,10 @@ import SharedTitle from "@/shared-components/SharedTitle";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
+import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import LoaderDate from "../LoaderDate";
 
-const DateComponent = ({reevaluted}) => {
+const DateComponent = ({ reevaluted }) => {
   const [check, setCheck] = useState(false);
 
   const checkToken = async () => {
@@ -97,16 +99,13 @@ const DateComponent = ({reevaluted}) => {
     return <SharedLoader />;
   }
 
-  const routerBackHandler = () => {
-    router.back();
-  };
   if (check) {
     return (
       <ScrollView style={styles.container}>
-        <SharedBackButton onPress={routerBackHandler} />
-
-        <SharedCoverImage image={coverImageAppointments} />
-        <SharedTitle title={localization.DATE.title} />
+        <HeaderCoverImageContainer
+          title={localization.DATE.title}
+          image={coverImageAppointments}
+        />
 
         <View style={styles.calendarContainer}>
           <CalendarList
@@ -135,7 +134,7 @@ const DateComponent = ({reevaluted}) => {
         <View>
           {!isSunday && (
             <>
-              {isLoading && <Loader />}
+              {isLoading && <LoaderDate />}
               {resetError && <NotSummary text={localization.DATE.chooseDate} />}
               {!isLoading && !error && timesData.length > 0 && !resetError && (
                 <Summary
