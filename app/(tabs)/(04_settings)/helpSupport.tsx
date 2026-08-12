@@ -116,5 +116,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(HelpSupportScreen);
-// export default HelpSupportScreen;
+// export default withSafeArea(HelpSupportScreen);
+export default HelpSupportScreen;

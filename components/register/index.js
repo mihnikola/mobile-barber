@@ -6,6 +6,7 @@ import {
   StatusBar,
   Platform,
   findNodeHandle,
+  TouchableOpacity,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import useEmail from "./hooks/useEmail";
@@ -17,7 +18,7 @@ import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -64,7 +65,6 @@ const Register = () => {
   } = useConfirmPassword(password);
 
   const handleRegister = () => {
-
     handleRegistration({
       name,
       email,
@@ -98,12 +98,28 @@ const Register = () => {
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
       keyboardShouldPersistTaps="always"
     >
-      <SharedBackButton onPress={router.back} />
+      {/* <SharedBackButton onPress={router.back} /> */}
 
       <View style={styles.container}>
         {/* <View style={{ flex: 1 }}> */}
-        <View style={{ alignItems: "center" }}>
-          <SharedLogin image={image} />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View>
+            <TouchableOpacity
+              style={{ marginTop: 10 }}
+              hitSlop={20}
+              onPress={router.back}
+            >
+              <MaterialIcons name="arrow-back" size={25} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              flexGrow: 2,
+            }}
+          >
+            <SharedLogin image={image} />
+          </View>
         </View>
         <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
         <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
@@ -167,7 +183,7 @@ const Register = () => {
                 scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                   node,
                   80,
-                  true
+                  true,
                 );
               }
               passwordInputRef.current?.focus();
@@ -191,7 +207,7 @@ const Register = () => {
                 scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                   node,
                   80,
-                  true
+                  true,
                 );
               }
               confirmPasswordInputRef.current?.focus();
@@ -257,13 +273,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
- container: {
+  container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 25,
     backgroundColor: "black",
   },
-  
+
   logo: {
     width: 120,
     height: 100,

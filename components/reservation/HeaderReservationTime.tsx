@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   coverContent: {
     justifyContent: "space-between",
     height: "100%",
-    paddingVertical: 10,
+    marginTop: 10,
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
   timeData: {

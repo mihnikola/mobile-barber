@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   coverContent: {
-    marginVertical: 15,
+    marginVertical: 8,
     paddingHorizontal: 20,
     height: "100%",
     justifyContent: "space-around",

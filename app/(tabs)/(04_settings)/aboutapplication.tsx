@@ -124,4 +124,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(aboutapplication);
+// export default withSafeArea(aboutapplication);
+export default aboutapplication;

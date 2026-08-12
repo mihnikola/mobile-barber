@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   topBar: {
+    marginVertical:10,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 20,
     height: "100%",
   },
   show: {

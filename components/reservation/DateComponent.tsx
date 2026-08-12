@@ -172,11 +172,6 @@ const DateComponent = ({ reevaluted }) => {
 };
 
 const styles = StyleSheet.create({
-  coverImage: {
-    width: "100%",
-    height: 150,
-    opacity: 0.2,
-  },
   notWorkingDays: {
     display: "flex",
     alignItems: "center",
@@ -190,8 +185,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
     backgroundColor: "black",
   },
   calendarContainer: {

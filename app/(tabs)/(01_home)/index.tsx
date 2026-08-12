@@ -246,4 +246,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(App);
+// export default withSafeArea(App);
+export default App;

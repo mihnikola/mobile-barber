@@ -5,4 +5,5 @@ const Explore = () => {
   
   return <ReservationInitialComponent />;
 };
-export default withSafeArea(Explore);
+// export default withSafeArea(Explore);
+export default Explore;

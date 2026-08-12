@@ -15,7 +15,7 @@ import useEmail from "./hooks/useEmail";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
@@ -105,12 +105,11 @@ const LoginScreen = () => {
     router.push("/(z_auth)/forgotPass");
   };
 
-
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: "black" }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={insets.top} 
+      keyboardVerticalOffset={insets.top}
     >
       <ScrollView
         ref={scrollRef}
@@ -121,110 +120,113 @@ const LoginScreen = () => {
         }}
       >
         <View style={styles.container}>
-        <SharedBackButton onPress={router.back} />
+          {/* <SharedBackButton onPress={router.back} /> */}
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
 
-        <View style={styles.logoImage}>
-          <SharedLogin image={company?.media?.logo} />
-        </View>
+          <View style={styles.logoImage}>
+            <SharedLogin image={company?.media?.logo} />
+          </View>
 
-        <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
-        <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
+          <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
+          <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
 
-        <View style={styles.socialButtonsContainer}>
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            {Platform.OS === "ios" ? (
-              <View style={styles.socialBtns}>
+          <View style={styles.socialButtonsContainer}>
+            <View style={{ flex: 1, justifyContent: "center" }}>
+              {Platform.OS === "ios" ? (
+                <View style={styles.socialBtns}>
+                  <CustomGoogleButton
+                    onPress={signIn}
+                    isGoogleLoading={loading === "google"}
+                  />
+                  <CustomAppleButton
+                    onPress={onAppleButtonPress}
+                    isAppleLoading={loading === "ios"}
+                  />
+                </View>
+              ) : (
                 <CustomGoogleButton
                   onPress={signIn}
                   isGoogleLoading={loading === "google"}
                 />
-                <CustomAppleButton
-                  onPress={onAppleButtonPress}
-                  isAppleLoading={loading === "ios"}
-                />
-              </View>
-            ) : (
-              <CustomGoogleButton
-                onPress={signIn}
-                isGoogleLoading={loading === "google"}
-              />
-            )}
+              )}
+            </View>
           </View>
-        </View>
 
-        <View style={styles.dividerContainer}>
-          <View style={styles.dividerLine} />
-          <Text style={styles.dividerText}>{localization.LOGIN.or}</Text>
-          <View style={styles.dividerLine} />
-        </View>
+          <View style={styles.dividerContainer}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>{localization.LOGIN.or}</Text>
+            <View style={styles.dividerLine} />
+          </View>
 
-        <SharedInput
-          label={localization.EMAIL.label}
-          value={email}
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            const node = findNodeHandle(passwordInputRef.current);
-            if (node) {
-              scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
-                node,
-                80,
-                true,
-              );
-            }
-            passwordInputRef.current?.focus();
-          }}
-          onChangeText={handleEmailChange}
-          placeholder={localization.EMAIL.placeholder}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          style={styles.input}
-        />
-
-        <SharedPassword
-          label={localization.PASSWORD.label}
-          value={password}
-          ref={passwordInputRef}
-          onChangeText={handlePasswordChange}
-          placeholder={localization.PASSWORD.placeholder}
-        />
-
-        <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
-          <Text style={{ color: "white", textAlign: "right" }}>
-            {localization.LOGIN.forgot}
-          </Text>
-        </TouchableOpacity>
-
-        <SharedButton
-          // loading={isLoadingLogin}
-          loading={loading === "login"}
-          onPress={handleLogin}
-          text={localization.LOGIN.submitBtn}
-        />
-
-        <SharedRedirect
-          onPress={navigateToRegister}
-          question={localization.LOGIN.question}
-          text={localization.LOGIN.CTA}
-        />
-        {isMessage && (
-          <SharedMessage
-            isLoading={loading}
-            isOpen={isMessage}
-            onClose={!error ? confirmHandler : cancelHandler}
-            onConfirm={!error ? confirmHandler : cancelHandler}
-            icon={
-              <FontAwesome
-                name={error ? "close" : success ? "check-circle-o" : "info"}
-                size={64}
-                color="white"
-              />
-            }
-            title={error || success || message}
-            buttonText={localization.OK.label}
+          <SharedInput
+            label={localization.EMAIL.label}
+            value={email}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              const node = findNodeHandle(passwordInputRef.current);
+              if (node) {
+                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                  node,
+                  80,
+                  true,
+                );
+              }
+              passwordInputRef.current?.focus();
+            }}
+            onChangeText={handleEmailChange}
+            placeholder={localization.EMAIL.placeholder}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
           />
-        )}
-      </View>
-    </ScrollView>
+
+          <SharedPassword
+            label={localization.PASSWORD.label}
+            value={password}
+            ref={passwordInputRef}
+            onChangeText={handlePasswordChange}
+            placeholder={localization.PASSWORD.placeholder}
+          />
+
+          <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
+            <Text style={{ color: "white", textAlign: "right" }}>
+              {localization.LOGIN.forgot}
+            </Text>
+          </TouchableOpacity>
+
+          <SharedButton
+            // loading={isLoadingLogin}
+            loading={loading === "login"}
+            onPress={handleLogin}
+            text={localization.LOGIN.submitBtn}
+          />
+
+          <SharedRedirect
+            onPress={navigateToRegister}
+            question={localization.LOGIN.question}
+            text={localization.LOGIN.CTA}
+          />
+          {isMessage && (
+            <SharedMessage
+              isLoading={loading}
+              isOpen={isMessage}
+              onClose={!error ? confirmHandler : cancelHandler}
+              onConfirm={!error ? confirmHandler : cancelHandler}
+              icon={
+                <FontAwesome
+                  name={error ? "close" : success ? "check-circle-o" : "info"}
+                  size={64}
+                  color="white"
+                />
+              }
+              title={error || success || message}
+              buttonText={localization.OK.label}
+            />
+          )}
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
@@ -249,10 +251,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  logoImage:{
-    alignItems:"center",
-    marginTop: 10
-
+  logoImage: {
+    alignItems: "center",
+    marginTop: 10,
   },
 
   iconStyle: {
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
     height: 30,
     resizeMode: "cover",
   },
-container: {
+  container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 10,

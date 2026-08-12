@@ -4,4 +4,5 @@ const MenuServices = () => {
   return <Services />;
 };
 
-export default withSafeArea(MenuServices);
+// export default withSafeArea(MenuServices);
+export default MenuServices;
