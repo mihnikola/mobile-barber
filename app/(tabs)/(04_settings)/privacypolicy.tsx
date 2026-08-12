@@ -94,5 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default withSafeArea(privacypolicy);
-export default privacypolicy;
+export default withSafeArea(privacypolicy);

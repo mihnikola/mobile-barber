@@ -98,31 +98,21 @@ const Register = () => {
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
       keyboardShouldPersistTaps="always"
     >
-      {/* <SharedBackButton onPress={router.back} /> */}
-
       <View style={styles.container}>
-        {/* <View style={{ flex: 1 }}> */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View>
-            <TouchableOpacity
-              style={{ marginTop: 10 }}
-              hitSlop={20}
-              onPress={router.back}
-            >
-              <MaterialIcons name="arrow-back" size={25} color="white" />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              alignItems: "center",
-              flexGrow: 2,
-            }}
-          >
-            <SharedLogin image={image} />
-          </View>
+        <View style={{ marginTop: 10 }}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
         </View>
-        <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
-        <Text style={styles.subtitle}>{localization.REGISTER.description}</Text>
+        <View style={{ alignItems: "center", marginTop: 10 }}>
+          <SharedLogin image={image} />
+        </View>
+        <View style={{ alignItems: "center", marginTop: 10 }}>
+          <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
+          <Text style={styles.subtitle}>
+            {localization.REGISTER.description}
+          </Text>
+        </View>
 
         <SharedInput
           autoFocus

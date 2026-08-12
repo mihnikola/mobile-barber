@@ -83,6 +83,24 @@ export const AuthProvider = ({ children }) => {
   const redirectValidation = async (data) => {
     await getTokenData();
     setIsMessage(false);
+    if (data === "settings") {
+      router.back();
+
+      router.setParams({
+        reevaluted: true,
+      });
+      router.push("/(tabs)/(04_settings)/");
+      return;
+    }
+    if (data === "appointments") {
+      router.back();
+
+      router.setParams({
+        reevaluted: true,
+      });
+      router.push("/(tabs)/(03_calendar)/");
+      return;
+    }
     if (data === "calendar") {
       router.back();
 
@@ -90,11 +108,13 @@ export const AuthProvider = ({ children }) => {
         reevaluted: true,
       });
       router.push("/(tabs)/(02_barbers)/calendar");
+      return;
     } else {
       router.back();
       router.setParams({
         reevaluted: true,
       });
+      return;
     }
   };
 

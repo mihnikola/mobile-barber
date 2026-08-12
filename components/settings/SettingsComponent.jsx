@@ -18,6 +18,7 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 //   SafeAreaView,
 // } from "react-native-safe-area-context";
 import withSafeArea from "../wrapper/WrapperSafeArea";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -70,8 +71,8 @@ const SettingsComponent = () => {
   const redirectToLogin = () => {
     router.push({
       pathname: "/(z_auth)/",
-      params: { data: "settings" },
     });
+    AsyncStorage.setItem("paramLogin", "settings");
   };
 
   return (
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+    paddingTop: 20,
   },
 });
 

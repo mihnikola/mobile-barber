@@ -5,13 +5,14 @@ import {
   StyleSheet,
   Platform,
   findNodeHandle,
+  TouchableOpacity,
 } from "react-native";
 import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -61,11 +62,13 @@ const changePass = () => {
 
   return (
     <WrapperAuth>
-      <SharedBackButton
+      <TouchableOpacity
+        hitSlop={20}
         onPress={router.back}
-        absolutePosition={false}
-        styleBtn={{ marginBottom: 30 }}
-      />
+        style={{ marginVertical: 15 }}
+      >
+        <MaterialIcons name="arrow-back" size={25} color="white" />
+      </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <View>
           <Text style={styles.mainTitle}>
@@ -87,7 +90,7 @@ const changePass = () => {
                 scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                   node,
                   80,
-                  true
+                  true,
                 );
               }
               passwordConfirmInputRef.current?.focus();
@@ -163,7 +166,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   btnFooter: {
-    marginVertical: 10,
+    marginBottom: 25,
   },
   icon: {
     paddingHorizontal: 8,

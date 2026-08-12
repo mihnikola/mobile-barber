@@ -5,5 +5,4 @@ function locations() {
   return <PlaceComponent />;
 }
 
-// export default withSafeArea(locations);
-export default locations;
+export default withSafeArea(locations);

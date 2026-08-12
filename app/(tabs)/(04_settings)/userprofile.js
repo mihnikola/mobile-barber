@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
@@ -17,7 +18,7 @@ import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
@@ -137,8 +138,10 @@ const userprofile = () => {
           paddingBottom: 50,
         }}
       >
-        <View>
-          <SharedBackButton onPress={router.back} />
+        <View style={{marginLeft: 20, marginTop: 15}}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>

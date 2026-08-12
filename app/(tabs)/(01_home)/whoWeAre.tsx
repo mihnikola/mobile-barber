@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AboutUsInfo from "@/components/home/AboutUsInfo";
 import ListAboutUs from "@/components/home/ListAboutUs";
@@ -11,20 +11,22 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const AboutUsScreen = () => {
   const { company } = useCompany();
 
-
-
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={{ marginBottom: 30, marginTop: 10 }}>
-        <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} />
-      </View>
-      <WhoAreWeCoverImage image={company?.media?.logo} />
+      {/* <WhoAreWeCoverImage image={company?.media?.logo} /> */}
+      {/* <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} /> */}
 
       <View style={styles.contentContainer}>
+        <View style={{ marginTop: 30, marginLeft: 10 }}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
+        </View>
         <AboutUsInfo
           title={company?.aboutUs?.title}
           text={company?.aboutUs?.text}

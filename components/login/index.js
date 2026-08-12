@@ -30,13 +30,14 @@ import { useEffect, useRef } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange, passwordInputRef } = usePassword();
   const scrollRef = useRef(null);
   const insets = useSafeAreaInsets();
-  const { data } = useLocalSearchParams();
+  // const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
 
@@ -96,8 +97,10 @@ const LoginScreen = () => {
       verificationOTPCode();
     } else {
       setIsMessage(false);
+      const paramLogin = await AsyncStorage.getItem("paramLogin");
+      console.log("paramLogin",paramLogin)
       setTimeout(() => {
-        redirectValidation(data);
+        redirectValidation(paramLogin);
       }, 500);
     }
   };
@@ -128,9 +131,12 @@ const LoginScreen = () => {
           <View style={styles.logoImage}>
             <SharedLogin image={company?.media?.logo} />
           </View>
-
-          <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
-          <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
+            <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
+            <Text style={styles.subtitle}>
+              {localization.LOGIN.description}
+            </Text>
+          </View>
 
           <View style={styles.socialButtonsContainer}>
             <View style={{ flex: 1, justifyContent: "center" }}>
@@ -265,6 +271,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 10,
+    paddingTop: 20,
     backgroundColor: "black",
   },
   logo: {

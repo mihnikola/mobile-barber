@@ -147,5 +147,4 @@ const styles = StyleSheet.create({
 });
 
 
-// export default withSafeArea(languageSupport);
-export default languageSupport;
+export default withSafeArea(languageSupport);

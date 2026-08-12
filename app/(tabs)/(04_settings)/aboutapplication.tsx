@@ -22,7 +22,7 @@ const aboutapplication = () => {
       <SharedCoverImage image={coverSettingsImage} />
       <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} /> */}
 
-        <HeaderCoverImageContainer
+      <HeaderCoverImageContainer
         title={localization.SETTINGS.ABOUTAPP.title}
         image={coverSettingsImage}
       />
@@ -124,5 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default withSafeArea(aboutapplication);
-export default aboutapplication;
+export default withSafeArea(aboutapplication);

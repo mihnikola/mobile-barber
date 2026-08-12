@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
@@ -7,28 +7,20 @@ export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
     const insets = useSafeAreaInsets();
 
     return (
-      <View style={styles.container}>
+      <View
+        style={{
+          flex: 1,
+          paddingTop: Platform.OS === "ios" ? insets.top : null,
+        }}
+      >
         <StatusBar
           barStyle="light-content"
           backgroundColor="transparent"
           translucent
         />
 
-        <View style={[styles.headerSafeArea, { height: insets.top }]} />
-
         <WrapperComponent {...props} />
       </View>
     );
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-
-  headerSafeArea: {
-    backgroundColor: "#000",
-  },
-});

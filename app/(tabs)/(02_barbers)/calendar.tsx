@@ -10,5 +10,4 @@ const Calendar = () => {
   return <DateComponent reevaluted={reevaluted} />;
 };
 
-// export default withSafeArea(Calendar);
-export default Calendar;
+export default withSafeArea(Calendar);

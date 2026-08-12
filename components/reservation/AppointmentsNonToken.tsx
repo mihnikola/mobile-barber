@@ -5,6 +5,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import SharedTitle from "@/shared-components/SharedTitle";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -23,6 +24,8 @@ function AppointmentsNonToken() {
       pathname: "/(z_auth)/",
       params: { data: "appointments" },
     });
+    AsyncStorage.setItem("paramLogin", "appointments");
+
   };
   return (
     <ScrollView style={styles.container}>

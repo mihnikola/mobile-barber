@@ -5,5 +5,4 @@ const EmployersComponent = () => {
   return <Employers />;
 };
 
-// export default withSafeArea(EmployersComponent);
-export default EmployersComponent;
+export default withSafeArea(EmployersComponent);

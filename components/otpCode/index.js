@@ -1,4 +1,11 @@
-import { View, Text, StatusBar, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
@@ -6,7 +13,7 @@ import { useEffect, useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import useSendEmailVerification from "../otpCode/hooks/useSendEmailVerification";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
@@ -71,10 +78,10 @@ const otpCode = () => {
       ) {
         checkverifyEmail(verifyData?.email, otp);
       } else if (verifyData?.email && verifyData?.password) {
-        console.log("checkOtpCodeVerification otpCode",verifyData)
+        console.log("checkOtpCodeVerification otpCode", verifyData);
         checkOtpCodeVerification(verifyData?.email, verifyData?.password, otp);
       } else {
-        console.log("checkOtpCodeValidation otpCode",verifyData)
+        console.log("checkOtpCodeValidation otpCode", verifyData);
 
         checkOtpCodeValidation(verifyData?.email, otp);
       }
@@ -124,11 +131,19 @@ const otpCode = () => {
   if (verifyData) {
     return (
       <WrapperAuth>
-        <SharedBackButton
+        {/* <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
           styleBtn={{ marginBottom: 30 }}
-        />
+        /> */}
+
+        <TouchableOpacity
+          hitSlop={20}
+          onPress={router.back}
+          style={{ marginVertical: 15 }}
+        >
+          <MaterialIcons name="arrow-back" size={25} color="white" />
+        </TouchableOpacity>
 
         <View style={{ flex: 1 }}>
           <View>
@@ -183,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A0B0E",
   },
   btnFooter: {
-    marginVertical: 0,
+    marginBottom: 20,
   },
   radiobtn: {
     flex: 2,

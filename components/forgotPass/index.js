@@ -1,13 +1,9 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -38,11 +34,19 @@ const ForgotPassword = () => {
   };
   return (
     <WrapperAuth>
-      <SharedBackButton
+      {/* <SharedBackButton
         onPress={router.back}
         absolutePosition={false}
         styleBtn={{ marginBottom: 30 }}
-      />
+      /> */}
+
+      <TouchableOpacity
+        hitSlop={20}
+        onPress={router.back}
+        style={{ marginVertical: 15 }}
+      >
+        <MaterialIcons name="arrow-back" size={25} color="white" />
+      </TouchableOpacity>
 
       <View style={{ flex: 1 }}>
         <View>
@@ -68,7 +72,7 @@ const ForgotPassword = () => {
         </View>
       </View>
 
-      <View>
+      <View style={{ marginBottom: 20 }}>
         <SharedButton
           disabled={emailError.length > 0 && email.length > 0}
           onPress={navHandler}

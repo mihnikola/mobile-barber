@@ -5,5 +5,4 @@ const reservationNotification = () => {
   return <ResevationNotificationScreen />;
 };
 
-// export default withSafeArea(reservationNotification);
-export default reservationNotification;
+export default withSafeArea(reservationNotification);

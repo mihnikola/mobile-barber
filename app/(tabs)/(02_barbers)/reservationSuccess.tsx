@@ -5,5 +5,4 @@ const ReservationSuccessScreen = () => {
   return <ConfirmBookReservation />;
 };
 
-// export default withSafeArea(ReservationSuccessScreen);
-export default ReservationSuccessScreen;
+export default withSafeArea(ReservationSuccessScreen);
