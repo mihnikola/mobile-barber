@@ -27,6 +27,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import Loader from "../Loader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -56,7 +57,6 @@ const otpCode = () => {
     error,
     isLoading,
     isVerified,
-    setIsVerified,
     verificationOTPCode,
     checkverifyEmail,
     verificationOTPCodeResend,
@@ -78,11 +78,8 @@ const otpCode = () => {
       ) {
         checkverifyEmail(verifyData?.email, otp);
       } else if (verifyData?.email && verifyData?.password) {
-        console.log("checkOtpCodeVerification otpCode", verifyData);
         checkOtpCodeVerification(verifyData?.email, verifyData?.password, otp);
       } else {
-        console.log("checkOtpCodeValidation otpCode", verifyData);
-
         checkOtpCodeValidation(verifyData?.email, otp);
       }
     } else {
@@ -94,26 +91,31 @@ const otpCode = () => {
   const confirmHandler = async () => {
     setIsMessage(false);
     router.dismissAll();
-
+    // changePassword
     if (verifyData?.email && !verifyData?.password) {
       router.push({
         pathname: "/(z_auth)/changePassword",
         params: { data: verifyData?.email },
       });
     }
+    // ovo ti je kad ostavi otp code za kasnije pa mora preko login forme
+
     if (isVerified && verifyData?.email && verifyData?.password) {
       await removeOtpParamsStorage();
-      router.push("/(tabs)/(01_home)");
     }
+
+    // verification via otp code - register
 
     if (
       verifyData?.email &&
       verifyData?.password &&
       verifyData?.confirmPassword
     ) {
+      console.log("2");
+
       await removeOtpParamsStorage();
 
-      router.push("/(z_auth)/");
+      router.replace("/(z_auth)/");
     }
   };
 

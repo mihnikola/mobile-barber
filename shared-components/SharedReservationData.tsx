@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   coverContent: {
     marginTop: 5,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     height: "100%",
     justifyContent: "space-around",
   },

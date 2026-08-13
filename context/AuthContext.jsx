@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
       router.setParams({
         reevaluted: true,
       });
-      router.push("/(tabs)/(04_settings)/");
+      router.replace("/(tabs)/(04_settings)/");
       return;
     }
     if (data === "appointments") {
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
       router.setParams({
         reevaluted: true,
       });
-      router.push("/(tabs)/(03_calendar)/");
+      router.replace("/(tabs)/(03_calendar)/");
       return;
     }
     if (data === "calendar") {
@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
       router.setParams({
         reevaluted: true,
       });
-      router.push("/(tabs)/(02_barbers)/calendar");
+      router.replace("/(tabs)/(02_barbers)/calendar");
       return;
     } else {
       router.back();

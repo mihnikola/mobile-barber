@@ -17,14 +17,12 @@ const useSubmitOtpCode = () => {
   const checkOtpCodeValidation = async (email, otpCode) => {
     setIsLoading(true);
     setError(null);
-    console.log("checkOtpCodeValidation+++-+ email, otpCode-", email, otpCode);
 
     try {
       const response = await getData("/users/otpcode", {
         email,
         otpCode,
       });
-      console.log("checkOtpCodeValidation+++-+-", response);
       setIsMessage(true);
 
       if (response.status === 200) {
@@ -45,7 +43,6 @@ const useSubmitOtpCode = () => {
   const checkOtpCodeVerification = async (email, password, otpCode) => {
     setIsLoading(true);
     setError(null);
-    console.log("checkOtpCodeVerificationzzzzzzzzzzz", email, otpCode);
 
     try {
       const response = await post("/users/loginVerify", {
@@ -53,10 +50,10 @@ const useSubmitOtpCode = () => {
         password,
         otpCode,
       });
-      console.log("checkOtpCodeVerificatio  loginVerify", response);
       setIsMessage(true);
 
       if (response.status === 69) {
+        setIsVerified(true);
         saveStorage(response.token);
         setMessage(localization.LOGIN.successVerified);
       }
@@ -183,6 +180,7 @@ const useSubmitOtpCode = () => {
     isVerified,
     checkverifyEmail,
     verificationOTPCodeResend,
+    setIsVerified
   };
 };
 

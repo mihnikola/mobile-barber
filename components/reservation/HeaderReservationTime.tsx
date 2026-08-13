@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginTop: 10,
     paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
   },
   timeData: {
     fontSize: 20,

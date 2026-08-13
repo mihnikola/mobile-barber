@@ -93,12 +93,12 @@ const LoginScreen = () => {
   };
 
   const confirmHandler = async () => {
+    const paramLogin = await AsyncStorage.getItem("paramLogin");
     if (status === 606) {
       verificationOTPCode();
     } else {
       setIsMessage(false);
-      const paramLogin = await AsyncStorage.getItem("paramLogin");
-      console.log("paramLogin",paramLogin)
+
       setTimeout(() => {
         redirectValidation(paramLogin);
       }, 500);
