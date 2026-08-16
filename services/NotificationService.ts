@@ -16,17 +16,26 @@ export class NotificationService {
   constructor() {
     this.setForegroundHandler();
   }
-
+  //kaze gpt deprecated
+  // setForegroundHandler() {
+  //   Notifications.setNotificationHandler({
+  //     handleNotification: async () => ({
+  //       shouldShowAlert: true,
+  //       shouldPlaySound: true,
+  //       shouldSetBadge: false,
+  //     }),
+  //   });
+  // }
   setForegroundHandler() {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
-        shouldShowAlert: true,
+        shouldShowBanner: true,
+        shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,
       }),
     });
   }
-
   async requestPermission() {
     const { status } = await Notifications.requestPermissionsAsync();
     return status === "granted";
@@ -111,14 +120,31 @@ export class NotificationService {
     this.subscriptions.push(unsub);
   }
 
-  initializeListeners(onClick: (data?: any) => void) {
+  async initializeListeners(onClick: (data?: any) => void) {
     // 1) Permissions + token
+    //  const permissionGranted = await this.requestPermission();
+    // this.requestPermission();
+    // this.getFCMToken();
+    // 1. Sačekaj permission
+    const permissionGranted = await this.requestPermission();
 
-    this.requestPermission();
-    this.getFCMToken();
+    if (!permissionGranted) {
+      console.log("❌ Notification permission denied");
+      return;
+    }
+
+    // 2. Sačekaj FCM token
+    const token = await this.getFCMToken();
+
+    if (!token) {
+      console.log("❌ FCM token nije dobijen");
+      return;
+    }
+
+    console.log("🔥 FCM token:", token);
 
     // 2) KILLED state
-    this.handleKilledState(onClick);
+    await this.handleKilledState(onClick);
 
     // 3) BACKGROUND state (ne meša se sa killed!)
     this.listenToBackgroundOpens(onClick);
