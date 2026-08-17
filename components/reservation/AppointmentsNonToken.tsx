@@ -34,6 +34,7 @@ function AppointmentsNonToken() {
       <HeaderCoverImageContainer
         title={localization.APPOINTMENTS.title}
         image={coverImageAppointments}
+        hidden
       />
       <View style={styles.card}>
         <Text style={styles.description}>
