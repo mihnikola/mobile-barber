@@ -24,6 +24,9 @@ function HeaderCoverImageContainer({
   const { height } = useWindowDimensions();
   const headerHeight = height * 0.25;
   const { active, handleStatus } = useAppointment();
+      console.log("xxxxxxxxxx")
+
+  console.log("hidden",hidden,reservation,reservationData, status)
   return (
     <ImageBackground
       source={{ uri: image }}
