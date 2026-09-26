@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedItemEmployerCard = (props: any) => {
   const { redirectHandler, data } = props;
@@ -23,26 +24,26 @@ const SharedItemEmployerCard = (props: any) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <FontAwesome name={"trophy"} size={16} color="#CCCCCC" />
+          <FontAwesome name={"trophy"} size={16} color={ColorsBarber.light.textColor} />
           <Text style={styles.locationText}>
             {`${seniority || seniority?.title}`}
           </Text>
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
-            <MaterialIcons name={"star"} size={16} color="#FFD700" />
+            <MaterialIcons name={"star"} size={16} color={ColorsBarber.light.textColor} />
             <Text style={styles.reviewText}>{`${roundValue(
-              averageRating
+              averageRating,
             )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Ionicons name={"person"} size={16} color={ColorsBarber.light.textColor} />
             <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>
         </View>
       </View>
-      <FontAwesome name={"chevron-right"} size={32} color="gray" />
+      <FontAwesome name={"chevron-right"} size={32} color={ColorsBarber.light.textColor} />
     </TouchableOpacity>
   );
 };
@@ -53,18 +54,18 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for location
+    color: ColorsBarber.light.textColor, // Lighter grey for location
     marginLeft: 5,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E", // Dark background from your image
+    backgroundColor: ColorsBarber.light.item, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 30, // Makes it circular
     marginRight: 15,
-    borderWidth: 1, // Optional: for a subtle border around the image
-    borderColor: "#333",
+    color: ColorsBarber.light.textColor, // Lighter grey for location
   },
   detailsContainer: {
     flex: 1,
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF", // White text color
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // Lighter grey for location
     marginBottom: 4,
   },
   locationContainer: {
@@ -99,7 +99,9 @@ const styles = StyleSheet.create({
   },
   reviewText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for review count
+    fontFamily: "OldStandard-Bold",
+
+    color: ColorsBarber.light.textColor, // Lighter grey for location
     marginLeft: 5,
   },
 });

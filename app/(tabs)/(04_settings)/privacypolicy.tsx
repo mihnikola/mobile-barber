@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const privacypolicy = () => {
   const developerName = "FusionTech Agency";
@@ -42,7 +43,7 @@ const privacypolicy = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 
   sectionContainer: {
@@ -58,38 +59,46 @@ const styles = StyleSheet.create({
   },
   srbCapture: {
     fontSize: 25,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
   engCapture: {
     fontSize: 35,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 140,
   },
   text: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     fontSize: 16,
     lineHeight: 24,
   },
   paragraphTitle: {
     fontSize: 25,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     padding: 10,
   },
 
   paragraph: {
     fontSize: 16,
     lineHeight: 24,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     textAlign: "justify",
   },
   copyright: {
     marginBottom: 50,
     marginTop: 20,
     fontSize: 14,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     textAlign: "center",
   },
 });

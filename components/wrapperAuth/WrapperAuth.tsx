@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import {
   KeyboardAvoidingView,
@@ -20,11 +21,11 @@ function WrapperAuth({ children }) {
           justifyContent: "center",
           flex: 1,
           paddingVertical: 0,
-          backgroundColor: "black",
+          backgroundColor: ColorsBarber.light.background,
         }}
         keyboardShouldPersistTaps="always"
       >
-        {/* <StatusBar backgroundColor="black" barStyle="light-content" /> */}
+        {/* <StatusBar backgroundColor=ColorsBarber.light.background barStyle="light-content" /> */}
         {children}
       </ScrollView>
     </KeyboardAvoidingView>
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
 });

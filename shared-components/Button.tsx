@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import {
   StyleSheet,
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
     fontStyle: "italic",
     fontSize: 23,

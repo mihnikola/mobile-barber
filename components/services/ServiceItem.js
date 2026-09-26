@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: "900",
+    fontFamily: "OldStandard-Bold",
   },
   duration: {
     fontSize: 18,

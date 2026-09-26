@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import SharedReviewImage from "@/shared-components/SharedReviewImage";
 import React from "react";
 import {
@@ -42,8 +43,8 @@ const styles = StyleSheet.create({
   },
   reviewTitle: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "white",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
     marginBottom: 10,
     marginTop: 10,
     textAlign: "center",
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   reviewText: {
     fontStyle: "italic",
     fontSize: 16,
-    color: "white",
+   color: ColorsBarber.light.textColor,
     textAlign: "center",
     marginVertical: 40,
     marginHorizontal: 20

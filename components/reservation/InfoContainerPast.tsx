@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import React from "react";
@@ -49,8 +50,8 @@ const InfoContainerPast = ({ item }) => {
 const styles = StyleSheet.create({
   captureDateBoldPast: {
     fontSize: 18,
-    color: "gray",
-    fontWeight: "900",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
     marginRight: 10,
   },
 
@@ -67,19 +68,23 @@ const styles = StyleSheet.create({
   },
 
   rating: {
-    color: "gray",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Regular",
+
   },
 
   captureDateLocation: {
-    color: "#9a871fff",
+    color: ColorsBarber.light.inActiveTextColor,
     flex: 2,
     fontSize: 15,
+        fontFamily: "OldStandard-Regular",
+
   },
   captureDatePast: {
     fontSize: 18,
-    color: "grey",
+    color: ColorsBarber.light.inActiveTextColor,
     textAlign: "center",
-    fontWeight: "500",
+    fontFamily: "OldStandard-Regular",
   },
 
   infoContainer: {

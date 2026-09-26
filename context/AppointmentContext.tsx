@@ -151,8 +151,7 @@ export const AppointmentProvider = ({ children }) => {
           const eventDate = convertNameAndDate(data?.startDate);
           const result = { ...data, startDateTime, finishedTime, eventDate };
           setReservationData(result);
-
-          if (notification === "1") {
+          if (notification) {
             const STATUS_DATA = {
               2: "pending",
               1: "rejected",
@@ -160,6 +159,8 @@ export const AppointmentProvider = ({ children }) => {
             };
             const statusValue = STATUS_DATA[data?.status];
             setActive(statusValue);
+            console.log("notification", notification);
+
             await getReservationsData(statusValue);
           }
         }
@@ -171,7 +172,7 @@ export const AppointmentProvider = ({ children }) => {
     });
   };
 
-  const getReservationsData = async (status = null) => {
+  const getReservationsData = async (status) => {
     setIsLoading(true);
     setError(null);
     const STATUS_MAP = {
@@ -179,13 +180,16 @@ export const AppointmentProvider = ({ children }) => {
       rejected: 1,
       approved: 0,
     };
-
-    const numericStatus = STATUS_MAP[active];
-
+    const STATUS_DATA = {
+      2: "pending",
+      1: "rejected",
+      0: "approved",
+    };
+    console.log("status", status);
     //ovde mi trebaju statusi pending/rejected/approved
     try {
       const response = await getData("/availabilities", {
-        activeStatus: status || numericStatus,
+        activeStatus: STATUS_DATA[status] || STATUS_MAP[active],
       });
 
       if (response.status === 200) {

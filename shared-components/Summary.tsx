@@ -1,12 +1,18 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import SummaryItem from "./SummaryItem";
+import { ColorsBarber } from "@/constants/Colors";
 const Summary = ({ data, selectedItem, setSelectedItem }) => {
   return (
     <ScrollView snapToInterval={50} decelerationRate="normal" horizontal>
       <View style={styles.container}>
         {data?.map((item: any) => (
-          <SummaryItem key={item.value} data={item} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+          <SummaryItem
+            key={item.value}
+            data={item}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+          />
         ))}
       </View>
     </ScrollView>
@@ -19,6 +25,7 @@ const styles = StyleSheet.create({
     gap: 20,
     justifyContent: "space-around",
     padding: 10,
+    backgroundColor: ColorsBarber.light.background,
   },
 });
 

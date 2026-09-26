@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 
 /**
@@ -17,7 +18,7 @@ const SharedInputTextArea = ({
         onChangeText={setDescription}
         value={description}
         placeholder={placeholderText}
-        placeholderTextColor="grey"
+        placeholderTextColor={ColorsBarber.light.textColor}
         multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
@@ -41,12 +42,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "white",
     borderRadius: 12,
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 15,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -56,9 +57,9 @@ const styles = StyleSheet.create({
   textInput: {
     width: "90%",
     minHeight: 100,
-
     fontSize: 14,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
 
     // Note: The `textAlignVertical` prop is for Android to ensure text starts at the top.
     // iOS handles this automatically.
@@ -72,8 +73,11 @@ const styles = StyleSheet.create({
   },
   previewText: {
     fontSize: 9,
+    
     color: "red",
-    opacity: 0.7
+    opacity: 0.7,
+    fontFamily: "OldStandard-Regular",
+
   },
 });
 

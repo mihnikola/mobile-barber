@@ -1,27 +1,20 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { View, Text, ScrollView, StyleSheet, Platform } from "react-native";
-import { router } from "expo-router";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedTitle from "@/shared-components/SharedTitle";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const aboutapplication = () => {
-  const appName = "Barber Demo";
-  const developerName = "Munja Trans";
+  const appName = "Book Hair";
+  const developerName = "FTA DOO";
   const appVersion = Application.nativeApplicationVersion;
 
   const { localization } = useLocalization();
 
   return (
     <ScrollView style={styles.container}>
-      {/* <SharedBackButton onPress={router.back} />
-      <SharedCoverImage image={coverSettingsImage} />
-      <SharedTitle title={localization.SETTINGS.ABOUTAPP.title} /> */}
-
       <HeaderCoverImageContainer
         title={localization.SETTINGS.ABOUTAPP.title}
         image={coverSettingsImage}
@@ -52,12 +45,12 @@ const aboutapplication = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 28,
-    fontWeight: "bold",
-    color: "white",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     marginBottom: 30,
     textAlign: "center",
   },
@@ -67,8 +60,8 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 25,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
   icon: {
@@ -97,19 +90,21 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "600",
-    color: "white",
+    fontFamily: "OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   value: {
     fontSize: 16,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     lineHeight: 24,
   },
 
   copyright: {
     fontSize: 14,
-    color: "white",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
     marginTop: 20,
   },
@@ -119,7 +114,6 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   switch: {
-    // Platform-specific adjustments if needed
     transform: Platform.OS === "ios" ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [],
   },
 });

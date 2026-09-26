@@ -11,6 +11,7 @@ import SharedTitle from "@/shared-components/SharedTitle";
 import AppointmentsStatuses from "./AppointmentsStatuses";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const AppointmentsComponent = () => {
   const {
@@ -24,7 +25,9 @@ const AppointmentsComponent = () => {
   const { localization } = useLocalization();
 
   useEffect(() => {
-    getReservationsData();
+    if (active) {
+      getReservationsData(active);
+    }
   }, [active]);
 
   return (
@@ -61,6 +64,6 @@ export default AppointmentsComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 });

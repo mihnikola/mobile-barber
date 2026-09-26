@@ -1,8 +1,8 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 
 const SharedPhoneNumber = forwardRef((props: any, ref) => {
-
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -45,7 +45,9 @@ const SharedPhoneNumber = forwardRef((props: any, ref) => {
 });
 const styles = StyleSheet.create({
   prefixText: {
-    color: "black",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     fontSize: 16,
     fontWeight: "medium", // Make prefix stand out
   },
@@ -56,34 +58,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
-    borderWidth: 2,
     borderColor: "#333",
   },
   phoneNumberInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     paddingTop: 15,
     paddingBottom: 15,
     paddingRight: 15,
     paddingLeft: 5,
     borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
     borderColor: "white",
     width: "70%",
-
+    fontFamily: "OldStandard-Regular",
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 14,
     marginBottom: 8,
+    fontFamily: "OldStandard-Bold",
+
     marginTop: 15,
   },
   errorText: {
     color: "red",
+    fontFamily: "OldStandard-Regular",
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor: ColorsBarber.light.textColor,
+    borderWidth: 2,
   },
 
   flagIcon: {

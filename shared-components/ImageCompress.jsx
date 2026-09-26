@@ -4,6 +4,7 @@ import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
@@ -20,13 +21,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
       {!selectedImageUri && (
         <View>
-          <Ionicons name="person-circle-sharp" size={280} color="white" />
+          <Ionicons name="person-circle-sharp" size={280} color={ColorsBarber.light.textColor} />
           <TouchableOpacity
             style={styles.buttonPlaceholder}
             onPress={pickImage}
             disabled={uploading}
           >
-            <MaterialIcons size={45} name="photo" color="white" />
+            <MaterialIcons size={45} name="photo" color={ColorsBarber.light.textColor} />
           </TouchableOpacity>
         </View>
       )}
@@ -41,7 +42,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
           onPress={pickImage}
           disabled={uploading}
         >
-          <MaterialIcons size={45} name="photo" color="white" />
+          <MaterialIcons size={45} name="photo" color={ColorsBarber.light.textColor} />
         </TouchableOpacity>
       )}
     </View>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   defaultImgAvatar: {
     width: 200,
     height: 200,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   container: {
     flex: 1,

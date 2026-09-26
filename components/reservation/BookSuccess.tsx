@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedLogo from "@/shared-components/SharedLogo";
@@ -49,8 +50,8 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 22,
 
-    color: "#fff",
-    fontWeight: "900",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     display: "flex",
     justifyContent: "center",
   },
@@ -68,8 +69,8 @@ const styles = StyleSheet.create({
   },
   dateData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "700",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   data: {
     display: "flex",
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   coverImage: {
     width: "100%",
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   whiteLine: {
     width: "100%",
     height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: "#fff", // Set the line color to white
+    backgroundColor: ColorsBarber.light.background, // Set the line color to white
     marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
 });

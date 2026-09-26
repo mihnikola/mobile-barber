@@ -28,6 +28,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ColorsBarber } from "@/constants/Colors";
 
 const userprofile = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -126,7 +127,7 @@ const userprofile = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: "black" }}
+      style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -138,9 +139,13 @@ const userprofile = () => {
           paddingBottom: 50,
         }}
       >
-        <View style={{marginLeft: 20, marginTop: 15}}>
+        <View style={{ marginLeft: 20, marginTop: 15 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons
+              name="arrow-back"
+              size={25}
+              color={ColorsBarber.light.textColor}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
@@ -167,7 +172,7 @@ const userprofile = () => {
             <SharedPhoneNumber
               label={localization.SETTINGS.PROFILE.phoneNumber}
               placeholder="6x xxx xxxx"
-              placeholderTextColor="#888"
+              placeholderTextColor={ColorsBarber.light.inActiveTextColor}
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
               value={
@@ -224,7 +229,7 @@ const userprofile = () => {
               <FontAwesome
                 name={errorChange ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={
@@ -235,7 +240,7 @@ const userprofile = () => {
             buttonText="Ok"
           />
         )}
-        {/* <StatusBar backgroundColor="black" /> */}
+        {/* <StatusBar backgroundColor=ColorsBarber.light.background /> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -247,10 +252,11 @@ const styles = StyleSheet.create({
   },
 
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
+    fontFamily: "OldStandard-Bold",
   },
   phoneNumberInputContainer: {
     flexDirection: "row",
@@ -263,7 +269,7 @@ const styles = StyleSheet.create({
   },
   phoneNumberInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -271,34 +277,36 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   buttonText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     padding: 10,
     textAlign: "center",
   },
   input: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
+    fontFamily: "OldStandard-Bold",
   },
   inputDisabled: {
-    backgroundColor: "grey",
-    color: "black",
+    backgroundColor: ColorsBarber.light.background,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
-    borderColor: "white",
+    borderWidth: 1,
+    borderColor:ColorsBarber.light.textColor,
   },
   unbutton: {
     textAlign: "center",
     marginVertical: 30,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     padding: 10,
     borderWidth: 1,
     borderColor: "grey",
@@ -308,11 +316,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 10,
     textAlign: "center",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   button: {
     padding: 5,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     borderColor: "white",
     borderWidth: 1,
     textAlign: "center",
@@ -321,7 +329,7 @@ const styles = StyleSheet.create({
 
   userDataContainer: {
     flex: 2,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -338,18 +346,18 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   containerInfo: {
     marginTop: 20,
     flexDirection: "column",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     gap: 10,
   },
   headerImage: {
     width: "100%",
     height: 300,
-    opacity: 0.3,
+    opacity: 0.2,
   },
   icon: {
     marginRight: 5,

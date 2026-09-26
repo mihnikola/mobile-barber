@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     color: "#FFFFFF",
   },
 });

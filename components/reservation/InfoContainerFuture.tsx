@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
@@ -37,14 +38,14 @@ const InfoContainerFuture = ({ item }) => {
       <View>
         <Text style={styles.rating}>
           {item.status === 2 && (
-            <FontAwesome name={"clock-o"} size={16} color="#ffd900ff" />
+            <FontAwesome name={"clock-o"} size={16} color={ColorsBarber.light.textColor} />
           )}
 
           {item.status === 1 && (
-            <FontAwesome name={"window-close"} size={16} color="#c52222" />
+            <FontAwesome name={"window-close"} size={16} color={ColorsBarber.light.textColor} />
           )}
           {item.status === 0 && (
-            <FontAwesome name={"check-circle-o"} size={20} color="#22dd1b" />
+            <FontAwesome name={"check-circle-o"} size={20} color={ColorsBarber.light.textColor} />
           )}
         </Text>
       </View>
@@ -70,23 +71,25 @@ const styles = StyleSheet.create({
 
   captureDateContent: {
     fontSize: 18,
-    color: "white",
+   color: ColorsBarber.light.textColor,
     textAlign: "center",
-    fontWeight: "500",
+    fontFamily: "OldStandard-Regular",
   },
   fade: {
     color: "#707070",
   },
   captureDateLocation: {
-    color: "#ffd900ff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     flex: 2,
     fontSize: 15,
   },
 
   captureDateBold: {
     fontSize: 18,
-    color: "white",
-    fontWeight: "900",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 
   infoContainer: {

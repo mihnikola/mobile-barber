@@ -5,6 +5,7 @@ import Animated, {
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
+import { ColorsBarber } from '@/constants/Colors';
 const Pagination = ({data, x, screenWidth}) => {
   // eslint-disable-next-line react/no-unstable-nested-components
   const PaginationComp = ({i}) => {
@@ -49,9 +50,9 @@ const styles = StyleSheet.create({
   },
   dots: {
     height: 10,
-    backgroundColor: 'grey',
+    backgroundColor: ColorsBarber.light.item,
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: ColorsBarber.light.inActiveTextColor,
     marginHorizontal: 10,
     borderRadius: 5,
   },

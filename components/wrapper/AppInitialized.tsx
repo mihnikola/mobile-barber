@@ -12,6 +12,7 @@ import { InternetProvider } from "@/context/InternetContext";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/context/AppointmentContext";
 import { NavigationProvider } from "@/context/NavigationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 
 
@@ -20,7 +21,7 @@ export default function AppInitialized(props) {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      background: "#000000",
+      background: ColorsBarber.light.background,
     },
   };
 

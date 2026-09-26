@@ -15,6 +15,8 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -44,6 +46,8 @@ const Employers = () => {
       if (getToken) {
         router.push(pathName);
       } else {
+        await AsyncStorage.setItem("paramLogin", "calendar");
+
         router.push({
           pathname: "/(z_auth)/",
           params: { data: "calendar" },
@@ -60,7 +64,10 @@ const Employers = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderCoverImageContainer title={localization.BARBERS.title} image={coverImageAppointments}  />
+      <HeaderCoverImageContainer
+        title={localization.BARBERS.title}
+        image={coverImageAppointments}
+      />
 
       {isLoading && <Loader />}
       {!isLoading && (
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1a1a1a", // Rezervna tamna pozadina dok se slika učitava
   },
   backgroundImage: {
-    opacity: 0.5,
+    opacity: 0.2,
   },
   titleWrapper: {
     width: "100%",
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 28,
     color: "#FFFFFF", // Obavezno definisati belu boju
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
 
   contentContainer: {
@@ -117,24 +124,23 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
 
- 
   capture: {
     fontSize: 32,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 140,
   },
 
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

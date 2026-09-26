@@ -3,6 +3,7 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedDetailsServiceCard = (props: any) => {
   const { redirectHandler, data } = props;
@@ -15,7 +16,7 @@ const SharedDetailsServiceCard = (props: any) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
+          <FontAwesome name={"clock-o"} size={16} color={ColorsBarber.light.textColor} />
           <Text style={styles.locationText}>
             {`${localization.DETAILS.duration} ${
               duration || data?.serviceDuration
@@ -23,7 +24,7 @@ const SharedDetailsServiceCard = (props: any) => {
           </Text>
         </View>
         <View style={styles.ratingContainer}>
-          <MaterialIcons name={"price-change"} size={16} color="#FFD700" />
+          <MaterialIcons name={"price-change"} size={16} color={ColorsBarber.light.textColor} />
           <Text style={styles.reviewText}>
             {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
           </Text>
@@ -39,13 +40,13 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -70,8 +71,6 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 30, // Makes it circular
     marginRight: 15,
-    borderWidth: 1, // Optional: for a subtle border around the image
-    borderColor: "#333",
   },
   detailsContainer: {
     flex: 1,
@@ -79,8 +78,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF", // White text color
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // White text color
     marginBottom: 4,
   },
   locationContainer: {
@@ -90,7 +89,9 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for location
+    color: ColorsBarber.light.textColor, // White text color
+    fontFamily: "OldStandard-Regular",
+
     marginLeft: 5,
   },
   ratingContainer: {
@@ -99,14 +100,16 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFD700", // Gold color for rating number
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // White text color
     marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for review count
+    color: ColorsBarber.light.textColor, // White text color
     marginLeft: 5,
+        fontFamily: "OldStandard-Regular",
+
   },
 });
 

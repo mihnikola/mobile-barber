@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { dayNamesEng } from "@/helpers/locale-calendar-en";
 import { dayNamesRs } from "@/helpers/locale-calendar-rs";
@@ -20,16 +21,20 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 }
 
 export const calendarTheme = {
-  monthTextColor: "white",
-  backgroundColor: "white",
-  calendarBackground: "black",
-  textSectionTitleColor: "white",
-  selectedDayBackgroundColor: "white",
-  selectedDayTextColor: "black",
-  todayTextColor: "white",
-  dayTextColor: "white",
-  textMonthFontWeight: "bold",
+  textDayFontFamily: "OldStandard-Bold",
+  textSectionTitleFontFamily: "OldStandard-Bold",
+  monthTextColor: ColorsBarber.light.textColor,
+  backgroundColor: ColorsBarber.light.background,
+  calendarBackground: ColorsBarber.light.background,
+  textSectionTitleColor: ColorsBarber.light.textColor,
+  selectedDayBackgroundColor: ColorsBarber.light.textColor,
+  selectedDayTextColor: ColorsBarber.light.textColor,
+  todayTextColor: ColorsBarber.light.textColor,
+  dayTextColor: ColorsBarber.light.textColor,
+  textMonthFontFamily: "OldStandard-Bold",
   textDisabledColor: "grey",
+  textSectionTitleFontFamily: "OldStandard-Bold",
+  textDayFontFamily:  "OldStandard-Bold",
 };
 export function convertToMonthName(dateString) {
   const parts = dateString.split(".");
@@ -255,8 +260,6 @@ const formatDatePrettier = (input, code) => {
   return `${day}. ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}.`;
 };
 
-
-
 export const getInitialsName = (mrk) => {
   if (!mrk) {
     return;
@@ -274,9 +277,6 @@ export const getInitialsName = (mrk) => {
   }
   return "";
 };
-
-
-
 
 export const convertDateDetails = (dateStr) => {
   const { localization } = useLocalization();

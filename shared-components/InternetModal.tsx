@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
@@ -39,15 +40,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#222224",
     borderRadius: 16,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOpacity: 0.25,
     shadowRadius: 10,
     elevation: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
     marginBottom: 10,
     textAlign: "center",
   },
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonText: {
-    color: "#fff",
+   color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
 });

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
 import { findNodeHandle, StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 
@@ -24,7 +25,7 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
         onFocus={handleFocus}
         onBlur={() => setIsFocused(false)}
         onChangeText={props.onChangeText}
-        placeholderTextColor="grey"
+        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         style={[props.style, isFocused && styles.focusedBorder]}
       />
       {props.error && <Text style={styles.errorText}>{props.error}</Text>}
@@ -34,9 +35,9 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 15 },
-  inputLabel: { color: "#ccc", fontSize: 14,  marginTop: 15, marginBottom: 8 },
-  errorText: { color: "red", marginTop: 5 },
-  focusedBorder: { borderColor: "#2596be" },
+  inputLabel: {color: ColorsBarber.light.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:"OldStandard-Regular" },
+  errorText: { color: "red", marginTop: 5,  fontFamily:"OldStandard-Bold" },
+  focusedBorder: { borderColor: ColorsBarber.light.inActiveTextColor },
 });
 
 export default SharedNameEdit;

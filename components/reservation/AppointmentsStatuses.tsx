@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import {
   View,
@@ -14,18 +15,15 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
     {
       id: "pending",
       label: localization.APPOINTMENTS.pending,
-      color: "#eab308",
     },
 
     {
       id: "approved",
       label: localization.APPOINTMENTS.approved,
-      color: "#22c55e",
     },
     {
       id: "rejected",
       label: localization.APPOINTMENTS.rejected,
-      color: "#c52222",
     },
   ];
   return (
@@ -42,7 +40,6 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
               { borderColor: isActive ? "#999090" : "#3d3d3d" },
             ]}
           >
-            <View style={[styles.dot, { backgroundColor: status.color }]} />
             <Text style={[styles.text, isActive && styles.activeText]}>
               {status.label}
             </Text>
@@ -63,8 +60,9 @@ const styles = StyleSheet.create({
     elevation: 5, // Gura komponentu na sam vrh slojeva (Android)
   },
   activeText: {
-    color: "#ffffff", // Tekst pobeli kada je aktivan
-    fontWeight: "700",
+    color: ColorsBarber.light.textColor, // Tekst pobeli kada je aktivan
+    fontFamily: "OldStandard-Bold",
+    fontSize: 19,
   },
   tab: {
     flex: 1, // Deli prostor na 3 potpuno jednaka dela (lepo razvučeno)
@@ -75,10 +73,10 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
     borderWidth: 1,
-    backgroundColor: "#000000", // Dark background from your image
-    color: "white",
+    backgroundColor: ColorsBarber.light.background, // Dark background from your image
+   color: ColorsBarber.light.textColor,
     borderColor: '#8a2727',
-    borderBottomColor: "#000"
+    borderBottomColor: ColorsBarber.light.background
   },
   dot: {
     width: 9, // Prečnik kružića
@@ -87,9 +85,8 @@ const styles = StyleSheet.create({
     marginRight: 3, // Razmak između kružića i teksta
   },
   text: {
-    color: "#a3a3a3", // Neutralna svetlo-siva boja teksta za neaktivne elemente
+    color: ColorsBarber.light.textColor, // Neutralna svetlo-siva boja teksta za neaktivne elemente
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
-    fontWeight: "500", // Srednje podebljan tekst za bolju čitljivost
-    letterSpacing: 0.2, // Blagi razmak između slova za "premium" izgled
+    fontFamily: "OldStandard-Regular", // Srednje podebljan tekst za bolju čitljivost
   },
 });

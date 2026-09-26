@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
 
 const useSelectedDate = (initialDate) => {
@@ -29,13 +30,13 @@ const useSelectedDate = (initialDate) => {
         selectedColor: "white",
         customStyles: {
           container: {
-            backgroundColor: "white",
+            backgroundColor:ColorsBarber.light.item,
             padding: 1,
             borderRadius: 8,
           },
           text: {
-            color: "black",
-            fontWeight: "bold",
+            color:  ColorsBarber.light.textColor,
+            fontFamily: "OldStandard-Bold",
           },
         },
       };

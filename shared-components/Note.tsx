@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const Note = () => {
   const {localization} = useLocalization();
@@ -30,19 +31,22 @@ const styles = StyleSheet.create({
   },
   timeData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   info: {
     display: "flex",
     paddingLeft: 12,
     paddingBottom: 8,
-    color: "grey",
+   color: ColorsBarber.light.textColor,
+        fontFamily:"OldStandard-Regular"
+
   },
   title: {
     fontSize: 20,
-    color: "#fff",
+   color: ColorsBarber.light.textColor,
     padding: 12,
+    fontFamily:"OldStandard-Bold"
   },
   position: {
     fontSize: 16,
@@ -59,8 +63,8 @@ const styles = StyleSheet.create({
   },
   dateData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   data: {
     display: "flex",
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 32,
     color: "grey",
-    fontWeight: "900",
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
     fontStyle: "italic",
     position: "absolute",

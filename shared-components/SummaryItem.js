@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   const { value } = data;
@@ -13,7 +14,7 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
         styles.content,
         selectedItem?.value === value && styles.selectedContent, // Apply selected style
       ]}
-      key={value}
+      key={value} 
       onPress={() => handlerPressDate(data)}
     >
       <Text
@@ -33,23 +34,21 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     justifyContent: "center",
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
   },
   selectedTime: {
-    color: "#000000",
+    color: ColorsBarber.light.textColor,
   },
   selectedContent: {
-    backgroundColor: "#fff",
-    borderColor: "#000",
+    backgroundColor: ColorsBarber.light.item,
   },
   time: {
-    display: "flex",
     fontSize: 16,
-    color: "white",
-    fontWeight: "800",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     borderColor: "#ffffff",
   },
 });

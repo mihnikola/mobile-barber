@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import {
   StyleSheet,
@@ -57,7 +58,7 @@ export default function InitialComponentItem({ item }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff", // Or your desired background color
+    backgroundColor: ColorsBarber.light.background, // Or your desired background color
   },
   imageBackground: {
     width: 500,
@@ -94,15 +95,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
     textAlign: "left", // Align text to the left
     marginBottom: 10,
     lineHeight: 40, // Adjust line height for multiline text
   },
   description: {
     fontSize: 16,
-    color: "#ccc",
+   color: ColorsBarber.light.inActiveTextColor,
     textAlign: "left",
     marginBottom: 30,
   },
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
   },
 });

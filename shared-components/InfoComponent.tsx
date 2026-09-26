@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const InfoComponent = ({title}) => {
   return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 20,
-    color: "white",
+   color: ColorsBarber.light.textColor,
   },
 });
 

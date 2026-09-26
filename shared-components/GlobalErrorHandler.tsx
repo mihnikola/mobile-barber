@@ -4,6 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "./SharedLoader";
 import { useState } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const GlobalErrorHandler = () => {
   const { error, hideError } = useGlobalError();
@@ -44,7 +45,7 @@ const GlobalErrorHandler = () => {
       isOpen={!!error}
       title={error.title}
       buttonText="OK"
-      icon={<FontAwesome name={"close"} size={64} color="white" />}
+      icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.light.textColor} />}
       onClose={hideError}
       onConfirm={logoutConfirm}
     />

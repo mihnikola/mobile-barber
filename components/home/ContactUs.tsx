@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ContactUs = ({ workDays, workSaturday, holidays }) => {
   const { localization } = useLocalization();
@@ -23,14 +24,16 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 19,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+
     padding: 7,
   },
   reviewCapture: {
     fontSize: 29,
-    fontWeight: 800,
+    fontFamily: "OldStandard-Bold",
     marginBottom: 20,
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
 });
 

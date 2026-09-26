@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import {
@@ -13,7 +14,7 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
     <>
       {isGoogleLoading && (
         <TouchableOpacity style={styles.button}>
-          <ActivityIndicator size={22} color="white" />
+          <ActivityIndicator size={22} color={ColorsBarber.light.textColor} />
         </TouchableOpacity>
       )}
       {!isGoogleLoading && (
@@ -33,7 +34,7 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 8,
     elevation: 3,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "OldStandard-Regular",
   },
 });
 

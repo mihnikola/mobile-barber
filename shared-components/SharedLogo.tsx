@@ -10,9 +10,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "center",
     resizeMode: 'contain',
-    width: 140,
-    height: 150,
-    top:25
+    width: 200,
+    height: 200,
   },
 });
 

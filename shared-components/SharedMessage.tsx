@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   View,
   Text,
@@ -36,7 +37,7 @@ export const SharedMessage = ({
             {isLoading && (
               <ActivityIndicator
                 size={25}
-                color={isLoading === "verification" ? "white" : "black"}
+                color={isLoading === "verification" ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor}
               />
             )}
           </TouchableOpacity>
@@ -49,15 +50,15 @@ export const SharedMessage = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.98)",
+    backgroundColor: "rgba(0, 0, 0, 0.70)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-800
     borderRadius: 12,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96,
     height: 96,
-    backgroundColor: "black", // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999,
     justifyContent: "center",
     alignItems: "center",
@@ -79,28 +80,28 @@ const styles = StyleSheet.create({
   },
 
   modalTitle: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     marginBottom: 16,
     textAlign: "center",
     lineHeight: 36,
   },
   actionButton: {
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 16,
     borderRadius: 8,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   actionButtonText: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
     fontSize: 22,
-    fontWeight: "600",
+    fontFamily: "OldStandard-Regular",
     textAlign: "center",
   },
 });

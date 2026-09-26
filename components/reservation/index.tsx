@@ -17,6 +17,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -82,7 +83,7 @@ const Reservation = () => {
               isOpen={IsError}
               onClose={confirmHandler}
               onConfirm={confirmHandler}
-              icon={<FontAwesome name={"close"} size={64} color="white" />}
+              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.light.textColor} />}
               title={error}
               buttonText={localization.OK.label}
             />
@@ -92,7 +93,7 @@ const Reservation = () => {
               isOpen={distinctReservation?.length > 0}
               onClose={confirmDistinctHandler}
               onConfirm={confirmDistinctHandler}
-              icon={<FontAwesome name={"close"} size={64} color="white" />}
+              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.light.textColor} />}
               title={distinctReservation}
               buttonText={localization.OK.label}
             />
@@ -106,7 +107,7 @@ const Reservation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 
   btn: {

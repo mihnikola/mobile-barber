@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Modal,
   StyleSheet,
@@ -38,15 +39,15 @@ function LocationNotFound({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.98)",
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     padding: 32,
     width: "100%",
     maxHeight: "60%",
@@ -60,24 +61,24 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-    color: "white",
+   color: ColorsBarber.light.textColor,
   },
 
   modalTitle: {
     color: "#FFFFFF",
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
     lineHeight: 36,
     marginBottom: 10,
   },
   actionButton: {
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: "#FFFFFF",
     fontSize: 22,
-    fontWeight: "600",
+    fontFamily: "OldStandard-Regular",
     textAlign: "center",
   },
 });

@@ -2,6 +2,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import { Text, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { ColorsBarber } from "@/constants/Colors";
 
 const myArray = [
   { arrx: "10000" },
@@ -25,22 +26,22 @@ function ReservationMarkComponent({ data }) {
         <Text
           style={{
             fontSize: 18,
-            fontWeight: "bold",
-            color: "#FFFFFF",
+            fontFamily: "OldStandard-Bold",
+            color: ColorsBarber.light.textColor,
             marginBottom: 5,
           }}
         >
           {localization.APPOINTMENTS.rateReservation.rated}
         </Text>
 
-        <Text style={{ color: "white", fontSize: 40 }}>
+        <Text style={{color: ColorsBarber.light.textColor, fontSize: 40 }}>
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
                 <MaterialIcons
                   key={item.arrx}
                   name="star"
-                  color="gold"
+                  color={ColorsBarber.light.textColor}
                   size={23}
                 />
               );

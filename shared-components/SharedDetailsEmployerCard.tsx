@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedDetailsEmployerCard = ({ data }) => {
   const { _id, image, name, averageRating, userCount, seniority } = data;
@@ -24,14 +25,14 @@ const SharedDetailsEmployerCard = ({ data }) => {
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
-            <MaterialIcons name={"star"} size={16} color="#FFD700" />
+            <MaterialIcons name={"star"} size={16} color={ColorsBarber.light.textColor} />
             <Text style={styles.reviewText}>{`${roundValue(
               averageRating,
             )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Ionicons name={"person"} size={16} color={ColorsBarber.light.textColor} />
             <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>
         </View>
@@ -43,13 +44,13 @@ const SharedDetailsEmployerCard = ({ data }) => {
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 30,
     marginRight: 15,
-    borderWidth: 1,
     borderColor: "#333",
   },
   detailsContainer: {
@@ -74,9 +74,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 4,
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // White text color    marginBottom: 4,
   },
   locationContainer: {
     flexDirection: "row",
@@ -85,7 +84,8 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // White text color
   },
   ratingContainer: {
     gap: 5,
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
 
   reviewText: {
     fontSize: 14,
-    color: "#CCCCCC",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor, // White text color
   },
 });
 

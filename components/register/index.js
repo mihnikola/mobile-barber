@@ -28,6 +28,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { ColorsBarber } from "@/constants/Colors";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -101,11 +102,11 @@ const Register = () => {
       <View style={styles.container}>
         <View style={{ marginTop: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
           </TouchableOpacity>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <SharedLogin image={image} />
+          <SharedLogin />
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
           <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
@@ -158,7 +159,7 @@ const Register = () => {
           <SharedPhoneNumber
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
-            placeholderTextColor="#888"
+            placeholderTextColor={ColorsBarber.light.inActiveTextColor}
             keyboardType="phone-pad"
             dataDetectorTypes="phoneNumber"
             value={phoneNumber}
@@ -246,7 +247,7 @@ const Register = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={error || success}
@@ -261,39 +262,43 @@ const Register = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 25,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
   },
   subtitle: {
     fontSize: 13,
-    color: "#ccc",
+    fontFamily: "OldStandard-Regular",
+
+   color: ColorsBarber.light.inActiveTextColor,
   },
 
   input: {
     backgroundColor: "white",
-    color: "black",
+    color:  ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
+    fontFamily: "OldStandard-Regular",
+
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -308,7 +313,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+    color:  ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

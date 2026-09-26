@@ -2,10 +2,20 @@ import AppInitialized from "@/components/wrapper/AppInitialized";
 import useInternetGuard from "@/services/useInternetGuard";
 import NoInternetModal from "@/shared-components/InternetModal";
 import { Stack } from "expo-router";
+import { useFonts } from "expo-font";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function RootLayout() {
   const isConnected = useInternetGuard();
+  const [loaded, error] = useFonts({
+    "OldStandard-Regular": require("@/assets/fonts/OldStandardTT-Regular.ttf"),
+    "OldStandard-Bold": require("@/assets/fonts/OldStandardTT-Bold.ttf"),
+    "OldStandard-Italic": require("@/assets/fonts/OldStandardTT-Italic.ttf"),
+  });
 
+  if (!loaded && !error) {
+    return null;
+  }
   return (
     <AppInitialized>
       <NoInternetModal visible={!isConnected} />
@@ -22,7 +32,7 @@ export default function RootLayout() {
             title: "",
             headerShown: true,
             headerStyle: {
-              backgroundColor: "black",
+              backgroundColor: ColorsBarber.light.background,
             },
             headerTintColor: "white",
           }}
@@ -43,7 +53,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
-   
+
         <Stack.Screen
           name="(reservation_notification)"
           options={{

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 import {
@@ -9,8 +10,7 @@ import {
   View,
 } from "react-native";
 
-  const SharedPassword = forwardRef((props: any, ref) => {
-  
+const SharedPassword = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -33,7 +33,7 @@ import {
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
           ref={ref}
-          placeholderTextColor="grey"
+          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         />
 
         <TouchableOpacity
@@ -61,30 +61,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "#333",
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
-    borderColor: "white",
     width: "80%",
+    fontFamily:"OldStandard-Regular",
+
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily:"OldStandard-Bold",
     fontSize: 14,
     marginTop: 20,
     marginBottom: 4,
   },
   errorText: {
     color: "red",
+    fontFamily:"OldStandard-Bold",
+
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderWidth: 2,
+
+    borderColor: ColorsBarber.light.textColor,
   },
   passwordToggle: {
     padding: 10,

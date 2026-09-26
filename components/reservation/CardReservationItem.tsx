@@ -3,12 +3,16 @@ import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
-  
   return (
     <TouchableOpacity
-      style={styles.cardReservation}
+      style={[
+        item?.past
+          ? styles.cardReservationPast
+          : styles.cardReservationCurrent,
+      ]}
       key={item._id}
       onPress={() => redirectScreen(item)}
     >
@@ -20,8 +24,19 @@ const CardReservationItem = ({ redirectScreen, item }) => {
 };
 
 const styles = StyleSheet.create({
-  cardReservation: {
-    backgroundColor: "#1E1E1E", 
+  cardReservationCurrent: {
+    backgroundColor: ColorsBarber.light.item,
+    display: "flex",
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginVertical: 10,
+    borderRadius: 20,
+    padding: 10,
+    gap: 12,
+    height: 120,
+  },
+  cardReservationPast: {
+    backgroundColor: ColorsBarber.light.textColor,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

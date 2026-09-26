@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 
 const SharedInputTextAreaMark = ({
@@ -12,7 +13,7 @@ const SharedInputTextAreaMark = ({
         onChangeText={setDescription}
         value={description}
         placeholder={placeholderText}
-        placeholderTextColor="grey"
+        placeholderTextColor={ColorsBarber.light.textColor}
         multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
@@ -42,19 +43,22 @@ const styles = StyleSheet.create({
     width: "100%",
     minHeight: 100,
     fontSize: 14,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
   },
   previewContainer: {
-    position: 'absolute',
+    position: "absolute",
     alignContent: "flex-end",
     alignItems: "flex-end",
     width: "100%",
-    bottom: 2
+    bottom: 2,
   },
   previewText: {
     fontSize: 9,
     color: "red",
-    opacity: 0.7
+    opacity: 0.7,
+    fontFamily: "OldStandard-Regular",
   },
 });
 

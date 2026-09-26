@@ -1,4 +1,5 @@
 import { coverImageAppointments } from "@/constants";
+import { ColorsBarber } from "@/constants/Colors";
 import { useCompany } from "@/context/CompanyContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
@@ -50,11 +51,11 @@ function AppointmentsNonToken() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 
   card: {
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -68,12 +69,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     padding: 0,
-    fontWeight: "700",
-    color: "white",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
   },
   description: {
     fontSize: 16,
-    color: "grey",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     textAlign: "center",
   },
 });

@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 // import LottieView from "lottie-react-native";
 import { useEffect } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SplashScreenEmail = () => {
   const animationRef = useRef(null); // Create a ref to control the animation imperatively
@@ -20,7 +21,7 @@ const SplashScreenEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsBarber.light.background,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 50,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   lottieAnimation: {
     width: 250,
     height: 250,
-    backgroundColor: "#fff", // Or 'transparent' if your animation has transparent background
+    backgroundColor: ColorsBarber.light.background, // Or 'transparent' if your animation has transparent background
   },
 });
 export default SplashScreenEmail;

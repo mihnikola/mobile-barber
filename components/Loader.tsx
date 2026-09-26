@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { View, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 
 const Loader = () => {
@@ -5,7 +6,7 @@ const Loader = () => {
 
   return (
     <View style={[styles.container, { minHeight: height * 0.5 }]}>
-      <ActivityIndicator size="large" color="#b9b9b9ff" />
+      <ActivityIndicator size="large" color={ColorsBarber.light.textColor} />
     </View>
   );
 };
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",  // Centriranje po vertikali
     alignItems: "center",      // Centriranje po horizontali
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
   },
 });
 

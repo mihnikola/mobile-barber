@@ -18,7 +18,7 @@ const HomeCoverImage: React.FC<HomeCoverImageProps> = ({ image }) => {
 const styles = StyleSheet.create({
   backImage: {
    
-    opacity: 0.4,
+    opacity: 0.2,
   },
 });
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-function SharedLogin({image}) {
+function SharedLogin() {
   return (
     <Image
-      source={{uri:image}}
+        source={require("@/assets/images/logoFrizer.png")}
       style={styles.coverLogo}
     />
   );
@@ -13,8 +13,7 @@ function SharedLogin({image}) {
 const styles = StyleSheet.create({
  coverLogo: {
     resizeMode:"contain",
-    width: 140,
-    height: 150,
+    height: 180,
   },
 });
 

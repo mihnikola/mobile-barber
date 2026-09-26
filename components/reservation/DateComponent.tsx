@@ -30,6 +30,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import LoaderDate from "../LoaderDate";
+import { ColorsBarber } from "@/constants/Colors";
 
 const DateComponent = ({ reevaluted }) => {
   const [check, setCheck] = useState(false);
@@ -119,7 +120,7 @@ const DateComponent = ({ reevaluted }) => {
             }}
             current={localDateString}
             minDate={localDateString}
-            futureScrollRange={5}
+            futureScrollRange={2}
             pastScrollRange={0}
             markedDates={markedDates}
             horizontal
@@ -180,22 +181,28 @@ const styles = StyleSheet.create({
   },
   notWorkingDaysContent: {
     fontSize: 20,
-    color: "white",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     padding: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
+    fontFamily: "OldStandard-Regular",
   },
   calendarContainer: {
     marginTop: 10,
+    backgroundColor: ColorsBarber.light.background,
+    fontFamily: "OldStandard-Regular",
+
+
   },
 
   calendar: {
-    borderWidth: 1,
     backgroundColor: "transparent",
     color: "yellow",
     width: "100%",
+    fontFamily: "OldStandard-Regular",
   },
 
   buttonContainer: {

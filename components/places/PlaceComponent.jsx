@@ -12,6 +12,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -69,13 +70,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

@@ -19,6 +19,7 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 // } from "react-native-safe-area-context";
 import withSafeArea from "../wrapper/WrapperSafeArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -92,7 +93,7 @@ const SettingsComponent = () => {
           onClose={() => setIsLogout(false)}
           onLogOut={logoutConfirm}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome name="question-circle-o" size={64} color={ColorsBarber.light.textColor} />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.title}
@@ -105,7 +106,7 @@ const SettingsComponent = () => {
           isOpen={logoutData && !isLoading}
           buttonText="Odlogovani ste"
           isLoading={loader}
-          icon={<FontAwesome name="check" size={64} color="white" />}
+          icon={<FontAwesome name="check" size={64} color={ColorsBarber.light.textColor} />}
           onConfirm={() => setLogoutData(false)}
         />
       )} */}
@@ -117,7 +118,7 @@ const SettingsComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     paddingTop: 20,
   },
 });

@@ -1,62 +1,84 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Platform, StatusBar, StyleSheet, Switch, Text, TouchableOpacity } from "react-native";
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
-  export const MenuItem = ({ iconName, title, onPress, isToggle = false, toggleValue, onToggle, isLogout = false }) => (
-    <TouchableOpacity
-      style={[styles.menuItem, isLogout && styles.logoutMenuItem]}
-      onPress={onPress}
-      disabled={isToggle} 
-    >
-      <MaterialCommunityIcons
-        name={iconName}
-        size={24}
-        color={isLogout ? '#E57373' : '#B0B0B0'} 
-        style={styles.menuItemIcon}
+export const MenuItem = ({
+  iconName,
+  title,
+  onPress,
+  isToggle = false,
+  toggleValue,
+  onToggle,
+  isLogout = false,
+}) => (
+  <TouchableOpacity
+    style={[styles.menuItem, isLogout && styles.logoutMenuItem]}
+    onPress={onPress}
+    disabled={isToggle}
+  >
+    <MaterialCommunityIcons
+      name={iconName}
+      size={24}
+      color={
+        isLogout
+          ? ColorsBarber.light.inActiveTextColor
+          : ColorsBarber.light.textColor
+      }
+      style={styles.menuItemIcon}
+    />
+    <Text style={[styles.menuItemText, isLogout && styles.logoutText]}>
+      {title}
+    </Text>
+    {isToggle ? (
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={toggleValue ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor={ColorsBarber.light.textColor}
+        onValueChange={onToggle}
+        value={toggleValue}
+        style={styles.menuItemToggle}
       />
-      <Text style={[styles.menuItemText, isLogout && styles.logoutText]}>{title}</Text>
-      {isToggle ? (
-        <Switch
-          trackColor={{ false: '#767577', true: '#81b0ff' }} 
-          thumbColor={toggleValue ? '#f5dd4b' : '#f4f3f4'} 
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={onToggle}
-          value={toggleValue}
-          style={styles.menuItemToggle}
-        />
-      ) : (
-        <MaterialCommunityIcons
-          name="chevron-right"
-          size={24}
-          color="#B0B0B0"
-          style={styles.menuItemArrow}
-        />
-      )}
-    </TouchableOpacity>
-  );
+    ) : (
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={24}
+        color={ColorsBarber.light.textColor}
+        style={styles.menuItemArrow}
+      />
+    )}
+  </TouchableOpacity>
+);
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a', // Dark background as per image
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Adjust for Android status bar
+    backgroundColor: "#1a1a1a", // Dark background as per image
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, // Adjust for Android status bar
   },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#333333', // Darker border for separation
+    borderBottomColor: "#333333", // Darker border for separation
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#FFFFFF', // White text
+    fontWeight: "bold",
+    color: "#FFFFFF", // White text
   },
   profileSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#333333',
+    borderBottomColor: "#333333",
     marginBottom: 10,
   },
   profileImage: {
@@ -65,27 +87,29 @@ import { Platform, StatusBar, StyleSheet, Switch, Text, TouchableOpacity } from 
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: '#4a4a4a', // Subtle border around image
+    borderColor: "#4a4a4a", // Subtle border around image
+
   },
   profileInfo: {
     flex: 1,
   },
   profileName: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontWeight: "600",
+    color: "#FFFFFF",
+    fontFamily: "OldStandard-Regular",
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
-    color: '#B0B0B0', // Light gray for email
+    color: "#B0B0B0", // Light gray for email
   },
   editButton: {
-    backgroundColor: '#3a3a3a', // Darker background for button
+    backgroundColor: "#3a3a3a", // Darker background for button
     borderRadius: 20,
     padding: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   menuContainer: {
     flex: 1,
@@ -93,15 +117,14 @@ import { Platform, StatusBar, StyleSheet, Switch, Text, TouchableOpacity } from 
     paddingTop: 10,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#333333',
+    borderBottomColor: "#333333",
   },
   logoutMenuItem: {
     borderBottomWidth: 0, // No border for logout
-    marginTop: 20, // Add some space above logout
   },
   menuItemIcon: {
     marginRight: 15,
@@ -109,17 +132,19 @@ import { Platform, StatusBar, StyleSheet, Switch, Text, TouchableOpacity } from 
   menuItemText: {
     flex: 1, // Allows text to take up available space
     fontSize: 16,
-    color: '#FFFFFF',
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   logoutText: {
-    color: '#E57373', // Red for logout text
-    fontWeight: '600',
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
+
   },
   menuItemArrow: {
     marginLeft: 10,
   },
   menuItemToggle: {
     // Specific styles for the Switch component if needed
-    transform: Platform.OS === 'ios' ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [], // Adjust size for iOS
+    transform: Platform.OS === "ios" ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [], // Adjust size for iOS
   },
 });

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -18,8 +19,8 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: "white",
-    fontWeight: "500",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
 });
 export default SharedTitle;

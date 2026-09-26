@@ -10,6 +10,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -45,7 +46,11 @@ const ForgotPassword = () => {
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
-        <MaterialIcons name="arrow-back" size={25} color="white" />
+        <MaterialIcons
+          name="arrow-back"
+          size={25}
+          color={ColorsBarber.light.textColor}
+        />
       </TouchableOpacity>
 
       <View style={{ flex: 1 }}>
@@ -58,7 +63,7 @@ const ForgotPassword = () => {
             {localization.FORGOT_PASSWORD.subtitle}
           </Text>
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <SharedInput
             label={localization.EMAIL.label}
             value={email}
@@ -86,7 +91,13 @@ const ForgotPassword = () => {
           isOpen={isMessage || error}
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           title={error}
           buttonText={localization.OK.label}
         />
@@ -97,15 +108,16 @@ const ForgotPassword = () => {
 const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 28,
-    fontWeight: "700",
-    color: "#000",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.background,
     marginHorizontal: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Regular",
+
     lineHeight: 22,
-    marginHorizontal: 10,
   },
   radiobtn: {
     flex: 2,
@@ -124,7 +136,9 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -134,12 +148,8 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  subtitle: {
-    fontSize: 13,
-    color: "#ccc",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
   },
 });
 export default ForgotPassword;

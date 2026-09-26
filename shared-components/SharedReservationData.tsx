@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -9,7 +10,7 @@ function SharedReservationData({ reservation }) {
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons name="arrow-back" size={25} color="white" />
+          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
         </TouchableOpacity>
       </View>
       <View>
@@ -41,12 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 20,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
     fontSize: 16,
     textAlign: "center",
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
 
   timeData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   position: {
     fontSize: 16,
@@ -66,17 +67,17 @@ const styles = StyleSheet.create({
 
   dateData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   data: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   coverImage: {
     width: "100%",

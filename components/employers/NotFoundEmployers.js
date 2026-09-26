@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -11,7 +12,7 @@ const NotFoundEmployers = () => {
 };
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -25,8 +26,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     padding: 10,
-    fontWeight: "900",
-    color: "white",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
   },
   description: {
     fontSize: 16,

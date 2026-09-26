@@ -28,6 +28,7 @@ import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import Loader from "../Loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ColorsBarber } from "@/constants/Colors";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -144,7 +145,11 @@ const otpCode = () => {
           onPress={router.back}
           style={{ marginVertical: 15 }}
         >
-          <MaterialIcons name="arrow-back" size={25} color="white" />
+          <MaterialIcons
+            name="arrow-back"
+            size={25}
+            color={ColorsBarber.light.textColor}
+          />
         </TouchableOpacity>
 
         <View style={{ flex: 1 }}>
@@ -183,7 +188,7 @@ const otpCode = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={error || message}
@@ -215,12 +220,14 @@ const styles = StyleSheet.create({
   },
 
   resendText: {
-    color: "#00AEEF",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   timerText: {
-    color: "#999",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
+
     fontSize: 14,
   },
   iconStyle: {
@@ -231,23 +238,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   image: {
     width: 290,
     height: 290,
     resizeMode: "contain",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily:"OldStandard-Regular",
+
   },
   socialButtonsContainer: {
     flexDirection: "row",

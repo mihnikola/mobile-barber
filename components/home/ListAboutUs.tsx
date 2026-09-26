@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ListAboutUs = ({ contact }) => {
   const { localization } = useLocalization();
@@ -10,7 +11,7 @@ const ListAboutUs = ({ contact }) => {
     <View>
       <Text style={styles.titleContant}>{localization.HOME.contact}</Text>
       <View style={styles.contactItem}>
-        <FontAwesome name="phone" size={30} color="white" />
+        <FontAwesome name="phone" size={30} color={ColorsBarber.light.textColor} />
         <Text style={styles.title}>{contact}</Text>
       </View>
     </View>
@@ -22,8 +23,8 @@ const styles = StyleSheet.create({
     padding: 20, // optional padding around the content
   },
   titleContant: {
-    fontWeight: "800",
-    color: "white",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
     fontSize: 29,
     textAlign: "center",
   },
@@ -36,7 +37,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#ffffff",
+       color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+
+
   },
   image: {
     width: 40,

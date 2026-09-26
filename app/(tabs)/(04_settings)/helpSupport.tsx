@@ -13,10 +13,11 @@ import { useLocalization } from "@/context/LocalizationContext";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const companyInfo = {
-  name: "MUNJA TRANS",
-  email: "support@munjatrans.com",
+  name: "FusionTech DOO",
+  email: "fta@support.com",
 };
 
 const HelpSupportScreen = () => {
@@ -42,7 +43,7 @@ const HelpSupportScreen = () => {
           <MaterialCommunityIcons
             name="email-outline"
             size={24}
-            color="#B0B0B0"
+            color={ColorsBarber.light.textColor}
             style={styles.menuItemIcon}
           />
           <Text style={styles.menuItemText}>
@@ -58,7 +59,7 @@ const HelpSupportScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000ff",
+    backgroundColor:  ColorsBarber.light.background,
   },
 
   sectionContainer: {
@@ -66,13 +67,13 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     color: "#FFFFFF",
     marginBottom: 20,
   },
@@ -84,15 +85,16 @@ const styles = StyleSheet.create({
     borderBottomColor: "#333333",
     marginBottom: 20,
   },
- 
+
   infoLabel: {
     fontSize: 16,
-    color: "#B0B0B0",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   infoValue: {
     fontSize: 16,
-    color: "#FFFFFF",
-    fontWeight: "600",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
   menuItem: {
     flexDirection: "row",
@@ -107,11 +109,13 @@ const styles = StyleSheet.create({
   menuItemText: {
     flex: 1,
     fontSize: 16,
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   menuItemSubText: {
     fontSize: 14,
-    color: "#B0B0B0",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     marginLeft: "auto", // Pushes the subtext to the right
   },
 });

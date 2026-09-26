@@ -10,6 +10,7 @@ import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import { useRef, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const OnboardingComponent = ({ reviews }) => {
   const { localization } = useLocalization();
@@ -65,9 +66,9 @@ const styles = StyleSheet.create({
   reviewSectionTitle: {
     marginTop: 20,
     marginBottom: 15,
-    fontWeight: "800",
+    fontFamily: "OldStandard-Bold",
     fontSize: 29,
-    color: "white",
+   color: ColorsBarber.light.textColor,
     paddingHorizontal: 20,
     textAlign: "center",
   },

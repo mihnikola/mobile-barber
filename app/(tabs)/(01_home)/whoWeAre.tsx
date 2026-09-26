@@ -12,6 +12,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ColorsBarber } from "@/constants/Colors";
 
 const AboutUsScreen = () => {
   const { company } = useCompany();
@@ -24,7 +25,7 @@ const AboutUsScreen = () => {
       <View style={styles.contentContainer}>
         <View style={{ marginTop: 30, marginLeft: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
           </TouchableOpacity>
         </View>
         <AboutUsInfo
@@ -36,7 +37,7 @@ const AboutUsScreen = () => {
 
         <ListAboutUs contact={company?.contact} />
       </View>
-      <OnboardingComponent reviews={company?.reviews} />
+      {/* <OnboardingComponent reviews={company?.reviews} /> */}
 
       <View style={styles.contentContainer}>
         <ContactUs
@@ -52,7 +53,7 @@ const AboutUsScreen = () => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   contentContainer: {
     paddingHorizontal: 10,

@@ -2,6 +2,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import DateFormatComponent from "./DateFormatComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 const CardReservationPending = ({ redirectScreen, item }) => {
   return (
@@ -18,7 +19,7 @@ const CardReservationPending = ({ redirectScreen, item }) => {
 
 const styles = StyleSheet.create({
   cardReservation: {
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item, 
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
 import {
   Image,
@@ -48,7 +49,7 @@ const SharedInput = forwardRef((props: any, ref) => {
           onFocus={() => setIsFocused(true)}
           onChangeText={props.onChangeText}
           onBlur={() => setIsFocused(false)}
-          placeholderTextColor="grey"
+          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
           secureTextEntry={props.stylePassword && !isPasswordVisible}
         />
         {props.stylePassword && !props.dataDetectorTypes && (
@@ -71,23 +72,26 @@ const SharedInput = forwardRef((props: any, ref) => {
 
 const styles = StyleSheet.create({
   prefixText: {
-    color: "black",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
     marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
+    fontFamily: "OldStandard-Bold",
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
+    fontFamily: "OldStandard-Bold",
   },
   errorText: {
     color: "red",
-    paddingTop: 10
+    paddingTop: 10,
+    fontFamily: "OldStandard-Regular",
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor: ColorsBarber.light.textColor,
   },
   passwordToggle: {
     padding: 10,

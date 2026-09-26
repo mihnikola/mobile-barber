@@ -1,5 +1,6 @@
 import { Animated, Image, View } from "react-native";
 import React, { useEffect, useRef } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SplashScreen = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
@@ -15,7 +16,7 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: "black",
+        backgroundColor: ColorsBarber.light.background,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
@@ -27,7 +28,7 @@ const SplashScreen = () => {
         }}
       >
         <Image
-          source={require("./../assets/images/homeSplash.png")}
+          source={require("./../assets/images/logoFrizer.png")}
           style={{ resizeMode: "contain", width: 350 }}
         />
       </Animated.View>

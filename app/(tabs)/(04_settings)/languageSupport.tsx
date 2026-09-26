@@ -21,6 +21,7 @@ import Loader from "@/components/Loader";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const languageSupport = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -56,7 +57,7 @@ const languageSupport = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
+      {/* <StatusBar backgroundColor=ColorsBarber.light.background barStyle="dark-content" /> */}
       {/* <SharedBackButton onPress={router.back} />
 
      
@@ -70,7 +71,7 @@ const languageSupport = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor="gray"
+        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         value={search}
         onChangeText={handleSearch}
       />
@@ -91,7 +92,7 @@ const languageSupport = () => {
               <FontAwesome
                 name={localization.code === item.code && "check-circle-o"}
                 size={28}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             </TouchableOpacity>
           )}
@@ -104,9 +105,9 @@ const languageSupport = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
-  
+
   headerImage: {
     width: "100%",
     height: 180,
@@ -114,14 +115,16 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
 
   search: {
-    color: "white",
-    borderColor: "white",
+    color: ColorsBarber.light.textColor,
+    backgroundColor: "white",
+    fontFamily: "OldStandard-Regular",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -137,14 +140,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "gray",
+    backgroundColor: ColorsBarber.light.item,
   },
   languageText: {
     fontSize: 18,
-    fontWeight: "500",
-    color: "#fff",
+    fontFamily: "OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
   },
 });
-
 
 export default withSafeArea(languageSupport);

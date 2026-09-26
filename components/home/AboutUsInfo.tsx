@@ -1,7 +1,8 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const AboutUsInfo = ({title, text, textThree, textTwo}) => {
+const AboutUsInfo = ({ title, text, textThree, textTwo }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -14,19 +15,19 @@ const AboutUsInfo = ({title, text, textThree, textTwo}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1
-      
+    flex: 1,
   },
   title: {
-    color: "#ffffff",
+    color: ColorsBarber.light.textColor,
     fontSize: 40,
-    fontWeight: "bold",
-    textAlign: "center", // Center the title
+    fontFamily: "OldStandard-Bold",
+    textAlign: "center",
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
-    color: "#ffffff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
     padding: 10,
   },

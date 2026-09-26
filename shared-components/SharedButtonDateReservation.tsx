@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import React from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedButtonDateReservation = (props: any) => {
   return (
@@ -9,28 +10,26 @@ const SharedButtonDateReservation = (props: any) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+   color: ColorsBarber.light.textColor,
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   btnDisabled: {
     display: "none",
     borderColor: "grey",
     backgroundColor: "#8b8b8bff",
-    color: "#3f3f3fff",
   },
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor:  ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
-    borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
     marginTop: 20,

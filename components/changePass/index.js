@@ -22,6 +22,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { ColorsBarber } from "@/constants/Colors";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();
@@ -67,7 +68,7 @@ const changePass = () => {
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
-        <MaterialIcons name="arrow-back" size={25} color="white" />
+        <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <View>
@@ -122,7 +123,7 @@ const changePass = () => {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={error || message}
@@ -136,11 +137,11 @@ const styles = StyleSheet.create({
   passContainer: {
     flexDirection: "row",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsBarber.light.background,
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -150,11 +151,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: "#333",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -190,19 +191,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   image: {
     resizeMode: "cover",
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+   color: ColorsBarber.light.textColor,
   },
   subtitle: {
     fontSize: 13,
-    color: "#ccc",
+   color: ColorsBarber.light.inActiveTextColor,
   },
 });
 export default changePass;

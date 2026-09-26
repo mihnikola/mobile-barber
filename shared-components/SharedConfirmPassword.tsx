@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 import {
@@ -60,30 +61,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
-    borderWidth: 2,
 
-    borderColor: "#333",
   },
   passwordInput: {
     backgroundColor: "white", // Dark input background
-    color: "black",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Regular",
+
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
     borderColor: "white",
     width: "80%",
   },
   inputLabel: {
-    color: "#ccc",
+   color: ColorsBarber.light.textColor,
     fontSize: 14,
-    marginTop: 10,
+    marginTop: 15,
+    marginBottom: 5,
+    fontFamily:"OldStandard-Regular"
+
   },
   errorText: {
     color: "red",
+    fontFamily:"OldStandard-Regular"
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Regular",
+    borderWidth: 2,
+
+
   },
   passwordToggle: {
     padding: 10,

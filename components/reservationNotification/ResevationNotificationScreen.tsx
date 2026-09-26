@@ -17,6 +17,7 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -72,7 +73,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: "#414141",
+              borderTopColor: ColorsBarber.light.textColor,
               width: "100%",
               marginTop: 2,
               marginBottom: 5,
@@ -185,7 +186,13 @@ function ResevationNotificationScreen() {
         isOpen={isModalQuestion}
         onClose={() => setIsModalQuestion(false)}
         onLogOut={submitAppointment}
-        icon={<FontAwesome name="question-circle-o" size={64} color="white" />}
+        icon={
+          <FontAwesome
+            name="question-circle-o"
+            size={64}
+            color={ColorsBarber.light.textColor}
+          />
+        }
         title={titleQuestion}
         buttonTextYes={questionButtonYes}
         buttonTextNo={questionButtonNo}
@@ -259,7 +266,7 @@ function ResevationNotificationScreen() {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={error || message}
@@ -273,22 +280,24 @@ function ResevationNotificationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   descriptionLabel: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   textBoldRejected: {
-    color: "grey",
+    color: ColorsBarber.light.textColor,
     fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   textBoldSuccess: {
-    color: "grey",
+    color: ColorsBarber.light.textColor,
+
+    fontFamily: "OldStandard-Bold",
     fontSize: 24,
     textAlign: "center",
   },
@@ -301,7 +310,8 @@ const styles = StyleSheet.create({
   },
   descriptionValue: {
     fontSize: 14,
-    color: "#CCCCCC",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
   containerWrapper: {
     marginTop: 10,
@@ -315,17 +325,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   description: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
   card: {
     flexDirection: "column",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     marginVertical: 8,
     marginHorizontal: 15,
     padding: 12,
     alignItems: "flex-start",
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedButton = (props: any) => {
   return (
@@ -20,36 +21,41 @@ const SharedButton = (props: any) => {
           {props.text}
         </Text>
       )}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      {props.loading && (
+        <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />
+      )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  btnTextDisabled: {
-    color: "#3f3f3fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   btnDisabled: {
-    borderColor: "grey",
-    backgroundColor: "#8b8b8bff",
-    color: "#3f3f3fff",
+    borderColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.light.background,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
+  btnTextDisabled: {
+    color: ColorsBarber.light.textColor,
+    fontSize: 18,
+    fontFamily: "OldStandard-Bold",
+  },
+
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.textColor,
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
     marginBottom: 30,
+    minHeight: 50,
   },
 });
 export default SharedButton;

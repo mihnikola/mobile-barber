@@ -31,6 +31,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ColorsBarber } from "@/constants/Colors";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
@@ -94,6 +95,7 @@ const LoginScreen = () => {
 
   const confirmHandler = async () => {
     const paramLogin = await AsyncStorage.getItem("paramLogin");
+    console.log("paramsLogin",paramLogin);
     if (status === 606) {
       verificationOTPCode();
     } else {
@@ -110,7 +112,7 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: "black" }}
+      style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -125,11 +127,15 @@ const LoginScreen = () => {
         <View style={styles.container}>
           {/* <SharedBackButton onPress={router.back} /> */}
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons
+              name="arrow-back"
+              size={25}
+              color={ColorsBarber.light.textColor}
+            />
           </TouchableOpacity>
 
           <View style={styles.logoImage}>
-            <SharedLogin image={company?.media?.logo} />
+            <SharedLogin />
           </View>
           <View style={{ alignItems: "center", marginTop: 10 }}>
             <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
@@ -141,22 +147,22 @@ const LoginScreen = () => {
           <View style={styles.socialButtonsContainer}>
             <View style={{ flex: 1, justifyContent: "center" }}>
               {Platform.OS === "ios" ? (
-                <View style={styles.socialBtns}>
-                  <CustomGoogleButton
-                    onPress={signIn}
-                    isGoogleLoading={loading === "google"}
-                  />
-                  <CustomAppleButton
-                    onPress={onAppleButtonPress}
-                    isAppleLoading={loading === "ios"}
-                  />
-                </View>
+              <View style={styles.socialBtns}>
+                <CustomGoogleButton
+                  onPress={signIn}
+                  isGoogleLoading={loading === "google"}
+                />
+                <CustomAppleButton
+                  onPress={onAppleButtonPress}
+                  isAppleLoading={loading === "ios"}
+                />
+              </View>
               ) : (
                 <CustomGoogleButton
                   onPress={signIn}
                   isGoogleLoading={loading === "google"}
                 />
-              )}
+              )} 
             </View>
           </View>
 
@@ -197,7 +203,13 @@ const LoginScreen = () => {
           />
 
           <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
-            <Text style={{ color: "white", textAlign: "right" }}>
+            <Text
+              style={{
+                color: ColorsBarber.light.textColor,
+                textAlign: "right",
+                fontFamily: "OldStandard-Regular",
+              }}
+            >
               {localization.LOGIN.forgot}
             </Text>
           </TouchableOpacity>
@@ -224,7 +236,7 @@ const LoginScreen = () => {
                 <FontAwesome
                   name={error ? "close" : success ? "check-circle-o" : "info"}
                   size={64}
-                  color="white"
+                  color={ColorsBarber.light.textColor}
                 />
               }
               title={error || success || message}
@@ -241,7 +253,6 @@ const styles = StyleSheet.create({
   socialBtns: {
     display: "flex",
     flexDirection: "column",
-    gap: 15,
   },
 
   buttonGoogleIsLoading: {
@@ -252,7 +263,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    shadowColor: "#000",
+    shadowColor: ColorsBarber.light.background,
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
@@ -271,25 +282,25 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 10,
-    paddingTop: 20,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: "#ccc",
+    color: ColorsBarber.light.inActiveTextColor,
     marginBottom: 30,
+    fontFamily: "OldStandard-Bold",
   },
   socialButtonsContainer: {
     flexDirection: "row",
@@ -316,9 +327,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   socialButtonText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "OldStandard-Regular",
   },
   dividerContainer: {
     flexDirection: "row",
@@ -331,18 +342,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
   },
   dividerText: {
-    color: "#888",
+    color: ColorsBarber.light.textColor,
     marginHorizontal: 10,
-    fontSize: 14,
+    fontSize: 15,
+    fontFamily: "OldStandard-Bold",
   },
   input: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
+    fontFamily: "OldStandard-Regular",
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -353,16 +366,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: "#333",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+    color: ColorsBarber.light.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     width: "80%",
   },
 });

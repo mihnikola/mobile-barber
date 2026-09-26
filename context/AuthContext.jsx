@@ -17,6 +17,7 @@ import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import { Alert, unstable_batchedUpdates } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -81,6 +82,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const redirectValidation = async (data) => {
+    console.log("redirectValidation++++", data);
     await getTokenData();
     setIsMessage(false);
     if (data === "settings") {
@@ -109,13 +111,16 @@ export const AuthProvider = ({ children }) => {
       });
       router.replace("/(tabs)/(02_barbers)/calendar");
       return;
-    } else {
-      router.back();
-      router.setParams({
-        reevaluted: true,
-      });
-      return;
     }
+
+    await AsyncStorage.removeItem("paramLogin");
+    // else {
+    //   router.back();
+    //   router.setParams({
+    //     reevaluted: true,
+    //   });
+    //   return;
+    // }
   };
 
   const signIn = async () => {
@@ -241,9 +246,10 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     try {
       console.log("1. Pokrećem logout...");
+      await AsyncStorage.removeItem("paramLogin");
 
       // KLJUČ: Prvo i jedino menjamo token da navigacija odmah prebaci korisnika na Login
       setIsToken(null);
@@ -257,6 +263,7 @@ export const AuthProvider = ({ children }) => {
           setMessage(null);
           setStatus(null);
           setSuccess(null);
+
           console.log("3. Svi podaci iz memorije uspešno očišćeni.");
         } catch (e) {
           console.log("Greška unutar setTimeout u logoutHandleru:", e);

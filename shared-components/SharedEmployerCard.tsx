@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: "#000", // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     color: "#FFFFFF", // White text color
     marginBottom: 4,
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     color: "#FFD700", // Gold color for rating number
     marginLeft: 5,
   },

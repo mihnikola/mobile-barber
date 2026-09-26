@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { convertDateDetails } from "@/helpers";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -10,7 +11,7 @@ const HeaderReservationTime = ({ data }) => {
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons name="arrow-back" size={25} color="white" />
+          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
         </TouchableOpacity>
       </View>
       <View>
@@ -36,17 +37,17 @@ const styles = StyleSheet.create({
   },
   timeData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   dateData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   locationData: {
-    color: "#fff",
-    fontWeight: "700",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 });
 

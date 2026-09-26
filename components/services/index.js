@@ -11,6 +11,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import { ColorsBarber } from "@/constants/Colors";
 
 const MenuServices = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   notAvailable: {
-    color: "white",
+   color: ColorsBarber.light.textColor,
     fontSize: 20,
     textAlign: "center",
   },
@@ -81,6 +82,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
   },
 });

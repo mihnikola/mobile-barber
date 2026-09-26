@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 // or yarn add @expo/vector-icons
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 // StarRating component props
 interface StarRatingProps {
@@ -20,8 +21,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
   starSize = 23,
-  filledColor = "#FFD700", // Gold color
-  emptyColor = "#CCCCCC", // Light gray
+  filledColor = ColorsBarber.light.textColor, // Gold color
+  emptyColor = ColorsBarber.light.inActiveTextColor, // Light gray
   onRatingChange,
 }) => {
   const {localization} = useLocalization();
@@ -69,8 +70,8 @@ const StarRating: React.FC<StarRatingProps> = ({
       <Text
         style={{
           fontSize: 18,
-          fontWeight: "bold",
-          color: "#FFFFFF",
+          fontFamily: "OldStandard-Bold",
+          color: ColorsBarber.light.textColor,
         }}
       >
         {localization.APPOINTMENTS.rateReservation.rateUs}

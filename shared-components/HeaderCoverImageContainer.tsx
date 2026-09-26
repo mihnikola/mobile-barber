@@ -12,6 +12,7 @@ import SharedReservationData from "./SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
+import { ColorsBarber } from "@/constants/Colors";
 
 function HeaderCoverImageContainer({
   title,
@@ -24,9 +25,7 @@ function HeaderCoverImageContainer({
   const { height } = useWindowDimensions();
   const headerHeight = height * 0.25;
   const { active, handleStatus } = useAppointment();
-      console.log("xxxxxxxxxx")
 
-  console.log("hidden",hidden,reservation,reservationData, status)
   return (
     <ImageBackground
       source={{ uri: image }}
@@ -38,7 +37,7 @@ function HeaderCoverImageContainer({
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
           {!hidden && (
             <TouchableOpacity hitSlop={20} onPress={router.back}>
-              <MaterialIcons name="arrow-back" size={25} color="white" />
+              <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
             </TouchableOpacity>
           )}
           <Text style={styles.capture}>{title}</Text>
@@ -63,10 +62,10 @@ function HeaderCoverImageContainer({
 const styles = StyleSheet.create({
   heroHeader: {
     width: "100%",
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   backgroundImage: {
-    opacity: 0.5,
+    opacity: 0.2,
   },
   topBar: {
     marginVertical:10,
@@ -82,8 +81,8 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: "white",
-    fontWeight: "500",
+   color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
   containerStatus: {
     height: "100%",

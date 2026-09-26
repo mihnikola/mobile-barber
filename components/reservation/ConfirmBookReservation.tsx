@@ -9,6 +9,7 @@ import BookSuccess from "./BookSuccess";
 import { useCompany } from "@/context/CompanyContext";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments, logoImage } from "@/constants";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -73,18 +74,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   pendingSubTitle: {
-    color: "#fff",
+   color: ColorsBarber.light.textColor,
     textAlign: "center",
-    fontWeight: "600",
+    fontFamily: "OldStandard-Regular",
     margin: 10,
   },
   message: {
     fontSize: 21,
     padding: 10,
     margin: 10,
-    color: "#fff",
+   color: ColorsBarber.light.textColor,
     textAlign: "center",
-    fontWeight: "900",
+    fontFamily: "OldStandard-Bold",
   },
   messageApproved: {
     fontSize: 30,
@@ -93,6 +94,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 });

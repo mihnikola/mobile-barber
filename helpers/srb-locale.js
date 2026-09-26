@@ -18,7 +18,7 @@ export const SRB_LOCALIZATION = {
     label: "Prijava putem Apple naloga",
   },
   BUTTONS: {
-    ok: "U redu",
+    ok: "OK",
     cancel: "Odustani",
   },
 
@@ -291,7 +291,7 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     label: "Pošalji",
   },
   OK: {
-    label: "U redu",
+    label: "OK",
   },
   FORGOT_PASSWORD: {
     title: "Zaboravljena Lozinka",
