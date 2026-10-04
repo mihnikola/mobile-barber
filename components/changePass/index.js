@@ -68,7 +68,7 @@ const changePass = () => {
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
-        <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+        <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <View>
@@ -123,7 +123,7 @@ const changePass = () => {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error || message}
@@ -137,11 +137,11 @@ const styles = StyleSheet.create({
   passContainer: {
     flexDirection: "row",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   image: {
     resizeMode: "cover",
@@ -199,11 +199,11 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
   subtitle: {
     fontSize: 13,
-   color: ColorsBarber.light.inActiveTextColor,
+   color: ColorsBarber.dark.inActiveTextColor,
   },
 });
 export default changePass;

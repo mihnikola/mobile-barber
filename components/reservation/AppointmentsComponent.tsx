@@ -32,12 +32,6 @@ const AppointmentsComponent = () => {
 
   return (
     <View style={styles.container}>
-      {/* <SharedCoverImage image={coverImageAppointments} appointmentImage={1} /> */}
-
-      {/* <AppointmentsStatuses handleStatus={handleStatus} active={active} /> */}
-
-      {/* <SharedTitle title={localization.APPOINTMENTS.title} topInset={1} /> */}
-
       <HeaderCoverImageContainer
         title={localization.APPOINTMENTS.title}
         image={coverImageAppointments}
@@ -64,6 +58,6 @@ export default AppointmentsComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

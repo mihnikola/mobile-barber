@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: "OldStandard-Bold",
     fontSize: 29,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     paddingHorizontal: 20,
     textAlign: "center",
   },

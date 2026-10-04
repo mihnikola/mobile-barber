@@ -1,16 +1,15 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-function SharedCoverImage({ image, topInset = 0, appointmentImage = 0 }) {
+function SharedCoverImage({ topInset = 0 }) {
   return (
     <Image
-      source={{ uri: image }}
+      source={require("./../assets/images/tabImage.png")}
       style={[
         styles.coverImage,
         {
           marginTop: topInset,
         },
-        appointmentImage === 1 && styles.appointment
       ]}
     />
   );
@@ -22,10 +21,9 @@ const styles = StyleSheet.create({
     height: 200,
     opacity: 0.2,
   },
-  appointment:{
-    height: 155,
-
-  }
+  appointment: {
+    height: 100,
+  },
 });
 
 export default SharedCoverImage;

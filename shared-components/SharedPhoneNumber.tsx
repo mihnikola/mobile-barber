@@ -45,36 +45,32 @@ const SharedPhoneNumber = forwardRef((props: any, ref) => {
 });
 const styles = StyleSheet.create({
   prefixText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontFamily: "OldStandard-Regular",
-
     fontSize: 16,
-    fontWeight: "medium", // Make prefix stand out
   },
   phoneNumberInputContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: ColorsBarber.dark.inputColor,
     borderRadius: 8,
-    borderColor: "#333",
   },
   phoneNumberInput: {
-    backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.inputColor,
+    color: ColorsBarber.dark.textColorInput,
     paddingTop: 15,
     paddingBottom: 15,
     paddingRight: 15,
     paddingLeft: 5,
     borderRadius: 8,
     fontSize: 16,
-    borderColor: "white",
     width: "70%",
     fontFamily: "OldStandard-Regular",
   },
   inputLabel: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 8,
     fontFamily: "OldStandard-Bold",
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Regular",
   },
   textInputFocused: {
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
     borderWidth: 2,
   },
 

@@ -16,7 +16,7 @@ const CardNoReservation = () => {
 };
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 10,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
   description: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     textAlign: "center",
   },

@@ -22,7 +22,7 @@ const SharedButton = (props: any) => {
         </Text>
       )}
       {props.loading && (
-        <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />
+        <ActivityIndicator size={25} color={ColorsBarber.dark.textColor} />
       )}
     </TouchableOpacity>
   );
@@ -30,27 +30,27 @@ const SharedButton = (props: any) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   btnDisabled: {
-    borderColor: ColorsBarber.light.inActiveTextColor,
-    backgroundColor: ColorsBarber.light.background,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   btnTextDisabled: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorDeactivated,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
   },
 
   btn: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,

@@ -15,11 +15,11 @@ const SharedItemLocation = (props: any) => {
       onPress={() => redirectHandler(data)}
       style={styles.card}
     >
-      <FontAwesome6 name="location-dot" size={30} color={ColorsBarber.light.textColor} />
+      <FontAwesome6 name="location-dot" size={30} color={ColorsBarber.dark.locationIcon} />
       <View style={styles.detailsContainer}>
         <Text style={styles.address}>{address}</Text>
       </View>
-       <FontAwesome name="chevron-right" size={32} color={ColorsBarber.light.textColor} />
+       <FontAwesome name="chevron-right" size={32} color={ColorsBarber.dark.arrowIcon} />
     </TouchableOpacity>
   );
 };
@@ -27,13 +27,13 @@ const SharedItemLocation = (props: any) => {
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item, // Dark background from your image
+    backgroundColor: ColorsBarber.dark.item, // Dark background from your image
     borderRadius: 12,
     padding: 20,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   address: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor, // White text color
+    color: ColorsBarber.dark.textColor, // White text color
     marginBottom: 4,
   },
 });

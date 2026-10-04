@@ -49,7 +49,7 @@ const ForgotPassword = () => {
         <MaterialIcons
           name="arrow-back"
           size={25}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       </TouchableOpacity>
 
@@ -95,7 +95,7 @@ const ForgotPassword = () => {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error}
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 28,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.background,
+    color: ColorsBarber.dark.background,
     marginHorizontal: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Regular",
 
     lineHeight: 22,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     padding: 15,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 export default ForgotPassword;

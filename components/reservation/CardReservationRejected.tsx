@@ -12,14 +12,14 @@ const CardReservationRejected = ({ redirectScreen, item }) => {
       onPress={() => redirectScreen(item)}
     >
       <DateFormatComponent item={item} rejected={1} />
-      <InfoContainerFuture item={item} />
+      <InfoContainerFuture key={item.id} item={item} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   cardReservation: {
-    backgroundColor: ColorsBarber.light.item, 
+    backgroundColor: ColorsBarber.dark.item,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

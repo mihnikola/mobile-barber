@@ -93,7 +93,7 @@ const SettingsComponent = () => {
           onClose={() => setIsLogout(false)}
           onLogOut={logoutConfirm}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color={ColorsBarber.light.textColor} />
+            <FontAwesome name="question-circle-o" size={64} color={ColorsBarber.dark.textColor} />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.title}
@@ -106,7 +106,7 @@ const SettingsComponent = () => {
           isOpen={logoutData && !isLoading}
           buttonText="Odlogovani ste"
           isLoading={loader}
-          icon={<FontAwesome name="check" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="check" size={64} color={ColorsBarber.dark.textColor} />}
           onConfirm={() => setLogoutData(false)}
         />
       )} */}
@@ -118,7 +118,7 @@ const SettingsComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingTop: 20,
   },
 });

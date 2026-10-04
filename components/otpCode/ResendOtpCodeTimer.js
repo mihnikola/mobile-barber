@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Bold",
   },
   timerText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily:"OldStandard-Regular",
 
     fontSize: 14,

@@ -6,11 +6,24 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function SharedReservationData({ reservation }) {
+  const totals = reservation?.otherServices?.reduce(
+    (acc, current) => {
+      acc.totalPrice += current.price;
+      acc.totalDuration += current.duration;
+      return acc;
+    },
+    { totalPrice: 0, totalDuration: 0 },
+  );
+
   return (
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+          <MaterialIcons
+            name="arrow-back"
+            size={25}
+            color={ColorsBarber.dark.textColor}
+          />
         </TouchableOpacity>
       </View>
       <View>
@@ -20,6 +33,7 @@ function SharedReservationData({ reservation }) {
             addMinutesToTime(
               reservation?.timeData?.value,
               reservation?.service?.serviceDuration,
+              totals?.totalDuration,
             )}
         </Text>
         <Text style={styles.dateData}>
@@ -42,11 +56,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 20,
   },
   buttonText: {
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
     fontSize: 16,
@@ -55,7 +69,7 @@ const styles = StyleSheet.create({
 
   timeData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   position: {
@@ -67,17 +81,17 @@ const styles = StyleSheet.create({
 
   dateData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   data: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   coverImage: {
     width: "100%",

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   buttonText: {
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
     fontStyle: "italic",

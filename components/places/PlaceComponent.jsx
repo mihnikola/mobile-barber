@@ -4,13 +4,9 @@ import ReservationContext from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchLocations from "./useFetchLocations";
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
-import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 
@@ -18,7 +14,6 @@ const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
-  const { company } = useCompany();
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
@@ -31,11 +26,7 @@ const PlaceComponent = ({ locationsData }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderCoverImageContainer
-        title={localization.PLACES.title}
-        image={coverImageAppointments}
-        hidden
-      />
+      <HeaderCoverImageContainer title={localization.PLACES.title} hidden />
 
       {isLoading && <Loader />}
       {!isLoading && (
@@ -70,13 +61,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

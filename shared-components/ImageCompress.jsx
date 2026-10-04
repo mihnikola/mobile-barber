@@ -21,13 +21,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
       {!selectedImageUri && (
         <View>
-          <Ionicons name="person-circle-sharp" size={280} color={ColorsBarber.light.textColor} />
+          <Ionicons name="person-circle-sharp" size={280} color={ColorsBarber.dark.textColor} />
           <TouchableOpacity
             style={styles.buttonPlaceholder}
             onPress={pickImage}
             disabled={uploading}
           >
-            <MaterialIcons size={45} name="photo" color={ColorsBarber.light.textColor} />
+            <MaterialIcons size={45} name="photo" color={ColorsBarber.dark.textColor} />
           </TouchableOpacity>
         </View>
       )}
@@ -42,7 +42,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
           onPress={pickImage}
           disabled={uploading}
         >
-          <MaterialIcons size={45} name="photo" color={ColorsBarber.light.textColor} />
+          <MaterialIcons size={45} name="photo" color={ColorsBarber.dark.textColor} />
         </TouchableOpacity>
       )}
     </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   defaultImgAvatar: {
     width: 200,
     height: 200,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   container: {
     flex: 1,

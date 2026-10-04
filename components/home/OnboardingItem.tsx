@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   reviewTitle: {
     fontSize: 20,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     marginBottom: 10,
     marginTop: 10,
     textAlign: "center",
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   reviewText: {
     fontStyle: "italic",
     fontSize: 16,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     textAlign: "center",
     marginVertical: 40,
     marginHorizontal: 20

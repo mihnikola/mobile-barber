@@ -73,7 +73,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: ColorsBarber.light.textColor,
+              borderTopColor: ColorsBarber.dark.textColor,
               width: "100%",
               marginTop: 2,
               marginBottom: 5,
@@ -190,7 +190,7 @@ function ResevationNotificationScreen() {
           <FontAwesome
             name="question-circle-o"
             size={64}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         }
         title={titleQuestion}
@@ -266,7 +266,7 @@ function ResevationNotificationScreen() {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error || message}
@@ -280,22 +280,22 @@ function ResevationNotificationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   descriptionLabel: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   textBoldRejected: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
   textBoldSuccess: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
 
     fontFamily: "OldStandard-Bold",
     fontSize: 24,
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
   },
   descriptionValue: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
   containerWrapper: {
@@ -325,17 +325,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   description: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   card: {
     flexDirection: "column",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 12,
     marginVertical: 8,
     marginHorizontal: 15,
     padding: 12,
     alignItems: "flex-start",
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

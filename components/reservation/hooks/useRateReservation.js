@@ -14,7 +14,6 @@ const useRateReservation = () => {
     setRateError(null);
     setIsLoading(true);
 
-    console.log("rateReservation",reservationId, rating, description)
 
     if (!reservationId) {
       setRateError("Reservation ID is missing.");

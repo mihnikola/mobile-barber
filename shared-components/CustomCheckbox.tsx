@@ -17,7 +17,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ label, value, onChange 
       <Text style={styles.label}>{label}</Text>
      
       <View style={[styles.checkbox, value && styles.checked]}>
-        {value && <MaterialIcons color={ColorsBarber.light.textColor} name='check-circle-outline' size={20} />}
+        {value && <MaterialIcons color={ColorsBarber.dark.textColor} name='check-circle-outline' size={20} />}
       </View>
     </TouchableOpacity>
   );

@@ -8,8 +8,8 @@ export const ENG_LOCALIZATION = {
   AUTHORIZATION: {
     error: "You are logged in on another device.",
   },
-  DETERMINATION:{
-    error: "Your account has been blocked."
+  DETERMINATION: {
+    error: "Your account has been blocked.",
   },
   code: "en",
   HOME: {
@@ -70,6 +70,13 @@ export const ENG_LOCALIZATION = {
     pendingSubTitle: "Your barber will reply soon.",
   },
   SERVICES: {
+    plus:"Additional",
+    totalDuration:"Total duration",
+    totalPrice:"Total price",
+    listServices: "View additional services",
+    addService: "Additional services",
+    next: "Skip",
+    moreServices: "Choose more services",
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
     notAvailable:

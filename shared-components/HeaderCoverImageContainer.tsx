@@ -21,25 +21,56 @@ function HeaderCoverImageContainer({
   reservation = null,
   reservationData = null,
   status = false,
+  nextBtn,
+  skip,
+  routerHandler
 }) {
   const { height } = useWindowDimensions();
   const headerHeight = height * 0.25;
   const { active, handleStatus } = useAppointment();
 
+
   return (
     <ImageBackground
-      source={{ uri: image }}
+      source={require("./../assets/images/tabImage.png")}
       style={[styles.heroHeader, { height: headerHeight }]}
       imageStyle={styles.backgroundImage}
       resizeMode="cover"
     >
       {!reservation && !status && !reservationData && (
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
-          {!hidden && (
-            <TouchableOpacity hitSlop={20} onPress={router.back}>
-              <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
-            </TouchableOpacity>
-          )}
+          <View style={[nextBtn && styles.nextBtn]}>
+            {!hidden && (
+              <TouchableOpacity hitSlop={20} onPress={router.back}>
+                <MaterialIcons
+                  name="arrow-back"
+                  size={25}
+                  color={ColorsBarber.dark.textColor}
+                />
+              </TouchableOpacity>
+            )}
+            {nextBtn && (
+              <>
+                <TouchableOpacity
+                  hitSlop={20}
+                  onPress={routerHandler}
+                  style={{
+                    flexDirection: "row",
+                    gap: 5,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.nextBtnTitle}>{skip}</Text>
+
+                  <MaterialIcons
+                    name="arrow-forward"
+                    size={25}
+                    color={ColorsBarber.dark.textColor}
+                  />
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
           <Text style={styles.capture}>{title}</Text>
         </View>
       )}
@@ -62,13 +93,22 @@ function HeaderCoverImageContainer({
 const styles = StyleSheet.create({
   heroHeader: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
+  },
+  nextBtnTitle: {
+    fontSize: 15,
+    color: ColorsBarber.dark.inputColor,
+    fontFamily: "OldStandard-Regular",
   },
   backgroundImage: {
-    opacity: 0.2,
+    opacity: 0.6,
+  },
+  nextBtn: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   topBar: {
-    marginVertical:10,
+    marginVertical: 10,
     paddingHorizontal: 15,
     paddingVertical: 20,
     height: "100%",
@@ -81,7 +121,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
   containerStatus: {

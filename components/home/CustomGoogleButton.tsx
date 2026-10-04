@@ -14,7 +14,7 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
     <>
       {isGoogleLoading && (
         <TouchableOpacity style={styles.button}>
-          <ActivityIndicator size={22} color={ColorsBarber.light.textColor} />
+          <ActivityIndicator size={22} color={ColorsBarber.dark.textColor} />
         </TouchableOpacity>
       )}
       {!isGoogleLoading && (
@@ -34,7 +34,7 @@ const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 8,
     elevation: 3,
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

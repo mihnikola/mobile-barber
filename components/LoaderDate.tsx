@@ -4,7 +4,7 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 const LoaderDate = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color={ColorsBarber.light.textColor} />
+      <ActivityIndicator size="large" color={ColorsBarber.dark.textColor} />
     </View>
   );
 };
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background
+    backgroundColor: ColorsBarber.dark.background
   },
 });
 

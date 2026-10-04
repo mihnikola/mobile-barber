@@ -24,7 +24,6 @@ import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
-import { logoImage } from "@/constants";
 import { ColorsBarber } from "@/constants/Colors";
 
 function App() {
@@ -115,7 +114,7 @@ function App() {
       <View style={styles.container}>
         {/* <HomeCoverImage image={coverHomeImage} /> */}
         <ImageBackground
-          source={require("../../../assets/images/imageLogo.png")}
+          source={require("../../../assets/images/homeImage.png")}
           style={[styles.backImage, { width, height }]}
         >
           <Animated.View
@@ -126,7 +125,7 @@ function App() {
               },
             ]}
           >
-            <HomeImage image={logoImage} />
+            <HomeImage />
           </Animated.View>
 
           <Animated.View
@@ -141,7 +140,7 @@ function App() {
               onPress={nextPage}
               style={styles.btnLocationContent}
             >
-              <FontAwesome name="calendar" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="calendar" size={28} color={ColorsBarber.dark.textColor} />
 
               <View style={styles.locationContent}>
                 <Text style={styles.titleLocation}>
@@ -152,13 +151,13 @@ function App() {
                 </Text>
               </View>
 
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={onAboutUs}
               style={styles.btnLocationContent}
             >
-              <FontAwesome name="home" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="home" size={28} color={ColorsBarber.dark.textColor} />
               <View style={styles.locationContent}>
                 <Text style={styles.titleLocation}>
                   {localization.HOME.aboutUsBtn}
@@ -167,14 +166,14 @@ function App() {
                   {localization.HOME.aboutUsBtnDesc}
                 </Text>
               </View>
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={openLocationHandler}
               style={styles.btnLocationContent}
             >
-              <FontAwesome name="location-arrow" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="location-arrow" size={28} color={ColorsBarber.dark.textColor} />
               <View style={styles.locationContent}>
                 <Text style={styles.titleLocation}>
                   {localization.HOME.locationBtn}
@@ -183,7 +182,7 @@ function App() {
                   {localization.HOME.locationBtnDesc}
                 </Text>
               </View>
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
             </TouchableOpacity>
           </Animated.View>
         </ImageBackground>
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   locationContent: {
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
   },
   btnLocationContent: {
     width: "90%",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnContent,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
@@ -231,12 +230,12 @@ const styles = StyleSheet.create({
 
   address: {
     fontSize: 15,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorDeactivated,
     fontFamily:"OldStandard-Regular"
   },
   titleLocation: {
     fontSize: 22,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily:"OldStandard-Bold"
 

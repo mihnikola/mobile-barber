@@ -143,14 +143,11 @@ export const AppointmentProvider = ({ children }) => {
         const { status, data } = response;
         if (status === 200) {
           const startDateTime = convertToDayTime(data?.startDate);
-          const finishedTime = addMinutesToTime(
-            convertToDayTime(data?.startDate),
-            data?.service?.duration,
-          );
-
+          const finishedTime = convertToDayTime(data?.endDate);
           const eventDate = convertNameAndDate(data?.startDate);
           const result = { ...data, startDateTime, finishedTime, eventDate };
           setReservationData(result);
+
           if (notification) {
             const STATUS_DATA = {
               2: "pending",
@@ -191,7 +188,7 @@ export const AppointmentProvider = ({ children }) => {
       const response = await getData("/availabilities", {
         activeStatus: STATUS_DATA[status] || STATUS_MAP[active],
       });
-
+      
       if (response.status === 200) {
         setReservations(response.data);
       }
@@ -205,14 +202,34 @@ export const AppointmentProvider = ({ children }) => {
   const submitReservation = async (tokenData) => {
     setIsLoading(true);
     setError(null);
-    const { employer, service, timeData, dateReservation, location } =
-      reservation;
+    const {
+      employer,
+      service,
+      timeData,
+      dateReservation,
+      location,
+      otherServices,
+    } = reservation;
 
     if (!employer || !service || !timeData || !dateReservation || !location) {
       setError(localization.APPOINTMENTS.errorFields);
       setIsLoading(false);
       return;
     }
+    let total;
+
+    if (otherServices?.length > 0) {
+      total = otherServices?.reduce(
+        (acc, current) => {
+          acc.totalPrice += current.price;
+          acc.totalDuration += current.duration;
+          return acc;
+        },
+        { totalPrice: 0, totalDuration: 0 },
+      );
+    }
+
+    const serviceIds = otherServices.map((serv) => serv.id);
 
     try {
       const response = await post("/availabilities", {
@@ -224,6 +241,9 @@ export const AppointmentProvider = ({ children }) => {
         token: tokenData,
         description,
         location,
+        otherServices: serviceIds,
+        totalPrice: total?.totalPrice || 0,
+        totalDuration: total?.totalDuration || 0,
       });
 
       if (response.status === 209) {

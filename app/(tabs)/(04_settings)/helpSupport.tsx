@@ -43,7 +43,7 @@ const HelpSupportScreen = () => {
           <MaterialCommunityIcons
             name="email-outline"
             size={24}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
             style={styles.menuItemIcon}
           />
           <Text style={styles.menuItemText}>
@@ -59,7 +59,7 @@ const HelpSupportScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:  ColorsBarber.light.background,
+    backgroundColor:  ColorsBarber.dark.background,
   },
 
   sectionContainer: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
 
   infoLabel: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   infoValue: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
   menuItem: {
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   menuItemText: {
     flex: 1,
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   menuItemSubText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     marginLeft: "auto", // Pushes the subtext to the right
   },

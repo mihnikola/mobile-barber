@@ -11,7 +11,7 @@ const HeaderReservationTime = ({ data }) => {
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
         </TouchableOpacity>
       </View>
       <View>
@@ -37,16 +37,16 @@ const styles = StyleSheet.create({
   },
   timeData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   dateData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   locationData: {
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 });

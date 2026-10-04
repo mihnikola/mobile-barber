@@ -1,6 +1,13 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 function LocationsComponent({
   locations,
@@ -10,7 +17,6 @@ function LocationsComponent({
   title,
   buttonText,
 }) {
-
   const onConfirm = () => {
     setModalVisible(false);
   };
@@ -26,24 +32,28 @@ function LocationsComponent({
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>{title}</Text>
           <ScrollView style={{ maxHeight: 300 }}>
-          {locations?.map((locationItem: any) => {
-            return (
-              <TouchableOpacity
-                key={locationItem.id}
-                style={styles.item}
-                onPress={() => handleLocationSelect(locationItem)}
-              >
-                <FontAwesome6 name="location-dot" size={20} color={ColorsBarber.light.textColor} />
-                <Text
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                  style={styles.itemSubtitle}
+            {locations?.map((locationItem: any) => {
+              return (
+                <TouchableOpacity
+                  key={locationItem.id}
+                  style={styles.item}
+                  onPress={() => handleLocationSelect(locationItem)}
                 >
-                  {locationItem.address}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+                  <FontAwesome6
+                    name="location-dot"
+                    size={20}
+                    color={ColorsBarber.dark.locationIcon}
+                  />
+                  <Text
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={styles.itemSubtitle}
+                  >
+                    {locationItem.address}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </ScrollView>
           <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
@@ -56,16 +66,14 @@ function LocationsComponent({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.65)",
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background,
-
+    backgroundColor: ColorsBarber.dark.backgroundModal,
     borderRadius: 12,
-    shadowColor: ColorsBarber.light.background,
     padding: 32,
     width: "100%",
     maxHeight: "60%",
@@ -77,13 +85,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemSubtitle: {
-    flex:2,
+    flex: 2,
     fontSize: 16,
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 
   modalTitle: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
@@ -92,18 +101,20 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontFamily: "OldStandard-Regular",
     textAlign: "center",

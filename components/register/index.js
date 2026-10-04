@@ -102,7 +102,7 @@ const Register = () => {
       <View style={styles.container}>
         <View style={{ marginTop: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
           </TouchableOpacity>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
@@ -159,7 +159,7 @@ const Register = () => {
           <SharedPhoneNumber
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
-            placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+            placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
             keyboardType="phone-pad"
             dataDetectorTypes="phoneNumber"
             value={phoneNumber}
@@ -247,7 +247,7 @@ const Register = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={error || success}
@@ -262,36 +262,36 @@ const Register = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 25,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
   subtitle: {
     fontSize: 13,
     fontFamily: "OldStandard-Regular",
 
-   color: ColorsBarber.light.inActiveTextColor,
+   color: ColorsBarber.dark.inActiveTextColor,
   },
 
   input: {
     backgroundColor: "white",
-    color:  ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white",
-    color:  ColorsBarber.light.textColor,
+    color:  ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

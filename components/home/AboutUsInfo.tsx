@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 40,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     lineHeight: 24,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
     padding: 10,

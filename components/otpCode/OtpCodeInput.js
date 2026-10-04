@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
-    backgroundColor: ColorsBarber.light.item,
-    color: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
+    backgroundColor: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold",
     borderRadius: 10,
     width: 50,

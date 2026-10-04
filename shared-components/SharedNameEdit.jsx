@@ -25,7 +25,7 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
         onFocus={handleFocus}
         onBlur={() => setIsFocused(false)}
         onChangeText={props.onChangeText}
-        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         style={[props.style, isFocused && styles.focusedBorder]}
       />
       {props.error && <Text style={styles.errorText}>{props.error}</Text>}
@@ -35,9 +35,9 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 15 },
-  inputLabel: {color: ColorsBarber.light.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:"OldStandard-Regular" },
+  inputLabel: {color: ColorsBarber.dark.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:"OldStandard-Regular" },
   errorText: { color: "red", marginTop: 5,  fontFamily:"OldStandard-Bold" },
-  focusedBorder: { borderColor: ColorsBarber.light.inActiveTextColor },
+  focusedBorder: { borderColor: ColorsBarber.dark.inActiveTextColor },
 });
 
 export default SharedNameEdit;

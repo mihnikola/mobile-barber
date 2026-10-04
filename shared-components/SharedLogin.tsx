@@ -4,7 +4,7 @@ import { Image, StyleSheet } from "react-native";
 function SharedLogin() {
   return (
     <Image
-        source={require("@/assets/images/logoFrizer.png")}
+        source={require("@/assets/images/homeSplash.png")}
       style={styles.coverLogo}
     />
   );
@@ -13,7 +13,7 @@ function SharedLogin() {
 const styles = StyleSheet.create({
  coverLogo: {
     resizeMode:"contain",
-    height: 180,
+    height: 80,
   },
 });
 

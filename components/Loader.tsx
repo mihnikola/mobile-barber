@@ -6,7 +6,7 @@ const Loader = () => {
 
   return (
     <View style={[styles.container, { minHeight: height * 0.5 }]}>
-      <ActivityIndicator size="large" color={ColorsBarber.light.textColor} />
+      <ActivityIndicator size="large" color={ColorsBarber.dark.textColor} />
     </View>
   );
 };
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",  // Centriranje po vertikali
     alignItems: "center",      // Centriranje po horizontali
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });
 

@@ -25,7 +25,7 @@ const AboutUsScreen = () => {
       <View style={styles.contentContainer}>
         <View style={{ marginTop: 30, marginLeft: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
           </TouchableOpacity>
         </View>
         <AboutUsInfo
@@ -53,7 +53,7 @@ const AboutUsScreen = () => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   contentContainer: {
     paddingHorizontal: 10,

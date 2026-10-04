@@ -17,7 +17,6 @@ export const SharedMessage = ({
   onConfirm,
   isLoading,
 }) => {
-
   return (
     <Modal
       animationType="fade"
@@ -30,14 +29,22 @@ export const SharedMessage = ({
           <View style={styles.iconContainer}>{icon}</View>
 
           <Text style={styles.modalTitle}>{title}</Text>
-          <TouchableOpacity onPress={onConfirm} style={styles.actionButton} disabled={isLoading === "verification"}>
+          <TouchableOpacity
+            onPress={onConfirm}
+            style={styles.actionButton}
+            disabled={isLoading === "verification"}
+          >
             {!isLoading && (
               <Text style={styles.actionButtonText}>{buttonText}</Text>
             )}
             {isLoading && (
               <ActivityIndicator
                 size={25}
-                color={isLoading === "verification" ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor}
+                color={
+                  isLoading === "verification"
+                    ? ColorsBarber.dark.textColor
+                    : ColorsBarber.dark.inActiveTextColor
+                }
               />
             )}
           </TouchableOpacity>
@@ -50,19 +57,14 @@ export const SharedMessage = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.70)",
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.dark.backgroundModal,
     borderRadius: 12,
-    shadowColor: ColorsBarber.light.background,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    elevation: 15,
     padding: 32,
     maxWidth: 384,
     width: "100%",
@@ -72,7 +74,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96,
     height: 96,
-    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-blue-900 bg-opacity-30
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
     borderRadius: 9999,
     justifyContent: "center",
     alignItems: "center",
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   modalTitle: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
     marginBottom: 16,
@@ -89,17 +93,19 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 16,
     borderRadius: 8,
-    shadowColor: ColorsBarber.light.background,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontFamily: "OldStandard-Regular",
     textAlign: "center",

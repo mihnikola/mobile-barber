@@ -57,7 +57,7 @@ const languageSupport = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor=ColorsBarber.light.background barStyle="dark-content" /> */}
+      {/* <StatusBar backgroundColor=ColorsBarber.dark.background barStyle="dark-content" /> */}
       {/* <SharedBackButton onPress={router.back} />
 
      
@@ -71,7 +71,7 @@ const languageSupport = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         value={search}
         onChangeText={handleSearch}
       />
@@ -92,7 +92,7 @@ const languageSupport = () => {
               <FontAwesome
                 name={localization.code === item.code && "check-circle-o"}
                 size={28}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             </TouchableOpacity>
           )}
@@ -105,7 +105,7 @@ const languageSupport = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   headerImage: {
@@ -115,16 +115,16 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
 
   search: {
-    color: ColorsBarber.light.textColor,
-    backgroundColor: "white",
+    color: ColorsBarber.dark.textColorInput,
+    backgroundColor: ColorsBarber.dark.inputColor,
     fontFamily: "OldStandard-Regular",
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -140,12 +140,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
   },
   languageText: {
     fontSize: 18,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

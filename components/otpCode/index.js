@@ -148,7 +148,7 @@ const otpCode = () => {
           <MaterialIcons
             name="arrow-back"
             size={25}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </TouchableOpacity>
 
@@ -188,7 +188,7 @@ const otpCode = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={error || message}
@@ -220,12 +220,12 @@ const styles = StyleSheet.create({
   },
 
   resendText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },
   timerText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     fontSize: 14,
@@ -238,23 +238,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   image: {
     width: 290,
     height: 290,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily:"OldStandard-Regular",
 
   },

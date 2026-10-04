@@ -21,7 +21,7 @@ const ProfileUserComponent = ({ data, onPress }) => {
         <MaterialCommunityIcons
           name="pencil"
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       </TouchableOpacity>
     </View>
@@ -50,16 +50,16 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 20,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   editButton: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 20,
     padding: 8,
     alignItems: "center",

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 19,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
 
     padding: 7,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 29,
     fontFamily: "OldStandard-Bold",
     marginBottom: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

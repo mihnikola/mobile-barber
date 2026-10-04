@@ -16,20 +16,20 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: ColorsBarber.light.background,
+        backgroundColor: ColorsBarber.dark.background,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <StatusBar backgroundColor={ColorsBarber.light.background} barStyle={"light-content"} />
+      <StatusBar backgroundColor={ColorsBarber.dark.background} barStyle={"light-content"} />
       <Animated.View
         style={{
           opacity: fadeAnim,
         }}
       >
         <Image
-          source={require("./../assets/images/logoFrizer.png")}
+          source={require("./../assets/images/homeSplash.png")}
           style={{ resizeMode: "contain", width: 350 }}
         />
       </Animated.View>

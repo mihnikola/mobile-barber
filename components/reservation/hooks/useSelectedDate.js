@@ -30,12 +30,12 @@ const useSelectedDate = (initialDate) => {
         selectedColor: "white",
         customStyles: {
           container: {
-            backgroundColor:ColorsBarber.light.item,
+            backgroundColor:ColorsBarber.dark.selectedDayBackgroundColor,
             padding: 1,
             borderRadius: 8,
           },
           text: {
-            color:  ColorsBarber.light.textColor,
+            color:  ColorsBarber.dark.textColorInput,
             fontFamily: "OldStandard-Bold",
           },
         },

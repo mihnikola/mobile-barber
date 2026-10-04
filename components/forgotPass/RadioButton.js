@@ -24,7 +24,7 @@ const RadioButton = (props) => {
             value={props.value}
             onChangeText={props.onChangeText}
             placeholder="Enter a email"
-            placeholderTextColor={ColorsBarber.light.textColor}
+            placeholderTextColor={ColorsBarber.dark.textColor}
           />
         </View>
       </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   value: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     backgroundColor: "white",
     padding: 10,
   },

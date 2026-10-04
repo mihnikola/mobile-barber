@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedImageInitials from "./SharedInitialsName";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedEmployerCard = ({ redirectHandler, data }) => {
   const { id, image, name, seniority, ratingCount } = data;
@@ -34,7 +35,11 @@ const SharedEmployerCard = ({ redirectHandler, data }) => {
           </Text>
         </View>
       </View>
-      <FontAwesome name={"chevron-right"} size={32} color="gray" />
+      <FontAwesome
+        name={"chevron-right"}
+        size={32}
+        color={ColorsBarber.dark.arrowIcon}
+      />
     </TouchableOpacity>
   );
 };
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

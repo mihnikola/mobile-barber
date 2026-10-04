@@ -18,7 +18,6 @@ const DateReservation: React.FC = () => {
     await getStorage("token")
       .then((res) => {
         if (res) {
-          console.log("xxxgetTokenStoragegetTokenStoragexxxx")
           setIsLoggedIn(res);
           setIsLoading(false);
         } else {

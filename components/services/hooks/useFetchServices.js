@@ -13,7 +13,6 @@ const useFetchServices = (reservation) => {
     setIsLoading(true);
     setError(null);
     const { location } = reservation;
-      console.log('xxx',reservation)
 
     try {
       const response = await get(`/services/location/${location.id}`);

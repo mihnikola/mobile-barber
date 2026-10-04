@@ -13,7 +13,7 @@ const SharedInputTextAreaMark = ({
         onChangeText={setDescription}
         value={description}
         placeholder={placeholderText}
-        placeholderTextColor={ColorsBarber.light.textColor}
+        placeholderTextColor={ColorsBarber.dark.textColor}
         multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: "100%",
     minHeight: 100,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
   },

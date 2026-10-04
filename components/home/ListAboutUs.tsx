@@ -11,7 +11,7 @@ const ListAboutUs = ({ contact }) => {
     <View>
       <Text style={styles.titleContant}>{localization.HOME.contact}</Text>
       <View style={styles.contactItem}>
-        <FontAwesome name="phone" size={30} color={ColorsBarber.light.textColor} />
+        <FontAwesome name="phone" size={30} color={ColorsBarber.dark.textColor} />
         <Text style={styles.title}>{contact}</Text>
       </View>
     </View>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   titleContant: {
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontSize: 29,
     textAlign: "center",
   },
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-       color: ColorsBarber.light.textColor,
+       color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
 
 

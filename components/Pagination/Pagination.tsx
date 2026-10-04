@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
   },
   dots: {
     height: 10,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     marginHorizontal: 10,
     borderRadius: 5,
   },

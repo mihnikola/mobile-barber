@@ -21,7 +21,7 @@ const SplashScreenEmail = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 50,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   lottieAnimation: {
     width: 250,
     height: 250,
-    backgroundColor: ColorsBarber.light.background, // Or 'transparent' if your animation has transparent background
+    backgroundColor: ColorsBarber.dark.background, // Or 'transparent' if your animation has transparent background
   },
 });
 export default SplashScreenEmail;

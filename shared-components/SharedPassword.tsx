@@ -33,7 +33,7 @@ const SharedPassword = forwardRef((props: any, ref) => {
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
           ref={ref}
-          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+          placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         />
 
         <TouchableOpacity
@@ -64,30 +64,28 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     width: "80%",
-    fontFamily:"OldStandard-Regular",
-
+    fontFamily: "OldStandard-Regular",
   },
   inputLabel: {
-    color: ColorsBarber.light.inActiveTextColor,
-    fontFamily:"OldStandard-Bold",
+    color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Bold",
     fontSize: 14,
     marginTop: 20,
     marginBottom: 4,
   },
   errorText: {
     color: "red",
-    fontFamily:"OldStandard-Bold",
-
+    fontFamily: "OldStandard-Bold",
   },
   textInputFocused: {
     borderWidth: 2,
 
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
   passwordToggle: {
     padding: 10,

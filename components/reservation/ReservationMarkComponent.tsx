@@ -27,21 +27,21 @@ function ReservationMarkComponent({ data }) {
           style={{
             fontSize: 18,
             fontFamily: "OldStandard-Bold",
-            color: ColorsBarber.light.textColor,
+            color: ColorsBarber.dark.textColor,
             marginBottom: 5,
           }}
         >
           {localization.APPOINTMENTS.rateReservation.rated}
         </Text>
 
-        <Text style={{color: ColorsBarber.light.textColor, fontSize: 40 }}>
+        <Text style={{color: ColorsBarber.dark.textColor, fontSize: 40 }}>
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
                 <MaterialIcons
                   key={item.arrx}
                   name="star"
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                   size={23}
                 />
               );

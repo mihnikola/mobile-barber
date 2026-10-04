@@ -21,8 +21,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
   starSize = 23,
-  filledColor = ColorsBarber.light.textColor, // Gold color
-  emptyColor = ColorsBarber.light.inActiveTextColor, // Light gray
+  filledColor = ColorsBarber.dark.starColor, // Gold color
+  emptyColor = ColorsBarber.dark.inActiveTextColor, // Light gray
   onRatingChange,
 }) => {
   const {localization} = useLocalization();
@@ -71,7 +71,7 @@ const StarRating: React.FC<StarRatingProps> = ({
         style={{
           fontSize: 18,
           fontFamily: "OldStandard-Bold",
-          color: ColorsBarber.light.textColor,
+          color: ColorsBarber.dark.textColor,
         }}
       >
         {localization.APPOINTMENTS.rateReservation.rateUs}

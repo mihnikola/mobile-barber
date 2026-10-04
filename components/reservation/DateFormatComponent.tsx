@@ -42,7 +42,7 @@ const DateFormatComponent = ({ item, rejected }) => {
 const styles = StyleSheet.create({
   dateContainerPast: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderLeftWidth: 1,
     borderRadius: 20,
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderLeftWidth: 1,
     display: "flex",
     justifyContent: "center",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   captureDate: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
   },
@@ -73,17 +73,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
   },
 
   captureDateBold: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   captureDateBoldPast: {
     fontSize: 20,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Bold",
   },
 });

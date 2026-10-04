@@ -15,10 +15,10 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: ColorsBarber.light.textColor,
-          tabBarInactiveTintColor: ColorsBarber.light.inActiveTextColor,
+          tabBarActiveTintColor: ColorsBarber.dark.textColor,
+          tabBarInactiveTintColor: ColorsBarber.dark.inActiveTextColor,
           tabBarStyle: {
-            backgroundColor: ColorsBarber.light.background,
+            backgroundColor: ColorsBarber.dark.background,
           },
           tabBarLabelStyle: {
             fontFamily: "OldStandard-Regular",
@@ -36,8 +36,8 @@ export default function TabLayout() {
                 name="home"
                 color={
                   focused
-                    ? ColorsBarber.light.textColor
-                    : ColorsBarber.light.inActiveTextColor
+                    ? ColorsBarber.dark.textColor
+                    : ColorsBarber.dark.inActiveTextColor
                 }
               />
             ),
@@ -53,8 +53,8 @@ export default function TabLayout() {
                 name="content-cut"
                 color={
                   focused
-                    ? ColorsBarber.light.textColor
-                    : ColorsBarber.light.inActiveTextColor
+                    ? ColorsBarber.dark.textColor
+                    : ColorsBarber.dark.inActiveTextColor
                 }
               />
             ),
@@ -70,8 +70,8 @@ export default function TabLayout() {
                 name="calendar-month"
                 color={
                   focused
-                    ? ColorsBarber.light.textColor
-                    : ColorsBarber.light.inActiveTextColor
+                    ? ColorsBarber.dark.textColor
+                    : ColorsBarber.dark.inActiveTextColor
                 }
               />
             ),
@@ -88,8 +88,8 @@ export default function TabLayout() {
                 name="miscellaneous-services"
                 color={
                   focused
-                    ? ColorsBarber.light.textColor
-                    : ColorsBarber.light.inActiveTextColor
+                    ? ColorsBarber.dark.textColor
+                    : ColorsBarber.dark.inActiveTextColor
                 }
               />
             ),
@@ -103,6 +103,6 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

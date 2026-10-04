@@ -43,7 +43,7 @@ const privacypolicy = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   sectionContainer: {
@@ -59,18 +59,18 @@ const styles = StyleSheet.create({
   },
   srbCapture: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
   engCapture: {
     fontSize: 35,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 140,
   },
   text: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     fontSize: 16,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   paragraphTitle: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     padding: 10,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 16,
     lineHeight: 24,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     textAlign: "justify",
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginTop: 20,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     textAlign: "center",

@@ -49,7 +49,7 @@ const SharedInput = forwardRef((props: any, ref) => {
           onFocus={() => setIsFocused(true)}
           onChangeText={props.onChangeText}
           onBlur={() => setIsFocused(false)}
-          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+          placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
           secureTextEntry={props.stylePassword && !isPasswordVisible}
         />
         {props.stylePassword && !props.dataDetectorTypes && (
@@ -72,14 +72,14 @@ const SharedInput = forwardRef((props: any, ref) => {
 
 const styles = StyleSheet.create({
   prefixText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
     fontFamily: "OldStandard-Bold",
   },
   inputLabel: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Regular",
   },
   textInputFocused: {
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
   passwordToggle: {
     padding: 10,

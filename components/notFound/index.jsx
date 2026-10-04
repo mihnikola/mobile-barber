@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
-import { coverImageAppointments } from "@/constants";
 import { ColorsBarber } from "@/constants/Colors";
 
 const NotFoundLocations = () => {
@@ -14,7 +13,7 @@ const NotFoundLocations = () => {
   return (
     <ScrollView style={styles.container}>
 
-      <SharedCoverImage image={coverImageAppointments} />
+      <SharedCoverImage />
       <View style={styles.contentContainer}>
         <Text style={styles.capture}>{localization.PLACES.noFound}</Text>
       </View>
@@ -31,14 +30,14 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 22,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     alignContent: "center",
     alignSelf: "center",
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });
 

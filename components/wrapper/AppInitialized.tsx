@@ -21,7 +21,7 @@ export default function AppInitialized(props) {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      background: ColorsBarber.light.background,
+      background: ColorsBarber.dark.background,
     },
   };
 

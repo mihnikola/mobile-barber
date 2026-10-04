@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white", // Dark input background
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontFamily:"OldStandard-Regular",
 
     padding: 15,
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   inputLabel: {
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginTop: 15,
     marginBottom: 5,
-    fontFamily:"OldStandard-Regular"
+    fontFamily:"OldStandard-Bold"
 
   },
   errorText: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     fontFamily:"OldStandard-Regular"
   },
   textInputFocused: {
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Regular",
     borderWidth: 2,
 

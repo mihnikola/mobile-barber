@@ -23,7 +23,7 @@ const SharedItemServiceCard = (props: any) => {
           <FontAwesome
             name={"clock-o"}
             size={16}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
           <Text style={styles.locationText}>
             {`${localization.DETAILS.duration} ${duration}`}
@@ -33,7 +33,7 @@ const SharedItemServiceCard = (props: any) => {
           <MaterialIcons
             name={"price-change"}
             size={16}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.priceColor}
           />
 
           <Text style={styles.reviewText}>
@@ -41,7 +41,11 @@ const SharedItemServiceCard = (props: any) => {
           </Text>
         </View>
       </View>
-      <FontAwesome name={"chevron-right"} size={32} color={ColorsBarber.light.textColor} />
+      <FontAwesome
+        name={"chevron-right"}
+        size={32}
+        color={ColorsBarber.dark.arrowIcon}
+      />
     </TouchableOpacity>
   );
 };
@@ -49,13 +53,13 @@ const SharedItemServiceCard = (props: any) => {
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item, // Dark background from your image
+    backgroundColor: ColorsBarber.dark.item, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 4,
   },
   locationContainer: {
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     marginLeft: 5,
   },
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
   },
   reviewText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     marginLeft: 5,

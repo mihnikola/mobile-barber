@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     gap: 20,
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });
 

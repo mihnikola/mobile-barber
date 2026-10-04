@@ -18,7 +18,7 @@ const SharedInputTextArea = ({
         onChangeText={setDescription}
         value={description}
         placeholder={placeholderText}
-        placeholderTextColor={ColorsBarber.light.textColor}
+        placeholderTextColor={ColorsBarber.dark.textColor}
         multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
@@ -42,12 +42,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "white",
+    // backgroundColor: ColorsBarber.dark.item,
+    borderWidth: 1,
+    borderColor:ColorsBarber.dark.borderColor,
     borderRadius: 12,
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 15,
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -56,9 +58,9 @@ const styles = StyleSheet.create({
 
   textInput: {
     width: "90%",
-    minHeight: 100,
+    minHeight: 80,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     // Note: The `textAlignVertical` prop is for Android to ensure text starts at the top.
@@ -73,11 +75,10 @@ const styles = StyleSheet.create({
   },
   previewText: {
     fontSize: 9,
-    
+
     color: "red",
     opacity: 0.7,
     fontFamily: "OldStandard-Regular",
-
   },
 });
 

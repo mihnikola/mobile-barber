@@ -83,7 +83,7 @@ const Reservation = () => {
               isOpen={IsError}
               onClose={confirmHandler}
               onConfirm={confirmHandler}
-              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.light.textColor} />}
+              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.dark.textColor} />}
               title={error}
               buttonText={localization.OK.label}
             />
@@ -93,7 +93,7 @@ const Reservation = () => {
               isOpen={distinctReservation?.length > 0}
               onClose={confirmDistinctHandler}
               onConfirm={confirmDistinctHandler}
-              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.light.textColor} />}
+              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.dark.textColor} />}
               title={distinctReservation}
               buttonText={localization.OK.label}
             />
@@ -107,7 +107,7 @@ const Reservation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   btn: {

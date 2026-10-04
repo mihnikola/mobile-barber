@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
 });
 

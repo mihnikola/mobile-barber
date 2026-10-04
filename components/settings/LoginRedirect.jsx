@@ -10,7 +10,7 @@ const LoginRedirect = ({ onPress, title }) => {
         <Ionicons
           name="person-circle-sharp"
           size={30}
-          color={ColorsBarber.light.inActiveTextColor}
+          color={ColorsBarber.dark.inActiveTextColor}
         />
       </View>
       <TouchableOpacity onPress={onPress}>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 export default LoginRedirect;

@@ -32,7 +32,7 @@ export default function RootLayout() {
             title: "",
             headerShown: true,
             headerStyle: {
-              backgroundColor: ColorsBarber.light.background,
+              backgroundColor: ColorsBarber.dark.background,
             },
             headerTintColor: "white",
           }}

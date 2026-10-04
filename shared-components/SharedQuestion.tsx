@@ -54,9 +54,9 @@
 //   openButton: {
 //     paddingHorizontal: 24, // Corresponds to px-6
 //     paddingVertical: 12, // Corresponds to py-3
-//     backgroundColor: ColorsBarber.light.background, // Corresponds to bg-blue-600
+//     backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-blue-600
 //     borderRadius: 8, // Corresponds to rounded-lg
-//     shadowColor: ColorsBarber.light.background,
+//     shadowColor: ColorsBarber.dark.background,
 //     shadowOffset: { width: 0, height: 4 },
 //     shadowOpacity: 0.3,
 //     shadowRadius: 6,
@@ -75,9 +75,9 @@
 //     padding: 16,
 //   },
 //   modalContent: {
-//     backgroundColor: ColorsBarber.light.item, // Corresponds to bg-gray-800
+//     backgroundColor: ColorsBarber.dark.item, // Corresponds to bg-gray-800
 //     borderRadius: 12, // Corresponds to rounded-xl
-//     shadowColor: ColorsBarber.light.background,
+//     shadowColor: ColorsBarber.dark.background,
 //     shadowOffset: { width: 0, height: 10 },
 //     shadowOpacity: 0.5,
 //     shadowRadius: 20,
@@ -90,14 +90,14 @@
 //   iconContainer: {
 //     width: 96, // Corresponds to w-24
 //     height: 96, // Corresponds to h-24
-//     backgroundColor: ColorsBarber.light.background, // Corresponds to bg-blue-900 bg-opacity-30
+//     backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-blue-900 bg-opacity-30
 //     borderRadius: 9999, // Corresponds to rounded-full
 //     justifyContent: "center",
 //     alignItems: "center",
 //     marginBottom: 24, // Corresponds to mb-6
 //   },
 //   modalTitle: {
-//     color: ColorsBarber.light.textColor, // Corresponds to text-white
+//     color: ColorsBarber.dark.textColor, // Corresponds to text-white
 //     fontSize: 20, // Corresponds to text-3xl
 //     fontFamily: "OldStandard-Bold", // Corresponds to font-bold
 //     marginBottom: 16, // Corresponds to mb-4
@@ -112,10 +112,10 @@
 //   },
 //   actionButton: {
 //     width: "50%", // Corresponds to w-full
-//     backgroundColor: ColorsBarber.light.textColor, // Corresponds to bg-blue-600
+//     backgroundColor: ColorsBarber.dark.textColor, // Corresponds to bg-blue-600
 //     paddingVertical: 16, // Corresponds to py-4
 //     borderRadius: 8, // Corresponds to rounded-lg
-//     shadowColor: ColorsBarber.light.background,
+//     shadowColor: ColorsBarber.dark.background,
 //     shadowOffset: { width: 0, height: 2 },
 //     shadowOpacity: 0.25,
 //     shadowRadius: 3.84,
@@ -123,25 +123,22 @@
 //   },
 //   actionButtonNo: {
 //     width: "50%", // Corresponds to w-full
-//     backgroundColor: ColorsBarber.light.background, // Corresponds to bg-blue-600
+//     backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-blue-600
 //     paddingVertical: 16, // Corresponds to py-4
 //     borderRadius: 8, // Corresponds to rounded-lg
-//     shadowColor: ColorsBarber.light.background,
+//     shadowColor: ColorsBarber.dark.background,
 //     shadowOffset: { width: 0, height: 2 },
 //     shadowOpacity: 0.25,
 //     shadowRadius: 3.84,
 //     elevation: 5, // For Android shadow
 //   },
 //   actionButtonText: {
-//     color: ColorsBarber.light.item, // Corresponds to text-white
+//     color: ColorsBarber.dark.item, // Corresponds to text-white
 //     fontSize: 18, // Corresponds to text-lg
 //     fontFamily: "OldStandard-Regular", // Corresponds to font-semibold
 //     textAlign: "center",
 //   },
 // });
-
-
-
 
 import { ColorsBarber } from "@/constants/Colors";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -169,11 +166,11 @@ export const SharedQuestion = ({
           <Text style={styles.modalTitle}>{title}</Text>
 
           <View style={styles.buttons}>
-            <TouchableOpacity onPress={onLogOut} style={styles.actionButtonNo}>
+            <TouchableOpacity onPress={onLogOut} style={styles.actionButtonYes}>
               <Text style={styles.actionButtonText}>{buttonTextYes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClose} style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>{buttonTextNo}</Text>
+            <TouchableOpacity onPress={onClose} style={styles.actionButtonNo}>
+              <Text style={styles.actionButtonTextNo}>{buttonTextNo}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -190,7 +187,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1, // Takes up the whole screen
-    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-900
+    backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-gray-900
     alignItems: "center", // Centers content horizontally
     justifyContent: "center", // Centers content vertically
     padding: 16,
@@ -198,35 +195,34 @@ const styles = StyleSheet.create({
 
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)", // Corresponds to bg-black bg-opacity-75
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background,
-    borderRadius: 12, // Corresponds to rounded-xl
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    elevation: 15, // For Android shadow
-    padding: 32, // Corresponds to p-8
-    maxWidth: 384, // Corresponds to max-w-sm
-    width: "100%", // Corresponds to w-full
-    alignItems: "center", // Centers text and icon
+    backgroundColor: ColorsBarber.dark.backgroundModal,
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 32,
+    maxWidth: 384,
+    width: "100%",
+    alignItems: "center",
   },
+
   iconContainer: {
     width: 96, // Corresponds to w-24
     height: 96, // Corresponds to h-24
-    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-blue-900 bg-opacity-30
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
     borderRadius: 9999, // Corresponds to rounded-full
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 24, // Corresponds to mb-6
   },
   modalTitle: {
-    color: ColorsBarber.light.textColor, // Corresponds to text-white
+    color: ColorsBarber.dark.textColor, // Corresponds to text-white
     fontFamily: "OldStandard-Regular",
     fontSize: 20, // Corresponds to text-3xl
     marginBottom: 16, // Corresponds to mb-4
@@ -241,20 +237,48 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.btnBgColorDisabled,
-    paddingVertical: 16, // Corresponds to py-4
-    borderRadius: 8, // Corresponds to rounded-lg
-    fontFamily: "OldStandard-Regular",
+    backgroundColor: ColorsBarber.dark.btnBgColor,
+    paddingVertical: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
+    shadowColor: ColorsBarber.dark.background,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  actionButtonYes: {
+    width: "50%", // Corresponds to w-full
+    backgroundColor: ColorsBarber.dark.btnBgColor,
+    paddingVertical: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
+    shadowColor: ColorsBarber.dark.background,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.borderColor,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     fontFamily: "OldStandard-Regular",
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
+    fontSize: 18, // Corresponds to text-lg
+    fontWeight: "600", // Corresponds to font-semibold
+    textAlign: "center",
+    fontFamily: "OldStandard-Regular",
+  },
+  actionButtonTextNo: {
+    color: ColorsBarber.dark.textColor,
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",

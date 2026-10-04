@@ -21,11 +21,11 @@ function WrapperAuth({ children }) {
           justifyContent: "center",
           flex: 1,
           paddingVertical: 0,
-          backgroundColor: ColorsBarber.light.background,
+          backgroundColor: ColorsBarber.dark.background,
         }}
         keyboardShouldPersistTaps="always"
       >
-        {/* <StatusBar backgroundColor=ColorsBarber.light.background barStyle="light-content" /> */}
+        {/* <StatusBar backgroundColor=ColorsBarber.dark.background barStyle="light-content" /> */}
         {children}
       </ScrollView>
     </KeyboardAvoidingView>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
 });

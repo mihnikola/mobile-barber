@@ -45,12 +45,12 @@ const aboutapplication = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 28,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 30,
     textAlign: "center",
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 130,
   },
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   value: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     lineHeight: 24,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 
   copyright: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     marginTop: 20,
   },

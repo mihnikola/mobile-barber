@@ -127,7 +127,7 @@ const userprofile = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}
+      style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -144,7 +144,7 @@ const userprofile = () => {
             <MaterialIcons
               name="arrow-back"
               size={25}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
         </View>
@@ -172,7 +172,7 @@ const userprofile = () => {
             <SharedPhoneNumber
               label={localization.SETTINGS.PROFILE.phoneNumber}
               placeholder="6x xxx xxxx"
-              placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+              placeholderTextColor={ColorsBarber.dark.textColorInput}
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
               value={
@@ -229,7 +229,7 @@ const userprofile = () => {
               <FontAwesome
                 name={errorChange ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={
@@ -240,7 +240,7 @@ const userprofile = () => {
             buttonText="Ok"
           />
         )}
-        {/* <StatusBar backgroundColor=ColorsBarber.light.background /> */}
+        {/* <StatusBar backgroundColor=ColorsBarber.dark.background /> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   },
 
   inputLabel: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   },
   phoneNumberInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -277,36 +277,36 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   buttonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
     padding: 10,
     textAlign: "center",
   },
   input: {
-    backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.inputColor,
+    color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
-    fontSize: 16,
+    fontSize: 18,
     borderWidth: 2,
     borderColor: "white",
-    fontFamily: "OldStandard-Bold",
+    fontFamily: "OldStandard-Regular",
   },
   inputDisabled: {
-    backgroundColor: ColorsBarber.light.background,
-    color: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.inputDisabled,
+    color: ColorsBarber.dark.textColorDeactivated,
     fontFamily: "OldStandard-Regular",
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 1,
-    borderColor:ColorsBarber.light.textColor,
+    borderColor:ColorsBarber.dark.textColor,
   },
   unbutton: {
     textAlign: "center",
     marginVertical: 30,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     padding: 10,
     borderWidth: 1,
     borderColor: "grey",
@@ -316,11 +316,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 10,
     textAlign: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   button: {
     padding: 5,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderColor: "white",
     borderWidth: 1,
     textAlign: "center",
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
 
   userDataContainer: {
     flex: 2,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -346,12 +346,12 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   containerInfo: {
     marginTop: 20,
     flexDirection: "column",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     gap: 10,
   },
   headerImage: {

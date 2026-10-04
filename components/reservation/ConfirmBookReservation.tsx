@@ -34,7 +34,6 @@ const ConfirmBookReservation = () => {
       <ScrollView style={styles.container}>
         <BookSuccess
           image={coverImageAppointments}
-          logo={logoImage}
           reservation={reservation}
         />
         <View style={styles.infoContainer}>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   pendingSubTitle: {
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
     margin: 10,
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     padding: 10,
     margin: 10,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
@@ -94,6 +93,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

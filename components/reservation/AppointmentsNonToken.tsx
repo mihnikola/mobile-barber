@@ -51,11 +51,11 @@ function AppointmentsNonToken() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   card: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 0,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
   description: {
     fontSize: 16,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     textAlign: "center",

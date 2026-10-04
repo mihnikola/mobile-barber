@@ -39,15 +39,15 @@ function LocationNotFound({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.backgroundModal,
     borderRadius: 12,
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     padding: 32,
     width: "100%",
     maxHeight: "60%",
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
   },
 
   modalTitle: {
@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

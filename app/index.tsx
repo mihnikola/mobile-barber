@@ -24,14 +24,14 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: ColorsBarber.light.background,
+        backgroundColor: ColorsBarber.dark.background,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
       }}
     >
       <Image
-        source={require("./../assets/images/logoFrizer.png")}
+        source={require("./../assets/images/homeSplash.png")}
         style={{ resizeMode: "contain", width: 350 }}
       />
     </View>

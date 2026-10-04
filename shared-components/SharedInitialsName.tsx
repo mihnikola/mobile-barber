@@ -17,7 +17,7 @@ export default SharedImageInitials;
 
 const styles = StyleSheet.create({
   profileText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 20,
     alignSelf: "center",
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 30,
     alignSelf: "center",

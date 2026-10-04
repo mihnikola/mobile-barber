@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-
 export default function AppointmentsStatuses({ active, handleStatus }) {
   const { localization } = useLocalization();
   const STATUSES = [
@@ -37,7 +36,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
             onPress={() => handleStatus(status.id)}
             style={[
               styles.tab,
-              { borderColor: isActive ? "#999090" : "#3d3d3d" },
+              { borderColor: isActive ? ColorsBarber.dark.borderColor : ColorsBarber.dark.borderColorDisabeld },
             ]}
           >
             <Text style={[styles.text, isActive && styles.activeText]}>
@@ -52,15 +51,12 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 1,
     flexDirection: "row", // Ređa elemente horizontalno u red
-    alignItems: "center", // Centrira tekst i kružiće vertikalno unutar 20px
-    justifyContent: "space-around",
-    zIndex: 9999, // Gura komponentu na sam vrh slojeva (iOS)
-    elevation: 5, // Gura komponentu na sam vrh slojeva (Android)
+    // zIndex: 9999, // Gura komponentu na sam vrh slojeva (iOS)
+    // elevation: 5, // Gura komponentu na sam vrh slojeva (Android)
   },
   activeText: {
-    color: ColorsBarber.light.textColor, // Tekst pobeli kada je aktivan
+    color: ColorsBarber.dark.textColor, // Tekst pobeli kada je aktivan
     fontFamily: "OldStandard-Bold",
     fontSize: 19,
   },
@@ -73,19 +69,13 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
     borderWidth: 1,
-    backgroundColor: ColorsBarber.light.background, // Dark background from your image
-   color: ColorsBarber.light.textColor,
-    borderColor: '#8a2727',
-    borderBottomColor: ColorsBarber.light.background
+    backgroundColor: ColorsBarber.dark.background, // Dark background from your image
+    color: ColorsBarber.dark.textColor,
+    borderBottomColor: ColorsBarber.dark.background,
   },
-  dot: {
-    width: 9, // Prečnik kružića
-    height: 9,
-    borderRadius: 3.5, // Pravi savršen krug
-    marginRight: 3, // Razmak između kružića i teksta
-  },
+
   text: {
-    color: ColorsBarber.light.textColor, // Neutralna svetlo-siva boja teksta za neaktivne elemente
+    color: ColorsBarber.dark.textColor, // Neutralna svetlo-siva boja teksta za neaktivne elemente
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
     fontFamily: "OldStandard-Regular", // Srednje podebljan tekst za bolju čitljivost
   },

@@ -181,18 +181,18 @@ const styles = StyleSheet.create({
   },
   notWorkingDaysContent: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     padding: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     fontFamily: "OldStandard-Regular",
   },
   calendarContainer: {
     marginTop: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     fontFamily: "OldStandard-Regular",
 
 

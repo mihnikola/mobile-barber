@@ -6,6 +6,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const InfoContainerFuture = ({ item }) => {
+  const { localization } = useLocalization();
+
   return (
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
@@ -15,14 +17,11 @@ const InfoContainerFuture = ({ item }) => {
             numberOfLines={2}
             ellipsizeMode="tail"
           >
-            {item.service?.name}
+            {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
           </Text>
           <Text style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
-            {addMinutesToTime(
-              convertToDayTime(item?.startDate),
-              item?.service?.duration,
-            )}
+            {convertToDayTime(item?.endDate)} 
           </Text>
         </View>
         <View style={styles.addressContainer}>
@@ -38,14 +37,14 @@ const InfoContainerFuture = ({ item }) => {
       <View>
         <Text style={styles.rating}>
           {item.status === 2 && (
-            <FontAwesome name={"clock-o"} size={16} color={ColorsBarber.light.textColor} />
+            <FontAwesome name={"clock-o"} size={16} color={ColorsBarber.dark.textColor} />
           )}
 
           {item.status === 1 && (
-            <FontAwesome name={"window-close"} size={16} color={ColorsBarber.light.textColor} />
+            <FontAwesome name={"window-close"} size={16} color={ColorsBarber.dark.textColor} />
           )}
           {item.status === 0 && (
-            <FontAwesome name={"check-circle-o"} size={20} color={ColorsBarber.light.textColor} />
+            <FontAwesome name={"check-circle-o"} size={20} color={ColorsBarber.dark.textColor} />
           )}
         </Text>
       </View>
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
 
   captureDateContent: {
     fontSize: 18,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
   },
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     color: "#707070",
   },
   captureDateLocation: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
 
     flex: 2,
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
 
   captureDateBold: {
     fontSize: 18,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 

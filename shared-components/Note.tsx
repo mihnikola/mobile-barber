@@ -31,20 +31,20 @@ const styles = StyleSheet.create({
   },
   timeData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   info: {
     display: "flex",
     paddingLeft: 12,
     paddingBottom: 8,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
         fontFamily:"OldStandard-Regular"
 
   },
   title: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     padding: 12,
     fontFamily:"OldStandard-Bold"
   },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   dateData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   data: {

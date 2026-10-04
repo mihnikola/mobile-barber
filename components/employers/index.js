@@ -1,4 +1,4 @@
-import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
+import {  ScrollView, StyleSheet, View } from "react-native";
 import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
@@ -6,20 +6,16 @@ import Loader from "@/components/Loader";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
-import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
+
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const { reevaluted } = useLocalSearchParams();
   const pathName = "/(tabs)/(02_barbers)/calendar";
@@ -31,7 +27,6 @@ const Employers = () => {
   }, [reevaluted]);
   const { localization } = useLocalization();
 
-  const { company } = useCompany();
 
   useEffect(() => {
     if (location && service) {
@@ -66,7 +61,6 @@ const Employers = () => {
     <ScrollView style={styles.container}>
       <HeaderCoverImageContainer
         title={localization.BARBERS.title}
-        image={coverImageAppointments}
       />
 
       {isLoading && <Loader />}
@@ -126,7 +120,7 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 32,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     paddingVertical: 140,
   },
@@ -134,13 +128,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

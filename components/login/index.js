@@ -112,7 +112,7 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}
+      style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -130,7 +130,7 @@ const LoginScreen = () => {
             <MaterialIcons
               name="arrow-back"
               size={25}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
 
@@ -205,7 +205,7 @@ const LoginScreen = () => {
           <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
             <Text
               style={{
-                color: ColorsBarber.light.textColor,
+                color: ColorsBarber.dark.textColor,
                 textAlign: "right",
                 fontFamily: "OldStandard-Regular",
               }}
@@ -236,7 +236,7 @@ const LoginScreen = () => {
                 <FontAwesome
                   name={error ? "close" : success ? "check-circle-o" : "info"}
                   size={64}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
               }
               title={error || success || message}
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    shadowColor: ColorsBarber.light.background,
+    shadowColor: ColorsBarber.dark.background,
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
@@ -282,23 +282,23 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     marginBottom: 30,
     fontFamily: "OldStandard-Bold",
   },
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   socialButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Regular",
   },
@@ -342,14 +342,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
   },
   dividerText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginHorizontal: 10,
     fontSize: 15,
     fontFamily: "OldStandard-Bold",
   },
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -366,16 +366,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     width: "80%",
   },
 });

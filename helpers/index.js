@@ -2,7 +2,7 @@ import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { dayNamesEng } from "@/helpers/locale-calendar-en";
 import { dayNamesRs } from "@/helpers/locale-calendar-rs";
-export function addMinutesToTime(inputTime, minutesToAdd) {
+export function addMinutesToTime(inputTime, minutesToAdd, otherServiceDuration = 0) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
   const [hours, minutes] = inputTime?.split(":");
@@ -11,7 +11,8 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
   date.setHours(hours, minutes, 0, 0); // Postavi vreme
 
   // Dodaj traženi broj minuta
-  date.setMinutes(date.getMinutes() + minutesToAdd);
+  const total = otherServiceDuration + minutesToAdd;
+  date.setMinutes(date.getMinutes() + total);
 
   // Formatiraj rezultat
   let updatedHours = String(date.getHours()).padStart(2, "0");
@@ -23,14 +24,14 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 export const calendarTheme = {
   textDayFontFamily: "OldStandard-Bold",
   textSectionTitleFontFamily: "OldStandard-Bold",
-  monthTextColor: ColorsBarber.light.textColor,
-  backgroundColor: ColorsBarber.light.background,
-  calendarBackground: ColorsBarber.light.background,
-  textSectionTitleColor: ColorsBarber.light.textColor,
-  selectedDayBackgroundColor: ColorsBarber.light.textColor,
-  selectedDayTextColor: ColorsBarber.light.textColor,
-  todayTextColor: ColorsBarber.light.textColor,
-  dayTextColor: ColorsBarber.light.textColor,
+  monthTextColor: ColorsBarber.dark.textColor,
+  backgroundColor: ColorsBarber.dark.background,
+  calendarBackground: ColorsBarber.dark.background,
+  textSectionTitleColor: ColorsBarber.dark.textColor,
+  selectedDayBackgroundColor: ColorsBarber.dark.textColor,
+  selectedDayTextColor: ColorsBarber.dark.textColor,
+  todayTextColor: ColorsBarber.dark.textColor,
+  dayTextColor: ColorsBarber.dark.textColor,
   textMonthFontFamily: "OldStandard-Bold",
   textDisabledColor: "grey",
   textSectionTitleFontFamily: "OldStandard-Bold",

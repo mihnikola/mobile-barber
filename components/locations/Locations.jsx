@@ -4,7 +4,6 @@ import MenuServices from "../services";
 import { useEffect } from "react";
 import NotFoundLocations from "./../notFound/index";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { coverImageAppointments } from "@/constants";
 import Loader from "../Loader";
 
 const Locations = () => {
@@ -31,7 +30,7 @@ const Locations = () => {
 const PlaceholderComponent = ({ isLoading }) => {
   return (
     <>
-      <HeaderCoverImageContainer image={coverImageAppointments} hidden />
+      <HeaderCoverImageContainer hidden />
       {isLoading && <Loader />}
     </>
   );

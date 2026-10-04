@@ -22,6 +22,6 @@ export default function withKeyboardAvoid<T>(
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

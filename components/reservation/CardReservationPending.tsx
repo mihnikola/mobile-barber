@@ -12,14 +12,14 @@ const CardReservationPending = ({ redirectScreen, item }) => {
       onPress={() => redirectScreen(item)}
     >
       <DateFormatComponent item={item} />
-      <InfoContainerFuture item={item} />
+      <InfoContainerFuture item={item} key={item.id || item._id} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   cardReservation: {
-    backgroundColor: ColorsBarber.light.item, 
+    backgroundColor: ColorsBarber.dark.item, 
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

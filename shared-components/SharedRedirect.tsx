@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   registerText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
   },
   registerLink: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
   },

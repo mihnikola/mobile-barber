@@ -57,6 +57,13 @@ export const SRB_LOCALIZATION = {
     noFound: "Trenutno nema lokacija",
   },
   SERVICES: {
+    plus:"Dodatno",
+    totalDuration: "Ukupno trajanje",
+    totalPrice: "Ukupna cena",
+    listServices: "Prikaži dodatne usluge",
+    addService: "Dodatne usluge",
+    next: "Preskoči",
+    moreServices: "Izaberi još usluga",
     title: "Cenovnik & Usluge",
     errorFetch: "Podaci o uslugama trenutno nisu dostupni",
     notAvailable: "Zakazivanje na ovoj lokaciji trenutno nije dostupno.",

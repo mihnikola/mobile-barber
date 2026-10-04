@@ -26,21 +26,15 @@ export const MenuItem = ({
     <MaterialCommunityIcons
       name={iconName}
       size={24}
-      color={
-        isLogout
-          ? ColorsBarber.light.inActiveTextColor
-          : ColorsBarber.light.textColor
-      }
+      color={ColorsBarber.dark.textColor}
       style={styles.menuItemIcon}
     />
-    <Text style={[styles.menuItemText, isLogout && styles.logoutText]}>
-      {title}
-    </Text>
+    <Text style={styles.menuItemText}>{title}</Text>
     {isToggle ? (
       <Switch
         trackColor={{ false: "#767577", true: "#81b0ff" }}
         thumbColor={toggleValue ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor={ColorsBarber.light.textColor}
+        ios_backgroundColor={ColorsBarber.dark.textColor}
         onValueChange={onToggle}
         value={toggleValue}
         style={styles.menuItemToggle}
@@ -49,7 +43,7 @@ export const MenuItem = ({
       <MaterialCommunityIcons
         name="chevron-right"
         size={24}
-        color={ColorsBarber.light.textColor}
+        color={ColorsBarber.dark.arrowIcon}
         style={styles.menuItemArrow}
       />
     )}
@@ -88,7 +82,6 @@ const styles = StyleSheet.create({
     marginRight: 15,
     borderWidth: 2,
     borderColor: "#4a4a4a", // Subtle border around image
-
   },
   profileInfo: {
     flex: 1,
@@ -132,13 +125,12 @@ const styles = StyleSheet.create({
   menuItemText: {
     flex: 1, // Allows text to take up available space
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   logoutText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
-
   },
   menuItemArrow: {
     marginLeft: 10,

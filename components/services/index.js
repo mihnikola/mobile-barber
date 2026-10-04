@@ -27,8 +27,11 @@ const MenuServices = () => {
       image: serviceData.image,
     };
     updateReservation({ ...reservation, service });
-    const pathName = "/(tabs)/(02_barbers)/employers";
-    router.push(pathName);
+    const pathName = "/(tabs)/(02_barbers)/moreServices";
+    router.push({
+      pathname: pathName,
+      params: { categoryId: serviceData.category },
+    });
   };
 
   const { localization } = useLocalization();
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   notAvailable: {
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 20,
     textAlign: "center",
   },
@@ -82,6 +85,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

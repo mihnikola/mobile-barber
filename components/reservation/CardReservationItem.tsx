@@ -25,7 +25,7 @@ const CardReservationItem = ({ redirectScreen, item }) => {
 
 const styles = StyleSheet.create({
   cardReservationCurrent: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,
@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     gap: 12,
     height: 120,
   },
+
   cardReservationPast: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.cardReservationPast,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

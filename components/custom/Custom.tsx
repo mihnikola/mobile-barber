@@ -82,9 +82,9 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     padding: 10,
     width: 200,
     borderRadius: 100,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   textButton: {
-   color: ColorsBarber.light.textColor,
+   color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
     position: "absolute",

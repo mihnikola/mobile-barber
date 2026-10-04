@@ -16,7 +16,7 @@ const InfoContainerPast = ({ item }) => {
             numberOfLines={2}
             ellipsizeMode="tail"
           >
-            {item.service?.name}
+            {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
           </Text>
           <Text style={styles.captureDatePast}>
             {convertToDayTime(item?.startDate)} -{" "}
@@ -50,7 +50,7 @@ const InfoContainerPast = ({ item }) => {
 const styles = StyleSheet.create({
   captureDateBoldPast: {
     fontSize: 18,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Bold",
     marginRight: 10,
   },
@@ -68,13 +68,13 @@ const styles = StyleSheet.create({
   },
 
   rating: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Regular",
 
   },
 
   captureDateLocation: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     flex: 2,
     fontSize: 15,
         fontFamily: "OldStandard-Regular",
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   captureDatePast: {
     fontSize: 18,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
   },

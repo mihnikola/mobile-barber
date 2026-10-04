@@ -5,25 +5,36 @@ import SharedLogo from "@/shared-components/SharedLogo";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-function BookSuccess({ image, logo, reservation }) {
+function BookSuccess({ image, reservation }) {
+  console.log("reservation", reservation);
+  const totals = reservation?.otherServices?.reduce(
+    (acc, current) => {
+      acc.totalPrice += current.price;
+      acc.totalDuration += current.duration;
+      return acc;
+    },
+    { totalPrice: 0, totalDuration: 0 },
+  );
+
   return (
     <>
       <SharedCoverImage image={image} />
 
-      <SharedLogo image={logo} />
+      <SharedLogo />
 
       <View style={styles.coverContent}>
         <Text style={styles.timeData}>
           {reservation?.timeData?.value} -{" "}
           {addMinutesToTime(
             reservation?.timeData?.value,
-            reservation?.service?.serviceDuration
+            reservation?.service?.serviceDuration,
+            totals?.totalDuration,
           )}
         </Text>
         <Text style={styles.dateData}>
           {convertDate(
             reservation?.dateReservation?.dateString ||
-              reservation?.dateReservation
+              reservation?.dateReservation,
           )}
         </Text>
       </View>
@@ -50,7 +61,7 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 22,
 
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     display: "flex",
     justifyContent: "center",
@@ -69,7 +80,7 @@ const styles = StyleSheet.create({
   },
   dateData: {
     fontSize: 20,
-   color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   data: {
@@ -78,7 +89,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   coverImage: {
     width: "100%",
@@ -88,7 +99,7 @@ const styles = StyleSheet.create({
   whiteLine: {
     width: "100%",
     height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: ColorsBarber.light.background, // Set the line color to white
+    backgroundColor: ColorsBarber.dark.background, // Set the line color to white
     marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
 });

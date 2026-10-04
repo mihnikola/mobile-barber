@@ -3,6 +3,7 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;
@@ -35,7 +36,7 @@ const SharedItem = (props: any) => {
             <MaterialIcons
               name={price || servicePrice ? "price-change" : "star"}
               size={16}
-              color="#FFD700"
+              color={ColorsBarber.dark.priceColor}
             />
             <Text style={styles.reviewText}>
               {price ||
@@ -47,7 +48,7 @@ const SharedItem = (props: any) => {
             </Text>
           </View>
           <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Ionicons name={"person"} size={16} color={ColorsBarber.dark.personIcon} />
             <Text style={styles.reviewText}>
               {/* {`${ratingCount} ${localization.DETAILS.mark}`}  */}
               1102
@@ -95,7 +96,11 @@ const SharedItem = (props: any) => {
             </Text>
           </View>
         </View>
-        <FontAwesome name={"chevron-right"} size={32} color="gray" />
+        <FontAwesome
+          name={"chevron-right"}
+          size={32}
+          color={ColorsBarber.dark.arrowIcon}
+        />
       </TouchableOpacity>
     );
   }
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

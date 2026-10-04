@@ -24,26 +24,26 @@ const SharedItemEmployerCard = (props: any) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <FontAwesome name={"trophy"} size={16} color={ColorsBarber.light.textColor} />
+          <FontAwesome name={"trophy"} size={16} color={ColorsBarber.dark.textColor} />
           <Text style={styles.locationText}>
             {`${seniority || seniority?.title}`}
           </Text>
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
-            <MaterialIcons name={"star"} size={16} color={ColorsBarber.light.textColor} />
+            <MaterialIcons name={"star"} size={16} color={ColorsBarber.dark.starColor} />
             <Text style={styles.reviewText}>{`${roundValue(
               averageRating,
             )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color={ColorsBarber.light.textColor} />
+            <Ionicons name={"person"} size={16} color={ColorsBarber.dark.personIcon} />
             <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>
         </View>
       </View>
-      <FontAwesome name={"chevron-right"} size={32} color={ColorsBarber.light.textColor} />
+      <FontAwesome name={"chevron-right"} size={32} color={ColorsBarber.dark.arrowIcon} />
     </TouchableOpacity>
   );
 };
@@ -54,18 +54,18 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor, // Lighter grey for location
+    color: ColorsBarber.dark.textColor, // Lighter grey for location
     marginLeft: 5,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item, // Dark background from your image
+    backgroundColor: ColorsBarber.dark.item, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.light.background, // For a subtle shadow (iOS)
+    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 30, // Makes it circular
     marginRight: 15,
-    color: ColorsBarber.light.textColor, // Lighter grey for location
+    color: ColorsBarber.dark.textColor, // Lighter grey for location
   },
   detailsContainer: {
     flex: 1,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor, // Lighter grey for location
+    color: ColorsBarber.dark.textColor, // Lighter grey for location
     marginBottom: 4,
   },
   locationContainer: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "OldStandard-Bold",
 
-    color: ColorsBarber.light.textColor, // Lighter grey for location
+    color: ColorsBarber.dark.textColor, // Lighter grey for location
     marginLeft: 5,
   },
 });

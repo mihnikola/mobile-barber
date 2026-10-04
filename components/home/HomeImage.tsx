@@ -1,8 +1,13 @@
 import { StyleSheet, Image } from "react-native";
 import React from "react";
 
-const HomeImage = ({ image }) => {
-  return <Image source={{ uri: image }} style={styles.backImage} />;
+const HomeImage = () => {
+  return (
+    <Image
+      source={require("./../../assets/images/mainLogo.png")}
+      style={styles.backImage}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
