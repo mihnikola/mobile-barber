@@ -135,8 +135,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   input: {
-    backgroundColor: "white",
-    color: ColorsBarber.dark.textColor,
+    backgroundColor: ColorsBarber.dark.inputField,
+    color: ColorsBarber.dark.textColorInput,
     fontFamily: "OldStandard-Regular",
 
     padding: 15,

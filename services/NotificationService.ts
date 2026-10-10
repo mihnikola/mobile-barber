@@ -10,7 +10,7 @@ import {
 export class NotificationService {
   deviceToken: string = "";
   subscriptions: Array<() => void> = [];
-  hasReceivedForeground = false;
+  // hasReceivedForeground = false;
   hasHandledInitial = false; // ⚡ Ključni flag – sprečava pogrešne triggere
 
   constructor() {
@@ -84,7 +84,7 @@ export class NotificationService {
         trigger: null,
       });
 
-      this.hasReceivedForeground = true;
+      // this.hasReceivedForeground = true;
     });
 
     this.subscriptions.push(unsub);
@@ -155,13 +155,13 @@ export class NotificationService {
     // 5) CLICK NA LOKALNU notifikaciju
     const clickListener = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        if (!this.hasReceivedForeground) return;
+        // if (!this.hasReceivedForeground) return;
 
         const data = response.notification.request.content.data;
         console.log("👉 Foreground notification clicked:", data);
 
         onClick(data);
-        this.hasReceivedForeground = false;
+        // this.hasReceivedForeground = false;
       },
     );
 
@@ -177,4 +177,4 @@ export class NotificationService {
   }
 }
 
-export default new NotificationService();
+  export default new NotificationService();

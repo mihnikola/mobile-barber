@@ -15,7 +15,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
-
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const { reevaluted } = useLocalSearchParams();
   const pathName = "/(tabs)/(02_barbers)/calendar";
@@ -72,6 +71,7 @@ const Employers = () => {
                 key={item.id}
                 data={item}
                 redirectHandler={redirectHandler}
+                otherServices={reservation?.otherServices}
               />
             ))
           ) : (

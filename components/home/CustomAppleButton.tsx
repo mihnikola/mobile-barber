@@ -15,7 +15,7 @@ const CustomAppleButton = ({ onPress, isAppleLoading }) => {
     <>
       {isAppleLoading && (
         <TouchableOpacity style={styles.button}>
-          <ActivityIndicator size={22} color={ColorsBarber.dark.textColor} />
+          <ActivityIndicator size={22} color={ColorsBarber.dark.textColorInput} />
         </TouchableOpacity>
       )}
       {!isAppleLoading && (

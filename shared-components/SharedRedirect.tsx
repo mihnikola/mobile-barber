@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "auto", // Pushes to the bottom
-    marginBottom: 20,
+    // marginTop: "auto", // Pushes to the bottom
+    // marginBottom: 20,
   },
   registerText: {
     color: ColorsBarber.dark.inActiveTextColor,

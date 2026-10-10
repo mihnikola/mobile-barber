@@ -182,13 +182,15 @@ export const AppointmentProvider = ({ children }) => {
       1: "rejected",
       0: "approved",
     };
-    console.log("status", status);
+
+    const activeStatus = STATUS_DATA[status] || STATUS_MAP[active];
+
     //ovde mi trebaju statusi pending/rejected/approved
     try {
       const response = await getData("/availabilities", {
-        activeStatus: STATUS_DATA[status] || STATUS_MAP[active],
+        activeStatus,
       });
-      
+
       if (response.status === 200) {
         setReservations(response.data);
       }
@@ -257,6 +259,7 @@ export const AppointmentProvider = ({ children }) => {
           0: "approved",
         };
         setActive(STATUS_DATA[statusValue]);
+        console.log("statusValue",statusValue)
         await getReservationsData(statusValue);
         setResponseData(response);
         router.dismissAll();

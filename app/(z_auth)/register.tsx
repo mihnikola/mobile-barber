@@ -1,4 +1,5 @@
 import Register from '@/components/register/index';
+import withKeyboardAvoid from '@/components/wrapper/WrapperKeyboard';
 
 const RegisterForm = () => {
     return (
@@ -6,4 +7,4 @@ const RegisterForm = () => {
     )
 }
 
-export default RegisterForm;
+export default withKeyboardAvoid(RegisterForm);

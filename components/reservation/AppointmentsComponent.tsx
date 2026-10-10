@@ -5,10 +5,6 @@ import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useAppointment } from "@/context/AppointmentContext";
-
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
-import AppointmentsStatuses from "./AppointmentsStatuses";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
@@ -20,7 +16,6 @@ const AppointmentsComponent = () => {
     getReservationsData,
     reservations,
     active,
-    handleStatus,
   } = useAppointment();
   const { localization } = useLocalization();
 

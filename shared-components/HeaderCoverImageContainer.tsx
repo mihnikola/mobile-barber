@@ -23,55 +23,37 @@ function HeaderCoverImageContainer({
   status = false,
   nextBtn,
   skip,
-  routerHandler
+  routerHandler,
 }) {
   const { height } = useWindowDimensions();
   const headerHeight = height * 0.25;
+  const headerHeightnextBtn = height * 0.15;
   const { active, handleStatus } = useAppointment();
-
 
   return (
     <ImageBackground
-      source={require("./../assets/images/tabImage.png")}
-      style={[styles.heroHeader, { height: headerHeight }]}
+      source={nextBtn ? null : require("./../assets/images/tabImage.png")}
+      style={[
+        styles.heroHeader,
+        { height: nextBtn ? headerHeightnextBtn : headerHeight },
+      ]}
       imageStyle={styles.backgroundImage}
       resizeMode="cover"
     >
       {!reservation && !status && !reservationData && (
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
-          <View style={[nextBtn && styles.nextBtn]}>
-            {!hidden && (
-              <TouchableOpacity hitSlop={20} onPress={router.back}>
-                <MaterialIcons
-                  name="arrow-back"
-                  size={25}
-                  color={ColorsBarber.dark.textColor}
-                />
-              </TouchableOpacity>
-            )}
-            {nextBtn && (
-              <>
-                <TouchableOpacity
-                  hitSlop={20}
-                  onPress={routerHandler}
-                  style={{
-                    flexDirection: "row",
-                    gap: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={styles.nextBtnTitle}>{skip}</Text>
-
-                  <MaterialIcons
-                    name="arrow-forward"
-                    size={25}
-                    color={ColorsBarber.dark.textColor}
-                  />
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
-          <Text style={styles.capture}>{title}</Text>
+          {!hidden && (
+            <TouchableOpacity hitSlop={20} onPress={router.back}>
+              <MaterialIcons
+                name="arrow-back"
+                size={25}
+                color={ColorsBarber.dark.textColor}
+              />
+            </TouchableOpacity>
+          )}
+          <Text style={[styles.capture, nextBtn && styles.captureNextBtn]}>
+            {title}
+          </Text>
         </View>
       )}
       {reservation && <SharedReservationData reservation={reservation} />}
@@ -121,6 +103,11 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
+    color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Regular",
+  },
+  captureNextBtn: {
+    fontSize: 28,
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },

@@ -323,4 +323,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withKeyboardAvoid(Register);
+export default Register;

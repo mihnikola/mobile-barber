@@ -8,7 +8,12 @@ export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
 
   return (
-    <Modal visible={visible} transparent animationType="fade">
+    <Modal
+      visible={visible}
+      animationType="fade"
+      transparent={true}
+      statusBarTranslucent={true} 
+    >
       <View style={styles.overlay}>
         <View style={styles.box}>
           <MaterialIcons
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontFamily: "OldStandard-Bold",
-   color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 10,
     textAlign: "center",
   },
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonText: {
-   color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },

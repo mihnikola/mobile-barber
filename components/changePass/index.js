@@ -1,13 +1,10 @@
 import {
   View,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
   findNodeHandle,
   TouchableOpacity,
 } from "react-native";
-import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
@@ -17,11 +14,9 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
-import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
 
 const changePass = () => {
@@ -53,8 +48,6 @@ const changePass = () => {
   const confirmHandler = async () => {
     setIsMessage(false);
     await removeOtpParamsStorage();
-    // router.dismissAll();
-    // router.replace("/(z_auth)/login");
     router.back();
   };
   const confirmHandler2 = () => {

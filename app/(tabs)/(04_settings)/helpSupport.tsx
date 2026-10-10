@@ -16,8 +16,8 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { ColorsBarber } from "@/constants/Colors";
 
 const companyInfo = {
-  name: "FusionTech DOO",
-  email: "fta@support.com",
+  name: "FusionTechAgency Ltd",
+  email: "fusiontechagency.support@gmail.com",
 };
 
 const HelpSupportScreen = () => {
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoRow: {
-    flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10,
     borderBottomWidth: 1,
@@ -97,8 +96,6 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Regular",
   },
   menuItem: {
-    flexDirection: "row",
-    alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#333333",
@@ -116,7 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
-    marginLeft: "auto", // Pushes the subtext to the right
   },
 });
 

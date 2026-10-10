@@ -7,7 +7,7 @@ import SharedImageInitials from "./SharedInitialsName";
 import { ColorsBarber } from "@/constants/Colors";
 
 const SharedItemEmployerCard = (props: any) => {
-  const { redirectHandler, data } = props;
+  const { redirectHandler, data, otherServices } = props;
   const { id, image, name, seniority, averageRating, userCount } = data;
 
   return (
@@ -19,7 +19,7 @@ const SharedItemEmployerCard = (props: any) => {
       {image ? (
         <Image source={{ uri: image }} style={styles.profileImage} />
       ) : (
-        <SharedImageInitials name={name} />
+        <SharedImageInitials name={name} otherServices={otherServices} listEmployers />
       )}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>

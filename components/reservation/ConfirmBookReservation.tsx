@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ReservationContext from "@/context/ReservationContext";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/shared-components/Note";
 import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
-import { useCompany } from "@/context/CompanyContext";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
-import { coverImageAppointments, logoImage } from "@/constants";
+import { coverImageAppointments } from "@/constants";
 import { ColorsBarber } from "@/constants/Colors";
 
 const ConfirmBookReservation = () => {
@@ -16,7 +15,6 @@ const ConfirmBookReservation = () => {
   useDismissOnUnauthorizedFocus();
 
   const { reservation } = useContext(ReservationContext)!;
-  const { company } = useCompany();
 
   const params = useLocalSearchParams();
 

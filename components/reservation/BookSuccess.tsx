@@ -6,7 +6,6 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 function BookSuccess({ image, reservation }) {
-  console.log("reservation", reservation);
   const totals = reservation?.otherServices?.reduce(
     (acc, current) => {
       acc.totalPrice += current.price;

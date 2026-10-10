@@ -236,7 +236,7 @@ function ResevationNotificationScreen() {
           <>
             <View style={styles.containerCancel}>
               {reservationData && (
-                <SharedDetailsReservation data={reservationData} />
+                <SharedDetailsReservation key={reservationData?.id || reservationData?._id} data={reservationData} />
               )}
               {renderDescription()}
               {past &&

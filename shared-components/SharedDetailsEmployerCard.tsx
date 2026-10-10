@@ -23,7 +23,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           ]}
         />
       ) : (
-        <SharedImageInitials name={name} />
+        <SharedImageInitials name={name} otherServices={otherServices} />
       )}
       <View style={styles.detailsContainer}>
         <View
