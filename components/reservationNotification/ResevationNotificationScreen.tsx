@@ -38,7 +38,7 @@ function ResevationNotificationScreen() {
     setDescription,
     description,
   } = useAppointment();
-
+  const [isExpired, setIsExpired] = useState(false);
   const { itemId, past, rating, status, notification } = useLocalSearchParams();
   useEffect(() => {
     fetchReservationDetails(itemId, notification);
@@ -166,6 +166,22 @@ function ResevationNotificationScreen() {
       );
     }
   };
+  const expirationChecked = (expirationDate) => {
+    const now = new Date();
+    if (
+      new Date(expirationDate).getTime() < now.getTime() &&
+      Number(reservationData?.status) === 2
+    ) {
+      setIsExpired(true);
+    } else {
+      setIsExpired(false);
+    }
+  };
+  useEffect(() => {
+    if (reservationData) {
+      expirationChecked(reservationData?.expirationDate);
+    }
+  }, [reservationData]);
 
   const renderQuestion = () => {
     const titleQuestion = !past
@@ -224,6 +240,15 @@ function ResevationNotificationScreen() {
       </View>
     );
   };
+  const renderExpirationTitle = () => {
+    return (
+      <View style={styles.missed}>
+        <Text style={styles.textBoldRejected}>
+          {localization.APPOINTMENTS.cancelReservation.expiredMessage}
+        </Text>
+      </View>
+    );
+  };
   return (
     <View style={{ flex: 1 }}>
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
@@ -236,7 +261,10 @@ function ResevationNotificationScreen() {
           <>
             <View style={styles.containerCancel}>
               {reservationData && (
-                <SharedDetailsReservation key={reservationData?.id || reservationData?._id} data={reservationData} />
+                <SharedDetailsReservation
+                  key={reservationData?.id || reservationData?._id}
+                  data={reservationData}
+                />
               )}
               {renderDescription()}
               {past &&
@@ -249,10 +277,16 @@ function ResevationNotificationScreen() {
             </View>
             {(status === "1" || Number(reservationData?.status) === 1) &&
               renderRejectionTitle()}
+
+            {(status === "2" || Number(reservationData?.status) === 2) &&
+              isExpired &&
+              renderExpirationTitle()}
+
           </>
         )}
       </ScrollView>
       {(status !== "1" || Number(reservationData?.status) !== 1) &&
+        !isExpired &&
         renderSharedButton()}
 
       {isModalQuestion && renderQuestion()}

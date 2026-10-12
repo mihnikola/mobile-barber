@@ -121,6 +121,7 @@ export const ENG_LOCALIZATION = {
       confirmMessage: "Reservation is cancelled successfully",
       errorMessage: "Reservation does not exist",
       rejectedMessage: "Reservation is rejected",
+      expiredMessage:"Reservation is expired",
     },
     rateReservation: {
       descReservation: "Instructions",

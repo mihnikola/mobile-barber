@@ -259,7 +259,7 @@ export const AppointmentProvider = ({ children }) => {
           0: "approved",
         };
         setActive(STATUS_DATA[statusValue]);
-        console.log("statusValue",statusValue)
+        console.log("statusValue", statusValue);
         await getReservationsData(statusValue);
         setResponseData(response);
         router.dismissAll();

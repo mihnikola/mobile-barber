@@ -122,6 +122,8 @@ export const SRB_LOCALIZATION = {
       confirmMessage: "Rezervacija je uspešno otkazana",
       rejectedMessage: "Rezervacija je odbijena",
       errorMessage: "Rezervacija ne postoji",
+      expiredMessage:"Rezervacija je istekla",
+
     },
     rateReservation: {
       rateButton: "Ocenite",
