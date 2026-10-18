@@ -6,15 +6,13 @@ import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 
 const MenuServices = () => {
-  const { updateReservation, reservation } = useContext(ReservationContext);
+  const { reservation, flowReservation } =
+    useContext(ReservationContext);
   const { serviceData, isLoading } = useFetchServices(reservation);
   const { backButton } = useLocalSearchParams();
 
@@ -26,12 +24,16 @@ const MenuServices = () => {
       name: serviceData.name,
       image: serviceData.image,
     };
-    updateReservation({ ...reservation, service });
-    const pathName = "/(tabs)/(02_barbers)/moreServices";
-    router.push({
-      pathname: pathName,
-      params: { categoryId: serviceData.category },
-    });
+    const result = await flowReservation(service, serviceData?.category);
+    const { type, pathName, categoryId } = result;
+    if (type === "barbers") {
+      router.push({ pathname: pathName });
+    } else {
+      router.push({
+        pathname: pathName,
+        params: { categoryId },
+      });
+    }
   };
 
   const { localization } = useLocalization();

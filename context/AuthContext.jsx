@@ -41,6 +41,8 @@ export const AuthProvider = ({ children }) => {
   const { localization } = useLocalization();
 
   const [loading, setLoading] = useState(null);
+
+  const [redirectValue, setRedirectValue] = useState(null);
   // possible values: null | 'login' | 'google' | 'ios' | 'logout' | 'otp'
 
   useEffect(() => {
@@ -82,7 +84,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   const redirectValidation = async (data) => {
-    console.log("redirectValidation++++", data);
     await getTokenData();
     setIsMessage(false);
     if (data === "settings") {
@@ -105,22 +106,16 @@ export const AuthProvider = ({ children }) => {
     }
     if (data === "calendar") {
       router.back();
+      setRedirectValue("calendar");
 
-      router.setParams({
-        reevaluted: true,
-      });
-      router.replace("/(tabs)/(02_barbers)/calendar");
+      // router.setParams({
+      //   reevaluted: true,
+      // });
+      // router.replace("/(tabs)/(02_barbers)/calendar");
       return;
     }
 
     await AsyncStorage.removeItem("paramLogin");
-    // else {
-    //   router.back();
-    //   router.setParams({
-    //     reevaluted: true,
-    //   });
-    //   return;
-    // }
   };
 
   const signIn = async () => {
@@ -474,6 +469,8 @@ export const AuthProvider = ({ children }) => {
         setLoading,
         redirectValidation,
         logoutHandler,
+        setRedirectValue,
+        redirectValue,
       }}
     >
       {children}

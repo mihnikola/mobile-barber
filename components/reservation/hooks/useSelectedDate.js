@@ -1,3 +1,107 @@
+// import { ColorsBarber } from "@/constants/Colors";
+// import { useState } from "react";
+
+// const useSelectedDate = (initialDate) => {
+//   const [selectedDate, setSelectedDate] = useState(initialDate);
+//   const [isSunday, setIsSunday] = useState(false);
+//   const [markedDates, setMarkedDates] = useState();
+//   const handleDayPress = (day) => {
+//     if (!day) {
+//       return null;
+//     }
+//     const { dateString } = day;
+
+//     setSelectedDate(dateString || day);
+//     getMarkedDatesForSundays(dateString || day);
+
+//     const isSun = new Date(dateString || day).getDay() === 0;
+//     if (isSun) {
+//       setIsSunday(true);
+//     } else {
+//       setIsSunday(false);
+//     }
+//   };
+
+//   const getMarkedDatesForSundays = (selectedDateString) => {
+//     const markedDates = {};
+//     if (selectedDateString) {
+//       markedDates[selectedDateString] = {
+//         selected: true,
+//         selectedColor: "white",
+//         customStyles: {
+//           container: {
+//             backgroundColor:ColorsBarber.dark.selectedDayBackgroundColor,
+//             padding: 1,
+//             borderRadius: 8,
+//           },
+//           text: {
+//             color:  ColorsBarber.dark.textColorInput,
+//             fontFamily: "OldStandard-Bold",
+//           },
+//         },
+//       };
+//     }
+
+//     const today = new Date();
+//     today.setHours(0, 0, 0, 0);
+//     for (let i = 0; i < 4; i++) {
+//       const currentMonthDate = new Date(
+//         today.getFullYear(),
+//         today.getMonth() + i,
+//         1
+//       );
+
+//       const year = currentMonthDate.getFullYear();
+//       const month = currentMonthDate.getMonth();
+//       const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+//       for (let dayNum = 0; dayNum <= daysInMonth; dayNum++) {
+//         const date = new Date(year, month, dayNum);
+//         if (date.getDay() === 0) {
+//           const formattedYear = date
+//             .toLocaleString()
+//             .split(",")[0]
+//             .split("/")[2];
+//           const formattedDay = date
+//             .toLocaleString()
+//             .split(",")[0]
+//             .split("/")[1];
+//           const formattedMonth = date
+//             .toLocaleString()
+//             .split(",")[0]
+//             .split("/")[0];
+//           const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+//           const existingProps = markedDates[formattedDate] || {};
+//           markedDates[formattedDate] = {
+//             ...existingProps,
+//             disabled: true,
+//           };
+//         }
+//       }
+//     }
+
+//     setMarkedDates(markedDates);
+//   };
+
+//   return {
+//     selectedDate,
+//     handleDayPress,
+//     isSunday,
+//     markedDates,
+//   };
+// };
+
+// export default useSelectedDate;
+
+
+
+
+
+
+
+
+
+
 import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
 
@@ -5,6 +109,7 @@ const useSelectedDate = (initialDate) => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [isSunday, setIsSunday] = useState(false);
   const [markedDates, setMarkedDates] = useState();
+
   const handleDayPress = (day) => {
     if (!day) {
       return null;
@@ -24,18 +129,20 @@ const useSelectedDate = (initialDate) => {
 
   const getMarkedDatesForSundays = (selectedDateString) => {
     const markedDates = {};
+    
+    // Obeležavanje selektovanog datuma
     if (selectedDateString) {
       markedDates[selectedDateString] = {
         selected: true,
         selectedColor: "white",
         customStyles: {
           container: {
-            backgroundColor:ColorsBarber.dark.selectedDayBackgroundColor,
+            backgroundColor: ColorsBarber.dark.selectedDayBackgroundColor,
             padding: 1,
             borderRadius: 8,
           },
           text: {
-            color:  ColorsBarber.dark.textColorInput,
+            color: ColorsBarber.dark.textColorInput,
             fontFamily: "OldStandard-Bold",
           },
         },
@@ -44,6 +151,8 @@ const useSelectedDate = (initialDate) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    // Petlja kroz mesece (futureScrollRange je 2, pa ide 4 meseca ukupno ili koliko već želiš)
     for (let i = 0; i < 4; i++) {
       const currentMonthDate = new Date(
         today.getFullYear(),
@@ -55,26 +164,23 @@ const useSelectedDate = (initialDate) => {
       const month = currentMonthDate.getMonth();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-      for (let dayNum = 0; dayNum <= daysInMonth; dayNum++) {
+      // ISPRAVKA: dayNum kreće od 1, a ne od 0
+      for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
         const date = new Date(year, month, dayNum);
-        if (date.getDay() === 0) {
-          const formattedYear = date
-            .toLocaleString()
-            .split(",")[0]
-            .split("/")[2];
-          const formattedDay = date
-            .toLocaleString()
-            .split(",")[0]
-            .split("/")[1];
-          const formattedMonth = date
-            .toLocaleString()
-            .split(",")[0]
-            .split("/")[0];
-          const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+        
+        if (date.getDay() === 0) { // Ako je nedelja
+          const fYear = date.getFullYear();
+          // Dodajemo vodeću nulu ako je mesec/dan jednocifren (npr. '05' umesto '5')
+          const fMonth = String(date.getMonth() + 1).padStart(2, '0');
+          const fDay = String(date.getDate()).padStart(2, '0');
+
+          const formattedDate = `${fYear}-${fMonth}-${fDay}`;
+
           const existingProps = markedDates[formattedDate] || {};
           markedDates[formattedDate] = {
             ...existingProps,
             disabled: true,
+            disableTouchEvent: true, // Dobra praksa za onemogućene dane u kalendaru
           };
         }
       }
@@ -91,4 +197,4 @@ const useSelectedDate = (initialDate) => {
   };
 };
 
-export default useSelectedDate;
+export default useSelectedDate; 

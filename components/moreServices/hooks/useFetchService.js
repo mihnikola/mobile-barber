@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { get } from "@/api/apiService";
+import { useState, useEffect, useContext } from "react";
+import { get, getData } from "@/api/apiService";
 import { useLocalization } from "@/context/LocalizationContext";
+import ReservationContext from "@/context/ReservationContext";
 
 const useFetchService = () => {
   const [serviceData, setServicesData] = useState([]);
@@ -8,6 +9,7 @@ const useFetchService = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isCategorySelected, setIsCategorySelected] = useState(null);
+  const { reservation } = useContext(ReservationContext);
 
   const { localization } = useLocalization();
   const handleSelectCategory = (data) => {
@@ -18,16 +20,18 @@ const useFetchService = () => {
     setIsCategorySelected(data);
   };
   const fetchAllServices = async (id) => {
+    console.log("fetchAllServices");
     setIsLoading(true);
     setError(null);
+    const { location, service } = reservation;
     try {
-      const response = await get(`/categories/${id}`);
-      
+      const response = await getData(`/categories/${id}`, {
+        placeId: location.id || location._id,
+        serviceId: service.serviceId,
+        categoryId: id,
+      });
       if (response.status === 200) {
         setCategoriesServicesData(response.data);
-        // const { services, categories } = response.data;
-        // setServicesData(services);
-        // setCategoriesData(categories);
         defaultCategoryHandler(response.data[0]);
       }
     } catch (err) {
@@ -38,7 +42,15 @@ const useFetchService = () => {
     }
   };
 
-  return { serviceData, isLoading, error, fetchAllServices, categoriesServicesData, isCategorySelected, handleSelectCategory };
+  return {
+    serviceData,
+    isLoading,
+    error,
+    fetchAllServices,
+    categoriesServicesData,
+    isCategorySelected,
+    handleSelectCategory,
+  };
 };
 
 export default useFetchService;

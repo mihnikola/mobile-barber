@@ -1,4 +1,4 @@
-import {  ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import ReservationContext from "@/context/ReservationContext";
@@ -12,6 +12,7 @@ import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "@/context/AuthContext";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -19,13 +20,17 @@ const Employers = () => {
   const { reevaluted } = useLocalSearchParams();
   const pathName = "/(tabs)/(02_barbers)/calendar";
   const { location, service } = reservation;
-  useEffect(() => {
-    if (reevaluted) {
-      router.push({ pathname: pathName, params: { reevaluted } });
-    }
-  }, [reevaluted]);
-  const { localization } = useLocalization();
+  const { setRedirectValue, redirectValue } = useAuth();
 
+  // console.log("reevaluted",reevaluted)
+  useEffect(() => {
+    if (redirectValue) {
+      console.log("redirectValue", redirectValue);
+      setRedirectValue(null);
+      router.push(pathName);
+    }
+  }, [redirectValue]);
+  const { localization } = useLocalization();
 
   useEffect(() => {
     if (location && service) {
@@ -41,7 +46,6 @@ const Employers = () => {
         router.push(pathName);
       } else {
         await AsyncStorage.setItem("paramLogin", "calendar");
-
         router.push({
           pathname: "/(z_auth)/",
           params: { data: "calendar" },
@@ -58,9 +62,7 @@ const Employers = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderCoverImageContainer
-        title={localization.BARBERS.title}
-      />
+      <HeaderCoverImageContainer title={localization.BARBERS.title} />
 
       {isLoading && <Loader />}
       {!isLoading && (
