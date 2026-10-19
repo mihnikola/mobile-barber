@@ -146,9 +146,9 @@ function App() {
                 <Text style={styles.titleLocation}>
                   {localization.HOME.bookingBtn}
                 </Text>
-                <Text style={styles.address}>
+                {/* <Text style={styles.address}>
                   {localization.HOME.bookingBtnDesc}
-                </Text>
+                </Text> */}
               </View>
 
               <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
@@ -162,9 +162,9 @@ function App() {
                 <Text style={styles.titleLocation}>
                   {localization.HOME.aboutUsBtn}
                 </Text>
-                <Text style={styles.address}>
+                {/* <Text style={styles.address}>
                   {localization.HOME.aboutUsBtnDesc}
-                </Text>
+                </Text> */}
               </View>
               <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
             </TouchableOpacity>
@@ -178,9 +178,9 @@ function App() {
                 <Text style={styles.titleLocation}>
                   {localization.HOME.locationBtn}
                 </Text>
-                <Text style={styles.address}>
+                {/* <Text style={styles.address}>
                   {localization.HOME.locationBtnDesc}
-                </Text>
+                </Text> */}
               </View>
               <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
             </TouchableOpacity>
