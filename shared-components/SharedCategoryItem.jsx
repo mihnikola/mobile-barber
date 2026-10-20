@@ -23,8 +23,7 @@ const SharedCategoryItem = (props) => {
             isSelected._id === data?._id && styles.nameSelected,
           ]}
         >
-          {name}
-          {/* {localization.code === 'en' ? name.nameEn : name.nameLocal} */}
+          {localization.code === 'en' ? name?.nameEn : name?.nameLocal}
 
         </Text>
       </View>
