@@ -8,7 +8,7 @@ import { ColorsBarber } from "@/constants/Colors";
 
 const GlobalErrorHandler = () => {
   const { error, hideError } = useGlobalError();
-  const { logoutFirebase, logoutHandler } = useAuth();
+  const { logoutUnAuthorizedUser, logoutHandler } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const logoutConfirm = async () => {
@@ -17,7 +17,7 @@ const GlobalErrorHandler = () => {
     setTimeout(async () => {
       try {
         // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
-        await logoutFirebase();
+        await logoutUnAuthorizedUser();
 
         console.log("logoutFirebase je završen, sada gasim loader...");
       } catch (error) {

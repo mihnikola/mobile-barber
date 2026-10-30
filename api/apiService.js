@@ -42,6 +42,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("err",error)
     if (error.response && error.response.data && error.response.data.message) {
       if (error.response.data?.code === "UNAUTHORIZED_TOKEN") {
         showGlobalMessage({

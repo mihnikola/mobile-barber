@@ -188,10 +188,7 @@ export const AuthProvider = ({ children }) => {
   };
   const signOut = async () => {
     try {
-      // const isSignedIn = await GoogleSignin.isSignedIn();
-      // if (isSignedIn) {
       await GoogleSignin.signOut();
-      // }
     } catch (error) {
       console.log("Greška:", error);
     }
@@ -268,6 +265,10 @@ export const AuthProvider = ({ children }) => {
       setError(error);
     }
   };
+  const logoutUnAuthorizedUser = async () => {
+    await removeStorage();
+    await signOut();
+  }
 
   const logoutFirebase = async () => {
     await removeOtpParamsStorage();
@@ -450,6 +451,7 @@ export const AuthProvider = ({ children }) => {
         removeTokenData,
         isToken,
         logoutFirebase,
+        logoutUnAuthorizedUser,
         onPressHandler,
         setIsMessage,
         isMessage,

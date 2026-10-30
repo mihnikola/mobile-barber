@@ -30,6 +30,7 @@ export class NotificationService {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowBanner: true,
+        shouldShowAlert: true,
         shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,

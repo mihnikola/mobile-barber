@@ -29,7 +29,6 @@ import { ColorsBarber } from "@/constants/Colors";
 function App() {
   const { getTokenData } = useAuth();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
-  const { company } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
@@ -51,6 +50,7 @@ function App() {
     getTokenData();
     fetchLocations();
   }, [isConnected]);
+
 
   const { localization } = useLocalization();
   const nextPage = () => {
@@ -109,10 +109,8 @@ function App() {
     );
   }
 
-  if (company) {
     return (
       <View style={styles.container}>
-        {/* <HomeCoverImage image={coverHomeImage} /> */}
         <ImageBackground
           source={require("../../../assets/images/homeImage.png")}
           style={[styles.backImage, { width, height }]}
@@ -189,7 +187,6 @@ function App() {
       </View>
     );
   }
-}
 
 const styles = StyleSheet.create({
   box: {
