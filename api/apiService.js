@@ -30,7 +30,6 @@ instance.interceptors.request.use(
     } else {
       config.headers["Language"] = "sr";
     }
-
     return config;
   },
   (error) => {
@@ -42,7 +41,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("err",error)
+    console.log("err", error)
     if (error.response && error.response.data && error.response.data.message) {
       if (error.response.data?.code === "UNAUTHORIZED_TOKEN") {
         showGlobalMessage({
@@ -91,13 +90,30 @@ const post = async (url, data, config = {}) => {
 
 const put = async (url, data, config = {}) => {
   try {
-    const response = await instance.put(url, data, config);
+    const headers = { ...config.headers };
+
+    // 🔑 KLJUČNA STVAR: Ako je data instanca FormData, 
+    // MORAMO ukloniti Content-Type da bi Axios sam dodao multipart/form-data sa boundary-jem!
+    if (data instanceof FormData) {
+      delete headers['Content-Type'];
+
+      // Za svaki slucaj, ako je u globalnim podešavanjima instance postavljen Content-Type,
+      // u novijim verzijama Axios-a ovo je dovoljno, ali možemo eksplicitno proslediti null:
+    }
+
+    if (data instanceof FormData) {
+      headers["Content-Type"] = "multipart/form-data";
+    }
+    const response = await instance.put(url, data, {
+      ...config,
+      headers,
+    });
+
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-
 const patch = async (url, data, config = {}) => {
   try {
     const response = await instance.patch(url, data, config);

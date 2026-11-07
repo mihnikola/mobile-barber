@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import * as FileSystem from "expo-file-system/legacy";
 import { Alert } from "react-native";
+import { put } from "@/api/apiService";
+import { useAuth } from "@/context/AuthContext";
 
 const useUserChange = () => {
   const [isLoadingChange, setIsLoadingChange] = useState(false);
@@ -11,6 +13,7 @@ const useUserChange = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const { localization } = useLocalization();
+  const { isToken } = useAuth();
 
   const getFileUri = async (uri) => {
     // Ako je content:// → kopiraj u cache
@@ -30,6 +33,10 @@ const useUserChange = () => {
     formData.append("name", userData?.name);
     formData.append("phoneNumber", userData?.phoneNumber);
 
+
+
+    console.log("userData?.image", userData?.image);
+
     if (userData?.image) {
       const imageUri = await getFileUri(userData.image);
 
@@ -48,27 +55,15 @@ const useUserChange = () => {
     }
 
     try {
-      const storedToken = await AsyncStorage.getItem("token");
+      const response = await put(`/users/${isToken}`, formData);
+      setIsMessage(true);
 
-      const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
-      const apiUrl = `${baseUrl}/users/${storedToken}`;
-      const response = await fetch(apiUrl, {
-        method: "PUT",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-
-      if (response.ok) {
-        setIsMessage(true);
+      if (response.status === 201) {
         setMessage(localization.SETTINGS.PROFILE.messageConfirm);
       } else {
-        setIsMessage(true);
         setMessage(localization.SETTINGS.ERROR.imageError);
       }
     } catch (error) {
-      setIsMessage(true);
       setErrorChange(localization.SETTINGS.ERROR.label);
     } finally {
       setIsLoadingChange(false);
