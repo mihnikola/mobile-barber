@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import {
-  ImageBackground,
   Text,
   StyleSheet,
   View,
   useWindowDimensions,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SharedReservationData from "./SharedReservationData";
@@ -31,15 +31,21 @@ function HeaderCoverImageContainer({
   const { active, handleStatus } = useAppointment();
 
   return (
-    <ImageBackground
-      source={nextBtn ? null : require("./../assets/images/tabImage.png")}
+    <View
       style={[
         styles.heroHeader,
         { height: nextBtn ? headerHeightnextBtn : headerHeight },
       ]}
-      imageStyle={styles.backgroundImage}
-      resizeMode="cover"
     >
+      {/* Background Image (Rendered only if nextBtn is false) */}
+      {!nextBtn && (
+        <Image
+          source={require("./../assets/images/tabImage.png")}
+          style={[StyleSheet.absoluteFill, styles.backgroundImage]}
+          resizeMode="cover"
+        />
+      )}
+
       {!reservation && !status && !reservationData && (
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
           {!hidden && (
@@ -69,13 +75,15 @@ function HeaderCoverImageContainer({
           </View>
         </View>
       )}
-    </ImageBackground>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   heroHeader: {
     width: "100%",
     backgroundColor: ColorsBarber.dark.background,
+    overflow: "hidden", // Ensures absolute image doesn't bleed past rounded borders
   },
   nextBtnTitle: {
     fontSize: 15,
@@ -84,6 +92,8 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     opacity: 0.6,
+    width: "100%",
+    height: "100%",
   },
   nextBtn: {
     flexDirection: "row",
@@ -120,4 +130,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
+
 export default HeaderCoverImageContainer;

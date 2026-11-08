@@ -17,12 +17,10 @@ import { useAuth } from "@/context/AuthContext";
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
-  const { reevaluted } = useLocalSearchParams();
   const pathName = "/(tabs)/(02_barbers)/calendar";
   const { location, service } = reservation;
   const { setRedirectValue, redirectValue } = useAuth();
 
-  // console.log("reevaluted",reevaluted)
   useEffect(() => {
     if (redirectValue) {
       console.log("redirectValue", redirectValue);

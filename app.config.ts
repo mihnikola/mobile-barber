@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
-const APP_VERSION = '1.2.0'
+const APP_VERSION = '1.2.1'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -44,12 +44,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-build-properties",
             {
+
                 ios: {
-                    useFrameworks: "static",
-                    podfileProperties: {
-                        "use_modular_headers!": true
-                    },
-                    buildReactNativeFromSource: true
+                    // Firebase Apple SDK is SPM-only. Static frameworks embed a copy of
+                    // those packages in each RNFB pod and fail pod install with duplicate symbols.
+                    useFrameworks: "dynamic",
                 },
             },
         ],

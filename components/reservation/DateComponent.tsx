@@ -4,12 +4,9 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  Image,
-  BackHandler,
 } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
-import Loader from "@/components/Loader"; // Adjust the path if needed
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
 import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
@@ -18,21 +15,18 @@ import { calendarTheme, convertDayInitalValue } from "@/helpers";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { router, useFocusEffect } from "expo-router";
+import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
-import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import LoaderDate from "../LoaderDate";
 import { ColorsBarber } from "@/constants/Colors";
 
-const DateComponent = ({ reevaluted }) => {
+const DateComponent = () => {
+
   const [check, setCheck] = useState(false);
 
   const checkToken = async () => {
@@ -55,7 +49,7 @@ const DateComponent = ({ reevaluted }) => {
   useFocusEffect(
     useCallback(() => {
       checkToken();
-    }, [isF, reevaluted]),
+    }, [isF]),
   );
 
   const currentDate = new Date();
