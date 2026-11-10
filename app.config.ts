@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
-const APP_VERSION = '1.2.1'
+const APP_VERSION = '1.2.2'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -10,10 +10,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     orientation: "portrait",
     icon: "./assets/images/adaptive-icon.png",
     userInterfaceStyle: "automatic",
-    splash: {
-        image: "./assets/images/splashScreen.png",
-        backgroundColor: "#000000",
-    },
     scheme: "myapp",
     ios: {
         entitlements: {
@@ -35,6 +31,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         "@react-native-firebase/messaging",
         "expo-router",
         [
+            "expo-splash-screen",
+            {
+                "backgroundColor": "#000000",
+                "image": "./assets/images/splashScreen.png",
+                "dark": {
+                    "image": "./assets/images/splashScreen.png",
+                    "backgroundColor": "#000000"
+                },
+                "imageWidth": 200
+            }
+        ],
+        [
             "@react-native-google-signin/google-signin",
             {
                 iosUrlScheme:
@@ -52,6 +60,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                 },
             },
         ],
+
     ],
     extra: {
         router: {

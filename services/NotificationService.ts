@@ -16,21 +16,11 @@ export class NotificationService {
   constructor() {
     this.setForegroundHandler();
   }
-  //kaze gpt deprecated
-  // setForegroundHandler() {
-  //   Notifications.setNotificationHandler({
-  //     handleNotification: async () => ({
-  //       shouldShowAlert: true,
-  //       shouldPlaySound: true,
-  //       shouldSetBadge: false,
-  //     }),
-  //   });
-  // }
+
   setForegroundHandler() {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowBanner: true,
-        shouldShowAlert: true,
         shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,
@@ -68,9 +58,9 @@ export class NotificationService {
       const hasDataPayload =
         remoteMessage.data?.title || remoteMessage.data?.body;
 
-      if (!hasNotification || !hasDataPayload) {
-        return;
-      }
+      // if (!hasNotification || !hasDataPayload) {
+      //   return;
+      // }
 
       await Notifications.scheduleNotificationAsync({
         content: {
