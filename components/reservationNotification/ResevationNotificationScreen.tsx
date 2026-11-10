@@ -38,6 +38,7 @@ function ResevationNotificationScreen() {
     setDescription,
     description,
   } = useAppointment();
+  
   const [isExpired, setIsExpired] = useState(false);
   const { itemId, past, rating, status, notification } = useLocalSearchParams();
   useEffect(() => {

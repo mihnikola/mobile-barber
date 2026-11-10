@@ -94,7 +94,6 @@ export const AppointmentProvider = ({ children }) => {
     router.back();
     router.replace({
       pathname: "/(tabs)/(02_barbers)/calendar",
-      params: { reevaluted: 1 },
     });
   };
 

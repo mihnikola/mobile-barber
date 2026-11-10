@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
-const APP_VERSION = '1.2.0'
+const APP_VERSION = '1.2.2'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -10,10 +10,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     orientation: "portrait",
     icon: "./assets/images/adaptive-icon.png",
     userInterfaceStyle: "automatic",
-    splash: {
-        image: "./assets/images/splashScreen.png",
-        backgroundColor: "#000000",
-    },
     scheme: "myapp",
     ios: {
         entitlements: {
@@ -35,6 +31,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         "@react-native-firebase/messaging",
         "expo-router",
         [
+            "expo-splash-screen",
+            {
+                "backgroundColor": "#000000",
+                "image": "./assets/images/splashScreen.png",
+                "dark": {
+                    "image": "./assets/images/splashScreen.png",
+                    "backgroundColor": "#000000"
+                },
+                "imageWidth": 200
+            }
+        ],
+        [
             "@react-native-google-signin/google-signin",
             {
                 iosUrlScheme:
@@ -44,15 +52,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-build-properties",
             {
+
                 ios: {
-                    useFrameworks: "static",
-                    podfileProperties: {
-                        "use_modular_headers!": true
-                    },
-                    buildReactNativeFromSource: true
+                    // Firebase Apple SDK is SPM-only. Static frameworks embed a copy of
+                    // those packages in each RNFB pod and fail pod install with duplicate symbols.
+                    useFrameworks: "dynamic",
                 },
             },
         ],
+
     ],
     extra: {
         router: {

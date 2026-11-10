@@ -88,19 +88,13 @@ export const AuthProvider = ({ children }) => {
     setIsMessage(false);
     if (data === "settings") {
       router.back();
-
-      router.setParams({
-        reevaluted: true,
-      });
       router.replace("/(tabs)/(04_settings)/");
       return;
     }
     if (data === "appointments") {
       router.back();
 
-      router.setParams({
-        reevaluted: true,
-      });
+
       router.replace("/(tabs)/(03_calendar)/");
       return;
     }
@@ -108,10 +102,6 @@ export const AuthProvider = ({ children }) => {
       router.back();
       setRedirectValue("calendar");
 
-      // router.setParams({
-      //   reevaluted: true,
-      // });
-      // router.replace("/(tabs)/(02_barbers)/calendar");
       return;
     }
 

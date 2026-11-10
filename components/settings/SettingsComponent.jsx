@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
@@ -8,15 +8,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import Loader from "../Loader";
-import { useEffect, useState } from "react";
-import { SharedMessage } from "@/shared-components/SharedMessage";
-import { removeStorage } from "@/helpers/token";
+import { useEffect } from "react";
 import { useLastPathNavigation } from "@/context/NavigationContext";
-// import {
-//   useSafeAreaInsets,
-//   SafeAreaView,
-// } from "react-native-safe-area-context";
+
 import withSafeArea from "../wrapper/WrapperSafeArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
@@ -24,7 +18,6 @@ import { ColorsBarber } from "@/constants/Colors";
 const SettingsComponent = () => {
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
-  // const insets = useSafeAreaInsets();
 
   const {
     logoutFirebase,
@@ -101,16 +94,7 @@ const SettingsComponent = () => {
         />
       )}
 
-      {/* {logoutData && (
-        <SharedMessage
-          isOpen={logoutData && !isLoading}
-          buttonText="Odlogovani ste"
-          isLoading={loader}
-          icon={<FontAwesome name="check" size={64} color={ColorsBarber.dark.textColor} />}
-          onConfirm={() => setLogoutData(false)}
-        />
-      )} */}
-      {/* <SharedLoader isOpen={isLoading || isLoadingLogin} /> */}
+
       <SharedLoader isOpen={loading === "logout"} />
     </ScrollView>
   );

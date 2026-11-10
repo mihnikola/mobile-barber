@@ -8,15 +8,14 @@ import {
   Platform,
   ImageBackground,
   useWindowDimensions,
+  Image,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
-import { router, useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { usePersistentSlideAnimations as useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
-import HomeCoverImage from "@/components/home/HomeCoverImage";
 import HomeImage from "@/components/home/HomeImage";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 
@@ -32,7 +31,6 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
-  const navigation = useNavigation();
   const { height, width } = useWindowDimensions();
 
   // 🔒 Guards to prevent re-fetch on reset remount
@@ -54,18 +52,7 @@ function App() {
 
   const { localization } = useLocalization();
   const nextPage = () => {
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: "(02_barbers)",
-          state: {
-            index: 0,
-            routes: [{ name: "(02_barbers)" }],
-          },
-        },
-      ],
-    });
+    router.push({ pathname: "(02_barbers)" });
   };
 
   const onAboutUs = () => {
@@ -109,90 +96,99 @@ function App() {
     );
   }
 
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../../../assets/images/homeImage.png")}
-          style={[styles.backImage, { width, height }]}
+  return (
+    <View style={styles.container}>
+      {/* <ImageBackground
+        source={require("../../../assets/images/homeImage.png")}
+        style={[styles.backImage, { width, height }]}
+      > */}
+      <Image
+        source={require("../../../assets/images/homeImage.png")}
+        style={[StyleSheet.absoluteFill, styles.bgImage]}
+        resizeMode="cover"
+      />
+      <Animated.View
+        style={[
+          styles.box,
+          {
+            transform: [{ translateY: slideAnim }],
+          },
+        ]}
+      >
+        <HomeImage />
+      </Animated.View>
+
+      <Animated.View
+        style={[
+          styles.boxBook,
+          {
+            transform: [{ translateY: slideAnimBook }],
+          },
+        ]}
+      >
+        <TouchableOpacity
+          onPress={nextPage}
+          style={styles.btnLocationContent}
         >
-          <Animated.View
-            style={[
-              styles.box,
-              {
-                transform: [{ translateY: slideAnim }],
-              },
-            ]}
-          >
-            <HomeImage />
-          </Animated.View>
+          <FontAwesome name="calendar" size={28} color={ColorsBarber.dark.textColor} />
 
-          <Animated.View
-            style={[
-              styles.boxBook,
-              {
-                transform: [{ translateY: slideAnimBook }],
-              },
-            ]}
-          >
-            <TouchableOpacity
-              onPress={nextPage}
-              style={styles.btnLocationContent}
-            >
-              <FontAwesome name="calendar" size={28} color={ColorsBarber.dark.textColor} />
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>
+              {localization.HOME.bookingBtn}
+            </Text>
+            <Text style={styles.address}>
+              {localization.HOME.bookingBtnDesc}
+            </Text>
+          </View>
 
-              <View style={styles.locationContent}>
-                <Text style={styles.titleLocation}>
-                  {localization.HOME.bookingBtn}
-                </Text>
-                <Text style={styles.address}>
-                  {localization.HOME.bookingBtnDesc}
-                </Text>
-              </View>
+          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={onAboutUs}
+          style={styles.btnLocationContent}
+        >
+          <FontAwesome name="home" size={28} color={ColorsBarber.dark.textColor} />
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>
+              {localization.HOME.aboutUsBtn}
+            </Text>
+            <Text style={styles.address}>
+              {localization.HOME.aboutUsBtnDesc}
+            </Text>
+          </View>
+          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+        </TouchableOpacity>
 
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={onAboutUs}
-              style={styles.btnLocationContent}
-            >
-              <FontAwesome name="home" size={28} color={ColorsBarber.dark.textColor} />
-              <View style={styles.locationContent}>
-                <Text style={styles.titleLocation}>
-                  {localization.HOME.aboutUsBtn}
-                </Text>
-                <Text style={styles.address}>
-                  {localization.HOME.aboutUsBtnDesc}
-                </Text>
-              </View>
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={openLocationHandler}
-              style={styles.btnLocationContent}
-            >
-              <FontAwesome name="location-arrow" size={28} color={ColorsBarber.dark.textColor} />
-              <View style={styles.locationContent}>
-                <Text style={styles.titleLocation}>
-                  {localization.HOME.locationBtn}
-                </Text>
-                <Text style={styles.address}>
-                  {localization.HOME.locationBtnDesc}
-                </Text>
-              </View>
-              <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
-            </TouchableOpacity>
-          </Animated.View>
-        </ImageBackground>
-      </View>
-    );
-  }
+        <TouchableOpacity
+          onPress={openLocationHandler}
+          style={styles.btnLocationContent}
+        >
+          <FontAwesome name="location-arrow" size={28} color={ColorsBarber.dark.textColor} />
+          <View style={styles.locationContent}>
+            <Text style={styles.titleLocation}>
+              {localization.HOME.locationBtn}
+            </Text>
+            <Text style={styles.address}>
+              {localization.HOME.locationBtnDesc}
+            </Text>
+          </View>
+          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+        </TouchableOpacity>
+      </Animated.View>
+      {/* </ImageBackground> */}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   box: {
     alignItems: "center",
     alignSelf: "center",
     marginTop: Platform.OS === "ios" ? 20 : 90,
+  },
+  bgImage: {
+    width: '100%',
+    height: '100%',
   },
   backImage: {
     opacity: 1,
@@ -204,6 +200,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: ColorsBarber.dark.background,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   locationContent: {
@@ -228,13 +226,13 @@ const styles = StyleSheet.create({
   address: {
     fontSize: 15,
     color: ColorsBarber.dark.textColorDeactivated,
-    fontFamily:"OldStandard-Regular"
+    fontFamily: "OldStandard-Regular"
   },
   titleLocation: {
     fontSize: 22,
-   color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
-    fontFamily:"OldStandard-Bold"
+    fontFamily: "OldStandard-Bold"
 
   },
   btnContent: {

@@ -1,8 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
-import { findNodeHandle, StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import { findNodeHandle, StyleSheet, Text, TextInput, View } from "react-native";
 
-const SharedNameEdit = forwardRef(({ scrollRef, ...props }: any, ref: any) => {
+const SharedNameEdit = forwardRef(({ scrollRef, ...props }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
