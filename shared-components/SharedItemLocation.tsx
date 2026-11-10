@@ -1,13 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import React from "react";
+import { View, Text,  StyleSheet } from "react-native";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
-import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedItemLocation = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, address } = data;
-  const { localization } = useLocalization();
 
   return (
     <TouchableOpacity

@@ -3,13 +3,12 @@ import {
   StyleSheet,
   Text,
   Animated,
-  TouchableOpacity,
   View,
   Platform,
-  ImageBackground,
   useWindowDimensions,
   Image,
 } from "react-native";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
@@ -98,10 +97,7 @@ function App() {
 
   return (
     <View style={styles.container}>
-      {/* <ImageBackground
-        source={require("../../../assets/images/homeImage.png")}
-        style={[styles.backImage, { width, height }]}
-      > */}
+    
       <Image
         source={require("../../../assets/images/homeImage.png")}
         style={[StyleSheet.absoluteFill, styles.bgImage]}
@@ -175,7 +171,6 @@ function App() {
           <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
         </TouchableOpacity>
       </Animated.View>
-      {/* </ImageBackground> */}
     </View>
   );
 }
