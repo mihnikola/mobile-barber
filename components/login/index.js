@@ -7,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import usePassword from "./hooks/usePassword";
@@ -32,6 +31,7 @@ import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();

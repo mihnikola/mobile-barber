@@ -1,4 +1,5 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Platform,
@@ -6,7 +7,6 @@ import {
   StyleSheet,
   Switch,
   Text,
-  TouchableOpacity,
 } from "react-native";
 
 export const MenuItem = ({

@@ -1,9 +1,9 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   Modal,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 

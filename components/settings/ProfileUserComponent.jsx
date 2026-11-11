@@ -1,8 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import SharedImageInitials from "@/shared-components/SharedInitialsName";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { Image, Text, View } from "react-native";
 
 const ProfileUserComponent = ({ data, onPress }) => {

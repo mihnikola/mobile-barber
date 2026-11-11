@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
@@ -11,6 +11,7 @@ import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();

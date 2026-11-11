@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   useWindowDimensions,
-  TouchableOpacity,
   Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -13,6 +12,7 @@ import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses"
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 function HeaderCoverImageContainer({
   title,

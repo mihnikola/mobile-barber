@@ -3,10 +3,10 @@ import React from "react";
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   GestureResponderEvent,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 // Define the types for the props
 interface FlatButtonProps {

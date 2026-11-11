@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   findNodeHandle,
-  TouchableOpacity,
 } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
@@ -18,6 +17,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const changePass = () => {
   const { data } = useLocalSearchParams();

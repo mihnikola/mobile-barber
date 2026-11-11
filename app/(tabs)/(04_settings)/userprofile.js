@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  TouchableOpacity,
 } from "react-native";
 import ImageCompress from "@/shared-components/ImageCompress";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
@@ -29,6 +28,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const userprofile = () => {
   const { isLoading, userData, fetchUserData } = useAuth();

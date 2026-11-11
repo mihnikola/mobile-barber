@@ -1,12 +1,8 @@
 import {
   View,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
-  TouchableOpacity,
 } from "react-native";
-import { ScrollView } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import OtpInput from "./OtpCodeInput";
 import { useEffect, useState } from "react";
@@ -14,21 +10,16 @@ import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import useSendEmailVerification from "../otpCode/hooks/useSendEmailVerification";
-import { router, useLocalSearchParams } from "expo-router";
-import SharedImageForgotPass from "@/shared-components/SharedImageForgotPass";
+import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import {
   getOtpParamsStorage,
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import Loader from "../Loader";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const otpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -127,19 +118,9 @@ const otpCode = () => {
     setIsMessage(false);
   };
 
-  // if (isLoaderVerify) {
-  //   return <SharedLoader />;
-  // }
-
   if (verifyData) {
     return (
       <WrapperAuth>
-        {/* <SharedBackButton
-          onPress={router.back}
-          absolutePosition={false}
-          styleBtn={{ marginBottom: 30 }}
-        /> */}
-
         <TouchableOpacity
           hitSlop={20}
           onPress={router.back}
