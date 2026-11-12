@@ -60,6 +60,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                 },
             },
         ],
+        // Local Gradle tuning (heap + build cache), see PROJECT.md section 4.1
+        "./plugins/withAndroidBuildSpeed",
 
     ],
     extra: {
