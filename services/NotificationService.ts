@@ -5,6 +5,7 @@ import {
   onMessage,
   getInitialNotification,
   onNotificationOpenedApp,
+  deleteToken,
 } from "@react-native-firebase/messaging";
 
 export class NotificationService {
@@ -33,19 +34,45 @@ export class NotificationService {
   }
 
   async getFCMToken() {
-    if (this.deviceToken) return this.deviceToken;
+    // if (this.deviceToken) return this.deviceToken;
+
+    // try {
+    //   const token = await getToken(getMessaging());
+
+
+    //   if (token) {
+    //     this.deviceToken = token;
+    //   }
+    // } catch (err) {
+    //   console.log("Error getting FCM token", err);
+    // }
+
+    // return this.deviceToken;
+
+
+
+    
+    const messaging = getMessaging();
 
     try {
-      const token = await getToken(getMessaging());
+      // Obriši prethodnu FCM registraciju
+      await deleteToken(messaging);
 
-      if (token) {
-        this.deviceToken = token;
-      }
+      // Obriši lokalno sačuvanu vrednost
+      this.deviceToken = "";
+
+      // Zatraži novu registraciju
+      const newToken = await getToken(messaging);
+
+      this.deviceToken = newToken;
+
+      console.log("🔥 NEW FCM TOKEN:", newToken);
+
+      return this.deviceToken;
     } catch (err) {
-      console.log("Error getting FCM token", err);
+      console.log("Error refreshing FCM token:", err);
+      return "";
     }
-
-    return this.deviceToken;
   }
 
   // FOREGROUND
@@ -162,10 +189,10 @@ export class NotificationService {
     this.subscriptions.forEach((u) => {
       try {
         u();
-      } catch {}
+      } catch { }
     });
     this.subscriptions = [];
   }
 }
 
-  export default new NotificationService();
+export default new NotificationService();
