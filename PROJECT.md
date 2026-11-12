@@ -313,6 +313,7 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-12
+- Added `README.md` (team-facing): requirements, secret files, team's run sequence (`npm i` → `npx expo install` → `npx expo prebuild --clean` → `npx expo run:android`), daily fast workflow, scripts with ⚠️ on store/OTA scripts, EAS, Windows speed tips, troubleshooting. User ran the team's sequence; working tree stayed clean (no dependency changes).
 - Build optimization analysed and planned as Phase 0.5 (§4.1, D-015). Verified expo already builds only device ABI in debug; found Gradle heap 2 GB + no build cache, 4 unused native modules. No code changes yet (user's test build in progress).
 - Plan expanded per user: Phase 2 = full reusable component library incl. **icons** (`ui/Icon` wrapper over 5 icon libs), layout, headers, cards, modals, loaders, empty states. Added §3.1 inventory with measured evidence (77 duplicated style blocks, 8 TextInput impls, 11 inline back arrows, 5 copied modal overlays). Decision D-014. No code changes.
 - Added §0.1 "How to build & run" (local Android vs EAS). Found `firebase/google-services.json` missing locally. Found B14 (root `index.js` not bundled → background FCM handler never registered). No code changes.
