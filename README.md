@@ -102,7 +102,7 @@ npx eas-cli build -p android --profile development
 
 | Problem | Fix |
 |---|---|
-| `buildCMakeDebug ... FAILED` + `ninja: error: mkdir(CMakeFiles/...): No such file or directory` | Windows path too long. Move the project to a short path (`C:\dev\mb`), then: `cd android && gradlew --stop`, delete `android/` and all `node_modules/**/android/.cxx`, run `npx expo prebuild --clean` → `npx expo run:android`. Quick temporary alternative: `subst M: "<current project path>"`, `cd /d M:\` and build from `M:` |
+| `buildCMakeDebug ... FAILED` + `ninja: error: mkdir(CMakeFiles/...): No such file or directory` | Windows path too long. Move the project to a short path (`C:\dev\mb`), then: `cd android && gradlew --stop`, delete `android/` and all `node_modules/**/android/.cxx`, run `npx expo prebuild --clean` → `npx expo run:android`. ⚠️ `subst` drives and junctions do **not** work (RN autolinking resolves the real path → "different roots" errors) |
 | `File google-services.json is missing` | add `firebase/google-services.json` (section 2) |
 | `adb devices` shows nothing / `unauthorized` | reconnect USB, accept the "Allow USB debugging" prompt on the phone |
 | App opens but can't reach Metro | same Wi-Fi as the PC, or `adb reverse tcp:8081 tcp:8081` |
