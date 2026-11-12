@@ -86,6 +86,8 @@ Not imported anywhere:
 `components/changePass/SplashScreenEmail.js`, `components/ExternalLink.tsx`, `components/forgotPass/RadioButton.js`, `components/HapticTab.tsx`, `components/HelloWave.tsx`, `components/notFound/index.jsx`, `components/otpCode/hooks/useSendEmailVerification.js`, `components/reservation/datereservation.tsx`, `components/reservation/DateTimeReservation.tsx`, `components/reservation/hooks/{useCancelReservation, useFetchReservation, useRateReservation, useReservationCancellationAlert, useReservationHandler, useReservationRateAlert, useSubmitReservation}.js`, `components/settings/SettingsHeaderTitle.jsx`, `components/SignForm/RegisterForm.jsx`, `components/StyledText.tsx`, `components/ThemedView.tsx`, `components/useClientOnlyValue*.ts`, `shared-components/{Avatar, Button, CustomCheckbox, DetailsEmployer, DetailsServices, InfoComponent, InputItem, SharedEmployerCard, SharedImageForgotPass, SharedItem, SharedItemEmployer, SharedItemService, SharedLabel, SplashScreen, SuccessScreen}`, `context/ForegroundNotificationHandler.tsx`.
 (~40 files. To be re-verified with the TS compiler/bundler before deletion.)
 
+> ✅ Done 2026-11-12 (Phase 0.2). Re-verification corrected the list: `components/notFound/index.jsx` **is used** (by `components/locations/Locations.jsx`) → kept; `components/useColorScheme.web.ts` is the web variant of a used file → kept. Added the unused Expo template chain (`ThemedText` + its test/snapshot, `hooks/useThemeColor`, `hooks/useColorScheme*`) and 4 never-loaded fonts (`OldStandardTT-*`, `SpaceMono`). Total: 43 source files + 4 fonts removed.
+
 ### 2.6 Hygiene
 - 72 `console.log/error/warn` calls left in code.
 - 26 `any` usages in props; most shared components untyped.
@@ -142,7 +144,7 @@ All work is committed on the `claude` branch only (small commits per step). Merg
 
 | Metric | Baseline (b4f71be) | Current |
 |---|---|---|
-| TS errors (`tsc --noEmit`) | 305 | 305 |
+| TS errors (`tsc --noEmit`) | 305 | 277 |
 | Android bundle export | OK (5.4 MB hbc) | OK |
 | `expo-doctor` | 1 check failed (12 packages behind SDK 58 patch versions — out of scope) | — |
 
@@ -166,6 +168,7 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-12
+- **Phase 0.2 — dead code removed.** 43 unused source files + 4 unused fonts deleted (see §2.5). TS errors 305 → 277, bundle OK. Note: `npm test` now has no tests (the only test covered a dead template component); real tests come with pure utils in Phase 3.
 - Phase 0 started. Decisions D-001…D-006 accepted by user; D-007, D-008 added.
 - `claude` fast-forwarded to `origin/dev` (`b4f71be`, NotificationService cleanup by team).
 - Installed deps with `npm ci` (lockfile untouched). Captured baseline: 305 TS errors, Android bundle builds.
