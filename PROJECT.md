@@ -11,6 +11,33 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 ---
 
+## 0. Quick resume — read this first
+
+_Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
+
+**Where we are (2026-11-12):** Phase 0 ✅ done · Phase 1 ⏸ not started (waiting for user smoke test).
+**Last commit on `claude`:** see `git log --oneline b4f71be..claude` (Phase 0 = 6 commits, `657866c` → latest). Not pushed to `origin` yet.
+
+**What Phase 0 did, in one glance**
+| Area | Change |
+|---|---|
+| Branch | `claude` fast-forwarded to `origin/dev` `b4f71be`; all work only here |
+| Dead code | 43 unused files + 4 unused fonts deleted |
+| Tooling | ESLint 9 + Prettier; `npm run lint` / `typecheck` / `format <files>` |
+| Deps | removed `i18next`, `react-i18next`; added `eslint`, `eslint-config-expo`, `prettier` (dev) |
+| Bugs fixed | hooks in helpers (date header crash), Google sign-in `statusCodes`, API interceptor swallowing network errors, `SharedInput` crash, duplicate keys, undefined `scrollRef` |
+| Metrics | TS errors 305 → 195 · lint errors 65 → 26 · rules-of-hooks 32 → 0 · bundle OK |
+
+**User to do**
+- [ ] Smoke test on device: login (email + Google), register → OTP, forgot/change password, book reservation → success screen, appointment detail header.
+- [ ] Decide: push `claude` to `origin`?
+
+**Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
+
+**Rules to remember:** only `claude` branch (D-007) · no visual change until Phase 5 (D-002) · keep file line endings, check `git diff --stat` (D-009) · no mass formatting (D-010) · verify with typecheck + lint + bundle export after every step.
+
+---
+
 ## 1. Project snapshot (as of 2026-11-12)
 
 ### Stack
@@ -183,6 +210,7 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-12
+- Added §0 "Quick resume" (status, summary, open to-dos, next step) — updated at the end of every session.
 - **Phase 0 complete** (pending user smoke test). Commits on `claude`: `657866c` docs, `f7e0540` dead code, `950edac` tsconfig/i18next, `cc0bc63` ESLint+Prettier, `2d587fe` bug fixes.
 - **Phase 0.4 — bug fixes** B1, B2, B4, B8–B12 (see §2.4). TS errors 277 → 195; lint errors 65 → 26; rules-of-hooks 32 → 0. Bundle OK.
   - Behaviour notes for smoke test: API interceptor now shows the global UNAUTHORIZED/ACCOUNT_DELETED message based on `code` alone (previously also required `message`); network/timeout errors now reach callers as real AxiosErrors.
