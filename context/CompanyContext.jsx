@@ -3,7 +3,7 @@ import { get } from "@/api/apiService";
 import { useLocalization } from "./LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const CompanyContext = createContext(null);
+const CompanyContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const useCompany = () => {
   return useContext(CompanyContext);

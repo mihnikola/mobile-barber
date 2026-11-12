@@ -5,7 +5,7 @@ import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 
-const privacypolicy = () => {
+const PrivacyPolicyScreen = () => {
   const developerName = "FusionTech Agency";
 
   const { localization } = useLocalization();
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(privacypolicy);
+export default withSafeArea(PrivacyPolicyScreen);

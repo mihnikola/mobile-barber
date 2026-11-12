@@ -30,15 +30,11 @@ import { Animated, Dimensions } from "react-native";
 
 const { height } = Dimensions.get("window");
 
-// Singleton values to persist across remounts
-let slideAnimGlobal = null;
-let slideAnimBookGlobal = null;
+// Singleton values to persist across remounts (created once at module load)
+const slideAnimGlobal = new Animated.Value(-height);
+const slideAnimBookGlobal = new Animated.Value(height * 5.1);
 
 export function usePersistentSlideAnimations() {
-  // initialize only once
-  if (!slideAnimGlobal) slideAnimGlobal = new Animated.Value(-height);
-  if (!slideAnimBookGlobal) slideAnimBookGlobal = new Animated.Value(height * 5.1);
-
   const slideAnim = slideAnimGlobal;
   const slideAnimBook = slideAnimBookGlobal;
 

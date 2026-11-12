@@ -1,5 +1,4 @@
 import { ColorsBarber } from "@/constants/Colors";
-import { useLocalization } from "@/context/LocalizationContext";
 import { dayNamesEng } from "@/helpers/locale-calendar-en";
 import { dayNamesRs } from "@/helpers/locale-calendar-rs";
 export function addMinutesToTime(inputTime, minutesToAdd, otherServiceDuration = 0) {
@@ -34,8 +33,6 @@ export const calendarTheme = {
   dayTextColor: ColorsBarber.dark.textColor,
   textMonthFontFamily: "OldStandard-Bold",
   textDisabledColor: "grey",
-  textSectionTitleFontFamily: "OldStandard-Bold",
-  textDayFontFamily:  "OldStandard-Bold",
 };
 export function convertToMonthName(dateString) {
   const parts = dateString.split(".");
@@ -66,22 +63,6 @@ export function convertDayInitalValue(data) {
 
 export function convertToDay(dateString) {
   return dateString.split(".")[0];
-}
-export function structureData(response) {
-  const startDateTime = convertToDayTime(response?.startDate);
-  const finishedTime = addMinutesToTime(
-    convertToDayTime(response?.startDate),
-    response?.service?.duration,
-  );
-  const eventDate = convertDate(response?.startDate);
-  console.log("startDateTime", startDateTime, finishedTime, eventDate);
-
-  return {
-    ...response,
-    eventDate,
-    startDateTime,
-    finishedTime,
-  };
 }
 export function convertToDayTime(dateString) {
   // Convert the string to a Date object
@@ -279,25 +260,23 @@ export const getInitialsName = (mrk) => {
   return "";
 };
 
-export const convertDateDetails = (dateStr) => {
-  const { localization } = useLocalization();
+// Pure function: pass the language code (localization.code) from the caller.
+export const convertDateDetails = (dateStr, code) => {
   const [day, month, year] = dateStr.split(".").map((s) => s.trim());
   const dateObj = new Date(Number(year), Number(month) - 1, Number(day));
   let weekdays = [];
-  if (localization.code === "en") {
+  if (code === "en") {
     weekdays = dayNamesEng;
   } else {
     weekdays = dayNamesRs;
   }
-  return `${weekdays[dateObj.getDay()]} ${formatDateBrate(dateStr, localization.code)}`;
-
-  // return `${weekdays[dateObj.getDay()]} ${day}-${month}-${year}`;
+  return `${weekdays[dateObj.getDay()]} ${formatDateBrate(dateStr, code)}`;
 };
-export const convertDate = (item) => {
+// Pure function: pass the language code (localization.code) from the caller.
+export const convertDate = (item, code) => {
   const date = new Date(item);
-  const { localization } = useLocalization();
   let weekdays = [];
-  if (localization.code === "en") {
+  if (code === "en") {
     weekdays = dayNamesEng;
   } else {
     weekdays = dayNamesRs;
@@ -312,7 +291,7 @@ export const convertDate = (item) => {
   const result = date.toISOString().split("T")[0];
 
   // Combine everything into the desired format
-  return `${dayOfWeek} ${formatDatePrettier(result, localization.code)}`;
+  return `${dayOfWeek} ${formatDatePrettier(result, code)}`;
 };
 
 export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {

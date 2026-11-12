@@ -63,7 +63,7 @@ const SharedInput = forwardRef((props: any, ref) => {
           </TouchableOpacity>
         )}
       </View>
-      {props.value.length > 0 && props.error ? (
+      {props.value?.length > 0 && props.error ? (
         <Text style={styles.errorText}>{props.error}</Text>
       ) : null}
     </>

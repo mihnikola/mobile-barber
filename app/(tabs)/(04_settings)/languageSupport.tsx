@@ -23,7 +23,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
-const languageSupport = () => {
+const LanguageSupportScreen = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(languageSupport);
+export default withSafeArea(LanguageSupportScreen);

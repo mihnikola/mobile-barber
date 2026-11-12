@@ -104,12 +104,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20, // Razmak od donje ivice
   },
-  capture: {
-    fontSize: 28,
-    color: "#FFFFFF", // Obavezno definisati belu boju
-    fontFamily: "OldStandard-Bold",
-  },
-
   contentContainer: {
     marginTop: 10,
     display: "flex",

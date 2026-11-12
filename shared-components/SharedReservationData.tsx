@@ -1,5 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
@@ -7,6 +8,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
 
 function SharedReservationData({ reservation }) {
+  const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
     (acc, current) => {
       acc.totalPrice += current.price;
@@ -41,6 +43,7 @@ function SharedReservationData({ reservation }) {
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,
+            localization.code,
           )}
         </Text>
         <Text style={styles.dateData}>

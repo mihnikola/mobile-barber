@@ -21,7 +21,7 @@ import Loader from "../Loader";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
-const otpCode = () => {
+const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
   const [verifyData, setVerifyData] = useState(null);
   const [isLoaderVerify, setIsLoaderVerify] = useState(false);
@@ -254,4 +254,4 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
 });
-export default otpCode;
+export default OtpCode;

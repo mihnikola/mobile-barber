@@ -1,11 +1,13 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { convertDateDetails } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text,  View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
+  const { localization } = useLocalization();
   if (!data) return null;
 
   return (
@@ -20,7 +22,7 @@ const HeaderReservationTime = ({ data }) => {
           {data?.startDateTime} - {data?.finishedTime}
         </Text>
         <Text style={styles.dateData}>
-          {convertDateDetails(data?.startDate)}
+          {convertDateDetails(data?.startDate, localization.code)}
         </Text>
         <Text style={styles.dateData}>{data?.place}</Text>
       </View>

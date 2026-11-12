@@ -30,7 +30,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
-const userprofile = () => {
+const UserProfileScreen = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
   const { localization } = useLocalization();
   const scrollRef = useRef(null);
@@ -365,4 +365,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withKeyboardAvoid(userprofile);
+export default withKeyboardAvoid(UserProfileScreen);

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  findNodeHandle,
 } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
@@ -19,7 +18,7 @@ import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
-const changePass = () => {
+const ChangePass = () => {
   const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
@@ -79,14 +78,6 @@ const changePass = () => {
             error={passwordError}
             returnKeyType="next"
             onSubmitEditing={() => {
-              const node = findNodeHandle(passwordInputRef.current);
-              if (node) {
-                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
-                  node,
-                  80,
-                  true,
-                );
-              }
               passwordConfirmInputRef.current?.focus();
             }}
           />
@@ -199,4 +190,4 @@ const styles = StyleSheet.create({
    color: ColorsBarber.dark.inActiveTextColor,
   },
 });
-export default changePass;
+export default ChangePass;

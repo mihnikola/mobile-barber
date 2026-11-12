@@ -5,7 +5,7 @@ import { getLanguageValue, setLanguageValue } from "../helpers/language";
 import { put } from "@/api/apiService";
 import { getStorage } from "@/helpers/token";
 
-const LocalizationContext = createContext(null);
+const LocalizationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const useLocalization = () => useContext(LocalizationContext);
 

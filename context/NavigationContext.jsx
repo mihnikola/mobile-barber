@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-export const NavigationContext = createContext(null);
+export const NavigationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const NavigationProvider = ({ children }) => {
   const [lastPath, setLastPath] = useState(null);

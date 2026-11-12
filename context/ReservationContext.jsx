@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { createContext, useState } from "react";
 
 // Create the context with a default value of null
-const ReservationContext = createContext(null);
+const ReservationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 // ReservationProvider component to wrap around the app and provide context
 export const ReservationProvider = ({ children }) => {

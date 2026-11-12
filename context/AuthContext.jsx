@@ -12,13 +12,14 @@ import {
   GoogleSignin,
   isErrorWithCode,
   isSuccessResponse,
+  statusCodes,
 } from "@react-native-google-signin/google-signin";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import { Alert, unstable_batchedUpdates } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-export const AuthContext = createContext(null);
+export const AuthContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const useAuth = () => {
   return useContext(AuthContext);

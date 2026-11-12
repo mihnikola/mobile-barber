@@ -13,7 +13,7 @@ import ReservationContext from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "./NavigationContext";
 
-const AppointmentContext = createContext(null);
+const AppointmentContext = createContext<any>(null); // TODO(phase4): real type
 export const useAppointment = () => {
   return useContext(AppointmentContext);
 };

@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { router } from "expo-router";
 
-const GlobalErrorContext = createContext();
+const GlobalErrorContext = createContext(/** @type {any} TODO(phase4): real type */ (undefined));
 
 export const useGlobalError = () => useContext(GlobalErrorContext);
 

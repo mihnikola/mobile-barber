@@ -1,11 +1,13 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
+import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedLogo from "@/shared-components/SharedLogo";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 function BookSuccess({ image, reservation }) {
+  const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
     (acc, current) => {
       acc.totalPrice += current.price;
@@ -34,6 +36,7 @@ function BookSuccess({ image, reservation }) {
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,
+            localization.code,
           )}
         </Text>
       </View>

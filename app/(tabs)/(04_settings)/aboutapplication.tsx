@@ -6,7 +6,7 @@ import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 
-const aboutapplication = () => {
+const AboutApplicationScreen = () => {
   const appName = "Book Hair";
   const developerName = "FTA DOO";
   const appVersion = Application.nativeApplicationVersion;
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(aboutapplication);
+export default withSafeArea(AboutApplicationScreen);

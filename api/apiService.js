@@ -41,20 +41,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("err", error)
-    if (error.response && error.response.data && error.response.data.message) {
-      if (error.response.data?.code === "UNAUTHORIZED_TOKEN") {
-        showGlobalMessage({
-          type: "UNAUTHORIZED_TOKEN",
-        });
-      }
-      if (error.response?.data?.code === "ACCOUNT_DELETED") {
-        showGlobalMessage({
-          type: "ACCOUNT_DELETED",
-        });
-      }
-      return Promise.reject(error);
+    const code = error.response?.data?.code;
+    if (code === "UNAUTHORIZED_TOKEN" || code === "ACCOUNT_DELETED") {
+      showGlobalMessage({ type: code });
     }
+    // Always reject so callers receive the real AxiosError
+    // (network errors / timeouts previously resolved to undefined).
+    return Promise.reject(error);
   },
 );
 

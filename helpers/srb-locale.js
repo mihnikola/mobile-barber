@@ -49,7 +49,6 @@ export const SRB_LOCALIZATION = {
     title: "Nema Internet konekcije",
   },
   PLACES: {
-    title: "Odaberite lokaciju",
     error: "Podaci o lokacijama trenutno nisu dostupni",
     title: "Odaberite lokaciju",
     close: "Zatvori",

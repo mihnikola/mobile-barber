@@ -107,12 +107,6 @@ const ForgotPassword = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainTitle: {
-    fontSize: 28,
-    fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.dark.background,
-    marginHorizontal: 10,
-  },
   subtitle: {
     fontSize: 16,
     color: ColorsBarber.dark.inActiveTextColor,
