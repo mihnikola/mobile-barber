@@ -13,7 +13,12 @@ const Details = ({ data }) => {
 
       <SharedDetailsServiceCard data={service} otherServices={otherServices} />
       {otherServices?.length > 0 &&
-        otherServices.map((item: any) => <SharedOthersServices key={item.id} data={item} />)}
+        otherServices.map((item: any, index: number) => (
+          <SharedOthersServices
+            key={`${item.id ?? item._id ?? item.service?.id ?? item.service?._id ?? "service"}-${index}`}
+            data={item}
+          />
+        ))}
         {otherServices?.length > 0 && <SummaryService service={service} data={otherServices}/>}
     </View>
   );
