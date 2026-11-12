@@ -33,6 +33,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [ ] Decide: push `claude` to `origin`?
 - [ ] Get `firebase/google-services.json` for local Android build (see §0.1).
 - [ ] Decide on B14 (background FCM handler not registered).
+- [ ] **Move project to a short path (e.g. `C:\dev\mb`)** — local Android build fails due to Windows 260-char path limit (B15). After moving, reopen Claude Code in the new folder and point it to this file.
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
 **Before Phase 1 → Phase 0.5 build optimization** (§4.1): Gradle memory/cache plugin, remove 4 unused native modules, Defender exclusions, measure before/after.
@@ -151,6 +152,7 @@ constants/               Colors + two cover image URLs
 | B11 | Lowercase component names (`userprofile`, `changePass`, `otpCode`, …) hide hook misuse from tooling | settings screens, changePass, otpCode | ✅ Renamed to PascalCase |
 | B12 | Contexts created with `createContext(null)` → TS infers `null`, ~85 false TS errors | `context/*` | ✅ Interim `any`; real types Phase 4 |
 | B14 | Root `index.js` (registers `messaging().setBackgroundMessageHandler`) is **not the entry point** — `package.json` `main` is `expo-router/entry`. Verified via source map: file is not in the bundle → background FCM handler never registered (handler only logs, so impact is small; data-only background messages are dropped) | `index.js`, `package.json` | ⏳ Needs user decision (touches push behaviour) |
+| B15 | **Local Android build fails on Windows**: `:react-native-worklets:buildCMakeDebug[x86_64]` → `ninja: error: mkdir(...): No such file or directory`. Cause: object-file path embeds the project path twice → 321 chars > 260 (MAX_PATH); `LongPathsEnabled=0` and bundled ninja (CMake 3.22.1) isn't long-path aware. At `C:\dev\mb` the same path is 227 chars | environment (project location) | ⏳ User: move project to short path (D-016) |
 | B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)
@@ -307,12 +309,14 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 - **D-013 | 2026-11-12 | Accepted** | Fixing duplicate keys keeps the *effective* (last) value. — JS already used the last value; keeps the look identical (D-002). Note: in `employers/index.js` the removed first `capture` style (28px bold white) looks like it was meant for a cover title — revisit in Phase 5.
 - **D-014 | 2026-11-12 | Accepted (user requirement)** | Reusability is total, not partial: every element that appears more than once — buttons, input fields, icons, cards, list items, headers, modals, loaders, empty states, text styles, layout containers — becomes a reusable `ui/` component or shared token/style. Screens keep only one-off layout styles. Concrete inventory in §3.1. — User observed every screen has its own styling that is actually shared; analysis confirmed 77 identical style blocks across files.
 - **D-015 | 2026-11-12 | Accepted (user request)** | Add Phase 0.5 build optimization, done after the Phase 0 smoke test (changing deps/native config during the user's test build would invalidate it). Removing *unused* native modules is allowed despite D-008 (D-008 covers version upgrades, not removals). Gradle tuning goes through a config plugin because `android/` is generated. — Builds are slow; measured before/after.
+- **D-016 | 2026-11-12 | Proposed (user to execute)** | Develop from a short path on Windows (`C:\dev\mb` recommended) instead of `C:\Users\danilo\Documents\Lokalni projekti\mobile-barber`. Rejected alternatives: enabling `LongPathsEnabled` (bundled ninja still not long-path aware), installing newer CMake (RN libs pin 3.22.1), `subst` drive (works, but is lost on reboot — fine as a temporary workaround). — Only reliable fix for B15; no code change needed.
 
 ---
 
 ## 6. Change log
 
 ### 2026-11-12
+- `npx expo run:android` failed for user. Reproduced with `gradlew app:assembleDebug -PreactNativeArchitectures=x86_64`: Windows MAX_PATH in `react-native-worklets` CMake build (B15). Fix = short project path (D-016). README requirements + troubleshooting updated.
 - Added `README.md` (team-facing): requirements, secret files, team's run sequence (`npm i` → `npx expo install` → `npx expo prebuild --clean` → `npx expo run:android`), daily fast workflow, scripts with ⚠️ on store/OTA scripts, EAS, Windows speed tips, troubleshooting. User ran the team's sequence; working tree stayed clean (no dependency changes).
 - Build optimization analysed and planned as Phase 0.5 (§4.1, D-015). Verified expo already builds only device ABI in debug; found Gradle heap 2 GB + no build cache, 4 unused native modules. No code changes yet (user's test build in progress).
 - Plan expanded per user: Phase 2 = full reusable component library incl. **icons** (`ui/Icon` wrapper over 5 icon libs), layout, headers, cards, modals, loaders, empty states. Added §3.1 inventory with measured evidence (77 duplicated style blocks, 8 TextInput impls, 11 inline back arrows, 5 copied modal overlays). Decision D-014. No code changes.

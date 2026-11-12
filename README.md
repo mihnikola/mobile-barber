@@ -17,6 +17,7 @@ Expo / React Native app for booking barber appointments: locations → services 
 | JDK | 17 (`JAVA_HOME` set) |
 | Android SDK | platforms 35/36, NDK 27, `ANDROID_HOME` set, `platform-tools` on PATH |
 | Device | Android phone with **USB debugging** on (or an emulator) — check with `adb devices` |
+| **Project location (Windows)** | **Short path, e.g. `C:\dev\mb`.** Native C++ builds (react-native-worklets/reanimated) embed the project path twice; deep folders exceed Windows' 260-char limit and fail with `ninja: error: mkdir(...): No such file or directory` |
 | iOS | only via EAS cloud build on Windows (local iOS builds need macOS + Xcode) |
 
 ## 2. Secret files (not in git — ask the team)
@@ -101,6 +102,7 @@ npx eas-cli build -p android --profile development
 
 | Problem | Fix |
 |---|---|
+| `buildCMakeDebug ... FAILED` + `ninja: error: mkdir(CMakeFiles/...): No such file or directory` | Windows path too long. Move the project to a short path (`C:\dev\mb`), then: `cd android && gradlew --stop`, delete `android/` and all `node_modules/**/android/.cxx`, run `npx expo prebuild --clean` → `npx expo run:android`. Quick temporary alternative: `subst M: "<current project path>"`, `cd /d M:\` and build from `M:` |
 | `File google-services.json is missing` | add `firebase/google-services.json` (section 2) |
 | `adb devices` shows nothing / `unauthorized` | reconnect USB, accept the "Allow USB debugging" prompt on the phone |
 | App opens but can't reach Metro | same Wi-Fi as the PC, or `adb reverse tcp:8081 tcp:8081` |
