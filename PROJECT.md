@@ -35,6 +35,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [ ] Decide on B14 (background FCM handler not registered).
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
+**Before Phase 1 → Phase 0.5 build optimization** (§4.1): Gradle memory/cache plugin, remove 4 unused native modules, Defender exclusions, measure before/after.
 **Then Phase 2:** build the **full** reusable component library from §3.1 (buttons, inputs, icons, cards, headers, modals, loaders, empty states, layout) and migrate every screen to it (D-014).
 
 **Rules to remember:** only `claude` branch (D-007) · no visual change until Phase 5 (D-002) · keep file line endings, check `git diff --stat` (D-009) · no mass formatting (D-010) · verify with typecheck + lint + bundle export after every step.
@@ -237,6 +238,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | Phase | Scope | Visual change? | Status |
 |---|---|---|---|
 | 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (awaiting user smoke test) |
+| 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | Planned (after smoke test) |
 | 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | Planned |
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
@@ -259,6 +261,30 @@ All work is committed on the `claude` branch only (small commits per step). Merg
 | ESLint `rules-of-hooks` errors | 32 | 0 |
 | Android bundle export | OK (5.4 MB hbc) | OK |
 | `expo-doctor` | 1 check failed (12 packages behind SDK 58 patch versions — out of scope) | — |
+| Local Android debug build — clean | _to measure in 0.5_ | — |
+| Local Android debug build — incremental (no changes) | _to measure in 0.5_ | — |
+
+### 4.1 Build optimization plan (Phase 0.5, user request 2026-11-12)
+
+Findings (2026-11-12, machine: 20 cores, 32 GB RAM, JDK 17, Android SDK `C:\Android\sdk`):
+- ✅ Already optimal: `expo run:android` debug builds compile **only the connected device's ABI** (verified in `@expo/cli` `resolveGradlePropsAsync`), even though `gradle.properties` lists 4 ABIs. Use `--all-arch` only when needed.
+- ✅ `org.gradle.parallel=true` already set by template.
+- ❌ Gradle JVM heap only `-Xmx2048m` (machine has 32 GB) → GC pressure on Kotlin/C++ steps.
+- ❌ Gradle **build cache off** (`org.gradle.caching` not set) → tasks re-run after `prebuild --clean`/branch switches.
+- ❌ 4 native modules installed but **never imported**: `expo-device`, `expo-location`, `expo-haptics`, `expo-web-browser` → extra Kotlin compile + autolinking; `expo-location` also adds Play Services Location and location permissions to the manifest. (`expo-status-bar`, `expo-constants`, `expo-linking`, `react-native-screens`, `react-native-worklets`, `expo-system-ui`, `expo-updates` look unused but are required by expo-router/reanimated/config → keep.)
+- ❌ `expo-doctor` (a CLI) is in `dependencies` → move to `devDependencies` (no native impact, hygiene).
+- ⚠️ Windows Defender real-time scanning of `node_modules`, `android/`, `~/.gradle` is a common 1.5–2× slowdown on Windows (could not read exclusions without admin).
+
+Steps:
+| # | Step | Who | Expected effect |
+|---|---|---|---|
+| 1 | Measure baseline: clean build (`npx expo prebuild --clean` + `npm run android`) and no-change rebuild; record in metrics table | user/Claude | baseline |
+| 2 | Local config plugin `plugins/withAndroidBuildSpeed.js` (survives `prebuild --clean`): `org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g`, `org.gradle.caching=true`; try `org.gradle.configuration-cache=true` and keep only if the build passes | Claude | faster Kotlin/C++ steps, cached tasks |
+| 3 | Remove unused native modules (`expo-device`, `expo-location`, `expo-haptics`, `expo-web-browser`); move `expo-doctor` to devDeps | Claude | fewer native modules to compile; smaller APK; drops unused location permission |
+| 4 | Windows Defender exclusions (admin PowerShell): project folder, `%USERPROFILE%\.gradle`, `%USERPROFILE%\.android`, `C:\Android\sdk`; optional: Windows 11 **Dev Drive** for project + Gradle cache | user | often largest single win on Windows |
+| 5 | Workflow: JS/TS-only changes → **no native rebuild**, just `npx expo start` with the installed app. Rebuild natively only after native deps / `app.config.ts` / plugin changes. Avoid `prebuild --clean` unless config changed | both | most day-to-day "builds" disappear |
+| 6 | EAS: enable build cache in `eas.json` (`cache.key`) for Android profiles; optional larger `resourceClass` (paid) | Claude (+ user decides on paid) | faster cloud builds |
+| 7 | Re-measure, record results | both | proof |
 
 ---
 
@@ -280,12 +306,14 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 - **D-012 | 2026-11-12 | Accepted** | Pin ESLint to v9 with `eslint-config-expo` flat config. — ESLint 10 crashes `eslint-plugin-react` used by Expo's config.
 - **D-013 | 2026-11-12 | Accepted** | Fixing duplicate keys keeps the *effective* (last) value. — JS already used the last value; keeps the look identical (D-002). Note: in `employers/index.js` the removed first `capture` style (28px bold white) looks like it was meant for a cover title — revisit in Phase 5.
 - **D-014 | 2026-11-12 | Accepted (user requirement)** | Reusability is total, not partial: every element that appears more than once — buttons, input fields, icons, cards, list items, headers, modals, loaders, empty states, text styles, layout containers — becomes a reusable `ui/` component or shared token/style. Screens keep only one-off layout styles. Concrete inventory in §3.1. — User observed every screen has its own styling that is actually shared; analysis confirmed 77 identical style blocks across files.
+- **D-015 | 2026-11-12 | Accepted (user request)** | Add Phase 0.5 build optimization, done after the Phase 0 smoke test (changing deps/native config during the user's test build would invalidate it). Removing *unused* native modules is allowed despite D-008 (D-008 covers version upgrades, not removals). Gradle tuning goes through a config plugin because `android/` is generated. — Builds are slow; measured before/after.
 
 ---
 
 ## 6. Change log
 
 ### 2026-11-12
+- Build optimization analysed and planned as Phase 0.5 (§4.1, D-015). Verified expo already builds only device ABI in debug; found Gradle heap 2 GB + no build cache, 4 unused native modules. No code changes yet (user's test build in progress).
 - Plan expanded per user: Phase 2 = full reusable component library incl. **icons** (`ui/Icon` wrapper over 5 icon libs), layout, headers, cards, modals, loaders, empty states. Added §3.1 inventory with measured evidence (77 duplicated style blocks, 8 TextInput impls, 11 inline back arrows, 5 copied modal overlays). Decision D-014. No code changes.
 - Added §0.1 "How to build & run" (local Android vs EAS). Found `firebase/google-services.json` missing locally. Found B14 (root `index.js` not bundled → background FCM handler never registered). No code changes.
 - Added §0 "Quick resume" (status, summary, open to-dos, next step) — updated at the end of every session.
