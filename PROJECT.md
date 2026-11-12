@@ -35,6 +35,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [ ] Decide on B14 (background FCM handler not registered).
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
+**Then Phase 2:** build the **full** reusable component library from §3.1 (buttons, inputs, icons, cards, headers, modals, loaders, empty states, layout) and migrate every screen to it (D-014).
 
 **Rules to remember:** only `claude` branch (D-007) · no visual change until Phase 5 (D-002) · keep file line endings, check `git diff --stat` (D-009) · no mass formatting (D-010) · verify with typecheck + lint + bundle export after every step.
 
@@ -192,6 +193,43 @@ lib/
 
 Principle: **phases 1–4 are visually neutral** (same look, new structure). Then the new design is applied mostly by changing `theme/` and `components/ui/`, not 100+ screens.
 
+### 3.1 Reusable component inventory (Phase 1 + 2 scope, measured 2026-11-12)
+
+**Goal (user requirement, D-014):** every visual element that appears more than once — buttons, inputs, icons, cards, headers, modals, loaders, layout containers, text styles — becomes one reusable component or shared style. Screens should contain layout + data wiring only, ideally **no own `StyleSheet` except for truly one-off layout**.
+
+Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** are copy-pasted across files; `container` style is defined in 42 files, `card` in 12.
+
+| Component / shared style | Replaces (today) | Evidence |
+|---|---|---|
+| **Layout** | | |
+| `ui/Screen` (safe area + bg + optional scroll + status bar) | `withSafeArea`, `WrapperAuth`, `WrapperKeyboard`, per-screen `container` | `{flex:1, bg}` copied in 19 files; `container` in 42 |
+| `ui/Row`, `ui/Stack` / layout helpers in `theme/layout.ts` | `{flexDirection:"row", alignItems:"center"}` etc. | 6+ identical copies |
+| `ui/ScreenHeader` (back button + title) / `ui/CoverHeader` (image cover) | `HeaderCoverImageContainer`, `SharedBackButton`, inline back arrows | `arrow-back` inline in 11 files |
+| **Text** | | |
+| `ui/AppText` with variants (`h1`, `h2`, `title`, `body`, `caption`, `label`, `error`, `price`) | inline text styles | 186 font literals; identical title styles in 5–6 files |
+| **Actions** | | |
+| `ui/Button` (variants: `primary`, `secondary`, `outline`, `ghost`, `social`; states: loading, disabled; sizes) | `SharedButton`, `SharedButtonDateReservation`, `CustomGoogleButton`, `CustomAppleButton`, inline buttons | 6 button implementations |
+| `ui/IconButton` | back/close/edit touchables | |
+| `ui/Pressable` (press-lock debounce) | `shared-components/TouchableOpacity` | keep behaviour (D-006) |
+| **Icons** | | |
+| `ui/Icon` — one wrapper, semantic names (`back`, `close`, `check`, `clock`, `price`, `star`, `location`, `person`, `chevronRight` …), token sizes (`sm 16`, `md 24`, `lg 32`, `xl 64`) and theme colors | direct `FontAwesome` (35), `MaterialIcons` (25), `MaterialCommunityIcons` (4), `Ionicons` (4), `FontAwesome6` (2) | 5 icon libs, 8+ ad-hoc sizes, hardcoded colors |
+| **Forms** | | |
+| `ui/TextField` (label, error, focus state) + `PasswordField`, `PhoneField`, `TextArea` | `SharedInput`, `SharedPassword`, `SharedConfirmPassword`, `SharedPhoneNumber`, `SharedInputTextArea`, `SharedInputTextAreaMark`, `SharedNameEdit`, inline `TextInput` in 2 screens | 8 TextInput implementations |
+| `ui/OtpInput`, `ui/RadioButton`/`Checkbox`, `ui/StarRating` | `OtpCodeInput`, `StarRateComponent`, `SharedQuestion` parts | |
+| **Data display** | | |
+| `ui/Card` (surface + radius + padding) | per-file `card` styles | `card` in 12 files |
+| `ui/ListItem` (image/avatar + title + meta rows + chevron) | `SharedItemServiceCard`, `SharedItemEmployerCard`, `SharedItemLocation`, `SharedItemMultiSelection`, `SharedCategoryItem`, `MenuItem` | `profileImage` 8, `detailsContainer` 7, `ratingContainer`/`locationContainer` 6 |
+| `ui/MetaRow` (icon + text, e.g. duration/price/rating/location) | inline icon+text rows | 6–7 files |
+| `ui/Avatar` / `Initials` | `SharedInitialsName`, profile images | |
+| domain: `ServiceCard`, `EmployeeCard`, `LocationCard`, `ReservationCard` (built from `Card`/`ListItem`) | `SharedDetails*Card`, `CardReservation*` (5 variants) | |
+| **Feedback** | | |
+| `ui/Modal` / `ui/Dialog` (overlay + content + actions) | `SharedMessage`, `SharedQuestion`, `SharedLoader`, `InternetModal`, `ReservationMarkComponent` … | overlay style copied 5×, 6 `<Modal>` usages |
+| `ui/Loader` (`inline` / `fullscreen` / `overlay`) | `Loader`, `LoaderDate`, `SharedLoader`, inline `ActivityIndicator` | 9 files |
+| `ui/EmptyState` (icon + message + optional action) | `NotFoundEmployers`, `LocationNotFound`, `CardNoReservation`, `notFound`, "not available" texts | |
+| `ui/Divider`, `ui/Badge` (reservation status) | inline | |
+
+**Rule for migration:** when a screen is migrated, its `StyleSheet` should shrink to layout-only entries; any style that appears in a 2nd file must move to `theme/` or into a `ui/` component.
+
 ---
 
 ## 4. Roadmap
@@ -200,7 +238,7 @@ Principle: **phases 1–4 are visually neutral** (same look, new structure). The
 |---|---|---|---|
 | 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (awaiting user smoke test) |
 | 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | Planned |
-| 2 | UI primitives in `components/ui/`; consolidate button/input/loader/card variants; migrate usages | No | Planned |
+| 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | Planned |
 | 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | Planned |
@@ -241,12 +279,14 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 - **D-011 | 2026-11-12 | Accepted** | Google OAuth client IDs are public identifiers (shipped inside every app binary), not secrets. Move them into a config constant in Phase 3 rather than env vars. — Avoids breaking sign-in via missing env in EAS builds.
 - **D-012 | 2026-11-12 | Accepted** | Pin ESLint to v9 with `eslint-config-expo` flat config. — ESLint 10 crashes `eslint-plugin-react` used by Expo's config.
 - **D-013 | 2026-11-12 | Accepted** | Fixing duplicate keys keeps the *effective* (last) value. — JS already used the last value; keeps the look identical (D-002). Note: in `employers/index.js` the removed first `capture` style (28px bold white) looks like it was meant for a cover title — revisit in Phase 5.
+- **D-014 | 2026-11-12 | Accepted (user requirement)** | Reusability is total, not partial: every element that appears more than once — buttons, input fields, icons, cards, list items, headers, modals, loaders, empty states, text styles, layout containers — becomes a reusable `ui/` component or shared token/style. Screens keep only one-off layout styles. Concrete inventory in §3.1. — User observed every screen has its own styling that is actually shared; analysis confirmed 77 identical style blocks across files.
 
 ---
 
 ## 6. Change log
 
 ### 2026-11-12
+- Plan expanded per user: Phase 2 = full reusable component library incl. **icons** (`ui/Icon` wrapper over 5 icon libs), layout, headers, cards, modals, loaders, empty states. Added §3.1 inventory with measured evidence (77 duplicated style blocks, 8 TextInput impls, 11 inline back arrows, 5 copied modal overlays). Decision D-014. No code changes.
 - Added §0.1 "How to build & run" (local Android vs EAS). Found `firebase/google-services.json` missing locally. Found B14 (root `index.js` not bundled → background FCM handler never registered). No code changes.
 - Added §0 "Quick resume" (status, summary, open to-dos, next step) — updated at the end of every session.
 - **Phase 0 complete** (pending user smoke test). Commits on `claude`: `657866c` docs, `f7e0540` dead code, `950edac` tsconfig/i18next, `cc0bc63` ESLint+Prettier, `2d587fe` bug fixes.
