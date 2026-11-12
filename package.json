@@ -12,7 +12,11 @@
     "build:ios": "eas build --platform ios --auto-submit",
     "build:apk": "eas build -p android --profile development",
     "submit:android": "eas build -p android --auto-submit",
-    "push:update": "eas update --branch production"
+    "push:update": "eas update --branch production",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write",
+    "format:check": "prettier --check"
   },
   "jest": {
     "preset": "jest-expo"
@@ -59,10 +63,13 @@
     "@babel/core": "^7.25.2",
     "@types/jest": "30.0.0",
     "@types/react": "~19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~58.0.4",
     "jest": "~30.5.2",
     "jest-expo": "~58.0.14",
     "patch-package": "^8.0.1",
     "postinstall-postinstall": "^2.1.0",
+    "prettier": "^3.10.1",
     "react-test-renderer": "19.2.0",
     "typescript": "~6.0.3"
   },
