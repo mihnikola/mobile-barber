@@ -32,6 +32,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
@@ -201,7 +202,7 @@ const LoginScreen = () => {
             style={{
               color: ColorsBarber.dark.textColor,
               textAlign: "right",
-              fontFamily: "OldStandard-Regular",
+              fontFamily: fonts.regular,
             }}
           >
             {localization.LOGIN.forgot}
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.dark.background,
   },
   buttonGoogleIsLoading: {
-    backgroundColor: "#4285A0",
+    backgroundColor: colors.brandBlue,
     height: 58,
     width: "100%",
     borderRadius: 4,
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: ColorsBarber.dark.inActiveTextColor,
     marginBottom: 30,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   socialButtonsContainer: {
     flexDirection: "row",
@@ -308,13 +309,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: colors.white,
   },
   googleButton: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: colors.surfaceInput,
   },
   appleButton: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: colors.surfaceInput,
   },
   socialIcon: {
     marginRight: 10,
@@ -322,7 +323,7 @@ const styles = StyleSheet.create({
   socialButtonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   dividerContainer: {
     flexDirection: "row",
@@ -332,37 +333,37 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: "#333",
+    backgroundColor: colors.surfaceRaised,
   },
   dividerText: {
     color: ColorsBarber.dark.textColor,
     marginHorizontal: 10,
     fontSize: 15,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
-    fontFamily: "OldStandard-Regular",
+    borderColor: colors.white,
+    fontFamily: fonts.regular,
   },
   passwordInputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 2,
 
     borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,

@@ -22,6 +22,7 @@ import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { fonts } from "@/theme";
 
 const LanguageSupportScreen = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -116,14 +117,14 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 25,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 130,
   },
 
   search: {
     color: ColorsBarber.dark.textColorInput,
     backgroundColor: ColorsBarber.dark.inputColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     borderColor: ColorsBarber.dark.inActiveTextColor,
     borderWidth: 1,
     borderRadius: 8,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   },
   languageText: {
     fontSize: 18,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     color: ColorsBarber.dark.textColor,
   },
 });

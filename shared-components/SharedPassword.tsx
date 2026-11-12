@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SharedPassword = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -42,7 +43,7 @@ const SharedPassword = forwardRef((props: any, ref) => {
           <FontAwesome
             name={isPasswordVisible ? "eye" : "eye-slash"}
             size={24}
-            color="grey"
+            color={colors.textMuted}
           />
         </TouchableOpacity>
       </View>
@@ -58,28 +59,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
   },
   passwordInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     width: "80%",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   inputLabel: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 14,
     marginTop: 20,
     marginBottom: 4,
   },
   errorText: {
-    color: "red",
-    fontFamily: "OldStandard-Bold",
+    color: colors.danger,
+    fontFamily: fonts.bold,
   },
   textInputFocused: {
     borderWidth: 2,

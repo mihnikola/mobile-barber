@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
+import { fonts } from "@/theme";
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
   const { localization } = useLocalization();
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
   activeText: {
     color: ColorsBarber.dark.textColor, // Tekst pobeli kada je aktivan
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 19,
   },
   tab: {
@@ -76,6 +77,6 @@ const styles = StyleSheet.create({
   text: {
     color: ColorsBarber.dark.textColor, // Neutralna svetlo-siva boja teksta za neaktivne elemente
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
-    fontFamily: "OldStandard-Regular", // Srednje podebljan tekst za bolju čitljivost
+    fontFamily: fonts.regular, // Srednje podebljan tekst za bolju čitljivost
   },
 });

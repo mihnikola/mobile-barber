@@ -3,6 +3,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const myArray = [
   { arrx: "10000" },
@@ -26,7 +27,7 @@ function ReservationMarkComponent({ data }) {
         <Text
           style={{
             fontSize: 18,
-            fontFamily: "OldStandard-Bold",
+            fontFamily: fonts.bold,
             color: ColorsBarber.dark.textColor,
             marginBottom: 5,
           }}

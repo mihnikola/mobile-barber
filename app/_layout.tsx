@@ -4,13 +4,14 @@ import NoInternetModal from "@/shared-components/InternetModal";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 export default function RootLayout() {
   const isConnected = useInternetGuard();
   const [loaded, error] = useFonts({
-    "OldStandard-Regular": require("@/assets/fonts/BarlowCondensed-Regular.ttf"),
-    "OldStandard-Bold": require("@/assets/fonts/BarlowCondensed-Bold.ttf"),
-    "OldStandard-Italic": require("@/assets/fonts/BarlowCondensed-Italic.ttf"),
+    [fonts.regular]: require("@/assets/fonts/BarlowCondensed-Regular.ttf"),
+    [fonts.bold]: require("@/assets/fonts/BarlowCondensed-Bold.ttf"),
+    [fonts.italic]: require("@/assets/fonts/BarlowCondensed-Italic.ttf"),
   });
 
   if (!loaded && !error) {
@@ -34,7 +35,7 @@ export default function RootLayout() {
             headerStyle: {
               backgroundColor: ColorsBarber.dark.background,
             },
-            headerTintColor: "white",
+            headerTintColor: colors.text,
           }}
         />
 

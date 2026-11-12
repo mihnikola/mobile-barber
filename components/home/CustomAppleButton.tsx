@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const CustomAppleButton = ({ onPress, isAppleLoading }) => {
   const { localization } = useLocalization();
@@ -35,7 +36,7 @@ const CustomAppleButton = ({ onPress, isAppleLoading }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -55,9 +56,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonText: {
-    color: "#000000ff",
+    color: colors.black,
     fontSize: 16,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });
 

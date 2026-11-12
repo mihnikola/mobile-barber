@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { fonts } from "@/theme";
 
 const OnboardingItem = ({ item, itemWidth }) => {
   return (
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   },
   reviewTitle: {
     fontSize: 20,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
     marginBottom: 10,
     marginTop: 10,

@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { colors, fonts } from "@/theme";
 const CustomGoogleButton = ({ onPress, isGoogleLoading }) => {
   const { localization } = useLocalization();
   return (
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     minWidth: 220,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: colors.white,
     marginTop: 20,
     marginBottom: 30,
   },
@@ -58,9 +59,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: colors.text,
     fontSize: 16,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });
 

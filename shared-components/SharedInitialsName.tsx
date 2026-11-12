@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { getInitialsName } from "@/helpers";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const SharedImageInitials = ({
   name,
@@ -41,13 +42,13 @@ export default SharedImageInitials;
 const styles = StyleSheet.create({
   profileText: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 20,
     alignSelf: "center",
   },
   profileTextOther: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 14,
     alignSelf: "center",
   },
@@ -60,25 +61,25 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 15,
     marginRight: 15,
-    backgroundColor: "#242424",
+    backgroundColor: colors.surfaceAvatar,
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: colors.borderAvatar,
     justifyContent: "center",
   },
 
   avatarContainer: {
-    backgroundColor: "#242424",
+    backgroundColor: colors.surfaceAvatar,
     width: 90,
     height: 90,
     borderRadius: 30,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: colors.borderAvatar,
     justifyContent: "center",
   },
   avatarText: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 30,
     alignSelf: "center",
   },

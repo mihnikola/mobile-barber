@@ -25,6 +25,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -275,25 +276,25 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
   },
   subtitle: {
     fontSize: 13,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
    color: ColorsBarber.dark.inActiveTextColor,
   },
 
   input: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColorInput,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
-    fontFamily: "OldStandard-Regular",
+    borderColor: colors.white,
+    fontFamily: fonts.regular,
 
   },
   passwordInputContainer: {
@@ -301,20 +302,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: "#333",
+    borderColor: colors.divider,
   },
   passwordInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color:  ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.white,
     width: "80%",
   },
 });

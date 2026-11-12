@@ -14,6 +14,7 @@ import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const InitialComponent = () => {
   const { getInitialData, initialData } = useInitialData();
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     textAlign: "center",
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     marginBottom: 10,
     color: ColorsBarber.dark.textColor,
   },
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 35,
     color: ColorsBarber.dark.textColor,
     lineHeight: 20,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   bottomContainer: {
     flexDirection: "row",

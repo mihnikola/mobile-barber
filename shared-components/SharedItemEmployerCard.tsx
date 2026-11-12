@@ -6,6 +6,7 @@ import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 const SharedItemEmployerCard = (props: any) => {
   const { redirectHandler, data, otherServices } = props;
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor, // Lighter grey for location
     marginBottom: 4,
   },
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
   reviewText: {
     fontSize: 14,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
 
     color: ColorsBarber.dark.textColor, // Lighter grey for location
     marginLeft: 5,

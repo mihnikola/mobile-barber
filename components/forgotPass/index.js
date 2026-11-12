@@ -12,6 +12,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     lineHeight: 22,
   },
@@ -132,18 +133,18 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: ColorsBarber.dark.inputField,
     color: ColorsBarber.dark.textColorInput,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.white,
     paddingVertical: 15,
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
   },
 });

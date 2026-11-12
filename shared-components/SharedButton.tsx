@@ -6,6 +6,7 @@ import {
 import React from "react";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 const SharedButton = (props: any) => {
   return (
@@ -32,17 +33,17 @@ const styles = StyleSheet.create({
   btnText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    fontFamily: fonts.bold, // Ključ iz useFonts
   },
   btnDisabled: {
     borderColor: ColorsBarber.dark.inActiveTextColor,
     backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
-    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    fontFamily: fonts.bold, // Ključ iz useFonts
   },
   btnTextDisabled: {
     color: ColorsBarber.dark.textColorDeactivated,
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 
   btn: {

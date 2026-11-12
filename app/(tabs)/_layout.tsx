@@ -4,6 +4,7 @@ import { SplashScreen, Tabs } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { fonts } from "@/theme";
 
 export default function TabLayout() {
   const { localization } = useLocalization();
@@ -21,7 +22,7 @@ export default function TabLayout() {
             backgroundColor: ColorsBarber.dark.background,
           },
           tabBarLabelStyle: {
-            fontFamily: "OldStandard-Regular",
+            fontFamily: fonts.regular,
             fontSize: 12,
           },
         }}

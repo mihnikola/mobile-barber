@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const ListAboutUs = ({ contact }) => {
   const { localization } = useLocalization();
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     padding: 20, // optional padding around the content
   },
   titleContant: {
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
     fontSize: 29,
     textAlign: "center",
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
        color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
 
 
   },

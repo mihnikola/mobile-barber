@@ -3,6 +3,7 @@ import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text } from "react-native";
 import { View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const LoginRedirect = ({ onPress, title }) => {
   return (
@@ -27,14 +28,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
   },
   profileInfoIcon: {
     paddingHorizontal: 15,
   },
   profileName: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
   },
 });

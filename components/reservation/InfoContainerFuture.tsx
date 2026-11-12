@@ -4,6 +4,7 @@ import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const InfoContainerFuture = ({ item }) => {
   const { localization } = useLocalization();
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   rating: {
-    color: "gray",
+    color: colors.textMuted,
   },
   columnContainer: {
     flex: 1,
@@ -72,14 +73,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
    color: ColorsBarber.dark.textColor,
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   fade: {
-    color: "#707070",
+    color: colors.textSubtle,
   },
   captureDateLocation: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     flex: 2,
     fontSize: 15,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   captureDateBold: {
     fontSize: 18,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 
   infoContainer: {

@@ -29,6 +29,7 @@ import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const UserProfileScreen = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -256,30 +257,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   phoneNumberInputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#333",
+    borderColor: colors.divider,
     paddingHorizontal: 10,
   },
   phoneNumberInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.white,
   },
   buttonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     padding: 10,
     textAlign: "center",
   },
@@ -290,13 +291,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 18,
     borderWidth: 2,
-    borderColor: "white",
-    fontFamily: "OldStandard-Regular",
+    borderColor: colors.white,
+    fontFamily: fonts.regular,
   },
   inputDisabled: {
     backgroundColor: ColorsBarber.dark.inputDisabled,
     color: ColorsBarber.dark.textColorDeactivated,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -309,10 +310,10 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.dark.background,
     padding: 10,
     borderWidth: 1,
-    borderColor: "grey",
+    borderColor: colors.textMuted,
   },
   unButtonText: {
-    color: "grey",
+    color: colors.textMuted,
     fontSize: 16,
     padding: 10,
     textAlign: "center",
@@ -321,7 +322,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 5,
     backgroundColor: ColorsBarber.dark.background,
-    borderColor: "white",
+    borderColor: colors.white,
     borderWidth: 1,
     textAlign: "center",
     marginVertical: 60,
@@ -340,7 +341,7 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     borderBottomWidth: 1,
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     padding: 10,
   },
   imageContainer: {

@@ -11,6 +11,7 @@ import Paginator from "./Paginator";
 import { useRef, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const OnboardingComponent = ({ reviews }) => {
   const { localization } = useLocalization();
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   reviewSectionTitle: {
     marginTop: 20,
     marginBottom: 15,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 29,
    color: ColorsBarber.dark.textColor,
     paddingHorizontal: 20,

@@ -5,6 +5,7 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedLogo from "@/shared-components/SharedLogo";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 function BookSuccess({ image, reservation }) {
   const { localization } = useLocalization();
@@ -64,13 +65,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
 
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     display: "flex",
     justifyContent: "center",
   },
   position: {
     fontSize: 20,
-    color: "grey",
+    color: colors.textMuted,
     fontStyle: "italic",
     padding: 12,
   },
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   dateData: {
     fontSize: 20,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   data: {
     display: "flex",

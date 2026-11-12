@@ -2,6 +2,7 @@ import { View, Text,  StyleSheet } from "react-native";
 import React from "react";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 const SharedRedirect = (props: any) => {
   return (
@@ -25,12 +26,12 @@ const styles = StyleSheet.create({
   registerText: {
     color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   registerLink: {
     color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });
 

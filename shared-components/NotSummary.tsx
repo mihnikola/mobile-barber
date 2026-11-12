@@ -1,5 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { Text, View } from "react-native";
+import { fonts } from "@/theme";
 
 const NotSummary = ({ text }) => {
   return (
@@ -12,7 +13,7 @@ const NotSummary = ({ text }) => {
           padding: 20,
           borderRadius: 20,
           backgroundColor:ColorsBarber.dark.background,
-          fontFamily: "OldStandard-Regular",
+          fontFamily: fonts.regular,
         }}
       >
         {text}

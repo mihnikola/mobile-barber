@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { fonts } from "@/theme";
 
 function LocationsComponent({
   locations,
@@ -88,13 +89,13 @@ const styles = StyleSheet.create({
     flex: 2,
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 
   modalTitle: {
     color: ColorsBarber.dark.textColor,
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     textAlign: "center",
     lineHeight: 36,
     marginBottom: 10,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 22,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     textAlign: "center",
   },
 });

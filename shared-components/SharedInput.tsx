@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SharedInput = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -57,7 +58,7 @@ const SharedInput = forwardRef((props: any, ref) => {
             style={styles.passwordToggle}
             onPress={togglePasswordVisibility}
           >
-            <Text style={{ color: "#888" }}>
+            <Text style={{ color: colors.placeholder }}>
               {isPasswordVisible ? "Hide" : "Show"}
             </Text>
           </TouchableOpacity>
@@ -76,19 +77,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   inputLabel: {
     color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   errorText: {
-    color: "red",
+    color: colors.danger,
     paddingTop: 10,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   textInputFocused: {
     borderColor: ColorsBarber.dark.textColor,

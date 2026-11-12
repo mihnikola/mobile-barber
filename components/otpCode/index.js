@@ -20,6 +20,7 @@ import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import Loader from "../Loader";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -183,7 +184,7 @@ const OtpCode = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#0A0B0E",
+    backgroundColor: colors.backgroundDeep,
   },
   btnFooter: {
     marginBottom: 20,
@@ -203,11 +204,11 @@ const styles = StyleSheet.create({
   resendText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   timerText: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     fontSize: 14,
   },
@@ -229,14 +230,14 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily:"OldStandard-Regular",
+    fontFamily:fonts.regular,
 
   },
   socialButtonsContainer: {
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: colors.white,
   },
 });
 export default OtpCode;

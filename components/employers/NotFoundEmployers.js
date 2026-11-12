@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { View, Text, StyleSheet } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const NotFoundEmployers = () => {
   const {localization}  = useLocalization();
@@ -26,12 +27,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     padding: 10,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
   },
   description: {
     fontSize: 16,
-    color: "grey",
+    color: colors.textMuted,
     textAlign: "center",
   },
 });

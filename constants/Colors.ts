@@ -1,71 +1,40 @@
+import { colors } from "@/theme";
+
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * @deprecated Legacy color map. Values now come from `theme/colors.ts`.
+ * New code: `import { colors } from "@/theme"`. Existing usages are migrated
+ * file by file in Phase 2 (see PROJECT.md D-019).
+ *
+ * Removed (unused): `ColorsBarber.light`, `ColorsHairSalon` — app is dark-only (D-004).
  */
-
-const tintColorLight = "#0a7ea4";
-const tintColorDark = "#fff";
-
 export const ColorsBarber = {
-  light: {
-    text: "#11181C",
-    background: "#020202",
-    inputField: "#fff",
-    item: "#000000",
-    tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    textColor: "#fff",
-    inActiveTextColor: "#a7a7a7",
-    tabIconSelected: tintColorLight,
-    btnBgColor: "#000000",
-    btnBgColorDisabled: "#5e5c5a",
-  },
   dark: {
-    priceColor: "#FFD700",
-    starColor: "#FFD700",
-    personIcon: "#FFD700",
-    locationIcon: "#ff0000",
-    arrowIcon: "#8a8888",
-    text: "#11181C",
-    selectedDayBackgroundColor: "#fff",
-    background: "#020202",
-    backgroundModal: "#414040",
-    btnContent: "#232126",
-    inputField: "#fff",
-    item: "#232126",
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    textColor: "#fff",
-    cardReservationPast:"#414040",
-    textColorDeactivated: "#919191",
-    textColorInput: "#000000",
-    textColorInputDisabled: "#5e5c5a",
-    inputDisabled: "#5e5c5a",
-    inputColor: "#fff",
-    inActiveTextColor: "#a7a7a7",
-    tabIconSelected: tintColorLight,
-    btnBgColor: "#000000",
-    btnBgColorDisabled: "#5e5c5a",
-    borderColor: "#fff",
-    borderColorDisabeld: "#5e5c5a",
-  },
-};
-export const ColorsHairSalon = {
-  light: {
-    text: "#11181C",
-    background: "#fff",
-    tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: "#ECEDEE",
-    background: "#151718",
-    tint: tintColorDark,
-    icon: "#9BA1A6",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
+    priceColor: colors.gold,
+    starColor: colors.gold,
+    personIcon: colors.gold,
+    locationIcon: colors.danger,
+    arrowIcon: colors.iconMuted,
+    text: colors.textDark,
+    selectedDayBackgroundColor: colors.white,
+    background: colors.background,
+    backgroundModal: colors.surfaceModal,
+    btnContent: colors.surface,
+    inputField: colors.white,
+    item: colors.surface,
+    icon: colors.icon,
+    tabIconDefault: colors.icon,
+    textColor: colors.text,
+    cardReservationPast: colors.surfaceModal,
+    textColorDeactivated: colors.textDeactivated,
+    textColorInput: colors.textOnLight,
+    textColorInputDisabled: colors.disabled,
+    inputDisabled: colors.disabled,
+    inputColor: colors.white,
+    inActiveTextColor: colors.textInactive,
+    tabIconSelected: colors.tint,
+    btnBgColor: colors.black,
+    btnBgColorDisabled: colors.disabled,
+    borderColor: colors.white,
+    borderColorDisabeld: colors.disabled,
   },
 };

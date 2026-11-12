@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const Note = () => {
   const {localization} = useLocalization();
@@ -32,25 +33,25 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 20,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   info: {
     display: "flex",
     paddingLeft: 12,
     paddingBottom: 8,
    color: ColorsBarber.dark.textColor,
-        fontFamily:"OldStandard-Regular"
+        fontFamily:fonts.regular
 
   },
   title: {
     fontSize: 20,
    color: ColorsBarber.dark.textColor,
     padding: 12,
-    fontFamily:"OldStandard-Bold"
+    fontFamily:fonts.bold
   },
   position: {
     fontSize: 16,
-    color: "grey",
+    color: colors.textMuted,
     fontStyle: "italic",
     padding: 12,
   },
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   dateData: {
     fontSize: 20,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   data: {
     display: "flex",
@@ -88,8 +89,8 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: "grey",
-    fontFamily: "OldStandard-Bold",
+    color: colors.textMuted,
+    fontFamily: fonts.bold,
     textAlign: "center",
     fontStyle: "italic",
     position: "absolute",

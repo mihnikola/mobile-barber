@@ -2,6 +2,7 @@ import { ColorsBarber } from "@/constants/Colors";
 import { convertToDay, convertToDayTime, convertToMonthName } from "@/helpers";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { fonts } from "@/theme";
 
 const DateFormatComponent = ({ item, rejected }) => {
   return (
@@ -66,25 +67,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: ColorsBarber.dark.textColor,
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 
   captureDatePast: {
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     color: ColorsBarber.dark.inActiveTextColor,
   },
 
   captureDateBold: {
     fontSize: 20,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   captureDateBoldPast: {
     fontSize: 20,
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 });
 

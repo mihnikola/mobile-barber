@@ -1,5 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, View, Text, TextInput } from "react-native";
+import { colors, fonts } from "@/theme";
 
 /**
  * A reusable component for a multiline text input field.
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     minHeight: 80,
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     // Note: The `textAlignVertical` prop is for Android to ensure text starts at the top.
     // iOS handles this automatically.
@@ -76,9 +77,9 @@ const styles = StyleSheet.create({
   previewText: {
     fontSize: 9,
 
-    color: "red",
+    color: colors.danger,
     opacity: 0.7,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });
 

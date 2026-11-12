@@ -4,6 +4,7 @@ import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { Image, Text, View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const ProfileUserComponent = ({ data, onPress }) => {
   return (
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
     marginBottom: 10,
   },
   profileImage: {
@@ -42,20 +43,20 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: "#4a4a4a",
+    borderColor: colors.borderIcon,
   },
   profileInfo: {
     flex: 1,
   },
   profileName: {
     fontSize: 20,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     color: ColorsBarber.dark.textColor,
   },
   editButton: {

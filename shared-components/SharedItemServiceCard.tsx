@@ -5,6 +5,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SharedItemServiceCard = (props: any) => {
   const { redirectHandler, data } = props;
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   },
   detailsCard: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E", // Dark background from your image
+    backgroundColor: colors.surfaceCard, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 30, // Makes it circular
     marginRight: 15,
     borderWidth: 1, // Optional: for a subtle border around the image
-    borderColor: "#333",
+    borderColor: colors.divider,
   },
   detailsContainer: {
     flex: 1,
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 4,
   },
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     marginLeft: 5,
   },
   ratingContainer: {
@@ -115,14 +116,14 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 14,
-    fontFamily: "OldStandard-Bold",
-    color: "#FFD700", // Gold color for rating number
+    fontFamily: fonts.bold,
+    color: colors.gold, // Gold color for rating number
     marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     marginLeft: 5,
   },

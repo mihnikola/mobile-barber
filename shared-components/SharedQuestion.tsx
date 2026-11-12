@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { Modal, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 export const SharedQuestion = ({
   isOpen,
@@ -82,14 +83,14 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     color: ColorsBarber.dark.textColor, // Corresponds to text-white
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     fontSize: 20, // Corresponds to text-3xl
     marginBottom: 16, // Corresponds to mb-4
     textAlign: "center",
     lineHeight: 36, // Corresponds to leading-tight
   },
   modalDescription: {
-    color: "#9CA3AF", // Corresponds to text-gray-400
+    color: colors.textSecondary, // Corresponds to text-gray-400
     fontSize: 18, // Corresponds to text-lg
     marginBottom: 32, // Corresponds to mb-8
     textAlign: "center",
@@ -127,20 +128,20 @@ const styles = StyleSheet.create({
     borderColor: ColorsBarber.dark.borderColor,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   actionButtonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   actionButtonTextNo: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });

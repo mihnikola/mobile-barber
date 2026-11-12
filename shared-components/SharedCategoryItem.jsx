@@ -4,6 +4,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SharedCategoryItem = (props) => {
   const { redirectHandler, data, isSelected } = props;
@@ -34,7 +35,7 @@ const SharedCategoryItem = (props) => {
 
 const styles = StyleSheet.create({
   isSelected: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
   },
   nameSelected: {
     color: ColorsBarber.dark.textColorInput,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
   },
 });

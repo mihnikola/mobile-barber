@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 function SharedReservationData({ reservation }) {
   const { localization } = useLocalization();
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     textTransform: "uppercase",
     fontSize: 16,
     textAlign: "center",
@@ -74,11 +75,11 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 20,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   position: {
     fontSize: 16,
-    color: "grey",
+    color: colors.textMuted,
     fontStyle: "italic",
     padding: 12,
   },
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   dateData: {
     fontSize: 20,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   data: {
     display: "flex",

@@ -13,6 +13,7 @@ import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 function HeaderCoverImageContainer({
   title,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   nextBtnTitle: {
     fontSize: 15,
     color: ColorsBarber.dark.inputColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   backgroundImage: {
     opacity: 0.6,
@@ -114,12 +115,12 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 32,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   captureNextBtn: {
     fontSize: 28,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   containerStatus: {
     height: "100%",

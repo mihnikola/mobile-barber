@@ -2,6 +2,7 @@ import { View, Text,  StyleSheet } from "react-native";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 const SharedItemLocation = (props: any) => {
   const { redirectHandler, data } = props;
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
   },
   address: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor, // White text color
     marginBottom: 4,
   },

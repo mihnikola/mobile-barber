@@ -18,6 +18,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -106,7 +107,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: "#414141",
+              borderTopColor: colors.dividerStrong,
               width: "100%",
               marginTop: 2,
             }}
@@ -319,7 +320,7 @@ const styles = StyleSheet.create({
   },
   descriptionLabel: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
@@ -327,12 +328,12 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
     textAlign: "center",
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   textBoldSuccess: {
     color: ColorsBarber.dark.textColor,
 
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     fontSize: 24,
     textAlign: "center",
   },
@@ -346,7 +347,7 @@ const styles = StyleSheet.create({
   descriptionValue: {
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   containerWrapper: {
     marginTop: 10,

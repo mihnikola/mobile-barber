@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const RESEND_TIME = 50;
 const ResendOtpCodeTimer = ({ resendHandler }) => {
@@ -48,13 +49,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   resendText: {
-    color: "#00AEEF",
+    color: colors.link,
     fontSize: 16,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   timerText: {
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily:"OldStandard-Regular",
+    fontFamily:fonts.regular,
 
     fontSize: 14,
   },

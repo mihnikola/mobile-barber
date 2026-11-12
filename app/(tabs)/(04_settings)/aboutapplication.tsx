@@ -5,6 +5,7 @@ import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const AboutApplicationScreen = () => {
   const appName = "Book Hair";
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 30,
     textAlign: "center",
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 25,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 130,
   },
   icon: {
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 12,
-    color: "#B0B0B0",
+    color: colors.textTertiary,
     marginTop: 2,
   },
   section: {
@@ -85,19 +86,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   value: {
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     lineHeight: 24,
   },

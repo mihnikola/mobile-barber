@@ -8,6 +8,7 @@ import {
   Switch,
   Text,
 } from "react-native";
+import { colors, fonts } from "@/theme";
 
 export const MenuItem = ({
   iconName,
@@ -32,8 +33,8 @@ export const MenuItem = ({
     <Text style={styles.menuItemText}>{title}</Text>
     {isToggle ? (
       <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={toggleValue ? "#f5dd4b" : "#f4f3f4"}
+        trackColor={{ false: colors.switchTrackOff, true: colors.switchTrackOn }}
+        thumbColor={toggleValue ? colors.switchThumbOn : colors.switchThumbOff}
         ios_backgroundColor={ColorsBarber.dark.textColor}
         onValueChange={onToggle}
         value={toggleValue}
@@ -53,26 +54,26 @@ export const MenuItem = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1a1a1a", // Dark background as per image
+    backgroundColor: colors.surfaceMenu, // Dark background as per image
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, // Adjust for Android status bar
   },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333", // Darker border for separation
+    borderBottomColor: colors.divider, // Darker border for separation
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#FFFFFF", // White text
+    color: colors.text, // White text
   },
   profileSection: {
     flexDirection: "row",
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
     marginBottom: 10,
   },
   profileImage: {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: "#4a4a4a", // Subtle border around image
+    borderColor: colors.borderIcon, // Subtle border around image
   },
   profileInfo: {
     flex: 1,
@@ -89,16 +90,16 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#FFFFFF",
-    fontFamily: "OldStandard-Regular",
+    color: colors.text,
+    fontFamily: fonts.regular,
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
-    color: "#B0B0B0", // Light gray for email
+    color: colors.textTertiary, // Light gray for email
   },
   editButton: {
-    backgroundColor: "#3a3a3a", // Darker background for button
+    backgroundColor: colors.surfaceIcon, // Darker background for button
     borderRadius: 20,
     padding: 8,
     alignItems: "center",
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
   },
   logoutMenuItem: {
     borderBottomWidth: 0, // No border for logout
@@ -126,11 +127,11 @@ const styles = StyleSheet.create({
     flex: 1, // Allows text to take up available space
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   logoutText: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   menuItemArrow: {
     marginLeft: 10,

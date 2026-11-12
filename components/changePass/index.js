@@ -17,6 +17,7 @@ import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const ChangePass = () => {
   const { data } = useLocalSearchParams();
@@ -132,19 +133,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.white,
   },
   textinputContainer: {
     display: "flex",
@@ -157,13 +158,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   textInput: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     color: ColorsBarber.dark.textColor,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.white,
   },
   imageContainer: {
     display: "flex",
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
   },
   subtitle: {

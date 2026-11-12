@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { fonts } from "@/theme";
 
 export const SharedMessage = ({
   isOpen,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     marginBottom: 16,
     textAlign: "center",
     lineHeight: 36,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 22,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     textAlign: "center",
   },
 });

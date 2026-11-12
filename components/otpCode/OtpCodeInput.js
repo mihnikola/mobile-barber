@@ -2,6 +2,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import React, { useRef } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
+import { fonts } from "@/theme";
 
 const OtpInput = ({ code, setCode, maxLength = 6 }) => {
   const inputs = useRef([]);
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     borderColor: ColorsBarber.dark.textColor,
     backgroundColor: ColorsBarber.dark.item,
     color: ColorsBarber.dark.textColor,
-    fontFamily:"OldStandard-Bold",
+    fontFamily:fonts.bold,
     borderRadius: 10,
     width: 50,
     height: 60,

@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { colors, fonts } from "@/theme";
 
 function LocationNotFound({
   modalVisible,
@@ -65,9 +66,9 @@ const styles = StyleSheet.create({
   },
 
   modalTitle: {
-    color: "#FFFFFF",
+    color: colors.text,
     fontSize: 22,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     textAlign: "center",
     lineHeight: 36,
     marginBottom: 10,
@@ -85,9 +86,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   actionButtonText: {
-    color: "#FFFFFF",
+    color: colors.text,
     fontSize: 22,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     textAlign: "center",
   },
 });

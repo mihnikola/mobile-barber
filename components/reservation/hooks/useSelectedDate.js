@@ -27,7 +27,7 @@
 //     if (selectedDateString) {
 //       markedDates[selectedDateString] = {
 //         selected: true,
-//         selectedColor: "white",
+//         selectedColor: colors.text,
 //         customStyles: {
 //           container: {
 //             backgroundColor:ColorsBarber.dark.selectedDayBackgroundColor,
@@ -36,7 +36,7 @@
 //           },
 //           text: {
 //             color:  ColorsBarber.dark.textColorInput,
-//             fontFamily: "OldStandard-Bold",
+//             fontFamily: fonts.bold,
 //           },
 //         },
 //       };
@@ -104,6 +104,7 @@
 
 import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
+import { colors, fonts } from "@/theme";
 
 const useSelectedDate = (initialDate) => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
@@ -134,7 +135,7 @@ const useSelectedDate = (initialDate) => {
     if (selectedDateString) {
       markedDates[selectedDateString] = {
         selected: true,
-        selectedColor: "white",
+        selectedColor: colors.text,
         customStyles: {
           container: {
             backgroundColor: ColorsBarber.dark.selectedDayBackgroundColor,
@@ -143,7 +144,7 @@ const useSelectedDate = (initialDate) => {
           },
           text: {
             color: ColorsBarber.dark.textColorInput,
-            fontFamily: "OldStandard-Bold",
+            fontFamily: fonts.bold,
           },
         },
       };

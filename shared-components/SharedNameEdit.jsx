@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
 import { findNodeHandle, StyleSheet, Text, TextInput, View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const SharedNameEdit = forwardRef(({ scrollRef, ...props }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -35,8 +36,8 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }, ref) => {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 15 },
-  inputLabel: {color: ColorsBarber.dark.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:"OldStandard-Regular" },
-  errorText: { color: "red", marginTop: 5,  fontFamily:"OldStandard-Bold" },
+  inputLabel: {color: ColorsBarber.dark.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:fonts.regular },
+  errorText: { color: colors.danger, marginTop: 5,  fontFamily:fonts.bold },
   focusedBorder: { borderColor: ColorsBarber.dark.inActiveTextColor },
 });
 

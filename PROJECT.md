@@ -15,7 +15,7 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-13):** Phase 0 ✅ done + smoke-tested · next: Phase 0.5 (build optimization), then Phase 1.
+**Where we are (2026-11-13):** Phase 0 ✅ · Phase 0.5 ✅ (clean build 226 → 128 s) · Phase 1 ✅ (awaiting user visual check) · next: Phase 2 (component library).
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude` (Phase 0 = 6 commits, `657866c` → latest). Not pushed to `origin` yet.
 
 **What Phase 0 did, in one glance**
@@ -35,6 +35,8 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [x] B14 decided: dead root `index.js` deleted (D-018).
 - [x] Project moved to `C:\dev` (D-016; even shorter than the planned `C:\dev\mb`).
 - [x] Build from `C:\dev` (after B16 fix) and smoke test — done 2026-11-13.
+- [ ] Phase 1 visual check: app must look exactly as before (fonts, colors on login/register, settings, booking, appointments). JS-only change → `npx expo start` with the installed app is enough.
+- [ ] Optional: Windows Defender exclusions (§4.1 step 4).
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
 **Before Phase 1 → Phase 0.5 build optimization** (§4.1): Gradle memory/cache plugin, remove 4 unused native modules, Defender exclusions, measure before/after.
@@ -155,6 +157,8 @@ constants/               Colors + two cover image URLs
 | B14 | Root `index.js` (registers `messaging().setBackgroundMessageHandler`) is **not the entry point** — `package.json` `main` is `expo-router/entry`. Verified via source map: file is not in the bundle → background FCM handler never registered (handler only logs, so impact is small; data-only background messages are dropped) | `index.js`, `package.json` | ✅ Dead file deleted (D-018) |
 | B15 | **Local Android build fails on Windows**: `:react-native-worklets:buildCMakeDebug[x86_64]` → `ninja: error: mkdir(...): No such file or directory`. Cause: object-file path embeds the project path twice → 321 chars > 260 (MAX_PATH); `LongPathsEnabled=0` and bundled ninja (CMake 3.22.1) isn't long-path aware. At `C:\dev\mb` the same path is 227 chars | environment (project location) | ⏳ User: move project to short path (D-016) |
 | B16 | Stale `android/` (package `com.barberapp`, manifest referenced missing `ic_launcher_round`) → `processDebugResources` failed. Fixed by `npx expo prebuild --clean`. Then `buildCMakeDebug[arm64-v8a]` hit MAX_PATH **even at `C:\dev`**: `react-native-safe-area-context` codegen dir = 262 chars (> 248 dir limit). Moving to a shorter path cannot fix it. Fix: `LongPathsEnabled=1` + replace SDK `cmake\3.22.1\bin\ninja.exe` (1.10.2, not long-path aware) with ninja ≥ 1.12 | environment | ✅ Fixed by user (2026-11-13); README updated |
+| B17 | `components/Themed.tsx` imports a default export from `@/constants/Colors` that never existed → `Colors` is `undefined` → the 404 screen (`app/+not-found.tsx`) crashes when rendered | `components/Themed.tsx` | ⏳ Phase 2 (replace with `ui/AppText` / `ui/Screen`) |
+| B18 | First build after enabling Gradle build cache failed once: `:expo-manifests:compileDebugKotlin` "Failed to create MD5 hash … shrunk-classpath-snapshot.bin". Next build and a full clean build passed. Likely a one-off Kotlin incremental/cache race | Gradle | 👀 Watch; if it repeats, set `org.gradle.caching=false` in `plugins/withAndroidBuildSpeed.js` |
 | B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)
@@ -242,8 +246,8 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | Phase | Scope | Visual change? | Status |
 |---|---|---|---|
 | 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (smoke-tested 2026-11-13) |
-| 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | Planned (after smoke test) |
-| 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | Planned |
+| 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | ✅ Steps 1–3, 7 done (clean build 226 → 128 s). Open: Defender exclusions (user, optional), EAS cache |
+| 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | ✅ Done 2026-11-13 (awaiting user visual check) |
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | Planned |
@@ -265,8 +269,8 @@ All work is committed on the `claude` branch only (small commits per step). Merg
 | ESLint `rules-of-hooks` errors | 32 | 0 |
 | Android bundle export | OK (5.4 MB hbc) | OK |
 | `expo-doctor` | 1 check failed (12 packages behind SDK 58 patch versions — out of scope) | — |
-| Local Android debug build — clean | _to measure in 0.5_ | — |
-| Local Android debug build — incremental (no changes) | _to measure in 0.5_ | — |
+| Local Android debug build — clean (`prebuild --clean` + `assembleDebug` arm64) | 226 s (before 0.5) | **128 s** (−43%, 270 tasks from Gradle cache) |
+| Local Android debug build — no changes | 11 s | 11 s |
 
 ### 4.1 Build optimization plan (Phase 0.5, user request 2026-11-12)
 
@@ -313,6 +317,7 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 - **D-015 | 2026-11-12 | Accepted (user request)** | Add Phase 0.5 build optimization, done after the Phase 0 smoke test (changing deps/native config during the user's test build would invalidate it). Removing *unused* native modules is allowed despite D-008 (D-008 covers version upgrades, not removals). Gradle tuning goes through a config plugin because `android/` is generated. — Builds are slow; measured before/after.
 - **D-017 | 2026-11-12 | Accepted (user rule)** | `claude` is pushed only to `origin/claude`, never to `dev` or any other branch, and only when the user asks. The user merges/redirects manually. — User keeps control of integration.
 - **D-018 | 2026-11-12 | Accepted** | B14: delete the root `index.js` instead of wiring it as a custom entry. Its handler only logged, so behaviour is unchanged; changing `main` mid-smoke-test would add risk. If the backend ever sends data-only pushes that need background handling, add a custom entry (`index.js` with `setBackgroundMessageHandler` + `import "expo-router/entry"`, `main: "index.js"`). — Removes misleading dead code with zero runtime change.
+- **D-019 | 2026-11-13 | Accepted** | Phase 1 tokens copy current values 1:1 (one token per distinct value; near-duplicate greys/surfaces are merged only in Phase 5). `constants/Colors.ts` (`ColorsBarber`) stays as a deprecated alias layer built from `theme/colors.ts`; its ~450 usages are migrated to `colors.*` file by file in Phase 2 when each file is rewritten, not in a mass rename. Literal font sizes / spacing are replaced in Phase 2 together with `AppText` / layout primitives. — Visually neutral, small diff now, fewer merge conflicts with `dev`.
 - **D-016 | 2026-11-12 | Accepted — user chose option A (move to short path; project now lives at `C:\dev`)** | Develop from a short path on Windows (`C:\dev\mb` recommended) instead of `C:\Users\danilo\Documents\Lokalni projekti\mobile-barber`. Rejected alternatives: enabling `LongPathsEnabled` (bundled ninja still not long-path aware), installing newer CMake (RN libs pin 3.22.1), **`subst` drive — tested and fails**: (a) subst to the project folder itself → expo-modules-autolinking never checks the drive root for `package.json` ("Couldn't find package.json up from M:\android"); (b) subst to the parent folder → RN autolinking resolves real paths (37 of 39 entries in `autolinking.json` stayed `C:\…`), so codegen fails with "this and base files have different roots". Junctions fail for the same reason. Custom CMake `buildStagingDirectory` via config plugin would leave only ~15 chars margin and is fragile → rejected. — Moving (or a separate clone at a short path) is the only reliable fix for B15; no code change needed.
 
 ---
@@ -320,6 +325,8 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-13
+- **Phase 1 — design tokens.** New `theme/` (`colors`, `fonts`, `fontSize`, `spacing`, `radii`, `theme`). Codemod replaced **all** hardcoded colors (hex + named, incl. JSX props and Switch colors) and all `"OldStandard-*"` literals in 78 files (308 replacements) + `app/_layout.tsx` by hand. Font alias renamed to real names `BarlowCondensed-*`. `constants/Colors.ts` now derived from tokens; unused `ColorsBarber.light` and `ColorsHairSalon` removed (D-019). Remaining literals: 0. TS 195 (=), lint identical to before, bundle OK. Found B17 (404 screen crash, pre-existing).
+- **Phase 0.5 — build optimization.** `plugins/withAndroidBuildSpeed.js` (Gradle `-Xmx6g`, build cache), removed `expo-device`, `expo-location`, `expo-haptics`, `expo-web-browser`, `expo-doctor` → devDeps (`1069af5`). Clean build 226 → 128 s; no-change 11 s. One flaky first build (B18).
 - User applied B16 fix (LongPathsEnabled + ninja 1.12.1); local Android build OK; **Phase 0 smoke test done**. README long-path section rewritten (Git Bash commands). Note: `expo run:android` rewrote `tsconfig.json` (format + dropped `.expo/types` include) → left uncommitted, pending user decision; watch for this after builds.
 
 ### 2026-11-12

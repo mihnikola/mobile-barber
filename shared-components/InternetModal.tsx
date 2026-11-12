@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
@@ -19,7 +20,7 @@ export default function NoInternetModal({ visible }) {
           <MaterialIcons
             name="signal-wifi-off"
             size={80}
-            color="grey"
+            color={colors.textMuted}
             style={{ marginBottom: 20 }}
           />
           <Text style={styles.title}> {localization.INTERNET.title}</Text>
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor,
     marginBottom: 10,
     textAlign: "center",
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor: "#ff3b30",
+    backgroundColor: colors.dangerSoft,
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 8,
@@ -71,6 +72,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 });

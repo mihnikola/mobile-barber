@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { fonts } from "@/theme";
 
 // StarRating component props
 interface StarRatingProps {
@@ -71,7 +72,7 @@ const StarRating: React.FC<StarRatingProps> = ({
       <Text
         style={{
           fontSize: 18,
-          fontFamily: "OldStandard-Bold",
+          fontFamily: fonts.bold,
           color: ColorsBarber.dark.textColor,
         }}
       >

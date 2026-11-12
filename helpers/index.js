@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { dayNamesEng } from "@/helpers/locale-calendar-en";
 import { dayNamesRs } from "@/helpers/locale-calendar-rs";
+import { colors, fonts } from "@/theme";
 export function addMinutesToTime(inputTime, minutesToAdd, otherServiceDuration = 0) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
@@ -21,8 +22,8 @@ export function addMinutesToTime(inputTime, minutesToAdd, otherServiceDuration =
 }
 
 export const calendarTheme = {
-  textDayFontFamily: "OldStandard-Bold",
-  textSectionTitleFontFamily: "OldStandard-Bold",
+  textDayFontFamily: fonts.bold,
+  textSectionTitleFontFamily: fonts.bold,
   monthTextColor: ColorsBarber.dark.textColor,
   backgroundColor: ColorsBarber.dark.background,
   calendarBackground: ColorsBarber.dark.background,
@@ -31,8 +32,8 @@ export const calendarTheme = {
   selectedDayTextColor: ColorsBarber.dark.textColor,
   todayTextColor: ColorsBarber.dark.textColor,
   dayTextColor: ColorsBarber.dark.textColor,
-  textMonthFontFamily: "OldStandard-Bold",
-  textDisabledColor: "grey",
+  textMonthFontFamily: fonts.bold,
+  textDisabledColor: colors.textMuted,
 };
 export function convertToMonthName(dateString) {
   const parts = dateString.split(".");

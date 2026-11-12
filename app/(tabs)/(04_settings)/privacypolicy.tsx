@@ -4,6 +4,7 @@ import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const PrivacyPolicyScreen = () => {
   const developerName = "FusionTech Agency";
@@ -60,18 +61,18 @@ const styles = StyleSheet.create({
   srbCapture: {
     fontSize: 25,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 130,
   },
   engCapture: {
     fontSize: 35,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 140,
   },
   text: {
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     fontSize: 16,
     lineHeight: 24,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   paragraphTitle: {
     fontSize: 25,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     padding: 10,
   },
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     textAlign: "justify",
   },
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     textAlign: "center",
   },

@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
   const { _id, image, name, averageRating, userCount, seniority } = data;
@@ -119,14 +120,14 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 30,
     marginRight: 15,
-    borderColor: "#333",
+    borderColor: colors.divider,
   },
   profileImageOther: {
     width: 45,
     height: 45,
     borderRadius: 15,
     marginRight: 15,
-    borderColor: "#333",
+    borderColor: colors.divider,
   },
   detailsContainer: {
     flex: 1,
@@ -134,14 +135,14 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor, // White text color    marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
   },
   seniorityOther: {
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   locationContainer: {
     flexDirection: "row",
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor, // White text color
   },
   ratingContainer: {
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
 
   reviewText: {
     fontSize: 12,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     color: ColorsBarber.dark.textColor, // White text color
   },
 });

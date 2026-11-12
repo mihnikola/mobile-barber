@@ -3,6 +3,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const NotFoundLocations = () => {
   const { company } = useCompany();
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 22,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     alignContent: "center",
     alignSelf: "center",
   },

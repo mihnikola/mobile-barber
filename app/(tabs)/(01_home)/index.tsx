@@ -23,6 +23,7 @@ import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -221,18 +222,18 @@ const styles = StyleSheet.create({
   address: {
     fontSize: 15,
     color: ColorsBarber.dark.textColorDeactivated,
-    fontFamily: "OldStandard-Regular"
+    fontFamily: fonts.regular
   },
   titleLocation: {
     fontSize: 22,
     color: ColorsBarber.dark.textColor,
     textAlign: "center",
-    fontFamily: "OldStandard-Bold"
+    fontFamily: fonts.bold
 
   },
   btnContent: {
     width: 300,
-    backgroundColor: "#222224",
+    backgroundColor: colors.surfaceHome,
     justifyContent: "space-around",
     flexDirection: "row",
     padding: 15,

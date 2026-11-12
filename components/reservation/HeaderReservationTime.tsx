@@ -5,6 +5,7 @@ import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text,  View } from "react-native";
+import { fonts } from "@/theme";
 
 const HeaderReservationTime = ({ data }) => {
   const { localization } = useLocalization();
@@ -41,16 +42,16 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 20,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   dateData: {
     fontSize: 20,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   locationData: {
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 });
 

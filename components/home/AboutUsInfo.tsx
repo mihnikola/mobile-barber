@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { fonts } from "@/theme";
 
 const AboutUsInfo = ({ title, text, textThree, textTwo }) => {
   return (
@@ -20,14 +21,14 @@ const styles = StyleSheet.create({
   title: {
     color: ColorsBarber.dark.textColor,
     fontSize: 40,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     textAlign: "center",
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     textAlign: "center",
     padding: 10,
   },

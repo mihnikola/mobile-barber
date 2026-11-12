@@ -12,6 +12,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { fonts } from "@/theme";
 
 function AppointmentsNonToken() {
   const { localization } = useLocalization();
@@ -62,13 +63,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     padding: 0,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
    color: ColorsBarber.dark.textColor,
   },
   description: {
     fontSize: 16,
    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
     textAlign: "center",
   },

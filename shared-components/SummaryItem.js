@@ -2,6 +2,7 @@ import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   const { value } = data;
@@ -49,8 +50,8 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
-    borderColor: "#ffffff",
+    fontFamily: fonts.bold,
+    borderColor: colors.white,
   },
 });
 

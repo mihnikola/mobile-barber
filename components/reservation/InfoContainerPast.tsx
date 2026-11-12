@@ -3,6 +3,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { fonts } from "@/theme";
 
 const InfoContainerPast = ({ item }) => {
   const { localization } = useLocalization();
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   captureDateBoldPast: {
     fontSize: 18,
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     marginRight: 10,
   },
 
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
 
   rating: {
     color: ColorsBarber.dark.inActiveTextColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
 
   },
 
@@ -77,14 +78,14 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.inActiveTextColor,
     flex: 2,
     fontSize: 15,
-        fontFamily: "OldStandard-Regular",
+        fontFamily: fonts.regular,
 
   },
   captureDatePast: {
     fontSize: 18,
     color: ColorsBarber.dark.inActiveTextColor,
     textAlign: "center",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 
   infoContainer: {

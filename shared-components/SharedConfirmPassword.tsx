@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const SharedConfirmPassword = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -32,7 +33,7 @@ const SharedConfirmPassword = forwardRef((props: any, ref) => {
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
           ref={ref}
-          placeholderTextColor="grey"
+          placeholderTextColor={colors.textMuted}
         />
 
         <TouchableOpacity
@@ -42,7 +43,7 @@ const SharedConfirmPassword = forwardRef((props: any, ref) => {
           <FontAwesome
             name={isPasswordVisible ? "eye" : "eye-slash"}
             size={24}
-            color="grey"
+            color={colors.textMuted}
           />
         </TouchableOpacity>
       </View>
@@ -58,19 +59,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 8,
 
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: colors.white, // Dark input background
     color: ColorsBarber.dark.textColorInput,
-    fontFamily:"OldStandard-Regular",
+    fontFamily:fonts.regular,
 
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
-    borderColor: "white",
+    borderColor: colors.white,
     width: "80%",
   },
   inputLabel: {
@@ -78,16 +79,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 15,
     marginBottom: 5,
-    fontFamily:"OldStandard-Bold"
+    fontFamily:fonts.bold
 
   },
   errorText: {
-    color: "red",
-    fontFamily:"OldStandard-Regular"
+    color: colors.danger,
+    fontFamily:fonts.regular
   },
   textInputFocused: {
     borderColor: ColorsBarber.dark.textColor,
-    fontFamily:"OldStandard-Regular",
+    fontFamily:fonts.regular,
     borderWidth: 2,
 
 

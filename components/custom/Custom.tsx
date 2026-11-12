@@ -10,6 +10,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
+import { fonts } from "@/theme";
 
 const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
   const { localization } = useLocalization();
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   textButton: {
    color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
     position: "absolute",
   },
 });

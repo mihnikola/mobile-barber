@@ -13,6 +13,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { ColorsBarber } from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
+import { colors, fonts } from "@/theme";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   heroHeader: {
     width: "100%",
     justifyContent: "flex-end", // Gura tekst na dno slike
-    backgroundColor: "#1a1a1a", // Rezervna tamna pozadina dok se slika učitava
+    backgroundColor: colors.surfaceMenu, // Rezervna tamna pozadina dok se slika učitava
   },
   backgroundImage: {
     opacity: 0.2,
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 32,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 140,
   },
 
@@ -137,6 +138,6 @@ const styles = StyleSheet.create({
     marginhorizontal: 40,
     fontSize: 16,
     textAlign: "center",
-    color: "gray",
+    color: colors.textMuted,
   },
 });

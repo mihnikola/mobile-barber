@@ -9,6 +9,7 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors } from "@/theme";
 
 const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -76,6 +77,6 @@ const styles = StyleSheet.create({
     marginhorizontal: 40,
     fontSize: 16,
     textAlign: "center",
-    color: "gray",
+    color: colors.textMuted,
   },
 });

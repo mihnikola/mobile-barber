@@ -4,6 +4,7 @@ import { Text } from "react-native";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { colors, fonts } from "@/theme";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
   const totals = data?.reduce(
@@ -83,23 +84,23 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: "#333",
+    backgroundColor: colors.surfaceRaised,
   },
   dividerText: {
     color: ColorsBarber.dark.textColor,
     marginHorizontal: 10,
     fontSize: 15,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   text: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   textLabel: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
 });
 export default SummaryService;

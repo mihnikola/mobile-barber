@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { forwardRef, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { colors, fonts } from "@/theme";
 
 const SharedPhoneNumber = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -46,7 +47,7 @@ const SharedPhoneNumber = forwardRef((props: any, ref) => {
 const styles = StyleSheet.create({
   prefixText: {
     color: ColorsBarber.dark.textColorInput,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     fontSize: 16,
   },
   phoneNumberInputContainer: {
@@ -67,19 +68,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
     width: "70%",
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   inputLabel: {
     color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 8,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
 
     marginTop: 15,
   },
   errorText: {
-    color: "red",
-    fontFamily: "OldStandard-Regular",
+    color: colors.danger,
+    fontFamily: fonts.regular,
   },
   textInputFocused: {
     borderColor: ColorsBarber.dark.textColor,

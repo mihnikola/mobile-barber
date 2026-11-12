@@ -14,6 +14,7 @@ import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors, fonts } from "@/theme";
 
 const companyInfo = {
   name: "FusionTechAgency Ltd",
@@ -68,37 +69,37 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 25,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
     paddingVertical: 130,
   },
   sectionTitle: {
     fontSize: 20,
-    fontFamily: "OldStandard-Bold",
-    color: "#FFFFFF",
+    fontFamily: fonts.bold,
+    color: colors.text,
     marginBottom: 20,
   },
   infoRow: {
     justifyContent: "space-between",
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
     marginBottom: 20,
   },
 
   infoLabel: {
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   infoValue: {
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
   menuItem: {
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#333333",
+    borderBottomColor: colors.divider,
   },
   menuItemIcon: {
     marginRight: 15,
@@ -107,12 +108,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Bold",
+    fontFamily: fonts.bold,
   },
   menuItemSubText: {
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
+    fontFamily: fonts.regular,
   },
 });
 
