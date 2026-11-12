@@ -15,7 +15,7 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-12):** Phase 0 ✅ done · Phase 1 ⏸ not started (waiting for user smoke test).
+**Where we are (2026-11-13):** Phase 0 ✅ done + smoke-tested · next: Phase 0.5 (build optimization), then Phase 1.
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude` (Phase 0 = 6 commits, `657866c` → latest). Not pushed to `origin` yet.
 
 **What Phase 0 did, in one glance**
@@ -34,7 +34,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [x] Get `firebase/google-services.json` for local Android build (see §0.1).
 - [x] B14 decided: dead root `index.js` deleted (D-018).
 - [x] Project moved to `C:\dev` (D-016; even shorter than the planned `C:\dev\mb`).
-- [ ] Build from `C:\dev` (in progress) and run the smoke test.
+- [x] Build from `C:\dev` (after B16 fix) and smoke test — done 2026-11-13.
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
 **Before Phase 1 → Phase 0.5 build optimization** (§4.1): Gradle memory/cache plugin, remove 4 unused native modules, Defender exclusions, measure before/after.
@@ -154,6 +154,7 @@ constants/               Colors + two cover image URLs
 | B12 | Contexts created with `createContext(null)` → TS infers `null`, ~85 false TS errors | `context/*` | ✅ Interim `any`; real types Phase 4 |
 | B14 | Root `index.js` (registers `messaging().setBackgroundMessageHandler`) is **not the entry point** — `package.json` `main` is `expo-router/entry`. Verified via source map: file is not in the bundle → background FCM handler never registered (handler only logs, so impact is small; data-only background messages are dropped) | `index.js`, `package.json` | ✅ Dead file deleted (D-018) |
 | B15 | **Local Android build fails on Windows**: `:react-native-worklets:buildCMakeDebug[x86_64]` → `ninja: error: mkdir(...): No such file or directory`. Cause: object-file path embeds the project path twice → 321 chars > 260 (MAX_PATH); `LongPathsEnabled=0` and bundled ninja (CMake 3.22.1) isn't long-path aware. At `C:\dev\mb` the same path is 227 chars | environment (project location) | ⏳ User: move project to short path (D-016) |
+| B16 | Stale `android/` (package `com.barberapp`, manifest referenced missing `ic_launcher_round`) → `processDebugResources` failed. Fixed by `npx expo prebuild --clean`. Then `buildCMakeDebug[arm64-v8a]` hit MAX_PATH **even at `C:\dev`**: `react-native-safe-area-context` codegen dir = 262 chars (> 248 dir limit). Moving to a shorter path cannot fix it. Fix: `LongPathsEnabled=1` + replace SDK `cmake\3.22.1\bin\ninja.exe` (1.10.2, not long-path aware) with ninja ≥ 1.12 | environment | ✅ Fixed by user (2026-11-13); README updated |
 | B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)
@@ -240,7 +241,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 
 | Phase | Scope | Visual change? | Status |
 |---|---|---|---|
-| 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (awaiting user smoke test) |
+| 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (smoke-tested 2026-11-13) |
 | 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | Planned (after smoke test) |
 | 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | Planned |
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
@@ -317,6 +318,9 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ---
 
 ## 6. Change log
+
+### 2026-11-13
+- User applied B16 fix (LongPathsEnabled + ninja 1.12.1); local Android build OK; **Phase 0 smoke test done**. README long-path section rewritten (Git Bash commands). Note: `expo run:android` rewrote `tsconfig.json` (format + dropped `.expo/types` include) → left uncommitted, pending user decision; watch for this after builds.
 
 ### 2026-11-12
 - Project now at `C:\dev` (B15/D-016). Push policy D-017. B14 resolved by deleting dead root `index.js` (D-018) — not in bundle, no runtime change.

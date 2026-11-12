@@ -17,7 +17,7 @@ Expo / React Native app for booking barber appointments: locations → services 
 | JDK | 17 (`JAVA_HOME` set) |
 | Android SDK | platforms 35/36, NDK 27, `ANDROID_HOME` set, `platform-tools` on PATH |
 | Device | Android phone with **USB debugging** on (or an emulator) — check with `adb devices` |
-| **Project location (Windows)** | **Short path, e.g. `C:\dev\mb`.** Native C++ builds (react-native-worklets/reanimated) embed the project path twice; deep folders exceed Windows' 260-char limit and fail with `ninja: error: mkdir(...): No such file or directory` |
+| **Long paths (Windows)** | Native C++ builds embed the project path twice and exceed Windows' path limit (`ninja: error: mkdir(...): No such file or directory`) — even at `C:\dev`. One-time fix, Git Bash **as Administrator**, then restart:<br>`reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" //v LongPathsEnabled //t REG_DWORD //d 1 //f`<br>and replace `$ANDROID_HOME/cmake/3.22.1/bin/ninja.exe` (1.10.2) with ninja ≥ 1.12.1 from github.com/ninja-build/ninja/releases. Keep the project at a short path too (e.g. `C:\dev`) |
 | iOS | only via EAS cloud build on Windows (local iOS builds need macOS + Xcode) |
 
 ## 2. Secret files (not in git — ask the team)
@@ -102,7 +102,7 @@ npx eas-cli build -p android --profile development
 
 | Problem | Fix |
 |---|---|
-| `buildCMakeDebug ... FAILED` + `ninja: error: mkdir(CMakeFiles/...): No such file or directory` | Windows path too long. Move the project to a short path (`C:\dev\mb`), then: `cd android && gradlew --stop`, delete `android/` and all `node_modules/**/android/.cxx`, run `npx expo prebuild --clean` → `npx expo run:android`. ⚠️ `subst` drives and junctions do **not** work (RN autolinking resolves the real path → "different roots" errors) |
+| `buildCMakeDebug ... FAILED` + `ninja: error: mkdir(CMakeFiles/...): No such file or directory` | Windows path too long. Apply the long-path fix from §Requirements (LongPathsEnabled + ninja ≥ 1.12), keep the project at a short path, then: `cd android && gradlew --stop`, delete `android/` and all `node_modules/**/android/.cxx`, run `npx expo prebuild --clean` → `npx expo run:android`. ⚠️ `subst` drives and junctions do **not** work (RN autolinking resolves the real path → "different roots" errors) |
 | `File google-services.json is missing` | add `firebase/google-services.json` (section 2) |
 | `adb devices` shows nothing / `unauthorized` | reconnect USB, accept the "Allow USB debugging" prompt on the phone |
 | App opens but can't reach Metro | same Wi-Fi as the PC, or `adb reverse tcp:8081 tcp:8081` |
