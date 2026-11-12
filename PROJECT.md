@@ -15,7 +15,7 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-13):** Phase 0 ✅ · Phase 0.5 ✅ (clean build 226 → 128 s) · Phase 1 ✅ (awaiting user visual check) · next: Phase 2 (component library).
+**Where we are (2026-11-13):** Phase 0 ✅ · Phase 0.5 ✅ (clean build 226 → 128 s) · Phase 1 ✅ (visually verified) · next: Phase 2 (component library).
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude` (Phase 0 = 6 commits, `657866c` → latest). Not pushed to `origin` yet.
 
 **What Phase 0 did, in one glance**
@@ -35,7 +35,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [x] B14 decided: dead root `index.js` deleted (D-018).
 - [x] Project moved to `C:\dev` (D-016; even shorter than the planned `C:\dev\mb`).
 - [x] Build from `C:\dev` (after B16 fix) and smoke test — done 2026-11-13.
-- [ ] Phase 1 visual check: app must look exactly as before (fonts, colors on login/register, settings, booking, appointments). JS-only change → `npx expo start` with the installed app is enough.
+- [x] Phase 1 visual check — user confirmed everything looks as before (2026-11-13).
 - [ ] Optional: Windows Defender exclusions (§4.1 step 4).
 
 **Next step:** Phase 1 — `theme/` tokens (colors, typography, spacing, radii), replace 88 hardcoded colors + 186 font-name literals, rename `OldStandard-*` alias → real font name. No visual change.
@@ -248,7 +248,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 |---|---|---|---|
 | 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (smoke-tested 2026-11-13) |
 | 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | ✅ Steps 1–3, 7 done (clean build 226 → 128 s). Open: Defender exclusions (user, optional), EAS cache |
-| 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | ✅ Done 2026-11-13 (awaiting user visual check) |
+| 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | ✅ Done 2026-11-13 (visually verified by user) |
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | Planned |
