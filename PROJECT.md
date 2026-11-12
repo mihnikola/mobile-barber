@@ -71,15 +71,21 @@ constants/               Colors + two cover image URLs
 - `apiService.js`: every method is `try { … } catch (e) { throw e }` (no-op); response interceptor returns `undefined` (instead of rejecting) when error has no `data.message` — network errors silently resolve.
 
 ### 2.4 Bugs / risks found during analysis
-| # | Issue | Location |
-|---|---|---|
-| B1 | `convertDate` and `convertDateDetails` call `useLocalization()` (a hook) inside plain functions → Rules of Hooks violation, fragile | `helpers/index.js` |
-| B2 | Response interceptor swallows errors without `response.data.message` (timeouts, network) | `api/apiService.js` |
-| B3 | `useCallback(..., [])` captures stale `localization` → validation messages don't change after language switch | `components/*/hooks/useEmail.js` |
-| B4 | `SharedInput` reads `props.value.length` → crash if `value` is undefined | `shared-components/SharedInput.tsx` |
-| B5 | Google client IDs hardcoded in source | `context/AuthContext.jsx` |
-| B6 | `tsconfig.json` `include` lists files that no longer exist | `tsconfig.json` |
-| B7 | `i18next` / `react-i18next` installed but unused | `package.json` |
+| # | Issue | Location | Status |
+|---|---|---|---|
+| B1 | `convertDate` and `convertDateDetails` call `useLocalization()` (a hook) inside plain functions → Rules of Hooks violation. Worse: `HeaderReservationTime` called it after an early `return null` → "rendered more hooks" crash when `data` goes null → loaded | `helpers/index.js` | ✅ Fixed (pure functions, `code` param) |
+| B2 | Response interceptor resolved `undefined` for errors without `response.data.message` (timeouts, network) → callers got a misleading TypeError | `api/apiService.js` | ✅ Fixed (always reject) |
+| B3 | `useCallback(..., [])` captures stale `localization` → validation messages don't change after language switch | `components/*/hooks/useEmail.js` | ⏳ Phase 3 (hooks get unified) |
+| B4 | `SharedInput` reads `props.value.length` → crash if `value` is undefined | `shared-components/SharedInput.tsx` | ✅ Fixed |
+| B5 | Google client IDs hardcoded in source | `context/AuthContext.jsx` | ⏳ Phase 3 (see D-011) |
+| B6 | `tsconfig.json` `include` lists files that no longer exist | `tsconfig.json` | ✅ Fixed |
+| B7 | `i18next` / `react-i18next` installed but unused | `package.json` | ✅ Removed |
+| B8 | `statusCodes` used but never imported → Google sign-in error path threw ReferenceError (unhandled rejection) | `context/AuthContext.jsx` | ✅ Fixed |
+| B9 | `scrollRef` used but never declared (copy-paste from login; latent because the ref it guards was never attached) | `components/changePass/index.js` | ✅ Removed dead block |
+| B10 | Duplicate object keys (later silently wins): `styles.capture`, `styles.mainTitle`, `calendarTheme` font keys, `SRB.PLACES.title` | employers, forgotPass, helpers, srb-locale | ✅ Removed overridden copies (no visual change) |
+| B11 | Lowercase component names (`userprofile`, `changePass`, `otpCode`, …) hide hook misuse from tooling | settings screens, changePass, otpCode | ✅ Renamed to PascalCase |
+| B12 | Contexts created with `createContext(null)` → TS infers `null`, ~85 false TS errors | `context/*` | ✅ Interim `any`; real types Phase 4 |
+| B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)
 Not imported anywhere:
@@ -91,9 +97,9 @@ Not imported anywhere:
 ### 2.6 Hygiene
 - 72 `console.log/error/warn` calls left in code.
 - 26 `any` usages in props; most shared components untyped.
-- No ESLint / Prettier config.
+- ~~No ESLint / Prettier config.~~ ✅ Added in Phase 0 (`npm run lint`, `npm run typecheck`, `npm run format <files>`).
 - Comments mix Serbian and English.
-- `node_modules` not installed locally yet → no compile baseline captured.
+- Mixed line endings in the repo: 70 files stored CRLF, 138 LF (`core.autocrlf=true`). See D-009.
 
 ---
 
@@ -128,7 +134,7 @@ Principle: **phases 1–4 are visually neutral** (same look, new structure). The
 
 | Phase | Scope | Visual change? | Status |
 |---|---|---|---|
-| 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | Planned |
+| 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (awaiting user smoke test) |
 | 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | Planned |
 | 2 | UI primitives in `components/ui/`; consolidate button/input/loader/card variants; migrate usages | No | Planned |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
@@ -138,13 +144,17 @@ Principle: **phases 1–4 are visually neutral** (same look, new structure). The
 All work is committed on the `claude` branch only (small commits per step). Merging into `dev` is done by the user via PR.
 
 ### Verification after every step
-1. `npx tsc --noEmit` — error count must not grow (baseline below).
-2. `npx expo export --platform android --output-dir <tmp>` — JS bundle must build (catches broken imports).
-3. Manual smoke test in the app by the user at the end of each phase.
+1. `npm run typecheck` — error count must not grow (baseline below).
+2. `npm run lint` — error count must not grow; `react-hooks/rules-of-hooks` must stay at 0.
+3. `npx expo export --platform android --output-dir <tmp>` — JS bundle must build (catches broken imports).
+4. `git diff --stat` — only intended lines change (line-ending check, see D-009).
+5. Manual smoke test in the app by the user at the end of each phase.
 
 | Metric | Baseline (b4f71be) | Current |
 |---|---|---|
-| TS errors (`tsc --noEmit`) | 305 | 277 |
+| TS errors (`tsc --noEmit`) | 305 | 195 |
+| ESLint errors / warnings | 65 / 231 (first run, after Phase 0.2) | 26 / 230 |
+| ESLint `rules-of-hooks` errors | 32 | 0 |
 | Android bundle export | OK (5.4 MB hbc) | OK |
 | `expo-doctor` | 1 check failed (12 packages behind SDK 58 patch versions — out of scope) | — |
 
@@ -162,12 +172,21 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 - **D-006 | 2026-11-12 | Accepted** | Keep `TouchableOpacity` press-lock behaviour and `withSafeArea`, absorbed into `ui/Pressable` and `ui/Screen`. — Proven pieces already used widely.
 - **D-007 | 2026-11-12 | Accepted** | All refactor work happens on the `claude` branch only; nothing is changed on `dev` or other branches. `claude` was fast-forwarded to `origin/dev` (`b4f71be`) before starting. — User rule; fast-forward keeps us on the team's latest code without touching other branches.
 - **D-008 | 2026-11-12 | Accepted** | Dependency version upgrades (expo-doctor warnings, npm audit) are out of scope for this refactor. — Avoids mixing behavioural risk with structural changes.
+- **D-009 | 2026-11-12 | Accepted** | Preserve each file's existing line endings; do not normalize the repo (no `.gitattributes` change). Edits use tools that keep CRLF (`sed -b`, editor). — Normalizing would rewrite 70 files and cause merge conflicts with teammates on `dev`.
+- **D-010 | 2026-11-12 | Accepted** | Prettier is configured but the codebase is not mass-formatted. Format only files that are being rewritten anyway (e.g. new `theme/`, `components/ui/`). — A repo-wide format would conflict with every open branch.
+- **D-011 | 2026-11-12 | Accepted** | Google OAuth client IDs are public identifiers (shipped inside every app binary), not secrets. Move them into a config constant in Phase 3 rather than env vars. — Avoids breaking sign-in via missing env in EAS builds.
+- **D-012 | 2026-11-12 | Accepted** | Pin ESLint to v9 with `eslint-config-expo` flat config. — ESLint 10 crashes `eslint-plugin-react` used by Expo's config.
+- **D-013 | 2026-11-12 | Accepted** | Fixing duplicate keys keeps the *effective* (last) value. — JS already used the last value; keeps the look identical (D-002). Note: in `employers/index.js` the removed first `capture` style (28px bold white) looks like it was meant for a cover title — revisit in Phase 5.
 
 ---
 
 ## 6. Change log
 
 ### 2026-11-12
+- **Phase 0 complete** (pending user smoke test). Commits on `claude`: `657866c` docs, `f7e0540` dead code, `950edac` tsconfig/i18next, `cc0bc63` ESLint+Prettier, `2d587fe` bug fixes.
+- **Phase 0.4 — bug fixes** B1, B2, B4, B8–B12 (see §2.4). TS errors 277 → 195; lint errors 65 → 26; rules-of-hooks 32 → 0. Bundle OK.
+  - Behaviour notes for smoke test: API interceptor now shows the global UNAUTHORIZED/ACCOUNT_DELETED message based on `code` alone (previously also required `message`); network/timeout errors now reach callers as real AxiosErrors.
+- **Phase 0.3 — tooling.** ESLint 9 + `eslint-config-expo` (rules-of-hooks = error, no-console = warn), Prettier config, scripts `lint`, `typecheck`, `format`, `format:check`. tsconfig `include` reset to Expo default; `i18next`/`react-i18next` removed.
 - **Phase 0.2 — dead code removed.** 43 unused source files + 4 unused fonts deleted (see §2.5). TS errors 305 → 277, bundle OK. Note: `npm test` now has no tests (the only test covered a dead template component); real tests come with pure utils in Phase 3.
 - Phase 0 started. Decisions D-001…D-006 accepted by user; D-007, D-008 added.
 - `claude` fast-forwarded to `origin/dev` (`b4f71be`, NotificationService cleanup by team).
