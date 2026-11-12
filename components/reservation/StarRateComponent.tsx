@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 // For Font Awesome icons, ensure you have @expo/vector-icons installed:
 // npm install @expo/vector-icons
 // or yarn add @expo/vector-icons
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 // StarRating component props
 interface StarRatingProps {

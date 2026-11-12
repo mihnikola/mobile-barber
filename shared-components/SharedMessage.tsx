@@ -3,10 +3,10 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   Modal,
   ActivityIndicator,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export const SharedMessage = ({
   isOpen,

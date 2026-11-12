@@ -1,11 +1,10 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
-  TouchableOpacity,
 } from "react-native";
 
 export default function AppointmentsStatuses({ active, handleStatus }) {

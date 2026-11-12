@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AboutUsInfo from "@/components/home/AboutUsInfo";
 import ListAboutUs from "@/components/home/ListAboutUs";
@@ -13,6 +13,7 @@ import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const AboutUsScreen = () => {
   const { company } = useCompany();

@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedItem = (props: any) => {
   const { redirectHandler, data } = props;

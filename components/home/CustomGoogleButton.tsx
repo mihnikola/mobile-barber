@@ -1,8 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import React from "react";
 import {
-  TouchableOpacity,
   Text,
   Image,
   StyleSheet,

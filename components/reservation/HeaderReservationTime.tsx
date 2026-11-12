@@ -1,8 +1,9 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { convertDateDetails } from "@/helpers";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text,  View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
   if (!data) return null;

@@ -9,7 +9,6 @@ import {
   StatusBar,
   TextInput,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
@@ -22,6 +21,7 @@ import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const languageSupport = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();

@@ -1,11 +1,8 @@
 import { coverImageAppointments } from "@/constants";
 import { ColorsBarber } from "@/constants/Colors";
-import { useCompany } from "@/context/CompanyContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTabHeader from "@/shared-components/SharedTabHeader";
-import SharedTitle from "@/shared-components/SharedTitle";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React from "react";
@@ -13,12 +10,10 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 
 function AppointmentsNonToken() {
-  const { company } = useCompany();
   const { localization } = useLocalization();
   const routeHandler = () => {
     router.push({
@@ -30,8 +25,6 @@ function AppointmentsNonToken() {
   };
   return (
     <ScrollView style={styles.container}>
-      {/* <SharedCoverImage image={coverImageAppointments} /> */}
-      {/* <SharedTitle title={localization.APPOINTMENTS.title} /> */}
       <HeaderCoverImageContainer
         title={localization.APPOINTMENTS.title}
         image={coverImageAppointments}

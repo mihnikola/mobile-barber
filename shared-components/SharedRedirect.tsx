@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text,  StyleSheet } from "react-native";
 import React from "react";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedRedirect = (props: any) => {
   return (

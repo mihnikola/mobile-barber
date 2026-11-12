@@ -1,9 +1,10 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (

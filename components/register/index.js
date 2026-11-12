@@ -3,10 +3,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  StatusBar,
-  Platform,
   findNodeHandle,
-  TouchableOpacity,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import useEmail from "./hooks/useEmail";
@@ -26,9 +23,8 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");

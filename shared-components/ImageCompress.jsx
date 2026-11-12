@@ -1,10 +1,11 @@
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View,  Image } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
