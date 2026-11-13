@@ -199,7 +199,7 @@ function useAppointmentState() {
       return;
     }
     let total;
-
+    let serviceIds;
     if (otherServices?.length > 0) {
       total = otherServices?.reduce(
         (acc: ApiRecord, current: ApiRecord) => {
@@ -209,9 +209,11 @@ function useAppointmentState() {
         },
         { totalPrice: 0, totalDuration: 0 },
       );
+     serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
     }
 
-    const serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
+
+    
 
     try {
       const response = await availabilitiesApi.create({
