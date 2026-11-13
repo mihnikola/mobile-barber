@@ -1,14 +1,17 @@
-import { View,  Image } from "react-native";
-import usePickImage from "@/components/infoapp/hooks/usePickImage";
+import { ActivityIndicator, Image, View } from "react-native";
 import { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
+import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { Icon, Pressable } from "@/components/ui";
-import { makeStyles } from "@/theme";
+import { makeStyles, useTheme } from "@/theme";
 
+/**
+ * Profile photo picker (Phase 5.6 fix): 96px DS avatar (radius 12) with a small camera badge,
+ * left-aligned. Tapping the photo or the badge opens the picker (same handler as before).
+ */
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const styles = useStyles();
+  const { colors } = useTheme();
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
-
   useEffect(() => {
     if (selectedImageUri) {
       handlePickImage(selectedImageUri);
@@ -16,65 +19,42 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
   }, [selectedImageUri]);
 
   return (
-    <View style={styles.container}>
-      {uploading && <ActivityIndicator size={32} />}
-
-      {!selectedImageUri && (
-        <View>
-          <Icon name="personCircle" size={280} color="ink" />
-          <Pressable
-            style={styles.buttonPlaceholder}
-            onPress={pickImage}
-            disabled={uploading}
-          >
-            <Icon name="photo" size={45} color="ink" />
-          </Pressable>
+    <Pressable onPress={pickImage} disabled={uploading} style={styles.container}>
+      {selectedImageUri ? (
+        <Image source={{ uri: selectedImageUri }} style={styles.image} />
+      ) : (
+        <View style={[styles.image, styles.placeholder]}>
+          <Icon name="person" size={40} color="inkMuted" />
         </View>
       )}
-      {selectedImageUri && (
-        <View style={styles.defaultImgAvatar}>
-          <Image source={{ uri: selectedImageUri }} style={styles.image} />
+      {uploading && (
+        <View style={[styles.image, styles.uploading]}>
+          <ActivityIndicator color={colors.onPrimary} />
         </View>
       )}
-      {selectedImageUri && (
-        <Pressable
-          style={styles.button}
-          onPress={pickImage}
-          disabled={uploading}
-        >
-          <Icon name="photo" size={45} color="ink" />
-        </Pressable>
-      )}
-    </View>
+      <View style={styles.badge}>
+        <Icon name="camera" size={16} rawColor={colors.onPrimary} />
+      </View>
+    </Pressable>
   );
 }
 
 const useStyles = makeStyles((colors) => ({
-  defaultImgAvatar: {
-    width: 200,
-    height: 200,
-    backgroundColor: colors.bg,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
+  container: { width: 96, height: 96 },
+  image: { width: 96, height: 96, borderRadius: 12, resizeMode: "cover" },
+  placeholder: { backgroundColor: colors.surfaceSunken, alignItems: "center", justifyContent: "center" },
+  uploading: { position: "absolute", backgroundColor: colors.scrim, alignItems: "center", justifyContent: "center" },
+  badge: {
+    position: "absolute",
+    right: -6,
+    bottom: -6,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: colors.primary,
+    borderWidth: 2,
+    borderColor: colors.bg,
     alignItems: "center",
-    padding: 10,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    resizeMode: "cover", // Ensures image fits within the bounds without distortion
-  },
-  button: {
-    position: "absolute",
-    right: 0,
-    bottom: 10,
-  },
-  buttonPlaceholder: {
-    position: "absolute",
-    right: 20,
-    bottom: 30,
+    justifyContent: "center",
   },
 }));

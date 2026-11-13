@@ -22,9 +22,15 @@ type ScreenProps = {
  * (D-002); they can be unified when the new design lands (Phase 5).
  */
 export function Screen({ mode = "safe", children }: ScreenProps) {
-  if (mode === "keyboard") return <KeyboardScreen>{children}</KeyboardScreen>;
-  if (mode === "form") return <FormScreen>{children}</FormScreen>;
-  return <SafeScreen>{children}</SafeScreen>;
+  const content =
+    mode === "keyboard" ? (
+      <KeyboardScreen>{children}</KeyboardScreen>
+    ) : mode === "form" ? (
+      <FormScreen>{children}</FormScreen>
+    ) : (
+      children
+    );
+  return <SafeScreen>{content}</SafeScreen>;
 }
 
 /** HOC form of `<Screen>` for route files: `export default withScreen(MyScreen, "keyboard")`. */
@@ -40,11 +46,15 @@ export function withScreen<P>(Component: ComponentType<P>, mode: ScreenMode = "s
   return WithScreen;
 }
 
+/**
+ * Top safe-area inset for every mode and platform (RN 0.88 Android is edge-to-edge: without it
+ * headers sit under the status bar), screen background behind the status bar, status bar icons per theme.
+ */
 function SafeScreen({ children }: { children: ReactNode }) {
   const insets = useSafeAreaInsets();
-  const { scheme } = useTheme();
+  const { scheme, colors } = useTheme();
   return (
-    <View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top : undefined }}>
+    <View style={{ flex: 1, paddingTop: insets.top, backgroundColor: colors.bg }}>
       {/* RN 0.88 is edge-to-edge: the old backgroundColor/translucent props no longer exist */}
       <StatusBar barStyle={scheme === "dark" ? "light-content" : "dark-content"} />
       {children}
@@ -106,7 +116,6 @@ const useStyles = makeStyles((colors) => ({
     flex: 1,
     paddingHorizontal: 16,
     backgroundColor: colors.bg,
-    paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   formContent: {
     flexGrow: 1,

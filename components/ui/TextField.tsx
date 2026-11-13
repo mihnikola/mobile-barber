@@ -210,6 +210,7 @@ const useDefaults = makeStyles((colors) => ({
   containerFocused: { borderWidth: 2, borderColor: colors.focus, margin: -0.5 },
   input: {
     flex: 1,
+    backgroundColor: "transparent",
     color: colors.ink,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -234,7 +235,7 @@ const useArea = makeStyles((colors) => ({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-  input: { fontSize: 16, lineHeight: 22, color: colors.ink, fontFamily: fonts.sans, minHeight: 96, padding: 0 },
+  input: { backgroundColor: "transparent", fontSize: 16, lineHeight: 22, color: colors.ink, fontFamily: fonts.sans, minHeight: 96, padding: 0 },
   cardContainer: { marginVertical: 8, marginHorizontal: 16 },
   cardInput: {},
   plainContainer: { marginTop: 12 },

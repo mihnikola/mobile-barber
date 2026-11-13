@@ -33,6 +33,7 @@ const REGISTRY = {
   person: ["Feather", "user"],
   personCircle: ["Feather", "user"],
   photo: ["Feather", "image"],
+  camera: ["Feather", "camera"],
   eye: ["Feather", "eye"],
   eyeOff: ["Feather", "eye-off"],
   email: ["Feather", "mail"],

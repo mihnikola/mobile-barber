@@ -1,6 +1,7 @@
 import Reservation from "@/components/reservation/index";
 
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
+import { withScreen } from "@/components/ui";
 
 
 const ReservationScreen = () => {
@@ -9,4 +10,4 @@ const ReservationScreen = () => {
   return <Reservation />;
 };
 
-export default ReservationScreen;
+export default withScreen(ReservationScreen);

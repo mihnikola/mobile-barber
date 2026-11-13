@@ -1,7 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { fonts, makeStyles, useTheme } from "@/theme";
 import { Icon, type IconName } from "@/components/ui";
 
@@ -32,6 +32,10 @@ export default function TabLayout() {
           tabBarStyle: styles.bar,
           tabBarItemStyle: styles.item,
           tabBarLabelStyle: styles.label,
+          // plain Pressable: no Android ripple / press dimming (design has only the active pill)
+          tabBarButton: ({ ref: _ref, android_ripple: _r, pressColor: _p, pressOpacity: _o, hoverEffect: _h, href: _href, ...rest }) => (
+            <Pressable {...rest} />
+          ),
         }}
       >
         <Tabs.Screen

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { StyleSheet, useColorScheme } from "react-native";
+import { Appearance, StyleSheet, useColorScheme } from "react-native";
 
 import { type ColorScheme, type Palette, palettes } from "./colors";
 
@@ -40,6 +40,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       })
       .catch(() => {});
   }, []);
+
+  // Native views (text inputs, keyboard, pickers, Android window) follow the app's choice,
+  // not only the phone's setting: a dark phone + "Light" in the app used to give dark native fields.
+  useEffect(() => {
+    Appearance.setColorScheme(mode === "system" ? "auto" : mode);
+  }, [mode]);
 
   const setMode = useCallback((next: ThemeMode) => {
     setModeState(next);

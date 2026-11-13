@@ -67,7 +67,7 @@ function HeaderCoverImageContainer({
 }
 
 const useStyles = makeStyles((colors) => ({
-  header: { backgroundColor: colors.bg, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
+  header: { backgroundColor: colors.bg, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8 },
   back: { alignSelf: "flex-start", marginBottom: 12 },
   title: { fontSize: 30, lineHeight: 33 },
   status: { gap: 16 },

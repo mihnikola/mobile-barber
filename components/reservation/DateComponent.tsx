@@ -1,9 +1,6 @@
 import type { ApiRecord } from "@/context/types";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  ScrollView,
-} from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
 import { useReservation } from "@/context/ReservationContext";
 import NotSummary from "@/components/booking/NotSummary"; // Adjust the path if needed
@@ -27,6 +24,7 @@ import { routes } from "@/lib/navigation/routes";
 const DateComponent = () => {
   const styles = useStyles();
   const { colors } = useTheme();
+  const { width: windowWidth } = useWindowDimensions();
 
   const [check, setCheck] = useState(false);
 
@@ -120,6 +118,7 @@ const DateComponent = () => {
             markedDates={markedDates}
             horizontal
             pagingEnabled
+            calendarWidth={windowWidth - 32}
             onDayPress={(months) => {
               handleDayPress(months);
               setSelectedItem(null);

@@ -1,13 +1,4 @@
-import {
-  View,
-  TextInput,
-  StatusBar,
-  ScrollView,
-  findNodeHandle,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-} from "react-native";
+import { View, TextInput, ScrollView, findNodeHandle } from "react-native";
 import ImageCompress from "@/components/settings/ImageCompress";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
@@ -16,13 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import { router } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedBackButton from "@/components/layout/SharedBackButton";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, BackButton, Button, Icon, MessageDialog, PhoneField, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
-  const { colors } = useTheme();
   const styles = useStyles();
   const { isLoading, userData, fetchUserData } = useAuth();
   const { localization } = useLocalization();
@@ -42,7 +30,6 @@ const UserProfileScreen = () => {
     setIsMessage,
     setErrorChange,
   } = useUserChange();
-  const insets = useSafeAreaInsets();
 
   const [isValidated, setIsValidated] = useState(false);
   const {
@@ -119,26 +106,23 @@ const UserProfileScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: colors.bg }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={insets.top}
-    >
-      <ScrollView
+    // keyboard handling comes from withScreen(..., "keyboard"); top inset from Screen
+    <ScrollView
         ref={scrollRef}
+        style={styles.screen}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          paddingTop: insets.top > 20 ? insets.top - 10 : insets.top,
-          paddingBottom: 50,
-        }}
+        contentContainerStyle={styles.scrollContent}
       >
         <BackButton style={styles.back} />
-        <View style={styles.imageContainer}>
-          <View style={styles.imageContainerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={userData?.image}
-            />
+        <View style={styles.profileRow}>
+          <ImageCompress handlePickImage={selectedImgHandler} imageValue={userData?.image} />
+          <View style={styles.profileText}>
+            <AppText style={styles.profileName} numberOfLines={2}>
+              {userData?.name}
+            </AppText>
+            <AppText variant="bodySm" color="inkMuted" numberOfLines={1}>
+              {userData?.email}
+            </AppText>
           </View>
         </View>
         <View style={styles.userDataContainer}>
@@ -224,15 +208,18 @@ const UserProfileScreen = () => {
             buttonText="Ok"
           />
         )}
-      </ScrollView>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 const useStyles = makeStyles((colors) => ({
-  back: { alignSelf: "flex-start", marginLeft: 16, marginTop: 16 },
-  imageContainer: { alignItems: "center", marginTop: 8 },
-  imageContainerImage: { alignItems: "center" },
+  screen: { flex: 1, backgroundColor: colors.bg },
+  scrollContent: { paddingBottom: 32 },
+  back: { marginLeft: 16, marginTop: 8 },
+  // ds-profile: photo left, name + e-mail next to it
+  profileRow: { flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 16, marginTop: 16 },
+  profileText: { flex: 1 },
+  profileName: { fontFamily: fonts.displaySemiBold, fontSize: 24, lineHeight: 28, textTransform: "uppercase", color: colors.ink },
   userDataContainer: { paddingHorizontal: 16, paddingTop: 8 },
   label: { marginTop: 16, marginBottom: 6 },
   // read-only field: sunken, muted text, no focus

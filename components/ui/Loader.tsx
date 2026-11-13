@@ -1,8 +1,7 @@
-import { ActivityIndicator, useWindowDimensions, View } from "react-native";
+import { ActivityIndicator, Modal, useWindowDimensions, View } from "react-native";
 
 import { makeStyles, useTheme } from "@/theme";
 
-import { Dialog } from "./Dialog";
 
 type LoaderProps =
   /** Fills the area, at least half the screen high (lists / screens loading). */
@@ -20,9 +19,13 @@ export function Loader(props: LoaderProps) {
 
   if (props.variant === "overlay") {
     return (
-      <Dialog visible={props.visible} onRequestClose={props.onRequestClose} panelStyle={styles.overlayPanel}>
-        <ActivityIndicator size={32} color={colors.ink} />
-      </Dialog>
+      <Modal animationType="fade" transparent visible={props.visible ?? true} onRequestClose={props.onRequestClose}>
+        <View style={styles.overlay}>
+          <View style={styles.overlayPanel}>
+            <ActivityIndicator size={32} color={colors.ink} />
+          </View>
+        </View>
+      </Modal>
     );
   }
 
@@ -48,5 +51,13 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     backgroundColor: colors.bg,
   },
-  overlayPanel: { alignSelf: "center", paddingHorizontal: 32 },
+  overlay: { flex: 1, backgroundColor: colors.scrim, alignItems: "center", justifyContent: "center" },
+  overlayPanel: {
+    width: 88,
+    height: 88,
+    borderRadius: 16,
+    backgroundColor: colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));
