@@ -20,8 +20,8 @@ import { useCompany } from "@/context/CompanyContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, layout, Loader } from "@/components/ui";
+import { makeStyles, useTheme } from "@/theme";
+import { Button, EmptyState, layout, Loader } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const DateComponent = () => {
@@ -144,13 +144,7 @@ const DateComponent = () => {
               )}
             </>
           )}
-          {isSunday && (
-            <View style={styles.notWorkingDays}>
-              <AppText variant="bodyLg" style={styles.notWorkingDaysContent}>
-                {localization.DATE.holidaySunday}
-              </AppText>
-            </View>
-          )}
+          {isSunday && <EmptyState icon="calendar" title={localization.DATE.holidaySunday} />}
         </View>
         {selectedItem && (
           <View style={styles.buttonContainer}>
@@ -166,39 +160,10 @@ const DateComponent = () => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  notWorkingDays: {
-    display: "flex",
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  notWorkingDaysContent: {
-    padding: 20,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-    fontFamily: fonts.sans,
-  },
-  calendarContainer: {
-    marginTop: 10,
-    backgroundColor: colors.bg,
-    fontFamily: fonts.sans,
-
-
-  },
-
-  calendar: {
-    backgroundColor: "transparent",
-    color: colors.warning,
-    width: "100%",
-    fontFamily: fonts.sans,
-  },
-
-  buttonContainer: {
-    marginVertical: 10,
-    marginHorizontal: 10,
-  },
-}));
+  container: { flex: 1, backgroundColor: colors.bg },
+  calendarContainer: { marginTop: 8, marginHorizontal: 16, backgroundColor: colors.surface, borderRadius: 16, overflow: "hidden" },
+  calendar: { backgroundColor: "transparent", width: "100%" },
+  buttonContainer: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 24 },
+}))
 
 export default DateComponent;

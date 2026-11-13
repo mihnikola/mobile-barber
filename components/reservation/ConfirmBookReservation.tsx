@@ -7,7 +7,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
-import { fonts, makeStyles } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Button, layout } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
@@ -37,24 +37,19 @@ const ConfirmBookReservation = () => {
           reservation={reservation}
         />
         <View style={styles.infoContainer}>
-          <AppText
-            style={[
-              styles.message,
-              params?.status === "0" && styles.messageApproved,
-            ]}
-          >
+          <AppText variant={params?.status === "0" ? "displayMd" : "title"} style={styles.center}>
             {params?.status === "0"
               ? localization.SALON.success
               : localization.SALON.pendingTitle}
           </AppText>
           {params?.status !== "0" && (
-            <AppText variant="bodySm" style={styles.pendingSubTitle}>
+            <AppText variant="bodySm" color="inkMuted" style={styles.center}>
               {localization.SALON.pendingSubTitle}
             </AppText>
           )}
           <Note />
         </View>
-        <View style={{ marginHorizontal: 30, marginVertical: 50 }}>
+        <View style={styles.actions}>
           <Button style={layout.buttonBlock}
             onPress={confirmSubmitReservation}
             title={localization.BUTTONS.ok}
@@ -68,29 +63,8 @@ const ConfirmBookReservation = () => {
 export default ConfirmBookReservation;
 
 const useStyles = makeStyles((colors) => ({
-  infoContainer: {
-    flex: 1,
-    marginHorizontal: 20,
-  },
-  pendingSubTitle: {
-    textAlign: "center",
-    margin: 10,
-  },
-  message: {
-    fontSize: 21,
-    padding: 10,
-    margin: 10,
-   color: colors.ink,
-    textAlign: "center",
-    fontFamily: fonts.sansSemiBold,
-  },
-  messageApproved: {
-    fontSize: 30,
-    padding: 20,
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-}));
+  container: { flex: 1, backgroundColor: colors.bg },
+  infoContainer: { flex: 1, marginHorizontal: 16, marginTop: 16, gap: 12 },
+  center: { textAlign: "center" },
+  actions: { paddingHorizontal: 16, paddingTop: 24, paddingBottom: 32 },
+}))

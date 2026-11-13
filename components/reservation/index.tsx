@@ -120,12 +120,8 @@ const useStyles = makeStyles((colors) => ({
     backgroundColor: colors.bg,
   },
 
-  btn: {
-    paddingHorizontal: 15,
-  },
-  containerData: {
-    marginTop: 10,
-  },
+  btn: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 24 },
+  containerData: { marginTop: 8 },
 }));
 
 export default Reservation;

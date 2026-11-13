@@ -1,17 +1,21 @@
 import { addMinutesToTime, convertDate } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/components/layout/SharedCoverImage";
-import SharedLogo from "@/components/layout/SharedLogo";
 import React from "react";
-import { View } from "react-native";
-import { makeStyles } from "@/theme";
+import { Image, View } from "react-native";
+import type { ApiRecord } from "@/context/types";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText } from "@/components/ui";
 
-function BookSuccess({ image, reservation }) {
+/**
+ * Booking success header (Phase 5.6): current logo (tinted like the login screen) + big time
+ * range + date. The faded cover photo is gone (DS: no photos behind content).
+ */
+function BookSuccess({ reservation }: { image?: unknown; reservation: ApiRecord }) {
   const styles = useStyles();
+  const { colors } = useTheme();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
-    (acc, current) => {
+    (acc: { totalPrice: number; totalDuration: number }, current: ApiRecord) => {
       acc.totalPrice += current.price;
       acc.totalDuration += current.duration;
       return acc;
@@ -20,83 +24,23 @@ function BookSuccess({ image, reservation }) {
   );
 
   return (
-    <>
-      <SharedCoverImage image={image} />
-
-      <SharedLogo />
-
-      <View style={styles.coverContent}>
-        <AppText variant="displayMd" style={styles.timeData}>
-          {reservation?.timeData?.value} -{" "}
-          {addMinutesToTime(
-            reservation?.timeData?.value,
-            reservation?.service?.serviceDuration,
-            totals?.totalDuration,
-          )}
-        </AppText>
-        <AppText variant="title">
-          {convertDate(
-            reservation?.dateReservation?.dateString ||
-              reservation?.dateReservation,
-            localization.code,
-          )}
-        </AppText>
-      </View>
-    </>
+    <View style={styles.content}>
+      <Image source={require("@/assets/images/homeSplash.png")} style={[styles.logo, { tintColor: colors.ink }]} />
+      <AppText style={styles.time}>
+        {reservation?.timeData?.value} –{" "}
+        {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration)}
+      </AppText>
+      <AppText variant="bodyLg" color="inkMuted">
+        {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}
+      </AppText>
+    </View>
   );
 }
+
 const useStyles = makeStyles((colors) => ({
-  infoContainer: {
-    flex: 1,
-    justifyContent: "space-evenly",
-    alignSelf: "center",
-  },
-  checkbox: {
-    marginRight: 10,
-  },
-
-  reservation: {
-    display: "flex",
-    flexDirection: "column",
-    height: 350,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  timeData: {
-
-    display: "flex",
-    justifyContent: "center",
-  },
-  position: {
-    fontSize: 20,
-    color: colors.inkFaint,
-    fontStyle: "italic",
-    padding: 12,
-  },
-  coverContent: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10, // Add padding to make the space visible from the edges
-  },
-  data: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  coverImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.25,
-  },
-  whiteLine: {
-    width: "100%",
-    height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: colors.bg, // Set the line color to white
-    marginTop: -1, // Optional: You can adjust this to fine-tune the position
-  },
+  content: { alignItems: "center", paddingHorizontal: 16, paddingTop: 48, gap: 4 },
+  logo: { height: 72, resizeMode: "contain", marginBottom: 24 },
+  time: { fontFamily: fonts.displaySemiBold, fontSize: 40, lineHeight: 44, color: colors.ink },
 }));
+
 export default BookSuccess;
