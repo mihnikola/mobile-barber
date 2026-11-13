@@ -1,109 +1,46 @@
-import {
-  Modal,
-  ScrollView,
-  View,
-} from "react-native";
+import React from "react";
+import { ScrollView } from "react-native";
+import type { ApiRecord } from "@/context/types";
 import { makeStyles } from "@/theme";
-import { AppText, Icon, Pressable } from "@/components/ui";
+import { Dialog, DialogAction, ListGroup, ListRow } from "@/components/ui";
 
-function LocationsComponent({
-  locations,
-  modalVisible,
-  setModalVisible,
-  handleLocationSelect,
-  title,
-  buttonText,
-}) {
+type Props = {
+  locations?: ApiRecord[];
+  modalVisible: boolean;
+  setModalVisible: (visible: boolean) => void;
+  handleLocationSelect: (location: ApiRecord) => void;
+  title: string;
+  buttonText: string;
+};
+
+/** Location picker (DS dialog with a list of salon addresses). */
+function LocationsComponent({ locations, modalVisible, setModalVisible, handleLocationSelect, title, buttonText }: Props) {
   const styles = useStyles();
-  const onConfirm = () => {
-    setModalVisible(false);
-  };
+  const onConfirm = () => setModalVisible(false);
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={onConfirm}
-    >
-      <View style={styles.overlay}>
-        <View style={styles.modalContent}>
-          <AppText variant="displayMd" style={styles.modalTitle}>{title}</AppText>
-          <ScrollView style={{ maxHeight: 300 }}>
-            {locations?.map((locationItem: any) => {
-              return (
-                <Pressable
-                  key={locationItem.id}
-                  style={styles.item}
-                  onPress={() => handleLocationSelect(locationItem)}
-                >
-                  <Icon name="locationDot" size={20} color="danger" />
-                  <AppText variant="bodyStrong"
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
-                    style={styles.itemSubtitle}
-                  >
-                    {locationItem.address}
-                  </AppText>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-          <Pressable onPress={onConfirm} style={styles.actionButton}>
-            <AppText variant="displayMd" style={styles.actionButtonText}>{buttonText}</AppText>
-          </Pressable>
-        </View>
-      </View>
-    </Modal>
+    <Dialog visible={modalVisible} onRequestClose={onConfirm} title={title}>
+      <ScrollView style={styles.list}>
+        <ListGroup style={styles.group}>
+          {locations?.map((locationItem) => (
+            <ListRow
+              key={locationItem.id}
+              icon="locationDot"
+              label={locationItem.address}
+              onPress={() => handleLocationSelect(locationItem)}
+            />
+          ))}
+        </ListGroup>
+      </ScrollView>
+      <DialogAction title={buttonText} tone="secondary" onPress={onConfirm} />
+    </Dialog>
   );
 }
-const useStyles = makeStyles((colors) => ({
-  overlay: {
-    flex: 1,
-    backgroundColor: colors.scrim,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
-  },
-  modalContent: {
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 32,
-    width: "100%",
-    maxHeight: "60%",
-  },
-  item: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    gap: 10,
-    padding: 10,
-  },
-  itemSubtitle: {
-    flex: 2,
-  },
 
-  modalTitle: {
-    textAlign: "center",
-    lineHeight: 36,
-    marginBottom: 10,
-  },
-  actionButton: {
-    width: "100%",
-    backgroundColor: colors.bg,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    paddingVertical: 16,
-    marginTop: 20,
-    borderRadius: 8,
-    shadowColor: colors.bg,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  actionButtonText: {
-    textAlign: "center",
-  },
+const useStyles = makeStyles((colors) => ({
+  list: { maxHeight: 300 },
+  // inside the dialog panel: no side margins, sits on the bg tone
+  group: { marginHorizontal: 0, marginVertical: 0, backgroundColor: colors.bg },
 }));
 
 export default LocationsComponent;
