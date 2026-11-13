@@ -7,6 +7,7 @@ export { ConfirmDialog } from "./ConfirmDialog";
 export { Dialog, DialogAction } from "./Dialog";
 export { EmptyState } from "./EmptyState";
 export { Loader } from "./Loader";
+export { ListGroup, ListRow } from "./ListRow";
 export { MessageDialog } from "./MessageDialog";
 export {
   PasswordField,
@@ -21,3 +22,5 @@ export { Icon, iconSize, type IconName, type IconProps } from "./Icon";
 export { Row, Stack, layout } from "./Layout";
 export { Pressable, PRESS_LOCK_MS, type PressableProps } from "./Pressable";
 export { Screen, type ScreenMode, withScreen } from "./Screen";
+export { SegmentedTabs, type SegmentedOption } from "./SegmentedTabs";
+export { type BadgeStatus, StatusBadge } from "./StatusBadge";

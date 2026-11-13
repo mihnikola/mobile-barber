@@ -1,33 +1,36 @@
 import type { ReactNode } from "react";
 import { Modal, type StyleProp, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { fontSize, fonts, makeStyles } from "@/theme";
+import { makeStyles, typeScale } from "@/theme";
 
-import { Pressable } from "./Pressable";
+import { Button } from "./Button";
 
 type DialogProps = {
   /** Like RN Modal: undefined means visible. */
   visible?: boolean;
   onRequestClose?: () => void;
-  /** Shown in a round badge above the title. */
+  /** Optional icon in a rounded tile above the title (messages); confirmations have none. */
   icon?: ReactNode;
   title?: ReactNode;
-  /** Actions / extra content below the title. */
+  /** One sentence under the title: what will happen. */
+  text?: ReactNode;
+  /** Actions / extra content below the title (stacked). */
   children?: ReactNode;
   panelStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
 };
 
-/** Centered modal panel on a dimmed backdrop (messages, confirmations, blocking loader). */
-export function Dialog({ visible, onRequestClose, icon, title, children, panelStyle, titleStyle }: DialogProps) {
-  const dialogStyles = useDialogStyles();
+/** Design-system dialog (`ds-dialog`): centered `surface` panel on `scrim`, stacked actions. */
+export function Dialog({ visible, onRequestClose, icon, title, text, children, panelStyle, titleStyle }: DialogProps) {
+  const s = useDialogStyles();
   return (
     <Modal animationType="fade" transparent visible={visible} onRequestClose={onRequestClose}>
-      <View style={dialogStyles.overlay}>
-        <View style={[dialogStyles.panel, panelStyle]}>
-          {icon != null && <View style={dialogStyles.iconBadge}>{icon}</View>}
-          {title != null && <Text style={[dialogStyles.title, titleStyle]}>{title}</Text>}
-          {children}
+      <View style={s.overlay}>
+        <View style={[s.panel, panelStyle]}>
+          {icon != null && <View style={s.iconTile}>{icon}</View>}
+          {title != null && <Text style={[s.title, icon != null && s.center, titleStyle]}>{title}</Text>}
+          {text != null && <Text style={[s.text, icon != null && s.center]}>{text}</Text>}
+          {children != null && <View style={s.actions}>{children}</View>}
         </View>
       </View>
     </Modal>
@@ -37,85 +40,58 @@ export function Dialog({ visible, onRequestClose, icon, title, children, panelSt
 type DialogActionProps = {
   title: ReactNode;
   onPress?: () => void;
-  /** `secondary` = grey "No/Cancel" button. */
-  tone?: "primary" | "secondary";
+  /** `primary` = the action (top), `secondary` = the way out (ghost, bottom), `danger` = destructive. */
+  tone?: "primary" | "secondary" | "danger";
   disabled?: boolean;
+  loading?: boolean;
   style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
-  children?: ReactNode;
 };
 
-/** Full-width dialog button. `children` replaces the title (e.g. a spinner). */
-export function DialogAction({ title, onPress, tone = "primary", disabled, style, textStyle, children }: DialogActionProps) {
-  const dialogStyles = useDialogStyles();
+/** Full-width dialog button. */
+export function DialogAction({ title, onPress, tone = "primary", disabled, loading, style }: DialogActionProps) {
   return (
-    <Pressable
+    <Button
+      title={title}
       onPress={onPress}
       disabled={disabled}
-      style={[dialogStyles.action, tone === "secondary" && dialogStyles.actionSecondary, style]}
-    >
-      {children ?? <Text style={[dialogStyles.actionText, textStyle]}>{title}</Text>}
-    </Pressable>
+      loading={loading}
+      variant={tone === "secondary" ? "ghost" : tone}
+      style={style}
+    />
   );
 }
 
 const useDialogStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
-    backgroundColor: colors.overlay,
-    alignItems: "center",
+    backgroundColor: colors.scrim,
     justifyContent: "center",
     padding: 16,
   },
   panel: {
-    backgroundColor: colors.surfaceModal,
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    paddingTop: 24,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: -8 },
+    shadowOpacity: 0.12,
+    shadowRadius: 24,
+    elevation: 8,
+  },
+  iconTile: {
+    width: 72,
+    height: 72,
     borderRadius: 12,
-    padding: 32,
-    maxWidth: 384,
-    width: "100%",
+    backgroundColor: colors.surfaceSunken,
     alignItems: "center",
-  },
-  iconBadge: {
-    width: 96,
-    height: 96,
-    backgroundColor: colors.background,
-    borderWidth: 1,
-    borderColor: colors.white,
-    borderRadius: 9999,
     justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 24,
-  },
-  title: {
-    color: colors.text,
-    fontSize: fontSize.md,
-    fontFamily: fonts.bold,
+    alignSelf: "center",
     marginBottom: 16,
-    textAlign: "center",
-    lineHeight: 36,
   },
-  action: {
-    width: "100%",
-    backgroundColor: colors.black,
-    paddingVertical: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.white,
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  actionSecondary: {
-    backgroundColor: colors.disabled,
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  actionText: {
-    color: colors.text,
-    fontSize: fontSize.xxl,
-    fontFamily: fonts.regular,
-    textAlign: "center",
-  },
+  title: { ...typeScale.displayMd, color: colors.ink },
+  text: { ...typeScale.body, fontSize: 15, color: colors.inkMuted, marginTop: 8 },
+  center: { textAlign: "center" },
+  actions: { gap: 8, marginTop: 20 },
 }));

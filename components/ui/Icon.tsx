@@ -75,7 +75,7 @@ export type IconProps = {
 };
 
 /** One icon component for the whole app (replaces direct use of 5 icon libraries). */
-export function Icon({ name, size = "md", color = "text", rawColor, style, testID }: IconProps) {
+export function Icon({ name, size = "md", color = "ink", rawColor, style, testID }: IconProps) {
   const { colors } = useTheme();
   const [family, glyph]: readonly [Family, string | undefined] = name ? REGISTRY[name] : ["Feather", undefined];
   const Component = FAMILIES[family] as React.ComponentType<{

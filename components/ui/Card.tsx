@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { type StyleProp, StyleSheet, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { type ColorToken, fonts, fontSize, makeStyles } from "@/theme";
+import { type ColorToken, fonts, makeStyles, useTheme } from "@/theme";
 
 import { Icon, type IconName } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -14,7 +14,10 @@ type CardProps = {
   testID?: string;
 };
 
-/** Raised dark surface with rounded corners and shadow — base of every card/list item. */
+/**
+ * Design-system card (`ds-card`): `surface`, radius 16, a barely visible shadow in light mode
+ * (dark mode separates cards by tone only).
+ */
 export function Card({ children, onPress, style, testID }: CardProps) {
   const themed = useCardColors();
   if (onPress) {
@@ -44,7 +47,7 @@ type ListItemProps = {
   titleStyle?: StyleProp<TextStyle>;
 };
 
-/** Card row: leading visual, title + meta rows, trailing icon (service / employee / location lists). */
+/** Card row (`ds-svc` / `ds-staff`): leading visual, title + meta rows, trailing chevron. */
 export function ListItem({ title, leading, children, trailing, onPress, style, titleStyle }: ListItemProps) {
   const themed = useCardColors();
   return (
@@ -54,7 +57,7 @@ export function ListItem({ title, leading, children, trailing, onPress, style, t
         <Text style={[themed.title, titleStyle]}>{title}</Text>
         {children}
       </View>
-      {trailing === undefined ? <Icon name="chevronRight" size="xl" color="iconMuted" /> : trailing}
+      {trailing === undefined ? <Icon name="chevronRight" size="sm" color="inkMuted" /> : trailing}
     </Card>
   );
 }
@@ -63,46 +66,50 @@ type MetaRowProps = {
   icon: IconName;
   iconColor?: ColorToken;
   children: ReactNode;
-  /** Text font: regular (default), bold, or system font (some legacy rows had none). */
+  /** `bold` = Inter SemiBold in `ink` (prices, ratings); otherwise regular `inkMuted`. */
   font?: "regular" | "bold" | "system";
   /** Space below the row. */
   spaced?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
-/** Small icon + text line, e.g. duration, price, rating, seniority. */
-export function MetaRow({ icon, iconColor = "text", children, font = "regular", spaced, style }: MetaRowProps) {
+/** Small icon + text line (`ds-svc__meta`), e.g. duration, price, rating, seniority. */
+export function MetaRow({ icon, iconColor, children, font = "regular", spaced, style }: MetaRowProps) {
   const themed = useCardColors();
+  const { colors } = useTheme();
+  const strong = font === "bold";
   return (
     <View style={[cardStyles.metaRow, spaced && cardStyles.metaSpaced, style]}>
-      <Icon name={icon} size="xs" color={iconColor} />
-      <Text style={[themed.metaText, font !== "system" && { fontFamily: fonts[font] }]}>{children}</Text>
+      <Icon name={icon} size="xs" rawColor={colors[iconColor ?? (strong ? "ink" : "inkMuted")]} />
+      <Text style={[themed.metaText, strong && themed.metaStrong]}>{children}</Text>
     </View>
   );
 }
 
 /** Layout-only card styles (no colors) — safe to use from any file. */
 export const cardStyles = StyleSheet.create({
-  row: { flexDirection: "row", alignItems: "center" },
+  row: { flexDirection: "row", alignItems: "center", gap: 12 },
   body: { flex: 1, justifyContent: "center" },
-  metaRow: { flexDirection: "row", alignItems: "center" },
+  metaRow: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 2 },
   metaSpaced: { marginBottom: 4 },
 });
 
 /** Themed card styles (internal). */
 const useCardColors = makeStyles((colors) => ({
   surface: {
-    backgroundColor: colors.surfaceItem,
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    padding: 16,
+    marginVertical: 6,
+    marginHorizontal: 16,
+    shadowColor: "#141414",
+    shadowOffset: { width: 0, height: 1 },
+    // light: 0 1px 2px rgba(20,20,20,.06) · dark: none (detected by the palette's background)
+    shadowOpacity: colors.bg === "#F5F4F1" ? 0.06 : 0,
+    shadowRadius: 2,
+    elevation: colors.bg === "#F5F4F1" ? 1 : 0,
   },
-  title: { fontSize: fontSize.lg, fontFamily: fonts.bold, color: colors.text, marginBottom: 4 },
-  metaText: { fontSize: fontSize.sm, color: colors.text, marginLeft: 5 },
+  title: { fontSize: 16, lineHeight: 22, fontFamily: fonts.sansSemiBold, color: colors.ink },
+  metaText: { fontSize: 14, lineHeight: 20, color: colors.inkMuted, fontFamily: fonts.sans },
+  metaStrong: { color: colors.ink, fontFamily: fonts.sansSemiBold },
 }));

@@ -1,52 +1,36 @@
 import type { ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
 
 import { Dialog, DialogAction } from "./Dialog";
-import { fonts } from "@/theme";
 
-/** Yes / No confirmation (logout, cancel reservation …). */
+/**
+ * Confirmation for irreversible actions (logout, cancel appointment) — `ds-dialog`:
+ * the action on top (verb from the title), the way out below as a ghost button.
+ */
 export const ConfirmDialog = ({
   isOpen,
   onClose,
   icon,
   title,
+  text,
   confirmText,
   onConfirm,
   cancelText,
+  destructive = false,
 }: {
   isOpen?: boolean;
   onClose?: () => void;
+  /** Kept for existing callers; the design system shows confirmations without an icon. */
   icon?: ReactNode;
   title?: ReactNode;
+  text?: ReactNode;
   confirmText?: ReactNode;
   onConfirm?: () => void;
   cancelText?: ReactNode;
+  /** Red outlined action (e.g. cancel appointment). */
+  destructive?: boolean;
 }) => (
-  <Dialog
-    visible={isOpen}
-    onRequestClose={onClose}
-    icon={icon}
-    title={title}
-    panelStyle={styles.panel}
-    titleStyle={styles.title}
-  >
-    <View style={styles.buttons}>
-      <DialogAction title={confirmText} onPress={onConfirm} style={styles.half} textStyle={styles.actionText} />
-      <DialogAction
-        title={cancelText}
-        onPress={onClose}
-        tone="secondary"
-        style={styles.half}
-        textStyle={styles.actionText}
-      />
-    </View>
+  <Dialog visible={isOpen} onRequestClose={onClose} icon={icon} title={title} text={text}>
+    <DialogAction title={confirmText} onPress={onConfirm} tone={destructive ? "danger" : "primary"} />
+    <DialogAction title={cancelText} onPress={onClose} tone="secondary" />
   </Dialog>
 );
-
-const styles = StyleSheet.create({
-  panel: { borderWidth: 1 },
-  title: { fontFamily: fonts.regular, fontSize: 20 },
-  buttons: { display: "flex", flexDirection: "row", gap: 20 },
-  half: { width: "50%" },
-  actionText: { fontSize: 18, fontWeight: "600" },
-});

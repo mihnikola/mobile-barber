@@ -101,11 +101,11 @@ function FormScreen({ children }: { children: ReactNode }) {
 
 const useStyles = makeStyles((colors) => ({
   fill: { flex: 1 },
-  keyboard: { flex: 1, backgroundColor: colors.background },
+  keyboard: { flex: 1, backgroundColor: colors.bg },
   formScroll: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   formContent: {
@@ -113,6 +113,6 @@ const useStyles = makeStyles((colors) => ({
     justifyContent: "center",
     flex: 1,
     paddingVertical: 0,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 }));

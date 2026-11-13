@@ -16,10 +16,11 @@ type AvatarProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/** Design system: list thumb 64, profile 72, compact 40 — all radius 12 (`radius-md`). */
 const SIZES = {
-  lg: { box: 90, radius: 30, text: 30 },
-  md: { box: 70, radius: 30, text: 20 },
-  sm: { box: 40, radius: 15, text: 14 },
+  lg: { box: 64, radius: 12, text: 22 },
+  md: { box: 72, radius: 12, text: 26 },
+  sm: { box: 40, radius: 12, text: 15 },
 } as const;
 
 /** Profile picture or initials badge. */
@@ -39,13 +40,8 @@ export function Avatar({ uri, name, size = "lg", bordered = false, style }: Avat
 }
 
 const useStyles = makeStyles((colors) => ({
-  base: { marginRight: 15 },
-  imageBorder: { borderWidth: 1, borderColor: colors.divider },
-  initialsBox: {
-    backgroundColor: colors.surfaceAvatar,
-    borderWidth: 1,
-    borderColor: colors.borderAvatar,
-    justifyContent: "center",
-  },
-  initials: { color: colors.text, fontFamily: fonts.bold, alignSelf: "center" },
+  base: {},
+  imageBorder: { borderWidth: 1, borderColor: colors.line },
+  initialsBox: { backgroundColor: colors.surfaceSunken, justifyContent: "center" },
+  initials: { color: colors.ink, fontFamily: fonts.displaySemiBold, alignSelf: "center" },
 }));

@@ -10,7 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { fontSize, fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 
 import { Icon } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -50,7 +50,8 @@ export type TextFieldProps = Omit<TextInputProps, "style"> & {
 };
 
 /**
- * Labelled text input with focus border and error text. All app inputs are built on this.
+ * Labelled text input (design system `ds-field` / `ds-input`): label above, 48px box with a
+ * 1.5px `lineStrong` border, 2px `focus` border while focused, error text below.
  */
 export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextField(
   { label, error, left, prefix, right, styles: s = {}, unstyled = false, alwaysShowError = false, onFocus, onBlur, ...inputProps },
@@ -63,7 +64,7 @@ export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextF
 
   const input = (
     <TextInput
-      placeholderTextColor={colors.textInactive}
+      placeholderTextColor={colors.inkFaint}
       {...inputProps}
       ref={ref}
       style={[d.input, s.input, focused && [d.inputFocused, s.inputFocused]]}
@@ -108,7 +109,7 @@ export const PasswordField = forwardRef<TextInputRef, TextFieldProps>(function P
       secureTextEntry={!visible}
       right={
         <Pressable style={toggleStyle} onPress={() => setVisible((v) => !v)}>
-          <Icon name={visible ? "eye" : "eyeOff"} size="md" color="textMuted" />
+          <Icon name={visible ? "eye" : "eyeOff"} size="sm" color="inkMuted" />
         </Pressable>
       }
     />
@@ -162,7 +163,7 @@ export function TextArea({
         onChangeText={onChangeText}
         value={value ?? undefined}
         placeholder={placeholder}
-        placeholderTextColor={colors.text}
+        placeholderTextColor={colors.inkFaint}
         multiline
         numberOfLines={4}
         textAlignVertical="top"
@@ -191,60 +192,53 @@ const EMPTY: Record<keyof FieldStyles, undefined> = {
 
 const rowCenter: ViewStyle = { flexDirection: "row", alignItems: "center" };
 const fill: ViewStyle = { flex: 1 };
-const toggleStyle: ViewStyle = { padding: 10 };
+const toggleStyle: ViewStyle = { paddingHorizontal: 14, paddingVertical: 12 };
 
-/** Default field look (= the most common legacy field: white box, black text, white focus border). */
+/** Default field look (design system `ds-input`). */
 const useDefaults = makeStyles((colors) => ({
-  label: { color: colors.text, fontSize: fontSize.sm, fontFamily: fonts.bold, marginTop: 15, marginBottom: 8 },
+  label: { color: colors.inkMuted, fontSize: 13, lineHeight: 16, fontFamily: fonts.sansSemiBold, marginTop: 16, marginBottom: 6 },
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.white,
+    minHeight: 48,
+    backgroundColor: colors.surface,
     borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
   },
-  containerFocused: { borderWidth: 2, borderColor: colors.white, margin: -2 }, // -2: border drawn outward, no layout jump
+  // 2px focus border; -0.5 margin keeps the outer size (no layout jump)
+  containerFocused: { borderWidth: 2, borderColor: colors.focus, margin: -0.5 },
   input: {
     flex: 1,
-    color: colors.textOnLight,
-    padding: 15,
-    fontSize: fontSize.md,
-    fontFamily: fonts.regular,
+    color: colors.ink,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    fontFamily: fonts.sans,
   },
   inputFocused: {},
-  error: { color: colors.danger, fontFamily: fonts.regular },
+  error: { color: colors.danger, fontSize: 13, lineHeight: 18, fontFamily: fonts.sans, marginTop: 6 },
 }));
 
 const usePhone = makeStyles((colors) => ({
-  flag: { width: 24, height: 18, marginRight: 8, marginLeft: 12, borderRadius: 2 },
-  prefix: { color: colors.textOnLight, fontFamily: fonts.regular, fontSize: fontSize.md },
+  flag: { width: 24, height: 18, marginRight: 8, marginLeft: 16, borderRadius: 2 },
+  prefix: { color: colors.ink, fontFamily: fonts.sans, fontSize: 16 },
 }));
 
 const useArea = makeStyles((colors) => ({
-  container: { flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row" },
-  input: { fontSize: fontSize.sm, color: colors.text, fontFamily: fonts.regular },
-  cardContainer: {
-    paddingTop: 10,
-    borderWidth: 1,
-    borderColor: colors.white,
-    borderRadius: 12,
-    padding: 5,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+  container: {
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
-  cardInput: { width: "90%", minHeight: 80 },
-  plainContainer: { paddingTop: 15 },
-  plainInput: { width: "100%", minHeight: 100 },
-  counterContainer: {
-    position: "absolute",
-    alignContent: "flex-end",
-    alignItems: "flex-end",
-    width: "100%",
-    bottom: 2,
-  },
-  counter: { fontSize: fontSize.xxs, color: colors.danger, opacity: 0.7, fontFamily: fonts.regular },
+  input: { fontSize: 16, lineHeight: 22, color: colors.ink, fontFamily: fonts.sans, minHeight: 96, padding: 0 },
+  cardContainer: { marginVertical: 8, marginHorizontal: 16 },
+  cardInput: {},
+  plainContainer: { marginTop: 12 },
+  plainInput: {},
+  counterContainer: { alignItems: "flex-end", marginTop: 6 },
+  counter: { fontSize: 12, lineHeight: 16, color: colors.inkMuted, fontFamily: fonts.sansMedium },
 }));

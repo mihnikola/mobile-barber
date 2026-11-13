@@ -21,14 +21,14 @@ export function Loader(props: LoaderProps) {
   if (props.variant === "overlay") {
     return (
       <Dialog visible={props.visible} onRequestClose={props.onRequestClose} panelStyle={styles.overlayPanel}>
-        <ActivityIndicator size={32} color={colors.text} />
+        <ActivityIndicator size={32} color={colors.ink} />
       </Dialog>
     );
   }
 
   return (
     <View style={props.variant === "inline" ? styles.inline : [styles.block, { minHeight: height * 0.5 }]}>
-      <ActivityIndicator size="large" color={colors.text} />
+      <ActivityIndicator size="large" color={colors.ink} />
     </View>
   );
 }
@@ -39,20 +39,14 @@ const useStyles = makeStyles((colors) => ({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   inline: {
     flex: 1,
     paddingVertical: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
-  overlayPanel: {
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    elevation: 15,
-  },
+  overlayPanel: { alignSelf: "center", paddingHorizontal: 32 },
 }));
