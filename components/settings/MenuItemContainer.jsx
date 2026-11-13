@@ -18,12 +18,12 @@ const MenuItemContainer = ({ onPress, isToken }) => {
       />
 
       <MenuItem
-        iconName="face-agent"
+        iconName="support"
         title={localization.SETTINGS.HELP.title}
         onPress={() => onPress("900")}
       />
       <MenuItem
-        iconName="file-document"
+        iconName="document"
         title={localization.SETTINGS.LEGAL.title}
         onPress={() => onPress("200")}
       />

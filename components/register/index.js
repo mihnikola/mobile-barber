@@ -15,7 +15,6 @@ import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
-import { FontAwesome } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -242,11 +241,7 @@ const Register = () => {
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
-              <FontAwesome
-                name={error ? "close" : "check-circle-o"}
-                size={64}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name={error ? "close" : "check"} size={64} color="text" />
             }
             title={error || success}
             buttonText={localization.OK.label}

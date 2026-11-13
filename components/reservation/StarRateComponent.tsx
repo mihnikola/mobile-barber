@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-// For Font Awesome icons, ensure you have @expo/vector-icons installed:
-// npm install @expo/vector-icons
-// or yarn add @expo/vector-icons
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 // StarRating component props
 interface StarRatingProps {
@@ -48,10 +45,10 @@ const StarRating: React.FC<StarRatingProps> = ({
           onPress={() => handleStarPress(i)}
           activeOpacity={0.7} // Reduce opacity slightly when pressed
         >
-          <FontAwesome
-            name={i <= currentRating ? "star" : "star-o"} // 'star' for filled, 'star-o' for outlined
+          <Icon
+            name={i <= currentRating ? "starSolid" : "starOutline"} // filled / outlined
             size={starSize}
-            color={i <= currentRating ? filledColor : emptyColor}
+            rawColor={i <= currentRating ? filledColor : emptyColor}
           />
         </TouchableOpacity>,
       );

@@ -1,11 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { router } from "expo-router";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const SharedOthersServices = (props: any) => {
   const { redirectHandler, data } = props;
@@ -37,11 +36,7 @@ const SharedOthersServices = (props: any) => {
         )}
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={styles.locationContainer}>
-            <FontAwesome
-              name={"clock-o"}
-              size={16}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name={"clock"} size={16} color="text" />
             {data?.service?.duration ? (
               <Text style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${data?.service?.duration} `}
@@ -53,11 +48,7 @@ const SharedOthersServices = (props: any) => {
             )}
           </View>
           <View style={styles.ratingContainer}>
-            <MaterialIcons
-              name={"price-change"}
-              size={16}
-              color={ColorsBarber.dark.priceColor}
-            />
+            <Icon name={"price"} size={16} color="gold" />
             <Text style={styles.reviewText}>
               {`${localization.DETAILS.price} ${data?.price}`}
             </Text>

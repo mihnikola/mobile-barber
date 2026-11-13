@@ -1,10 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const SharedDetailsServiceCard = (props: any) => {
   const { redirectHandler, data, otherServices } = props;
@@ -44,11 +43,7 @@ const SharedDetailsServiceCard = (props: any) => {
           }
         >
           <View style={styles.locationContainer}>
-            <FontAwesome
-              name={"clock-o"}
-              size={16}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name={"clock"} size={16} color="text" />
             <Text style={styles.locationText}>
               {`${localization.DETAILS.duration} ${
                 duration || data?.serviceDuration
@@ -56,11 +51,7 @@ const SharedDetailsServiceCard = (props: any) => {
             </Text>
           </View>
           <View style={styles.ratingContainer}>
-            <MaterialIcons
-              name={"price-change"}
-              size={16}
-              color={ColorsBarber.dark.priceColor}
-            />
+            <Icon name={"price"} size={16} color="gold" />
             <Text style={styles.reviewText}>
               {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
             </Text>

@@ -7,7 +7,6 @@ import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -106,11 +105,7 @@ const ChangePass = () => {
           onClose={!error ? confirmHandler : confirmHandler2}
           onConfirm={!error ? confirmHandler : confirmHandler2}
           icon={
-            <FontAwesome
-              name={error ? "close" : "check-circle-o"}
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name={error ? "close" : "check"} size={64} color="text" />
           }
           title={error || message}
           buttonText={localization.OK.label}

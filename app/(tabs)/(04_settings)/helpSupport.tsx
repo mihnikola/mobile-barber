@@ -7,7 +7,6 @@ import {
   Linking,
   ScrollView,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
@@ -15,6 +14,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const companyInfo = {
   name: "FusionTechAgency Ltd",
@@ -41,12 +41,7 @@ const HelpSupportScreen = () => {
           <Text style={styles.infoValue}>{companyInfo.name}</Text>
         </View>
         <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
-          <MaterialCommunityIcons
-            name="email-outline"
-            size={24}
-            color={ColorsBarber.dark.textColor}
-            style={styles.menuItemIcon}
-          />
+          <Icon name="email" size={24} style={styles.menuItemIcon} color="text" />
           <Text style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
           </Text>

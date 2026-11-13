@@ -14,7 +14,6 @@ import useEmail from "./hooks/useEmail";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
-import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
@@ -226,11 +225,7 @@ const LoginScreen = () => {
             onClose={!error ? confirmHandler : cancelHandler}
             onConfirm={!error ? confirmHandler : cancelHandler}
             icon={
-              <FontAwesome
-                name={error ? "close" : success ? "check-circle-o" : "info"}
-                size={64}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name={error ? "close" : success ? "check" : "info"} size={64} color="text" />
             }
             title={error || success || message}
             buttonText={localization.OK.label}

@@ -3,7 +3,6 @@ import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -91,11 +90,7 @@ const ForgotPassword = () => {
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}
           icon={
-            <FontAwesome
-              name="close"
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name="close" size={64} color="text" />
           }
           title={error}
           buttonText={localization.OK.label}

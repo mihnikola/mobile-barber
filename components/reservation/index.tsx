@@ -12,12 +12,12 @@ import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
+import { Icon } from "@/components/ui";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -83,7 +83,7 @@ const Reservation = () => {
               isOpen={IsError}
               onClose={confirmHandler}
               onConfirm={confirmHandler}
-              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.dark.textColor} />}
+              icon={<Icon name={"close"} size={64} color="text" />}
               title={error}
               buttonText={localization.OK.label}
             />
@@ -93,7 +93,7 @@ const Reservation = () => {
               isOpen={distinctReservation?.length > 0}
               onClose={confirmDistinctHandler}
               onConfirm={confirmDistinctHandler}
-              icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.dark.textColor} />}
+              icon={<Icon name={"close"} size={64} color="text" />}
               title={distinctReservation}
               buttonText={localization.OK.label}
             />

@@ -1,6 +1,5 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { FontAwesome6 } from "@expo/vector-icons";
 import {
   Modal,
   ScrollView,
@@ -9,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 function LocationsComponent({
   locations,
@@ -40,11 +40,7 @@ function LocationsComponent({
                   style={styles.item}
                   onPress={() => handleLocationSelect(locationItem)}
                 >
-                  <FontAwesome6
-                    name="location-dot"
-                    size={20}
-                    color={ColorsBarber.dark.locationIcon}
-                  />
+                  <Icon name="locationDot" size={20} color="danger" />
                   <Text
                     ellipsizeMode="tail"
                     numberOfLines={1}

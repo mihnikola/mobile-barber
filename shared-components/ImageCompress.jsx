@@ -1,11 +1,10 @@
 import { StyleSheet, View,  Image } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
+import { Icon } from "@/components/ui";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
@@ -22,13 +21,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
       {!selectedImageUri && (
         <View>
-          <Ionicons name="person-circle-sharp" size={280} color={ColorsBarber.dark.textColor} />
+          <Icon name="personCircle" size={280} color="text" />
           <TouchableOpacity
             style={styles.buttonPlaceholder}
             onPress={pickImage}
             disabled={uploading}
           >
-            <MaterialIcons size={45} name="photo" color={ColorsBarber.dark.textColor} />
+            <Icon name="photo" size={45} color="text" />
           </TouchableOpacity>
         </View>
       )}
@@ -43,7 +42,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
           onPress={pickImage}
           disabled={uploading}
         >
-          <MaterialIcons size={45} name="photo" color={ColorsBarber.dark.textColor} />
+          <Icon name="photo" size={45} color="text" />
         </TouchableOpacity>
       )}
     </View>

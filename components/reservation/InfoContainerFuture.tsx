@@ -1,10 +1,10 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
-import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const InfoContainerFuture = ({ item }) => {
   const { localization } = useLocalization();
@@ -38,14 +38,14 @@ const InfoContainerFuture = ({ item }) => {
       <View>
         <Text style={styles.rating}>
           {item.status === 2 && (
-            <FontAwesome name={"clock-o"} size={16} color={ColorsBarber.dark.textColor} />
+            <Icon name={"clock"} size={16} color="text" />
           )}
 
           {item.status === 1 && (
-            <FontAwesome name={"window-close"} size={16} color={ColorsBarber.dark.textColor} />
+            <Icon name={"windowClose"} size={16} color="text" />
           )}
           {item.status === 0 && (
-            <FontAwesome name={"check-circle-o"} size={20} color={ColorsBarber.dark.textColor} />
+            <Icon name={"check"} size={20} color="text" />
           )}
         </Text>
       </View>

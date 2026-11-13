@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import {
@@ -164,11 +163,7 @@ const OtpCode = () => {
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
-              <FontAwesome
-                name={error ? "close" : "check-circle-o"}
-                size={64}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name={error ? "close" : "check"} size={64} color="text" />
             }
             title={error || message}
             buttonText={localization.OK.label}

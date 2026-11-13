@@ -1,10 +1,10 @@
 import { ColorsBarber } from "@/constants/Colors";
 import SharedImageInitials from "@/shared-components/SharedInitialsName";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { Image, Text, View } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const ProfileUserComponent = ({ data, onPress }) => {
   return (
@@ -19,11 +19,7 @@ const ProfileUserComponent = ({ data, onPress }) => {
         <Text style={styles.profileEmail}>{data?.email}</Text>
       </View>
       <TouchableOpacity style={styles.editButton} onPress={() => onPress("1")}>
-        <MaterialCommunityIcons
-          name="pencil"
-          size={20}
-          color={ColorsBarber.dark.textColor}
-        />
+        <Icon name="pencil" size={20} color="text" />
       </TouchableOpacity>
     </View>
   );

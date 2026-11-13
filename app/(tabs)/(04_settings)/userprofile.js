@@ -17,7 +17,6 @@ import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
@@ -224,11 +223,7 @@ const UserProfileScreen = () => {
             onClose={!errorChange ? messageHandler : messageHandler2}
             onConfirm={!errorChange ? messageHandler : messageHandler2}
             icon={
-              <FontAwesome
-                name={errorChange ? "close" : "check-circle-o"}
-                size={64}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name={errorChange ? "close" : "check"} size={64} color="text" />
             }
             title={
               message

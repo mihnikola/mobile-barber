@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { FontAwesome } from "@expo/vector-icons";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import LoginRedirect from "./LoginRedirect";
@@ -14,6 +13,7 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 import withSafeArea from "../wrapper/WrapperSafeArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
+import { Icon } from "@/components/ui";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -86,7 +86,7 @@ const SettingsComponent = () => {
           onClose={() => setIsLogout(false)}
           onLogOut={logoutConfirm}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color={ColorsBarber.dark.textColor} />
+            <Icon name="question" size={64} color="text" />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.title}

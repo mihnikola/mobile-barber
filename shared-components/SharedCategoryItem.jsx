@@ -1,7 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";

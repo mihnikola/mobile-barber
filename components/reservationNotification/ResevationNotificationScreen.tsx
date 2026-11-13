@@ -1,7 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
@@ -19,6 +18,7 @@ import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -205,11 +205,7 @@ function ResevationNotificationScreen() {
         onClose={() => setIsModalQuestion(false)}
         onLogOut={submitAppointment}
         icon={
-          <FontAwesome
-            name="question-circle-o"
-            size={64}
-            color={ColorsBarber.dark.textColor}
-          />
+          <Icon name="question" size={64} color="text" />
         }
         title={titleQuestion}
         buttonTextYes={questionButtonYes}
@@ -299,11 +295,7 @@ function ResevationNotificationScreen() {
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           icon={
-            <FontAwesome
-              name={error ? "close" : "check-circle-o"}
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name={error ? "close" : "check"} size={64} color="text" />
           }
           title={error || message}
           buttonText="Ok"

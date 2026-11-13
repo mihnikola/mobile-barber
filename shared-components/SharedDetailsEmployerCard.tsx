@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
 import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
   const { _id, image, name, averageRating, userCount, seniority } = data;
@@ -64,22 +63,14 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
             }
           >
             <View style={styles.ratingContainer}>
-              <MaterialIcons
-                name={"star"}
-                size={16}
-                color={ColorsBarber.dark.starColor}
-              />
+              <Icon name={"star"} size={16} color="gold" />
               <Text style={styles.reviewText}>{`${roundValue(
                 averageRating,
               )}/5`}</Text>
             </View>
 
             <View style={styles.ratingContainer}>
-              <Ionicons
-                name={"person"}
-                size={16}
-                color={ColorsBarber.dark.personIcon}
-              />
+              <Icon name={"person"} size={16} color="gold" />
               <Text style={styles.reviewText}>{userCount || 0}</Text>
             </View>
           </View>

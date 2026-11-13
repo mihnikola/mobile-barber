@@ -1,5 +1,4 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { FontAwesome } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   View,
@@ -23,6 +22,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -90,11 +90,7 @@ const LanguageSupportScreen = () => {
               }}
             >
               <Text style={styles.languageText}>{item.label}</Text>
-              <FontAwesome
-                name={localization.code === item.code && "check-circle-o"}
-                size={28}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name={localization.code === item.code && "check"} size={28} color="text" />
             </TouchableOpacity>
           )}
         />

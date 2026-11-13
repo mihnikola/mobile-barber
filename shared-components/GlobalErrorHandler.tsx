@@ -1,10 +1,9 @@
 import { SharedMessage } from "./SharedMessage";
 import { useGlobalError } from "./../context/GlobalErrorContext";
-import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "@/context/AuthContext";
 import { SharedLoader } from "./SharedLoader";
 import { useState } from "react";
-import { ColorsBarber } from "@/constants/Colors";
+import { Icon } from "@/components/ui";
 
 const GlobalErrorHandler = () => {
   const { error, hideError } = useGlobalError();
@@ -45,7 +44,7 @@ const GlobalErrorHandler = () => {
       isOpen={!!error}
       title={error.title}
       buttonText="OK"
-      icon={<FontAwesome name={"close"} size={64} color={ColorsBarber.dark.textColor} />}
+      icon={<Icon name={"close"} size={64} color="text" />}
       onClose={hideError}
       onConfirm={logoutConfirm}
     />

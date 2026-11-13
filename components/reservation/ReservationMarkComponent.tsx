@@ -1,9 +1,9 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import { Text, View } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ColorsBarber } from "@/constants/Colors";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const myArray = [
   { arrx: "10000" },
@@ -39,12 +39,7 @@ function ReservationMarkComponent({ data }) {
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
-                <MaterialIcons
-                  key={item.arrx}
-                  name="star"
-                  color={ColorsBarber.dark.textColor}
-                  size={23}
-                />
+                <Icon name="star" key={item.arrx} size={23} color="text" />
               );
             }
           })}

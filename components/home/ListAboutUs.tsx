@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const ListAboutUs = ({ contact }) => {
   const { localization } = useLocalization();
@@ -12,7 +12,7 @@ const ListAboutUs = ({ contact }) => {
     <View>
       <Text style={styles.titleContant}>{localization.HOME.contact}</Text>
       <View style={styles.contactItem}>
-        <FontAwesome name="phone" size={30} color={ColorsBarber.dark.textColor} />
+        <Icon name="phone" size={30} color="text" />
         <Text style={styles.title}>{contact}</Text>
       </View>
     </View>

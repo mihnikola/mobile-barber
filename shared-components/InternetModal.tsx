@@ -1,9 +1,9 @@
 import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
@@ -17,12 +17,7 @@ export default function NoInternetModal({ visible }) {
     >
       <View style={styles.overlay}>
         <View style={styles.box}>
-          <MaterialIcons
-            name="signal-wifi-off"
-            size={80}
-            color={colors.textMuted}
-            style={{ marginBottom: 20 }}
-          />
+          <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="textMuted" />
           <Text style={styles.title}> {localization.INTERNET.title}</Text>
           <Text style={styles.sub}> {localization.INTERNET.error}</Text>
         </View>

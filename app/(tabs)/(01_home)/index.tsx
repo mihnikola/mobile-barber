@@ -9,7 +9,6 @@ import {
   Image,
 } from "react-native";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { FontAwesome } from "@expo/vector-icons";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { usePersistentSlideAnimations as useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
@@ -24,6 +23,7 @@ import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
 import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -127,7 +127,7 @@ function App() {
           onPress={nextPage}
           style={styles.btnLocationContent}
         >
-          <FontAwesome name="calendar" size={28} color={ColorsBarber.dark.textColor} />
+          <Icon name="calendar" size={28} color="text" />
 
           <View style={styles.locationContent}>
             <Text style={styles.titleLocation}>
@@ -138,13 +138,13 @@ function App() {
             </Text>
           </View>
 
-          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+          <Icon name="chevronRight" size={28} color="iconMuted" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onAboutUs}
           style={styles.btnLocationContent}
         >
-          <FontAwesome name="home" size={28} color={ColorsBarber.dark.textColor} />
+          <Icon name="home" size={28} color="text" />
           <View style={styles.locationContent}>
             <Text style={styles.titleLocation}>
               {localization.HOME.aboutUsBtn}
@@ -153,14 +153,14 @@ function App() {
               {localization.HOME.aboutUsBtnDesc}
             </Text>
           </View>
-          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+          <Icon name="chevronRight" size={28} color="iconMuted" />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={openLocationHandler}
           style={styles.btnLocationContent}
         >
-          <FontAwesome name="location-arrow" size={28} color={ColorsBarber.dark.textColor} />
+          <Icon name="locationArrow" size={28} color="text" />
           <View style={styles.locationContent}>
             <Text style={styles.titleLocation}>
               {localization.HOME.locationBtn}
@@ -169,7 +169,7 @@ function App() {
               {localization.HOME.locationBtnDesc}
             </Text>
           </View>
-          <FontAwesome name="chevron-right" size={28} color={ColorsBarber.dark.arrowIcon} />
+          <Icon name="chevronRight" size={28} color="iconMuted" />
         </TouchableOpacity>
       </Animated.View>
     </View>

@@ -1,6 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Icon, type IconName } from "@/components/ui";
 import {
   Platform,
   StatusBar,
@@ -24,12 +24,7 @@ export const MenuItem = ({
     onPress={onPress}
     disabled={isToggle}
   >
-    <MaterialCommunityIcons
-      name={iconName}
-      size={24}
-      color={ColorsBarber.dark.textColor}
-      style={styles.menuItemIcon}
-    />
+    <Icon name={iconName as IconName} size={24} color="text" style={styles.menuItemIcon} />
     <Text style={styles.menuItemText}>{title}</Text>
     {isToggle ? (
       <Switch
@@ -41,12 +36,7 @@ export const MenuItem = ({
         style={styles.menuItemToggle}
       />
     ) : (
-      <MaterialCommunityIcons
-        name="chevron-right"
-        size={24}
-        color={ColorsBarber.dark.arrowIcon}
-        style={styles.menuItemArrow}
-      />
+      <Icon name="chevronRightThin" size={24} style={styles.menuItemArrow} color="iconMuted" />
     )}
   </TouchableOpacity>
 );
