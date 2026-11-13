@@ -1,5 +1,5 @@
-import ReservationContext from "@/context/ReservationContext";
-import { useContext, useEffect, useState } from "react";
+import { useReservation } from "@/context/ReservationContext";
+import { useEffect, useState } from "react";
 import useFetchService from "./hooks/useFetchService";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -14,7 +14,7 @@ import { colors } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const MoreServiceComponent = () => {
-  const { updateReservation, reservation } = useContext(ReservationContext);
+  const { updateReservation, reservation } = useReservation();
   const { categoryId } = useLocalSearchParams();
   const {
     serviceData,

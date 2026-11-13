@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { useLocalization } from "@/context/LocalizationContext";
-import ReservationContext from "@/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
@@ -9,7 +9,7 @@ import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
 /** Loads a category's services ("more services" screen) and preselects the first category. */
 const useFetchService = () => {
   const [isCategorySelected, setIsCategorySelected] = useState(null);
-  const { reservation } = useContext(ReservationContext);
+  const { reservation } = useReservation();
   const { localization } = useLocalization();
   const { data: categoriesServicesData, isLoading, error, run } = useAsync([], { initialLoading: true });
 

@@ -4,8 +4,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import React, { useContext } from "react";
-import ReservationContext from "@/context/ReservationContext";
+import React from "react";
+import { useReservation } from "@/context/ReservationContext";
 import Details from "@/shared-components/Details";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
@@ -20,7 +20,7 @@ import { Icon } from "@/components/ui";
 import { colors } from "@/theme";
 
 const Reservation = () => {
-  const { reservation } = useContext(ReservationContext)!;
+  const { reservation } = useReservation()!;
   const { localization } = useLocalization();
   const { status } = useLocalSearchParams();
   const { company } = useCompany();

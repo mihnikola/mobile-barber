@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useLocalization } from "@/context/LocalizationContext";
-import ReservationContext from "@/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import { get } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
@@ -12,7 +12,7 @@ import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
  * hook were removed in Phase 3.3 — the screen uses `flowReservation` and navigates itself.)
  */
 const useFetchServices = () => {
-  const { reservation } = useContext(ReservationContext);
+  const { reservation } = useReservation();
   const { localization } = useLocalization();
   const { data: serviceData, isLoading, error, run } = useAsync([], { initialLoading: true });
 

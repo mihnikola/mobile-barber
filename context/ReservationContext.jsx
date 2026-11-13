@@ -2,7 +2,7 @@
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { router } from "expo-router";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { routes } from "@/lib/navigation/routes";
 
 // Create the context with a default value of null
@@ -56,5 +56,8 @@ export const ReservationProvider = ({ children }) => {
     </ReservationContext.Provider>
   );
 };
+
+/** Booking-in-progress state: { reservation, updateReservation, flowReservation }. */
+export const useReservation = () => useContext(ReservationContext);
 
 export default ReservationContext;

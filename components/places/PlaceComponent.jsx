@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native";
-import ReservationContext from "@/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchLocations from "./useFetchLocations";
 import SharedItemLocation from "@/shared-components/SharedItemLocation";
-import { useContext } from "react";
+
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
@@ -12,7 +12,7 @@ import { colors } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const PlaceComponent = ({ locationsData }) => {
-  const { reservation, updateReservation } = useContext(ReservationContext);
+  const { reservation, updateReservation } = useReservation();
   const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
 

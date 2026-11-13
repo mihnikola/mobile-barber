@@ -6,7 +6,7 @@ import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { addMinutesToTime, convertNameAndDate, convertToDayTime } from "@/lib/date";
-import ReservationContext from "./ReservationContext";
+import { useReservation } from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "./NavigationContext";
 import { routes } from "@/lib/navigation/routes";
@@ -32,7 +32,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const { isToken, isLoading: isLoadingToken, getTokenData } = useAuth();
   const { localization } = useLocalization();
-  const { reservation } = useContext(ReservationContext);
+  const { reservation } = useReservation();
 
   const [active, setActive] = useState("pending");
   const handleStatus = (id) => {

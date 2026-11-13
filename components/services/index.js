@@ -1,6 +1,6 @@
-import { useContext } from "react";
+
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import ReservationContext from "@/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams } from "expo-router";
@@ -12,7 +12,7 @@ import { colors } from "@/theme";
 
 const MenuServices = () => {
   const { reservation, flowReservation } =
-    useContext(ReservationContext);
+    useReservation();
   const { serviceData, isLoading } = useFetchServices(reservation);
   const { backButton } = useLocalSearchParams();
 

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Text } from "react-native";
-import ReservationContext from "@/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import Loader from "@/components/Loader";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router, useLocalSearchParams } from "expo-router";
@@ -16,7 +16,7 @@ import { colors, fonts } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const Employers = () => {
-  const { reservation, updateReservation } = useContext(ReservationContext);
+  const { reservation, updateReservation } = useReservation();
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const pathName = routes.booking.calendar;
   const { location, service } = reservation;

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React, { useContext } from "react";
-import ReservationContext from "@/context/ReservationContext";
+import React from "react";
+import { useReservation } from "@/context/ReservationContext";
 import SharedButton from "@/shared-components/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/shared-components/Note";
@@ -16,7 +16,7 @@ const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
   useDismissOnUnauthorizedFocus();
 
-  const { reservation } = useContext(ReservationContext)!;
+  const { reservation } = useReservation()!;
 
   const params = useLocalSearchParams();
 

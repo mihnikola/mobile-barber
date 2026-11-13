@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
   ScrollView,
 } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
-import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
+import { useReservation } from "@/context/ReservationContext";
 import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
 import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
@@ -64,7 +64,7 @@ const DateComponent = () => {
 
   const pathName = routes.booking.reservation;
 
-  const { reservation, updateReservation } = useContext(ReservationContext)!;
+  const { reservation, updateReservation } = useReservation()!;
   const [selectedItem, setSelectedItem] = useState(null);
   const { selectedDate, handleDayPress, isSunday, markedDates } =
     useSelectedDate(currentDate);
