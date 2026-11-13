@@ -17,7 +17,6 @@ import type { ApiRecord } from "@/context/types";
 import { fonts, makeStyles } from "@/theme";
 import { AppText, Avatar, Icon, ListGroup, ListRow, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
-import { brand } from "@/lib/config";
 
 /**
  * Home (design Ekran01c "Početna · jednostavna"): brand row + avatar, greeting, one booking hero,
@@ -117,12 +116,9 @@ function App() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      {/* ds-home-top: brand mark + time-of-day greeting, avatar → profile */}
+      {/* ds-home-top: time-of-day greeting, avatar → profile */}
       <View style={styles.top}>
         <View style={styles.brandRow}>
-          <View style={styles.logoSlot}>
-            <AppText style={styles.logoMark}>{brand.mark}</AppText>
-          </View>
           <AppText style={styles.wordmark} numberOfLines={1} adjustsFontSizeToFit>
             {timeGreeting}
           </AppText>
@@ -191,15 +187,6 @@ const useStyles = makeStyles((colors) => ({
   content: { paddingTop: 8, paddingBottom: 24 },
   top: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 16 },
   brandRow: { flexDirection: "row", alignItems: "center", gap: 8, flex: 1, marginRight: 12 },
-  logoSlot: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoMark: { fontFamily: fonts.displayBold, fontSize: 20, lineHeight: 24, color: colors.onPrimary },
   wordmark: {
     fontFamily: fonts.displaySemiBold,
     fontSize: 26,
