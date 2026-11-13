@@ -20,16 +20,20 @@ export const fonts = {
   sansBold: "Inter-Bold",
 } as const;
 
-/** Font files to load (name → asset). */
+/**
+ * Font files to load (name → asset), all bundled from assets/fonts (no npm font packages:
+ * a missing `npm install` broke the iOS bundle). File names = family keys = the fonts'
+ * PostScript names, so the same name works on iOS and Android (also if embedded natively later).
+ */
 export const fontAssets = {
   [fonts.regular]: require("../assets/fonts/BarlowCondensed-Regular.ttf"),
   [fonts.bold]: require("../assets/fonts/BarlowCondensed-Bold.ttf"),
   [fonts.italic]: require("../assets/fonts/BarlowCondensed-Italic.ttf"),
-  [fonts.displaySemiBold]: require("@expo-google-fonts/barlow-condensed/600SemiBold/BarlowCondensed_600SemiBold.ttf"),
-  [fonts.sans]: require("@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf"),
-  [fonts.sansMedium]: require("@expo-google-fonts/inter/500Medium/Inter_500Medium.ttf"),
-  [fonts.sansSemiBold]: require("@expo-google-fonts/inter/600SemiBold/Inter_600SemiBold.ttf"),
-  [fonts.sansBold]: require("@expo-google-fonts/inter/700Bold/Inter_700Bold.ttf"),
+  [fonts.displaySemiBold]: require("../assets/fonts/BarlowCondensed-SemiBold.ttf"),
+  [fonts.sans]: require("../assets/fonts/Inter-Regular.ttf"),
+  [fonts.sansMedium]: require("../assets/fonts/Inter-Medium.ttf"),
+  [fonts.sansSemiBold]: require("../assets/fonts/Inter-SemiBold.ttf"),
+  [fonts.sansBold]: require("../assets/fonts/Inter-Bold.ttf"),
 };
 
 /**
