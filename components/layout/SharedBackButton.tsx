@@ -8,7 +8,7 @@ const SharedBackButton = ({ onPress, styleBtn, absolutePosition = true }) => {
       hitSlop={20}
       onPress={onPress}
     >
-      <Icon name="back" size={25} />
+      <Icon name="back" size="md" color="ink" />
     </Pressable>
   );
 };
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   btnStyle: {
     zIndex: 9999,
     position: "absolute",
-    left: 15,
-    top: 20,
+    left: 16,
+    top: 16,
   },
 });
 

@@ -104,7 +104,7 @@ const useStyles = makeStyles((colors) => ({
   keyboard: { flex: 1, backgroundColor: colors.bg },
   formScroll: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     backgroundColor: colors.bg,
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },

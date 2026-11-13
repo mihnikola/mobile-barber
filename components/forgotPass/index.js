@@ -1,13 +1,11 @@
 import { View } from "react-native";
-import { Platform } from "react-native";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
-import { fonts, makeStyles } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen, TextField } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { AppText, Button, Icon, MessageDialog, Pressable, Screen, TextField } from "@/components/ui";
 
 const ForgotPassword = () => {
   const styles = useStyles();
@@ -33,60 +31,40 @@ const ForgotPassword = () => {
   };
   return (
     <Screen mode="form">
-      {/* <SharedBackButton
-        onPress={router.back}
-        absolutePosition={false}
-        styleBtn={{ marginBottom: 30 }}
-      /> */}
-
-      <Pressable
-        hitSlop={20}
-        onPress={router.back}
-        style={{ marginVertical: 15 }}
-      >
-        <Icon name="back" size={25} />
+      <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
+        <Icon name="back" />
       </Pressable>
 
-      <View style={{ flex: 1 }}>
-        <View>
-          <AppText variant="legacyHeading">
-            {localization.FORGOT_PASSWORD.title}
-          </AppText>
-
-          <AppText variant="legacyBodyLg" color="textInactive" style={styles.subtitle}>
-            {localization.FORGOT_PASSWORD.subtitle}
-          </AppText>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <TextField
-            label={localization.EMAIL.label}
-            value={email}
-            onChangeText={handleEmailChange}
-            placeholder={localization.EMAIL.placeholder}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            error={emailError}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginBottom: 20 }}>
-        <Button style={layout.buttonBlock}
-          disabled={emailError.length > 0 && email.length > 0}
-          onPress={navHandler}
-          loading={isLoading}
-          title={localization.FORGOT_PASSWORD.submitBtn}
+      <View style={styles.body}>
+        <AppText variant="displayLg">{localization.FORGOT_PASSWORD.title}</AppText>
+        <AppText variant="body" color="inkMuted" style={styles.subtitle}>
+          {localization.FORGOT_PASSWORD.subtitle}
+        </AppText>
+        <TextField
+          label={localization.EMAIL.label}
+          value={email}
+          onChangeText={handleEmailChange}
+          placeholder={localization.EMAIL.placeholder}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          error={emailError}
         />
       </View>
+
+      <Button
+        style={styles.submit}
+        disabled={emailError.length > 0 && email.length > 0}
+        onPress={navHandler}
+        loading={isLoading}
+        title={localization.FORGOT_PASSWORD.submitBtn}
+      />
 
       {error && (
         <MessageDialog
           isOpen={isMessage || error}
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}
-          icon={
-            <Icon name="close" size={64} color="text" />
-          }
+          icon={<Icon name="close" size={32} />}
           title={error}
           buttonText={localization.OK.label}
         />
@@ -94,37 +72,12 @@ const ForgotPassword = () => {
     </Screen>
   );
 };
-const useStyles = makeStyles((colors) => ({
-  subtitle: {
 
-    lineHeight: 22,
-  },
-  radiobtn: {
-    flex: 2,
-    flexDirection: "column",
-    gap: 25,
-  },
-  imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
-
-  image: {
-    resizeMode: "contain",
-  },
-  input: {
-    backgroundColor: colors.white,
-    color: colors.textOnLight,
-    fontFamily: fonts.regular,
-
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.white,
-    paddingVertical: 15,
-  },
+const useStyles = makeStyles(() => ({
+  back: { alignSelf: "flex-start", padding: 4, marginTop: 16, marginBottom: 16 },
+  body: { flex: 1 },
+  subtitle: { marginTop: 8, marginBottom: 8 },
+  submit: { marginTop: 24, marginBottom: 32 },
 }));
+
 export default ForgotPassword;

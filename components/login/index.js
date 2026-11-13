@@ -1,37 +1,29 @@
 import {
   BackHandler,
-  Dimensions,
   findNodeHandle,
-  KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Text,
   View,
 } from "react-native";
 import { useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import SharedRedirect from "@/components/layout/SharedRedirect";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
 import { useEffect, useRef } from "react";
-import SharedBackButton from "@/components/layout/SharedBackButton";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, PasswordField, Pressable, TextField } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { AppText, Button, Icon, MessageDialog, PasswordField, Pressable, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
-const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
-  const { colors } = useTheme();
   const styles = useStyles();
   const { email, handleEmailChange } = useEmailField({ validate: false });
   const { password, handlePasswordChange, passwordInputRef } = usePasswordField({ validate: false });
   const scrollRef = useRef(null);
-  const insets = useSafeAreaInsets();
   // const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
@@ -117,244 +109,115 @@ const LoginScreen = () => {
     <ScrollView
       ref={scrollRef}
       keyboardDismissMode="interactive"
-      style={styles.safeArea}
-      contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+      style={styles.screen}
+      contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="always"
     >
-      <View style={styles.container}>
-        <Pressable hitSlop={20} onPress={router.back}>
-          <Icon name="back" size={25} />
-        </Pressable>
+      <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
+        <Icon name="back" />
+      </Pressable>
 
-        <View style={styles.logoImage}>
-          <SharedLogin />
-        </View>
-        <View style={{ alignItems: "center", marginTop: 10 }}>
-          <AppText variant="legacyHeading" style={styles.mainTitle}>{localization.LOGIN.title}</AppText>
-          <AppText variant="legacyTitle" size={13} color="textInactive" style={styles.subtitle}>{localization.LOGIN.description}</AppText>
-        </View>
+      <View style={styles.header}>
+        <SharedLogin />
+        <AppText variant="displayLg" align="center" style={styles.title}>
+          {localization.LOGIN.title}
+        </AppText>
+        <AppText variant="body" color="inkMuted" align="center">
+          {localization.LOGIN.description}
+        </AppText>
+      </View>
 
-        <View style={styles.socialButtonsContainer}>
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            {Platform.OS === "ios" ? (
-              <View>
-                <Button variant="socialDark" title={localization.GOOGLE_BTN.label} image={require("@/assets/images/googleg_64dp.png")} style={layout.buttonBlock}
-                  onPress={signIn}
-                  loading={loading === "google"}
-                />
-                <Button variant="socialLight" title={localization.APPLE_BTN.label} image={require("@/assets/images/apple.png")}
-                  onPress={onAppleButtonPress}
-                  loading={loading === "ios"}
-                />
-              </View>
-            ) : (
-              <Button variant="socialDark" title={localization.GOOGLE_BTN.label} image={require("@/assets/images/googleg_64dp.png")} style={layout.buttonBlock}
-                onPress={signIn}
-                loading={loading === "google"}
-              />
-            )}
-          </View>
-        </View>
-
-        <View style={styles.dividerContainer}>
-          <View style={styles.dividerLine} />
-          <AppText variant="legacyTitle" size={15} style={styles.dividerText}>{localization.LOGIN.or}</AppText>
-          <View style={styles.dividerLine} />
-        </View>
-
-        <TextField
-          label={localization.EMAIL.label}
-          value={email}
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            const node = findNodeHandle(passwordInputRef.current);
-            if (node) {
-              scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
-                node,
-                80,
-                true,
-              );
-            }
-            passwordInputRef.current?.focus();
-          }}
-          onChangeText={handleEmailChange}
-          placeholder={localization.EMAIL.placeholder}
-          keyboardType="email-address"
-          autoCapitalize="none"
+      <View style={styles.social}>
+        <Button
+          variant="socialDark"
+          title={localization.GOOGLE_BTN.label}
+          image={require("@/assets/images/googleg_64dp.png")}
+          onPress={signIn}
+          loading={loading === "google"}
         />
-        <View
-          onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}
-        >
-          <PasswordField
-            label={localization.PASSWORD.label}
-            value={password}
-            ref={passwordInputRef}
-            onChangeText={handlePasswordChange}
-            placeholder={localization.PASSWORD.placeholder}
-          />
-        </View>
-        <Pressable onPress={forgotHandler} style={{ paddingTop: 20 }}>
-          <Text
-            style={{
-              color: colors.text,
-              textAlign: "right",
-              fontFamily: fonts.regular,
-            }}
-          >
-            {localization.LOGIN.forgot}
-          </Text>
-        </Pressable>
-
-        <Button style={layout.buttonBlock}
-          // loading={isLoadingLogin}
-          loading={loading === "login"}
-          onPress={handleLogin}
-          title={localization.LOGIN.submitBtn}
-        />
-
-        <SharedRedirect
-          onPress={navigateToRegister}
-          question={localization.LOGIN.question}
-          text={localization.LOGIN.CTA}
-        />
-
-        {isMessage && (
-          <MessageDialog
-            isLoading={loading}
-            isOpen={isMessage}
-            onClose={!error ? confirmHandler : cancelHandler}
-            onConfirm={!error ? confirmHandler : cancelHandler}
-            icon={
-              <Icon name={error ? "close" : success ? "check" : "info"} size={64} color="text" />
-            }
-            title={error || success || message}
-            buttonText={localization.OK.label}
+        {Platform.OS === "ios" && (
+          <Button
+            variant="socialLight"
+            title={localization.APPLE_BTN.label}
+            image={require("@/assets/images/apple.png")}
+            onPress={onAppleButtonPress}
+            loading={loading === "ios"}
           />
         )}
       </View>
+
+      <View style={styles.divider}>
+        <View style={styles.dividerLine} />
+        <AppText variant="label" color="inkMuted" style={styles.dividerText}>
+          {localization.LOGIN.or}
+        </AppText>
+        <View style={styles.dividerLine} />
+      </View>
+
+      <TextField
+        label={localization.EMAIL.label}
+        value={email}
+        returnKeyType="next"
+        onSubmitEditing={() => {
+          const node = findNodeHandle(passwordInputRef.current);
+          if (node) {
+            scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(node, 80, true);
+          }
+          passwordInputRef.current?.focus();
+        }}
+        onChangeText={handleEmailChange}
+        placeholder={localization.EMAIL.placeholder}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <View onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}>
+        <PasswordField
+          label={localization.PASSWORD.label}
+          value={password}
+          ref={passwordInputRef}
+          onChangeText={handlePasswordChange}
+          placeholder={localization.PASSWORD.placeholder}
+        />
+      </View>
+
+      <Pressable onPress={forgotHandler} hitSlop={8} style={styles.forgot}>
+        <AppText variant="bodySm" bold style={styles.link}>
+          {localization.LOGIN.forgot}
+        </AppText>
+      </Pressable>
+
+      <Button loading={loading === "login"} onPress={handleLogin} title={localization.LOGIN.submitBtn} style={styles.submit} />
+
+      <SharedRedirect onPress={navigateToRegister} question={localization.LOGIN.question} text={localization.LOGIN.CTA} />
+
+      {isMessage && (
+        <MessageDialog
+          isLoading={loading}
+          isOpen={isMessage}
+          onClose={!error ? confirmHandler : cancelHandler}
+          onConfirm={!error ? confirmHandler : cancelHandler}
+          icon={<Icon name={error ? "close" : success ? "check" : "info"} size={32} />}
+          title={error || success || message}
+          buttonText={localization.OK.label}
+        />
+      )}
     </ScrollView>
   );
 };
 
 const useStyles = makeStyles((colors) => ({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  buttonGoogleIsLoading: {
-    backgroundColor: colors.brandBlue,
-    height: 58,
-    width: "100%",
-    borderRadius: 4,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    shadowColor: colors.background,
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  logoImage: {
-    alignItems: "center",
-    marginTop: 10,
-  },
-
-  iconStyle: {
-    width: 30,
-    height: 30,
-    resizeMode: "cover",
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 50,
-    backgroundColor: colors.background,
-  },
-  logo: {
-    width: 120,
-    height: 100,
-    resizeMode: "contain",
-    backgroundColor: colors.background,
-  },
-  mainTitle: {
-    marginBottom: 5,
-  },
-  subtitle: {
-    marginBottom: 30,
-  },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
-  },
-  socialButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: width / 2 - 30,
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.white,
-  },
-  googleButton: {
-    backgroundColor: colors.surfaceInput,
-  },
-  appleButton: {
-    backgroundColor: colors.surfaceInput,
-  },
-  socialIcon: {
-    marginRight: 10,
-  },
-  socialButtonText: {
-    color: colors.text,
-    fontSize: 16,
-    fontFamily: fonts.regular,
-  },
-  dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 0,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.surfaceRaised,
-  },
-  dividerText: {
-    marginHorizontal: 10,
-  },
-  input: {
-    backgroundColor: colors.white,
-    color: colors.textOnLight,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.white,
-    fontFamily: fonts.regular,
-  },
-  passwordInputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    borderWidth: 2,
-
-    borderColor: colors.textInactive,
-  },
-  passwordInput: {
-    backgroundColor: colors.white,
-    color: colors.text,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.textInactive,
-    width: "80%",
-  },
+  screen: { flex: 1, backgroundColor: colors.bg },
+  content: { flexGrow: 1, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 },
+  back: { alignSelf: "flex-start", padding: 4 },
+  header: { alignItems: "center", gap: 8, marginTop: 8, marginBottom: 24 },
+  title: { marginTop: 16 },
+  social: { gap: 8 },
+  divider: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 24, marginBottom: 8 },
+  dividerLine: { flex: 1, height: 1, backgroundColor: colors.line },
+  dividerText: { textTransform: "uppercase", letterSpacing: 0.78 },
+  forgot: { alignSelf: "flex-end", marginTop: 12 },
+  link: { textDecorationLine: "underline" },
+  submit: { marginTop: 24, marginBottom: 24 },
 }));
 
 export default LoginScreen;

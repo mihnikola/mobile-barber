@@ -12,11 +12,10 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, PasswordField, PhoneField, Pressable, TextField } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { AppText, Button, Icon, MessageDialog, PasswordField, PhoneField, Pressable, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
-  const { colors } = useTheme();
   const styles = useStyles();
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -83,22 +82,20 @@ const Register = () => {
     <ScrollView
       ref={scrollRef}
       keyboardDismissMode="interactive"
-      style={styles.safeArea}
-      contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+      style={styles.screen}
+      contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="always"
     >
       <View style={styles.container}>
-        <View style={{ marginTop: 10 }}>
-          <Pressable hitSlop={20} onPress={router.back}>
-            <Icon name="back" size={25} />
-          </Pressable>
-        </View>
-        <View style={{ alignItems: "center", marginTop: 10 }}>
+        <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
+          <Icon name="back" />
+        </Pressable>
+        <View style={styles.header}>
           <SharedLogin />
-        </View>
-        <View style={{ alignItems: "center", marginTop: 10 }}>
-          <AppText variant="legacyHeading">{localization.REGISTER.title}</AppText>
-          <AppText variant="legacyBody" size={13} color="textInactive">
+          <AppText variant="displayLg" align="center" style={styles.title}>
+            {localization.REGISTER.title}
+          </AppText>
+          <AppText variant="body" color="inkMuted" align="center">
             {localization.REGISTER.description}
           </AppText>
         </View>
@@ -145,7 +142,6 @@ const Register = () => {
           <PhoneField
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
-            placeholderTextColor={colors.textInactive}
             keyboardType="phone-pad"
             dataDetectorTypes="phoneNumber"
             value={phoneNumber}
@@ -208,7 +204,8 @@ const Register = () => {
           />
         </View>
 
-        <Button style={layout.buttonBlock}
+        <Button
+          style={styles.submit}
           disabled={
             emailError.length > 0 ||
             passwordError.length > 0 ||
@@ -230,7 +227,7 @@ const Register = () => {
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}
             icon={
-              <Icon name={error ? "close" : "check"} size={64} color="text" />
+              <Icon name={error ? "close" : "check"} size={32} />
             }
             title={error || success}
             buttonText={localization.OK.label}
@@ -242,56 +239,13 @@ const Register = () => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 25,
-    backgroundColor: colors.background,
-  },
-
-  logo: {
-    width: 120,
-    height: 100,
-    resizeMode: "contain",
-    backgroundColor: colors.background,
-  },
-
-  input: {
-    backgroundColor: colors.white,
-    color: colors.textOnLight,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.white,
-    fontFamily: fonts.regular,
-
-  },
-  passwordInputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    borderWidth: 2,
-
-    borderColor: colors.divider,
-  },
-  passwordInput: {
-    backgroundColor: colors.white,
-    color:  colors.text,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.white,
-    width: "80%",
-  },
+  screen: { flex: 1, backgroundColor: colors.bg },
+  content: { flexGrow: 1, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 },
+  container: { flex: 1 },
+  back: { alignSelf: "flex-start", padding: 4 },
+  header: { alignItems: "center", gap: 8, marginTop: 8, marginBottom: 8 },
+  title: { marginTop: 16 },
+  submit: { marginTop: 24, marginBottom: 24 },
 }));
 
 export default Register;

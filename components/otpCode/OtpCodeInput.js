@@ -43,23 +43,17 @@ const OtpInput = ({ code, setCode, maxLength = 6 }) => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flexDirection: "row",
-    gap: 10,
-    justifyContent: "center",
-    marginVertical: 20,
-    
-  },
+  container: { flexDirection: "row", gap: 8, justifyContent: "center", marginVertical: 24 },
   input: {
-    borderWidth: 1,
-    borderColor: colors.text,
-    backgroundColor: colors.surfaceItem,
-    color: colors.text,
-    fontFamily:fonts.bold,
-    borderRadius: 10,
-    width: 50,
-    height: 60,
-    fontSize: 24,
+    width: 48,
+    height: 56,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
+    backgroundColor: colors.surface,
+    color: colors.ink,
+    fontFamily: fonts.sansSemiBold,
+    fontSize: 22,
     textAlign: "center",
   },
 }));

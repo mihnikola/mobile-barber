@@ -11,8 +11,8 @@ import {
   getOtpParamsStorage,
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
-import { fonts, makeStyles } from "@/theme";
-import { AppText, Button, Icon, layout, Loader, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { AppText, Button, Icon, Loader, MessageDialog, Pressable, Screen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const OtpCode = () => {
@@ -115,49 +115,26 @@ const OtpCode = () => {
   if (verifyData) {
     return (
       <Screen mode="form">
-        <Pressable
-          hitSlop={20}
-          onPress={router.back}
-          style={{ marginVertical: 15 }}
-        >
-          <Icon name="back" size={25} />
+        <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
+          <Icon name="back" />
         </Pressable>
 
-        <View style={{ flex: 1 }}>
-          <View>
-            <AppText variant="legacyHeading" style={styles.mainTitle}>
-              {localization.OTP_CODE.mainTitle}
-            </AppText>
-          </View>
-          <View style={{ marginTop: 20 }}>
-            <AppText variant="legacyBody" size={13} color="textInactive">
-              {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
-            </AppText>
-            <AppText variant="legacyBody" size={13} color="textInactive">
-              {localization.OTP_CODE.subtitleSecondary}
-            </AppText>
-          </View>
+        <View style={styles.body}>
+          <AppText variant="displayLg">{localization.OTP_CODE.mainTitle}</AppText>
+          <AppText variant="body" color="inkMuted" style={styles.lead}>
+            {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}. {localization.OTP_CODE.subtitleSecondary}
+          </AppText>
           <OtpInput code={code} setCode={setCode} />
           <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
-          {/* <SharedImageForgotPass /> */}
         </View>
-        <View style={styles.btnFooter}>
-          <Button style={layout.buttonBlock}
-            // disabled={code.join("").length < 6}
-            onPress={handleVerify}
-            title={localization.SUBMIT.label}
-            loading={isLoading}
-          />
-        </View>
+        <Button style={styles.submit} onPress={handleVerify} title={localization.SUBMIT.label} loading={isLoading} />
         {isLoaderVerify && <Loader />}
         {isMessage && (
           <MessageDialog
             isOpen={isMessage}
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}
-            icon={
-              <Icon name={error ? "close" : "check"} size={64} color="text" />
-            }
+            icon={<Icon name={error ? "close" : "check"} size={32} />}
             title={error || message}
             buttonText={localization.OK.label}
           />
@@ -166,69 +143,11 @@ const OtpCode = () => {
     );
   }
 };
-const useStyles = makeStyles((colors) => ({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.backgroundDeep,
-  },
-  btnFooter: {
-    marginBottom: 20,
-  },
-  radiobtn: {
-    flex: 2,
-    flexDirection: "column",
-    gap: 25,
-  },
-  imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
 
-  resendText: {
-    color: colors.text,
-    fontSize: 16,
-    fontFamily: fonts.bold,
-  },
-  timerText: {
-    color: colors.text,
-    fontFamily: fonts.regular,
-
-    fontSize: 14,
-  },
-  iconStyle: {
-    width: 30,
-    height: 30,
-    resizeMode: "cover",
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: colors.background,
-  },
-  image: {
-    width: 290,
-    height: 290,
-    resizeMode: "contain",
-    backgroundColor: colors.background,
-  },
-  mainTitle: {
-    marginBottom: 5,
-  },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
-  },
-  socialButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.white,
-  },
+const useStyles = makeStyles(() => ({
+  back: { alignSelf: "flex-start", padding: 4, marginTop: 16, marginBottom: 16 },
+  body: { flex: 1 },
+  lead: { marginTop: 8 },
+  submit: { marginTop: 24, marginBottom: 32 },
 }));
 export default OtpCode;
