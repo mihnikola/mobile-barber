@@ -19,22 +19,22 @@ const PrivacyPolicyScreen = () => {
       />
 
       <View style={styles.sectionContainer}>
-        <AppText variant="bodyLg" style={styles.paragraph}>
+        <AppText variant="legacyBodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.paragraph}
         </AppText>
-        <AppText size={25} style={styles.paragraphTitle}>
+        <AppText variant="legacyBody" size={25} style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.policyTitle}
         </AppText>
-        <AppText variant="bodyLg" style={styles.paragraph}>
+        <AppText variant="legacyBodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.policy}
         </AppText>
-        <AppText size={25} style={styles.paragraphTitle}>
+        <AppText variant="legacyBody" size={25} style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.conditionTitle}
         </AppText>
-        <AppText variant="bodyLg" style={styles.paragraph}>
+        <AppText variant="legacyBodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.condition}
         </AppText>
-        <AppText style={styles.copyright}>
+        <AppText variant="legacyBody" style={styles.copyright}>
           {localization.SETTINGS.LEGAL.footerBottom} {developerName}
         </AppText>
       </View>

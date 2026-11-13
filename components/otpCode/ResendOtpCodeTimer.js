@@ -31,11 +31,11 @@ const ResendOtpCodeTimer = ({ resendHandler }) => {
   return (
     <View>
       {canResend ? (
-        <AppText variant="label" color="link" onPress={handleResendCodeHandler}>
+        <AppText variant="legacyLabel" color="link" onPress={handleResendCodeHandler}>
           {localization.OTP_CODE.codeResendCapture}
         </AppText>
       ) : (
-        <AppText color="textInactive">
+        <AppText variant="legacyBody" color="textInactive">
           {localization.OTP_CODE.codeResend} {timer}
         </AppText>
       )}

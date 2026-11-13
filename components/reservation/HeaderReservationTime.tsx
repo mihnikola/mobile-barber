@@ -18,13 +18,13 @@ const HeaderReservationTime = ({ data }) => {
         </Pressable>
       </View>
       <View>
-        <AppText variant="title">
+        <AppText variant="legacyTitle">
           {data?.startDateTime} - {data?.finishedTime}
         </AppText>
-        <AppText variant="title">
+        <AppText variant="legacyTitle">
           {convertDateDetails(data?.startDate, localization.code)}
         </AppText>
-        <AppText variant="title">{data?.place}</AppText>
+        <AppText variant="legacyTitle">{data?.place}</AppText>
       </View>
     </View>
   );

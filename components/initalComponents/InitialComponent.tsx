@@ -110,8 +110,8 @@ const InitialComponent = () => {
           style={imageAnimationStyle}
         />
         <Animated.View style={textAnimationStyle}>
-          <AppText variant="heading" style={styles.itemTitle}>{item.title}</AppText>
-          <AppText style={styles.itemText}>{item.text}</AppText>
+          <AppText variant="legacyHeading" style={styles.itemTitle}>{item.title}</AppText>
+          <AppText variant="legacyBody" style={styles.itemText}>{item.text}</AppText>
         </Animated.View>
       </View>
     );

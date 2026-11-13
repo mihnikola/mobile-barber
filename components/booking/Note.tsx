@@ -10,11 +10,11 @@ const Note = () => {
 
   return (
     <View style={styles.data}>
-      <AppText variant="title" style={styles.title}>{localization.SALON.title}</AppText>
-      <AppText style={styles.info}>
+      <AppText variant="legacyTitle" style={styles.title}>{localization.SALON.title}</AppText>
+      <AppText variant="legacyBody" style={styles.info}>
        {localization.SALON.first}
       </AppText>
-      <AppText style={styles.info}>
+      <AppText variant="legacyBody" style={styles.info}>
         {localization.SALON.second}
       </AppText>
     </View>

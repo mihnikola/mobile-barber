@@ -31,17 +31,17 @@ const HelpSupportScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <AppText variant="label">
+          <AppText variant="legacyLabel">
             {localization.SETTINGS.HELP.company}
           </AppText>
-          <AppText variant="bodyLg">{companyInfo.name}</AppText>
+          <AppText variant="legacyBodyLg">{companyInfo.name}</AppText>
         </View>
         <Pressable onPress={handleEmailPress} style={styles.menuItem}>
           <Icon name="email" size={24} style={styles.menuItemIcon} color="text" />
-          <AppText variant="label" style={styles.menuItemText}>
+          <AppText variant="legacyLabel" style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
           </AppText>
-          <AppText>{companyInfo.email}</AppText>
+          <AppText variant="legacyBody">{companyInfo.email}</AppText>
         </Pressable>
       </View>
     </ScrollView>

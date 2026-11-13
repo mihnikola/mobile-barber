@@ -22,14 +22,14 @@ const SharedOthersServices = (props: any) => {
       )}
       <View style={styles.detailsContainer}>
         {data?.service ? (
-          <AppText variant="bodyLg" style={styles.name}>
+          <AppText variant="legacyBodyLg" style={styles.name}>
             {" "}
             {localization.code === "en"
               ? data?.service?.name?.nameEn
               : data?.service?.name?.nameLocal}{" "}
           </AppText>
         ) : (
-          <AppText variant="bodyLg" style={styles.name}>
+          <AppText variant="legacyBodyLg" style={styles.name}>
             {" "}
             {localization.code === "en" ? name?.nameEn : name?.nameLocal}{" "}
           </AppText>
@@ -38,18 +38,18 @@ const SharedOthersServices = (props: any) => {
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="text" />
             {data?.service?.duration ? (
-              <AppText variant="caption" style={styles.locationText}>
+              <AppText variant="legacyCaption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${data?.service?.duration} `}
               </AppText>
             ) : (
-              <AppText variant="caption" style={styles.locationText}>
+              <AppText variant="legacyCaption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${duration} `}
               </AppText>
             )}
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="gold" />
-            <AppText style={styles.reviewText}>
+            <AppText variant="legacyBody" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${data?.price}`}
             </AppText>
           </View>

@@ -34,14 +34,14 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <AppText variant="subtitle">
+            <AppText variant="legacySubtitle">
               {localization.SERVICES.totalDuration}
             </AppText>
           </View>
           <View>
-            {totalDuration && <AppText size={18}>{totalDuration}{" min"}</AppText>}
+            {totalDuration && <AppText variant="legacyBody" size={18}>{totalDuration}{" min"}</AppText>}
             {!totalDuration && (
-              <AppText size={18}>
+              <AppText variant="legacyBody" size={18}>
                 {totals.totalDuration + service?.serviceDuration ||
                   service?.duration}
                 {" min"}
@@ -56,14 +56,14 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <AppText variant="subtitle">
+            <AppText variant="legacySubtitle">
               {localization.SERVICES.totalPrice}
             </AppText>
           </View>
           <View>
-            {totalPrice && <AppText size={18}>{totalPrice}{" rsd"}</AppText>}
+            {totalPrice && <AppText variant="legacyBody" size={18}>{totalPrice}{" rsd"}</AppText>}
             {!totalPrice && (
-              <AppText size={18}>
+              <AppText variant="legacyBody" size={18}>
                 {totals.totalPrice + service?.servicePrice || service?.price}
                 {" rsd"}
               </AppText>

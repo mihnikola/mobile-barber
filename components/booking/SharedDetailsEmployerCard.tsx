@@ -61,14 +61,14 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           >
             <View style={styles.ratingContainer}>
               <Icon name={"star"} size={16} color="gold" />
-              <AppText variant="title" size={12}>{`${roundValue(
+              <AppText variant="legacyTitle" size={12}>{`${roundValue(
                 averageRating,
               )}/5`}</AppText>
             </View>
 
             <View style={styles.ratingContainer}>
               <Icon name={"person"} size={16} color="gold" />
-              <AppText variant="title" size={12}>{userCount || 0}</AppText>
+              <AppText variant="legacyTitle" size={12}>{userCount || 0}</AppText>
             </View>
           </View>
         </View>

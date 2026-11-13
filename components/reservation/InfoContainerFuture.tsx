@@ -13,19 +13,19 @@ const InfoContainerFuture = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <AppText variant="subtitle"
+          <AppText variant="legacySubtitle"
             numberOfLines={2}
             ellipsizeMode="tail"
           >
             {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
           </AppText>
-          <AppText size={18} style={styles.captureDateContent}>
+          <AppText variant="legacyBody" size={18} style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
             {convertToDayTime(item?.endDate)} 
           </AppText>
         </View>
         <View style={styles.addressContainer}>
-          <AppText size={15}
+          <AppText variant="legacyBody" size={15}
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.captureDateLocation}

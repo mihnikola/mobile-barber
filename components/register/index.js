@@ -97,8 +97,8 @@ const Register = () => {
           <SharedLogin />
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <AppText variant="heading">{localization.REGISTER.title}</AppText>
-          <AppText size={13} color="textInactive">
+          <AppText variant="legacyHeading">{localization.REGISTER.title}</AppText>
+          <AppText variant="legacyBody" size={13} color="textInactive">
             {localization.REGISTER.description}
           </AppText>
         </View>

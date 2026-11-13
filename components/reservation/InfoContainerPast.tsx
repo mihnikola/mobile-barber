@@ -11,14 +11,14 @@ const InfoContainerPast = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <AppText variant="subtitle" color="textInactive"
+          <AppText variant="legacySubtitle" color="textInactive"
             style={styles.captureDateBoldPast}
             numberOfLines={2}
             ellipsizeMode="tail"
           >
             {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
           </AppText>
-          <AppText size={18} color="textInactive" style={styles.captureDatePast}>
+          <AppText variant="legacyBody" size={18} color="textInactive" style={styles.captureDatePast}>
             {convertToDayTime(item?.startDate)} -{" "}
             {addMinutesToTime(
               convertToDayTime(item?.startDate),
@@ -27,7 +27,7 @@ const InfoContainerPast = ({ item }) => {
           </AppText>
         </View>
         <View style={styles.addressContainer}>
-          <AppText size={15} color="textInactive"
+          <AppText variant="legacyBody" size={15} color="textInactive"
             style={styles.captureDateLocation}
             numberOfLines={1}
             ellipsizeMode="tail"
@@ -37,7 +37,7 @@ const InfoContainerPast = ({ item }) => {
         </View>
       </View>
       <View>
-        <AppText color="textInactive">
+        <AppText variant="legacyBody" color="textInactive">
           {item.rating
             ? localization.APPOINTMENTS.rateReservation.rated
             : localization.APPOINTMENTS.rateReservation.rateUs}

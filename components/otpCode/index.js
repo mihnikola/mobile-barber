@@ -125,15 +125,15 @@ const OtpCode = () => {
 
         <View style={{ flex: 1 }}>
           <View>
-            <AppText variant="heading" style={styles.mainTitle}>
+            <AppText variant="legacyHeading" style={styles.mainTitle}>
               {localization.OTP_CODE.mainTitle}
             </AppText>
           </View>
           <View style={{ marginTop: 20 }}>
-            <AppText size={13} color="textInactive">
+            <AppText variant="legacyBody" size={13} color="textInactive">
               {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
             </AppText>
-            <AppText size={13} color="textInactive">
+            <AppText variant="legacyBody" size={13} color="textInactive">
               {localization.OTP_CODE.subtitleSecondary}
             </AppText>
           </View>

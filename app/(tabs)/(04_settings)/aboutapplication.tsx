@@ -22,22 +22,22 @@ const AboutApplicationScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <AppText variant="bodyLg" style={styles.label}>
+          <AppText variant="legacyBodyLg" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.name}
           </AppText>
-          <AppText variant="bodyLg" style={styles.value}>{appName}</AppText>
+          <AppText variant="legacyBodyLg" style={styles.value}>{appName}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <AppText variant="bodyLg" style={styles.label}>
+          <AppText variant="legacyBodyLg" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.version}
           </AppText>
-          <AppText variant="bodyLg" style={styles.value}>{appVersion}</AppText>
+          <AppText variant="legacyBodyLg" style={styles.value}>{appVersion}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <AppText variant="bodyLg" style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</AppText>
-          <AppText variant="bodyLg" style={styles.value}>{developerName}</AppText>
+          <AppText variant="legacyBodyLg" style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</AppText>
+          <AppText variant="legacyBodyLg" style={styles.value}>{developerName}</AppText>
         </View>
       </View>
     </ScrollView>

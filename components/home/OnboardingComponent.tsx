@@ -29,7 +29,7 @@ const OnboardingComponent = ({ reviews }) => {
 
   return (
     <View style={styles.onboardingSection}>
-      <AppText variant="title" size={29} style={styles.reviewSectionTitle}>{localization.HOME.reviews}</AppText>
+      <AppText variant="legacyTitle" size={29} style={styles.reviewSectionTitle}>{localization.HOME.reviews}</AppText>
       {/* FlatList sada ima fiksnu širinu ekrana. */}
       <FlatList
         data={reviews}

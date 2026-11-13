@@ -42,7 +42,7 @@ const SharedDetailsServiceCard = (props: any) => {
         >
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="text" />
-            <AppText style={styles.locationText}>
+            <AppText variant="legacyBody" style={styles.locationText}>
               {`${localization.DETAILS.duration} ${
                 duration || data?.serviceDuration
               }`}
@@ -50,7 +50,7 @@ const SharedDetailsServiceCard = (props: any) => {
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="gold" />
-            <AppText style={styles.reviewText}>
+            <AppText variant="legacyBody" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
             </AppText>
           </View>

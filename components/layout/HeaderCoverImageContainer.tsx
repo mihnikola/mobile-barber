@@ -52,7 +52,7 @@ function HeaderCoverImageContainer({
               <Icon name="back" size={25} />
             </Pressable>
           )}
-          <AppText size={32} style={nextBtn && styles.captureNextBtn}>
+          <AppText variant="legacyBody" size={32} style={nextBtn && styles.captureNextBtn}>
             {title}
           </AppText>
         </View>
@@ -63,7 +63,7 @@ function HeaderCoverImageContainer({
       {status && (
         <View style={styles.containerStatus}>
           <View style={styles.containerStatusTitle}>
-            <AppText size={32}>{title}</AppText>
+            <AppText variant="legacyBody" size={32}>{title}</AppText>
           </View>
           <View>
             <AppointmentsStatuses handleStatus={handleStatus} active={active} />

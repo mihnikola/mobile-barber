@@ -49,12 +49,12 @@ function ResevationNotificationScreen() {
         <View style={styles.card}>
           <View style={styles.descContent}>
             <View>
-              <AppText variant="subtitle" style={styles.descriptionLabel}>
+              <AppText variant="legacySubtitle" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descReservation}
               </AppText>
             </View>
             <View>
-              <AppText>
+              <AppText variant="legacyBody">
                 {reservationData?.description}
               </AppText>
             </View>
@@ -78,12 +78,12 @@ function ResevationNotificationScreen() {
           />
           <View style={styles.descContent}>
             <View>
-              <AppText variant="subtitle" style={styles.descriptionLabel}>
+              <AppText variant="legacySubtitle" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descRateReservation}
               </AppText>
             </View>
             <View>
-              <AppText>
+              <AppText variant="legacyBody">
                 {reservationData?.rating?.description}
               </AppText>
             </View>
@@ -225,7 +225,7 @@ function ResevationNotificationScreen() {
   const renderRejectionTitle = () => {
     return (
       <View style={styles.missed}>
-        <AppText variant="heading" style={styles.textBoldRejected}>
+        <AppText variant="legacyHeading" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.rejectedMessage}
         </AppText>
       </View>
@@ -234,7 +234,7 @@ function ResevationNotificationScreen() {
   const renderExpirationTitle = () => {
     return (
       <View style={styles.missed}>
-        <AppText variant="heading" style={styles.textBoldRejected}>
+        <AppText variant="legacyHeading" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.expiredMessage}
         </AppText>
       </View>

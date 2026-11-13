@@ -48,7 +48,7 @@ const ConfirmBookReservation = () => {
               : localization.SALON.pendingTitle}
           </Text>
           {params?.status !== "0" && (
-            <AppText style={styles.pendingSubTitle}>
+            <AppText variant="legacyBody" style={styles.pendingSubTitle}>
               {localization.SALON.pendingSubTitle}
             </AppText>
           )}

@@ -1,38 +1,43 @@
 import { StyleSheet, Text, type TextProps } from "react-native";
 
-import { fontSize, fonts, type ColorToken, useTheme } from "@/theme";
+import { type ColorToken, fonts, fontSize, typeScale, useTheme } from "@/theme";
 
 /**
- * Text presets, taken from the most frequent style combinations in the app
- * (measured 2026-11-13). Values are 1:1 with today's look (D-002).
+ * Text presets.
+ *  - Design system (Phase 5): displayXl/Lg/Md (Barlow Condensed, uppercase), title, bodyLg, body,
+ *    bodyStrong, bodySm, label, caption (Inter) — from theme/typography `typeScale`.
+ *  - legacy*: the Phase 2 presets (Barlow Condensed everywhere), kept 1:1 for screens that are not
+ *    restyled yet. Removed when the last screen moves to the design-system variants (Phase 5.6).
  */
 const VARIANTS = {
-  /** bold 22 — section / screen headings */
-  heading: { fontFamily: fonts.bold, fontSize: fontSize.xxl },
-  /** bold 20 — card / block titles */
-  title: { fontFamily: fonts.bold, fontSize: fontSize.xl },
-  /** bold 18 — sub titles, names */
-  subtitle: { fontFamily: fonts.bold, fontSize: fontSize.lg },
+  ...typeScale,
+
+  /** bold 22 */
+  legacyHeading: { fontFamily: fonts.bold, fontSize: fontSize.xxl },
+  /** bold 20 */
+  legacyTitle: { fontFamily: fonts.bold, fontSize: fontSize.xl },
+  /** bold 18 */
+  legacySubtitle: { fontFamily: fonts.bold, fontSize: fontSize.lg },
   /** bold 16 */
-  label: { fontFamily: fonts.bold, fontSize: fontSize.md },
+  legacyLabel: { fontFamily: fonts.bold, fontSize: fontSize.md },
   /** bold 14 */
-  labelSm: { fontFamily: fonts.bold, fontSize: fontSize.sm },
+  legacyLabelSm: { fontFamily: fonts.bold, fontSize: fontSize.sm },
   /** regular 16 */
-  bodyLg: { fontFamily: fonts.regular, fontSize: fontSize.md },
-  /** regular 14 — default */
-  body: { fontFamily: fonts.regular, fontSize: fontSize.sm },
+  legacyBodyLg: { fontFamily: fonts.regular, fontSize: fontSize.md },
+  /** regular 14 */
+  legacyBody: { fontFamily: fonts.regular, fontSize: fontSize.sm },
   /** regular 12 */
-  caption: { fontFamily: fonts.regular, fontSize: fontSize.xs },
+  legacyCaption: { fontFamily: fonts.regular, fontSize: fontSize.xs },
 } as const;
 
 export type TextVariant = keyof typeof VARIANTS;
 
 export type AppTextProps = TextProps & {
-  /** Preset for font family + size. Default `body`. */
+  /** Preset for font family + size. Default `body` (Inter 16). */
   variant?: TextVariant;
-  /** Color token. Default `text` (white). */
+  /** Color token. Default `ink` (design system) / `text` for legacy variants. */
   color?: ColorToken;
-  /** Override weight family without changing size. */
+  /** Override the weight without changing the size (Inter SemiBold / Regular; Barlow for legacy). */
   bold?: boolean;
   /** Override size (token key or exact number) without changing the family. */
   size?: keyof typeof fontSize | number;
@@ -40,16 +45,19 @@ export type AppTextProps = TextProps & {
 };
 
 /** The only Text component screens should use. Extra `style` is applied last. */
-export function AppText({ variant = "body", color = "text", bold, size, align, style, ...rest }: AppTextProps) {
+export function AppText({ variant = "body", color, bold, size, align, style, ...rest }: AppTextProps) {
   const { colors } = useTheme();
+  const legacy = variant.startsWith("legacy");
   const base = VARIANTS[variant];
   return (
     <Text
       {...rest}
       style={[
         base,
-        { color: colors[color] },
-        bold !== undefined && { fontFamily: bold ? fonts.bold : fonts.regular },
+        { color: colors[color ?? (legacy ? "text" : "ink")] },
+        bold !== undefined && {
+          fontFamily: legacy ? (bold ? fonts.bold : fonts.regular) : bold ? fonts.sansSemiBold : fonts.sans,
+        },
         size !== undefined && { fontSize: typeof size === "number" ? size : fontSize[size] },
         align && { textAlign: align },
         style,

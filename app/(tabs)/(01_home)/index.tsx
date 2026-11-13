@@ -128,10 +128,10 @@ function App() {
           <Icon name="calendar" size={28} color="text" />
 
           <View style={styles.locationContent}>
-            <AppText variant="heading" style={styles.titleLocation}>
+            <AppText variant="legacyHeading" style={styles.titleLocation}>
               {localization.HOME.bookingBtn}
             </AppText>
-            <AppText size={15} color="textDeactivated">
+            <AppText variant="legacyBody" size={15} color="textDeactivated">
               {localization.HOME.bookingBtnDesc}
             </AppText>
           </View>
@@ -144,10 +144,10 @@ function App() {
         >
           <Icon name="home" size={28} color="text" />
           <View style={styles.locationContent}>
-            <AppText variant="heading" style={styles.titleLocation}>
+            <AppText variant="legacyHeading" style={styles.titleLocation}>
               {localization.HOME.aboutUsBtn}
             </AppText>
-            <AppText size={15} color="textDeactivated">
+            <AppText variant="legacyBody" size={15} color="textDeactivated">
               {localization.HOME.aboutUsBtnDesc}
             </AppText>
           </View>
@@ -160,10 +160,10 @@ function App() {
         >
           <Icon name="locationArrow" size={28} color="text" />
           <View style={styles.locationContent}>
-            <AppText variant="heading" style={styles.titleLocation}>
+            <AppText variant="legacyHeading" style={styles.titleLocation}>
               {localization.HOME.locationBtn}
             </AppText>
-            <AppText size={15} color="textDeactivated">
+            <AppText variant="legacyBody" size={15} color="textDeactivated">
               {localization.HOME.locationBtnDesc}
             </AppText>
           </View>

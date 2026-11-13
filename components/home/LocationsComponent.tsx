@@ -28,7 +28,7 @@ function LocationsComponent({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <AppText variant="heading" style={styles.modalTitle}>{title}</AppText>
+          <AppText variant="legacyHeading" style={styles.modalTitle}>{title}</AppText>
           <ScrollView style={{ maxHeight: 300 }}>
             {locations?.map((locationItem: any) => {
               return (
@@ -38,7 +38,7 @@ function LocationsComponent({
                   onPress={() => handleLocationSelect(locationItem)}
                 >
                   <Icon name="locationDot" size={20} color="danger" />
-                  <AppText variant="label"
+                  <AppText variant="legacyLabel"
                     ellipsizeMode="tail"
                     numberOfLines={1}
                     style={styles.itemSubtitle}
@@ -50,7 +50,7 @@ function LocationsComponent({
             })}
           </ScrollView>
           <Pressable onPress={onConfirm} style={styles.actionButton}>
-            <AppText size={22} style={styles.actionButtonText}>{buttonText}</AppText>
+            <AppText variant="legacyBody" size={22} style={styles.actionButtonText}>{buttonText}</AppText>
           </Pressable>
         </View>
       </View>

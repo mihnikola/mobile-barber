@@ -146,7 +146,7 @@ const DateComponent = () => {
           )}
           {isSunday && (
             <View style={styles.notWorkingDays}>
-              <AppText size={20} style={styles.notWorkingDaysContent}>
+              <AppText variant="legacyBody" size={20} style={styles.notWorkingDaysContent}>
                 {localization.DATE.holidaySunday}
               </AppText>
             </View>

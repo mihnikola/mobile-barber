@@ -130,8 +130,8 @@ const LoginScreen = () => {
           <SharedLogin />
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <AppText variant="heading" style={styles.mainTitle}>{localization.LOGIN.title}</AppText>
-          <AppText variant="title" size={13} color="textInactive" style={styles.subtitle}>{localization.LOGIN.description}</AppText>
+          <AppText variant="legacyHeading" style={styles.mainTitle}>{localization.LOGIN.title}</AppText>
+          <AppText variant="legacyTitle" size={13} color="textInactive" style={styles.subtitle}>{localization.LOGIN.description}</AppText>
         </View>
 
         <View style={styles.socialButtonsContainer}>
@@ -158,7 +158,7 @@ const LoginScreen = () => {
 
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
-          <AppText variant="title" size={15} style={styles.dividerText}>{localization.LOGIN.or}</AppText>
+          <AppText variant="legacyTitle" size={15} style={styles.dividerText}>{localization.LOGIN.or}</AppText>
           <View style={styles.dividerLine} />
         </View>
 

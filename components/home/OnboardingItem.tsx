@@ -17,7 +17,7 @@ const OnboardingItem = ({ item, itemWidth }) => {
         <SharedReviewImage style={styles.imageStyle} />
 
         <Text style={styles.reviewText}>{item.description}</Text>
-        <AppText variant="title" style={styles.reviewTitle}>{item.name}</AppText>
+        <AppText variant="legacyTitle" style={styles.reviewTitle}>{item.name}</AppText>
       </View>
     </View>
   );

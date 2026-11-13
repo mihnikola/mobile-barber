@@ -147,7 +147,7 @@ const UserProfileScreen = () => {
         </View>
         <View style={styles.userDataContainer}>
           <View>
-            <AppText variant="labelSm" color="textInactive" style={styles.inputLabel}>
+            <AppText variant="legacyLabelSm" color="textInactive" style={styles.inputLabel}>
               {localization.SETTINGS.PROFILE.email}
             </AppText>
             <TextInput

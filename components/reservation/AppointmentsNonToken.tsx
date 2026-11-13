@@ -31,12 +31,12 @@ function AppointmentsNonToken() {
         hidden
       />
       <View style={styles.card}>
-        <AppText variant="bodyLg" style={styles.description}>
+        <AppText variant="legacyBodyLg" style={styles.description}>
           {localization.APPOINTMENTS.noLogin}
         </AppText>
       </View>
       <Pressable onPress={routeHandler}>
-        <AppText variant="title" style={styles.capture}> {localization.APPOINTMENTS.login}</AppText>
+        <AppText variant="legacyTitle" style={styles.capture}> {localization.APPOINTMENTS.login}</AppText>
       </Pressable>
     </ScrollView>
   );

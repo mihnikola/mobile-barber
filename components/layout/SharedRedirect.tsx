@@ -5,9 +5,9 @@ import { AppText, Pressable } from "@/components/ui";
 const SharedRedirect = (props: any) => {
   return (
     <View style={styles.registerContainer}>
-      <AppText color="textInactive">{props.question} </AppText>
+      <AppText variant="legacyBody" color="textInactive">{props.question} </AppText>
       <Pressable onPress={props.onPress}>
-        <AppText color="textInactive">{props.text}</AppText>
+        <AppText variant="legacyBody" color="textInactive">{props.text}</AppText>
       </Pressable>
     </View>
   );

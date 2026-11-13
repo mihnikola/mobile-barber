@@ -49,11 +49,11 @@ const ForgotPassword = () => {
 
       <View style={{ flex: 1 }}>
         <View>
-          <AppText variant="heading">
+          <AppText variant="legacyHeading">
             {localization.FORGOT_PASSWORD.title}
           </AppText>
 
-          <AppText variant="bodyLg" color="textInactive" style={styles.subtitle}>
+          <AppText variant="legacyBodyLg" color="textInactive" style={styles.subtitle}>
             {localization.FORGOT_PASSWORD.subtitle}
           </AppText>
         </View>

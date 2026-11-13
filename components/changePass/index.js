@@ -56,7 +56,7 @@ const ChangePass = () => {
       </Pressable>
       <View style={{ flex: 1 }}>
         <View>
-          <AppText variant="heading">
+          <AppText variant="legacyHeading">
             {localization.CHANGE_PASS.mainTitle}
           </AppText>
         </View>

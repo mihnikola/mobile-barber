@@ -18,7 +18,7 @@ export default function NoInternetModal({ visible }) {
       <View style={styles.overlay}>
         <View style={styles.box}>
           <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="textMuted" />
-          <AppText variant="title" size={24} style={styles.title}> {localization.INTERNET.title}</AppText>
+          <AppText variant="legacyTitle" size={24} style={styles.title}> {localization.INTERNET.title}</AppText>
           <Text style={styles.sub}> {localization.INTERNET.error}</Text>
         </View>
       </View>

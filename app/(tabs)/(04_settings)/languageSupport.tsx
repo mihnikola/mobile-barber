@@ -84,7 +84,7 @@ const LanguageSupportScreen = () => {
                 }
               }}
             >
-              <AppText size={18}>{item.label}</AppText>
+              <AppText variant="legacyBody" size={18}>{item.label}</AppText>
               <Icon name={localization.code === item.code && "check"} size={28} color="text" />
             </Pressable>
           )}

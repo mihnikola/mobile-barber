@@ -23,7 +23,7 @@ export const MenuItem = ({
     disabled={isToggle}
   >
     <Icon name={iconName as IconName} size={24} color="text" style={styles.menuItemIcon} />
-    <AppText variant="label" style={styles.menuItemText}>{title}</AppText>
+    <AppText variant="legacyLabel" style={styles.menuItemText}>{title}</AppText>
     {isToggle ? (
       <Switch
         trackColor={{ false: colors.switchTrackOff, true: colors.switchTrackOn }}

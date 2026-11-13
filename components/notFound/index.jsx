@@ -17,7 +17,7 @@ const NotFoundLocations = () => {
 
       <SharedCoverImage />
       <View style={styles.contentContainer}>
-        <AppText size={22} style={styles.capture}>{localization.PLACES.noFound}</AppText>
+        <AppText variant="legacyBody" size={22} style={styles.capture}>{localization.PLACES.noFound}</AppText>
       </View>
     </ScrollView>
   );

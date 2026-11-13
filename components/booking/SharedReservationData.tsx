@@ -26,7 +26,7 @@ function SharedReservationData({ reservation }) {
         </Pressable>
       </View>
       <View>
-        <AppText variant="title">
+        <AppText variant="legacyTitle">
           {reservation && reservation?.timeData?.value} -{" "}
           {reservation &&
             addMinutesToTime(
@@ -35,14 +35,14 @@ function SharedReservationData({ reservation }) {
               totals?.totalDuration,
             )}
         </AppText>
-        <AppText variant="title">
+        <AppText variant="legacyTitle">
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,
             localization.code,
           )}
         </AppText>
-        <AppText variant="title">
+        <AppText variant="legacyTitle">
           {reservation?.location.address || reservation?.location[0].address}
         </AppText>
       </View>
