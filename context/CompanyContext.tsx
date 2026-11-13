@@ -1,10 +1,9 @@
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
-import { get } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "./LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import type { ApiRecord, CompanyContextValue } from "./types";
+import { catalogApi } from "@/lib/api/services";
 
 const CompanyContext = createContext<CompanyContextValue | null>(null);
 
@@ -39,7 +38,7 @@ export const CompanyProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get(endpoints.company);
+      const response = await catalogApi.company();
 
       setCompany(response);
       // Koristimo await za čuvanje podataka

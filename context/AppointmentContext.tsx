@@ -3,11 +3,10 @@ import type { ApiRecord } from "@/context/types";
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
-import { get, getData, post, put } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { convertNameAndDate, convertToDayTime } from "@/lib/date";
 import { useReservation } from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
+import { availabilitiesApi } from "@/lib/api/services";
 
 /** Value type is derived from the provider state hook below. */
 export type AppointmentContextValue = ReturnType<typeof useAppointmentState>;
@@ -63,7 +62,7 @@ function useAppointmentState() {
       setIsModal(true);
 
       try {
-        await put(endpoints.availabilities.byId(reservationId), {
+        await availabilitiesApi.update(reservationId,  {
           status: 0,
           rate: rating,
           description,
@@ -92,7 +91,7 @@ function useAppointmentState() {
       setIsModal(true);
 
       try {
-        await put(endpoints.availabilities.byId(reservationId), {
+        await availabilitiesApi.update(reservationId,  {
           status: 1,
         });
         setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
@@ -120,7 +119,7 @@ function useAppointmentState() {
       }
 
       try {
-        const response = await get(endpoints.availabilities.byId(reservationId));
+        const response = await availabilitiesApi.byId(reservationId);
         const { status, data } = response;
         if (status === 200) {
           const startDateTime = convertToDayTime(data?.startDate);
@@ -167,7 +166,7 @@ function useAppointmentState() {
 
     //ovde mi trebaju statusi pending/rejected/approved
     try {
-      const response = await getData(endpoints.availabilities.root, {
+      const response = await availabilitiesApi.list({
         activeStatus,
       });
 
@@ -215,7 +214,7 @@ function useAppointmentState() {
     const serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
 
     try {
-      const response = await post(endpoints.availabilities.root, {
+      const response = await availabilitiesApi.create({
         employerId: employer.id,
         service,
         time: timeData.value,

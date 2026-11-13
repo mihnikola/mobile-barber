@@ -1,10 +1,9 @@
 // /app/contexts/ReservationContext.tsx
-import { getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { routes } from "@/lib/navigation/routes";
 
 import type { ApiRecord, ReservationContextValue } from "./types";
+import { catalogApi } from "@/lib/api/services";
 
 // Create the context with a default value of null
 const ReservationContext = createContext<ReservationContextValue | null>(null);
@@ -22,7 +21,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
     const { location } = reservation as ApiRecord; // throws when null, as before
     try {
-      const response = await getData(endpoints.categories.byId(categoryId), {
+      const response = await catalogApi.category(categoryId,  {
         placeId: location?.id || location?._id,
         categoryId,
         serviceId: service?.serviceId,

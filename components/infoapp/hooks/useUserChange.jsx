@@ -4,9 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import * as FileSystem from "expo-file-system/legacy";
 import { Alert } from "react-native";
-import { put } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { useAuth } from "@/context/AuthContext";
+import { usersApi } from "@/lib/api/services";
 
 const useUserChange = () => {
   const [isLoadingChange, setIsLoadingChange] = useState(false);
@@ -55,7 +54,7 @@ const useUserChange = () => {
     }
 
     try {
-      const response = await put(endpoints.users.byToken(isToken), formData);
+      const response = await usersApi.update(isToken,  formData);
       setIsMessage(true);
 
       if (response.status === 201) {

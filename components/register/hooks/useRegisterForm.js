@@ -1,8 +1,7 @@
 // src/hooks/useRegisterForm.js
 import { useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { post } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
+import { usersApi } from "@/lib/api/services";
 
 const useRegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +44,7 @@ const useRegisterForm = () => {
     setError(null);
 
     try {
-      const result = await post(endpoints.users.root, sendUserData);
+      const result = await usersApi.register(sendUserData);
 
       setIsMessage(true);
 

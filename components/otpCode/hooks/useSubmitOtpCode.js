@@ -1,10 +1,9 @@
 // src/hooks/useEmailOtpCode.js
 import { useState } from "react";
-import { getData, post } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
 import { saveStorage } from "@/helpers/token";
+import { authApi } from "@/lib/api/services";
 
 const useSubmitOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +19,7 @@ const useSubmitOtpCode = () => {
     setError(null);
 
     try {
-      const response = await getData(endpoints.users.otpCode, {
+      const response = await authApi.otpCode({
         email,
         otpCode,
       });
@@ -46,7 +45,7 @@ const useSubmitOtpCode = () => {
     setError(null);
 
     try {
-      const response = await post(endpoints.users.loginVerify, {
+      const response = await authApi.loginVerify({
         email,
         password,
         otpCode,
@@ -74,7 +73,7 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getData(endpoints.users.verifyEmail, {
+      const response = await authApi.verifyEmail({
         email,
         otpCode,
       });
@@ -131,7 +130,7 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getData(endpoints.users.sendOtpViaLogin, {
+      const response = await authApi.sendOtpViaLogin({
         params: { email, password },
       });
       if (response.status === 400) {
@@ -154,7 +153,7 @@ const useSubmitOtpCode = () => {
 
     setError(null);
     try {
-      const response = await getData(endpoints.users.sendOtpViaLogin, {
+      const response = await authApi.sendOtpViaLogin({
         params: { email, password },
       });
       if (response.status === 400) {

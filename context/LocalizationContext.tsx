@@ -2,11 +2,10 @@ import { createContext, type ReactNode, useContext, useEffect, useState } from "
 import { ENG_LOCALIZATION } from "../helpers/en-locale";
 import { SRB_LOCALIZATION } from "../helpers/srb-locale";
 import { getLanguageValue, setLanguageValue } from "../helpers/language";
-import { put } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { getStorage } from "@/helpers/token";
 
 import type { Localization, LocalizationContextValue } from "./types";
+import { usersApi } from "@/lib/api/services";
 
 const LocalizationContext = createContext<LocalizationContextValue | null>(null);
 
@@ -25,7 +24,7 @@ export const LocalizationProvider = ({ children }: { children: ReactNode }) => {
     try {
       const token = await getStorage();
       if (!token) return;
-      await put(endpoints.users.changeLanguage(token), { langData });
+      await usersApi.changeLanguage(token,  { langData });
     } catch {
     } finally {
       setIsLoading(false);

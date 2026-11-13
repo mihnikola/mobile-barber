@@ -1,9 +1,8 @@
 import { useState, useCallback } from "react";
-import { getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { isEmailLike } from "@/lib/validation";
+import { usersApi } from "@/lib/api/services";
 
 
 const useEmailOtpCode = () => {
@@ -34,7 +33,7 @@ const useEmailOtpCode = () => {
 
       
     try {
-      const response = await getData(endpoints.users.byEmail, { params: { email } });
+      const response = await usersApi.byEmail({ params: { email } });
 
       if (response.status === 200) {
         if (response.success) {

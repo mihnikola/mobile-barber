@@ -2,9 +2,8 @@
 
 import { useLocalization } from "@/context/LocalizationContext";
 import { useReservation } from "@/context/ReservationContext";
-import { get } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
+import { catalogApi } from "@/lib/api/services";
 
 /** Loads business locations; with a single location it is preselected in the reservation. */
 const useFetchLocations = () => {
@@ -14,7 +13,7 @@ const useFetchLocations = () => {
 
   const fetchLocations = () =>
     run(async () => {
-      const data = dataIfOk(await get(endpoints.places));
+      const data = dataIfOk(await catalogApi.places());
       if (data && !(data.length > 1)) {
         updateReservation({ ...reservation, location: data[0] });
       }

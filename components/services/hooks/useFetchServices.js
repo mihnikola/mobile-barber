@@ -2,9 +2,8 @@ import { useEffect } from "react";
 
 import { useLocalization } from "@/context/LocalizationContext";
 import { useReservation } from "@/context/ReservationContext";
-import { get } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
+import { catalogApi } from "@/lib/api/services";
 
 /**
  * Loads services for the selected location on mount.
@@ -18,7 +17,7 @@ const useFetchServices = () => {
 
   const fetchAllServices = () =>
     run(
-      async () => dataIfOk(await get(endpoints.services.byLocation(reservation.location.id))),
+      async () => dataIfOk(await catalogApi.servicesByLocation(reservation.location.id)),
       localization.SERVICES.errorFetch,
     );
 

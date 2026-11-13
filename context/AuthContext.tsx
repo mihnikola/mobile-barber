@@ -1,5 +1,3 @@
-import { get, post, getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { googleSignInConfig } from "@/lib/config";
 import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
 import {
@@ -20,6 +18,7 @@ import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { ApiRecord, AuthContextValue, AuthLoading } from "./types";
+import { authApi, usersApi } from "@/lib/api/services";
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
 
@@ -143,7 +142,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     setError(null);
     try {
-      const responseData = await post(endpoints.users.loginIos, {
+      const responseData = await authApi.loginIos({
         user: userData,
         fcmToken,
       });
@@ -177,7 +176,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get(endpoints.users.byToken(isToken as string));
+      const response = await usersApi.byToken(isToken as string);
       if (response.status === 200) {
         setUserData(response.data);
         setIsLoading(false);
@@ -252,7 +251,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       if (isToken) {
-        const response = await post(endpoints.users.logout, { token: isToken });
+        const response = await authApi.logout({ token: isToken });
         if (response.status === 200) {
           await removeStorage();
           await signOut();
@@ -268,7 +267,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     withLoading("verification", async () => {
       const { email } = verificationData as ApiRecord; // throws when null, as before
       try {
-        const response = await getData(endpoints.users.sendOtpViaLogin, {
+        const response = await authApi.sendOtpViaLogin({
           params: { email },
         });
 
@@ -313,7 +312,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setStatus(null);
       setError(null);
       try {
-        const responseData = await post(endpoints.users.login, {
+        const responseData = await authApi.login({
           email,
           password,
           expoToken,
@@ -368,7 +367,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      const responseData = await post(endpoints.users.loginViaGoogle, {
+      const responseData = await authApi.loginViaGoogle({
         user,
         expoToken,
       });

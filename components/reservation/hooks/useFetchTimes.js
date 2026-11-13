@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
+import { catalogApi } from "@/lib/api/services";
 
 const useFetchTimes = (date, reservation, isSunday) => {
   const [timesData, setTimesData] = useState([]);
@@ -39,7 +38,7 @@ const useFetchTimes = (date, reservation, isSunday) => {
 
     if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
       try {
-        const response = await getData(endpoints.times, {
+        const response = await catalogApi.times({
           date: selectedDate,
           employer: employerData,
           service: serviceData,

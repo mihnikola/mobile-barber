@@ -2,9 +2,8 @@ import { useState } from "react";
 
 import { useLocalization } from "@/context/LocalizationContext";
 import { useReservation } from "@/context/ReservationContext";
-import { getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
 import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
+import { catalogApi } from "@/lib/api/services";
 
 /** Loads a category's services ("more services" screen) and preselects the first category. */
 const useFetchService = () => {
@@ -19,7 +18,7 @@ const useFetchService = () => {
     run(async () => {
       const { location, service } = reservation;
       const data = dataIfOk(
-        await getData(endpoints.categories.byId(id), {
+        await catalogApi.category(id,  {
           placeId: location.id || location._id,
           serviceId: service.serviceId,
           categoryId: id,
