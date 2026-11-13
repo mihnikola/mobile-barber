@@ -257,7 +257,7 @@ We reserve the right to modify the terms of use at any time, and users will be n
     label: "Password",
     placeholder: "Enter your password",
     errorRegex:
-      "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
+      "Password must be at least 8 characters long and contain one uppercase letter, one number and one special character.",
   },
   REGISTER: {
     title: "Register your account",

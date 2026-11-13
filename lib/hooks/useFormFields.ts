@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { TextInput } from "react-native";
 
 import { useLocalization } from "@/context/LocalizationContext";
-import { confirmPasswordError, isStrongPassword, isValidEmail } from "@/lib/validation";
+import { confirmPasswordProblem, isStrongPassword, isValidEmail } from "@/lib/validation";
 
 /** Old hooks validated passwords 500 ms after typing. */
 const PASSWORD_VALIDATION_DELAY_MS = 500;
@@ -86,6 +86,7 @@ export function usePasswordField({ validate = true }: { validate?: boolean } = {
 
 /** Confirm-password input state, validated against `password`. */
 export function useConfirmPasswordField(password: string) {
+  const loc = useLatestLocalization();
   const confirmPasswordInputRef = useRef<TextInput>(null);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
@@ -95,9 +96,14 @@ export function useConfirmPasswordField(password: string) {
   const handleConfirmPasswordChange = useCallback(
     (text: string) => {
       setConfirmPassword(text.trim());
-      later(() => setPasswordConfirmError(confirmPasswordError(password, text)), PASSWORD_VALIDATION_DELAY_MS);
+      later(() => {
+        const problem = confirmPasswordProblem(password, text);
+        setPasswordConfirmError(
+          problem === "mismatch" ? loc.current.LOGIN.notMatch : problem === "weak" ? loc.current.PASSWORD.errorRegex : "",
+        );
+      }, PASSWORD_VALIDATION_DELAY_MS);
     },
-    [password, later],
+    [password, later, loc],
   );
 
   const togglePasswordConfirmVisibility = useCallback(() => setIsPasswordConfirmVisible((v) => !v), []);

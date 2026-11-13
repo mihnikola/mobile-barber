@@ -271,7 +271,7 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
     label: "Lozinka",
     placeholder: "Unesite Vašu lozinku",
     errorRegex:
-      "Lozinka mora da počne sa slovom i da ima najmanje 8 karaktera, koje čine jedno veliko slovo, broj, i specijalni znak.",
+      "Lozinka mora imati najmanje 8 karaktera, jedno veliko slovo, jedan broj i jedan specijalni znak.",
   },
   CONFIRM_PASSWORD: {
     label: "Potvrdite lozinku",

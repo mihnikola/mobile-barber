@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { isEmailLike } from "@/lib/validation";
+import { isValidEmail } from "@/lib/validation";
 import { usersApi } from "@/lib/api/services";
 
 
@@ -23,7 +23,7 @@ const useEmailOtpCode = () => {
       return;
     }
 
-    if (!isEmailLike(email)) {
+    if (!isValidEmail(email)) {
       setError(localization.EMAIL.errorValid);
       setIsMessage(true);
       return;
