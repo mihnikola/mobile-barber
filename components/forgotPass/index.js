@@ -4,7 +4,7 @@ import SharedButton from "@/shared-components/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import SharedInput from "@/shared-components/SharedInput";
-import useEmail from "./hooks/useEmail";
+import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
@@ -12,7 +12,7 @@ import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
 const ForgotPassword = () => {
-  const { email, emailError, handleEmailChange } = useEmail();
+  const { email, emailError, handleEmailChange } = useEmailField();
 
   const { localization } = useLocalization();
 

@@ -9,8 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
-import usePassword from "./hooks/usePassword";
-import useEmail from "./hooks/useEmail";
+import { useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
@@ -32,8 +31,8 @@ import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 const LoginScreen = () => {
-  const { email, handleEmailChange } = useEmail();
-  const { password, handlePasswordChange, passwordInputRef } = usePassword();
+  const { email, handleEmailChange } = useEmailField({ validate: false });
+  const { password, handlePasswordChange, passwordInputRef } = usePasswordField({ validate: false });
   const scrollRef = useRef(null);
   const insets = useSafeAreaInsets();
   // const { data } = useLocalSearchParams();

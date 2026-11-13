@@ -5,9 +5,7 @@ import {
   findNodeHandle,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import useEmail from "./hooks/useEmail";
-import usePassword from "./hooks/usePassword";
-import useConfirmPassword from "./hooks/useConfirmPassword";
+import { useConfirmPasswordField, useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useRegisterForm from "./hooks/useRegisterForm";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import SharedInput from "@/shared-components/SharedInput";
@@ -42,8 +40,8 @@ const Register = () => {
     success,
     handleSubmit: handleRegistration,
   } = useRegisterForm();
-  // const { emailInputRef, emailError, handleEmailChange } = useEmail();
-  const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
+  // const { emailInputRef, emailError, handleEmailChange } = useEmailField();
+  const { email, emailError, handleEmailChange, emailInputRef } = useEmailField();
 
   const {
     phoneNumber,
@@ -52,12 +50,12 @@ const Register = () => {
     phoneNumberInputRef,
   } = usePhoneNumber();
   const { password, passwordError, handlePasswordChange, passwordInputRef } =
-    usePassword();
+    usePasswordField();
   const {
     confirmPassword,
     handleConfirmPasswordChange,
     confirmPasswordInputRef,
-  } = useConfirmPassword(password);
+  } = useConfirmPasswordField(password);
 
   const handleRegister = () => {
     handleRegistration({

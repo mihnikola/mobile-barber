@@ -144,7 +144,7 @@ constants/               Colors + two cover image URLs
 |---|---|---|---|
 | B1 | `convertDate` and `convertDateDetails` call `useLocalization()` (a hook) inside plain functions → Rules of Hooks violation. Worse: `HeaderReservationTime` called it after an early `return null` → "rendered more hooks" crash when `data` goes null → loaded | `helpers/index.js` | ✅ Fixed (pure functions, `code` param) |
 | B2 | Response interceptor resolved `undefined` for errors without `response.data.message` (timeouts, network) → callers got a misleading TypeError | `api/apiService.js` | ✅ Fixed (always reject) |
-| B3 | `useCallback(..., [])` captures stale `localization` → validation messages don't change after language switch | `components/*/hooks/useEmail.js` | ⏳ Phase 3 (hooks get unified) |
+| B3 | `useCallback(..., [])` captures stale `localization` → validation messages don't change after language switch | `components/*/hooks/useEmail.js` | ✅ Phase 3.4 (`lib/hooks/useFormFields` reads latest localization) |
 | B4 | `SharedInput` reads `props.value.length` → crash if `value` is undefined | `shared-components/SharedInput.tsx` | ✅ Fixed |
 | B5 | Google client IDs hardcoded in source | `context/AuthContext.jsx` | ⏳ Phase 3 (see D-011) |
 | B6 | `tsconfig.json` `include` lists files that no longer exist | `tsconfig.json` | ✅ Fixed |
@@ -163,6 +163,7 @@ constants/               Colors + two cover image URLs
 | B20 | Legacy input components (`SharedInput`, `SharedPassword`, `SharedConfirmPassword`, `SharedPhoneNumber`, `SharedNameEdit`) spread caller props and then overwrite `onFocus`/`onBlur` → caller handlers never run. Example: `register` passes an `onFocus` (scroll) to `SharedConfirmPassword` that has never fired | `shared-components/Shared*` | ⏳ Kept 1:1 in Phase 2 wrappers; fix when screens move to `ui/TextField` (it forwards handlers) — behaviour change, user to confirm |
 | B21 | Profile initials never render: `ProfileUserComponent` calls `SharedImageInitials` with `profile` only, but the component only renders for `listEmployers` or a defined `otherServices` → returns nothing (user without photo sees no avatar) | `components/settings/ProfileUserComponent.jsx` | ⏳ Kept 1:1; fix in group 5 (`<Avatar size="md" />`) — visual change, user to confirm |
 | B22 | Several `useFetch*` hooks only cleared `isLoading` when the body had `status: 200` → any other status left the spinner running forever | fetch hooks | ✅ Phase 3.2: `useAsync` always clears loading (only behaviour change: spinner stops, list stays empty, in that error case) |
+| B23 | Inconsistent validation rules: 2 email regexes (strict in register/forgot, loose in change-password) and 2 password regexes — confirm-password is stricter (only `#@$!%*?&`, letters/digits only) than password, so `Password1.` passes the password check but fails confirm with an English-only message | `lib/validation` | ⏳ Kept 1:1 (documented + tested); unify = product decision |
 | B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)

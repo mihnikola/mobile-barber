@@ -4,8 +4,8 @@ import { endpoints } from "@/lib/api/endpoints";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import { isEmailLike } from "@/lib/validation";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const useEmailOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const useEmailOtpCode = () => {
       return;
     }
 
-    if (!EMAIL_REGEX.test(email)) {
+    if (!isEmailLike(email)) {
       setError(localization.EMAIL.errorValid);
       setIsMessage(true);
       return;

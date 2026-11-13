@@ -3,8 +3,7 @@ import {
   StyleSheet,
 } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
-import usePassword from "./hooks/usePassword";
-import useConfirmPassword from "./hooks/useConfirmPassword";
+import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
@@ -20,12 +19,12 @@ const ChangePass = () => {
 
   const { localization } = useLocalization();
   const { password, passwordError, handlePasswordChange, passwordInputRef } =
-    usePassword();
+    usePasswordField();
   const {
     confirmPassword,
     handleConfirmPasswordChange,
     passwordConfirmInputRef,
-  } = useConfirmPassword(password);
+  } = useConfirmPasswordField(password);
 
   const {
     handlePatchUser,
