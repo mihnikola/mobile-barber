@@ -12,7 +12,9 @@ import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import { useLastPathNavigation } from "@/context/NavigationContext";
+import { routes } from "@/lib/navigation/routes";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
@@ -24,6 +26,7 @@ const Reservation = () => {
   const { localization } = useLocalization();
   const { status } = useLocalSearchParams();
   const { company } = useCompany();
+  const { saveLastTab } = useLastPathNavigation();
   const {
     submitReservationHandler,
     isLoading,
@@ -35,7 +38,6 @@ const Reservation = () => {
     setDescription,
     setDistinctReservation,
     distinctReservation,
-    refreshCalendarReservation,
   } = useAppointment();
 
   const confirmHandler = () => {
@@ -43,9 +45,20 @@ const Reservation = () => {
     setError(null);
   };
 
-  const confirmDistinctHandler = async () => {
+  const confirmDistinctHandler = () => {
     setDistinctReservation(null);
-    await refreshCalendarReservation();
+    router.back();
+    router.replace({ pathname: routes.booking.calendar });
+  };
+
+  /** Book, then go to the success page (navigation moved out of AppointmentContext, Phase 4b). */
+  const submitHandler = async () => {
+    const result = await submitReservationHandler();
+    if (result) {
+      router.dismissAll();
+      saveLastTab(null);
+      router.push({ pathname: routes.booking.success, params: { status: result.status } });
+    }
   };
 
   if (reservation) {
@@ -74,7 +87,7 @@ const Reservation = () => {
           <View style={styles.btn}>
             <SharedButton
               loading={isLoading}
-              onPress={submitReservationHandler}
+              onPress={submitHandler}
               text={localization.DATE.book}
             />
           </View>

@@ -8,16 +8,25 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors } from "@/theme";
+import { router } from "expo-router";
+import { routes } from "@/lib/navigation/routes";
 
 const AppointmentsComponent = () => {
   const {
     isLoading,
-    detailsReservation,
     getReservationsData,
     reservations,
     active,
   } = useAppointment();
   const { localization } = useLocalization();
+
+  /** Open appointment details (moved out of AppointmentContext, Phase 4b). */
+  const detailsReservation = (item: { _id: string; past?: boolean; rating?: number; status: string | number }) => {
+    router.push({
+      pathname: routes.appointments.details,
+      params: { itemId: item._id, past: item?.past, rating: item?.rating, status: item.status },
+    });
+  };
 
   useEffect(() => {
     if (active) {

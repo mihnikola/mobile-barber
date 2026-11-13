@@ -1,5 +1,4 @@
 // /app/contexts/ReservationContext.tsx
-import { router } from "expo-router";
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
@@ -8,8 +7,6 @@ import { endpoints } from "@/lib/api/endpoints";
 import { convertNameAndDate, convertToDayTime } from "@/lib/date";
 import { useReservation } from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
-import { useLastPathNavigation } from "./NavigationContext";
-import { routes } from "@/lib/navigation/routes";
 
 const AppointmentContext = createContext<any>(null); // TODO(phase4): real type
 export const useAppointment = () => {
@@ -39,20 +36,8 @@ export const AppointmentProvider = ({ children }) => {
     setActive(id);
   };
 
-  const { saveLastTab } = useLastPathNavigation();
   const [isModal, setIsModal] = useState(false);
 
-  const detailsReservation = (item) => {
-    router.push({
-      pathname: routes.appointments.details,
-      params: {
-        itemId: item._id,
-        past: item?.past,
-        rating: item?.rating,
-        status: item.status,
-      },
-    });
-  };
   const withLoading = async (type, callback) => {
     setLoading(type);
     try {
@@ -86,12 +71,6 @@ export const AppointmentProvider = ({ children }) => {
         setLoading(null);
         setDescription(null);
       }
-    });
-  };
-  const refreshCalendarReservation = async () => {
-    router.back();
-    router.replace({
-      pathname: routes.booking.calendar,
     });
   };
 
@@ -198,6 +177,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const submitReservation = async (tokenData) => {
+    let result: { status: number } | undefined;
     setIsLoading(true);
     setError(null);
     const {
@@ -257,14 +237,8 @@ export const AppointmentProvider = ({ children }) => {
         setActive(STATUS_DATA[statusValue]);
         await getReservationsData(statusValue);
         setResponseData(response);
-        router.dismissAll();
-        saveLastTab(null);
-        router.push({
-          pathname: routes.booking.success,
-          params: {
-            status: response.data.status,
-          },
-        });
+        // the screen navigates to the success page (Phase 4b)
+        result = { status: response.data.status };
       }
       if (response.status === 202) {
         setIsError(true);
@@ -292,12 +266,13 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
       setDescription(null);
     }
+    return result;
   };
   const submitReservationHandler = async () => {
     try {
       const tokenData = await getStorage();
       if (tokenData) {
-        await submitReservation(tokenData);
+        return await submitReservation(tokenData);
       } else {
         setError(localization.LOGIN.missingToken);
       }
@@ -313,7 +288,6 @@ export const AppointmentProvider = ({ children }) => {
         isLoading,
         rateReservation,
         reservations,
-        detailsReservation,
         error,
         isModal,
         setIsModal,
@@ -339,7 +313,6 @@ export const AppointmentProvider = ({ children }) => {
         isLoadingToken,
         setDistinctReservation,
         distinctReservation,
-        refreshCalendarReservation,
         handleStatus,
         active,
       }}

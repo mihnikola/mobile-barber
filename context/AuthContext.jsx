@@ -2,7 +2,6 @@ import { get, post, getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { googleSignInConfig } from "@/lib/config";
 import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
-import { router } from "expo-router";
 import {
   removeOtpParamsStorage,
   saveOtpParamsStorage,
@@ -20,7 +19,6 @@ import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { routes } from "@/lib/navigation/routes";
 export const AuthContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const useAuth = () => {
@@ -58,7 +56,7 @@ export const AuthProvider = ({ children }) => {
   const withLoading = async (type, callback) => {
     setLoading(type);
     try {
-      await callback();
+      return await callback();
     } finally {
       setLoading(null);
     }
@@ -83,29 +81,20 @@ export const AuthProvider = ({ children }) => {
     });
   }
 
+  /**
+   * After a successful login message: reload the token and tell the caller where to go.
+   * Returns "settings" | "appointments" | "calendar" | null — the screen navigates (Phase 4b).
+   */
   const redirectValidation = async (data) => {
     await getTokenData();
     setIsMessage(false);
-    if (data === "settings") {
-      router.back();
-      router.replace(routes.settings.root);
-      return;
-    }
-    if (data === "appointments") {
-      router.back();
-
-
-      router.replace(routes.appointments.root);
-      return;
-    }
+    if (data === "settings" || data === "appointments") return data;
     if (data === "calendar") {
-      router.back();
       setRedirectValue("calendar");
-
-      return;
+      return data;
     }
-
     await AsyncStorage.removeItem("paramLogin");
+    return null;
   };
 
   const signIn = async () => {
@@ -271,28 +260,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const onPressHandler = (data) => {
-    if (data === "1") {
-      router.push(routes.settings.userProfile);
-    }
-    if (data === "2") {
-      router.push(routes.settings.languageSupport);
-    }
-    if (data === "100") {
-      router.push(routes.settings.aboutApplication);
-    }
-    if (data === "200") {
-      router.push(routes.settings.privacyPolicy);
-    }
-    if (data === "900") {
-      router.push(routes.settings.helpSupport);
-    }
-    if (data === "6") {
-      setIsLogout(true);
-    }
-  };
 
-  const verificationOTPCode = async () => {
+  const verificationOTPCode = async () =>
     withLoading("verification", async () => {
       const { email } = verificationData;
       try {
@@ -303,7 +272,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 200) {
           await saveOtpParamsStorage(verificationData);
           setIsMessage(false);
-          router.push(routes.auth.otpCode);
+          return true;
         }
         if (response.status === 500) {
           setError(response.message);
@@ -317,7 +286,6 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
       }
     });
-  };
 
   const login = (email, password) => {
     withLoading("login", async () => {
@@ -436,7 +404,6 @@ export const AuthProvider = ({ children }) => {
         isToken,
         logoutFirebase,
         logoutUnAuthorizedUser,
-        onPressHandler,
         setIsMessage,
         isMessage,
         userData,

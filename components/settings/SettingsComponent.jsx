@@ -15,13 +15,21 @@ import { Icon, withScreen } from "@/components/ui";
 import { colors } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
+/** Settings menu item id → route (moved out of AuthContext in Phase 4b). "6" = logout dialog. */
+const MENU_ROUTES = {
+  1: routes.settings.userProfile,
+  2: routes.settings.languageSupport,
+  100: routes.settings.aboutApplication,
+  200: routes.settings.privacyPolicy,
+  900: routes.settings.helpSupport,
+};
+
 const SettingsComponent = () => {
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
 
   const {
     logoutFirebase,
-    onPressHandler,
     userData,
     setIsLogout,
     loading,
@@ -31,6 +39,15 @@ const SettingsComponent = () => {
     isToken,
     logoutHandler,
   } = useAuth();
+
+  const onPressHandler = (data) => {
+    if (data === "6") {
+      setIsLogout(true);
+      return;
+    }
+    const route = MENU_ROUTES[data];
+    if (route) router.push(route);
+  };
 
   useEffect(() => {
     getTokenData();

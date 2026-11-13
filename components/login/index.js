@@ -95,12 +95,21 @@ const LoginScreen = () => {
   const confirmHandler = async () => {
     const paramLogin = await AsyncStorage.getItem("paramLogin");
     if (status === 606) {
-      verificationOTPCode();
+      if (await verificationOTPCode()) router.push(routes.auth.otpCode);
     } else {
       setIsMessage(false);
 
-      setTimeout(() => {
-        redirectValidation(paramLogin);
+      setTimeout(async () => {
+        const target = await redirectValidation(paramLogin);
+        if (target === "settings") {
+          router.back();
+          router.replace(routes.settings.root);
+        } else if (target === "appointments") {
+          router.back();
+          router.replace(routes.appointments.root);
+        } else if (target === "calendar") {
+          router.back();
+        }
       }, 500);
     }
   };
