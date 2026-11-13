@@ -9,10 +9,10 @@ export type ThemeMode = "system" | "light" | "dark";
 
 const STORAGE_KEY = "themeMode";
 /**
- * Default until the redesign is complete (Phase 5): "dark" keeps today's look for everyone.
- * Switches to "system" (design default = light) when all screens are restyled.
+ * Default (no saved choice): follow the phone's light/dark setting (Phase 5.6 complete).
+ * Users override it in Profile → Theme.
  */
-export const DEFAULT_THEME_MODE: ThemeMode = "dark";
+export const DEFAULT_THEME_MODE: ThemeMode = "system";
 
 type ThemeValue = {
   /** Effective scheme after resolving "system". */

@@ -9,8 +9,8 @@ interface StarRatingProps {
   maxStars?: number; // Maximum number of stars (default to 5)
   initialRating?: number; // Initial rating (default to 0)
   starSize?: number; // Size of the stars (default to 30)
-  filledColor?: string; // Color for filled stars (default to #FFD700 - gold)
-  emptyColor?: string; // Color for empty stars (default to #CCCCCC - light gray)
+  filledColor?: string; // filled stars (default: colors.star)
+  emptyColor?: string; // empty stars (default: colors.inkFaint)
   onRatingChange?: (rating: number) => void; // Callback when rating changes
 }
 
