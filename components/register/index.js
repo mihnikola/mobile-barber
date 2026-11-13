@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
   ScrollView,
   findNodeHandle,
 } from "react-native";
@@ -19,10 +18,12 @@ import SharedPhoneNumber from "@/components/legacy/SharedPhoneNumber";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const refName = useRef(null);
   const [name, setName] = useState("");
   const scrollRef = useRef(null);
@@ -248,7 +249,7 @@ const Register = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,
@@ -299,6 +300,6 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     width: "80%",
   },
-});
+}));
 
 export default Register;

@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
-import { findNodeHandle, StyleSheet, View } from "react-native";
+import { findNodeHandle, View } from "react-native";
 
 import { TextField } from "@/components/ui/TextField";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 
 /**
  * @deprecated Use `<TextField>` from `@/components/ui`.
@@ -10,6 +10,7 @@ import { colors, fonts } from "@/theme";
  * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
 const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, ...props }, ref) => {
+  const styles = useStyles();
   const handleFocus = (e) => {
     if (scrollRef && ref) {
       const node = findNodeHandle(ref.current);
@@ -36,12 +37,12 @@ const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, ...props }, ref)
   );
 });
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   wrapper: { marginBottom: 15 },
   label: { color: colors.text, fontSize: 14, marginTop: 15, marginBottom: 8, fontFamily: fonts.regular },
   error: { color: colors.danger, marginTop: 5, fontFamily: fonts.bold },
   // same focus look as every other field (was a grey border; user decision 2026-11-13)
   inputFocused: { borderColor: colors.white, borderWidth: 4, margin: -2 },
-});
+}));
 
 export default SharedNameEdit;

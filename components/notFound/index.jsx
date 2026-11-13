@@ -1,11 +1,12 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 const NotFoundLocations = () => {
+  const styles = useStyles();
   const { company } = useCompany();
 
   const { localization } = useLocalization();
@@ -21,7 +22,7 @@ const NotFoundLocations = () => {
     </ScrollView>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   contentContainer: {
     marginTop: 10,
     justifyContent: "center",
@@ -37,6 +38,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));
 
 export default NotFoundLocations;

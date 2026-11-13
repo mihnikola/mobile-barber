@@ -1,4 +1,4 @@
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import React, { useEffect } from "react";
 import Animated, {
   useSharedValue,
@@ -13,10 +13,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 const InitialComponent = () => {
+  const styles = useStyles();
   const { getInitialData, initialData } = useInitialData();
 
   const { width: SCREEN_WIDTH, height: HEIGHT } = useWindowDimensions();
@@ -153,7 +154,7 @@ const InitialComponent = () => {
 
 export default InitialComponent;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -180,4 +181,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 20,
   },
-});
+}));

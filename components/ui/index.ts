@@ -3,7 +3,7 @@ export { AppText, textStyles, type AppTextProps, type TextVariant } from "./AppT
 export { Avatar, type AvatarSize } from "./Avatar";
 export { Button, type ButtonProps, type ButtonVariant } from "./Button";
 export { Card, cardStyles, ListItem, MetaRow } from "./Card";
-export { Dialog, DialogAction, dialogStyles } from "./Dialog";
+export { Dialog, DialogAction } from "./Dialog";
 export { EmptyState } from "./EmptyState";
 export { Loader } from "./Loader";
 export {

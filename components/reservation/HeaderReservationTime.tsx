@@ -1,11 +1,12 @@
 import { convertDateDetails } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { View } from "react-native";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 const HeaderReservationTime = ({ data }) => {
+  const styles = useStyles();
   const { localization } = useLocalization();
   if (!data) return null;
 
@@ -29,7 +30,7 @@ const HeaderReservationTime = ({ data }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   coverContent: {
     justifyContent: "space-between",
     height: "100%",
@@ -41,6 +42,6 @@ const styles = StyleSheet.create({
    color: colors.text,
     fontFamily: fonts.bold,
   },
-});
+}));
 
 export default HeaderReservationTime;

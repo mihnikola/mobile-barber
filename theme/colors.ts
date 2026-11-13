@@ -1,13 +1,16 @@
 /**
- * Color tokens — the single source of truth for every color in the app.
+ * Color palettes (Phase 5.1: light + dark, D-024).
  *
- * Phase 1 rule (D-002): values are copied 1:1 from what screens used before, so the
- * app looks identical. Several tokens are near-duplicates (e.g. 5 dark surfaces);
- * they are merged in Phase 5 when the new visual style is applied.
+ * Keys are the Phase 1 role names (one per distinct legacy value). During the redesign:
+ *  - `darkPalette` = exactly today's colors (the app looks unchanged in dark mode)
+ *  - `lightPalette` = the same roles mapped onto the design system's light tokens
+ *    (Gentleman Barber DS: bg #f5f4f1, surface #ffffff, ink #141414, accent #b42318 …)
+ * Screens are restyled onto design-token names in 5.5/5.6; legacy keys are removed then.
  *
- * App is dark-only (D-004).
+ * Components read colors through `useTheme()` / `makeStyles()` (theme/ThemeProvider.tsx),
+ * never by importing a palette directly.
  */
-export const colors = {
+export const darkPalette = {
   // Base
   white: "#FFFFFF",
   black: "#000000",
@@ -45,7 +48,6 @@ export const colors = {
   textSubtle: "#707070",
   textOnLight: "#000000",
   textDark: "#11181C",
-
   /** RN named color "lightgray" */
   textLight: "#D3D3D3",
 
@@ -76,6 +78,74 @@ export const colors = {
   switchTrackOn: "#81B0FF",
   switchThumbOn: "#F5DD4B",
   switchThumbOff: "#F4F3F4",
-} as const;
+};
 
-export type ColorToken = keyof typeof colors;
+export type Palette = { [K in keyof typeof darkPalette]: string };
+export type ColorToken = keyof Palette;
+
+/** Same roles on the design system's light tokens (provisional until 5.5/5.6 restyle). */
+export const lightPalette: Palette = {
+  white: "#FFFFFF",
+  black: "#141414", // primary
+  transparent: "transparent",
+
+  background: "#F5F4F1", // bg
+  backgroundDeep: "#EBE9E4", // surface-sunken
+  surfaceMenu: "#FFFFFF",
+  surfaceInput: "#FFFFFF",
+  surfaceCard: "#FFFFFF",
+  surfaceHome: "#FFFFFF",
+  surface: "#FFFFFF",
+  surfaceAvatar: "#EBE9E4",
+  surfaceRaised: "#EBE9E4",
+  surfaceIcon: "#EBE9E4",
+  surfaceModal: "#FFFFFF",
+  buttonDate: "#8C887F", // line-strong
+
+  divider: "#DCD9D2", // line
+  dividerStrong: "#DCD9D2",
+  borderIcon: "#8C887F",
+  borderAvatar: "#8C887F",
+
+  text: "#141414", // ink
+  textTertiary: "#5C5952", // ink-muted
+  textInactive: "#5C5952",
+  textSecondary: "#5C5952",
+  textDeactivated: "#7A766E", // ink-faint
+  placeholder: "#7A766E",
+  textMuted: "#7A766E",
+  textSubtle: "#7A766E",
+  textOnLight: "#141414",
+  textDark: "#141414",
+  textLight: "#5C5952",
+
+  overlay: "#14141499", // scrim
+
+  icon: "#5C5952",
+  iconMuted: "#7A766E",
+
+  disabled: "#DCD9D2",
+
+  gold: "#B42318", // accent (design: one accent colour)
+  yellow: "#8A5300", // warning
+  danger: "#B42318",
+  dangerSoft: "#B42318",
+  link: "#B42318",
+  linkAlt: "#B42318",
+  brandBlue: "#141414",
+  tint: "#B42318",
+
+  switchTrackOff: "#8C887F",
+  switchTrackOn: "#141414",
+  switchThumbOn: "#FFFFFF",
+  switchThumbOff: "#FFFFFF",
+};
+
+export const palettes = { dark: darkPalette, light: lightPalette } as const;
+export type ColorScheme = keyof typeof palettes;
+
+/**
+ * @deprecated Static dark palette for code that runs outside React (none should remain after 5.1).
+ * Inside components use `useTheme().colors` or `makeStyles`.
+ */
+export const colors = darkPalette;

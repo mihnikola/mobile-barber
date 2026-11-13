@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { type StyleProp, StyleSheet, Text, type TextStyle, View } from "react-native";
+import { type StyleProp, Text, type TextStyle, View } from "react-native";
 
-import { colors, fonts, fontSize } from "@/theme";
+import { fontSize, fonts, makeStyles } from "@/theme";
 
 type EmptyStateProps = {
   title: ReactNode;
@@ -11,6 +11,7 @@ type EmptyStateProps = {
 
 /** "Nothing here" block: bold title + optional description, centered. */
 export function EmptyState({ title, description, descriptionStyle }: EmptyStateProps) {
+  const styles = useStyles();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -19,7 +20,7 @@ export function EmptyState({ title, description, descriptionStyle }: EmptyStateP
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     backgroundColor: colors.background,
     display: "flex",
@@ -44,4 +45,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
     textAlign: "center",
   },
-});
+}));

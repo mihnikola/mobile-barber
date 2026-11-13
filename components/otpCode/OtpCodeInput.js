@@ -1,9 +1,10 @@
 // components/OtpInput.js
 import React, { useRef } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
-import { colors, fonts } from "@/theme";
+import { View, TextInput } from "react-native";
+import { fonts, makeStyles } from "@/theme";
 
 const OtpInput = ({ code, setCode, maxLength = 6 }) => {
+  const styles = useStyles();
   const inputs = useRef([]);
 
   const handleChange = (text, index) => {
@@ -41,7 +42,7 @@ const OtpInput = ({ code, setCode, maxLength = 6 }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flexDirection: "row",
     gap: 10,
@@ -61,6 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
   },
-});
+}));
 
 export default OtpInput;

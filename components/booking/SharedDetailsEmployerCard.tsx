@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/lib/format";
 import SharedImageInitials from "@/components/legacy/SharedInitialsName";
 import { AppText, Card, cardStyles, Icon } from "@/components/ui";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
+  const styles = useStyles();
   const { image, name, averageRating, userCount, seniority } = data;
 
   return (
@@ -77,7 +78,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   paddingSection: {
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -133,6 +134,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-});
+}));
 
 export default SharedDetailsEmployerCard;

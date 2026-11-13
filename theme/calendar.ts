@@ -1,8 +1,8 @@
-import { colors } from "./colors";
+import type { Palette } from "./colors";
 import { fonts } from "./typography";
 
-/** Theme for react-native-calendars (moved from helpers/index.js in Phase 3.5). */
-export const calendarTheme = {
+/** Theme for react-native-calendars for the current palette (Phase 5.1: theme-aware). */
+export const getCalendarTheme = (colors: Palette) => ({
   textDayFontFamily: fonts.bold,
   textSectionTitleFontFamily: fonts.bold,
   monthTextColor: colors.text,
@@ -15,4 +15,4 @@ export const calendarTheme = {
   dayTextColor: colors.text,
   textMonthFontFamily: fonts.bold,
   textDisabledColor: colors.textMuted,
-};
+});

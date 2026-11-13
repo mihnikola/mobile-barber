@@ -1,8 +1,9 @@
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import SummaryItem from "@/components/booking/SummaryItem";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 const Summary = ({ data, selectedItem, setSelectedItem }) => {
+  const styles = useStyles();
   return (
     <ScrollView snapToInterval={50} decelerationRate="normal" horizontal>
       <View style={styles.container}>
@@ -19,7 +20,7 @@ const Summary = ({ data, selectedItem, setSelectedItem }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flexDirection: "row",
     gap: 20,
@@ -27,6 +28,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.background,
   },
-});
+}));
 
 export default Summary;

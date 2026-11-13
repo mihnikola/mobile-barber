@@ -9,7 +9,7 @@ import SharedReservationData from "@/components/booking/SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 function HeaderCoverImageContainer({
@@ -23,6 +23,7 @@ function HeaderCoverImageContainer({
   skip,
   routerHandler,
 }) {
+  const styles = useStyles();
   const { height } = useWindowDimensions();
   const headerHeight = height * 0.25;
   const headerHeightnextBtn = height * 0.15;
@@ -73,7 +74,7 @@ function HeaderCoverImageContainer({
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   heroHeader: {
     width: "100%",
     backgroundColor: colors.background,
@@ -118,6 +119,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
-});
+}));
 
 export default HeaderCoverImageContainer;

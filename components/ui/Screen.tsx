@@ -1,8 +1,8 @@
 import { type ComponentType, type JSX, type ReactNode, useEffect, useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, StyleSheet, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { colors } from "@/theme";
+import { makeStyles, useTheme } from "@/theme";
 
 export type ScreenMode =
   /** Top safe-area inset on iOS + translucent light status bar (was `withSafeArea`). */
@@ -42,10 +42,11 @@ export function withScreen<P>(Component: ComponentType<P>, mode: ScreenMode = "s
 
 function SafeScreen({ children }: { children: ReactNode }) {
   const insets = useSafeAreaInsets();
+  const { scheme } = useTheme();
   return (
     <View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top : undefined }}>
       {/* RN 0.88 is edge-to-edge: the old backgroundColor/translucent props no longer exist */}
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle={scheme === "dark" ? "light-content" : "dark-content"} />
       {children}
     </View>
   );
@@ -69,6 +70,7 @@ function useKeyboardVisible() {
 }
 
 function KeyboardScreen({ children }: { children: ReactNode }) {
+  const styles = useStyles();
   const isKeyboardVisible = useKeyboardVisible();
   return (
     <KeyboardAvoidingView
@@ -83,6 +85,7 @@ function KeyboardScreen({ children }: { children: ReactNode }) {
 }
 
 function FormScreen({ children }: { children: ReactNode }) {
+  const styles = useStyles();
   return (
     <KeyboardAvoidingView style={styles.fill} behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ScrollView
@@ -96,7 +99,7 @@ function FormScreen({ children }: { children: ReactNode }) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   fill: { flex: 1 },
   keyboard: { flex: 1, backgroundColor: colors.background },
   formScroll: {
@@ -112,4 +115,4 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     backgroundColor: colors.background,
   },
-});
+}));

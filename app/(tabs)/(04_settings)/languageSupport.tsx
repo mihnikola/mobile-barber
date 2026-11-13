@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   View,
   Image,
-  StyleSheet,
   StatusBar,
   TextInput,
   FlatList,
@@ -17,10 +16,12 @@ import { SharedLoader } from "@/components/legacy/SharedLoader";
 import Loader from "@/components/legacy/Loader";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { changeLocalization, localization, isLoading } = useLocalization();
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
@@ -95,7 +96,7 @@ const LanguageSupportScreen = () => {
     </View>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -137,6 +138,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.white,
   },
-});
+}));
 
 export default withScreen(LanguageSupportScreen);

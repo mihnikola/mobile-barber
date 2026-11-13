@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { AppText, Card, cardStyles, Icon } from "@/components/ui";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 
 const SharedDetailsServiceCard = (props: any) => {
+  const styles = useStyles();
   const { redirectHandler, data, otherServices } = props;
   const { image, name, duration, price } = data;
   const { localization } = useLocalization();
@@ -59,7 +60,7 @@ const SharedDetailsServiceCard = (props: any) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   containerReview: {
     alignSelf: "flex-start",
   },
@@ -134,6 +135,6 @@ const styles = StyleSheet.create({
   reviewText: {
     marginLeft: 5,
   },
-});
+}));
 
 export default SharedDetailsServiceCard;

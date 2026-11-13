@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
 } from "react-native";
 import SharedButton from "@/components/legacy/SharedButton";
 import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
@@ -11,10 +10,11 @@ import SharedConfirmPassword from "@/components/legacy/SharedConfirmPassword";
 import SharedPassword from "@/components/legacy/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
+  const styles = useStyles();
   const { data } = useLocalSearchParams();
 
   const { localization } = useLocalization();
@@ -109,7 +109,7 @@ const ChangePass = () => {
     </Screen>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   passContainer: {
     flexDirection: "row",
     borderWidth: 1,
@@ -176,5 +176,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
    color: colors.textInactive,
   },
-});
+}));
 export default ChangePass;

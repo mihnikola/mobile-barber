@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
 import SharedButton from "@/components/legacy/SharedButton";
@@ -8,11 +8,12 @@ import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const ConfirmBookReservation = () => {
+  const styles = useStyles();
   const { localization } = useLocalization();
   useDismissOnUnauthorizedFocus();
 
@@ -67,7 +68,7 @@ const ConfirmBookReservation = () => {
 
 export default ConfirmBookReservation;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   infoContainer: {
     flex: 1,
     marginHorizontal: 20,
@@ -93,4 +94,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));

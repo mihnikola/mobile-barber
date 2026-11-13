@@ -1,7 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import { Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { fonts, useTheme } from "@/theme";
 import { Icon } from "@/components/ui";
 
 const myArray = [
@@ -12,6 +12,7 @@ const myArray = [
   { arrx: "asdasdasd" },
 ];
 function ReservationMarkComponent({ data }) {
+  const { colors } = useTheme();
   const { localization } = useLocalization();
 
   return (

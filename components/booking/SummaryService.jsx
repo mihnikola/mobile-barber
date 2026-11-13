@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
+  const styles = useStyles();
   const totals = data?.reduce(
     (acc, current) => {
       acc.totalPrice += current.price;
@@ -74,7 +74,7 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
     </View>
   );
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   dividerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -91,5 +91,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: fonts.bold,
   },
-});
+}));
 export default SummaryService;

@@ -2,10 +2,9 @@ import { AppText, Icon, type IconName, Pressable } from "@/components/ui";
 import {
   Platform,
   StatusBar,
-  StyleSheet,
   Switch,
 } from "react-native";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 
 export const MenuItem = ({
   iconName,
@@ -15,8 +14,10 @@ export const MenuItem = ({
   toggleValue,
   onToggle,
   isLogout = false,
-}) => (
-  <Pressable
+}) => {
+  const { colors } = useTheme();
+  const styles = useStyles();
+  return (<Pressable
     style={[styles.menuItem, isLogout && styles.logoutMenuItem]}
     onPress={onPress}
     disabled={isToggle}
@@ -35,10 +36,10 @@ export const MenuItem = ({
     ) : (
       <Icon name="chevronRightThin" size={24} style={styles.menuItemArrow} color="iconMuted" />
     )}
-  </Pressable>
-);
+  </Pressable>);
+};
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.surfaceMenu, // Dark background as per image
@@ -124,4 +125,4 @@ const styles = StyleSheet.create({
     // Specific styles for the Switch component if needed
     transform: Platform.OS === "ios" ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [], // Adjust size for iOS
   },
-});
+}));

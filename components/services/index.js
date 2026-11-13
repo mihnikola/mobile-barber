@@ -1,5 +1,5 @@
 
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
 import Loader from "@/components/legacy/Loader";
 import useFetchServices from "./hooks/useFetchServices";
@@ -8,9 +8,10 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedItemServiceCard from "@/components/booking/SharedItemServiceCard";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 
 const MenuServices = () => {
+  const styles = useStyles();
   const { reservation, flowReservation } =
     useReservation();
   const { serviceData, isLoading } = useFetchServices(reservation);
@@ -72,7 +73,7 @@ const MenuServices = () => {
 
 export default MenuServices;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   notAvailableContainer: {
     marginVertical: 30,
     marginHorizontal: 20,
@@ -89,4 +90,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));

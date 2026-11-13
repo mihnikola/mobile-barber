@@ -2,12 +2,13 @@ import { useLocalization } from "@/context/LocalizationContext";
 import {
   View,
   Text,
-  StyleSheet,
 } from "react-native";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { Pressable } from "@/components/ui";
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { localization } = useLocalization();
   const STATUSES = [
     {
@@ -48,7 +49,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flexDirection: "row", // Ređa elemente horizontalno u red
     // zIndex: 9999, // Gura komponentu na sam vrh slojeva (iOS)
@@ -78,4 +79,4 @@ const styles = StyleSheet.create({
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
     fontFamily: fonts.regular, // Srednje podebljan tekst za bolju čitljivost
   },
-});
+}));

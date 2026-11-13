@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import React, { useEffect } from "react";
 import Loader from "@/components/legacy/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
@@ -7,12 +7,13 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import type { ApiRecord } from "@/context/types";
 
 const AppointmentsComponent = () => {
+  const styles = useStyles();
   const {
     isLoading,
     getReservationsData,
@@ -60,9 +61,9 @@ const AppointmentsComponent = () => {
 
 export default AppointmentsComponent;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));

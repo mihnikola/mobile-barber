@@ -3,11 +3,12 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import SharedLogo from "@/components/layout/SharedLogo";
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { colors } from "@/theme";
+import { View } from "react-native";
+import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 function BookSuccess({ image, reservation }) {
+  const styles = useStyles();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
     (acc, current) => {
@@ -44,7 +45,7 @@ function BookSuccess({ image, reservation }) {
     </>
   );
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   infoContainer: {
     flex: 1,
     justifyContent: "space-evenly",
@@ -97,5 +98,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background, // Set the line color to white
     marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
-});
+}));
 export default BookSuccess;

@@ -1,11 +1,12 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, withScreen } from "@/components/ui";
 
 const PrivacyPolicyScreen = () => {
+  const styles = useStyles();
   const developerName = "FusionTech Agency";
 
   const { localization } = useLocalization();
@@ -40,7 +41,7 @@ const PrivacyPolicyScreen = () => {
     </ScrollView>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -92,6 +93,6 @@ const styles = StyleSheet.create({
 
     textAlign: "center",
   },
-});
+}));
 
 export default withScreen(PrivacyPolicyScreen);

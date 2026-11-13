@@ -1,10 +1,11 @@
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 const Note = () => {
+  const styles = useStyles();
   const {localization} = useLocalization();
 
   return (
@@ -22,7 +23,7 @@ const Note = () => {
 
 export default Note;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   reservation: {
     display: "flex",
     flexDirection: "column",
@@ -92,4 +93,4 @@ const styles = StyleSheet.create({
     top: 150,
     left: 50,
   },
-});
+}));

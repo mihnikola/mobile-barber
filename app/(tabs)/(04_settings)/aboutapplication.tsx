@@ -1,12 +1,13 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { View, ScrollView, StyleSheet, Platform } from "react-native";
+import { View, ScrollView, Platform } from "react-native";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, withScreen } from "@/components/ui";
 
 const AboutApplicationScreen = () => {
+  const styles = useStyles();
   const appName = "Book Hair";
   const developerName = "FTA DOO";
   const appVersion = Application.nativeApplicationVersion;
@@ -42,7 +43,7 @@ const AboutApplicationScreen = () => {
     </ScrollView>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -110,6 +111,6 @@ const styles = StyleSheet.create({
   switch: {
     transform: Platform.OS === "ios" ? [{ scaleX: 0.8 }, { scaleY: 0.8 }] : [],
   },
-});
+}));
 
 export default withScreen(AboutApplicationScreen);

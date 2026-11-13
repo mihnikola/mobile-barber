@@ -1,14 +1,14 @@
 import SharedReviewImage from "@/components/layout/SharedReviewImage";
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
 } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 const OnboardingItem = ({ item, itemWidth }) => {
+  const styles = useStyles();
   return (
     // Svaki element liste dobija eksplicitno širinu
     <View style={[styles.onboardingItemContainer, { width: itemWidth }]}>
@@ -26,7 +26,7 @@ const OnboardingItem = ({ item, itemWidth }) => {
 
 export default OnboardingItem;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   imageStyle: {
     width: "100%",
     resizeMode: "cover",
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     marginHorizontal: 20
   },
-});
+}));

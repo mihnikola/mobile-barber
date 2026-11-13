@@ -102,9 +102,10 @@
 
 
 import { useState } from "react";
-import { colors, fonts } from "@/theme";
+import { fonts, useTheme } from "@/theme";
 
 const useSelectedDate = (initialDate) => {
+  const { colors } = useTheme();
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [isSunday, setIsSunday] = useState(false);
   const [markedDates, setMarkedDates] = useState();

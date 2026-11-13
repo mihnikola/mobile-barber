@@ -1,12 +1,13 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import Animated, {
   useAnimatedStyle,
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 const Pagination = ({data, x, screenWidth}) => {
+  const styles = useStyles();
   // eslint-disable-next-line react/no-unstable-nested-components
   const PaginationComp = ({i}) => {
     const animatedDotStyle = useAnimatedStyle(() => {
@@ -41,7 +42,7 @@ const Pagination = ({data, x, screenWidth}) => {
 
 export default Pagination;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   paginationContainer: {
     flexDirection: 'row',
     height: 40,
@@ -56,4 +57,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 5,
   },
-});
+}));

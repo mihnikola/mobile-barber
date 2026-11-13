@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
 
 import { TextArea } from "@/components/ui/TextField";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 
 /** @deprecated Use `<TextArea>` from `@/components/ui`. Bordered card variant (reservation note). */
 const SharedInputTextArea = ({
@@ -12,16 +11,17 @@ const SharedInputTextArea = ({
   description?: string;
   setDescription?: (text: string) => void;
   placeholderText?: string;
-}) => (
-  <TextArea
+}) => {
+  const styles = useStyles();
+  return (<TextArea
     value={description}
     onChangeText={setDescription}
     placeholder={placeholderText}
     styles={styles}
-  />
-);
+  />);
+};
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     paddingTop: 10,
     borderWidth: 1,
@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: { width: "90%", minHeight: 80 },
-});
+}));
 
 export default SharedInputTextArea;

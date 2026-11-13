@@ -1,11 +1,13 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { View } from "react-native";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { Icon } from "@/components/ui";
 
 export default function TabLayout() {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { localization } = useLocalization();
   useEffect(() => {
     SplashScreen.hideAsync();
@@ -76,9 +78,9 @@ export default function TabLayout() {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));

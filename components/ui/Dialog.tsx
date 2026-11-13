@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Modal, type StyleProp, StyleSheet, Text, type TextStyle, View, type ViewStyle } from "react-native";
+import { Modal, type StyleProp, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { colors, fonts, fontSize } from "@/theme";
+import { fontSize, fonts, makeStyles } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -20,6 +20,7 @@ type DialogProps = {
 
 /** Centered modal panel on a dimmed backdrop (messages, confirmations, blocking loader). */
 export function Dialog({ visible, onRequestClose, icon, title, children, panelStyle, titleStyle }: DialogProps) {
+  const dialogStyles = useDialogStyles();
   return (
     <Modal animationType="fade" transparent visible={visible} onRequestClose={onRequestClose}>
       <View style={dialogStyles.overlay}>
@@ -46,6 +47,7 @@ type DialogActionProps = {
 
 /** Full-width dialog button. `children` replaces the title (e.g. a spinner). */
 export function DialogAction({ title, onPress, tone = "primary", disabled, style, textStyle, children }: DialogActionProps) {
+  const dialogStyles = useDialogStyles();
   return (
     <Pressable
       onPress={onPress}
@@ -57,7 +59,7 @@ export function DialogAction({ title, onPress, tone = "primary", disabled, style
   );
 }
 
-export const dialogStyles = StyleSheet.create({
+const useDialogStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
     backgroundColor: colors.overlay,
@@ -116,4 +118,4 @@ export const dialogStyles = StyleSheet.create({
     fontFamily: fonts.regular,
     textAlign: "center",
   },
-});
+}));

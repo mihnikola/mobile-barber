@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
 } from "react-native";
 import SharedButton from "@/components/legacy/SharedButton";
 import OtpInput from "./OtpCodeInput";
@@ -15,11 +14,12 @@ import {
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
 import Loader from "@/components/legacy/Loader";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const OtpCode = () => {
+  const styles = useStyles();
   const [code, setCode] = useState(Array(6).fill(""));
   const [verifyData, setVerifyData] = useState(null);
   const [isLoaderVerify, setIsLoaderVerify] = useState(false);
@@ -169,7 +169,7 @@ const OtpCode = () => {
     );
   }
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   safeArea: {
     flex: 1,
     backgroundColor: colors.backgroundDeep,
@@ -233,5 +233,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.white,
   },
-});
+}));
 export default OtpCode;

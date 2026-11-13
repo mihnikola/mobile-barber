@@ -1,11 +1,12 @@
-import { StyleSheet, View,  Image } from "react-native";
+import { View,  Image } from "react-native";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 import { Icon, Pressable } from "@/components/ui";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
+  const styles = useStyles();
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   defaultImgAvatar: {
     width: 200,
     height: 200,
@@ -76,4 +77,4 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 30,
   },
-});
+}));

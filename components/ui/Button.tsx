@@ -4,12 +4,11 @@ import {
   Image,
   type ImageSourcePropType,
   type StyleProp,
-  StyleSheet,
   Text,
   type ViewStyle,
 } from "react-native";
 
-import { colors, fonts, fontSize } from "@/theme";
+import { fonts, fontSize, makeStyles, type Palette, useTheme } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -45,7 +44,9 @@ export function Button({
   style,
   testID,
 }: ButtonProps) {
-  const v = VARIANTS[variant];
+  const { colors } = useTheme();
+  const styles = useStyles();
+  const v = variantsFor(styles, colors)[variant];
   return (
     <Pressable
       testID={testID}
@@ -65,7 +66,7 @@ export function Button({
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   image: { width: 20, height: 20, marginRight: 10 },
   primary: {
     backgroundColor: colors.black,
@@ -101,9 +102,11 @@ const styles = StyleSheet.create({
   socialLight: { backgroundColor: colors.white },
   socialTextDark: { color: colors.text, fontSize: fontSize.md, fontFamily: fonts.regular },
   socialTextLight: { color: colors.textOnLight, fontSize: fontSize.md, fontFamily: fonts.regular },
-});
+}));
 
-const VARIANTS = {
+/** Variant → styles + spinner, for the current palette. */
+const variantsFor = (styles: ReturnType<typeof useStyles>, colors: Palette) =>
+  ({
   primary: {
     container: styles.primary,
     containerDisabled: styles.primaryDisabled,
@@ -128,4 +131,4 @@ const VARIANTS = {
     spinnerSize: 22,
     spinnerColor: colors.textOnLight,
   },
-} as const;
+  }) as const;

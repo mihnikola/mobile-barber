@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Text } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
 import Loader from "@/components/legacy/Loader";
@@ -8,10 +8,11 @@ import SharedItemLocation from "@/components/booking/SharedItemLocation";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const PlaceComponent = ({ locationsData }) => {
+  const styles = useStyles();
   const { reservation, updateReservation } = useReservation();
   const { isLoading, error } = useFetchLocations();
   const { localization } = useLocalization();
@@ -52,7 +53,7 @@ const PlaceComponent = ({ locationsData }) => {
 
 export default PlaceComponent;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   contentContainer: {
     marginTop: 10,
     justifyContent: "center",
@@ -79,4 +80,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.textMuted,
   },
-});
+}));

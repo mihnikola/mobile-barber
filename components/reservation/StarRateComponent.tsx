@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { fonts, useTheme } from "@/theme";
 import { Icon, Pressable } from "@/components/ui";
 
 // StarRating component props
@@ -18,10 +18,11 @@ const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
   starSize = 23,
-  filledColor = colors.gold, // Gold color
-  emptyColor = colors.textInactive, // Light gray
+  filledColor, // default: colors.gold
+  emptyColor, // default: colors.textInactive
   onRatingChange,
 }) => {
+  const { colors } = useTheme();
   const {localization} = useLocalization();
   const [currentRating, setCurrentRating] = useState(initialRating);
 
@@ -46,7 +47,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           <Icon
             name={i <= currentRating ? "starSolid" : "starOutline"} // filled / outlined
             size={starSize}
-            rawColor={i <= currentRating ? filledColor : emptyColor}
+            rawColor={i <= currentRating ? (filledColor ?? colors.gold) : (emptyColor ?? colors.textInactive)}
           />
         </Pressable>,
       );

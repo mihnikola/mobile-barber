@@ -6,14 +6,14 @@ import { router } from "expo-router";
 import React from "react";
 import {
   ScrollView,
-  StyleSheet,
   View,
 } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 function AppointmentsNonToken() {
+  const styles = useStyles();
   const { localization } = useLocalization();
   const routeHandler = () => {
     router.push({
@@ -41,7 +41,7 @@ function AppointmentsNonToken() {
     </ScrollView>
   );
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -66,5 +66,5 @@ const styles = StyleSheet.create({
 
     textAlign: "center",
   },
-});
+}));
 export default AppointmentsNonToken;

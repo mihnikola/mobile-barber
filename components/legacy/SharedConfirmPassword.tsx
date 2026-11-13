@@ -1,25 +1,26 @@
 import { forwardRef } from "react";
-import { StyleSheet } from "react-native";
 
 import { PasswordField, type TextInputRef } from "@/components/ui/TextField";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 
 /**
  * @deprecated Use `<PasswordField>` from `@/components/ui`.
  * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedConfirmPassword = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => (
-  <PasswordField
+const SharedConfirmPassword = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => {
+  const { colors } = useTheme();
+  const styles = useStyles();
+  return (<PasswordField
     {...props}
     ref={ref}
     unstyled
     placeholderTextColor={colors.textMuted}
     error={props.value?.length > 0 ? error : undefined}
     styles={styles}
-  />
-));
+  />);
+});
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -41,6 +42,6 @@ const styles = StyleSheet.create({
   },
   label: { color: colors.text, fontSize: 14, marginTop: 15, marginBottom: 5, fontFamily: fonts.bold },
   error: { color: colors.danger, fontFamily: fonts.regular },
-});
+}));
 
 export default SharedConfirmPassword;

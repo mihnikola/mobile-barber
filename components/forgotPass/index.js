@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/components/legacy/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
@@ -9,10 +9,11 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
 const ForgotPassword = () => {
+  const styles = useStyles();
   const { email, emailError, handleEmailChange } = useEmailField();
 
   const { localization } = useLocalization();
@@ -97,7 +98,7 @@ const ForgotPassword = () => {
     </Screen>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   subtitle: {
 
     lineHeight: 22,
@@ -129,5 +130,5 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     paddingVertical: 15,
   },
-});
+}));
 export default ForgotPassword;

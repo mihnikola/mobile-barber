@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
   TextInput,
   StatusBar,
   ScrollView,
@@ -24,10 +23,12 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { isLoading, userData, fetchUserData } = useAuth();
   const { localization } = useLocalization();
   const scrollRef = useRef(null);
@@ -235,7 +236,7 @@ const UserProfileScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
   },
@@ -349,6 +350,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
     alignSelf: "flex-end",
   },
-});
+}));
 
 export default withScreen(UserProfileScreen, "keyboard");

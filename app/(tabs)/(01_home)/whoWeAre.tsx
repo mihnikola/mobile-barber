@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AboutUsInfo from "@/components/home/AboutUsInfo";
 import ListAboutUs from "@/components/home/ListAboutUs";
@@ -11,9 +11,10 @@ import { SharedLoader } from "@/components/legacy/SharedLoader";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { Icon, Pressable, withScreen } from "@/components/ui";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 
 const AboutUsScreen = () => {
+  const styles = useStyles();
   const { company } = useCompany();
 
   return (
@@ -49,7 +50,7 @@ const AboutUsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   scrollViewContent: {
     flexGrow: 1,
     backgroundColor: colors.background,
@@ -58,6 +59,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 0,
   },
-});
+}));
 
 export default withScreen(AboutUsScreen);

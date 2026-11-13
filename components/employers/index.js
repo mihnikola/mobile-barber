@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useEffect } from "react";
 import { Text } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
@@ -12,10 +12,11 @@ import SharedItemEmployerCard from "@/components/booking/SharedItemEmployerCard"
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const Employers = () => {
+  const styles = useStyles();
   const { reservation, updateReservation } = useReservation();
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
   const pathName = routes.booking.calendar;
@@ -90,7 +91,7 @@ const Employers = () => {
 
 export default Employers;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   heroHeader: {
     width: "100%",
     justifyContent: "flex-end", // Gura tekst na dno slike
@@ -139,4 +140,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.textMuted,
   },
-});
+}));

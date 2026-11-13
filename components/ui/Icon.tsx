@@ -5,7 +5,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import type { StyleProp, TextStyle } from "react-native";
 
-import { colors, type ColorToken } from "@/theme";
+import { type ColorToken, useTheme } from "@/theme";
 
 const FAMILIES = { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons, MaterialIcons } as const;
 type Family = keyof typeof FAMILIES;
@@ -77,6 +77,7 @@ export type IconProps = {
 
 /** One icon component for the whole app (replaces direct use of 5 icon libraries). */
 export function Icon({ name, size = "md", color = "text", rawColor, style, testID }: IconProps) {
+  const { colors } = useTheme();
   const [family, glyph]: readonly [Family, string | undefined] = name ? REGISTRY[name] : ["FontAwesome", undefined];
   const Component = FAMILIES[family] as React.ComponentType<{
     name?: string;

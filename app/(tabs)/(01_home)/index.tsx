@@ -18,11 +18,12 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 import useInternetGuard from "@/services/useInternetGuard";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 function App() {
+  const styles = useStyles();
   const { getTokenData } = useAuth();
   const { slideAnim, slideAnimBook } = useSlideAnimations();
   const [modalVisible, setModalVisible] = useState(false);
@@ -173,7 +174,7 @@ function App() {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   box: {
     alignItems: "center",
     alignSelf: "center",
@@ -227,6 +228,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
   },
-});
+}));
 
 export default withScreen(App);

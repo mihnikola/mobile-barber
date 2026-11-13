@@ -2,7 +2,6 @@ import { type ComponentRef, forwardRef, type ReactNode, useState } from "react";
 import {
   Image,
   type StyleProp,
-  StyleSheet,
   Text,
   TextInput,
   type TextInputProps,
@@ -11,7 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { colors, fonts, fontSize } from "@/theme";
+import { fontSize, fonts, makeStyles, useTheme } from "@/theme";
 
 import { Icon } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -55,6 +54,8 @@ export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextF
   { label, error, left, prefix, right, styles: s = {}, unstyled = false, onFocus, onBlur, ...inputProps },
   ref,
 ) {
+  const { colors } = useTheme();
+  const defaults = useDefaults();
   const [focused, setFocused] = useState(false);
   const d = unstyled ? EMPTY : defaults;
 
@@ -117,6 +118,7 @@ export const PhoneField = forwardRef<
   TextInputRef,
   TextFieldProps & { flagStyle?: StyleProp<import("react-native").ImageStyle>; prefixStyle?: StyleProp<TextStyle> }
 >(function PhoneField({ flagStyle, prefixStyle, ...props }, ref) {
+  const phone = usePhone();
   return (
     <TextField
       {...props}
@@ -146,6 +148,8 @@ export function TextArea({
   counterFrom = 150,
   styles: s = {},
 }: TextAreaProps) {
+  const { colors } = useTheme();
+  const area = useArea();
   return (
     <View style={[area.container, s.container]}>
       <TextInput
@@ -184,7 +188,7 @@ const rowCenter: ViewStyle = { flexDirection: "row", alignItems: "center" };
 const toggleStyle: ViewStyle = { padding: 10 };
 
 /** Default field look (= the most common legacy field: white box, black text, white focus border). */
-const defaults = StyleSheet.create({
+const useDefaults = makeStyles((colors) => ({
   label: { color: colors.text, fontSize: fontSize.sm, fontFamily: fonts.bold, marginTop: 15, marginBottom: 8 },
   container: {
     flexDirection: "row",
@@ -202,14 +206,14 @@ const defaults = StyleSheet.create({
   },
   inputFocused: {},
   error: { color: colors.danger, fontFamily: fonts.regular },
-});
+}));
 
-const phone = StyleSheet.create({
+const usePhone = makeStyles((colors) => ({
   flag: { width: 24, height: 18, marginRight: 8, marginLeft: 12, borderRadius: 2 },
   prefix: { color: colors.textOnLight, fontFamily: fonts.regular, fontSize: fontSize.md },
-});
+}));
 
-const area = StyleSheet.create({
+const useArea = makeStyles((colors) => ({
   container: { flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row" },
   input: { fontSize: fontSize.sm, color: colors.text, fontFamily: fonts.regular },
   counterContainer: {
@@ -220,4 +224,4 @@ const area = StyleSheet.create({
     bottom: 2,
   },
   counter: { fontSize: fontSize.xxs, color: colors.danger, opacity: 0.7, fontFamily: fonts.regular },
-});
+}));

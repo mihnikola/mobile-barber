@@ -1,6 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 import { SharedQuestion } from "@/components/legacy/SharedQuestion";
 import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
@@ -15,12 +15,14 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText, Icon, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
 function ResevationNotificationScreen() {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { localization } = useLocalization();
   const {
     reservationData,
@@ -303,7 +305,7 @@ function ResevationNotificationScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -361,5 +363,5 @@ const styles = StyleSheet.create({
     marginVertical: 1,
     alignItems: "flex-start",
   },
-});
+}));
 export default withScreen(ResevationNotificationScreen, "keyboard");

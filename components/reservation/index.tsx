@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
@@ -19,9 +18,10 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { Icon } from "@/components/ui";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 
 const Reservation = () => {
+  const styles = useStyles();
   const { reservation } = useReservation()!;
   const { localization } = useLocalization();
   const { status } = useLocalSearchParams();
@@ -117,7 +117,7 @@ const Reservation = () => {
   }
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
   containerData: {
     marginTop: 10,
   },
-});
+}));
 
 export default Reservation;

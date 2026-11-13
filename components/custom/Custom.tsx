@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { TouchableWithoutFeedback } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withSpring,
@@ -9,10 +9,11 @@ import getStartedIcon from "@/assets/images/arrowImg.png";
 import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
+  const styles = useStyles();
   const { localization } = useLocalization();
 
   const buttonAnimationStyle = useAnimatedStyle(() => {
@@ -81,7 +82,7 @@ const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
 
 export default CustomButton;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     backgroundColor: colors.surface,
     borderWidth: 1,
@@ -102,4 +103,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
     position: "absolute",
   },
-});
+}));

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { SharedQuestion } from "@/components/legacy/SharedQuestion";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
@@ -12,7 +12,7 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Icon, withScreen } from "@/components/ui";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 /** Settings menu item id → route (moved out of AuthContext in Phase 4b). "6" = logout dialog. */
@@ -25,6 +25,7 @@ const MENU_ROUTES = {
 };
 
 const SettingsComponent = () => {
+  const styles = useStyles();
   const { localization } = useLocalization();
   const { saveLastTab } = useLastPathNavigation();
 
@@ -113,12 +114,12 @@ const SettingsComponent = () => {
     </ScrollView>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.background,
     paddingTop: 20,
   },
-});
+}));
 
 export default withScreen(SettingsComponent);

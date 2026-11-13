@@ -1,10 +1,10 @@
 import SharedImageInitials from "@/components/legacy/SharedInitialsName";
-import { StyleSheet } from "react-native";
 import { Image, View } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 const ProfileUserComponent = ({ data, onPress }) => {
+  const styles = useStyles();
   return (
     <View style={styles.profileSection}>
       {data?.image ? (
@@ -22,7 +22,7 @@ const ProfileUserComponent = ({ data, onPress }) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   profileSection: {
     flexDirection: "row",
     alignItems: "center",
@@ -52,5 +52,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+}));
 export default ProfileUserComponent;

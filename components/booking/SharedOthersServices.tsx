@@ -1,11 +1,12 @@
-import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon } from "@/components/ui";
 
 const SharedOthersServices = (props: any) => {
+  const styles = useStyles();
   const { redirectHandler, data } = props;
   const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
@@ -57,7 +58,7 @@ const SharedOthersServices = (props: any) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   containerReview: {
     alignSelf: "flex-start",
   },
@@ -135,6 +136,6 @@ const styles = StyleSheet.create({
   reviewText: {
     marginLeft: 5,
   },
-});
+}));
 
 export default SharedOthersServices;

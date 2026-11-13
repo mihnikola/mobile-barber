@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { Pressable } from "@/components/ui";
 
 const SharedCategoryItem = (props) => {
+  const styles = useStyles();
   const { redirectHandler, data, isSelected } = props;
   const { id, name } = data;
 
@@ -30,7 +31,7 @@ const SharedCategoryItem = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   isSelected: {
     backgroundColor: colors.white,
   },
@@ -49,6 +50,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
     color: colors.text,
   },
-});
+}));
 
 export default SharedCategoryItem;

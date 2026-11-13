@@ -1,12 +1,13 @@
 import { Link, Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import { AppText } from "@/components/ui";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 /** 404 route. Was crashing before (B17: `components/Themed` imported a non-existent default export). */
 export default function NotFoundScreen() {
+  const styles = useStyles();
   return (
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
@@ -21,7 +22,7 @@ export default function NotFoundScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     alignItems: "center",
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingVertical: 15,
   },
-});
+}));

@@ -1,7 +1,8 @@
 import { Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { fonts, useTheme } from "@/theme";
 
 const NotSummary = ({ text }) => {
+  const { colors } = useTheme();
   return (
     <View style={{  backgroundColor:colors.background }}>
       <Text

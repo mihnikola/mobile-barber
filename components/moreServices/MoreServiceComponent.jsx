@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import useFetchService from "./hooks/useFetchService";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { coverImageAppointments } from "@/constants";
 import Loader from "@/components/legacy/Loader";
 import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelection";
 import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
 import SharedButton from "@/components/legacy/SharedButton";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const MoreServiceComponent = () => {
+  const styles = useStyles();
   const { updateReservation, reservation } = useReservation();
   const { categoryId } = useLocalSearchParams();
   const {
@@ -180,7 +181,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   mainScrollView: {
     flex: 1,
     width: "100%",
@@ -227,6 +228,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-});
+}));
 
 export default MoreServiceComponent;

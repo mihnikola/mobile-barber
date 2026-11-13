@@ -1,6 +1,6 @@
 import { StyleSheet, Text, type TextProps } from "react-native";
 
-import { colors, fonts, fontSize, type ColorToken } from "@/theme";
+import { fontSize, fonts, type ColorToken, useTheme } from "@/theme";
 
 /**
  * Text presets, taken from the most frequent style combinations in the app
@@ -41,6 +41,7 @@ export type AppTextProps = TextProps & {
 
 /** The only Text component screens should use. Extra `style` is applied last. */
 export function AppText({ variant = "body", color = "text", bold, size, align, style, ...rest }: AppTextProps) {
+  const { colors } = useTheme();
   const base = VARIANTS[variant];
   return (
     <Text

@@ -2,11 +2,12 @@ import { addMinutesToTime, convertDate } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { View } from "react-native";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 function SharedReservationData({ reservation }) {
+  const styles = useStyles();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
     (acc, current) => {
@@ -49,7 +50,7 @@ function SharedReservationData({ reservation }) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   button: {
     display: "flex",
     justifyContent: "center",
@@ -93,5 +94,5 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "space-around",
   },
-});
+}));
 export default SharedReservationData;

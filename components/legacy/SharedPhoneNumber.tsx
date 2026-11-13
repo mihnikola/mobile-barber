@@ -1,15 +1,15 @@
 import { forwardRef } from "react";
-import { StyleSheet } from "react-native";
 
 import { PhoneField, type TextInputRef } from "@/components/ui/TextField";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 
 /**
  * @deprecated Use `<PhoneField>` from `@/components/ui`.
  * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => (
-  <PhoneField
+const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => {
+  const styles = useStyles();
+  return (<PhoneField
     // old component never set a placeholder color -> keep the platform default
     placeholderTextColor={undefined}
     {...props}
@@ -17,10 +17,10 @@ const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, ...props }, re
     unstyled
     error={props.value && props.value?.length > 0 ? error : undefined}
     styles={styles}
-  />
-));
+  />);
+});
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   container: {
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
   },
   label: { color: colors.text, fontSize: 14, marginBottom: 8, fontFamily: fonts.bold, marginTop: 15 },
   error: { color: colors.danger, fontFamily: fonts.regular },
-});
+}));
 
 export default SharedPhoneNumber;

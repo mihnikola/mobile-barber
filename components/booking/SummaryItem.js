@@ -1,9 +1,10 @@
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { Pressable } from "@/components/ui";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
+  const styles = useStyles();
   const { value } = data;
   const handlerPressDate = (data) => {
     setSelectedItem(data);
@@ -30,7 +31,7 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   content: {
     width: 100,
     height: 50,
@@ -52,6 +53,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
     borderColor: colors.white,
   },
-});
+}));
 
 export default SummaryItem;

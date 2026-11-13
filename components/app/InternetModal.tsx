@@ -1,10 +1,11 @@
 import React from "react";
-import { Modal, View, Text, StyleSheet } from "react-native";
+import { Modal, View, Text } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon } from "@/components/ui";
 
 export default function NoInternetModal({ visible }) {
+  const styles = useStyles();
   const { localization } = useLocalization();
 
   return (
@@ -25,7 +26,7 @@ export default function NoInternetModal({ visible }) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
     width: "100%",
@@ -65,4 +66,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: fonts.bold,
   },
-});
+}));

@@ -1,10 +1,9 @@
 import {
   Modal,
   ScrollView,
-  StyleSheet,
   View,
 } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 function LocationsComponent({
@@ -15,6 +14,7 @@ function LocationsComponent({
   title,
   buttonText,
 }) {
+  const styles = useStyles();
   const onConfirm = () => {
     setModalVisible(false);
   };
@@ -57,7 +57,7 @@ function LocationsComponent({
     </Modal>
   );
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
     backgroundColor: colors.overlay,
@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
   actionButtonText: {
     textAlign: "center",
   },
-});
+}));
 
 export default LocationsComponent;

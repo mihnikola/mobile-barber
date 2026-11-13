@@ -2,7 +2,6 @@ import type { ApiRecord } from "@/context/types";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
-  StyleSheet,
   ScrollView,
 } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
@@ -12,7 +11,7 @@ import Summary from "@/components/booking/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { convertDayInitalValue } from "@/lib/date";
-import { calendarTheme } from "@/theme/calendar";
+import { getCalendarTheme } from "@/theme/calendar";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
 import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
@@ -24,11 +23,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import LoaderDate from "@/components/legacy/LoaderDate";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const DateComponent = () => {
+  const styles = useStyles();
+  const { colors } = useTheme();
 
   const [check, setCheck] = useState(false);
 
@@ -110,7 +111,7 @@ const DateComponent = () => {
             markingType="custom"
             key={localization.code}
             style={styles.calendar}
-            theme={calendarTheme}
+            theme={getCalendarTheme(colors)}
             onVisibleMonthsChange={(months) => {
               setSelectedItem(null);
               handleDayPress({});
@@ -169,7 +170,7 @@ const DateComponent = () => {
   }
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   notWorkingDays: {
     display: "flex",
     alignItems: "center",
@@ -203,6 +204,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 10,
   },
-});
+}));
 
 export default DateComponent;

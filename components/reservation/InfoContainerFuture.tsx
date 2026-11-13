@@ -1,11 +1,12 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/lib/date";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { colors } from "@/theme";
+import { Text, View } from "react-native";
+import { makeStyles } from "@/theme";
 import { AppText, Icon } from "@/components/ui";
 
 const InfoContainerFuture = ({ item }) => {
+  const styles = useStyles();
   const { localization } = useLocalization();
 
   return (
@@ -51,7 +52,7 @@ const InfoContainerFuture = ({ item }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   addressContainer: {
     flexDirection: "row",
   },
@@ -84,6 +85,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     gap: 12,
   },
-});
+}));
 
 export default InfoContainerFuture;

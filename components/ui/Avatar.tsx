@@ -1,7 +1,7 @@
-import { Image, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
+import { Image, type StyleProp, Text, View, type ViewStyle } from "react-native";
 
 import { getInitialsName } from "@/lib/format";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 
 /** lg = list cards (90), md = profile (70), sm = compact details (40). */
 export type AvatarSize = "lg" | "md" | "sm";
@@ -24,6 +24,7 @@ const SIZES = {
 
 /** Profile picture or initials badge. */
 export function Avatar({ uri, name, size = "lg", bordered = false, style }: AvatarProps) {
+  const styles = useStyles();
   const s = SIZES[size];
   const box = { width: s.box, height: s.box, borderRadius: s.radius };
 
@@ -37,7 +38,7 @@ export function Avatar({ uri, name, size = "lg", bordered = false, style }: Avat
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   base: { marginRight: 15 },
   imageBorder: { borderWidth: 1, borderColor: colors.divider },
   initialsBox: {
@@ -47,4 +48,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   initials: { color: colors.text, fontFamily: fonts.bold, alignSelf: "center" },
-});
+}));

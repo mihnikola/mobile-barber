@@ -1,9 +1,8 @@
 import {
   Modal,
-  StyleSheet,
   View,
 } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
 
 function LocationNotFound({
@@ -12,6 +11,7 @@ function LocationNotFound({
   buttonText,
   title,
 }) {
+  const styles = useStyles();
   const onConfirm = () => {
     setModalVisible(false);
   };
@@ -35,7 +35,7 @@ function LocationNotFound({
     </Modal>
   );
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
     backgroundColor: colors.overlay,
@@ -83,6 +83,6 @@ const styles = StyleSheet.create({
   actionButtonText: {
     textAlign: "center",
   },
-});
+}));
 
 export default LocationNotFound;

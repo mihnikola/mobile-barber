@@ -1,12 +1,12 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { Pressable } from "@/components/ui";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
+  const styles = useStyles();
   return (
     <Pressable
       style={[
@@ -24,7 +24,7 @@ const CardReservationItem = ({ redirectScreen, item }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   cardReservationCurrent: {
     backgroundColor: colors.surface,
     display: "flex",
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
     gap: 12,
     height: 120,
   },
-});
+}));
 
 export default CardReservationItem;

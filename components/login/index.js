@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -26,13 +25,15 @@ import { useEffect, useRef } from "react";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { colors, fonts } from "@/theme";
+import { fonts, makeStyles, useTheme } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { email, handleEmailChange } = useEmailField({ validate: false });
   const { password, handlePasswordChange, passwordInputRef } = usePasswordField({ validate: false });
   const scrollRef = useRef(null);
@@ -242,7 +243,7 @@ const LoginScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,
@@ -361,6 +362,6 @@ const styles = StyleSheet.create({
     borderColor: colors.textInactive,
     width: "80%",
   },
-});
+}));
 
 export default LoginScreen;

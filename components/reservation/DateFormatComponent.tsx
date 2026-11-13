@@ -1,9 +1,10 @@
 import { convertToDay, convertToDayTime, convertToMonthName } from "@/lib/date";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { Text, View } from "react-native";
+import { fonts, makeStyles } from "@/theme";
 
 const DateFormatComponent = ({ item, rejected }) => {
+  const styles = useStyles();
   return (
     <View
       style={
@@ -39,7 +40,7 @@ const DateFormatComponent = ({ item, rejected }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   dateContainerPast: {
     borderWidth: 1,
     borderColor: colors.textInactive,
@@ -86,6 +87,6 @@ const styles = StyleSheet.create({
     color: colors.textInactive,
     fontFamily: fonts.bold,
   },
-});
+}));
 
 export default DateFormatComponent;

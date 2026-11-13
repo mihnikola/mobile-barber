@@ -1,6 +1,6 @@
-import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
+import { ActivityIndicator, useWindowDimensions, View } from "react-native";
 
-import { colors } from "@/theme";
+import { makeStyles, useTheme } from "@/theme";
 
 import { Dialog } from "./Dialog";
 
@@ -14,6 +14,8 @@ type LoaderProps =
 
 /** One loader for the whole app. */
 export function Loader(props: LoaderProps) {
+  const { colors } = useTheme();
+  const styles = useStyles();
   const { height } = useWindowDimensions();
 
   if (props.variant === "overlay") {
@@ -31,7 +33,7 @@ export function Loader(props: LoaderProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   block: {
     flex: 1,
     width: "100%",
@@ -53,4 +55,4 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     elevation: 15,
   },
-});
+}));

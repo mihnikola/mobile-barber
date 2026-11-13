@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useCompany } from "@/context/CompanyContext";
-import { colors } from "@/theme";
+import { useTheme } from "@/theme";
 
 const SplashScreen = () => {
+  const { colors } = useTheme();
   const { getCompany } = useCompany();
 
   const getInitialTokenData = async () => {

@@ -1,10 +1,6 @@
 import { ReservationProvider } from "@/context/ReservationContext";
 import { LocalizationProvider } from "@/context/LocalizationContext";
 import { CompanyProvider } from "@/context/CompanyContext";
-// import {
-//   DarkTheme,
-//   ThemeProvider,
-// } from "@react-navigation/native";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
 import GlobalErrorHandler from "@/components/app/GlobalErrorHandler";
@@ -12,22 +8,19 @@ import { InternetProvider } from "@/context/InternetContext";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/context/AppointmentContext";
 import { NavigationProvider } from "@/context/NavigationContext";
-import { DarkTheme, ThemeProvider } from "expo-router";
-import { colors } from "@/theme";
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "expo-router";
+import { useTheme } from "@/theme";
 
 
 
 export default function AppInitialized(props) {
-  const MyDarkTheme = {
-    ...DarkTheme,
-    colors: {
-      ...DarkTheme.colors,
-      background: colors.background,
-    },
-  };
+  const { colors, scheme } = useTheme();
+  // navigation (headers, screen background) follows the app theme
+  const base = scheme === "dark" ? DarkTheme : DefaultTheme;
+  const navigationTheme = { ...base, colors: { ...base.colors, background: colors.background } };
 
   return (
-    <ThemeProvider value={MyDarkTheme}>
+    <NavigationThemeProvider value={navigationTheme}>
       <InternetProvider>
         <LocalizationProvider>
           <CompanyProvider>
@@ -48,6 +41,6 @@ export default function AppInitialized(props) {
           </CompanyProvider>
         </LocalizationProvider>
       </InternetProvider>
-    </ThemeProvider>
+    </NavigationThemeProvider>
   );
 }

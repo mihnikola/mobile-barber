@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
 import { View } from "react-native";
-import { colors } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 const LoginRedirect = ({ onPress, title }) => {
+  const styles = useStyles();
   return (
     <View style={styles.profileSection}>
       <View style={styles.profileInfoIcon}>
@@ -16,7 +16,7 @@ const LoginRedirect = ({ onPress, title }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((colors) => ({
   profileSection: {
     flexDirection: "row",
     alignItems: "center",
@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
   profileInfoIcon: {
     paddingHorizontal: 15,
   },
-});
+}));
 export default LoginRedirect;
