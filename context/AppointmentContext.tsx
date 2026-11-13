@@ -218,7 +218,7 @@ export const AppointmentProvider = ({ children }) => {
       return;
     }
     let total;
-
+    let serviceIds;
     if (otherServices?.length > 0) {
       total = otherServices?.reduce(
         (acc, current) => {
@@ -228,9 +228,9 @@ export const AppointmentProvider = ({ children }) => {
         },
         { totalPrice: 0, totalDuration: 0 },
       );
+      serviceIds = otherServices.map((serv) => serv.id);
     }
 
-    const serviceIds = otherServices.map((serv) => serv.id);
 
     try {
       const response = await post("/availabilities", {
@@ -290,7 +290,6 @@ export const AppointmentProvider = ({ children }) => {
         setError(localization.APPOINTMENTS.errorYearlyLimit);
       }
     } catch (err) {
-      console.log("setError", err);
       setIsError(true);
       setError(localization.APPOINTMENTS.postError);
     } finally {
@@ -300,8 +299,13 @@ export const AppointmentProvider = ({ children }) => {
   };
   const submitReservationHandler = async () => {
     try {
+
       const tokenData = await getStorage();
+      console.log("tokenData submitReservationHandler");
+
       if (tokenData) {
+        console.log("submitReservationHandler", tokenData);
+
         await submitReservation(tokenData);
       } else {
         setError(localization.LOGIN.missingToken);
