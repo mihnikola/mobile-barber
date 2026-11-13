@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Animated,
-  View,
-  Platform,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import { Animated, ScrollView, View } from "react-native";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { usePersistentSlideAnimations as useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
@@ -19,7 +12,7 @@ import useInternetGuard from "@/services/useInternetGuard";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
 import { makeStyles } from "@/theme";
-import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
+import { AppText, Icon, ListGroup, ListRow, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 function App() {
@@ -29,7 +22,6 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
-  const { height, width } = useWindowDimensions();
 
   // 🔒 Guards to prevent re-fetch on reset remount
   // const hasFetchedCompany = useRef(false);
@@ -95,139 +87,63 @@ function App() {
   }
 
   return (
-    <View style={styles.container}>
-    
-      <Image
-        source={require("../../../assets/images/homeImage.png")}
-        style={[StyleSheet.absoluteFill, styles.bgImage]}
-        resizeMode="cover"
-      />
-      <Animated.View
-        style={[
-          styles.box,
-          {
-            transform: [{ translateY: slideAnim }],
-          },
-        ]}
-      >
+    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+      <Animated.View style={[styles.logo, { transform: [{ translateY: slideAnim }] }]}>
         <HomeImage />
       </Animated.View>
 
-      <Animated.View
-        style={[
-          styles.boxBook,
-          {
-            transform: [{ translateY: slideAnimBook }],
-          },
-        ]}
-      >
-        <Pressable
-          onPress={nextPage}
-          style={styles.btnLocationContent}
-        >
-          <Icon name="calendar" size={28} color="text" />
-
-          <View style={styles.locationContent}>
-            <AppText variant="legacyHeading" style={styles.titleLocation}>
+      <Animated.View style={{ transform: [{ translateY: slideAnimBook }] }}>
+        {/* hero (ds-hero): the one main action of the screen */}
+        <View style={styles.hero}>
+          <AppText variant="displayMd" color="onPrimary" style={styles.heroTitle}>
+            {localization.HOME.bookingBtn}
+          </AppText>
+          <AppText variant="bodySm" color="onPrimary" style={styles.heroText}>
+            {localization.HOME.bookingBtnDesc}
+          </AppText>
+          <Pressable onPress={nextPage} style={styles.heroButton}>
+            <Icon name="calendar" size="sm" color="primary" />
+            <AppText variant="label" color="primary" style={styles.heroButtonText}>
               {localization.HOME.bookingBtn}
             </AppText>
-            <AppText variant="legacyBody" size={15} color="textDeactivated">
-              {localization.HOME.bookingBtnDesc}
-            </AppText>
-          </View>
+          </Pressable>
+        </View>
 
-          <Icon name="chevronRight" size={28} color="iconMuted" />
-        </Pressable>
-        <Pressable
-          onPress={onAboutUs}
-          style={styles.btnLocationContent}
-        >
-          <Icon name="home" size={28} color="text" />
-          <View style={styles.locationContent}>
-            <AppText variant="legacyHeading" style={styles.titleLocation}>
-              {localization.HOME.aboutUsBtn}
-            </AppText>
-            <AppText variant="legacyBody" size={15} color="textDeactivated">
-              {localization.HOME.aboutUsBtnDesc}
-            </AppText>
-          </View>
-          <Icon name="chevronRight" size={28} color="iconMuted" />
-        </Pressable>
-
-        <Pressable
-          onPress={openLocationHandler}
-          style={styles.btnLocationContent}
-        >
-          <Icon name="locationArrow" size={28} color="text" />
-          <View style={styles.locationContent}>
-            <AppText variant="legacyHeading" style={styles.titleLocation}>
-              {localization.HOME.locationBtn}
-            </AppText>
-            <AppText variant="legacyBody" size={15} color="textDeactivated">
-              {localization.HOME.locationBtnDesc}
-            </AppText>
-          </View>
-          <Icon name="chevronRight" size={28} color="iconMuted" />
-        </Pressable>
+        <ListGroup style={styles.list}>
+          <ListRow icon="home" label={localization.HOME.aboutUsBtn} value={localization.HOME.aboutUsBtnDesc} onPress={onAboutUs} />
+          <ListRow icon="locationDot" label={localization.HOME.locationBtn} value={localization.HOME.locationBtnDesc} onPress={openLocationHandler} />
+        </ListGroup>
       </Animated.View>
-    </View>
+    </ScrollView>
   );
 }
 
 const useStyles = makeStyles((colors) => ({
-  box: {
-    alignItems: "center",
-    alignSelf: "center",
-    marginTop: Platform.OS === "ios" ? 20 : 90,
+  screen: { flex: 1, backgroundColor: colors.bg },
+  content: { flexGrow: 1, justifyContent: "center", paddingVertical: 24 },
+  logo: { alignItems: "center", marginBottom: 16 },
+  hero: {
+    marginHorizontal: 16,
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: colors.primary,
+    gap: 8,
   },
-  bgImage: {
-    width: '100%',
-    height: '100%',
-  },
-  backImage: {
-    opacity: 1,
-  },
-  boxBook: {
-    marginTop: Platform.OS === "ios" ? 20 : 80,
-    alignSelf: "center",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  locationContent: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnLocationContent: {
-    width: "90%",
-    backgroundColor: colors.surfaceItem,
-    justifyContent: "space-between",
-    alignItems: "center",
-    alignSelf: "center",
+  heroTitle: { fontSize: 28, lineHeight: 30 },
+  heroText: { opacity: 0.85 },
+  heroButton: {
+    alignSelf: "flex-start",
     flexDirection: "row",
-    paddingHorizontal: 25,
-    paddingVertical: 5,
-    marginTop: 10,
-    marginLeft: "auto",
-    marginRight: "auto",
+    alignItems: "center",
+    gap: 8,
+    minHeight: 36,
+    paddingHorizontal: 16,
+    marginTop: 8,
+    borderRadius: 8,
+    backgroundColor: colors.onPrimary,
   },
-
-  titleLocation: {
-    textAlign: "center",
-
-  },
-  btnContent: {
-    width: 300,
-    backgroundColor: colors.surfaceHome,
-    justifyContent: "space-around",
-    flexDirection: "row",
-    padding: 15,
-  },
+  heroButtonText: { textTransform: "uppercase", letterSpacing: 0.84 },
+  list: { marginTop: 16 },
 }));
 
 export default withScreen(App);

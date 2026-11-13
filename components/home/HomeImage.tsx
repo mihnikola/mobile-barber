@@ -12,8 +12,8 @@ const HomeImage = () => {
 
 const styles = StyleSheet.create({
   backImage: {
-    width: 500,
-    height: 300,
+    width: 280,
+    height: 160,
     resizeMode: "contain",
   },
 });

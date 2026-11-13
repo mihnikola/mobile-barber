@@ -59,5 +59,5 @@ const useStyles = makeStyles((colors) => ({
   row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 56, paddingHorizontal: 16 },
   label: { flex: 1, fontFamily: fonts.sans, fontSize: 16, color: colors.ink },
   danger: { color: colors.danger },
-  value: { fontFamily: fonts.sans, fontSize: 14, color: colors.inkMuted },
+  value: { fontFamily: fonts.sans, fontSize: 14, color: colors.inkMuted, flexShrink: 1, maxWidth: "55%", textAlign: "right" },
 }));
