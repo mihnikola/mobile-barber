@@ -3,7 +3,17 @@ import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
 import { View } from "react-native";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, type IconName } from "@/components/ui";
+
+/** Tab icon in the design-system nav pill (`ds-nav__pill`): accent on accentSoft when active. */
+function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
+  const styles = useStyles();
+  return (
+    <View style={[styles.pill, focused && styles.pillActive]}>
+      <Icon name={name} size="md" color={focused ? "accent" : "inkMuted"} />
+    </View>
+  );
+}
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -17,60 +27,39 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: colors.text,
-          tabBarInactiveTintColor: colors.textInactive,
-          tabBarStyle: {
-            backgroundColor: colors.background,
-          },
-          tabBarLabelStyle: {
-            fontFamily: fonts.regular,
-            fontSize: 12,
-          },
+          tabBarActiveTintColor: colors.ink,
+          tabBarInactiveTintColor: colors.inkMuted,
+          tabBarStyle: styles.bar,
+          tabBarItemStyle: styles.item,
+          tabBarLabelStyle: styles.label,
         }}
       >
         <Tabs.Screen
           name="(01_home)"
           options={{
             title: localization.TABS.HOME,
-            tabBarIcon: ({ color, focused }) => (
-              <Icon name="homeAlt" size={28} rawColor={focused
-                    ? colors.text
-                    : colors.textInactive} />
-            ),
+            tabBarIcon: ({ focused }) => <TabIcon name="home" focused={focused} />,
           }}
         />
         <Tabs.Screen
           name="(02_barbers)"
           options={{
             title: localization.TABS.BARBERS,
-            tabBarIcon: ({ color, focused }) => (
-              <Icon name="scissors" size={28} rawColor={focused
-                    ? colors.text
-                    : colors.textInactive} />
-            ),
+            tabBarIcon: ({ focused }) => <TabIcon name="scissors" focused={focused} />,
           }}
         />
         <Tabs.Screen
           name="(03_calendar)"
           options={{
             title: localization.TABS.APPOINTMENTS,
-            tabBarIcon: ({ color, focused }) => (
-              <Icon name="calendarMonth" size={28} rawColor={focused
-                    ? colors.text
-                    : colors.textInactive} />
-            ),
+            tabBarIcon: ({ focused }) => <TabIcon name="calendar" focused={focused} />,
           }}
         />
-
         <Tabs.Screen
           name="(04_settings)"
           options={{
             title: localization.TABS.SETTINGS,
-            tabBarIcon: ({ color, focused }) => (
-              <Icon name="services" size={28} rawColor={focused
-                    ? colors.text
-                    : colors.textInactive} />
-            ),
+            tabBarIcon: ({ focused }) => <TabIcon name="person" focused={focused} />,
           }}
         />
       </Tabs>
@@ -79,8 +68,16 @@ export default function TabLayout() {
 }
 
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
+  container: { flex: 1, backgroundColor: colors.bg },
+  // ds-nav: surface, hairline on top
+  bar: {
+    backgroundColor: colors.surface,
+    borderTopColor: colors.line,
+    borderTopWidth: 1,
+    // height/padding left to React Navigation so the bottom safe-area inset is kept
   },
+  item: { paddingVertical: 2 },
+  label: { fontFamily: fonts.sansMedium, fontSize: 12, marginTop: 4 },
+  pill: { width: 56, height: 30, borderRadius: 999, alignItems: "center", justifyContent: "center" },
+  pillActive: { backgroundColor: colors.accentSoft },
 }));
