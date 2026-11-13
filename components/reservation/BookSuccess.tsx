@@ -1,4 +1,4 @@
-import { addMinutesToTime, convertDate } from "@/lib/date";
+import { addMinutesToTime, convertDate, formatTimeRange } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
 import { Image, View } from "react-native";
@@ -27,8 +27,10 @@ function BookSuccess({ reservation }: { image?: unknown; reservation: ApiRecord 
     <View style={styles.content}>
       <Image source={require("@/assets/images/homeSplash.png")} style={[styles.logo, { tintColor: colors.ink }]} />
       <AppText style={styles.time}>
-        {reservation?.timeData?.value} –{" "}
-        {addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration)}
+        {formatTimeRange(
+          reservation?.timeData?.value,
+          addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration),
+        )}
       </AppText>
       <AppText variant="bodyLg" color="inkMuted">
         {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}

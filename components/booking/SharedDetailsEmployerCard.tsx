@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import { roundValue } from "@/lib/format";
+import { formatRating } from "@/lib/format";
 import type { ApiRecord } from "@/context/types";
 import { AppText, Avatar, Card, cardStyles, MetaRow } from "@/components/ui";
 import { makeStyles } from "@/theme";
@@ -27,7 +27,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }: { data: ApiRecord; o
           {seniority?.title || seniority}
         </AppText>
         <View style={styles.meta}>
-          <MetaRow icon="star" font="bold">{`${roundValue(averageRating)}/5`}</MetaRow>
+          <MetaRow icon="star" font="bold">{`${formatRating(averageRating)}/5`}</MetaRow>
           <MetaRow icon="person">{userCount || 0}</MetaRow>
         </View>
       </View>

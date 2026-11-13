@@ -12,3 +12,25 @@ export const getInitialsName = (name?: string | null) => {
   if (words.length === 1 && words[0] !== "") return words[0].substring(0, 2).toUpperCase();
   return "";
 };
+
+/* ---------- Display formats (Phase 5.7): never show NaN / undefined ---------- */
+
+const isNum = (v: unknown): v is number | string => v !== null && v !== "" && Number.isFinite(Number(v));
+
+/** 30 → "30 min"; missing / invalid → "". */
+export const formatDuration = (minutes?: number | string | null) => (isNum(minutes) ? `${Number(minutes)} min` : "");
+
+/**
+ * 1200 → "1.200 RSD" (sr) / "1,200 RSD" (en); missing / invalid → "".
+ * Grouping done by hand: Hermes' Intl number support varies by build.
+ */
+export const formatPrice = (value?: number | string | null, code: string = "sr") => {
+  if (!isNum(value)) return "";
+  const n = Math.round(Number(value));
+  const sep = code === "en" ? "," : ".";
+  const grouped = String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  return `${n < 0 ? "-" : ""}${grouped} RSD`;
+};
+
+/** 4.25 → "4.3"; no rating yet → "–". */
+export const formatRating = (rating?: number | string | null) => (isNum(rating) ? String(roundValue(Number(rating))) : "–");

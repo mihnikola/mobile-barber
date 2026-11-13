@@ -27,7 +27,14 @@ export function addMinutesToTime(inputTime: string, minutesToAdd: number, otherS
   // same evaluation order as before (matters if a duration ever arrives as a string)
   const total = otherServiceDuration + minutesToAdd;
   date.setMinutes(date.getMinutes() + total);
+  if (Number.isNaN(date.getTime())) return ""; // missing time/duration: no "NaN:NaN" (Phase 5.7)
   return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
+
+/** "16:00" + "16:50" → "16:00 – 16:50"; a missing end shows only the start (Phase 5.7). */
+export function formatTimeRange(start?: string | null, end?: string | null) {
+  if (!start) return "";
+  return end ? `${start} – ${end}` : start;
 }
 
 /** "15. 03. 2025" → "MAR". */

@@ -1,4 +1,4 @@
-import { convertDateDetails } from "@/lib/date";
+import { convertDateDetails, formatTimeRange } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { View } from "react-native";
@@ -21,7 +21,7 @@ const HeaderReservationTime = ({ data }: { data: ApiRecord | null }) => {
         {convertDateDetails(data?.startDate, localization.code)}
       </AppText>
       <AppText style={styles.time}>
-        {data?.startDateTime} – {data?.finishedTime}
+        {formatTimeRange(data?.startDateTime, data?.finishedTime)}
       </AppText>
       <View style={styles.place}>
         <Icon name="locationDot" size="xs" color="inkMuted" />

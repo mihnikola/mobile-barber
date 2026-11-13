@@ -1,4 +1,4 @@
-import { addMinutesToTime, convertDate } from "@/lib/date";
+import { addMinutesToTime, convertDate, formatTimeRange } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import React from "react";
@@ -29,9 +29,10 @@ function SharedReservationData({ reservation }: { reservation: ApiRecord | null 
         {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}
       </AppText>
       <AppText style={styles.time}>
-        {reservation && reservation?.timeData?.value} –{" "}
-        {reservation &&
-          addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration)}
+        {formatTimeRange(
+          reservation?.timeData?.value,
+          reservation && addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration),
+        )}
       </AppText>
       <View style={styles.place}>
         <Icon name="locationDot" size="xs" color="inkMuted" />

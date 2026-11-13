@@ -1,3 +1,4 @@
+import { formatDuration, formatPrice } from "@/lib/format";
 import React from "react";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -24,12 +25,12 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
         <AppText variant="body" color="inkMuted">
           {localization.SERVICES.totalDuration}
         </AppText>
-        <AppText variant="body">{durationValue} min</AppText>
+        <AppText variant="body">{formatDuration(durationValue)}</AppText>
       </View>
       <View style={[styles.row, styles.total]}>
         <AppText variant="bodyStrong">{localization.SERVICES.totalPrice}</AppText>
         <AppText variant="bodyStrong" size={17}>
-          {priceValue} RSD
+          {formatPrice(priceValue, localization.code)}
         </AppText>
       </View>
     </View>

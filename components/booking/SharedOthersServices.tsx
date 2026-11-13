@@ -1,3 +1,4 @@
+import { formatDuration, formatPrice } from "@/lib/format";
 import { View } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -25,8 +26,8 @@ const SharedOthersServices = ({ data }: { data: ApiRecord; redirectHandler?: unk
       <View style={cardStyles.body}>
         <AppText variant="bodyStrong">{title}</AppText>
         <View style={styles.meta}>
-          <MetaRow icon="clock">{`${localization.DETAILS.duration} ${data?.service?.duration || duration}`}</MetaRow>
-          <MetaRow icon="price" font="bold">{`${localization.DETAILS.price} ${data?.price}`}</MetaRow>
+          <MetaRow icon="clock">{formatDuration(data?.service?.duration || duration)}</MetaRow>
+          <MetaRow icon="price" font="bold">{formatPrice(data?.price ?? data?.service?.price, localization.code)}</MetaRow>
         </View>
       </View>
     </View>

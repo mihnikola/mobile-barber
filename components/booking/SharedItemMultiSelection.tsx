@@ -1,3 +1,4 @@
+import { formatDuration, formatPrice } from "@/lib/format";
 import { Avatar } from "@/components/ui/Avatar";
 import { ListItem, MetaRow } from "@/components/ui/Card";
 import { Icon } from "@/components/ui/Icon";
@@ -16,8 +17,8 @@ const SharedItemMultiSelection = (props: any) => {
       title={localization.code === "en" ? name.nameEn : name.nameLocal}
       trailing={<Icon name={isSelected ? "check" : "circle"} size="xl" color="inkMuted" />}
     >
-      <MetaRow icon="clock" spaced>{`${localization.DETAILS.duration} ${duration}`}</MetaRow>
-      <MetaRow icon="price" iconColor="star">{`${localization.DETAILS.price} ${price}`}</MetaRow>
+      <MetaRow icon="clock" spaced>{formatDuration(duration)}</MetaRow>
+      <MetaRow icon="price" iconColor="star" font="bold">{formatPrice(price, localization.code)}</MetaRow>
     </ListItem>
   );
 };

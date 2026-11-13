@@ -1,3 +1,4 @@
+import { formatDuration, formatPrice } from "@/lib/format";
 import { Avatar } from "@/components/ui/Avatar";
 import { ListItem, MetaRow } from "@/components/ui/Card";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -14,8 +15,8 @@ const SharedItemServiceCard = (props: any) => {
       leading={image ? <Avatar uri={image} bordered /> : null}
       title={name}
     >
-      <MetaRow icon="clock" spaced>{`${localization.DETAILS.duration} ${duration}`}</MetaRow>
-      <MetaRow icon="price" iconColor="star">{`${localization.DETAILS.price} ${price}`}</MetaRow>
+      <MetaRow icon="clock" spaced>{formatDuration(duration)}</MetaRow>
+      <MetaRow icon="price" iconColor="star" font="bold">{formatPrice(price, localization.code)}</MetaRow>
     </ListItem>
   );
 };

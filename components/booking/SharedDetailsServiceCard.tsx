@@ -1,3 +1,4 @@
+import { formatDuration, formatPrice } from "@/lib/format";
 import { View } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -23,8 +24,8 @@ const SharedDetailsServiceCard = ({ data, otherServices }: { data: ApiRecord; ot
           {!name ? (localization.code === "en" ? name?.nameEn : name?.nameLocal) : name}
         </AppText>
         <View style={styles.meta}>
-          <MetaRow icon="clock">{`${localization.DETAILS.duration} ${duration || data?.serviceDuration}`}</MetaRow>
-          <MetaRow icon="price" font="bold">{`${localization.DETAILS.price} ${price || data?.servicePrice}`}</MetaRow>
+          <MetaRow icon="clock">{formatDuration(duration || data?.serviceDuration)}</MetaRow>
+          <MetaRow icon="price" font="bold">{formatPrice(price || data?.servicePrice, localization.code)}</MetaRow>
         </View>
       </View>
     </Card>

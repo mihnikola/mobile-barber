@@ -1,5 +1,5 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { convertToDayTime } from "@/lib/date";
+import { convertToDayTime, formatTimeRange } from "@/lib/date";
 import React from "react";
 import { View } from "react-native";
 import type { ApiRecord } from "@/context/types";
@@ -33,7 +33,7 @@ const InfoContainerFuture = ({ item }: { item: ApiRecord }) => {
       <View style={styles.line}>
         <Icon name="clock" size="xs" color="inkMuted" />
         <AppText variant="bodySm" color="inkMuted">
-          {convertToDayTime(item?.startDate)} – {convertToDayTime(item?.endDate)}
+          {formatTimeRange(convertToDayTime(item?.startDate), item?.endDate ? convertToDayTime(item.endDate) : "")}
         </AppText>
       </View>
       <View style={styles.line}>
