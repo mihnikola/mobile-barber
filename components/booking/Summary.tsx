@@ -1,11 +1,12 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import SummaryItem from "@/components/booking/SummaryItem";
 import { makeStyles } from "@/theme";
 const Summary = ({ data, selectedItem, setSelectedItem }) => {
   const styles = useStyles();
   return (
-    <ScrollView snapToInterval={50} decelerationRate="normal" horizontal>
+    // ds-slots: 4-column grid instead of a horizontal scroller
+    <View>
       <View style={styles.container}>
         {data?.map((item: any) => (
           <SummaryItem
@@ -16,18 +17,12 @@ const Summary = ({ data, selectedItem, setSelectedItem }) => {
           />
         ))}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
-const useStyles = makeStyles((colors) => ({
-  container: {
-    flexDirection: "row",
-    gap: 20,
-    justifyContent: "space-around",
-    padding: 10,
-    backgroundColor: colors.bg,
-  },
-}));
+const useStyles = makeStyles(() => ({
+  container: { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingHorizontal: 16, paddingVertical: 8 },
+}))
 
 export default Summary;

@@ -31,28 +31,20 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   );
 };
 
+/** Time slot (design system `ds-slot`): outlined, selected = filled primary. */
 const useStyles = makeStyles((colors) => ({
   content: {
-    width: 100,
-    height: 50,
+    width: "22.5%",
+    minHeight: 44,
     justifyContent: "center",
-    borderColor: colors.inkMuted,
     alignItems: "center",
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
   },
-  selectedTime: {
-    color: colors.onPrimary,
-  },
-  selectedContent: {
-    backgroundColor: colors.primary,
-  },
-  time: {
-    fontSize: 16,
-    color: colors.ink,
-    fontFamily: fonts.sansSemiBold,
-    borderColor: colors.primary,
-  },
-}));
+  selectedContent: { backgroundColor: colors.primary, borderColor: colors.primary },
+  time: { fontSize: 15, color: colors.ink, fontFamily: fonts.sansSemiBold, fontVariant: ["tabular-nums"] },
+  selectedTime: { color: colors.onPrimary },
+}))
 
 export default SummaryItem;

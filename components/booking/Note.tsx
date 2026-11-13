@@ -1,96 +1,30 @@
 import { View } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles } from "@/theme";
-import { AppText } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { AppText, Card } from "@/components/ui";
 
 const Note = () => {
   const styles = useStyles();
   const {localization} = useLocalization();
 
   return (
-    <View style={styles.data}>
-      <AppText variant="title" style={styles.title}>{localization.SALON.title}</AppText>
-      <AppText variant="bodySm" style={styles.info}>
-       {localization.SALON.first}
-      </AppText>
-      <AppText variant="bodySm" style={styles.info}>
-        {localization.SALON.second}
-      </AppText>
-    </View>
+    <Card>
+      <AppText variant="bodyStrong">{localization.SALON.title}</AppText>
+      <View style={styles.lines}>
+        <AppText variant="bodySm" color="inkMuted">
+          {localization.SALON.first}
+        </AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {localization.SALON.second}
+        </AppText>
+      </View>
+    </Card>
   );
 };
 
 export default Note;
 
-const useStyles = makeStyles((colors) => ({
-  reservation: {
-    display: "flex",
-    flexDirection: "column",
-    height: 300,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  timeData: {
-    fontSize: 20,
-   color: colors.ink,
-    fontFamily: fonts.sansSemiBold,
-  },
-  info: {
-    display: "flex",
-    paddingLeft: 12,
-    paddingBottom: 8,
-
-  },
-  title: {
-    padding: 12,
-  },
-  position: {
-    fontSize: 16,
-    color: colors.inkFaint,
-    fontStyle: "italic",
-    padding: 12,
-  },
-  coverContent: {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-    top: 100,
-    padding: 12,
-  },
-  dateData: {
-    fontSize: 20,
-   color: colors.ink,
-    fontFamily: fonts.sansSemiBold,
-  },
-  data: {
-    display: "flex",
-    flexDirection: "column",
-    marginRight: 10,
-  },
-  container: {
-    flex: 1,
-  },
-  coverImage: {
-    width: "100%",
-    height: 200,
-    opacity: 0.2,
-  },
-  content: {
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: 20,
-    padding: 10,
-    gap: 20,
-  },
-  capture: {
-    fontSize: 32,
-    color: colors.inkFaint,
-    fontFamily: fonts.displaySemiBold,
-    textAlign: "center",
-    fontStyle: "italic",
-    position: "absolute",
-    top: 150,
-    left: 50,
-  },
-}));
+const useStyles = makeStyles(() => ({
+  lines: { gap: 6, marginTop: 8 },
+}))
