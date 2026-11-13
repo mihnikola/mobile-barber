@@ -2,6 +2,16 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 const APP_VERSION = '1.2.3';
 
+/**
+ * Brand (look) of this build: `BRAND=atelier npx expo start` / EAS env. Default gentleman.
+ * The app reads it from `extra.brand` (theme/brands). Splash backgrounds = the brand's bg tokens.
+ */
+const BRAND = process.env.BRAND === "atelier" ? "atelier" : "gentleman";
+const SPLASH_BG = {
+    gentleman: { light: "#F5F4F1", dark: "#0F0F0F" },
+    atelier: { light: "#FBF6F1", dark: "#1A1215" },
+}[BRAND];
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     name: "Barber App",
@@ -35,11 +45,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             {
                 // splashScreen.png is fully transparent: the native splash is just the theme background,
                 // the logo comes from the JS splash (app/index.tsx). Colors = DS bg (light / dark).
-                "backgroundColor": "#F5F4F1",
+                "backgroundColor": SPLASH_BG.light,
                 "image": "./assets/images/splashScreen.png",
                 "dark": {
                     "image": "./assets/images/splashScreen.png",
-                    "backgroundColor": "#0F0F0F"
+                    "backgroundColor": SPLASH_BG.dark
                 },
                 "imageWidth": 200
             }
@@ -67,6 +77,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
     ],
     extra: {
+        brand: BRAND,
         router: {
             origin: false,
         },

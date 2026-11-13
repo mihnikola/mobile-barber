@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import { fonts, makeStyles } from "@/theme";
+import { cardShadow, fonts, makeStyles } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -53,11 +53,7 @@ const useStyles = makeStyles((colors) => ({
   },
   tabSelected: {
     backgroundColor: colors.surface,
-    shadowColor: "#141414",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
-    shadowRadius: 2,
-    elevation: 1,
+    ...cardShadow(colors),
   },
   label: {
     fontFamily: fonts.sansSemiBold,

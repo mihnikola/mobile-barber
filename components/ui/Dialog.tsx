@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Modal, type StyleProp, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { makeStyles, typeScale } from "@/theme";
+import { makeStyles, sheetShadow, typeScale } from "@/theme";
 
 import { Button } from "./Button";
 
@@ -74,11 +74,7 @@ const useDialogStyles = makeStyles((colors) => ({
     paddingTop: 24,
     paddingHorizontal: 20,
     paddingBottom: 20,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: -8 },
-    shadowOpacity: 0.12,
-    shadowRadius: 24,
-    elevation: 8,
+    ...sheetShadow(colors), // dialogs use shadow-sheet
   },
   iconTile: {
     width: 72,

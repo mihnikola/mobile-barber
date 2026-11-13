@@ -1,4 +1,6 @@
-/** 4-pt spacing scale. Used by ui/ components from Phase 2 on. */
+import { brand } from "./brands";
+
+/** 4-pt spacing scale (same in every brand). */
 export const spacing = {
   none: 0,
   xxs: 2,
@@ -11,11 +13,8 @@ export const spacing = {
   xxxl: 32,
 } as const;
 
-export const radii = {
-  none: 0,
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 16,
-  pill: 999,
-} as const;
+/**
+ * Corner radii of the active brand: `sm` inputs/slots · `md` tiles/thumbnails · `lg` cards/lists/dialogs ·
+ * `button` / `avatar` / `check` per brand (Gentleman 8/12/4, Atelier pills).
+ */
+export const radii = brand.radii;
