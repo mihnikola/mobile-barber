@@ -33,11 +33,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-splash-screen",
             {
-                "backgroundColor": "#000000",
+                // splashScreen.png is fully transparent: the native splash is just the theme background,
+                // the logo comes from the JS splash (app/index.tsx). Colors = DS bg (light / dark).
+                "backgroundColor": "#F5F4F1",
                 "image": "./assets/images/splashScreen.png",
                 "dark": {
                     "image": "./assets/images/splashScreen.png",
-                    "backgroundColor": "#000000"
+                    "backgroundColor": "#0F0F0F"
                 },
                 "imageWidth": 200
             }
