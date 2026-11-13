@@ -1,63 +1,38 @@
-import { View, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
 import AboutUsInfo from "@/components/home/AboutUsInfo";
 import ListAboutUs from "@/components/home/ListAboutUs";
 import ContactUs from "@/components/home/ContactUs";
-import OnboardingComponent from "@/components/home/OnboardingComponent";
-import WhoAreWeCoverImage from "@/components/home/WhoAreWeCoverImage";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { useCompany } from "@/context/CompanyContext";
-import { useEffect } from "react";
-import SharedBackButton from "@/components/layout/SharedBackButton";
-import { router } from "expo-router";
-import { Icon, Pressable, withScreen } from "@/components/ui";
+import { withScreen } from "@/components/ui";
 import { makeStyles } from "@/theme";
 
+/** About us (Phase 5.6): DS header with the company's about title, text card, contact and hours groups. */
 const AboutUsScreen = () => {
   const styles = useStyles();
   const { company } = useCompany();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      {/* <WhoAreWeCoverImage image={company?.media?.logo} /> */}
-      {/* <SharedBackButton onPress={router.back} styleBtn={{ top: 1 }} /> */}
-
-      <View style={styles.contentContainer}>
-        <View style={{ marginTop: 30, marginLeft: 10 }}>
-          <Pressable hitSlop={20} onPress={router.back}>
-            <Icon name="back" size={25} />
-          </Pressable>
-        </View>
-        <AboutUsInfo
-          title={company?.aboutUs?.title}
-          text={company?.aboutUs?.text}
-          textThree={company?.aboutUs?.textThree}
-          textTwo={company?.aboutUs?.textTwo}
-        />
-
-        <ListAboutUs contact={company?.contact} />
-      </View>
-      {/* <OnboardingComponent reviews={company?.reviews} /> */}
-
-      <View style={styles.contentContainer}>
-        <ContactUs
-          workDays={company?.aboutUs?.workDays}
-          workSaturday={company?.aboutUs?.workSaturday}
-          holidays={company?.aboutUs?.holidays}
-        />
-      </View>
+    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+      <HeaderCoverImageContainer title={company?.aboutUs?.title} />
+      <AboutUsInfo
+        text={company?.aboutUs?.text}
+        textTwo={company?.aboutUs?.textTwo}
+        textThree={company?.aboutUs?.textThree}
+      />
+      <ListAboutUs contact={company?.contact} />
+      <ContactUs
+        workDays={company?.aboutUs?.workDays}
+        workSaturday={company?.aboutUs?.workSaturday}
+        holidays={company?.aboutUs?.holidays}
+      />
     </ScrollView>
   );
 };
 
 const useStyles = makeStyles((colors) => ({
-  scrollViewContent: {
-    flexGrow: 1,
-    backgroundColor: colors.bg,
-  },
-  contentContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 0,
-  },
+  screen: { flex: 1, backgroundColor: colors.bg },
+  content: { paddingBottom: 32 },
 }));
 
 export default withScreen(AboutUsScreen);

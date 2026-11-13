@@ -1,21 +1,16 @@
-// HelpSupportScreen.js
 import React from "react";
-import {
-  View,
-  Linking,
-  ScrollView,
-} from "react-native";
+import { Linking, ScrollView } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { ListGroup, ListRow, withScreen } from "@/components/ui";
 
 const companyInfo = {
   name: "FusionTechAgency Ltd",
   email: "fusiontechagency.support@gmail.com",
 };
 
+/** Help & support (Phase 5.6): company row + support e-mail row (opens the mail app, as before). */
 const HelpSupportScreen = () => {
   const styles = useStyles();
   const { localization } = useLocalization();
@@ -25,69 +20,20 @@ const HelpSupportScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderCoverImageContainer
-        title={localization.SETTINGS.HELP.title}
-        image={coverSettingsImage}
-      />
-      <View style={styles.sectionContainer}>
-        <View style={styles.infoRow}>
-          <AppText variant="bodyStrong">
-            {localization.SETTINGS.HELP.company}
-          </AppText>
-          <AppText variant="body">{companyInfo.name}</AppText>
-        </View>
-        <Pressable onPress={handleEmailPress} style={styles.menuItem}>
-          <Icon name="email" size={24} style={styles.menuItemIcon} color="ink" />
-          <AppText variant="bodyStrong" style={styles.menuItemText}>
-            {localization.SETTINGS.HELP.support}
-          </AppText>
-          <AppText variant="bodySm">{companyInfo.email}</AppText>
-        </Pressable>
-      </View>
+      <HeaderCoverImageContainer title={localization.SETTINGS.HELP.title} />
+      <ListGroup>
+        <ListRow label={localization.SETTINGS.HELP.company} value={companyInfo.name} />
+        <ListRow icon="email" label={localization.SETTINGS.HELP.support} onPress={handleEmailPress} />
+      </ListGroup>
+      <ListGroup>
+        <ListRow label={companyInfo.email} onPress={handleEmailPress} />
+      </ListGroup>
     </ScrollView>
   );
 };
 
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-    backgroundColor:  colors.bg,
-  },
-
-  sectionContainer: {
-    padding: 20,
-  },
-  capture: {
-    fontSize: 25,
-    color: colors.ink,
-    fontFamily: fonts.displaySemiBold,
-    paddingVertical: 130,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontFamily: fonts.sansSemiBold,
-    color: colors.ink,
-    marginBottom: 20,
-  },
-  infoRow: {
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
-    marginBottom: 20,
-  },
-
-  menuItem: {
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
-  },
-  menuItemIcon: {
-    marginRight: 15,
-  },
-  menuItemText: {
-    flex: 1,
-  },
+  container: { flex: 1, backgroundColor: colors.bg },
 }));
 
 export default withScreen(HelpSupportScreen);

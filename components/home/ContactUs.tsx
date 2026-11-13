@@ -1,34 +1,23 @@
-import { View, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { AppText } from "@/components/ui";
+import { ListGroup, ListRow } from "@/components/ui";
+import SectionLabel from "./SectionLabel";
 
-const ContactUs = ({ workDays, workSaturday, holidays }) => {
+/** Working hours section (Phase 5.6): section label + one row per line. */
+const ContactUs = ({ workDays, workSaturday, holidays }: { workDays?: string; workSaturday?: string; holidays?: string }) => {
   const { localization } = useLocalization();
+  const lines = [workDays, workSaturday, holidays].filter(Boolean);
+
   return (
-    <View style={styles.content}>
-      <AppText variant="displayLg" style={styles.reviewCapture}>{localization.HOME.aboutUs}</AppText>
-      <AppText variant="bodyStrong" style={styles.text}>{workDays}</AppText>
-      <AppText variant="bodyStrong" style={styles.text}>{workSaturday}</AppText>
-      <AppText variant="bodyStrong" style={styles.text}>{holidays}</AppText>
-    </View>
+    <>
+      <SectionLabel>{localization.HOME.aboutUs}</SectionLabel>
+      <ListGroup>
+        {lines.map((line, i) => (
+          <ListRow key={i} icon={i === 0 ? "clock" : undefined} label={line} />
+        ))}
+      </ListGroup>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 100,
-  },
-  text: {
-
-    padding: 7,
-  },
-  reviewCapture: {
-    marginBottom: 20,
-  },
-});
 
 export default ContactUs;
