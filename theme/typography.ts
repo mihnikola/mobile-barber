@@ -1,67 +1,63 @@
 /**
- * Typography tokens.
+ * Typography tokens of the active brand (theme/brands → type).
  *
- * Display: Barlow Condensed (headings, uppercase). Text: Inter (Phase 5.2, D-024).
- * All families are registered in app/_layout.tsx under the names below.
+ * Gentleman: Barlow Condensed display (uppercase) + Inter. Atelier: Fraunces display (serif, italic
+ * screen titles) + DM Sans. Font files live in assets/fonts; file names = family keys = PostScript
+ * names, so the same name works on iOS and Android. Registered in app/_layout.tsx via `fontAssets`.
  */
 import type { TextStyle } from "react-native";
 
-export const fonts = {
-  // Barlow Condensed — the app's original font (used everywhere until screens are restyled)
-  regular: "BarlowCondensed-Regular",
-  bold: "BarlowCondensed-Bold",
-  italic: "BarlowCondensed-Italic",
-  // Design system
-  displaySemiBold: "BarlowCondensed-SemiBold",
-  displayBold: "BarlowCondensed-Bold",
-  sans: "Inter-Regular",
-  sansMedium: "Inter-Medium",
-  sansSemiBold: "Inter-SemiBold",
-  sansBold: "Inter-Bold",
-} as const;
+import { brand } from "./brands";
+import type { DisplayStyle } from "./brands/types";
 
-/**
- * Font files to load (name → asset), all bundled from assets/fonts (no npm font packages:
- * a missing `npm install` broke the iOS bundle). File names = family keys = the fonts'
- * PostScript names, so the same name works on iOS and Android (also if embedded natively later).
- */
-export const fontAssets = {
-  [fonts.regular]: require("../assets/fonts/BarlowCondensed-Regular.ttf"),
-  [fonts.bold]: require("../assets/fonts/BarlowCondensed-Bold.ttf"),
-  [fonts.italic]: require("../assets/fonts/BarlowCondensed-Italic.ttf"),
-  [fonts.displaySemiBold]: require("../assets/fonts/BarlowCondensed-SemiBold.ttf"),
-  [fonts.sans]: require("../assets/fonts/Inter-Regular.ttf"),
-  [fonts.sansMedium]: require("../assets/fonts/Inter-Medium.ttf"),
-  [fonts.sansSemiBold]: require("../assets/fonts/Inter-SemiBold.ttf"),
-  [fonts.sansBold]: require("../assets/fonts/Inter-Bold.ttf"),
+const t = brand.type;
+
+export const fonts = {
+  displaySemiBold: t.fonts.display,
+  displayBold: t.fonts.displayBold,
+  displayItalic: t.fonts.displayItalic,
+  sans: t.fonts.sans,
+  sansMedium: t.fonts.sansMedium,
+  sansSemiBold: t.fonts.sansSemiBold,
+  sansBold: t.fonts.sansBold,
 };
 
-/**
- * Legacy font size scale (Phase 1). Kept for screens not yet restyled.
- */
-export const fontSize = {
-  xxs: 9,
-  xs: 12,
-  sm: 14,
-  md: 16,
-  lg: 18,
-  xl: 20,
-  xxl: 22,
-  h3: 25,
-  h2: 28,
-  h1: 32,
-  display: 40,
-} as const;
+/** Font files of the active brand only (name → asset). */
+export const fontAssets = t.files;
+
+const px = (size: number, em: number) => Math.round(size * em * 100) / 100;
 
 /**
- * Design-system type scale (Gentleman Barber DS `tokens.json` → type.groups).
- * Display styles are uppercase Barlow Condensed; text styles are Inter.
- * letterSpacing 0.01em → px.
+ * Case + tracking for display text set by hand (`fontFamily: fonts.displaySemiBold`) at `size`.
+ * `uppercaseTracking` (em) overrides the brand's tracking where the uppercase design asks for more
+ * (e.g. wordmark .08em); a sentence-case brand gets no tracking.
+ */
+export const displayText = (size: number, uppercaseTracking?: number): TextStyle => ({
+  textTransform: t.displayCase,
+  letterSpacing: t.displayCase === "uppercase" ? px(size, uppercaseTracking ?? t.displayTracking) : 0,
+});
+
+/** Case + tracking for buttons and segmented tabs (Gentleman uppercase, Atelier sentence case). */
+export const buttonText = (size: number, uppercaseTracking?: number): TextStyle => ({
+  textTransform: t.buttonCase,
+  letterSpacing: t.buttonCase === "uppercase" ? px(size, uppercaseTracking ?? t.buttonTracking) : 0,
+});
+
+const display = (s: DisplayStyle): TextStyle => ({
+  fontFamily: s.italic ? t.fonts.displayItalic : s.bold ? t.fonts.displayBold : t.fonts.display,
+  fontSize: s.fontSize,
+  lineHeight: s.lineHeight,
+  ...displayText(s.fontSize),
+});
+
+/**
+ * Design-system type scale (tokens.json → type.groups). Display styles come from the brand;
+ * text styles are the same in both brands (only the sans family differs).
  */
 export const typeScale = {
-  displayXl: { fontFamily: fonts.displayBold, fontSize: 44, lineHeight: 44, letterSpacing: 0.44, textTransform: "uppercase" },
-  displayLg: { fontFamily: fonts.displaySemiBold, fontSize: 34, lineHeight: 36, letterSpacing: 0.34, textTransform: "uppercase" },
-  displayMd: { fontFamily: fonts.displaySemiBold, fontSize: 22, lineHeight: 26, letterSpacing: 0.22, textTransform: "uppercase" },
+  displayXl: display(t.scale.displayXl),
+  displayLg: display(t.scale.displayLg),
+  displayMd: display(t.scale.displayMd),
   title: { fontFamily: fonts.sansSemiBold, fontSize: 20, lineHeight: 26 },
   bodyLg: { fontFamily: fonts.sans, fontSize: 17, lineHeight: 24 },
   body: { fontFamily: fonts.sans, fontSize: 16, lineHeight: 22 },
@@ -69,6 +65,6 @@ export const typeScale = {
   bodySm: { fontFamily: fonts.sans, fontSize: 14, lineHeight: 20 },
   label: { fontFamily: fonts.sansSemiBold, fontSize: 13, lineHeight: 16 },
   caption: { fontFamily: fonts.sansMedium, fontSize: 12, lineHeight: 16 },
-} as const satisfies Record<string, TextStyle>;
+} satisfies Record<string, TextStyle>;
 
 export type TypeStyle = keyof typeof typeScale;

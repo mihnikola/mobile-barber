@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ActivityIndicator, Image, type ImageSourcePropType, type StyleProp, Text, type ViewStyle } from "react-native";
 
-import { fonts, makeStyles, radii, useTheme } from "@/theme";
+import { buttonText, fonts, makeStyles, radii, useTheme } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -95,8 +95,7 @@ const useStyles = makeStyles((colors) => ({
     fontFamily: fonts.sansSemiBold,
     fontSize: 15,
     lineHeight: 20,
-    letterSpacing: 0.9,
-    textTransform: "uppercase",
+    ...buttonText(15), // Gentleman: uppercase .06em
   },
   textSm: { fontSize: 14 },
   image: { width: 20, height: 20 },

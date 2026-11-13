@@ -66,4 +66,33 @@ export const gentleman: Brand = {
     sheet: { offsetY: -8, radius: 24, opacityLight: 0.08, opacityDark: 0.5, elevation: 12 },
     cardBorder: false,
   },
+  type: {
+    fonts: {
+      display: "BarlowCondensed-SemiBold",
+      displayBold: "BarlowCondensed-Bold",
+      displayItalic: "BarlowCondensed-SemiBold",
+      sans: "Inter-Regular",
+      sansMedium: "Inter-Medium",
+      sansSemiBold: "Inter-SemiBold",
+      sansBold: "Inter-Bold",
+    },
+    files: {
+      "BarlowCondensed-SemiBold": require("../../assets/fonts/BarlowCondensed-SemiBold.ttf"),
+      "BarlowCondensed-Bold": require("../../assets/fonts/BarlowCondensed-Bold.ttf"),
+      "Inter-Regular": require("../../assets/fonts/Inter-Regular.ttf"),
+      "Inter-Medium": require("../../assets/fonts/Inter-Medium.ttf"),
+      "Inter-SemiBold": require("../../assets/fonts/Inter-SemiBold.ttf"),
+      "Inter-Bold": require("../../assets/fonts/Inter-Bold.ttf"),
+    },
+    displayCase: "uppercase",
+    displayTracking: 0.01,
+    scale: {
+      displayXl: { fontSize: 44, lineHeight: 44, bold: true },
+      displayLg: { fontSize: 34, lineHeight: 36 },
+      displayMd: { fontSize: 22, lineHeight: 26 },
+    },
+    buttonCase: "uppercase",
+    buttonTracking: 0.06,
+  },
+  details: { bookIcon: "scissors", staffWord: "barbers" },
 };

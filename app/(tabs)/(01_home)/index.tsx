@@ -14,7 +14,7 @@ import CardReservationPending from "@/components/reservation/CardReservationPend
 import useInternetGuard from "@/services/useInternetGuard";
 import { useAuth } from "@/context/AuthContext";
 import type { ApiRecord } from "@/context/types";
-import { fonts, makeStyles, radii } from "@/theme";
+import { buttonText, displayText, fonts, makeStyles, radii } from "@/theme";
 import { AppText, Avatar, Icon, ListGroup, ListRow, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
@@ -191,8 +191,7 @@ const useStyles = makeStyles((colors) => ({
     fontFamily: fonts.displaySemiBold,
     fontSize: 26,
     lineHeight: 30,
-    letterSpacing: 2,
-    textTransform: "uppercase",
+    ...displayText(26, 0.08), // wordmark tracking .08em in the uppercase brand
     color: colors.ink,
   },
   avatarEmpty: {
@@ -217,7 +216,7 @@ const useStyles = makeStyles((colors) => ({
     fontFamily: fonts.displaySemiBold,
     fontSize: 28,
     lineHeight: 30,
-    textTransform: "uppercase",
+    ...displayText(28),
     color: colors.onPrimary,
   },
   heroText: { opacity: 0.85 },
@@ -235,8 +234,7 @@ const useStyles = makeStyles((colors) => ({
   heroButtonText: {
     fontFamily: fonts.sansSemiBold,
     fontSize: 14,
-    textTransform: "uppercase",
-    letterSpacing: 0.84,
+    ...buttonText(14),
     color: colors.primary,
   },
   // ds-sec: label left, underlined link right

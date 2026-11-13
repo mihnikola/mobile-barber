@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import { cardShadow, fonts, makeStyles, radii } from "@/theme";
+import { buttonText, cardShadow, fonts, makeStyles, radii } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -58,8 +58,7 @@ const useStyles = makeStyles((colors) => ({
   label: {
     fontFamily: fonts.sansSemiBold,
     fontSize: 13,
-    letterSpacing: 0.65,
-    textTransform: "uppercase",
+    ...buttonText(13, 0.05),
     color: colors.inkMuted,
   },
   labelSelected: { color: colors.ink },

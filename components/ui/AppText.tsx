@@ -29,7 +29,7 @@ export function AppText({ variant = "body", color, bold, size, align, style, ...
   // When the size differs from the variant and no lineHeight is given, derive one —
   // otherwise the variant's lineHeight would clip larger text.
   const flat = StyleSheet.flatten(style);
-  const effectiveSize = flat?.fontSize ?? size ?? base.fontSize;
+  const effectiveSize = flat?.fontSize ?? size ?? base.fontSize ?? 16;
   const fixLineHeight =
     effectiveSize !== base.fontSize && flat?.lineHeight === undefined ? { lineHeight: Math.round(effectiveSize * 1.3) } : null;
   return (

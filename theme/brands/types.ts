@@ -50,6 +50,43 @@ export type Shadows = {
   cardBorder: boolean;
 };
 
+/** One display style of the type scale (tokens.json → type.groups Display). */
+export type DisplayStyle = { fontSize: number; lineHeight: number; bold?: boolean; italic?: boolean };
+
+/**
+ * Typography of a brand: font family names (= registered keys = PostScript names), the files,
+ * and how display text is set (case, tracking) — Gentleman: uppercase condensed, Atelier: serif, italic titles.
+ */
+export type Typography = {
+  fonts: {
+    display: string;
+    displayBold: string;
+    /** Italic display face (Atelier screen titles); same as display when the brand has none. */
+    displayItalic: string;
+    sans: string;
+    sansMedium: string;
+    sansSemiBold: string;
+    sansBold: string;
+  };
+  /** Font family name → bundled file (require). */
+  files: Record<string, number>;
+  displayCase: "uppercase" | "none";
+  /** letterSpacing as a fraction of the font size (0.01em → 0.01). */
+  displayTracking: number;
+  scale: { displayXl: DisplayStyle; displayLg: DisplayStyle; displayMd: DisplayStyle };
+  /** Buttons and segmented tabs (Gentleman: uppercase with tracking). */
+  buttonCase: "uppercase" | "none";
+  buttonTracking: number;
+};
+
+/** Wording / icon details that differ per brand. */
+export type BrandDetails = {
+  /** Icon for "book" (tab bar, hero): scissors for barbers, sparkle for the salon. */
+  bookIcon: "scissors" | "sparkle";
+  /** Staff wording: "barbers" (Frizeri) or "team" (Tim). */
+  staffWord: "barbers" | "team";
+};
+
 export type Brand = {
   id: BrandId;
   /** Human name (working name until the client's real one). */
@@ -57,6 +94,8 @@ export type Brand = {
   palettes: { light: Palette; dark: Palette };
   radii: Radii;
   shadows: Shadows;
+  type: Typography;
+  details: BrandDetails;
 };
 
 export type BrandId = "gentleman" | "atelier";

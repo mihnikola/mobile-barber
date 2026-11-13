@@ -65,4 +65,35 @@ export const atelier: Brand = {
     sheet: { offsetY: -10, radius: 30, opacityLight: 0.1, opacityDark: 0.5, elevation: 12 },
     cardBorder: true,
   },
+  type: {
+    // Fraunces (serif, 500; italic for screen titles) + DM Sans for everything read quickly
+    fonts: {
+      display: "Fraunces-Medium",
+      displayBold: "Fraunces-SemiBold",
+      displayItalic: "Fraunces-MediumItalic",
+      sans: "DMSans-Regular",
+      sansMedium: "DMSans-Medium",
+      sansSemiBold: "DMSans-SemiBold",
+      sansBold: "DMSans-Bold",
+    },
+    files: {
+      "Fraunces-Medium": require("../../assets/fonts/Fraunces-Medium.ttf"),
+      "Fraunces-SemiBold": require("../../assets/fonts/Fraunces-SemiBold.ttf"),
+      "Fraunces-MediumItalic": require("../../assets/fonts/Fraunces-MediumItalic.ttf"),
+      "DMSans-Regular": require("../../assets/fonts/DMSans-Regular.ttf"),
+      "DMSans-Medium": require("../../assets/fonts/DMSans-Medium.ttf"),
+      "DMSans-SemiBold": require("../../assets/fonts/DMSans-SemiBold.ttf"),
+      "DMSans-Bold": require("../../assets/fonts/DMSans-Bold.ttf"),
+    },
+    displayCase: "none",
+    displayTracking: 0,
+    scale: {
+      displayXl: { fontSize: 40, lineHeight: 44 },
+      displayLg: { fontSize: 32, lineHeight: 36, italic: true },
+      displayMd: { fontSize: 22, lineHeight: 28 },
+    },
+    buttonCase: "none",
+    buttonTracking: 0,
+  },
+  details: { bookIcon: "sparkle", staffWord: "team" },
 };

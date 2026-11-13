@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { router } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles, radii } from "@/theme";
+import { displayText, fonts, makeStyles, radii } from "@/theme";
 import { AppText, BackButton, Button, Icon, MessageDialog, PhoneField, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
@@ -219,7 +219,7 @@ const useStyles = makeStyles((colors) => ({
   // ds-profile: photo left, name + e-mail next to it
   profileRow: { flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 16, marginTop: 16 },
   profileText: { flex: 1 },
-  profileName: { fontFamily: fonts.displaySemiBold, fontSize: 24, lineHeight: 28, textTransform: "uppercase", color: colors.ink },
+  profileName: { fontFamily: fonts.displaySemiBold, fontSize: 24, lineHeight: 28, ...displayText(24), color: colors.ink },
   userDataContainer: { paddingHorizontal: 16, paddingTop: 8 },
   label: { marginTop: 16, marginBottom: 6 },
   // read-only field: sunken, muted text, no focus
