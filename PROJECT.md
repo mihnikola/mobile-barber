@@ -146,7 +146,7 @@ constants/               Colors + two cover image URLs
 | B2 | Response interceptor resolved `undefined` for errors without `response.data.message` (timeouts, network) → callers got a misleading TypeError | `api/apiService.js` | ✅ Fixed (always reject) |
 | B3 | `useCallback(..., [])` captures stale `localization` → validation messages don't change after language switch | `components/*/hooks/useEmail.js` | ✅ Phase 3.4 (`lib/hooks/useFormFields` reads latest localization) |
 | B4 | `SharedInput` reads `props.value.length` → crash if `value` is undefined | `shared-components/SharedInput.tsx` | ✅ Fixed |
-| B5 | Google client IDs hardcoded in source | `context/AuthContext.jsx` | ⏳ Phase 3 (see D-011) |
+| B5 | Google client IDs hardcoded in source | `context/AuthContext.jsx` | ✅ Phase 3.6 → `lib/config.ts` (D-011) |
 | B6 | `tsconfig.json` `include` lists files that no longer exist | `tsconfig.json` | ✅ Fixed |
 | B7 | `i18next` / `react-i18next` installed but unused | `package.json` | ✅ Removed |
 | B8 | `statusCodes` used but never imported → Google sign-in error path threw ReferenceError (unhandled rejection) | `context/AuthContext.jsx` | ✅ Fixed |

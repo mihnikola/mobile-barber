@@ -1,5 +1,6 @@
 import { get, post, getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
+import { googleSignInConfig } from "@/lib/config";
 import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
 import { router } from "expo-router";
 import {
@@ -49,10 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId:
-        "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
-      iosClientId:
-        "284831110803-u696dssmapohte49619rhmsdlselgmfg.apps.googleusercontent.com",
+      ...googleSignInConfig,
       profileImageSize: 150,
     });
   }, []);
