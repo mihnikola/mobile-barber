@@ -15,7 +15,7 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-13):** Phases 0–4 ✅ — everything before the redesign is done. Phase 0.5 build 226 → 128 s · Phase 2 `components/ui` library + migration (track A) · Phase 3 `lib/` (api, hooks, validation, date, format, config, 49 tests) · Phase 4 routes, navigation out of contexts, typed TS contexts, domain API services, `components/{legacy,booking,layout,app}` · **user device check of Phases 2–4 pending** · next: Phase 5 (redesign) starting with track B (D-020).
+**Where we are (2026-11-13):** Phases 0–4 ✅ (device-checked) · open decisions resolved (D-022, D-023) · **Phase 5 (visual redesign, D-024) in progress — see §4.2**: 5.1 themes infra ✅ (no visible change; dark stays default).
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude`. Not pushed to `origin` yet (D-017).
 **Metrics now:** TS 136 (baseline 305) · lint 22 errors / 135 warnings (baseline 65 / 231) · tests 49 passing (`npm run test:once`) · JS files 57 / TS 148 · bundle OK.
 
@@ -41,7 +41,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [ ] **Device check of Phases 2–4** (JS only, `npx expo start`): all screens look identical; login (email/Google/Apple), register → OTP, forgot/change password (validation messages, also after switching language — B3), booking flow (location → service → more services → barber → date/time → success), appointments list + details (cancel/rate), settings (language, profile edit, logout), 404 screen.
 - [x] Open product/behaviour items decided (D-022).
 
-**Next step:** Phase 5 — new visual style. Starts with track B (remove 17 legacy delegates → `ui/` defaults, convert remaining 22 `<Text>`), then new tokens in `theme/` and restyled `components/ui`.
+**Next step:** Phase 5.2 (Inter font) → 5.3 (Feather icons) → 5.4 (track B) → 5.5 (restyle ui, user check) → 5.6 (screens + theme switch, user check) → 5.7 (formats).
 
 **Rules to remember:** only `claude` branch (D-007) · no visual change until Phase 5 (D-002) · keep file line endings, check `git diff --stat` (D-009) · no mass formatting (D-010) · verify with typecheck + lint + bundle export after every step.
 
@@ -261,7 +261,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | ✅ Track A done (library; icons, colors, wrappers migrated; 112 AppText). Track B (17 delegates, 22 system-font/conditional texts, B20, B21) deferred to Phase 5 (D-020). User device check pending |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | ✅ Done 2026-11-13 (device check pending) |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | ✅ Done 2026-11-13: routes, nav out of contexts/hooks, typed TS contexts (B12), domain API services, folder split (device check pending) |
-| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | Planned |
+| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | 🔄 5.1 done (themes infra); plan in §4.2 |
 
 All work is committed on the `claude` branch only (small commits per step). Merging into `dev` is done by the user via PR.
 
@@ -306,6 +306,20 @@ Steps:
 
 ---
 
+### 4.2 Phase 5 plan — visual redesign only (D-024)
+
+Source: design system artifact „Gentleman Barber — Design System“ (claude.ai/artifact/EzYpPfbKrPeox1cAqZUJgz) — `project/README.md`, `project/tokens.json`, `project/components/<Comp>/README.md`, screen refs `Ekran01…Ekran19`. Flow/feature changes from the DS are **out of scope** (separate feature).
+
+| Step | Scope | Status |
+|---|---|---|
+| 5.1 | Themes: `darkPalette` (= old look) + `lightPalette`, `ThemeProvider` (mode system/light/dark, AsyncStorage `themeMode`), `useTheme`, `makeStyles`; whole app theme-aware; `DEFAULT_THEME_MODE = "dark"` until 5.6 is done | ✅ `1aa6ce2` |
+| 5.2 | Font Inter (`@expo-google-fonts/inter`, JS only) + DS type scale (display-xl 44 … caption 12); Barlow Condensed stays for display | ⏳ |
+| 5.3 | Icons → Feather in `ui/Icon` registry (names unchanged) | ⏳ |
+| 5.4 | Track B: replace the 17 `components/legacy` wrappers with `ui/` directly; remaining 22 raw `<Text>` → `AppText`; system-font texts get the right font (D-022) | ⏳ |
+| 5.5 | Restyle `components/ui` to DS specs (Button, TextField, Card/ListItem, Dialog, EmptyState, Loader, Avatar) + visual-only new ones (StatusBadge, SegmentedTabs, ListRow, ScreenHeader); palettes switch from legacy role names to DS tokens (bg, surface, ink, accent …) | ⏳ — **user check** |
+| 5.6 | Screens one by one per Ekran refs (auth → home → booking → appointments → profile); add Profile → Theme (System/Light/Dark); then `DEFAULT_THEME_MODE = "system"` | ⏳ — **user check** |
+| 5.7 | Display formats & copy: `30 min`, `1.200 RSD`, `16:00 – 16:50`, Serbian statuses, no `NaN` | ⏳ |
+
 ## 5. Decision log
 
 Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accepted / Rejected / Superseded.
@@ -340,6 +354,7 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-13
+- **Phase 5.1 — themes** `1aa6ce2`: light/dark palettes, ThemeProvider (persisted mode), `makeStyles`/`useTheme`; codemod converted 72 files (StyleSheet with colors → `makeStyles`, inline colors → `useTheme`), `components/ui` by hand; navigation theme, status bar and calendar follow the scheme. Default mode `dark` → no visible change. TS 135 (=), lint 22 / 127 (−6), tests 49 ✓, bundle OK.
 - **Decisions D-022 applied.** B23 `21a8ae7` (one validation rule per field, localized confirm messages, corrected EN/SR password text), B24 `eff1ece` (local date parts + TZ test that fails on the old code), B26 `e0c79ff` (dead `removeTokenData` removed), B20 (legacy inputs forward onFocus/onBlur → register confirm-password scroll works). B27 `73d5401` (language screen crash from the icon codemod, found on device). B21 won't fix. Device check of Phases 2–4 by user: OK.
 - **Phase 4 completed.** 4b `bfb8170` + `9643d68`: navigation out of contexts/hooks (settings menu → `SettingsComponent`, login redirect + OTP → login screen, booking success / details / calendar refresh → screens, forgot-password OTP → screen). 4c/4d `c65ad88`: `context/types.ts`; Auth/Company/GlobalError/Localization/Navigation/Reservation → `.tsx`; `AppointmentContext` value type derived from `useAppointmentState()`; **B25 fixed** (missing `setError` → crash), B26 documented, SR locale key added; TS 153 → 136. 4e `f0ccb17`: `lib/api/services.ts` (authApi/usersApi/catalogApi/availabilitiesApi), 29 calls in 16 files; nothing outside `lib/api` touches the HTTP client. 4a `529d8a9`: 44 files moved (`git mv`), 113 imports rewritten, `shared-components/` gone, README structure updated.
 - **Phase 3 — shared logic.** 3.1 `c5dc75d`: `lib/api/endpoints.ts` (all 21 URLs), `api/apiService.js` → `lib/api/client.ts` (same interceptors). 3.2–3.3 `4127f54`: `lib/hooks/useAsync` + `dataIfOk`; 5 fetch hooks rewritten (same return API); dead navigating code removed from `useFetchServices`; B22. 3.4 `e914f8d`: `lib/validation` (rules 1:1, B23 documented) + `lib/hooks/useFormFields` replace 8 per-screen hooks; **B3 fixed**; jest repaired (`@react-native/jest-preset` dev dep, `npm run test:once`). 3.5 `a352c90`: `helpers/index.js` → `lib/date`, `lib/format`, `theme/calendar` (+ tests, B24). 3.6 `e9fa5fa`: Google client IDs → `lib/config.ts` (**B5**).
