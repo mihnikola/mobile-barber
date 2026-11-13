@@ -15,6 +15,7 @@ type Family = keyof typeof FAMILIES;
  */
 const REGISTRY = {
   back: ["Feather", "chevron-left"],
+  arrowRight: ["Feather", "arrow-right"],
   chevronRight: ["Feather", "chevron-right"],
   chevronRightThin: ["Feather", "chevron-right"],
   close: ["Feather", "x"],

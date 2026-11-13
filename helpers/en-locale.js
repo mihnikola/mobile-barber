@@ -69,6 +69,12 @@ export const ENG_LOCALIZATION = {
     continue: "Continue",
     book: "Book",
     detailsReservation: "Enter details here..",
+    morning: "Morning",
+    afternoon: "Afternoon",
+    freeCount: "{count} free",
+    pickTime: "Pick a time",
+    pickOtherDay: "Pick another day",
+    fullTitle: "Fully booked",
   },
   SALON: {
     title: "Salon Rules:",

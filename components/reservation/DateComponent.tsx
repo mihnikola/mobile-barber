@@ -1,30 +1,31 @@
 import type { ApiRecord } from "@/context/types";
 import React, { useCallback, useEffect, useState } from "react";
-import { ScrollView, useWindowDimensions, View } from "react-native";
-import { CalendarList, LocaleConfig } from "react-native-calendars";
+import { ScrollView, View } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
-import NotSummary from "@/components/booking/NotSummary"; // Adjust the path if needed
-import Summary from "@/components/booking/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
-import { convertDayInitalValue } from "@/lib/date";
-import { getCalendarTheme } from "@/theme/calendar";
-import { calendarLocales } from "@/helpers/calendarLocales";
+import { addMinutesToTime, convertDayInitalValue, formatTimeRange } from "@/lib/date";
+import { formatPrice } from "@/lib/format";
 
 import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { makeStyles, useTheme } from "@/theme";
-import { Button, EmptyState, layout, Loader } from "@/components/ui";
+import { makeStyles } from "@/theme";
+import { Card, EmptyState, Loader } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
+import WeekStrip from "./date/WeekStrip";
+import TimeSlots from "./date/TimeSlots";
+import SummaryBar from "./date/SummaryBar";
+import { fromDateString, shortDateLabel } from "./date/dateUtils";
 
+/**
+ * Booking step 3 — date and time on one screen (design Ekran05 / Ekran06):
+ * week strip, morning/afternoon slot grid, bottom summary bar with a round "continue" arrow.
+ * Same data and flow as before (useSelectedDate / useFetchTimes, Sundays closed, → review).
+ */
 const DateComponent = () => {
   const styles = useStyles();
-  const { colors } = useTheme();
-  const { width: windowWidth } = useWindowDimensions();
 
   const [check, setCheck] = useState(false);
 
@@ -39,7 +40,7 @@ const DateComponent = () => {
           params: { data: "calendar" },
         });
       }
-    } catch (error) {
+    } catch {
       router.push(routes.auth.login);
     }
   };
@@ -52,24 +53,13 @@ const DateComponent = () => {
   );
 
   const currentDate = new Date();
-
-  const today = new Date();
-  const localDateString = today.toLocaleDateString("sv-SE"); // Format: YYYY-MM-DD
-
   const { localization } = useLocalization();
-  const { company } = useCompany();
-
-  const pathName = routes.booking.reservation;
 
   const { reservation, updateReservation } = useReservation()!;
-  const [selectedItem, setSelectedItem] = useState(null);
-  const { selectedDate, handleDayPress, isSunday, markedDates } =
-    useSelectedDate(currentDate);
-  const { timesData, isLoading, error, resetError } = useFetchTimes(
-    selectedDate,
-    reservation,
-    isSunday,
-  );
+  const [selectedItem, setSelectedItem] = useState<ApiRecord | null>(null);
+  const { selectedDate, handleDayPress, isSunday } = useSelectedDate(currentDate);
+  const { timesData, isLoading, error, resetError } = useFetchTimes(selectedDate, reservation, isSunday);
+
   const reportHandler = () => {
     const { employer, service } = reservation as ApiRecord; // set earlier in the booking flow
     if (employer && service && selectedItem && selectedDate) {
@@ -78,7 +68,7 @@ const DateComponent = () => {
         dateReservation: selectedDate,
         timeData: selectedItem,
       });
-      router.push(pathName);
+      router.push(routes.booking.reservation);
     }
   };
 
@@ -86,84 +76,82 @@ const DateComponent = () => {
     const dateValue = selectedDate.toLocaleString("en-GB");
     const valueInitialData = convertDayInitalValue(dateValue);
     handleDayPress(valueInitialData);
-    calendarLocales(localization.code);
   }, [localization.code]);
 
-  if (!LocaleConfig.locales[localization.code]) {
-    return <Loader variant="overlay" />;
-  }
+  const onSelectDay = (dateString: string) => {
+    handleDayPress(dateString);
+    setSelectedItem(null);
+  };
 
-  if (check) {
-    return (
-      <ScrollView style={styles.container}>
-        <HeaderCoverImageContainer
-          title={localization.DATE.title}
-          image={coverImageAppointments}
-          step={3}
-        />
+  // summary bar: date · time range, total price of the service + extra services
+  const res = (reservation ?? {}) as ApiRecord;
+  const others: ApiRecord[] = res.otherServices ?? [];
+  const totalPrice = (Number(res.service?.servicePrice) || 0) + others.reduce((s, o) => s + (Number(o.price) || 0), 0);
+  const extraDuration = others.reduce((s, o) => s + (Number(o.duration) || 0), 0);
+  const selectedDateString = typeof selectedDate === "string" ? selectedDate : undefined;
+  const dayLabel = selectedDateString ? shortDateLabel(fromDateString(selectedDateString), localization.code) : "";
+  const timeRange = selectedItem
+    ? formatTimeRange(
+        selectedItem.value,
+        addMinutesToTime(selectedItem.value, Number(res.service?.serviceDuration) || 0, extraDuration),
+      )
+    : "";
 
-        <View style={styles.calendarContainer}>
-          <CalendarList
-            markingType="custom"
-            key={localization.code}
-            style={styles.calendar}
-            theme={getCalendarTheme(colors)}
-            onVisibleMonthsChange={(months) => {
-              setSelectedItem(null);
-              handleDayPress({});
-            }}
-            current={localDateString}
-            minDate={localDateString}
-            futureScrollRange={2}
-            pastScrollRange={0}
-            markedDates={markedDates}
-            horizontal
-            pagingEnabled
-            calendarWidth={windowWidth - 32}
-            onDayPress={(months) => {
-              handleDayPress(months);
-              setSelectedItem(null);
-            }}
-          />
+  const hasTimes = !isLoading && !error && !resetError && timesData.length > 0;
+  const dayIsFull = !isSunday && !isLoading && !resetError && (error || timesData.length === 0);
+  const canContinue = Boolean(selectedItem) && !isLoading;
+
+  if (!check) return null;
+
+  return (
+    <View style={styles.screen}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+        <HeaderCoverImageContainer title={localization.DATE.title} step={3} />
+
+        <View style={styles.strip}>
+          <WeekStrip selected={selectedDateString} onSelect={onSelectDay} />
         </View>
 
-        <View>
-          {!isSunday && (
-            <>
-              {isLoading && <Loader variant="inline" />}
-              {resetError && <NotSummary text={localization.DATE.chooseDate} />}
-              {!isLoading && !error && timesData.length > 0 && !resetError && (
-                <Summary
-                  data={timesData}
-                  setSelectedItem={setSelectedItem}
-                  selectedItem={selectedItem}
-                />
-              )}
-              {!isLoading && timesData.length === 0 && !resetError && (
-                <NotSummary text={localization.DATE.noAvailableDates} />
-              )}
-            </>
-          )}
-          {isSunday && <EmptyState icon="calendar" title={localization.DATE.holidaySunday} />}
-        </View>
-        {selectedItem && (
-          <View style={styles.buttonContainer}>
-            {/* hidden while loading, as before (old button was display:none when disabled) */}
-            {!isLoading && (
-              <Button style={layout.buttonBlock} onPress={reportHandler} title={localization.DATE.continue} />
-            )}
-          </View>
+        {isSunday && <EmptyState icon="calendar" title={localization.DATE.holidaySunday} />}
+        {!isSunday && isLoading && <Loader variant="inline" />}
+        {!isSunday && resetError && <EmptyState icon="calendar" title={localization.DATE.chooseDate} />}
+        {hasTimes && !isSunday && (
+          <TimeSlots data={timesData} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+        )}
+        {dayIsFull && (
+          <Card>
+            <EmptyState
+              icon="calendar"
+              title={localization.DATE.fullTitle}
+              description={error ? String(error) : localization.DATE.noAvailableDates}
+            />
+          </Card>
         )}
       </ScrollView>
-    );
-  }
+
+      <SummaryBar
+        hint={
+          selectedItem
+            ? undefined
+            : isSunday || dayIsFull
+              ? localization.DATE.pickOtherDay
+              : localization.DATE.pickTime
+        }
+        meta={selectedItem ? [dayLabel, timeRange].filter(Boolean).join(" · ") : undefined}
+        total={selectedItem && totalPrice > 0 ? formatPrice(totalPrice, localization.code) : undefined}
+        disabled={!canContinue}
+        onContinue={reportHandler}
+        continueLabel={localization.DATE.continue}
+      />
+    </View>
+  );
 };
 
 const useStyles = makeStyles((colors) => ({
-  container: { flex: 1, backgroundColor: colors.bg },
-  calendarContainer: { marginTop: 8, marginHorizontal: 16, backgroundColor: colors.surface, borderRadius: 16, overflow: "hidden" },
-  calendar: { backgroundColor: "transparent", width: "100%" },
-  buttonContainer: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 24 },
-}))
+  screen: { flex: 1, backgroundColor: colors.bg },
+  scroll: { flex: 1 },
+  content: { paddingBottom: 16 },
+  strip: { paddingHorizontal: 16, marginTop: 4, marginBottom: 16 },
+}));
 
 export default DateComponent;

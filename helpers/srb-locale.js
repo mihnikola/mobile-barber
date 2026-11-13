@@ -86,6 +86,12 @@ export const SRB_LOCALIZATION = {
     continue: "Nastavi",
     book: "Rezerviši",
     detailsReservation: "Dodaj napomenu...",
+    morning: "Prepodne",
+    afternoon: "Popodne",
+    freeCount: "{count} slobodnih",
+    pickTime: "Izaberi vreme",
+    pickOtherDay: "Izaberi drugi dan",
+    fullTitle: "Sve je popunjeno",
   },
   SALON: {
     title: "Pravila salona:",
