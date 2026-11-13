@@ -16,7 +16,6 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
@@ -75,7 +74,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: ColorsBarber.dark.textColor,
+              borderTopColor: colors.text,
               width: "100%",
               marginTop: 2,
               marginBottom: 5,
@@ -308,22 +307,22 @@ function ResevationNotificationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   descriptionLabel: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 5,
   },
   textBoldRejected: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
     textAlign: "center",
     fontFamily: fonts.bold,
   },
   textBoldSuccess: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
 
     fontFamily: fonts.bold,
     fontSize: 24,
@@ -338,7 +337,7 @@ const styles = StyleSheet.create({
   },
   descriptionValue: {
     fontSize: 14,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
   },
   containerWrapper: {
@@ -353,17 +352,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   description: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
   card: {
     flexDirection: "column",
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     marginVertical: 8,
     marginHorizontal: 15,
     padding: 12,
     alignItems: "flex-start",
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

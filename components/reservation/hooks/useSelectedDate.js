@@ -1,4 +1,3 @@
-// import { ColorsBarber } from "@/constants/Colors";
 // import { useState } from "react";
 
 // const useSelectedDate = (initialDate) => {
@@ -30,12 +29,12 @@
 //         selectedColor: colors.text,
 //         customStyles: {
 //           container: {
-//             backgroundColor:ColorsBarber.dark.selectedDayBackgroundColor,
+//             backgroundColor:colors.white,
 //             padding: 1,
 //             borderRadius: 8,
 //           },
 //           text: {
-//             color:  ColorsBarber.dark.textColorInput,
+//             color:  colors.textOnLight,
 //             fontFamily: fonts.bold,
 //           },
 //         },
@@ -102,7 +101,6 @@
 
 
 
-import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
 import { colors, fonts } from "@/theme";
 
@@ -138,12 +136,12 @@ const useSelectedDate = (initialDate) => {
         selectedColor: colors.text,
         customStyles: {
           container: {
-            backgroundColor: ColorsBarber.dark.selectedDayBackgroundColor,
+            backgroundColor: colors.white,
             padding: 1,
             borderRadius: 8,
           },
           text: {
-            color: ColorsBarber.dark.textColorInput,
+            color: colors.textOnLight,
             fontFamily: fonts.bold,
           },
         },

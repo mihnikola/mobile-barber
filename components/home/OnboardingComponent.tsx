@@ -10,8 +10,7 @@ import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import { useRef, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const OnboardingComponent = ({ reviews }) => {
   const { localization } = useLocalization();
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: fonts.bold,
     fontSize: 29,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     paddingHorizontal: 20,
     textAlign: "center",
   },

@@ -3,7 +3,6 @@ import useInternetGuard from "@/services/useInternetGuard";
 import NoInternetModal from "@/shared-components/InternetModal";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 
 export default function RootLayout() {
@@ -33,7 +32,7 @@ export default function RootLayout() {
             title: "",
             headerShown: true,
             headerStyle: {
-              backgroundColor: ColorsBarber.dark.background,
+              backgroundColor: colors.background,
             },
             headerTintColor: colors.text,
           }}

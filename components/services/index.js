@@ -8,7 +8,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedItemServiceCard from "@/shared-components/SharedItemServiceCard";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
+import { colors } from "@/theme";
 
 const MenuServices = () => {
   const { reservation, flowReservation } =
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   notAvailable: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 20,
     textAlign: "center",
   },
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });

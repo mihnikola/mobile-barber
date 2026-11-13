@@ -9,8 +9,7 @@ import getStartedIcon from "@/assets/images/arrowImg.png";
 import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
   const { localization } = useLocalization();
@@ -83,9 +82,9 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
     padding: 10,
     width: 200,
     borderRadius: 100,
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   textButton: {
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontSize: 18,
     fontFamily: fonts.bold,
     position: "absolute",

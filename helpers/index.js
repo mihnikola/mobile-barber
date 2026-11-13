@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { dayNamesEng } from "@/helpers/locale-calendar-en";
 import { dayNamesRs } from "@/helpers/locale-calendar-rs";
 import { colors, fonts } from "@/theme";
@@ -24,14 +23,14 @@ export function addMinutesToTime(inputTime, minutesToAdd, otherServiceDuration =
 export const calendarTheme = {
   textDayFontFamily: fonts.bold,
   textSectionTitleFontFamily: fonts.bold,
-  monthTextColor: ColorsBarber.dark.textColor,
-  backgroundColor: ColorsBarber.dark.background,
-  calendarBackground: ColorsBarber.dark.background,
-  textSectionTitleColor: ColorsBarber.dark.textColor,
-  selectedDayBackgroundColor: ColorsBarber.dark.textColor,
-  selectedDayTextColor: ColorsBarber.dark.textColor,
-  todayTextColor: ColorsBarber.dark.textColor,
-  dayTextColor: ColorsBarber.dark.textColor,
+  monthTextColor: colors.text,
+  backgroundColor: colors.background,
+  calendarBackground: colors.background,
+  textSectionTitleColor: colors.text,
+  selectedDayBackgroundColor: colors.text,
+  selectedDayTextColor: colors.text,
+  todayTextColor: colors.text,
+  dayTextColor: colors.text,
   textMonthFontFamily: fonts.bold,
   textDisabledColor: colors.textMuted,
 };

@@ -1,5 +1,4 @@
 import { coverImageAppointments } from "@/constants";
-import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
@@ -12,7 +11,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 function AppointmentsNonToken() {
   const { localization } = useLocalization();
@@ -45,11 +44,11 @@ function AppointmentsNonToken() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 
   card: {
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -64,11 +63,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 0,
     fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
   },
   description: {
     fontSize: 16,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontFamily: fonts.regular,
 
     textAlign: "center",

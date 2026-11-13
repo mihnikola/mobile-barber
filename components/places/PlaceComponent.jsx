@@ -8,7 +8,6 @@ import { useContext } from "react";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors } from "@/theme";
 
 const PlaceComponent = ({ locationsData }) => {
@@ -62,13 +61,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

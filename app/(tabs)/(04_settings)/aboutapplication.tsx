@@ -4,7 +4,6 @@ import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 
 const AboutApplicationScreen = () => {
@@ -46,12 +45,12 @@ const AboutApplicationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 28,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 30,
     textAlign: "center",
   },
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 25,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
@@ -92,12 +91,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontFamily: fonts.regular,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 5,
   },
   value: {
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
 
     lineHeight: 24,
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
 
   copyright: {
     fontSize: 14,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     textAlign: "center",
     marginTop: 20,
   },

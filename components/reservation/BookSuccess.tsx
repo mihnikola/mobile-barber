@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
   timeData: {
     fontSize: 22,
 
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
     display: "flex",
     justifyContent: "center",
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
   },
   dateData: {
     fontSize: 20,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   data: {
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   coverImage: {
     width: "100%",
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
   whiteLine: {
     width: "100%",
     height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: ColorsBarber.dark.background, // Set the line color to white
+    backgroundColor: colors.background, // Set the line color to white
     marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
 });

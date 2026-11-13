@@ -1,8 +1,7 @@
 // components/OtpInput.js
-import { ColorsBarber } from "@/constants/Colors";
 import React, { useRef } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const OtpInput = ({ code, setCode, maxLength = 6 }) => {
   const inputs = useRef([]);
@@ -52,9 +51,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.textColor,
-    backgroundColor: ColorsBarber.dark.item,
-    color: ColorsBarber.dark.textColor,
+    borderColor: colors.text,
+    backgroundColor: colors.surface,
+    color: colors.text,
     fontFamily:fonts.bold,
     borderRadius: 10,
     width: 50,

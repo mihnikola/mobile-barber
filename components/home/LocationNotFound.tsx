@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   Modal,
@@ -46,9 +45,9 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.dark.backgroundModal,
+    backgroundColor: colors.surfaceModal,
     borderRadius: 12,
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     padding: 32,
     width: "100%",
     maxHeight: "60%",
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
   },
 
   modalTitle: {
@@ -75,11 +74,11 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

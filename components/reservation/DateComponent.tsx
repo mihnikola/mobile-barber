@@ -23,7 +23,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import LoaderDate from "../LoaderDate";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 
 const DateComponent = () => {
@@ -176,18 +175,18 @@ const styles = StyleSheet.create({
   },
   notWorkingDaysContent: {
     fontSize: 20,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
     padding: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     fontFamily: fonts.regular,
   },
   calendarContainer: {
     marginTop: 10,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     fontFamily: fonts.regular,
 
 

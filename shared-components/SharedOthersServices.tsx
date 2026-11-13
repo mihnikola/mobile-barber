@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { router } from "expo-router";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   moreServices: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.italic,
     textDecorationLine: "underline",
   },
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
+    shadowColor: colors.background, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontFamily: fonts.regular,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
     marginBottom: 4,
   },
   locationContainer: {
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 12,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
     fontFamily: fonts.regular,
 
     marginLeft: 5,
@@ -136,12 +135,12 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 12,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
     marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
     marginLeft: 5,
     fontFamily: fonts.regular,
   },

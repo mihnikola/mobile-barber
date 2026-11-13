@@ -10,7 +10,6 @@ import { getStorage } from "@/helpers/token";
 import NotFoundEmployers from "./NotFoundEmployers";
 import SharedItemEmployerCard from "@/shared-components/SharedItemEmployerCard";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
 import { colors, fonts } from "@/theme";
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 32,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
     paddingVertical: 140,
   },
@@ -123,13 +122,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     alignSelf: "center",
     alignContent: "center",
     height: 500,

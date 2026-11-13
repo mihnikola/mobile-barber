@@ -19,9 +19,8 @@ import Loader from "@/components/Loader";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
@@ -58,7 +57,7 @@ const LanguageSupportScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor=ColorsBarber.dark.background barStyle="dark-content" /> */}
+      {/* <StatusBar backgroundColor=colors.background barStyle="dark-content" /> */}
       {/* <SharedBackButton onPress={router.back} />
 
      
@@ -72,7 +71,7 @@ const LanguageSupportScreen = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
+        placeholderTextColor={colors.textInactive}
         value={search}
         onChangeText={handleSearch}
       />
@@ -102,7 +101,7 @@ const LanguageSupportScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 
   headerImage: {
@@ -112,16 +111,16 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
 
   search: {
-    color: ColorsBarber.dark.textColorInput,
-    backgroundColor: ColorsBarber.dark.inputColor,
+    color: colors.textOnLight,
+    backgroundColor: colors.white,
     fontFamily: fonts.regular,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -137,14 +136,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: ColorsBarber.dark.btnBgColor,
+    backgroundColor: colors.black,
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.borderColor,
+    borderColor: colors.white,
   },
   languageText: {
     fontSize: 18,
     fontFamily: fonts.regular,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
 });
 

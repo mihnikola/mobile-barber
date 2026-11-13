@@ -14,7 +14,6 @@ import SharedPassword from "@/shared-components/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -118,11 +117,11 @@ const styles = StyleSheet.create({
   passContainer: {
     flexDirection: "row",
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -132,11 +131,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
   },
   passwordInput: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -172,7 +171,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   image: {
     resizeMode: "cover",
@@ -180,11 +179,11 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
   },
   subtitle: {
     fontSize: 13,
-   color: ColorsBarber.dark.inActiveTextColor,
+   color: colors.textInactive,
   },
 });
 export default ChangePass;

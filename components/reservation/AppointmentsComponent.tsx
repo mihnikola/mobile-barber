@@ -7,7 +7,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
+import { colors } from "@/theme";
 
 const AppointmentsComponent = () => {
   const {
@@ -53,6 +53,6 @@ export default AppointmentsComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });

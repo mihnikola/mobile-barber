@@ -11,9 +11,9 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { Icon } from "@/components/ui";
+import { colors } from "@/theme";
 
 const AboutUsScreen = () => {
   const { company } = useCompany();
@@ -54,7 +54,7 @@ const AboutUsScreen = () => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   contentContainer: {
     paddingHorizontal: 10,

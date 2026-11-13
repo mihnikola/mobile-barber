@@ -1,6 +1,5 @@
 import { StyleSheet, Text } from "react-native";
 import React from "react";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
 
@@ -36,20 +35,20 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     justifyContent: "center",
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
     alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
   },
   selectedTime: {
-    color: ColorsBarber.dark.textColorInput,
+    color: colors.textOnLight,
   },
   selectedContent: {
-    backgroundColor: ColorsBarber.dark.selectedDayBackgroundColor,
+    backgroundColor: colors.white,
   },
   time: {
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
     borderColor: colors.white,
   },

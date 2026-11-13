@@ -1,9 +1,8 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
-import { ColorsBarber } from "@/constants/Colors";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
 export default function TabLayout() {
@@ -16,10 +15,10 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: ColorsBarber.dark.textColor,
-          tabBarInactiveTintColor: ColorsBarber.dark.inActiveTextColor,
+          tabBarActiveTintColor: colors.text,
+          tabBarInactiveTintColor: colors.textInactive,
           tabBarStyle: {
-            backgroundColor: ColorsBarber.dark.background,
+            backgroundColor: colors.background,
           },
           tabBarLabelStyle: {
             fontFamily: fonts.regular,
@@ -33,8 +32,8 @@ export default function TabLayout() {
             title: localization.TABS.HOME,
             tabBarIcon: ({ color, focused }) => (
               <Icon name="homeAlt" size={28} rawColor={focused
-                    ? ColorsBarber.dark.textColor
-                    : ColorsBarber.dark.inActiveTextColor} />
+                    ? colors.text
+                    : colors.textInactive} />
             ),
           }}
         />
@@ -44,8 +43,8 @@ export default function TabLayout() {
             title: localization.TABS.BARBERS,
             tabBarIcon: ({ color, focused }) => (
               <Icon name="scissors" size={28} rawColor={focused
-                    ? ColorsBarber.dark.textColor
-                    : ColorsBarber.dark.inActiveTextColor} />
+                    ? colors.text
+                    : colors.textInactive} />
             ),
           }}
         />
@@ -55,8 +54,8 @@ export default function TabLayout() {
             title: localization.TABS.APPOINTMENTS,
             tabBarIcon: ({ color, focused }) => (
               <Icon name="calendarMonth" size={28} rawColor={focused
-                    ? ColorsBarber.dark.textColor
-                    : ColorsBarber.dark.inActiveTextColor} />
+                    ? colors.text
+                    : colors.textInactive} />
             ),
           }}
         />
@@ -67,8 +66,8 @@ export default function TabLayout() {
             title: localization.TABS.SETTINGS,
             tabBarIcon: ({ color, focused }) => (
               <Icon name="services" size={28} rawColor={focused
-                    ? ColorsBarber.dark.textColor
-                    : ColorsBarber.dark.inActiveTextColor} />
+                    ? colors.text
+                    : colors.textInactive} />
             ),
           }}
         />
@@ -80,6 +79,6 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });

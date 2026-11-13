@@ -1,5 +1,5 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { Animated, StyleSheet, useWindowDimensions, View } from "react-native";
+import { colors } from "@/theme";
 
 const Paginator = ({ data, scrollX }) => {
   const { width } = useWindowDimensions();
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   dot: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     marginHorizontal: 8,
   },
 });

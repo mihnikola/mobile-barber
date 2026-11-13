@@ -16,8 +16,8 @@ import { useLocalSearchParams } from "expo-router";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { Icon } from "@/components/ui";
+import { colors } from "@/theme";
 
 const Reservation = () => {
   const { reservation } = useContext(ReservationContext)!;
@@ -107,7 +107,7 @@ const Reservation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 
   btn: {

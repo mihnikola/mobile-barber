@@ -2,8 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const NotFoundLocations = () => {
   const { company } = useCompany();
@@ -31,14 +30,14 @@ const styles = StyleSheet.create({
 
   capture: {
     fontSize: 22,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontFamily: fonts.regular,
     alignContent: "center",
     alignSelf: "center",
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });
 

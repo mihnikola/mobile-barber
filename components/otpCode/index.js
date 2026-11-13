@@ -17,7 +17,6 @@ import {
 } from "@/helpers/verificationOtpParams";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import Loader from "../Loader";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -194,12 +193,12 @@ const styles = StyleSheet.create({
   },
 
   resendText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 16,
     fontFamily: fonts.bold,
   },
   timerText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
 
     fontSize: 14,
@@ -212,23 +211,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   image: {
     width: 290,
     height: 290,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: colors.textInactive,
     fontFamily:fonts.regular,
 
   },

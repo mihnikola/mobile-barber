@@ -2,9 +2,9 @@ import { StyleSheet, View,  Image } from "react-native";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { Icon } from "@/components/ui";
+import { colors } from "@/theme";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   defaultImgAvatar: {
     width: 200,
     height: 200,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,

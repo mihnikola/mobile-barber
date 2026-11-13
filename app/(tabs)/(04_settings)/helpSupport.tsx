@@ -11,7 +11,6 @@ import { useLocalization } from "@/context/LocalizationContext";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -55,7 +54,7 @@ const HelpSupportScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:  ColorsBarber.dark.background,
+    backgroundColor:  colors.background,
   },
 
   sectionContainer: {
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
@@ -83,12 +82,12 @@ const styles = StyleSheet.create({
 
   infoLabel: {
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   infoValue: {
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
   },
   menuItem: {
@@ -102,12 +101,12 @@ const styles = StyleSheet.create({
   menuItemText: {
     flex: 1,
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   menuItemSubText: {
     fontSize: 14,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
   },
 });

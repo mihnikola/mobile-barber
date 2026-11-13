@@ -22,7 +22,6 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -156,7 +155,7 @@ const Register = () => {
           <SharedPhoneNumber
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
-            placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
+            placeholderTextColor={colors.textInactive}
             keyboardType="phone-pad"
             dataDetectorTypes="phoneNumber"
             value={phoneNumber}
@@ -255,36 +254,36 @@ const Register = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 25,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
   },
   subtitle: {
     fontSize: 13,
     fontFamily: fonts.regular,
 
-   color: ColorsBarber.dark.inActiveTextColor,
+   color: colors.textInactive,
   },
 
   input: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColorInput,
+    color: colors.textOnLight,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -306,7 +305,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: colors.white,
-    color:  ColorsBarber.dark.textColor,
+    color:  colors.text,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

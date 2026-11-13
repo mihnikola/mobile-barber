@@ -12,8 +12,8 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 
 import withSafeArea from "../wrapper/WrapperSafeArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ColorsBarber } from "@/constants/Colors";
 import { Icon } from "@/components/ui";
+import { colors } from "@/theme";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -102,7 +102,7 @@ const SettingsComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     paddingTop: 20,
   },
 });

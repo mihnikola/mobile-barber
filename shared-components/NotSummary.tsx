@@ -1,18 +1,17 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { Text, View } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const NotSummary = ({ text }) => {
   return (
-    <View style={{  backgroundColor:ColorsBarber.dark.background }}>
+    <View style={{  backgroundColor:colors.background }}>
       <Text
         style={{
           fontSize: 20,
-          color: ColorsBarber.dark.textColor,
+          color: colors.text,
           textAlign: "center",
           padding: 20,
           borderRadius: 20,
-          backgroundColor:ColorsBarber.dark.background,
+          backgroundColor:colors.background,
           fontFamily: fonts.regular,
         }}
       >

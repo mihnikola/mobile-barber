@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import SharedReviewImage from "@/shared-components/SharedReviewImage";
 import React from "react";
 import {
@@ -6,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const OnboardingItem = ({ item, itemWidth }) => {
   return (
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   reviewTitle: {
     fontSize: 20,
     fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     marginBottom: 10,
     marginTop: 10,
     textAlign: "center",
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
   reviewText: {
     fontStyle: "italic",
     fontSize: 16,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     textAlign: "center",
     marginVertical: 40,
     marginHorizontal: 20

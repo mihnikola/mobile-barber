@@ -12,8 +12,8 @@ import { InternetProvider } from "@/context/InternetContext";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/context/AppointmentContext";
 import { NavigationProvider } from "@/context/NavigationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { DarkTheme, ThemeProvider } from "expo-router";
+import { colors } from "@/theme";
 
 
 
@@ -22,7 +22,7 @@ export default function AppInitialized(props) {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      background: ColorsBarber.dark.background,
+      background: colors.background,
     },
   };
 

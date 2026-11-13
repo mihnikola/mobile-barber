@@ -21,7 +21,6 @@ import useInternetGuard from "@/services/useInternetGuard";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
   },
   btnLocationContent: {
     width: "90%",
-    backgroundColor: ColorsBarber.dark.btnContent,
+    backgroundColor: colors.surface,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
@@ -221,12 +220,12 @@ const styles = StyleSheet.create({
 
   address: {
     fontSize: 15,
-    color: ColorsBarber.dark.textColorDeactivated,
+    color: colors.textDeactivated,
     fontFamily: fonts.regular
   },
   titleLocation: {
     fontSize: 22,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     textAlign: "center",
     fontFamily: fonts.bold
 

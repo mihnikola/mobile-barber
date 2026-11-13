@@ -26,7 +26,6 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -128,7 +127,7 @@ const UserProfileScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}
+      style={{ flex: 1, backgroundColor: colors.background }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -169,7 +168,7 @@ const UserProfileScreen = () => {
             <SharedPhoneNumber
               label={localization.SETTINGS.PROFILE.phoneNumber}
               placeholder="6x xxx xxxx"
-              placeholderTextColor={ColorsBarber.dark.textColorInput}
+              placeholderTextColor={colors.textOnLight}
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
               value={
@@ -233,7 +232,7 @@ const UserProfileScreen = () => {
             buttonText="Ok"
           />
         )}
-        {/* <StatusBar backgroundColor=ColorsBarber.dark.background /> */}
+        {/* <StatusBar backgroundColor=colors.background /> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -245,7 +244,7 @@ const styles = StyleSheet.create({
   },
 
   inputLabel: {
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: colors.textInactive,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
@@ -262,7 +261,7 @@ const styles = StyleSheet.create({
   },
   phoneNumberInput: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -270,15 +269,15 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
   },
   buttonText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 16,
     fontFamily: fonts.bold,
     padding: 10,
     textAlign: "center",
   },
   input: {
-    backgroundColor: ColorsBarber.dark.inputColor,
-    color: ColorsBarber.dark.textColorInput,
+    backgroundColor: colors.white,
+    color: colors.textOnLight,
     padding: 15,
     borderRadius: 8,
     fontSize: 18,
@@ -287,19 +286,19 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
   },
   inputDisabled: {
-    backgroundColor: ColorsBarber.dark.inputDisabled,
-    color: ColorsBarber.dark.textColorDeactivated,
+    backgroundColor: colors.disabled,
+    color: colors.textDeactivated,
     fontFamily: fonts.regular,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 1,
-    borderColor:ColorsBarber.dark.textColor,
+    borderColor:colors.text,
   },
   unbutton: {
     textAlign: "center",
     marginVertical: 30,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     padding: 10,
     borderWidth: 1,
     borderColor: colors.textMuted,
@@ -309,11 +308,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 10,
     textAlign: "center",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   button: {
     padding: 5,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     borderColor: colors.white,
     borderWidth: 1,
     textAlign: "center",
@@ -322,7 +321,7 @@ const styles = StyleSheet.create({
 
   userDataContainer: {
     flex: 2,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -339,12 +338,12 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   containerInfo: {
     marginTop: 20,
     flexDirection: "column",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     gap: 10,
   },
   headerImage: {

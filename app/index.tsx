@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useCompany } from "@/context/CompanyContext";
-import { ColorsBarber } from "@/constants/Colors";
+import { colors } from "@/theme";
 
 const SplashScreen = () => {
   const { getCompany } = useCompany();
@@ -24,7 +24,7 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: ColorsBarber.dark.background,
+        backgroundColor: colors.background,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",

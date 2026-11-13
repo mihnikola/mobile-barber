@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import SummaryItem from "./SummaryItem";
-import { ColorsBarber } from "@/constants/Colors";
+import { colors } from "@/theme";
 const Summary = ({ data, selectedItem, setSelectedItem }) => {
   return (
     <ScrollView snapToInterval={50} decelerationRate="normal" horizontal>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     gap: 20,
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });
 

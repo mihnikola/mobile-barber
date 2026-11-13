@@ -10,9 +10,8 @@ import SharedReservationData from "./SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
 function HeaderCoverImageContainer({
@@ -79,12 +78,12 @@ function HeaderCoverImageContainer({
 const styles = StyleSheet.create({
   heroHeader: {
     width: "100%",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     overflow: "hidden", // Ensures absolute image doesn't bleed past rounded borders
   },
   nextBtnTitle: {
     fontSize: 15,
-    color: ColorsBarber.dark.inputColor,
+    color: colors.white,
     fontFamily: fonts.regular,
   },
   backgroundImage: {
@@ -110,12 +109,12 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
   },
   captureNextBtn: {
     fontSize: 28,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
   },
   containerStatus: {

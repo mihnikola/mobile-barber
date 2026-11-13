@@ -13,8 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const InitialComponent = () => {
   const { getInitialData, initialData } = useInitialData();
@@ -156,25 +155,25 @@ export default InitialComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   itemContainer: {
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   itemTitle: {
     textAlign: "center",
     fontSize: 22,
     fontFamily: fonts.bold,
     marginBottom: 10,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
   itemText: {
     textAlign: "center",
     marginHorizontal: 35,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     lineHeight: 20,
     fontFamily: fonts.regular,
   },

@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { Icon, type IconName } from "@/components/ui";
 import {
@@ -30,7 +29,7 @@ export const MenuItem = ({
       <Switch
         trackColor={{ false: colors.switchTrackOff, true: colors.switchTrackOn }}
         thumbColor={toggleValue ? colors.switchThumbOn : colors.switchThumbOff}
-        ios_backgroundColor={ColorsBarber.dark.textColor}
+        ios_backgroundColor={colors.text}
         onValueChange={onToggle}
         value={toggleValue}
         style={styles.menuItemToggle}
@@ -116,11 +115,11 @@ const styles = StyleSheet.create({
   menuItemText: {
     flex: 1, // Allows text to take up available space
     fontSize: 16,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   logoutText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   menuItemArrow: {

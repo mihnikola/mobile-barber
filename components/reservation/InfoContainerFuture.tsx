@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import React from "react";
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
 
   captureDateContent: {
     fontSize: 18,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     textAlign: "center",
     fontFamily: fonts.regular,
   },
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     color: colors.textSubtle,
   },
   captureDateLocation: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.regular,
 
     flex: 2,
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
 
   captureDateBold: {
     fontSize: 18,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontFamily: fonts.bold,
   },
 

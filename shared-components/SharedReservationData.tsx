@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
@@ -57,11 +56,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     borderRadius: 20,
   },
   buttonText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
     textTransform: "uppercase",
     fontSize: 16,
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
 
   timeData: {
     fontSize: 20,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   position: {
@@ -82,17 +81,17 @@ const styles = StyleSheet.create({
 
   dateData: {
     fontSize: 20,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
   },
   data: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   coverImage: {
     width: "100%",

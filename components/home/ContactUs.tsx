@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const ContactUs = ({ workDays, workSaturday, holidays }) => {
   const { localization } = useLocalization();
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 19,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontFamily: fonts.bold,
 
     padding: 7,
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 29,
     fontFamily: fonts.bold,
     marginBottom: 20,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
 });
 

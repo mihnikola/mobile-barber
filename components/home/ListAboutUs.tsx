@@ -1,8 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
 const ListAboutUs = ({ contact }) => {
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   },
   titleContant: {
     fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontSize: 29,
     textAlign: "center",
   },
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-       color: ColorsBarber.dark.textColor,
+       color: colors.text,
     fontFamily: fonts.bold,
 
 

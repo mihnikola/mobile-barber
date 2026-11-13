@@ -9,7 +9,6 @@ import { useLocalization } from "@/context/LocalizationContext";
 import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -102,7 +101,7 @@ const ForgotPassword = () => {
 const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: colors.textInactive,
     fontFamily: fonts.regular,
 
     lineHeight: 22,
@@ -123,8 +122,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   input: {
-    backgroundColor: ColorsBarber.dark.inputField,
-    color: ColorsBarber.dark.textColorInput,
+    backgroundColor: colors.white,
+    color: colors.textOnLight,
     fontFamily: fonts.regular,
 
     padding: 15,
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
 });
 export default ForgotPassword;

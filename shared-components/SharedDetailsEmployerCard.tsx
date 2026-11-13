@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
@@ -89,13 +88,13 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor, // White text color    marginBottom: 4,
+    color: colors.text, // White text color    marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 14,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
   },
   ratingContainer: {
     gap: 5,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
   reviewText: {
     fontSize: 12,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor, // White text color
+    color: colors.text, // White text color
   },
 });
 

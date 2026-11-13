@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/context/LocalizationContext";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
@@ -6,7 +5,7 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
   const { localization } = useLocalization();
@@ -36,7 +35,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
             onPress={() => handleStatus(status.id)}
             style={[
               styles.tab,
-              { borderColor: isActive ? ColorsBarber.dark.borderColor : ColorsBarber.dark.borderColorDisabeld },
+              { borderColor: isActive ? colors.white : colors.disabled },
             ]}
           >
             <Text style={[styles.text, isActive && styles.activeText]}>
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     // elevation: 5, // Gura komponentu na sam vrh slojeva (Android)
   },
   activeText: {
-    color: ColorsBarber.dark.textColor, // Tekst pobeli kada je aktivan
+    color: colors.text, // Tekst pobeli kada je aktivan
     fontFamily: fonts.bold,
     fontSize: 19,
   },
@@ -69,13 +68,13 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
     borderWidth: 1,
-    backgroundColor: ColorsBarber.dark.background, // Dark background from your image
-    color: ColorsBarber.dark.textColor,
-    borderBottomColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background, // Dark background from your image
+    color: colors.text,
+    borderBottomColor: colors.background,
   },
 
   text: {
-    color: ColorsBarber.dark.textColor, // Neutralna svetlo-siva boja teksta za neaktivne elemente
+    color: colors.text, // Neutralna svetlo-siva boja teksta za neaktivne elemente
     fontSize: 18, // Kompaktna veličina fonta da se ne prelomi u visini od 20px
     fontFamily: fonts.regular, // Srednje podebljan tekst za bolju čitljivost
   },

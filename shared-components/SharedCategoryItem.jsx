@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
 
@@ -36,11 +35,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   nameSelected: {
-    color: ColorsBarber.dark.textColorInput,
+    color: colors.textOnLight,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: colors.surface,
     borderRadius: 5,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
 });
 

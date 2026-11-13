@@ -29,7 +29,6 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
@@ -196,7 +195,7 @@ const LoginScreen = () => {
         <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
           <Text
             style={{
-              color: ColorsBarber.dark.textColor,
+              color: colors.text,
               textAlign: "right",
               fontFamily: fonts.regular,
             }}
@@ -239,7 +238,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   buttonGoogleIsLoading: {
     backgroundColor: colors.brandBlue,
@@ -249,7 +248,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    shadowColor: ColorsBarber.dark.background,
+    shadowColor: colors.background,
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
@@ -268,23 +267,23 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 50,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   logo: {
     width: 120,
     height: 100,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: colors.textInactive,
     marginBottom: 30,
     fontFamily: fonts.bold,
   },
@@ -313,7 +312,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   socialButtonText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 16,
     fontFamily: fonts.regular,
   },
@@ -328,14 +327,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceRaised,
   },
   dividerText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginHorizontal: 10,
     fontSize: 15,
     fontFamily: fonts.bold,
   },
   input: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColorInput,
+    color: colors.textOnLight,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -352,16 +351,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
   },
   passwordInput: {
     backgroundColor: colors.white,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: colors.textInactive,
     width: "80%",
   },
 });

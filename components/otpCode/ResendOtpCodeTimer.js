@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 
 const RESEND_TIME = 50;
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
   },
   timerText: {
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: colors.textInactive,
     fontFamily:fonts.regular,
 
     fontSize: 14,

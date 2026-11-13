@@ -1,7 +1,6 @@
-import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 function SharedTitle({ title, topInset = 0 }) {
   const topValue = topInset === 1 ? 106 : 143;
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     fontFamily: fonts.regular,
   },
 });

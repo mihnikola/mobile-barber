@@ -8,8 +8,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   pendingSubTitle: {
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     textAlign: "center",
     fontFamily: fonts.regular,
     margin: 10,
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     padding: 10,
     margin: 10,
-   color: ColorsBarber.dark.textColor,
+   color: colors.text,
     textAlign: "center",
     fontFamily: fonts.bold,
   },
@@ -92,6 +91,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });

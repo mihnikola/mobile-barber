@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { StyleSheet, Text } from "react-native";
 import { View } from "react-native";
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
 });
 export default LoginRedirect;

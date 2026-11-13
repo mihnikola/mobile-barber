@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
   box: {
     width: "85%",
     padding: 30,
-    backgroundColor: ColorsBarber.dark.backgroundModal,
+    backgroundColor: colors.surfaceModal,
     borderRadius: 16,
     alignItems: "center",
     shadowOpacity: 0.25,
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 10,
     textAlign: "center",
   },
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 16,
     fontFamily: fonts.bold,
   },

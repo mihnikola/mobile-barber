@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { colors, fonts } from "@/theme";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
@@ -87,18 +86,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceRaised,
   },
   dividerText: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginHorizontal: 10,
     fontSize: 15,
     fontFamily: fonts.bold,
   },
   text: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 18,
     fontFamily: fonts.regular,
   },
   textLabel: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 18,
     fontFamily: fonts.bold,
   },

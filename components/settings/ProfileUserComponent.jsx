@@ -1,4 +1,3 @@
-import { ColorsBarber } from "@/constants/Colors";
 import SharedImageInitials from "@/shared-components/SharedInitialsName";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { StyleSheet } from "react-native";
@@ -47,16 +46,16 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 20,
     fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
     fontFamily: fonts.regular,
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
   },
   editButton: {
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
     borderRadius: 20,
     padding: 8,
     alignItems: "center",

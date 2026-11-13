@@ -7,10 +7,10 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { coverImageAppointments } from "@/constants";
 import Loader from "../Loader";
-import { ColorsBarber } from "@/constants/Colors";
 import SharedItemMultiSelection from "@/shared-components/SharedItemMultiSelection";
 import SharedCategoryItem from "@/shared-components/SharedCategoryItem";
 import SharedButton from "@/shared-components/SharedButton";
+import { colors } from "@/theme";
 
 const MoreServiceComponent = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   notAvailable: {
-    color: ColorsBarber.dark.textColor,
+    color: colors.text,
     fontSize: 20,
     textAlign: "center",
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: colors.background,
   },
 });
 

@@ -3,8 +3,8 @@ import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { colors } from "@/theme";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
@@ -26,7 +26,7 @@ const CardReservationItem = ({ redirectScreen, item }) => {
 
 const styles = StyleSheet.create({
   cardReservationCurrent: {
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: colors.surface,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 
   cardReservationPast: {
-    backgroundColor: ColorsBarber.dark.cardReservationPast,
+    backgroundColor: colors.surfaceModal,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

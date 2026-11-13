@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 import { Icon } from "@/components/ui";
 
 // StarRating component props
@@ -20,8 +19,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
   starSize = 23,
-  filledColor = ColorsBarber.dark.starColor, // Gold color
-  emptyColor = ColorsBarber.dark.inActiveTextColor, // Light gray
+  filledColor = colors.gold, // Gold color
+  emptyColor = colors.textInactive, // Light gray
   onRatingChange,
 }) => {
   const {localization} = useLocalization();
@@ -70,7 +69,7 @@ const StarRating: React.FC<StarRatingProps> = ({
         style={{
           fontSize: 18,
           fontFamily: fonts.bold,
-          color: ColorsBarber.dark.textColor,
+          color: colors.text,
         }}
       >
         {localization.APPOINTMENTS.rateReservation.rateUs}
