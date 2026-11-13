@@ -32,6 +32,9 @@ export default function TabLayout() {
           tabBarStyle: styles.bar,
           tabBarItemStyle: styles.item,
           tabBarLabelStyle: styles.label,
+          // short cross-fade between tabs
+          animation: "fade",
+          transitionSpec: { animation: "timing", config: { duration: 150 } },
           // plain Pressable: no Android ripple / press dimming (design has only the active pill)
           tabBarButton: ({ ref: _ref, android_ripple: _r, pressColor: _p, pressOpacity: _o, hoverEffect: _h, href: _href, ...rest }) => (
             <Pressable {...rest} />
