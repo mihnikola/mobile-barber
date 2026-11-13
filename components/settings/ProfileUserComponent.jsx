@@ -1,4 +1,3 @@
-import SharedImageInitials from "@/components/legacy/SharedInitialsName";
 import { Image, View } from "react-native";
 import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
@@ -7,11 +6,8 @@ const ProfileUserComponent = ({ data, onPress }) => {
   const styles = useStyles();
   return (
     <View style={styles.profileSection}>
-      {data?.image ? (
-        <Image source={{ uri: data?.image }} style={styles.profileImage} />
-      ) : (
-        <SharedImageInitials name={data?.name} profile />
-      )}
+      {/* no photo → nothing (B21, user decision D-022) */}
+      {data?.image ? <Image source={{ uri: data?.image }} style={styles.profileImage} /> : null}
       <View style={styles.profileInfo}>
         <AppText variant="title" style={styles.profileName}>{data?.name}</AppText>
         <AppText>{data?.email}</AppText>

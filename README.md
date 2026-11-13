@@ -118,7 +118,6 @@ components/
   booking/           booking domain cards (services, barbers, locations, reservation summary)
   layout/            headers, cover images, titles, back button, logo
   app/               app-level overlays (global error, no internet)
-  legacy/            deprecated wrappers kept 1:1 until the redesign (PROJECT.md D-020)
   <feature>/         screen containers + feature hooks (login, register, reservation, settings, …)
 context/             React contexts (typed, values in context/types.ts)
 lib/

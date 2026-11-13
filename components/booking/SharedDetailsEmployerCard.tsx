@@ -1,8 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/lib/format";
-import SharedImageInitials from "@/components/legacy/SharedInitialsName";
-import { AppText, Card, cardStyles, Icon } from "@/components/ui";
+import { AppText, Avatar, Card, cardStyles, Icon } from "@/components/ui";
 import { fonts, makeStyles } from "@/theme";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
@@ -21,7 +20,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           ]}
         />
       ) : (
-        <SharedImageInitials name={name} otherServices={otherServices} />
+        otherServices ? <Avatar name={name} size={otherServices.length > 0 ? "sm" : "lg"} /> : null
       )}
       <View style={styles.detailsContainer}>
         <View
