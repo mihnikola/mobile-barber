@@ -13,16 +13,13 @@ import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
-import SharedInput from "@/components/legacy/SharedInput";
 import { router } from "expo-router";
-import SharedPhoneNumber from "@/components/legacy/SharedPhoneNumber";
-import SharedNameEdit from "@/components/legacy/SharedNameEdit";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable, withScreen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, PhoneField, Pressable, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { colors } = useTheme();
@@ -161,7 +158,7 @@ const UserProfileScreen = () => {
             />
           </View>
           <View>
-            <SharedPhoneNumber
+            <PhoneField
               label={localization.SETTINGS.PROFILE.phoneNumber}
               placeholder="6x xxx xxxx"
               placeholderTextColor={colors.textOnLight}
@@ -192,14 +189,17 @@ const UserProfileScreen = () => {
             />
           </View>
           <View>
-            <SharedNameEdit
+            <TextField alwaysShowError
               label={localization.SETTINGS.PROFILE.name}
               value={name}
               ref={nameRef}
               onChangeText={handleNameChange}
               placeholder={localization.SETTINGS.PROFILE.placeholderName}
-              style={styles.input}
-              scrollRef={scrollRef}
+              onFocus={() => {
+                // keep the field above the keyboard (was inside SharedNameEdit)
+                const node = findNodeHandle(nameRef.current);
+                if (node) scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(node, 120, true);
+              }}
             />
           </View>
 

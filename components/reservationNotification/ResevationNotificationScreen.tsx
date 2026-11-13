@@ -5,14 +5,13 @@ import { useEffect, useState } from "react";
 import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import SharedDetailsReservation from "@/components/booking/SharedDetailsReservation";
 import StarRating from "@/components/reservation/StarRateComponent";
-import SharedInputTextAreaMark from "@/components/legacy/SharedInputTextAreaMark";
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, ConfirmDialog, Icon, layout, Loader, MessageDialog, withScreen } from "@/components/ui";
+import { AppText, Button, ConfirmDialog, Icon, layout, Loader, MessageDialog, TextArea, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -108,12 +107,12 @@ function ResevationNotificationScreen() {
               marginTop: 2,
             }}
           />
-          <SharedInputTextAreaMark
-            placeholderText={
+          <TextArea variant="plain"
+            placeholder={
               localization.APPOINTMENTS.rateReservation.rateExplanation
             }
-            description={description}
-            setDescription={setDescription}
+            value={description}
+            onChangeText={setDescription}
           />
         </>
       );

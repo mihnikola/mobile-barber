@@ -4,12 +4,10 @@ import {
 import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
 import { router, useLocalSearchParams } from "expo-router";
-import SharedConfirmPassword from "@/components/legacy/SharedConfirmPassword";
-import SharedPassword from "@/components/legacy/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { makeStyles } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, PasswordField, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const styles = useStyles();
@@ -64,7 +62,7 @@ const ChangePass = () => {
         </View>
 
         <View style={styles.textinputContainer}>
-          <SharedPassword
+          <PasswordField
             label={localization.PASSWORD.label}
             value={password}
             onChangeText={handlePasswordChange}
@@ -75,7 +73,7 @@ const ChangePass = () => {
               passwordConfirmInputRef.current?.focus();
             }}
           />
-          <SharedConfirmPassword
+          <PasswordField
             label={localization.CONFIRM_PASSWORD.label}
             value={confirmPassword}
             ref={passwordConfirmInputRef}

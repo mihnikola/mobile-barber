@@ -1,14 +1,13 @@
 import { View } from "react-native";
 import { Platform } from "react-native";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
-import SharedInput from "@/components/legacy/SharedInput";
 import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen, TextField } from "@/components/ui";
 
 const ForgotPassword = () => {
   const styles = useStyles();
@@ -59,14 +58,13 @@ const ForgotPassword = () => {
           </AppText>
         </View>
         <View style={{ marginTop: 10 }}>
-          <SharedInput
+          <TextField
             label={localization.EMAIL.label}
             value={email}
             onChangeText={handleEmailChange}
             placeholder={localization.EMAIL.placeholder}
             keyboardType="email-address"
             autoCapitalize="none"
-            style={styles.input}
             error={emailError}
           />
         </View>

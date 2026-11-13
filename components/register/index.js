@@ -6,18 +6,14 @@ import {
 import React, { useRef, useState } from "react";
 import { useConfirmPasswordField, useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useRegisterForm from "./hooks/useRegisterForm";
-import SharedInput from "@/components/legacy/SharedInput";
 import SharedRedirect from "@/components/layout/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
 import { router, useLocalSearchParams } from "expo-router";
-import SharedPassword from "@/components/legacy/SharedPassword";
-import SharedConfirmPassword from "@/components/legacy/SharedConfirmPassword";
-import SharedPhoneNumber from "@/components/legacy/SharedPhoneNumber";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, PasswordField, PhoneField, Pressable, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
   const { colors } = useTheme();
@@ -107,14 +103,13 @@ const Register = () => {
           </AppText>
         </View>
 
-        <SharedInput
+        <TextField
           autoFocus
           label={localization.NAME.label}
           placeholder={localization.NAME.placeholder}
           ref={refName}
           returnKeyType="next"
           onSubmitEditing={() => emailInputRef.current.focus()}
-          style={styles.input}
           value={name}
           onChangeText={setName}
         />
@@ -123,12 +118,11 @@ const Register = () => {
             emailLayoutY.current = e.nativeEvent.layout.y;
           }}
         >
-          <SharedInput
+          <TextField
             label={localization.EMAIL.label}
             placeholder={localization.EMAIL.placeholder}
             keyboardType="email-address"
             autoCapitalize="none"
-            style={styles.input}
             value={email}
             error={emailError}
             onChangeText={handleEmailChange}
@@ -148,7 +142,7 @@ const Register = () => {
             phoneNumberLayoutY.current = e.nativeEvent.layout.y;
           }}
         >
-          <SharedPhoneNumber
+          <PhoneField
             label={localization.PHONENUMBER.label}
             placeholder="6x xxx xxxx"
             placeholderTextColor={colors.textInactive}
@@ -176,7 +170,7 @@ const Register = () => {
         <View
           onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}
         >
-          <SharedPassword
+          <PasswordField
             label={localization.PASSWORD.label}
             value={password}
             onChangeText={handlePasswordChange}
@@ -202,7 +196,7 @@ const Register = () => {
             (passwordConfirmLayoutY.current = e.nativeEvent.layout.y)
           }
         >
-          <SharedConfirmPassword
+          <PasswordField
             label={localization.CONFIRM_PASSWORD.label}
             value={confirmPassword}
             ref={confirmPasswordInputRef}

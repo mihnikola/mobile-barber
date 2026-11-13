@@ -6,7 +6,6 @@ import {
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
 import Details from "@/components/booking/Details";
-import SharedInputTextArea from "@/components/legacy/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
 import { router, useLocalSearchParams } from "expo-router";
@@ -15,7 +14,7 @@ import { routes } from "@/lib/navigation/routes";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { Button, Icon, layout, MessageDialog } from "@/components/ui";
+import { Button, Icon, layout, MessageDialog, TextArea } from "@/components/ui";
 import { makeStyles } from "@/theme";
 
 const Reservation = () => {
@@ -75,10 +74,10 @@ const Reservation = () => {
           <View style={styles.containerData}>
             <View>{reservation && <Details data={reservation} />}</View>
             <View>
-              <SharedInputTextArea
-                placeholderText={localization.DATE.detailsReservation}
-                description={description}
-                setDescription={setDescription}
+              <TextArea variant="card"
+                placeholder={localization.DATE.detailsReservation}
+                value={description}
+                onChangeText={setDescription}
               />
             </View>
           </View>

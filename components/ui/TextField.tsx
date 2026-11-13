@@ -45,13 +45,15 @@ export type TextFieldProps = Omit<TextInputProps, "style"> & {
    * until Phase 5).
    */
   unstyled?: boolean;
+  /** Show `error` even when the field is empty (default: only once something was typed). */
+  alwaysShowError?: boolean;
 };
 
 /**
  * Labelled text input with focus border and error text. All app inputs are built on this.
  */
 export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextField(
-  { label, error, left, prefix, right, styles: s = {}, unstyled = false, onFocus, onBlur, ...inputProps },
+  { label, error, left, prefix, right, styles: s = {}, unstyled = false, alwaysShowError = false, onFocus, onBlur, ...inputProps },
   ref,
 ) {
   const { colors } = useTheme();
@@ -82,7 +84,7 @@ export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextF
       <View style={[d.container, s.container, focused && [d.containerFocused, s.containerFocused]]}>
         {left}
         {prefix ? (
-          <View style={rowCenter}>
+          <View style={[rowCenter, !unstyled && fill]}>
             {prefix}
             {input}
           </View>
@@ -91,7 +93,7 @@ export const TextField = forwardRef<TextInputRef, TextFieldProps>(function TextF
         )}
         {right}
       </View>
-      {error ? <Text style={[d.error, s.error]}>{error}</Text> : null}
+      {error && (alwaysShowError || (inputProps.value ?? "") !== "") ? <Text style={[d.error, s.error]}>{error}</Text> : null}
     </>
   );
 });
@@ -130,7 +132,9 @@ export const PhoneField = forwardRef<
 });
 
 export type TextAreaProps = {
-  value?: string;
+  /** `card`: bordered box (booking note) · `plain`: borderless (rating comment). */
+  variant?: "card" | "plain";
+  value?: string | null;
   onChangeText?: (text: string) => void;
   placeholder?: string;
   maxLength?: number;
@@ -146,16 +150,17 @@ export function TextArea({
   placeholder,
   maxLength = 170,
   counterFrom = 150,
+  variant = "plain",
   styles: s = {},
 }: TextAreaProps) {
   const { colors } = useTheme();
   const area = useArea();
   return (
-    <View style={[area.container, s.container]}>
+    <View style={[area.container, area[`${variant}Container`], s.container]}>
       <TextInput
-        style={[area.input, s.input]}
+        style={[area.input, area[`${variant}Input`], s.input]}
         onChangeText={onChangeText}
-        value={value}
+        value={value ?? undefined}
         placeholder={placeholder}
         placeholderTextColor={colors.text}
         multiline
@@ -185,6 +190,7 @@ const EMPTY: Record<keyof FieldStyles, undefined> = {
 };
 
 const rowCenter: ViewStyle = { flexDirection: "row", alignItems: "center" };
+const fill: ViewStyle = { flex: 1 };
 const toggleStyle: ViewStyle = { padding: 10 };
 
 /** Default field look (= the most common legacy field: white box, black text, white focus border). */
@@ -216,6 +222,23 @@ const usePhone = makeStyles((colors) => ({
 const useArea = makeStyles((colors) => ({
   container: { flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row" },
   input: { fontSize: fontSize.sm, color: colors.text, fontFamily: fonts.regular },
+  cardContainer: {
+    paddingTop: 10,
+    borderWidth: 1,
+    borderColor: colors.white,
+    borderRadius: 12,
+    padding: 5,
+    marginVertical: 8,
+    marginHorizontal: 15,
+    shadowColor: colors.background,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardInput: { width: "90%", minHeight: 80 },
+  plainContainer: { paddingTop: 15 },
+  plainInput: { width: "100%", minHeight: 100 },
   counterContainer: {
     position: "absolute",
     alignContent: "flex-end",

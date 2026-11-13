@@ -9,10 +9,8 @@ import {
   View,
 } from "react-native";
 import { useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
-import SharedInput from "@/components/legacy/SharedInput";
 import SharedRedirect from "@/components/layout/SharedRedirect";
 import { router, useLocalSearchParams } from "expo-router";
-import SharedPassword from "@/components/legacy/SharedPassword";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
@@ -22,7 +20,7 @@ import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, Pressable } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, PasswordField, Pressable, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const { width } = Dimensions.get("window");
@@ -164,7 +162,7 @@ const LoginScreen = () => {
           <View style={styles.dividerLine} />
         </View>
 
-        <SharedInput
+        <TextField
           label={localization.EMAIL.label}
           value={email}
           returnKeyType="next"
@@ -183,12 +181,11 @@ const LoginScreen = () => {
           placeholder={localization.EMAIL.placeholder}
           keyboardType="email-address"
           autoCapitalize="none"
-          style={styles.input}
         />
         <View
           onLayout={(e) => (passwordLayoutY.current = e.nativeEvent.layout.y)}
         >
-          <SharedPassword
+          <PasswordField
             label={localization.PASSWORD.label}
             value={password}
             ref={passwordInputRef}
