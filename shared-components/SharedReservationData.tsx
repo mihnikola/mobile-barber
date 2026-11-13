@@ -1,12 +1,12 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { addMinutesToTime, convertDate } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
-import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 function SharedReservationData({ reservation }) {
   const { localization } = useLocalization();
@@ -23,11 +23,7 @@ function SharedReservationData({ reservation }) {
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons
-            name="arrow-back"
-            size={25}
-            color={ColorsBarber.dark.textColor}
-          />
+          <Icon name="back" size={25} />
         </TouchableOpacity>
       </View>
       <View>

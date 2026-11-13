@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import {
@@ -21,6 +21,7 @@ import Loader from "../Loader";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -127,11 +128,7 @@ const OtpCode = () => {
           onPress={router.back}
           style={{ marginVertical: 15 }}
         >
-          <MaterialIcons
-            name="arrow-back"
-            size={25}
-            color={ColorsBarber.dark.textColor}
-          />
+          <Icon name="back" size={25} />
         </TouchableOpacity>
 
         <View style={{ flex: 1 }}>

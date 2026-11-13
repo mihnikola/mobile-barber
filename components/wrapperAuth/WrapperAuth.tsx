@@ -1,44 +1,8 @@
-import { ColorsBarber } from "@/constants/Colors";
-import React from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-} from "react-native";
+import { ReactNode } from "react";
 
-function WrapperAuth({ children }) {
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-    >
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-          flex: 1,
-          paddingVertical: 0,
-          backgroundColor: ColorsBarber.dark.background,
-        }}
-        keyboardShouldPersistTaps="always"
-      >
-        {/* <StatusBar backgroundColor=ColorsBarber.dark.background barStyle="light-content" /> */}
-        {children}
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
+import { Screen } from "@/components/ui/Screen";
+
+/** @deprecated Use `<Screen mode="form">` from `@/components/ui` instead. */
+export default function WrapperAuth({ children }: { children: ReactNode }) {
+  return <Screen mode="form">{children}</Screen>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.dark.background,
-    paddingTop: Platform.OS === "android" ? 20 : 0,
-  },
-});
-
-export default WrapperAuth;

@@ -1,26 +1,14 @@
-import { ComponentType } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import type { ComponentType, JSX } from "react";
 
+import { Screen } from "@/components/ui/Screen";
+
+/** @deprecated Wrap the screen in `<Screen>` from `@/components/ui` instead. */
 export default function withSafeArea<T>(WrapperComponent: ComponentType<T>) {
-  return function (props: T & JSX.IntrinsicAttributes) {
-    const insets = useSafeAreaInsets();
-
+  return function SafeAreaScreen(props: T & JSX.IntrinsicAttributes) {
     return (
-      <View
-        style={{
-          flex: 1,
-          paddingTop: Platform.OS === "ios" ? insets.top : null,
-        }}
-      >
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-
+      <Screen mode="safe">
         <WrapperComponent {...props} />
-      </View>
+      </Screen>
     );
   };
 }

@@ -7,7 +7,7 @@ import SharedButton from "@/shared-components/SharedButton";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -18,6 +18,7 @@ import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const ChangePass = () => {
   const { data } = useLocalSearchParams();
@@ -61,7 +62,7 @@ const ChangePass = () => {
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
-        <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
+        <Icon name="back" size={25} />
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <View>

@@ -15,7 +15,7 @@ import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
@@ -26,6 +26,7 @@ import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -99,7 +100,7 @@ const Register = () => {
       <View style={styles.container}>
         <View style={{ marginTop: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
+            <Icon name="back" size={25} />
           </TouchableOpacity>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>

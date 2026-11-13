@@ -15,7 +15,7 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-13):** Phase 0 ✅ · Phase 0.5 ✅ (clean build 226 → 128 s) · Phase 1 ✅ (visually verified) · next: Phase 2 (component library).
+**Where we are (2026-11-13):** Phase 0 ✅ · Phase 0.5 ✅ (clean build 226 → 128 s) · Phase 1 ✅ (visually verified) · Phase 2 🔄 group 1/5 done (foundation primitives), awaiting user check · next: group 2 (Button + form fields).
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude` (Phase 0 = 6 commits, `657866c` → latest). Not pushed to `origin` yet.
 
 **What Phase 0 did, in one glance**
@@ -249,7 +249,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | 0 | Safety net: install deps, capture `tsc` baseline, add ESLint + Prettier, fix `tsconfig` include, remove verified dead code, fix B1–B4 | No | ✅ Done (smoke-tested 2026-11-13) |
 | 0.5 | Build optimization (see §4.1): measure build time, Gradle cache/memory via config plugin, remove unused native modules, Windows/EAS tips | No | ✅ Steps 1–3, 7 done (clean build 226 → 128 s). Open: Defender exclusions (user, optional), EAS cache |
 | 1 | Design tokens: `theme/` (colors, typography, spacing, radii); replace hardcoded hex / font literals; rename font alias | No | ✅ Done 2026-11-13 (visually verified by user) |
-| 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | Planned |
+| 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | 🔄 Group 1/5 done (AppText, Icon, Row/Stack, Pressable, Screen) — awaiting user check |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | Planned |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | Planned |
 | 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | Planned |
@@ -326,8 +326,10 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-13
+- **Phase 2, group 1 — foundation primitives** in `components/ui/` (barrel `@/components/ui`): `AppText` (variants from measured style combos: heading/title/subtitle/label/labelSm/bodyLg/body/caption + `color`, `bold`, `size`, `align`), `Icon` (semantic registry over 5 icon libs, token sizes), `Row`/`Stack`/`layout`, `Pressable` (press lock, moved from `shared-components/TouchableOpacity`), `Screen` (modes `safe`/`keyboard`/`form` = old `withSafeArea`/`withKeyboardAvoid`/`WrapperAuth` 1:1). Old files are now thin deprecated delegates → all 30 wrapped screens + 42 touchable imports go through the new primitives with no screen edits. First migration: all 11 inline back arrows → `<Icon name="back" size={25} />`. `StatusBar` `backgroundColor`/`translucent` dropped (props no longer exist in RN 0.88 edge-to-edge; were already no-ops). TS 195 → 191, lint errors 26 → 24, warnings 230 (=; +1 `import/first` in login, −2 unused vars), bundle OK.
+- Lint comparison method fixed: `npx eslint . -f json` → per-message `severity|file|rule` list, diffed against `git stash -u` baseline.
 - B19 fixed (duplicate list keys in reservation details). `tsconfig.json`: Expo CLI removes the `.expo/types` / `expo-env.d.ts` includes on every start (typed routes off, paths don't exist) → committed Expo's version (`64db53f`) so builds stop dirtying the file.
-- **Phase 1 — design tokens.** New `theme/` (`colors`, `fonts`, `fontSize`, `spacing`, `radii`, `theme`). Codemod replaced **all** hardcoded colors (hex + named, incl. JSX props and Switch colors) and all `"OldStandard-*"` literals in 78 files (308 replacements) + `app/_layout.tsx` by hand. Font alias renamed to real names `BarlowCondensed-*`. `constants/Colors.ts` now derived from tokens; unused `ColorsBarber.light` and `ColorsHairSalon` removed (D-019). Remaining literals: 0. TS 195 (=), lint identical to before, bundle OK. Found B17 (404 screen crash, pre-existing).
+- **Phase 1 — design tokens.** New `theme/` (`colors`, `fonts`, `fontSize`, `spacing`, `radii`, `theme`). Codemod replaced **all** hardcoded colors (hex + named, incl. JSX props and Switch colors) and all `"OldStandard-*"` literals in 78 files (308 replacements) + `app/_layout.tsx` by hand. Font alias renamed to real names `BarlowCondensed-*`. `constants/Colors.ts` now derived from tokens; unused `ColorsBarber.light` and `ColorsHairSalon` removed (D-019). Remaining literals: 0. TS 195 (=), lint errors 26 (=), warnings +1 (`import/first` in `components/login/index.js`, which already has code between imports — corrected 2026-11-13; the first comparison used `eslint -f unix`, which ESLint 9 no longer has, so it compared two empty outputs), bundle OK. Found B17 (404 screen crash, pre-existing).
 - **Phase 0.5 — build optimization.** `plugins/withAndroidBuildSpeed.js` (Gradle `-Xmx6g`, build cache), removed `expo-device`, `expo-location`, `expo-haptics`, `expo-web-browser`, `expo-doctor` → devDeps (`1069af5`). Clean build 226 → 128 s; no-change 11 s. One flaky first build (B18).
 - User applied B16 fix (LongPathsEnabled + ninja 1.12.1); local Android build OK; **Phase 0 smoke test done**. README long-path section rewritten (Git Bash commands). Note: `expo run:android` rewrote `tsconfig.json` (format + dropped `.expo/types` include) → left uncommitted, pending user decision; watch for this after builds.
 

@@ -14,7 +14,7 @@ import useEmail from "./hooks/useEmail";
 import SharedInput from "@/shared-components/SharedInput";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedRedirect from "@/shared-components/SharedRedirect";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
@@ -33,6 +33,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
@@ -122,11 +123,7 @@ const LoginScreen = () => {
     >
       <View style={styles.container}>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons
-            name="arrow-back"
-            size={25}
-            color={ColorsBarber.dark.textColor}
-          />
+          <Icon name="back" size={25} />
         </TouchableOpacity>
 
         <View style={styles.logoImage}>

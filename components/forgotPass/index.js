@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -13,6 +13,7 @@ import { router } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -48,11 +49,7 @@ const ForgotPassword = () => {
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
-        <MaterialIcons
-          name="arrow-back"
-          size={25}
-          color={ColorsBarber.dark.textColor}
-        />
+        <Icon name="back" size={25} />
       </TouchableOpacity>
 
       <View style={{ flex: 1 }}>

@@ -2,10 +2,10 @@ import { ColorsBarber } from "@/constants/Colors";
 import { convertDateDetails } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text,  View } from "react-native";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const HeaderReservationTime = ({ data }) => {
   const { localization } = useLocalization();
@@ -15,7 +15,7 @@ const HeaderReservationTime = ({ data }) => {
     <View style={styles.coverContent}>
       <View>
         <TouchableOpacity hitSlop={20} onPress={router.back}>
-          <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
+          <Icon name="back" size={25} />
         </TouchableOpacity>
       </View>
       <View>

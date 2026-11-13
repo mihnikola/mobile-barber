@@ -11,9 +11,9 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import withSafeArea from "@/components/wrapper/WrapperSafeArea";
-import { MaterialIcons } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { Icon } from "@/components/ui";
 
 const AboutUsScreen = () => {
   const { company } = useCompany();
@@ -26,7 +26,7 @@ const AboutUsScreen = () => {
       <View style={styles.contentContainer}>
         <View style={{ marginTop: 30, marginLeft: 10 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
+            <Icon name="back" size={25} />
           </TouchableOpacity>
         </View>
         <AboutUsInfo

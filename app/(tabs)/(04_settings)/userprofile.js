@@ -17,7 +17,7 @@ import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
 import SharedInput from "@/shared-components/SharedInput";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import SharedButton from "@/shared-components/SharedButton";
 import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
@@ -30,6 +30,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -142,11 +143,7 @@ const UserProfileScreen = () => {
       >
         <View style={{ marginLeft: 20, marginTop: 15 }}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons
-              name="arrow-back"
-              size={25}
-              color={ColorsBarber.dark.textColor}
-            />
+            <Icon name="back" size={25} />
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>

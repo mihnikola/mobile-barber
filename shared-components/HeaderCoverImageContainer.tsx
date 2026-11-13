@@ -6,7 +6,6 @@ import {
   useWindowDimensions,
   Image,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import SharedReservationData from "./SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
@@ -14,6 +13,7 @@ import HeaderReservationTime from "@/components/reservation/HeaderReservationTim
 import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "./TouchableOpacity";
 import { fonts } from "@/theme";
+import { Icon } from "@/components/ui";
 
 function HeaderCoverImageContainer({
   title,
@@ -51,11 +51,7 @@ function HeaderCoverImageContainer({
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
           {!hidden && (
             <TouchableOpacity hitSlop={20} onPress={router.back}>
-              <MaterialIcons
-                name="arrow-back"
-                size={25}
-                color={ColorsBarber.dark.textColor}
-              />
+              <Icon name="back" size={25} />
             </TouchableOpacity>
           )}
           <Text style={[styles.capture, nextBtn && styles.captureNextBtn]}>
