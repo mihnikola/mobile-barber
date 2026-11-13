@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
@@ -15,81 +15,31 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
     { totalPrice: 0, totalDuration: 0 },
   );
   const { localization } = useLocalization();
+  const durationValue = totalDuration || totals.totalDuration + service?.serviceDuration || service?.duration;
+  const priceValue = totalPrice || totals.totalPrice + service?.servicePrice || service?.price;
   return (
-    <View>
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine} />
+    // ds-sum: label / value rows, total emphasised under a hairline
+    <View style={styles.sum}>
+      <View style={styles.row}>
+        <AppText variant="body" color="inkMuted">
+          {localization.SERVICES.totalDuration}
+        </AppText>
+        <AppText variant="body">{durationValue} min</AppText>
       </View>
-      <View
-        style={{
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-          paddingVertical: 10,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <AppText variant="bodyStrong">
-              {localization.SERVICES.totalDuration}
-            </AppText>
-          </View>
-          <View>
-            {totalDuration && <AppText variant="body">{totalDuration}{" min"}</AppText>}
-            {!totalDuration && (
-              <AppText variant="body">
-                {totals.totalDuration + service?.serviceDuration ||
-                  service?.duration}
-                {" min"}
-              </AppText>
-            )}
-          </View>
-        </View>
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <AppText variant="bodyStrong">
-              {localization.SERVICES.totalPrice}
-            </AppText>
-          </View>
-          <View>
-            {totalPrice && <AppText variant="body">{totalPrice}{" rsd"}</AppText>}
-            {!totalPrice && (
-              <AppText variant="body">
-                {totals.totalPrice + service?.servicePrice || service?.price}
-                {" rsd"}
-              </AppText>
-            )}
-          </View>
-        </View>
+      <View style={[styles.row, styles.total]}>
+        <AppText variant="bodyStrong">{localization.SERVICES.totalPrice}</AppText>
+        <AppText variant="bodyStrong" size={17}>
+          {priceValue} RSD
+        </AppText>
       </View>
     </View>
   );
 }
+
 const useStyles = makeStyles((colors) => ({
-  dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 0,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.surfaceSunken,
-  },
-  dividerText: {
-    color: colors.ink,
-    marginHorizontal: 10,
-    fontSize: 15,
-    fontFamily: fonts.sansSemiBold,
-  },
+  sum: { marginHorizontal: 16, marginVertical: 8, padding: 16, borderRadius: 16, backgroundColor: colors.surface },
+  row: { flexDirection: "row", justifyContent: "space-between", gap: 12, paddingVertical: 6 },
+  total: { borderTopWidth: 1, borderTopColor: colors.line, marginTop: 6, paddingTop: 12 },
 }));
+
 export default SummaryService;

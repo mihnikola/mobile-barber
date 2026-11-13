@@ -1,138 +1,44 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { roundValue } from "@/lib/format";
-import { AppText, Avatar, Card, cardStyles, Icon } from "@/components/ui";
-import { fonts, makeStyles } from "@/theme";
+import type { ApiRecord } from "@/context/types";
+import { AppText, Avatar, Card, cardStyles, MetaRow } from "@/components/ui";
+import { makeStyles } from "@/theme";
 
-const SharedDetailsEmployerCard = ({ data, otherServices }) => {
+/**
+ * Barber in reservation details (design system StaffCard look).
+ * Compact (flat, smaller avatar) when the reservation has extra services, as before.
+ */
+const SharedDetailsEmployerCard = ({ data, otherServices }: { data: ApiRecord; otherServices?: ApiRecord[] }) => {
   const styles = useStyles();
   const { image, name, averageRating, userCount, seniority } = data;
+  const compact = (otherServices?.length ?? 0) > 0;
 
   return (
-    <Card style={[cardStyles.row, otherServices?.length > 0 && styles.paddingSection]}
-    >
+    <Card style={[cardStyles.row, compact && styles.compact]}>
       {image ? (
-        <Image
-          source={{ uri: image }}
-          style={[
-            styles.profileImage,
-            otherServices?.length > 0 && styles.profileImageOther,
-          ]}
-        />
-      ) : (
-        otherServices ? <Avatar name={name} size={otherServices.length > 0 ? "sm" : "lg"} /> : null
-      )}
-      <View style={styles.detailsContainer}>
-        <View
-          style={
-            otherServices?.length > 0 && {
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignContent: "center",
-              alignItems: "center",
-            }
-          }
-        >
-          <AppText
-            style={[styles.name, otherServices?.length > 0 && styles.nameOther]}
-          >
-            {name}
-          </AppText>
-          <View style={styles.locationContainer}>
-            <AppText
-              style={[
-                styles.locationText,
-                otherServices?.length > 0 && styles.seniorityOther,
-              ]}
-            >
-              {seniority?.title || seniority}
-            </AppText>
-          </View>
-        </View>
-
-        <View style={styles.dataContainer}>
-          <View
-            style={
-              otherServices?.length > 0 && {
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }
-            }
-          >
-            <View style={styles.ratingContainer}>
-              <Icon name={"star"} size={16} color="star" />
-              <AppText variant="caption">{`${roundValue(
-                averageRating,
-              )}/5`}</AppText>
-            </View>
-
-            <View style={styles.ratingContainer}>
-              <Icon name={"person"} size={16} color="star" />
-              <AppText variant="caption">{userCount || 0}</AppText>
-            </View>
-          </View>
+        <Avatar uri={image} size={compact ? "sm" : "lg"} />
+      ) : otherServices ? (
+        <Avatar name={name} size={compact ? "sm" : "lg"} />
+      ) : null}
+      <View style={cardStyles.body}>
+        <AppText variant="bodyStrong">{name}</AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {seniority?.title || seniority}
+        </AppText>
+        <View style={styles.meta}>
+          <MetaRow icon="star" font="bold">{`${roundValue(averageRating)}/5`}</MetaRow>
+          <MetaRow icon="person">{userCount || 0}</MetaRow>
         </View>
       </View>
     </Card>
   );
 };
 
-const useStyles = makeStyles((colors) => ({
-  paddingSection: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor:"transparent",
-    margin: 0
-  },
-
-  dataContainer: {
-    gap: 5,
-  },
-
-  profileImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 30,
-    marginRight: 15,
-    borderColor: colors.line,
-  },
-  profileImageOther: {
-    width: 45,
-    height: 45,
-    borderRadius: 15,
-    marginRight: 15,
-    borderColor: colors.line,
-  },
-  detailsContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  name: {
-    fontSize: 18,
-    fontFamily: fonts.sansSemiBold,
-    color: colors.ink, // White text color    marginBottom: 4,
-  },
-  nameOther: {
-    fontSize: 14,
-  },
-  seniorityOther: {
-    fontFamily: fonts.sans,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  locationText: {
-    fontSize: 14,
-    fontFamily: fonts.sansSemiBold,
-    color: colors.ink, // White text color
-  },
-  ratingContainer: {
-    gap: 5,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
+const useStyles = makeStyles(() => ({
+  // embedded in the "with extra services" list: flat, tighter
+  compact: { backgroundColor: "transparent", marginVertical: 0, paddingVertical: 10, shadowOpacity: 0, elevation: 0 },
+  meta: { flexDirection: "row", gap: 16 },
 }));
 
 export default SharedDetailsEmployerCard;
