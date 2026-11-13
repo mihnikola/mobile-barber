@@ -10,9 +10,8 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect } from "react";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 
-import withSafeArea from "../wrapper/WrapperSafeArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Icon } from "@/components/ui";
+import { Icon, withScreen } from "@/components/ui";
 import { colors } from "@/theme";
 
 const SettingsComponent = () => {
@@ -107,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(SettingsComponent);
+export default withScreen(SettingsComponent);

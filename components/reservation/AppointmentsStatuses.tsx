@@ -1,11 +1,11 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   View,
   Text,
   StyleSheet,
 } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 export default function AppointmentsStatuses({ active, handleStatus }) {
   const { localization } = useLocalization();
@@ -30,7 +30,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
         const isActive = active === status.id;
 
         return (
-          <TouchableOpacity
+          <Pressable
             key={status.id}
             onPress={() => handleStatus(status.id)}
             style={[
@@ -41,7 +41,7 @@ export default function AppointmentsStatuses({ active, handleStatus }) {
             <Text style={[styles.text, isActive && styles.activeText]}>
               {status.label}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       })}
     </View>

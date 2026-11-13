@@ -10,9 +10,7 @@ import { useEffect } from "react";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, withScreen } from "@/components/ui";
 import { colors } from "@/theme";
 
 const AboutUsScreen = () => {
@@ -25,9 +23,9 @@ const AboutUsScreen = () => {
 
       <View style={styles.contentContainer}>
         <View style={{ marginTop: 30, marginLeft: 10 }}>
-          <TouchableOpacity hitSlop={20} onPress={router.back}>
+          <Pressable hitSlop={20} onPress={router.back}>
             <Icon name="back" size={25} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <AboutUsInfo
           title={company?.aboutUs?.title}
@@ -62,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(AboutUsScreen);
+export default withScreen(AboutUsScreen);

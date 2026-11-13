@@ -1,7 +1,7 @@
 import MoreServiceComponent from "@/components/moreServices/MoreServiceComponent";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { withScreen } from "@/components/ui";
 const moreServices = () => {
   return <MoreServiceComponent />;
 };
 
-export default withSafeArea(moreServices);
+export default withScreen(moreServices);

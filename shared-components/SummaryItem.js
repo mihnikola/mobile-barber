@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   const { value } = data;
@@ -10,7 +10,7 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={[
         styles.content,
         selectedItem?.value === value && styles.selectedContent, // Apply selected style
@@ -26,7 +26,7 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
       >
         {value}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

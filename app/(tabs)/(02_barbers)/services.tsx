@@ -1,7 +1,7 @@
 import Services from "@/components/services";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { withScreen } from "@/components/ui";
 const MenuServices = () => {
   return <Services />;
 };
 
-export default withSafeArea(MenuServices);
+export default withScreen(MenuServices);

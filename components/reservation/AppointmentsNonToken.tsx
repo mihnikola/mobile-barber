@@ -1,7 +1,6 @@
 import { coverImageAppointments } from "@/constants";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React from "react";
@@ -12,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 function AppointmentsNonToken() {
   const { localization } = useLocalization();
@@ -35,9 +35,9 @@ function AppointmentsNonToken() {
           {localization.APPOINTMENTS.noLogin}
         </Text>
       </View>
-      <TouchableOpacity onPress={routeHandler}>
+      <Pressable onPress={routeHandler}>
         <Text style={styles.capture}> {localization.APPOINTMENTS.login}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </ScrollView>
   );
 }

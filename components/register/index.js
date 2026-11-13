@@ -22,9 +22,8 @@ import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -97,9 +96,9 @@ const Register = () => {
     >
       <View style={styles.container}>
         <View style={{ marginTop: 10 }}>
-          <TouchableOpacity hitSlop={20} onPress={router.back}>
+          <Pressable hitSlop={20} onPress={router.back}>
             <Icon name="back" size={25} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
           <SharedLogin />

@@ -1,5 +1,5 @@
 import Register from '@/components/register/index';
-import withKeyboardAvoid from '@/components/wrapper/WrapperKeyboard';
+import { withScreen } from "@/components/ui";
 
 const RegisterForm = () => {
     return (
@@ -7,4 +7,4 @@ const RegisterForm = () => {
     )
 }
 
-export default withKeyboardAvoid(RegisterForm);
+export default withScreen(RegisterForm, "keyboard");

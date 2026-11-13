@@ -16,12 +16,10 @@ import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedTitle from "@/shared-components/SharedTitle";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/components/Loader";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -80,7 +78,7 @@ const LanguageSupportScreen = () => {
           data={filteredLanguages}
           keyExtractor={(item) => item.code}
           renderItem={({ item }) => (
-            <TouchableOpacity
+            <Pressable
               style={styles.languageItem}
               onPress={() => {
                 if (localization.code !== item.code) {
@@ -90,7 +88,7 @@ const LanguageSupportScreen = () => {
             >
               <Text style={styles.languageText}>{item.label}</Text>
               <Icon name={localization.code === item.code && "check"} size={28} color="text" />
-            </TouchableOpacity>
+            </Pressable>
           )}
         />
       )}
@@ -147,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(LanguageSupportScreen);
+export default withScreen(LanguageSupportScreen);

@@ -1,9 +1,9 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
+import { withScreen } from "@/components/ui";
 
 const PrivacyPolicyScreen = () => {
   const developerName = "FusionTech Agency";
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(PrivacyPolicyScreen);
+export default withScreen(PrivacyPolicyScreen);

@@ -8,12 +8,10 @@ import {
   ScrollView,
 } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, withScreen } from "@/components/ui";
 
 const companyInfo = {
   name: "FusionTechAgency Ltd",
@@ -39,13 +37,13 @@ const HelpSupportScreen = () => {
           </Text>
           <Text style={styles.infoValue}>{companyInfo.name}</Text>
         </View>
-        <TouchableOpacity onPress={handleEmailPress} style={styles.menuItem}>
+        <Pressable onPress={handleEmailPress} style={styles.menuItem}>
           <Icon name="email" size={24} style={styles.menuItemIcon} color="text" />
           <Text style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
           </Text>
           <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </ScrollView>
   );
@@ -111,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(HelpSupportScreen);
+export default withScreen(HelpSupportScreen);

@@ -6,12 +6,10 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import SharedInput from "@/shared-components/SharedInput";
 import useEmail from "./hooks/useEmail";
 import { useLocalization } from "@/context/LocalizationContext";
-import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, Screen } from "@/components/ui";
 
 const ForgotPassword = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -35,20 +33,20 @@ const ForgotPassword = () => {
     setError(null);
   };
   return (
-    <WrapperAuth>
+    <Screen mode="form">
       {/* <SharedBackButton
         onPress={router.back}
         absolutePosition={false}
         styleBtn={{ marginBottom: 30 }}
       /> */}
 
-      <TouchableOpacity
+      <Pressable
         hitSlop={20}
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
         <Icon name="back" size={25} />
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={{ flex: 1 }}>
         <View>
@@ -95,7 +93,7 @@ const ForgotPassword = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </WrapperAuth>
+    </Screen>
   );
 };
 const styles = StyleSheet.create({

@@ -1,10 +1,10 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { View, Text, ScrollView, StyleSheet, Platform } from "react-native";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
+import { withScreen } from "@/components/ui";
 
 const AboutApplicationScreen = () => {
   const appName = "Book Hair";
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(AboutApplicationScreen);
+export default withScreen(AboutApplicationScreen);

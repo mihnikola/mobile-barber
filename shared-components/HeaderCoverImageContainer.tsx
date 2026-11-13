@@ -10,9 +10,8 @@ import SharedReservationData from "./SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
-import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 function HeaderCoverImageContainer({
   title,
@@ -49,9 +48,9 @@ function HeaderCoverImageContainer({
       {!reservation && !status && !reservationData && (
         <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
           {!hidden && (
-            <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <Pressable hitSlop={20} onPress={router.back}>
               <Icon name="back" size={25} />
-            </TouchableOpacity>
+            </Pressable>
           )}
           <Text style={[styles.capture, nextBtn && styles.captureNextBtn]}>
             {title}

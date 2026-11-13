@@ -1,4 +1,3 @@
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   Modal,
   ScrollView,
@@ -7,7 +6,7 @@ import {
   View,
 } from "react-native";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 function LocationsComponent({
   locations,
@@ -34,7 +33,7 @@ function LocationsComponent({
           <ScrollView style={{ maxHeight: 300 }}>
             {locations?.map((locationItem: any) => {
               return (
-                <TouchableOpacity
+                <Pressable
                   key={locationItem.id}
                   style={styles.item}
                   onPress={() => handleLocationSelect(locationItem)}
@@ -47,13 +46,13 @@ function LocationsComponent({
                   >
                     {locationItem.address}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               );
             })}
           </ScrollView>
-          <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
+          <Pressable onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </Modal>

@@ -1,4 +1,3 @@
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   Modal,
   StyleSheet,
@@ -6,6 +5,7 @@ import {
   View,
 } from "react-native";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 function LocationNotFound({
   modalVisible,
@@ -28,9 +28,9 @@ function LocationNotFound({
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>{title}</Text>
 
-          <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
+          <Pressable onPress={onConfirm} style={styles.actionButton}>
             <Text style={styles.actionButtonText}>{buttonText}</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </Modal>

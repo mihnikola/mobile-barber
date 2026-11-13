@@ -15,11 +15,9 @@ import {
   getOtpParamsStorage,
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
-import WrapperAuth from "../wrapperAuth/WrapperAuth";
 import Loader from "../Loader";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, Screen } from "@/components/ui";
 
 const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -120,14 +118,14 @@ const OtpCode = () => {
 
   if (verifyData) {
     return (
-      <WrapperAuth>
-        <TouchableOpacity
+      <Screen mode="form">
+        <Pressable
           hitSlop={20}
           onPress={router.back}
           style={{ marginVertical: 15 }}
         >
           <Icon name="back" size={25} />
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={{ flex: 1 }}>
           <View>
@@ -168,7 +166,7 @@ const OtpCode = () => {
             buttonText={localization.OK.label}
           />
         )}
-      </WrapperAuth>
+      </Screen>
     );
   }
 };

@@ -13,10 +13,8 @@ import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import WrapperAuth from "../wrapperAuth/WrapperAuth";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const { data } = useLocalSearchParams();
@@ -54,14 +52,14 @@ const ChangePass = () => {
   };
 
   return (
-    <WrapperAuth>
-      <TouchableOpacity
+    <Screen mode="form">
+      <Pressable
         hitSlop={20}
         onPress={router.back}
         style={{ marginVertical: 15 }}
       >
         <Icon name="back" size={25} />
-      </TouchableOpacity>
+      </Pressable>
       <View style={{ flex: 1 }}>
         <View>
           <Text style={styles.mainTitle}>
@@ -110,7 +108,7 @@ const ChangePass = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </WrapperAuth>
+    </Screen>
   );
 };
 const styles = StyleSheet.create({

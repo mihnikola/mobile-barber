@@ -1,8 +1,8 @@
 import ReservationInitialComponent from "@/components/reservation/reservationInitial";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { withScreen } from "@/components/ui";
 
 const Explore = () => {
   
   return <ReservationInitialComponent />;
 };
-export default withSafeArea(Explore);
+export default withScreen(Explore);

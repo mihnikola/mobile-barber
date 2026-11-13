@@ -1,8 +1,8 @@
 import LoginScreenComponent from "@/components/login";
-import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
+import { withScreen } from "@/components/ui";
 
 const LoginScreen = () => {
   return <LoginScreenComponent />;
 };
 
-export default withKeyboardAvoid(LoginScreen);
+export default withScreen(LoginScreen, "keyboard");

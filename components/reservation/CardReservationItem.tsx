@@ -3,12 +3,12 @@ import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import InfoContainerPast from "./InfoContainerPast";
 import DateFormatComponent from "./DateFormatComponent";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 const CardReservationItem = ({ redirectScreen, item }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       style={[
         item?.past
           ? styles.cardReservationPast
@@ -20,7 +20,7 @@ const CardReservationItem = ({ redirectScreen, item }) => {
       <DateFormatComponent item={item} />
       {!item?.past && <InfoContainerFuture item={item} />}
       {item?.past && <InfoContainerPast item={item} />}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

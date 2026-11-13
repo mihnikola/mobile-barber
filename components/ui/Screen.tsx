@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { type ComponentType, type JSX, type ReactNode, useEffect, useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -25,6 +25,19 @@ export function Screen({ mode = "safe", children }: ScreenProps) {
   if (mode === "keyboard") return <KeyboardScreen>{children}</KeyboardScreen>;
   if (mode === "form") return <FormScreen>{children}</FormScreen>;
   return <SafeScreen>{children}</SafeScreen>;
+}
+
+/** HOC form of `<Screen>` for route files: `export default withScreen(MyScreen, "keyboard")`. */
+export function withScreen<P>(Component: ComponentType<P>, mode: ScreenMode = "safe") {
+  function WithScreen(props: P & JSX.IntrinsicAttributes) {
+    return (
+      <Screen mode={mode}>
+        <Component {...props} />
+      </Screen>
+    );
+  }
+  WithScreen.displayName = `withScreen(${Component.displayName ?? Component.name ?? "Component"})`;
+  return WithScreen;
 }
 
 function SafeScreen({ children }: { children: ReactNode }) {

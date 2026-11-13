@@ -1,8 +1,8 @@
 import PlaceComponent from "@/components/places/PlaceComponent";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { withScreen } from "@/components/ui";
 
 function locations() {
   return <PlaceComponent />;
 }
 
-export default withSafeArea(locations);
+export default withScreen(locations);

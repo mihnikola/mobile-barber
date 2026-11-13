@@ -2,19 +2,19 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import DateFormatComponent from "./DateFormatComponent";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 const CardReservationRejected = ({ redirectScreen, item }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.cardReservation}
       key={item._id}
       onPress={() => redirectScreen(item)}
     >
       <DateFormatComponent item={item} rejected={1} />
       <InfoContainerFuture key={item.id} item={item} />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -1,9 +1,8 @@
 import SharedImageInitials from "@/shared-components/SharedInitialsName";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { StyleSheet } from "react-native";
 import { Image, Text, View } from "react-native";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 const ProfileUserComponent = ({ data, onPress }) => {
   return (
@@ -17,9 +16,9 @@ const ProfileUserComponent = ({ data, onPress }) => {
         <Text style={styles.profileName}>{data?.name}</Text>
         <Text style={styles.profileEmail}>{data?.email}</Text>
       </View>
-      <TouchableOpacity style={styles.editButton} onPress={() => onPress("1")}>
+      <Pressable style={styles.editButton} onPress={() => onPress("1")}>
         <Icon name="pencil" size={20} color="text" />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

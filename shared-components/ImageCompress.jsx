@@ -2,8 +2,7 @@ import { StyleSheet, View,  Image } from "react-native";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-import { TouchableOpacity } from "./TouchableOpacity";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 import { colors } from "@/theme";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
@@ -22,13 +21,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
       {!selectedImageUri && (
         <View>
           <Icon name="personCircle" size={280} color="text" />
-          <TouchableOpacity
+          <Pressable
             style={styles.buttonPlaceholder}
             onPress={pickImage}
             disabled={uploading}
           >
             <Icon name="photo" size={45} color="text" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       )}
       {selectedImageUri && (
@@ -37,13 +36,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
         </View>
       )}
       {selectedImageUri && (
-        <TouchableOpacity
+        <Pressable
           style={styles.button}
           onPress={pickImage}
           disabled={uploading}
         >
           <Icon name="photo" size={45} color="text" />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );

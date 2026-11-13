@@ -26,12 +26,10 @@ import CustomGoogleButton from "../home/CustomGoogleButton";
 import CustomAppleButton from "../home/CustomAppleButton";
 import { useEffect, useRef } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
@@ -120,9 +118,9 @@ const LoginScreen = () => {
       keyboardShouldPersistTaps="always"
     >
       <View style={styles.container}>
-        <TouchableOpacity hitSlop={20} onPress={router.back}>
+        <Pressable hitSlop={20} onPress={router.back}>
           <Icon name="back" size={25} />
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={styles.logoImage}>
           <SharedLogin />
@@ -192,7 +190,7 @@ const LoginScreen = () => {
             placeholder={localization.PASSWORD.placeholder}
           />
         </View>
-        <TouchableOpacity onPress={forgotHandler} style={{ paddingTop: 20 }}>
+        <Pressable onPress={forgotHandler} style={{ paddingTop: 20 }}>
           <Text
             style={{
               color: colors.text,
@@ -202,7 +200,7 @@ const LoginScreen = () => {
           >
             {localization.LOGIN.forgot}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
 
         <SharedButton
           // loading={isLoadingLogin}

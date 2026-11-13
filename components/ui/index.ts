@@ -18,4 +18,4 @@ export {
 export { Icon, iconSize, type IconName, type IconProps } from "./Icon";
 export { Row, Stack, layout } from "./Layout";
 export { Pressable, PRESS_LOCK_MS, type PressableProps } from "./Pressable";
-export { Screen, type ScreenMode } from "./Screen";
+export { Screen, type ScreenMode, withScreen } from "./Screen";

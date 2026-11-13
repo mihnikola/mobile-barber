@@ -1,7 +1,7 @@
 import DateComponent from "@/components/reservation/DateComponent";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { useLocalSearchParams } from "expo-router";
+import { withScreen } from "@/components/ui";
 
 const Calendar = () => {
   const { isToken } = useDismissOnUnauthorizedFocus();
@@ -9,4 +9,4 @@ const Calendar = () => {
   return <DateComponent />;
 };
 
-export default withSafeArea(Calendar);
+export default withScreen(Calendar);

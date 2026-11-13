@@ -24,11 +24,9 @@ import SharedNameEdit from "@/shared-components/SharedNameEdit";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import withKeyboardAvoid from "@/components/wrapper/WrapperKeyboard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -140,9 +138,9 @@ const UserProfileScreen = () => {
         }}
       >
         <View style={{ marginLeft: 20, marginTop: 15 }}>
-          <TouchableOpacity hitSlop={20} onPress={router.back}>
+          <Pressable hitSlop={20} onPress={router.back}>
             <Icon name="back" size={25} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
@@ -357,4 +355,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withKeyboardAvoid(UserProfileScreen);
+export default withScreen(UserProfileScreen, "keyboard");

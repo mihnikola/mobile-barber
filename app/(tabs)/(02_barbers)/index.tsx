@@ -1,7 +1,7 @@
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import Locations from "@/components/locations/Locations";
+import { withScreen } from "@/components/ui";
 const EmployersComponent = () => {
   return <Locations />;
 };
 
-export default withSafeArea(EmployersComponent);
+export default withScreen(EmployersComponent);

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 const SharedCategoryItem = (props) => {
   const { redirectHandler, data, isSelected } = props;
@@ -10,7 +10,7 @@ const SharedCategoryItem = (props) => {
   const { localization } = useLocalization();
 
   return (
-    <TouchableOpacity
+    <Pressable
       key={id}
       onPress={() => redirectHandler(data)}
       style={[styles.card, isSelected._id === data?._id && styles.isSelected]}
@@ -26,7 +26,7 @@ const SharedCategoryItem = (props) => {
 
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

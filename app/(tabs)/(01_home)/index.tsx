@@ -8,7 +8,6 @@ import {
   useWindowDimensions,
   Image,
 } from "react-native";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { useOpenGoogleMaps } from "../../../components/location/hooks/useOpenGoogleMaps";
 import { router } from "expo-router";
 import { usePersistentSlideAnimations as useSlideAnimations } from "./../../../components/home/hooks/useSlideAnimations";
@@ -18,11 +17,10 @@ import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 
 import useInternetGuard from "@/services/useInternetGuard";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable, withScreen } from "@/components/ui";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -122,7 +120,7 @@ function App() {
           },
         ]}
       >
-        <TouchableOpacity
+        <Pressable
           onPress={nextPage}
           style={styles.btnLocationContent}
         >
@@ -138,8 +136,8 @@ function App() {
           </View>
 
           <Icon name="chevronRight" size={28} color="iconMuted" />
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
           onPress={onAboutUs}
           style={styles.btnLocationContent}
         >
@@ -153,9 +151,9 @@ function App() {
             </Text>
           </View>
           <Icon name="chevronRight" size={28} color="iconMuted" />
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity
+        <Pressable
           onPress={openLocationHandler}
           style={styles.btnLocationContent}
         >
@@ -169,7 +167,7 @@ function App() {
             </Text>
           </View>
           <Icon name="chevronRight" size={28} color="iconMuted" />
-        </TouchableOpacity>
+        </Pressable>
       </Animated.View>
     </View>
   );
@@ -239,4 +237,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(App);
+export default withScreen(App);

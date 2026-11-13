@@ -10,14 +10,13 @@ import SharedDetailsReservation from "@/shared-components/SharedDetailsReservati
 import StarRating from "@/components/reservation/StarRateComponent";
 import SharedInputTextAreaMark from "@/shared-components/SharedInputTextAreaMark";
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
-import withKeyboardAvoid from "../wrapper/WrapperKeyboard";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -373,4 +372,4 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 });
-export default withKeyboardAvoid(ResevationNotificationScreen);
+export default withScreen(ResevationNotificationScreen, "keyboard");

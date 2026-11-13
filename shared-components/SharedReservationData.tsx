@@ -3,9 +3,8 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 function SharedReservationData({ reservation }) {
   const { localization } = useLocalization();
@@ -21,9 +20,9 @@ function SharedReservationData({ reservation }) {
   return (
     <View style={styles.coverContent}>
       <View>
-        <TouchableOpacity hitSlop={20} onPress={router.back}>
+        <Pressable hitSlop={20} onPress={router.back}>
           <Icon name="back" size={25} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View>
         <Text style={styles.timeData}>

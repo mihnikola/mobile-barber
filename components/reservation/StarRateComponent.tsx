@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 // StarRating component props
 interface StarRatingProps {
@@ -39,7 +38,7 @@ const StarRating: React.FC<StarRatingProps> = ({
     const stars = [];
     for (let i = 1; i <= maxStars; i++) {
       stars.push(
-        <TouchableOpacity
+        <Pressable
           key={i}
           onPress={() => handleStarPress(i)}
           activeOpacity={0.7} // Reduce opacity slightly when pressed
@@ -49,7 +48,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             size={starSize}
             rawColor={i <= currentRating ? filledColor : emptyColor}
           />
-        </TouchableOpacity>,
+        </Pressable>,
       );
     }
     return stars;

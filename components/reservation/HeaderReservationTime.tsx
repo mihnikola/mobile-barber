@@ -1,10 +1,9 @@
 import { convertDateDetails } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { router } from "expo-router";
 import { StyleSheet, Text,  View } from "react-native";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 const HeaderReservationTime = ({ data }) => {
   const { localization } = useLocalization();
@@ -13,9 +12,9 @@ const HeaderReservationTime = ({ data }) => {
   return (
     <View style={styles.coverContent}>
       <View>
-        <TouchableOpacity hitSlop={20} onPress={router.back}>
+        <Pressable hitSlop={20} onPress={router.back}>
           <Icon name="back" size={25} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View>
         <Text style={styles.timeData}>

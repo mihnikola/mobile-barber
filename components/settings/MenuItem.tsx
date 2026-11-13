@@ -1,5 +1,4 @@
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import { Icon, type IconName } from "@/components/ui";
+import { Icon, type IconName, Pressable } from "@/components/ui";
 import {
   Platform,
   StatusBar,
@@ -18,7 +17,7 @@ export const MenuItem = ({
   onToggle,
   isLogout = false,
 }) => (
-  <TouchableOpacity
+  <Pressable
     style={[styles.menuItem, isLogout && styles.logoutMenuItem]}
     onPress={onPress}
     disabled={isToggle}
@@ -37,7 +36,7 @@ export const MenuItem = ({
     ) : (
       <Icon name="chevronRightThin" size={24} style={styles.menuItemArrow} color="iconMuted" />
     )}
-  </TouchableOpacity>
+  </Pressable>
 );
 
 const styles = StyleSheet.create({

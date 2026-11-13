@@ -1,7 +1,7 @@
 import ForgotPasswordComponent from '@/components/forgotPass/index';
-import withSafeArea from '@/components/wrapper/WrapperSafeArea';
+import { withScreen } from "@/components/ui";
 
 const ForgotPassword = () => {
     return <ForgotPasswordComponent />
 }
-export default withSafeArea(ForgotPassword);
+export default withScreen(ForgotPassword);

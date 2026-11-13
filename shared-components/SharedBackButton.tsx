@@ -1,16 +1,15 @@
 import { StyleSheet } from "react-native";
-import { TouchableOpacity } from "./TouchableOpacity";
-import { Icon } from "@/components/ui";
+import { Icon, Pressable } from "@/components/ui";
 
 const SharedBackButton = ({ onPress, styleBtn, absolutePosition = true }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       style={[absolutePosition && styles.btnStyle, styleBtn]}
       hitSlop={20}
       onPress={onPress}
     >
       <Icon name="back" size={25} />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -1,15 +1,15 @@
 import { View, Text,  StyleSheet } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "./TouchableOpacity";
 import { colors, fonts } from "@/theme";
+import { Pressable } from "@/components/ui";
 
 const SharedRedirect = (props: any) => {
   return (
     <View style={styles.registerContainer}>
       <Text style={styles.registerText}>{props.question} </Text>
-      <TouchableOpacity onPress={props.onPress}>
+      <Pressable onPress={props.onPress}>
         <Text style={styles.registerLink}>{props.text}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

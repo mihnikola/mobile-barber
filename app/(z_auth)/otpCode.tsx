@@ -1,9 +1,9 @@
 import React from "react";
 import OtpCodeComponent from "@/components/otpCode/index";
-import withSafeArea from "@/components/wrapper/WrapperSafeArea";
+import { withScreen } from "@/components/ui";
 
 const otpCode = () => {
   return <OtpCodeComponent />;
 };
 
-export default withSafeArea(otpCode);
+export default withScreen(otpCode);
