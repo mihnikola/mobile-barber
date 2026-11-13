@@ -1,22 +1,6 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { Loader } from "@/components/ui/Loader";
 
-const LoaderDate = () => {
-  return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color={ColorsBarber.dark.textColor} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: ColorsBarber.dark.background
-  },
-});
+/** @deprecated Use `<Loader variant="inline" />` from `@/components/ui`. */
+const LoaderDate = () => <Loader variant="inline" />;
 
 export default LoaderDate;

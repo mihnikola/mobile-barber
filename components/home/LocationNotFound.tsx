@@ -40,7 +40,7 @@ function LocationNotFound({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.88)",
+    backgroundColor: colors.overlay,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

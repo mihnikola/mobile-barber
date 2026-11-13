@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.88)",
+    backgroundColor: colors.overlay,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   sub: {
     fontSize: 16,
-    color: "lightgray",
+    color: colors.textLight,
     marginBottom: 25,
     textAlign: "center",
   },

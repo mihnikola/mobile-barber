@@ -1,0 +1,56 @@
+import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
+
+import { colors } from "@/theme";
+
+import { Dialog } from "./Dialog";
+
+type LoaderProps =
+  /** Fills the area, at least half the screen high (lists / screens loading). */
+  | { variant?: "block" }
+  /** Compact, 20px vertical padding (e.g. inside the date picker). */
+  | { variant: "inline" }
+  /** Blocking modal spinner. */
+  | { variant: "overlay"; visible?: boolean; onRequestClose?: () => void };
+
+/** One loader for the whole app. */
+export function Loader(props: LoaderProps) {
+  const { height } = useWindowDimensions();
+
+  if (props.variant === "overlay") {
+    return (
+      <Dialog visible={props.visible} onRequestClose={props.onRequestClose} panelStyle={styles.overlayPanel}>
+        <ActivityIndicator size={32} color={colors.text} />
+      </Dialog>
+    );
+  }
+
+  return (
+    <View style={props.variant === "inline" ? styles.inline : [styles.block, { minHeight: height * 0.5 }]}>
+      <ActivityIndicator size="large" color={colors.text} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.background,
+  },
+  inline: {
+    flex: 1,
+    paddingVertical: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.background,
+  },
+  overlayPanel: {
+    shadowColor: colors.background,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 15,
+  },
+});

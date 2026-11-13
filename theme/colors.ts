@@ -46,6 +46,12 @@ export const colors = {
   textOnLight: "#000000",
   textDark: "#11181C",
 
+  /** RN named color "lightgray" */
+  textLight: "#D3D3D3",
+
+  /** Dimmed backdrop behind modals */
+  overlay: "rgba(0, 0, 0, 0.88)",
+
   // Icons
   icon: "#687076",
   iconMuted: "#8A8888",

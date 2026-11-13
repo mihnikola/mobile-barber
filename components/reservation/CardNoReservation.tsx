@@ -1,45 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ColorsBarber } from "@/constants/Colors";
-import { fonts } from "@/theme";
 
+/** No appointments (not logged in). Built from `EmptyState`. */
 const CardNoReservation = () => {
-  const {localization} = useLocalization();
-  return (
-    <View style={styles.card}>
-      <Text style={styles.capture}>{localization.APPOINTMENTS.error}</Text>
-      <Text style={styles.description}>
-      {localization.APPOINTMENTS.noLogin}
-      </Text>
-    </View>
-  );
+  const { localization } = useLocalization();
+  return <EmptyState title={localization.APPOINTMENTS.error} description={localization.APPOINTMENTS.noLogin} />;
 };
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: ColorsBarber.dark.background,
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    marginTop: 20,
-    borderRadius: 20,
-    padding: 10,
-    gap: 20,
-    height: 100,
-  },
-  capture: {
-    fontSize: 20,
-    textAlign: "center",
-    padding: 10,
-    fontFamily: fonts.bold,
-   color: ColorsBarber.dark.textColor,
-  },
-  description: {
-    fontSize: 16,
-    color: ColorsBarber.dark.textColor,
-    fontFamily: fonts.regular,
-    textAlign: "center",
-  },
-});
 
 export default CardNoReservation;

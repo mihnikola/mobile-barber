@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { fonts } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 function LocationsComponent({
   locations,
@@ -67,7 +67,7 @@ function LocationsComponent({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.88)",
+    backgroundColor: colors.overlay,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

@@ -1,24 +1,6 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { View, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
+import { Loader as UiLoader } from "@/components/ui/Loader";
 
-const Loader = () => {
-  const { height } = useWindowDimensions();
-
-  return (
-    <View style={[styles.container, { minHeight: height * 0.5 }]}>
-      <ActivityIndicator size="large" color={ColorsBarber.dark.textColor} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",  // Centriranje po vertikali
-    alignItems: "center",      // Centriranje po horizontali
-    backgroundColor: ColorsBarber.dark.background,
-  },
-});
+/** @deprecated Use `<Loader />` from `@/components/ui`. */
+const Loader = () => <UiLoader />;
 
 export default Loader;
