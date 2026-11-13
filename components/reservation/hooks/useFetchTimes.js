@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { getData } from "@/api/apiService";
+import { getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 
@@ -38,7 +39,7 @@ const useFetchTimes = (date, reservation, isSunday) => {
 
     if (selectedDate.length > 0 || Object.keys(selectedDate).length > 0) {
       try {
-        const response = await getData("/times", {
+        const response = await getData(endpoints.times, {
           date: selectedDate,
           employer: employerData,
           service: serviceData,

@@ -1,4 +1,5 @@
-import { getData } from "@/api/apiService";
+import { getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useState } from "react";
 
@@ -13,7 +14,7 @@ const useFetchEmployers = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getData("/users", { location, service });
+      const response = await getData(endpoints.users.root, { location, service });
 
       if (response.status === 200) {
         setEmplData(response.data);

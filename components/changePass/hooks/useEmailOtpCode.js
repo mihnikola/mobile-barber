@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { getData } from "@/api/apiService";
+import { getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
@@ -35,7 +36,7 @@ const useEmailOtpCode = () => {
 
       
     try {
-      const response = await getData("/users/email", { params: { email } });
+      const response = await getData(endpoints.users.byEmail, { params: { email } });
 
       console.log("checkEmailValidation+++ response",response);
       if (response.status === 200) {

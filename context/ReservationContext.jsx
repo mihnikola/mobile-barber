@@ -1,5 +1,6 @@
 // /app/contexts/ReservationContext.tsx
-import { getData } from "@/api/apiService";
+import { getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { router } from "expo-router";
 import { createContext, useState } from "react";
 
@@ -19,7 +20,7 @@ export const ReservationProvider = ({ children }) => {
 
     const { location } = reservation;
     try {
-      const response = await getData(`/categories/${categoryId}`, {
+      const response = await getData(endpoints.categories.byId(categoryId), {
         placeId: location?.id || location?._id,
         categoryId,
         serviceId: service?.serviceId,

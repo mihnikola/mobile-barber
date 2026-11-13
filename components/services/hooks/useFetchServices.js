@@ -1,6 +1,7 @@
 // src/hooks/useFetchServices.js
 import { useState, useEffect, useContext } from "react";
-import { get, getData } from "@/api/apiService";
+import { get, getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import ReservationContext from "@/context/ReservationContext";
 import { router } from "expo-router";
@@ -19,7 +20,7 @@ const useFetchServices = () => {
     const { location } = reservation;
 
     try {
-      const response = await get(`/services/location/${location.id}`);
+      const response = await get(endpoints.services.byLocation(location.id));
       if (response.status === 200) {
         setServicesData(response.data);
       }
@@ -44,7 +45,7 @@ const useFetchServices = () => {
     updateReservation({ ...reservation, service });
 
     try {
-      const response = await getData(`/categories/${id}`, {
+      const response = await getData(endpoints.categories.byId(id), {
         placeId,
         categoryId,
         serviceId,

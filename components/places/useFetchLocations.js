@@ -1,4 +1,5 @@
-import { get } from "@/api/apiService";
+import { get } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import ReservationContext from "@/context/ReservationContext";
 import { useState, useEffect, useContext } from "react";
@@ -15,7 +16,7 @@ const useFetchLocations = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get("/places");
+      const response = await get(endpoints.places);
       if (response.status === 200) {
         setIsLoading(false);
         const { data } = response;

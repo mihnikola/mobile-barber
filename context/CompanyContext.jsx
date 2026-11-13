@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { get } from "@/api/apiService";
+import { get } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "./LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -36,7 +37,7 @@ export const CompanyProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get("/company");
+      const response = await get(endpoints.company);
 
       setCompany(response);
       // Koristimo await za čuvanje podataka

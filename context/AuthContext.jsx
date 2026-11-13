@@ -1,4 +1,5 @@
-import { get, post, getData } from "@/api/apiService";
+import { get, post, getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { getStorage, saveStorage, removeStorage } from "@/helpers/token";
 import { router } from "expo-router";
 import {
@@ -154,7 +155,7 @@ export const AuthProvider = ({ children }) => {
 
     setError(null);
     try {
-      const responseData = await post("/users/loginIos", {
+      const responseData = await post(endpoints.users.loginIos, {
         user: userData,
         fcmToken,
       });
@@ -189,7 +190,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get(`/users/${isToken}`);
+      const response = await get(endpoints.users.byToken(isToken));
       if (response.status === 200) {
         setUserData(response.data);
         setIsLoading(false);
@@ -266,7 +267,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       if (isToken) {
-        const response = await post("/users/logout", { token: isToken });
+        const response = await post(endpoints.users.logout, { token: isToken });
         if (response.status === 200) {
           await removeStorage();
           await signOut();
@@ -302,7 +303,7 @@ export const AuthProvider = ({ children }) => {
     withLoading("verification", async () => {
       const { email } = verificationData;
       try {
-        const response = await getData("/users/sendOTPviaLogin", {
+        const response = await getData(endpoints.users.sendOtpViaLogin, {
           params: { email },
         });
 
@@ -348,7 +349,7 @@ export const AuthProvider = ({ children }) => {
       setStatus(null);
       setError(null);
       try {
-        const responseData = await post("/users/login", {
+        const responseData = await post(endpoints.users.login, {
           email,
           password,
           expoToken,
@@ -403,7 +404,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const responseData = await post("/users/loginViaGoogle", {
+      const responseData = await post(endpoints.users.loginViaGoogle, {
         user,
         expoToken,
       });

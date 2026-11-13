@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { ENG_LOCALIZATION } from "../helpers/en-locale";
 import { SRB_LOCALIZATION } from "../helpers/srb-locale";
 import { getLanguageValue, setLanguageValue } from "../helpers/language";
-import { put } from "@/api/apiService";
+import { put } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { getStorage } from "@/helpers/token";
 
 const LocalizationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
@@ -21,7 +22,7 @@ export const LocalizationProvider = ({ children }) => {
     try {
       const token = await getStorage();
       if (!token) return;
-      await put(`/users/${token}/changeLanguage`, { langData });
+      await put(endpoints.users.changeLanguage(token), { langData });
     } catch (error) {
       console.log("LocalizationContext error", error);
     } finally {

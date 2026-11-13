@@ -1,6 +1,7 @@
 // src/hooks/useEmailOtpCode.js
 import { useState } from "react";
-import { getData, post } from "@/api/apiService";
+import { getData, post } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import { getExpoTokenStorage } from "@/helpers/expoToken";
 import { saveStorage } from "@/helpers/token";
@@ -19,7 +20,7 @@ const useSubmitOtpCode = () => {
     setError(null);
 
     try {
-      const response = await getData("/users/otpcode", {
+      const response = await getData(endpoints.users.otpCode, {
         email,
         otpCode,
       });
@@ -45,7 +46,7 @@ const useSubmitOtpCode = () => {
     setError(null);
 
     try {
-      const response = await post("/users/loginVerify", {
+      const response = await post(endpoints.users.loginVerify, {
         email,
         password,
         otpCode,
@@ -73,7 +74,7 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getData("/users/verifyEmail", {
+      const response = await getData(endpoints.users.verifyEmail, {
         email,
         otpCode,
       });
@@ -130,7 +131,7 @@ const useSubmitOtpCode = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getData("/users/sendOTPviaLogin", {
+      const response = await getData(endpoints.users.sendOtpViaLogin, {
         params: { email, password },
       });
       if (response.status === 400) {
@@ -153,7 +154,7 @@ const useSubmitOtpCode = () => {
 
     setError(null);
     try {
-      const response = await getData("/users/sendOTPviaLogin", {
+      const response = await getData(endpoints.users.sendOtpViaLogin, {
         params: { email, password },
       });
       if (response.status === 400) {

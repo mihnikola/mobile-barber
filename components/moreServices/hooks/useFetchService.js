@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { get, getData } from "@/api/apiService";
+import { get, getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import ReservationContext from "@/context/ReservationContext";
 
@@ -25,7 +26,7 @@ const useFetchService = () => {
     setError(null);
     const { location, service } = reservation;
     try {
-      const response = await getData(`/categories/${id}`, {
+      const response = await getData(endpoints.categories.byId(id), {
         placeId: location.id || location._id,
         serviceId: service.serviceId,
         categoryId: id,

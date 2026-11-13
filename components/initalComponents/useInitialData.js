@@ -1,4 +1,5 @@
-import { get } from "@/api/apiService";
+import { get } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ const useInitialData = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get("/initial");
+      const response = await get(endpoints.initial);
 
 
       setInitialData(response);

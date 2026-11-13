@@ -3,7 +3,8 @@ import { router } from "expo-router";
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
-import { get, getData, post, put } from "@/api/apiService";
+import { get, getData, post, put } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import {
   addMinutesToTime,
   convertNameAndDate,
@@ -75,7 +76,7 @@ export const AppointmentProvider = ({ children }) => {
       setIsModal(true);
 
       try {
-        await put(`/availabilities/${reservationId}`, {
+        await put(endpoints.availabilities.byId(reservationId), {
           status: 0,
           rate: rating,
           description,
@@ -110,7 +111,7 @@ export const AppointmentProvider = ({ children }) => {
       setIsModal(true);
 
       try {
-        const response = await put(`/availabilities/${reservationId}`, {
+        const response = await put(endpoints.availabilities.byId(reservationId), {
           status: 1,
         });
         setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
@@ -138,7 +139,7 @@ export const AppointmentProvider = ({ children }) => {
       }
 
       try {
-        const response = await get(`/availabilities/${reservationId}`);
+        const response = await get(endpoints.availabilities.byId(reservationId));
         const { status, data } = response;
         if (status === 200) {
           const startDateTime = convertToDayTime(data?.startDate);
@@ -186,7 +187,7 @@ export const AppointmentProvider = ({ children }) => {
 
     //ovde mi trebaju statusi pending/rejected/approved
     try {
-      const response = await getData("/availabilities", {
+      const response = await getData(endpoints.availabilities.root, {
         activeStatus,
       });
 
@@ -233,7 +234,7 @@ export const AppointmentProvider = ({ children }) => {
     const serviceIds = otherServices.map((serv) => serv.id);
 
     try {
-      const response = await post("/availabilities", {
+      const response = await post(endpoints.availabilities.root, {
         employerId: employer.id,
         service,
         time: timeData.value,

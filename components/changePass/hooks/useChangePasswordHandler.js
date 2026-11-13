@@ -1,6 +1,7 @@
 // src/hooks/useChangePasswordHandler.js
 import { useState, useCallback } from "react";
-import { put } from "@/api/apiService";
+import { put } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const useChangePasswordHandler = () => {
@@ -28,7 +29,7 @@ const useChangePasswordHandler = () => {
       }
 
       try {
-        const response = await put(`/users/${email}/changePassword`, {
+        const response = await put(endpoints.users.changePassword(email), {
           password,
         });
         if (response.status === 200) {
