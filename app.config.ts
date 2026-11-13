@@ -12,9 +12,18 @@ const SPLASH_BG = {
     atelier: { light: "#FBF6F1", dark: "#1A1215" },
 }[BRAND];
 
+/**
+ * App identity per brand. Name: working names until the client's real one ("Atelier Salon" is the
+ * salon design's working name). Bundle id / package stays fta.barber.app unless APP_ID is set: the
+ * Firebase files (google-services.json, GoogleService-Info.plist) are registered for that id — a
+ * salon app with its own id needs its own Firebase app + files (GOOGLE_SERVICES_JSON / ..._PLIST).
+ */
+const APP_NAME = { gentleman: "Barber App", atelier: "Atelier Salon" }[BRAND];
+const APP_ID = process.env.APP_ID || "fta.barber.app";
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
-    name: "Barber App",
+    name: APP_NAME,
     slug: "fta-barber-mob-app",
     version: APP_VERSION,
     orientation: "portrait",
@@ -25,7 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         entitlements: {
             "com.apple.developer.applesignin": ["Default", "Default"],
         },
-        bundleIdentifier: "fta.barber.app",
+        bundleIdentifier: APP_ID,
         supportsTablet: true,
         googleServicesFile: process.env.GOOGLE_SERVICE_INFO_PLIST || "./firebase/GoogleService-Info.plist",
         infoPlist: {
@@ -33,7 +42,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
     },
     android: {
-        package: "fta.barber.app",
+        package: APP_ID,
         googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./firebase/google-services.json",
     },
     plugins: [

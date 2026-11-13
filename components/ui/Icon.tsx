@@ -1,11 +1,15 @@
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import type { StyleProp, TextStyle } from "react-native";
 
 import { type ColorToken, useTheme } from "@/theme";
 
-/** Feather = the design system line style (Lucide predecessor, D-024); FontAwesome only for filled rating stars. */
-const FAMILIES = { Feather, FontAwesome } as const;
+/**
+ * Feather = the design system line style (Lucide predecessor, D-024); FontAwesome only for filled
+ * rating stars; Ionicons only for the sparkle (Atelier booking icon — Feather has none).
+ */
+const FAMILIES = { Feather, FontAwesome, Ionicons } as const;
 type Family = keyof typeof FAMILIES;
 
 /**
@@ -47,6 +51,7 @@ const REGISTRY = {
   locationArrow: ["Feather", "navigation"],
   locationDot: ["Feather", "map-pin"],
   scissors: ["Feather", "scissors"],
+  sparkle: ["Ionicons", "sparkles-outline"],
   services: ["Feather", "settings"],
   wifiOff: ["Feather", "wifi-off"],
   // settings menu

@@ -1,11 +1,16 @@
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
-import { ENG_LOCALIZATION } from "../helpers/en-locale";
-import { SRB_LOCALIZATION } from "../helpers/srb-locale";
+import { ENG_LOCALIZATION as ENG_BASE } from "../helpers/en-locale";
+import { SRB_LOCALIZATION as SRB_BASE } from "../helpers/srb-locale";
+import { withBrandWording } from "@/helpers/brandWording";
 import { getLanguageValue, setLanguageValue } from "../helpers/language";
 import { getStorage } from "@/helpers/token";
 
 import type { Localization, LocalizationContextValue } from "./types";
 import { usersApi } from "@/lib/api/services";
+
+// base texts + the active brand's wording ("Tim" instead of "Frizeri" for the salon, D-025)
+const ENG_LOCALIZATION = withBrandWording(ENG_BASE, "en");
+const SRB_LOCALIZATION = withBrandWording(SRB_BASE, "sr");
 
 const LocalizationContext = createContext<LocalizationContextValue | null>(null);
 

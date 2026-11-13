@@ -2,7 +2,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, View } from "react-native";
-import { fonts, makeStyles, radii, useTheme } from "@/theme";
+import { brand, fonts, makeStyles, radii, useTheme } from "@/theme";
 import { Icon, type IconName } from "@/components/ui";
 
 /** Tab icon in the design-system nav pill (`ds-nav__pill`): accent on accentSoft when active. */
@@ -52,7 +52,7 @@ export default function TabLayout() {
           name="(02_barbers)"
           options={{
             title: localization.TABS.BARBERS,
-            tabBarIcon: ({ focused }) => <TabIcon name="scissors" focused={focused} />,
+            tabBarIcon: ({ focused }) => <TabIcon name={brand.details.bookIcon} focused={focused} />,
           }}
         />
         <Tabs.Screen
