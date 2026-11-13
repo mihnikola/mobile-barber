@@ -1,6 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
@@ -230,18 +230,18 @@ function ResevationNotificationScreen() {
   const renderRejectionTitle = () => {
     return (
       <View style={styles.missed}>
-        <Text style={styles.textBoldRejected}>
+        <AppText variant="heading" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.rejectedMessage}
-        </Text>
+        </AppText>
       </View>
     );
   };
   const renderExpirationTitle = () => {
     return (
       <View style={styles.missed}>
-        <Text style={styles.textBoldRejected}>
+        <AppText variant="heading" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.expiredMessage}
-        </Text>
+        </AppText>
       </View>
     );
   };
@@ -312,10 +312,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   textBoldRejected: {
-    color: colors.text,
     fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
     textAlign: "center",
-    fontFamily: fonts.bold,
   },
   textBoldSuccess: {
     color: colors.text,

@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import {
-  Text,
   StyleSheet,
   View,
   useWindowDimensions,
@@ -11,7 +10,7 @@ import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses"
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 function HeaderCoverImageContainer({
   title,
@@ -52,9 +51,9 @@ function HeaderCoverImageContainer({
               <Icon name="back" size={25} />
             </Pressable>
           )}
-          <Text style={[styles.capture, nextBtn && styles.captureNextBtn]}>
+          <AppText size={32} style={nextBtn && styles.captureNextBtn}>
             {title}
-          </Text>
+          </AppText>
         </View>
       )}
       {reservation && <SharedReservationData reservation={reservation} />}
@@ -63,7 +62,7 @@ function HeaderCoverImageContainer({
       {status && (
         <View style={styles.containerStatus}>
           <View style={styles.containerStatusTitle}>
-            <Text style={styles.capture}>{title}</Text>
+            <AppText size={32}>{title}</AppText>
           </View>
           <View>
             <AppointmentsStatuses handleStatus={handleStatus} active={active} />
@@ -105,11 +104,6 @@ const styles = StyleSheet.create({
   },
   hidden: {
     justifyContent: "flex-end",
-  },
-  capture: {
-    fontSize: 32,
-    color: colors.text,
-    fontFamily: fonts.regular,
   },
   captureNextBtn: {
     fontSize: 28,
