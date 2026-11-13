@@ -1,73 +1,68 @@
 import { router } from "expo-router";
-import {
-  StyleSheet,
-  View,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import { View } from "react-native";
 import SharedReservationData from "@/components/booking/SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
-import { fonts, makeStyles } from "@/theme";
+import { makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
+/**
+ * Screen header (design system `ds-appbar` + `ds-h1`, Phase 5.6).
+ * The old full-width cover photo is gone (DS: no dark photos over the screen); the header is
+ * back button + display title. Variants kept: `hidden` (no back), `reservation` / `reservationData`
+ * (booking summary / appointment time), `status` (title + status tabs).
+ * `image` / `nextBtn` / `skip` / `routerHandler` are accepted for existing callers.
+ */
 function HeaderCoverImageContainer({
   title,
-  image,
+  image: _image,
   hidden = false,
   reservation = null,
   reservationData = null,
   status = false,
-  nextBtn,
-  skip,
-  routerHandler,
+  nextBtn: _nextBtn,
+  skip: _skip,
+  routerHandler: _routerHandler,
+}: {
+  title?: string;
+  image?: unknown;
+  hidden?: boolean;
+  reservation?: unknown;
+  reservationData?: unknown;
+  status?: boolean;
+  nextBtn?: unknown;
+  skip?: unknown;
+  routerHandler?: unknown;
 }) {
   const styles = useStyles();
-  const { height } = useWindowDimensions();
-  const headerHeight = height * 0.25;
-  const headerHeightnextBtn = height * 0.15;
   const { active, handleStatus } = useAppointment();
 
   return (
-    <View
-      style={[
-        styles.heroHeader,
-        { height: nextBtn ? headerHeightnextBtn : headerHeight },
-      ]}
-    >
-      {/* Background Image (Rendered only if nextBtn is false) */}
-      {!nextBtn && (
-        <Image
-          source={require("@/assets/images/tabImage.png")}
-          style={[StyleSheet.absoluteFill, styles.backgroundImage]}
-          resizeMode="cover"
-        />
-      )}
-
+    <View style={styles.header}>
       {!reservation && !status && !reservationData && (
-        <View style={[styles.topBar, hidden ? styles.hidden : styles.show]}>
+        <>
           {!hidden && (
-            <Pressable hitSlop={20} onPress={router.back}>
-              <Icon name="back" size={25} />
+            <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
+              <Icon name="back" />
             </Pressable>
           )}
-          <AppText variant="legacyBody" size={32} style={nextBtn && styles.captureNextBtn}>
-            {title}
-          </AppText>
-        </View>
+          {title ? (
+            <AppText variant="displayLg" style={styles.title}>
+              {title}
+            </AppText>
+          ) : null}
+        </>
       )}
-      {reservation && <SharedReservationData reservation={reservation} />}
-      {reservationData && <HeaderReservationTime data={reservationData} />}
+      {reservation ? <SharedReservationData reservation={reservation} /> : null}
+      {reservationData ? <HeaderReservationTime data={reservationData} /> : null}
 
       {status && (
-        <View style={styles.containerStatus}>
-          <View style={styles.containerStatusTitle}>
-            <AppText variant="legacyBody" size={32}>{title}</AppText>
-          </View>
-          <View>
-            <AppointmentsStatuses handleStatus={handleStatus} active={active} />
-          </View>
+        <View style={styles.status}>
+          <AppText variant="displayLg" style={styles.title}>
+            {title}
+          </AppText>
+          <AppointmentsStatuses handleStatus={handleStatus} active={active} />
         </View>
       )}
     </View>
@@ -75,50 +70,10 @@ function HeaderCoverImageContainer({
 }
 
 const useStyles = makeStyles((colors) => ({
-  heroHeader: {
-    width: "100%",
-    backgroundColor: colors.background,
-    overflow: "hidden", // Ensures absolute image doesn't bleed past rounded borders
-  },
-  nextBtnTitle: {
-    fontSize: 15,
-    color: colors.white,
-    fontFamily: fonts.regular,
-  },
-  backgroundImage: {
-    opacity: 0.6,
-    width: "100%",
-    height: "100%",
-  },
-  nextBtn: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  topBar: {
-    marginVertical: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 20,
-    height: "100%",
-  },
-  show: {
-    justifyContent: "space-between",
-  },
-  hidden: {
-    justifyContent: "flex-end",
-  },
-  captureNextBtn: {
-    fontSize: 28,
-    color: colors.text,
-    fontFamily: fonts.regular,
-  },
-  containerStatus: {
-    height: "100%",
-    justifyContent: "flex-end",
-  },
-  containerStatusTitle: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-  },
+  header: { backgroundColor: colors.bg, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
+  back: { alignSelf: "flex-start", padding: 4, marginBottom: 12 },
+  title: { fontSize: 30, lineHeight: 33 },
+  status: { gap: 16 },
 }));
 
 export default HeaderCoverImageContainer;

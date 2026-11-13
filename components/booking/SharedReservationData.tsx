@@ -3,14 +3,16 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import React from "react";
 import { View } from "react-native";
+import type { ApiRecord } from "@/context/types";
 import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
-function SharedReservationData({ reservation }) {
+/** Booking summary header (design system `ds-big-when`): date, big time range, address. */
+function SharedReservationData({ reservation }: { reservation: ApiRecord | null }) {
   const styles = useStyles();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
-    (acc, current) => {
+    (acc: { totalPrice: number; totalDuration: number }, current: ApiRecord) => {
       acc.totalPrice += current.price;
       acc.totalDuration += current.duration;
       return acc;
@@ -19,30 +21,21 @@ function SharedReservationData({ reservation }) {
   );
 
   return (
-    <View style={styles.coverContent}>
-      <View>
-        <Pressable hitSlop={20} onPress={router.back}>
-          <Icon name="back" size={25} />
-        </Pressable>
-      </View>
-      <View>
-        <AppText variant="legacyTitle">
-          {reservation && reservation?.timeData?.value} -{" "}
-          {reservation &&
-            addMinutesToTime(
-              reservation?.timeData?.value,
-              reservation?.service?.serviceDuration,
-              totals?.totalDuration,
-            )}
-        </AppText>
-        <AppText variant="legacyTitle">
-          {convertDate(
-            reservation?.dateReservation?.dateString ||
-              reservation?.dateReservation,
-            localization.code,
-          )}
-        </AppText>
-        <AppText variant="legacyTitle">
+    <View>
+      <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
+        <Icon name="back" />
+      </Pressable>
+      <AppText variant="body" color="inkMuted">
+        {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}
+      </AppText>
+      <AppText style={styles.time}>
+        {reservation && reservation?.timeData?.value} –{" "}
+        {reservation &&
+          addMinutesToTime(reservation?.timeData?.value, reservation?.service?.serviceDuration, totals?.totalDuration)}
+      </AppText>
+      <View style={styles.place}>
+        <Icon name="locationDot" size="xs" color="inkMuted" />
+        <AppText variant="bodySm" color="inkMuted">
           {reservation?.location.address || reservation?.location[0].address}
         </AppText>
       </View>
@@ -51,48 +44,9 @@ function SharedReservationData({ reservation }) {
 }
 
 const useStyles = makeStyles((colors) => ({
-  button: {
-    display: "flex",
-    justifyContent: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    backgroundColor: colors.background,
-    borderRadius: 20,
-  },
-  buttonText: {
-    color: colors.text,
-    fontFamily: fonts.bold,
-    textTransform: "uppercase",
-    fontSize: 16,
-    textAlign: "center",
-  },
-
-  position: {
-    fontSize: 16,
-    color: colors.textMuted,
-    fontStyle: "italic",
-    padding: 12,
-  },
-
-  data: {
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: colors.background,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  coverImage: {
-    width: "100%",
-    height: 180,
-    opacity: 0.2,
-  },
-  coverContent: {
-    marginTop: 5,
-    paddingHorizontal: 15,
-    height: "100%",
-    justifyContent: "space-around",
-  },
+  back: { alignSelf: "flex-start", padding: 4, marginBottom: 12 },
+  time: { fontFamily: fonts.displaySemiBold, fontSize: 40, lineHeight: 44, color: colors.ink, marginTop: 2 },
+  place: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6 },
 }));
+
 export default SharedReservationData;
