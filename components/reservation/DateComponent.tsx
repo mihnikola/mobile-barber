@@ -18,13 +18,11 @@ import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateRes
 import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import LoaderDate from "@/components/legacy/LoaderDate";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText } from "@/components/ui";
+import { AppText, Loader } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const DateComponent = () => {
@@ -95,7 +93,7 @@ const DateComponent = () => {
   }, [localization.code]);
 
   if (!LocaleConfig.locales[localization.code]) {
-    return <SharedLoader />;
+    return <Loader variant="overlay" />;
   }
 
   if (check) {
@@ -133,7 +131,7 @@ const DateComponent = () => {
         <View>
           {!isSunday && (
             <>
-              {isLoading && <LoaderDate />}
+              {isLoading && <Loader variant="inline" />}
               {resetError && <NotSummary text={localization.DATE.chooseDate} />}
               {!isLoading && !error && timesData.length > 0 && !resetError && (
                 <Summary

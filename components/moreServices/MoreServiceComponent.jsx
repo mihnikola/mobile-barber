@@ -6,12 +6,12 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { ScrollView, Text, View } from "react-native";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { coverImageAppointments } from "@/constants";
-import Loader from "@/components/legacy/Loader";
 import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelection";
 import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
 import SharedButton from "@/components/legacy/SharedButton";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
+import { Loader } from "@/components/ui";
 
 const MoreServiceComponent = () => {
   const styles = useStyles();

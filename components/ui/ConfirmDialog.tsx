@@ -1,26 +1,26 @@
 import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { Dialog, DialogAction } from "@/components/ui/Dialog";
+import { Dialog, DialogAction } from "./Dialog";
 import { fonts } from "@/theme";
 
-/** @deprecated Use `<Dialog>` + two `<DialogAction>`s from `@/components/ui`. */
-export const SharedQuestion = ({
+/** Yes / No confirmation (logout, cancel reservation …). */
+export const ConfirmDialog = ({
   isOpen,
   onClose,
   icon,
   title,
-  buttonTextYes,
-  onLogOut,
-  buttonTextNo,
+  confirmText,
+  onConfirm,
+  cancelText,
 }: {
   isOpen?: boolean;
   onClose?: () => void;
   icon?: ReactNode;
   title?: ReactNode;
-  buttonTextYes?: ReactNode;
-  onLogOut?: () => void;
-  buttonTextNo?: ReactNode;
+  confirmText?: ReactNode;
+  onConfirm?: () => void;
+  cancelText?: ReactNode;
 }) => (
   <Dialog
     visible={isOpen}
@@ -31,9 +31,9 @@ export const SharedQuestion = ({
     titleStyle={styles.title}
   >
     <View style={styles.buttons}>
-      <DialogAction title={buttonTextYes} onPress={onLogOut} style={styles.half} textStyle={styles.actionText} />
+      <DialogAction title={confirmText} onPress={onConfirm} style={styles.half} textStyle={styles.actionText} />
       <DialogAction
-        title={buttonTextNo}
+        title={cancelText}
         onPress={onClose}
         tone="secondary"
         style={styles.half}

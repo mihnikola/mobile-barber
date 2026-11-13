@@ -4,14 +4,13 @@ import {
 import SharedButton from "@/components/legacy/SharedButton";
 import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedConfirmPassword from "@/components/legacy/SharedConfirmPassword";
 import SharedPassword from "@/components/legacy/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { makeStyles } from "@/theme";
-import { AppText, Icon, Pressable, Screen } from "@/components/ui";
+import { AppText, Icon, MessageDialog, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const styles = useStyles();
@@ -95,7 +94,7 @@ const ChangePass = () => {
         />
       </View>
       {isMessage && (
-        <SharedMessage
+        <MessageDialog
           isOpen={isMessage}
           onClose={!error ? confirmHandler : confirmHandler2}
           onConfirm={!error ? confirmHandler : confirmHandler2}

@@ -7,7 +7,6 @@ import OnboardingComponent from "@/components/home/OnboardingComponent";
 import WhoAreWeCoverImage from "@/components/home/WhoAreWeCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import { useEffect } from "react";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { Icon, Pressable, withScreen } from "@/components/ui";

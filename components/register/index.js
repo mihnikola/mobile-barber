@@ -6,7 +6,6 @@ import {
 import React, { useRef, useState } from "react";
 import { useConfirmPasswordField, useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useRegisterForm from "./hooks/useRegisterForm";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import SharedInput from "@/components/legacy/SharedInput";
 import SharedButton from "@/components/legacy/SharedButton";
 import SharedRedirect from "@/components/layout/SharedRedirect";
@@ -19,7 +18,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, MessageDialog, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
   const { colors } = useTheme();
@@ -233,7 +232,7 @@ const Register = () => {
           text={localization.REGISTER.CTA}
         />
         {isMessage && (
-          <SharedMessage
+          <MessageDialog
             isOpen={isMessage}
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}

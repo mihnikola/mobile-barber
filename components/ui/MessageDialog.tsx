@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 import { ActivityIndicator } from "react-native";
 
-import { Dialog, DialogAction } from "@/components/ui/Dialog";
+import { Dialog, DialogAction } from "./Dialog";
 import { useTheme } from "@/theme";
 
-/** @deprecated Use `<Dialog>` + `<DialogAction>` from `@/components/ui`. */
-export const SharedMessage = ({
+/**
+ * Message with one action (success / error / info), optional spinner in the button.
+ * `isLoading === "verification"` disables the button while a request runs.
+ */
+export const MessageDialog = ({
   isOpen,
   icon,
   title,

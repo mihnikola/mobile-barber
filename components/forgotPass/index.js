@@ -2,7 +2,6 @@ import { View } from "react-native";
 import { Platform } from "react-native";
 import SharedButton from "@/components/legacy/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import SharedInput from "@/components/legacy/SharedInput";
 import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -10,7 +9,7 @@ import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, Pressable, Screen } from "@/components/ui";
+import { AppText, Icon, MessageDialog, Pressable, Screen } from "@/components/ui";
 
 const ForgotPassword = () => {
   const styles = useStyles();
@@ -84,7 +83,7 @@ const ForgotPassword = () => {
       </View>
 
       {error && (
-        <SharedMessage
+        <MessageDialog
           isOpen={isMessage || error}
           onClose={error && confirmHandler2}
           onConfirm={error && confirmHandler2}

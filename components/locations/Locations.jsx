@@ -4,7 +4,7 @@ import MenuServices from "../services";
 import { useEffect } from "react";
 import NotFoundLocations from "./../notFound/index";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import Loader from "@/components/legacy/Loader";
+import { Loader } from "@/components/ui";
 
 const Locations = () => {
   const { locationsData, isLoading, error, fetchLocations } =

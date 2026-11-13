@@ -1,7 +1,6 @@
 
 import { ScrollView, Text, View } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
-import Loader from "@/components/legacy/Loader";
 import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -9,6 +8,7 @@ import SharedItemServiceCard from "@/components/booking/SharedItemServiceCard";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { makeStyles } from "@/theme";
+import { Loader } from "@/components/ui";
 
 const MenuServices = () => {
   const styles = useStyles();

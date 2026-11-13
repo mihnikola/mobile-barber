@@ -2,7 +2,6 @@ import { ScrollView, View } from "react-native";
 import { useEffect } from "react";
 import { Text } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
-import Loader from "@/components/legacy/Loader";
 import useFetchEmployers from "@/components/employers/hooks/useFetchEmployers";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -14,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
 import { fonts, makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
+import { Loader } from "@/components/ui";
 
 const Employers = () => {
   const styles = useStyles();

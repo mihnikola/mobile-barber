@@ -1,8 +1,6 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
 import { Dimensions, ScrollView, View } from "react-native";
-import { SharedQuestion } from "@/components/legacy/SharedQuestion";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import SharedCoverImage from "@/components/layout/SharedCoverImage";
@@ -12,11 +10,10 @@ import SharedInputTextAreaMark from "@/components/legacy/SharedInputTextAreaMark
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, withScreen } from "@/components/ui";
+import { AppText, ConfirmDialog, Icon, Loader, MessageDialog, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -200,16 +197,16 @@ function ResevationNotificationScreen() {
       : sharedQuestionHandler;
 
     return (
-      <SharedQuestion
+      <ConfirmDialog
         isOpen={isModalQuestion}
         onClose={() => setIsModalQuestion(false)}
-        onLogOut={submitAppointment}
+        onConfirm={submitAppointment}
         icon={
           <Icon name="question" size={64} color="text" />
         }
         title={titleQuestion}
-        buttonTextYes={questionButtonYes}
-        buttonTextNo={questionButtonNo}
+        confirmText={questionButtonYes}
+        cancelText={questionButtonNo}
       />
     );
   };
@@ -220,13 +217,11 @@ function ResevationNotificationScreen() {
     loading === "fetchById"
   ) {
     return (
-      <SharedLoader
-        isOpen={
+      <Loader variant="overlay" visible={
           loading === "rating" ||
           loading === "cancelling" ||
           loading === "fetchById"
-        }
-      />
+        } />
     );
   }
   const renderRejectionTitle = () => {
@@ -290,7 +285,7 @@ function ResevationNotificationScreen() {
       {isModalQuestion && renderQuestion()}
 
       {isModal && (
-        <SharedMessage
+        <MessageDialog
           isOpen={isModal}
           onClose={confirmHandler}
           onConfirm={confirmHandler}

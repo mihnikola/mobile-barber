@@ -1,17 +1,15 @@
 import { ScrollView } from "react-native";
-import { SharedQuestion } from "@/components/legacy/SharedQuestion";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import LoginRedirect from "./LoginRedirect";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { useEffect } from "react";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Icon, withScreen } from "@/components/ui";
+import { ConfirmDialog, Icon, Loader, withScreen } from "@/components/ui";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
@@ -96,21 +94,21 @@ const SettingsComponent = () => {
       )}
       <MenuItemContainer onPress={onPressHandler} isToken={isToken} />
       {isLogout && (
-        <SharedQuestion
+        <ConfirmDialog
           isOpen={isLogout}
           onClose={() => setIsLogout(false)}
-          onLogOut={logoutConfirm}
+          onConfirm={logoutConfirm}
           icon={
             <Icon name="question" size={64} color="text" />
           }
           title={localization.SETTINGS.LOGOUT.question}
-          buttonTextYes={localization.SETTINGS.LOGOUT.title}
-          buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
+          confirmText={localization.SETTINGS.LOGOUT.title}
+          cancelText={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
 
 
-      <SharedLoader isOpen={loading === "logout"} />
+      <Loader variant="overlay" visible={loading === "logout"} />
     </ScrollView>
   );
 };

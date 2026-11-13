@@ -10,14 +10,13 @@ import SharedButton from "@/components/legacy/SharedButton";
 import SharedInputTextArea from "@/components/legacy/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 import { routes } from "@/lib/navigation/routes";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { Icon } from "@/components/ui";
+import { Icon, MessageDialog } from "@/components/ui";
 import { makeStyles } from "@/theme";
 
 const Reservation = () => {
@@ -92,7 +91,7 @@ const Reservation = () => {
             />
           </View>
           {IsError && (
-            <SharedMessage
+            <MessageDialog
               isOpen={IsError}
               onClose={confirmHandler}
               onConfirm={confirmHandler}
@@ -102,7 +101,7 @@ const Reservation = () => {
             />
           )}
           {distinctReservation?.length > 0 && (
-            <SharedMessage
+            <MessageDialog
               isOpen={distinctReservation?.length > 0}
               onClose={confirmDistinctHandler}
               onConfirm={confirmDistinctHandler}

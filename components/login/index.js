@@ -12,7 +12,6 @@ import { useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import SharedInput from "@/components/legacy/SharedInput";
 import SharedButton from "@/components/legacy/SharedButton";
 import SharedRedirect from "@/components/layout/SharedRedirect";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/components/legacy/SharedPassword";
 import { useAuth } from "@/context/AuthContext";
@@ -26,7 +25,7 @@ import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, MessageDialog, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const { width } = Dimensions.get("window");
@@ -226,7 +225,7 @@ const LoginScreen = () => {
         />
 
         {isMessage && (
-          <SharedMessage
+          <MessageDialog
             isLoading={loading}
             isOpen={isMessage}
             onClose={!error ? confirmHandler : cancelHandler}

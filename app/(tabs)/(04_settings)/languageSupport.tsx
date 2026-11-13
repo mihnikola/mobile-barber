@@ -12,12 +12,10 @@ import { router } from "expo-router";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import SharedTitle from "@/components/layout/SharedTitle";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
-import Loader from "@/components/legacy/Loader";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
+import { AppText, Icon, Loader, Pressable, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
   const { colors } = useTheme();

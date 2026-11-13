@@ -6,16 +6,14 @@ import OtpInput from "./OtpCodeInput";
 import { useEffect, useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import {
   getOtpParamsStorage,
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
-import Loader from "@/components/legacy/Loader";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, Pressable, Screen } from "@/components/ui";
+import { AppText, Icon, Loader, MessageDialog, Pressable, Screen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const OtpCode = () => {
@@ -154,7 +152,7 @@ const OtpCode = () => {
         </View>
         {isLoaderVerify && <Loader />}
         {isMessage && (
-          <SharedMessage
+          <MessageDialog
             isOpen={isMessage}
             onClose={!error ? confirmHandler : confirmHandler2}
             onConfirm={!error ? confirmHandler : confirmHandler2}

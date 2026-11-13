@@ -1,9 +1,7 @@
-import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { useGlobalError } from "@/context/GlobalErrorContext";
 import { useAuth } from "@/context/AuthContext";
-import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { useState } from "react";
-import { Icon } from "@/components/ui";
+import { Icon, Loader, MessageDialog } from "@/components/ui";
 
 const GlobalErrorHandler = () => {
   const { error, hideError } = useGlobalError();
@@ -34,11 +32,11 @@ const GlobalErrorHandler = () => {
   if (!error) return null;
 
   if (loading === "logout") {
-    return <SharedLoader isOpen={loading === "logout"} />;
+    return <Loader variant="overlay" visible={loading === "logout"} />;
   }
 
   return (
-    <SharedMessage
+    <MessageDialog
       isOpen={!!error}
       title={error.title}
       buttonText="OK"

@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import React, { useEffect } from "react";
-import Loader from "@/components/legacy/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -11,6 +10,7 @@ import { makeStyles } from "@/theme";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import type { ApiRecord } from "@/context/types";
+import { Loader } from "@/components/ui";
 
 const AppointmentsComponent = () => {
   const styles = useStyles();
