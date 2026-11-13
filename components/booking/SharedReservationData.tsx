@@ -1,11 +1,10 @@
 import { addMinutesToTime, convertDate, formatTimeRange } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
-import { router } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 import type { ApiRecord } from "@/context/types";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, Pressable } from "@/components/ui";
+import { AppText, BackButton, Icon } from "@/components/ui";
 
 /** Booking summary header (design system `ds-big-when`): date, big time range, address. */
 function SharedReservationData({ reservation }: { reservation: ApiRecord | null }) {
@@ -22,9 +21,7 @@ function SharedReservationData({ reservation }: { reservation: ApiRecord | null 
 
   return (
     <View>
-      <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
-        <Icon name="back" />
-      </Pressable>
+      <BackButton style={styles.back} />
       <AppText variant="body" color="inkMuted">
         {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}
       </AppText>
@@ -45,7 +42,7 @@ function SharedReservationData({ reservation }: { reservation: ApiRecord | null 
 }
 
 const useStyles = makeStyles((colors) => ({
-  back: { alignSelf: "flex-start", padding: 4, marginBottom: 12 },
+  back: { alignSelf: "flex-start", marginBottom: 12 },
   time: { fontFamily: fonts.displaySemiBold, fontSize: 40, lineHeight: 44, color: colors.ink, marginTop: 2 },
   place: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6 },
 }));

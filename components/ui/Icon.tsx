@@ -14,7 +14,7 @@ type Family = keyof typeof FAMILIES;
  * now point to the same glyph and can be merged when screens are restyled.
  */
 const REGISTRY = {
-  back: ["Feather", "arrow-left"],
+  back: ["Feather", "chevron-left"],
   chevronRight: ["Feather", "chevron-right"],
   chevronRightThin: ["Feather", "chevron-right"],
   close: ["Feather", "x"],

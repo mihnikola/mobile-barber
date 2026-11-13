@@ -1,11 +1,10 @@
-import { router } from "expo-router";
 import { View } from "react-native";
 import SharedReservationData from "@/components/booking/SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import { makeStyles } from "@/theme";
-import { AppText, Icon, Pressable } from "@/components/ui";
+import { AppText, BackButton } from "@/components/ui";
 
 /**
  * Screen header (design system `ds-appbar` + `ds-h1`, Phase 5.6).
@@ -43,9 +42,7 @@ function HeaderCoverImageContainer({
       {!reservation && !status && !reservationData && (
         <>
           {!hidden && (
-            <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
-              <Icon name="back" />
-            </Pressable>
+            <BackButton style={styles.back} />
           )}
           {title ? (
             <AppText variant="displayLg" style={styles.title}>
@@ -71,7 +68,7 @@ function HeaderCoverImageContainer({
 
 const useStyles = makeStyles((colors) => ({
   header: { backgroundColor: colors.bg, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
-  back: { alignSelf: "flex-start", padding: 4, marginBottom: 12 },
+  back: { alignSelf: "flex-start", marginBottom: 12 },
   title: { fontSize: 30, lineHeight: 33 },
   status: { gap: 16 },
 }));

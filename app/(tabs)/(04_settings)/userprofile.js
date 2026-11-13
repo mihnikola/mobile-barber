@@ -19,7 +19,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, MessageDialog, PhoneField, Pressable, TextField, withScreen } from "@/components/ui";
+import { AppText, BackButton, Button, Icon, MessageDialog, PhoneField, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { colors } = useTheme();
@@ -132,9 +132,7 @@ const UserProfileScreen = () => {
           paddingBottom: 50,
         }}
       >
-        <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
-          <Icon name="back" />
-        </Pressable>
+        <BackButton style={styles.back} />
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
             <ImageCompress
@@ -232,7 +230,7 @@ const UserProfileScreen = () => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  back: { alignSelf: "flex-start", padding: 4, marginLeft: 16, marginTop: 16 },
+  back: { alignSelf: "flex-start", marginLeft: 16, marginTop: 16 },
   imageContainer: { alignItems: "center", marginTop: 8 },
   imageContainerImage: { alignItems: "center" },
   userDataContainer: { paddingHorizontal: 16, paddingTop: 8 },

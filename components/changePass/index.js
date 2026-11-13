@@ -7,7 +7,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { makeStyles } from "@/theme";
-import { AppText, Button, Icon, MessageDialog, PasswordField, Pressable, Screen } from "@/components/ui";
+import { AppText, BackButton, Button, Icon, MessageDialog, PasswordField, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const styles = useStyles();
@@ -47,9 +47,7 @@ const ChangePass = () => {
 
   return (
     <Screen mode="form">
-      <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
-        <Icon name="back" />
-      </Pressable>
+      <BackButton style={styles.back} />
       <View style={styles.body}>
         <AppText variant="displayLg">{localization.CHANGE_PASS.mainTitle}</AppText>
         <PasswordField
@@ -93,7 +91,7 @@ const ChangePass = () => {
 };
 
 const useStyles = makeStyles(() => ({
-  back: { alignSelf: "flex-start", padding: 4, marginTop: 16, marginBottom: 16 },
+  back: { alignSelf: "flex-start", marginTop: 16, marginBottom: 16 },
   body: { flex: 1 },
   submit: { marginTop: 24, marginBottom: 32 },
 }));

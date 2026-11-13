@@ -5,7 +5,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import { makeStyles } from "@/theme";
-import { AppText, Button, Icon, MessageDialog, Pressable, Screen, TextField } from "@/components/ui";
+import { AppText, BackButton, Button, Icon, MessageDialog, Screen, TextField } from "@/components/ui";
 
 const ForgotPassword = () => {
   const styles = useStyles();
@@ -31,9 +31,7 @@ const ForgotPassword = () => {
   };
   return (
     <Screen mode="form">
-      <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
-        <Icon name="back" />
-      </Pressable>
+      <BackButton style={styles.back} />
 
       <View style={styles.body}>
         <AppText variant="displayLg">{localization.FORGOT_PASSWORD.title}</AppText>
@@ -74,7 +72,7 @@ const ForgotPassword = () => {
 };
 
 const useStyles = makeStyles(() => ({
-  back: { alignSelf: "flex-start", padding: 4, marginTop: 16, marginBottom: 16 },
+  back: { alignSelf: "flex-start", marginTop: 16, marginBottom: 16 },
   body: { flex: 1 },
   subtitle: { marginTop: 8, marginBottom: 8 },
   submit: { marginTop: 24, marginBottom: 32 },

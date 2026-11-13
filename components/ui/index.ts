@@ -1,6 +1,7 @@
 // Design-system primitives (Phase 2, D-014). No business logic in this folder.
 export { AppText, textStyles, type AppTextProps, type TextVariant } from "./AppText";
 export { Avatar, type AvatarSize } from "./Avatar";
+export { BackButton } from "./BackButton";
 export { Button, type ButtonProps, type ButtonVariant } from "./Button";
 export { Card, cardStyles, ListItem, MetaRow } from "./Card";
 export { ConfirmDialog } from "./ConfirmDialog";
@@ -25,3 +26,4 @@ export { Radio } from "./Radio";
 export { Screen, type ScreenMode, withScreen } from "./Screen";
 export { SegmentedTabs, type SegmentedOption } from "./SegmentedTabs";
 export { type BadgeStatus, StatusBadge } from "./StatusBadge";
+export { StepHeader } from "./StepHeader";

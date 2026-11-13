@@ -15,7 +15,7 @@ import { useCompany } from "@/context/CompanyContext";
 import { useEffect, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeStyles } from "@/theme";
-import { AppText, Button, Icon, MessageDialog, PasswordField, Pressable, TextField } from "@/components/ui";
+import { AppText, BackButton, Button, Icon, MessageDialog, PasswordField, Pressable, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 
@@ -113,9 +113,7 @@ const LoginScreen = () => {
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="always"
     >
-      <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
-        <Icon name="back" />
-      </Pressable>
+      <BackButton style={styles.back} />
 
       <View style={styles.header}>
         <SharedLogin />
@@ -208,7 +206,7 @@ const LoginScreen = () => {
 const useStyles = makeStyles((colors) => ({
   screen: { flex: 1, backgroundColor: colors.bg },
   content: { flexGrow: 1, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 },
-  back: { alignSelf: "flex-start", padding: 4 },
+  back: { alignSelf: "flex-start" },
   header: { alignItems: "center", gap: 8, marginTop: 8, marginBottom: 24 },
   title: { marginTop: 16 },
   social: { gap: 8 },

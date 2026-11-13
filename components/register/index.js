@@ -13,7 +13,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { makeStyles } from "@/theme";
-import { AppText, Button, Icon, MessageDialog, PasswordField, PhoneField, Pressable, TextField } from "@/components/ui";
+import { AppText, BackButton, Button, Icon, MessageDialog, PasswordField, PhoneField, TextField } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
   const styles = useStyles();
@@ -87,9 +87,7 @@ const Register = () => {
       keyboardShouldPersistTaps="always"
     >
       <View style={styles.container}>
-        <Pressable hitSlop={20} onPress={router.back} style={styles.back}>
-          <Icon name="back" />
-        </Pressable>
+        <BackButton style={styles.back} />
         <View style={styles.header}>
           <SharedLogin />
           <AppText variant="displayLg" align="center" style={styles.title}>
@@ -242,7 +240,7 @@ const useStyles = makeStyles((colors) => ({
   screen: { flex: 1, backgroundColor: colors.bg },
   content: { flexGrow: 1, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 },
   container: { flex: 1 },
-  back: { alignSelf: "flex-start", padding: 4 },
+  back: { alignSelf: "flex-start" },
   header: { alignItems: "center", gap: 8, marginTop: 8, marginBottom: 8 },
   title: { marginTop: 16 },
   submit: { marginTop: 24, marginBottom: 24 },
