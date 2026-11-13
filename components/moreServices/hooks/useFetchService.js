@@ -1,50 +1,37 @@
-import { useState, useEffect, useContext } from "react";
-import { get, getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
+import { useContext, useState } from "react";
+
 import { useLocalization } from "@/context/LocalizationContext";
 import ReservationContext from "@/context/ReservationContext";
+import { getData } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
+import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
 
+/** Loads a category's services ("more services" screen) and preselects the first category. */
 const useFetchService = () => {
-  const [serviceData, setServicesData] = useState([]);
-  const [categoriesServicesData, setCategoriesServicesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [isCategorySelected, setIsCategorySelected] = useState(null);
   const { reservation } = useContext(ReservationContext);
-
   const { localization } = useLocalization();
-  const handleSelectCategory = (data) => {
-    setIsCategorySelected(data);
-  };
+  const { data: categoriesServicesData, isLoading, error, run } = useAsync([], { initialLoading: true });
 
-  const defaultCategoryHandler = (data) => {
-    setIsCategorySelected(data);
-  };
-  const fetchAllServices = async (id) => {
-    console.log("fetchAllServices");
-    setIsLoading(true);
-    setError(null);
-    const { location, service } = reservation;
-    try {
-      const response = await getData(endpoints.categories.byId(id), {
-        placeId: location.id || location._id,
-        serviceId: service.serviceId,
-        categoryId: id,
-      });
-      if (response.status === 200) {
-        setCategoriesServicesData(response.data);
-        defaultCategoryHandler(response.data[0]);
-      }
-    } catch (err) {
-      console.log("err", err);
-      setError(localization.SERVICES.errorFetch);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const handleSelectCategory = (data) => setIsCategorySelected(data);
+
+  const fetchAllServices = (id) =>
+    run(async () => {
+      const { location, service } = reservation;
+      const data = dataIfOk(
+        await getData(endpoints.categories.byId(id), {
+          placeId: location.id || location._id,
+          serviceId: service.serviceId,
+          categoryId: id,
+        }),
+      );
+      if (data) setIsCategorySelected(data[0]);
+      return data;
+    }, localization.SERVICES.errorFetch);
 
   return {
-    serviceData,
+    // never filled; kept for API compatibility
+    serviceData: [],
     isLoading,
     error,
     fetchAllServices,

@@ -1,109 +1,33 @@
-// src/hooks/useFetchServices.js
-import { useState, useEffect, useContext } from "react";
-import { get, getData } from "@/lib/api/client";
-import { endpoints } from "@/lib/api/endpoints";
+import { useContext, useEffect } from "react";
+
 import { useLocalization } from "@/context/LocalizationContext";
 import ReservationContext from "@/context/ReservationContext";
-import { router } from "expo-router";
+import { get } from "@/lib/api/client";
+import { endpoints } from "@/lib/api/endpoints";
+import { dataIfOk, useAsync } from "@/lib/hooks/useAsync";
 
+/**
+ * Loads services for the selected location on mount.
+ * (Unused `fetchOtherServiceOrEmployers` / `funcDateTimeReservation` that navigated from inside the
+ * hook were removed in Phase 3.3 — the screen uses `flowReservation` and navigates itself.)
+ */
 const useFetchServices = () => {
-  const [serviceData, setServicesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { reservation, updateReservation } = useContext(ReservationContext);
-
-
+  const { reservation } = useContext(ReservationContext);
   const { localization } = useLocalization();
-  const fetchAllServices = async () => {
-    setIsLoading(true);
-    setError(null);
-    const { location } = reservation;
+  const { data: serviceData, isLoading, error, run } = useAsync([], { initialLoading: true });
 
-    try {
-      const response = await get(endpoints.services.byLocation(location.id));
-      if (response.status === 200) {
-        setServicesData(response.data);
-      }
-    } catch (err) {
-      setError(localization.SERVICES.errorFetch);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchOtherServiceOrEmployers = async (id, service) => {
-    console.log("fetchOtherServiceOrEmployers");
-
-    setIsLoading(true);
-    setError(null);
-    const categoryId = id;
-    const placeId = reservation?.location?.id;
-    const serviceId = service?.serviceId;
-    console.log("categoryId", categoryId);
-    console.log("placeId", placeId);
-    console.log("serviceId", serviceId);
-    updateReservation({ ...reservation, service });
-
-    try {
-      const response = await getData(endpoints.categories.byId(id), {
-        placeId,
-        categoryId,
-        serviceId,
-      });
-      const { type, data, status } = response;
-
-      if (status === 200) {
-        if (type === "barbers") {
-          // console.log("barbers data",data)
-          // setEmployeesData(data);
-
-          router.push("/(tabs)/(02_barbers)/employers");
-        }
-        if (response.type === "services") {
-          const pathName = "/(tabs)/(02_barbers)/moreServices";
-          router.push({
-            pathname: pathName,
-            params: { categoryId },
-          });
-          // setCategoriesServicesData(response.data);
-          // defaultCategoryHandler(response.data[0]);
-        }
-      }
-    } catch (err) {
-      console.log("err", err);
-      setError(localization.SERVICES.errorFetch);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const funcDateTimeReservation = async (serviceData) => {
-    const service = {
-      serviceId: serviceData.id,
-      serviceDuration: serviceData.duration,
-      servicePrice: serviceData.price,
-      name: serviceData.name,
-      image: serviceData.image,
-    };
-    fetchOtherServiceOrEmployers(serviceData.category, service);
-    // const pathName = "/(tabs)/(02_barbers)/moreServices";
-    // router.push({
-    //   pathname: pathName,
-    //   params: { categoryId: serviceData.category },
-    // });
-  };
+  const fetchAllServices = () =>
+    run(
+      async () => dataIfOk(await get(endpoints.services.byLocation(reservation.location.id))),
+      localization.SERVICES.errorFetch,
+    );
 
   useEffect(() => {
     fetchAllServices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return {
-    serviceData,
-    isLoading,
-    error,
-    fetchAllServices,
-    funcDateTimeReservation,
-  };
+  return { serviceData, isLoading, error, fetchAllServices };
 };
 
 export default useFetchServices;
