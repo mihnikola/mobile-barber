@@ -1,24 +1,26 @@
 // /app/contexts/ReservationContext.tsx
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import { createContext, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import { routes } from "@/lib/navigation/routes";
 
+import type { ApiRecord, ReservationContextValue } from "./types";
+
 // Create the context with a default value of null
-const ReservationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
+const ReservationContext = createContext<ReservationContextValue | null>(null);
 
 // ReservationProvider component to wrap around the app and provide context
-export const ReservationProvider = ({ children }) => {
-  const [reservation, setReservation] = useState(null);
+export const ReservationProvider = ({ children }: { children: ReactNode }) => {
+  const [reservation, setReservation] = useState<ApiRecord | null>(null);
   
-  const updateReservation = (data) => {
+  const updateReservation = (data: ApiRecord | null) => {
     setReservation(data);
   };
 
-  const flowReservation = async (service, categoryId) => {
+  const flowReservation: ReservationContextValue["flowReservation"] = async (service, categoryId) => {
     updateReservation({ ...reservation, service });
 
-    const { location } = reservation;
+    const { location } = reservation as ApiRecord; // throws when null, as before
     try {
       const response = await getData(endpoints.categories.byId(categoryId), {
         placeId: location?.id || location?._id,
@@ -56,6 +58,6 @@ export const ReservationProvider = ({ children }) => {
 };
 
 /** Booking-in-progress state: { reservation, updateReservation, flowReservation }. */
-export const useReservation = () => useContext(ReservationContext);
+export const useReservation = () => useContext(ReservationContext) as ReservationContextValue;
 
 export default ReservationContext;

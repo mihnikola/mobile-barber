@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { ENG_LOCALIZATION } from "../helpers/en-locale";
 import { SRB_LOCALIZATION } from "../helpers/srb-locale";
 import { getLanguageValue, setLanguageValue } from "../helpers/language";
@@ -6,16 +6,19 @@ import { put } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { getStorage } from "@/helpers/token";
 
-const LocalizationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
+import type { Localization, LocalizationContextValue } from "./types";
 
-export const useLocalization = () => useContext(LocalizationContext);
+const LocalizationContext = createContext<LocalizationContextValue | null>(null);
 
-export const LocalizationProvider = ({ children }) => {
-  const [localization, setLocalization] = useState(null); // ⚠️ null initially
+export const useLocalization = () => useContext(LocalizationContext) as LocalizationContextValue;
+
+export const LocalizationProvider = ({ children }: { children: ReactNode }) => {
+  // null only until the stored language is read; children render after that
+  const [localization, setLocalization] = useState<Localization | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const changeFirebaseLocalization = async (lang) => {
+  const changeFirebaseLocalization = async (lang: string) => {
     setIsLoading(true);
 
     const langData = lang === "en" ? "en" : "sr";
@@ -29,7 +32,7 @@ export const LocalizationProvider = ({ children }) => {
     }
   };
 
-  const changeLocalization = (language) => {
+  const changeLocalization = (language: { code: string }) => {
     const { code } = language;
     changeFirebaseLocalization(code);
     setLanguageValue(code);
@@ -57,7 +60,7 @@ export const LocalizationProvider = ({ children }) => {
   if (loading) return null; // ili loader komponenta
 
   return (
-    <LocalizationContext.Provider value={{ localization, changeLocalization, isLoading }}>
+    <LocalizationContext.Provider value={{ localization: localization as Localization, changeLocalization, isLoading }}>
       {children}
     </LocalizationContext.Provider>
   );

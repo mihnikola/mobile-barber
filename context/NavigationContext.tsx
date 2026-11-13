@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 
-export const NavigationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
+import type { NavigationContextValue } from "./types";
 
-export const NavigationProvider = ({ children }) => {
-  const [lastPath, setLastPath] = useState(null);
+export const NavigationContext = createContext<NavigationContextValue | null>(null);
+
+export const NavigationProvider = ({ children }: { children: ReactNode }) => {
+  const [lastPath, setLastPath] = useState<string | null>(null);
   const [btnValue, setBtnValue] = useState(false);
 
-  const saveLastTab = (path, btn) => {
+  const saveLastTab = (path: string | null, btn?: boolean) => {
     if (btn) setBtnValue(true);
     setLastPath(path);
   };

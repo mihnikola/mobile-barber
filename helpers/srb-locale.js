@@ -207,6 +207,7 @@ Zadržavamo pravo na izmene uslova korišćenja, o čemu ćemo korisnike blagovr
       name: "Vaše ime",
       placeholderName: "Unesite vaše ime",
       btnText: "Pošalji",
+      loading: "Slanje...",
       messageConfirm: "Podaci o korisniku su uspešno ažurirani",
       notDataChanged: "Podaci nisu izmenjeni",
     },

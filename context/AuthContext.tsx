@@ -7,7 +7,7 @@ import {
   saveOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import {
   GoogleSignin,
@@ -19,31 +19,33 @@ import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-export const AuthContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
+import type { ApiRecord, AuthContextValue, AuthLoading } from "./types";
+
+export const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(AuthContext) as AuthContextValue;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [isToken, setIsToken] = useState(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [isToken, setIsToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState<ApiRecord | null>(null);
+  const [error, setError] = useState<ApiRecord | string | null>(null);
 
-  const [verificationData, setVerificationData] = useState(null);
+  const [verificationData, setVerificationData] = useState<ApiRecord | null>(null);
 
-  const [status, setStatus] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState<number | null>(null);
+  const [success, setSuccess] = useState<string | boolean | ApiRecord | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const { localization } = useLocalization();
 
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState<AuthLoading>(null);
 
-  const [redirectValue, setRedirectValue] = useState(null);
+  const [redirectValue, setRedirectValue] = useState<string | null>(null);
   // possible values: null | 'login' | 'google' | 'ios' | 'logout' | 'otp'
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
 
-  const withLoading = async (type, callback) => {
+  const withLoading = async <T,>(type: AuthLoading, callback: () => Promise<T>): Promise<T> => {
     setLoading(type);
     try {
       return await callback();
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }) => {
    * After a successful login message: reload the token and tell the caller where to go.
    * Returns "settings" | "appointments" | "calendar" | null — the screen navigates (Phase 4b).
    */
-  const redirectValidation = async (data) => {
+  const redirectValidation: AuthContextValue["redirectValidation"] = async (data) => {
     await getTokenData();
     setIsMessage(false);
     if (data === "settings" || data === "appointments") return data;
@@ -107,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         if (isSuccessResponse(response)) {
           await loginViaGoogle(response.data);
         }
-      } catch (error) {
+      } catch (error: any) {
         if (isErrorWithCode(error)) {
           switch (error.code) {
             case statusCodes.IN_PROGRESS:
@@ -124,7 +126,7 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const signInIos = async (userData) => {
+  const signInIos = async (userData: ApiRecord) => {
     const fcmToken = await NotificationService.getFCMToken();
     const languageValue = await getLanguageValue();
 
@@ -154,7 +156,7 @@ export const AuthProvider = ({ children }) => {
         saveStorage(responseData.token);
         setSuccess(localization.LOGIN.success);
       }
-    } catch (err) {
+    } catch (err: any) {
       setIsMessage(true);
 
       if (err.message.includes("404")) {
@@ -175,12 +177,12 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get(endpoints.users.byToken(isToken));
+      const response = await get(endpoints.users.byToken(isToken as string));
       if (response.status === 200) {
         setUserData(response.data);
         setIsLoading(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       if (err.message.includes("404")) {
         setError(localization.SERVER_RESPONSE.notFound);
       } else {
@@ -208,7 +210,8 @@ export const AuthProvider = ({ children }) => {
   }, [isToken]);
 
   const removeTokenData = async () => {
-    await removeStorage().then((res) => {
+    // NOTE (B26): removeStorage resolves to undefined, so setIsToken(null) below never runs. Unused today.
+    await removeStorage().then((res: unknown) => {
       if (res) {
         setIsToken(null);
       }
@@ -235,7 +238,7 @@ export const AuthProvider = ({ children }) => {
         } catch {
         }
       }, 150); // 150ms je dovoljno da iOS završi navigacionu animaciju
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     }
   };
@@ -255,7 +258,7 @@ export const AuthProvider = ({ children }) => {
           await signOut();
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     }
   };
@@ -263,7 +266,7 @@ export const AuthProvider = ({ children }) => {
 
   const verificationOTPCode = async () =>
     withLoading("verification", async () => {
-      const { email } = verificationData;
+      const { email } = verificationData as ApiRecord; // throws when null, as before
       try {
         const response = await getData(endpoints.users.sendOtpViaLogin, {
           params: { email },
@@ -287,7 +290,7 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
-  const login = (email, password) => {
+  const login = (email: string, password: string) => {
     withLoading("login", async () => {
       const expoToken = await NotificationService.getFCMToken();
       const languageValue = await getLanguageValue();
@@ -331,7 +334,7 @@ export const AuthProvider = ({ children }) => {
           saveStorage(responseData.token);
           setSuccess(localization.LOGIN.success);
         }
-      } catch (err) {
+      } catch (err: any) {
         setIsMessage(true);
         if (err.message.includes("404")) {
           setError(localization.SERVER_RESPONSE.notFound);
@@ -344,7 +347,7 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const loginViaGoogle = async (userData) => {
+  const loginViaGoogle = async (userData: ApiRecord) => {
     setStatus(null);
     setError(null);
 
@@ -383,7 +386,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 500) {
         setError(localization.SERVER_RESPONSE.error);
       }
-    } catch (err) {
+    } catch (err: any) {
 
       setIsMessage(true);
 

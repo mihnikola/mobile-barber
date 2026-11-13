@@ -1,19 +1,22 @@
-// GlobalErrorContext.jsx
+// Global (app-level) error state: account deleted / token unauthorized.
 import { registerGlobalHandler } from "@/helpers/error-handler";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 
-const GlobalErrorContext = createContext(/** @type {any} TODO(phase4): real type */ (undefined));
+import type { ApiRecord, GlobalErrorContextValue } from "./types";
 
-export const useGlobalError = () => useContext(GlobalErrorContext);
+const GlobalErrorContext = createContext<GlobalErrorContextValue | undefined>(undefined);
 
-export const GlobalErrorProvider = ({ children }) => {
-  const [error, setError] = useState(null);
+export const useGlobalError = () => useContext(GlobalErrorContext) as GlobalErrorContextValue;
+
+export const GlobalErrorProvider = ({ children }: { children: ReactNode }) => {
+  const [error, setError] = useState<ApiRecord | null>(null);
   const { localization } = useLocalization();
 
+  /** App-level: after a fatal auth error go back home (intentionally kept in the provider). */
   const hideError = () => {
     router.replace(routes.home.root);
     setError(null);
@@ -21,7 +24,7 @@ export const GlobalErrorProvider = ({ children }) => {
 
   // Register the showError function when the provider mounts
   useEffect(() => {
-    registerGlobalHandler((data) => {
+    registerGlobalHandler((data: { type: string }) => {
       switch (data.type) {
         case "ACCOUNT_DELETED":
           setError({ title: localization.DETERMINATION.error });

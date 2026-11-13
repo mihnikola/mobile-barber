@@ -1,20 +1,22 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { get } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { useLocalization } from "./LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const CompanyContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
+import type { ApiRecord, CompanyContextValue } from "./types";
+
+const CompanyContext = createContext<CompanyContextValue | null>(null);
 
 export const useCompany = () => {
-  return useContext(CompanyContext);
+  return useContext(CompanyContext) as CompanyContextValue;
 };
 
-export const CompanyProvider = ({ children }) => {
+export const CompanyProvider = ({ children }: { children: ReactNode }) => {
   // 1. Počinjemo sa null jer se podaci učitavaju asinhrono sekundu kasnije
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState<ApiRecord | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const { localization } = useLocalization();
 
   // 2. Učitavamo podatke iz skladišta čim se komponenta pokrene
@@ -43,7 +45,7 @@ export const CompanyProvider = ({ children }) => {
       // Koristimo await za čuvanje podataka
       await AsyncStorage.setItem("company_data", JSON.stringify(response));
       setIsLoading(false);
-    } catch (err) {
+    } catch {
       setError(localization.COMPANY.error);
       setIsLoading(false);
     }

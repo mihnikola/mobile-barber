@@ -1,5 +1,6 @@
 // /app/contexts/ReservationContext.tsx
-import { createContext, useContext, useState } from "react";
+import type { ApiRecord } from "@/context/types";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/lib/api/client";
@@ -8,37 +9,41 @@ import { convertNameAndDate, convertToDayTime } from "@/lib/date";
 import { useReservation } from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 
-const AppointmentContext = createContext<any>(null); // TODO(phase4): real type
+/** Value type is derived from the provider state hook below. */
+export type AppointmentContextValue = ReturnType<typeof useAppointmentState>;
+
+const AppointmentContext = createContext<AppointmentContextValue | null>(null);
 export const useAppointment = () => {
-  return useContext(AppointmentContext);
+  return useContext(AppointmentContext) as AppointmentContextValue;
 };
-export const AppointmentProvider = ({ children }) => {
-  const [reservations, setReservations] = useState([]);
+/** All appointment state + actions (booking submit, list, details, cancel, rate). */
+function useAppointmentState() {
+  const [reservations, setReservations] = useState<ApiRecord[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState<string | null>(null);
   const [isModalQuestion, setIsModalQuestion] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [IsError, setIsError] = useState(false);
-  const [distinctReservation, setDistinctReservation] = useState(null);
-  const [responseData, setResponseData] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [distinctReservation, setDistinctReservation] = useState<string | null>(null);
+  const [responseData, setResponseData] = useState<ApiRecord | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
-  const [reservationData, setReservationData] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [reservationData, setReservationData] = useState<ApiRecord | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
 
   const { isToken, isLoading: isLoadingToken, getTokenData } = useAuth();
   const { localization } = useLocalization();
   const { reservation } = useReservation();
 
   const [active, setActive] = useState("pending");
-  const handleStatus = (id) => {
+  const handleStatus = (id: string) => {
     setActive(id);
   };
 
   const [isModal, setIsModal] = useState(false);
 
-  const withLoading = async (type, callback) => {
+  const withLoading = async (type: string, callback: () => Promise<unknown>) => {
     setLoading(type);
     try {
       await callback();
@@ -46,11 +51,11 @@ export const AppointmentProvider = ({ children }) => {
       setLoading(null);
     }
   };
-  const rateReservation = async (reservationId, rating, description) => {
+  const rateReservation = async (reservationId: string, rating: number, description: string | null) => {
     withLoading("rating", async () => {
       setError(null);
       if (!reservationId) {
-        setIsLoading(null);
+        setIsLoading(false);
 
         setError("Reservation ID is missing.");
         return false;
@@ -74,7 +79,7 @@ export const AppointmentProvider = ({ children }) => {
     });
   };
 
-  const cancelReservation = async (reservationId) => {
+  const cancelReservation = async (reservationId: string) => {
     withLoading("cancelling", async () => {
       setError(null);
 
@@ -101,7 +106,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const fetchReservationDetails = async (
-    reservationId,
+    reservationId: string,
     notification = null,
   ) => {
     withLoading("fetchById", async () => {
@@ -125,7 +130,7 @@ export const AppointmentProvider = ({ children }) => {
           setReservationData(result);
 
           if (notification) {
-            const STATUS_DATA = {
+            const STATUS_DATA: Record<string | number, string> = {
               2: "pending",
               1: "rejected",
               0: "approved",
@@ -144,21 +149,21 @@ export const AppointmentProvider = ({ children }) => {
     });
   };
 
-  const getReservationsData = async (status) => {
+  const getReservationsData = async (status?: number | string) => {
     setIsLoading(true);
     setError(null);
-    const STATUS_MAP = {
+    const STATUS_MAP: Record<string, number> = {
       pending: 2,
       rejected: 1,
       approved: 0,
     };
-    const STATUS_DATA = {
+    const STATUS_DATA: Record<string | number, string> = {
       2: "pending",
       1: "rejected",
       0: "approved",
     };
 
-    const activeStatus = STATUS_DATA[status] || STATUS_MAP[active];
+    const activeStatus = STATUS_DATA[status as string | number] || STATUS_MAP[active];
 
     //ovde mi trebaju statusi pending/rejected/approved
     try {
@@ -176,7 +181,7 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
-  const submitReservation = async (tokenData) => {
+  const submitReservation = async (tokenData: string) => {
     let result: { status: number } | undefined;
     setIsLoading(true);
     setError(null);
@@ -187,7 +192,7 @@ export const AppointmentProvider = ({ children }) => {
       dateReservation,
       location,
       otherServices,
-    } = reservation;
+    } = reservation as ApiRecord; // complete at this point of the booking flow
 
     if (!employer || !service || !timeData || !dateReservation || !location) {
       setError(localization.APPOINTMENTS.errorFields);
@@ -198,7 +203,7 @@ export const AppointmentProvider = ({ children }) => {
 
     if (otherServices?.length > 0) {
       total = otherServices?.reduce(
-        (acc, current) => {
+        (acc: ApiRecord, current: ApiRecord) => {
           acc.totalPrice += current.price;
           acc.totalDuration += current.duration;
           return acc;
@@ -207,7 +212,7 @@ export const AppointmentProvider = ({ children }) => {
       );
     }
 
-    const serviceIds = otherServices.map((serv) => serv.id);
+    const serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
 
     try {
       const response = await post(endpoints.availabilities.root, {
@@ -229,7 +234,7 @@ export const AppointmentProvider = ({ children }) => {
       }
       if (response.status === 201) {
         const statusValue = response.data.status;
-        const STATUS_DATA = {
+        const STATUS_DATA: Record<string | number, string> = {
           2: "pending",
           1: "rejected",
           0: "approved",
@@ -281,14 +286,14 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
-  return (
-    <AppointmentContext.Provider
-      value={{
+  return {
         isToken,
         isLoading,
         rateReservation,
         reservations,
         error,
+
+        setError, // was missing → reservation screen crashed on dismissing an error (B25)
         isModal,
         setIsModal,
         getReservationsData,
@@ -315,11 +320,12 @@ export const AppointmentProvider = ({ children }) => {
         distinctReservation,
         handleStatus,
         active,
-      }}
-    >
-      {children}
-    </AppointmentContext.Provider>
-  );
+      };
+}
+
+export const AppointmentProvider = ({ children }: { children: ReactNode }) => {
+  const value = useAppointmentState();
+  return <AppointmentContext.Provider value={value}>{children}</AppointmentContext.Provider>;
 };
 
 export default AppointmentContext;

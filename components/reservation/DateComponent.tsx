@@ -1,3 +1,4 @@
+import type { ApiRecord } from "@/context/types";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
@@ -74,7 +75,7 @@ const DateComponent = () => {
     isSunday,
   );
   const reportHandler = () => {
-    const { employer, service } = reservation;
+    const { employer, service } = reservation as ApiRecord; // set earlier in the booking flow
     if (employer && service && selectedItem && selectedDate) {
       updateReservation({
         ...reservation,

@@ -10,6 +10,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import { colors } from "@/theme";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
+import type { ApiRecord } from "@/context/types";
 
 const AppointmentsComponent = () => {
   const {
@@ -21,7 +22,7 @@ const AppointmentsComponent = () => {
   const { localization } = useLocalization();
 
   /** Open appointment details (moved out of AppointmentContext, Phase 4b). */
-  const detailsReservation = (item: { _id: string; past?: boolean; rating?: number; status: string | number }) => {
+  const detailsReservation = (item: ApiRecord) => {
     router.push({
       pathname: routes.appointments.details,
       params: { itemId: item._id, past: item?.past, rating: item?.rating, status: item.status },
