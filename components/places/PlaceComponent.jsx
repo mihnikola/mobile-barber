@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { AppText, Loader } from "@/components/ui";
+import { EmptyState, Loader } from "@/components/ui";
 
 const PlaceComponent = ({ locationsData }) => {
   const styles = useStyles();
@@ -43,9 +43,7 @@ const PlaceComponent = ({ locationsData }) => {
         </View>
       )}
       {!isLoading && error && (
-        <View style={styles.errorContainer}>
-          <AppText style={styles.errorText}>{localization.PLACES.network}</AppText>
-        </View>
+        <EmptyState icon="wifiOff" title={localization.PLACES.network} />
       )}
     </ScrollView>
   );
@@ -54,30 +52,8 @@ const PlaceComponent = ({ locationsData }) => {
 export default PlaceComponent;
 
 const useStyles = makeStyles((colors) => ({
-  contentContainer: {
-    marginTop: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  errorContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: colors.bg,
-    alignSelf: "center",
-    alignContent: "center",
-    height: 500,
-  },
-  errorText: {
-    marginhorizontal: 40,
-    fontSize: 16,
-    textAlign: "center",
-    color: colors.inkFaint,
-  },
+  container: { flex: 1, backgroundColor: colors.bg },
+  contentContainer: { paddingTop: 4, paddingBottom: 16 },
 }));
+
+

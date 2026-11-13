@@ -8,7 +8,7 @@ import SharedItemServiceCard from "@/components/booking/SharedItemServiceCard";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { makeStyles } from "@/theme";
-import { AppText, Loader } from "@/components/ui";
+import { EmptyState, Loader } from "@/components/ui";
 
 const MenuServices = () => {
   const styles = useStyles();
@@ -49,11 +49,7 @@ const MenuServices = () => {
 
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length === 0 && !isLoading && (
-        <View style={styles.notAvailableContainer}>
-          <AppText style={styles.notAvailable}>
-            {localization.SERVICES.notAvailable}
-          </AppText>
-        </View>
+        <EmptyState icon="scissors" title={localization.SERVICES.notAvailable} />
       )}
 
       {serviceData.length > 0 && !isLoading && (
@@ -74,20 +70,8 @@ const MenuServices = () => {
 export default MenuServices;
 
 const useStyles = makeStyles((colors) => ({
-  notAvailableContainer: {
-    marginVertical: 30,
-    marginHorizontal: 20,
-  },
-  notAvailable: {
-    color: colors.ink,
-    fontSize: 20,
-    textAlign: "center",
-  },
-  contentContainer: {
-    marginTop: 10,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
+  container: { flex: 1, backgroundColor: colors.bg },
+  contentContainer: { paddingTop: 4, paddingBottom: 16 },
 }));
+
+

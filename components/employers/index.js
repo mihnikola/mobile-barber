@@ -11,9 +11,9 @@ import SharedItemEmployerCard from "@/components/booking/SharedItemEmployerCard"
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
-import { fonts, makeStyles } from "@/theme";
+import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { AppText, Loader } from "@/components/ui";
+import { EmptyState, Loader } from "@/components/ui";
 
 const Employers = () => {
   const styles = useStyles();
@@ -81,9 +81,7 @@ const Employers = () => {
         </View>
       )}
       {!isLoading && error && (
-        <View style={styles.errorContainer}>
-          <AppText style={styles.errorText}>{localization.BARBERS.network}</AppText>
-        </View>
+        <EmptyState icon="wifiOff" title={localization.BARBERS.network} />
       )}
     </ScrollView>
   );
@@ -92,52 +90,8 @@ const Employers = () => {
 export default Employers;
 
 const useStyles = makeStyles((colors) => ({
-  heroHeader: {
-    width: "100%",
-    justifyContent: "flex-end", // Gura tekst na dno slike
-    backgroundColor: colors.surface, // Rezervna tamna pozadina dok se slika učitava
-  },
-  backgroundImage: {
-    opacity: 0.2,
-  },
-  titleWrapper: {
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingBottom: 20, // Razmak od donje ivice
-  },
-  contentContainer: {
-    marginTop: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
-
-  capture: {
-    fontSize: 32,
-    color: colors.ink,
-    fontFamily: fonts.displaySemiBold,
-    paddingVertical: 140,
-  },
-
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: colors.bg,
-  },
-  errorContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: colors.bg,
-    alignSelf: "center",
-    alignContent: "center",
-    height: 500,
-  },
-  errorText: {
-    marginhorizontal: 40,
-    fontSize: 16,
-    textAlign: "center",
-    color: colors.inkFaint,
-  },
+  container: { flex: 1, backgroundColor: colors.bg },
+  contentContainer: { paddingTop: 4, paddingBottom: 16 },
 }));
+
+

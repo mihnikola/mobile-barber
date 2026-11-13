@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { fonts, makeStyles } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
@@ -31,25 +31,20 @@ const SharedCategoryItem = (props) => {
   );
 };
 
+/** Filter chip (design system `ds-chip`): outlined pill, selected = filled primary. */
 const useStyles = makeStyles((colors) => ({
-  isSelected: {
-    backgroundColor: colors.primary,
-  },
-  nameSelected: {
-    color: colors.onPrimary,
-  },
+  isSelected: { backgroundColor: colors.primary, borderColor: colors.primary },
+  nameSelected: { color: colors.onPrimary },
   card: {
-    flexDirection: "row",
-    backgroundColor: colors.surface,
-    borderRadius: 5,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    minHeight: 36,
+    paddingHorizontal: 16,
+    borderRadius: 999,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
+    backgroundColor: "transparent",
+    justifyContent: "center",
   },
-  name: {
-    fontSize: 18,
-    fontFamily: fonts.sansSemiBold,
-    color: colors.ink,
-  },
+  name: { fontSize: 14, fontFamily: fonts.sansMedium, color: colors.ink },
 }));
 
 export default SharedCategoryItem;

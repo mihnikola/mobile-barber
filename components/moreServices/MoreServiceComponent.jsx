@@ -10,7 +10,7 @@ import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelect
 import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { AppText, Button, layout, Loader } from "@/components/ui";
+import { Button, EmptyState, Loader } from "@/components/ui";
 
 const MoreServiceComponent = () => {
   const styles = useStyles();
@@ -98,11 +98,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
 
         {categoriesServicesData.length === 0 && isLoading && <Loader />}
         {categoriesServicesData.length === 0 && !isLoading && (
-          <View style={styles.notAvailableContainer}>
-            <AppText style={styles.notAvailable}>
-              {localization.SERVICES.notAvailable}
-            </AppText>
-          </View>
+          <EmptyState icon="scissors" title={localization.SERVICES.notAvailable} />
         )}
 
         {categoriesServicesData?.length > 0 && !isLoading && (
@@ -120,7 +116,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
                   style={styles.scrollViewStyle}
                   contentContainerStyle={styles.scrollContentContainer}
                 >
-                  <View style={{ gap: 10, flexDirection: "row" }}>
+                  <View style={styles.chips}>
                     {categoriesServicesData.map((item) => {
                       return (
                         <SharedCategoryItem
@@ -166,8 +162,8 @@ const handleSelectService = (categoryId, serviceDataVar) => {
           </ScrollView>
         )}
       </View>
-      <View style={{ paddingHorizontal: 15 }}>
-        <Button style={layout.buttonBlock}
+      <View style={styles.actionBar}>
+        <Button
           onPress={submitHandler}
           title={
             hasSelectedServices
@@ -181,51 +177,22 @@ const handleSelectService = (categoryId, serviceDataVar) => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  mainScrollView: {
-    flex: 1,
-    width: "100%",
-  },
-  mainScrollContent: {
-    paddingBottom: 30,
-  },
-  categoryBlock: {
-    marginBottom: 20, // Razmak između različitih kategorija
-    width: "100%",
-  },
-  servicesContainer: {
-    flexDirection: "column", // Usluge idu jedna ispod druge
-    width: "100%",
-    marginTop: 5,
-  },
-  notAvailableContainer: {
-    marginVertical: 30,
-    marginHorizontal: 20,
-  },
-  scrollViewStyle: {
-    flexGrow: 0,
-  },
-  scrollContentContainer: {
-    flexDirection: "row",
-    gap: 15,
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-  },
-  notAvailable: {
-    color: colors.ink,
-    fontSize: 20,
-    textAlign: "center",
-  },
-  contentContainer: {
-    marginTop: 10,
-  },
-  contentCategoriesContainer: {
-    gap: 10,
-    padding: 20,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
+  container: { flex: 1, backgroundColor: colors.bg },
+  mainScrollView: { flex: 1, width: "100%" },
+  mainScrollContent: { paddingBottom: 16 },
+  scrollViewStyle: { flexGrow: 0 },
+  scrollContentContainer: { paddingHorizontal: 16, paddingVertical: 8 },
+  chips: { flexDirection: "row", gap: 8 },
+  servicesScrollView: {},
+  servicesContainer: { width: "100%", marginTop: 4 },
+  // ds-sumbar: the screen's action sits on a surface bar at the bottom
+  actionBar: {
+    backgroundColor: colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 16,
   },
 }));
 

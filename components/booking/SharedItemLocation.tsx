@@ -17,7 +17,7 @@ const SharedItemLocation = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  card: { padding: 20, gap: 20, alignContent: "center", alignSelf: "center" },
+  card: { gap: 12 },
 });
 
 export default SharedItemLocation;
