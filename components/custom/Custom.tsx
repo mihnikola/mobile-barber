@@ -82,11 +82,10 @@ const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
 
 export default CustomButton;
 
+/** Onboarding next / get-started button (DS primary pill). */
 const useStyles = makeStyles((colors) => ({
   container: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.inkMuted,
+    backgroundColor: colors.primary,
     padding: 10,
     width: 200,
     borderRadius: 100,
@@ -94,13 +93,6 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     overflow: "hidden",
   },
-  arrow: {
-    position: "absolute",
-  },
-  textButton: {
-   color: colors.ink,
-    fontSize: 18,
-    fontFamily: fonts.sansSemiBold,
-    position: "absolute",
-  },
-}));
+  arrow: { position: "absolute", tintColor: colors.onPrimary },
+  textButton: { color: colors.onPrimary, fontSize: 16, fontFamily: fonts.sansSemiBold, position: "absolute" },
+}))

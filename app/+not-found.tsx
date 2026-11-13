@@ -12,10 +12,10 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
       <View style={styles.container}>
-        <AppText variant="title">This screen doesn&apos;t exist.</AppText>
+        <AppText variant="displayMd">This screen doesn&apos;t exist.</AppText>
 
         <Link href={routes.root} style={styles.link}>
-          <AppText variant="bodySm" color="accent">Go to home screen!</AppText>
+          <AppText variant="bodyStrong" color="primary">Go to home screen!</AppText>
         </Link>
       </View>
     </>
@@ -27,7 +27,7 @@ const useStyles = makeStyles((colors) => ({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: 16,
     backgroundColor: colors.bg,
   },
   link: {

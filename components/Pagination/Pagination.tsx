@@ -43,18 +43,7 @@ const Pagination = ({data, x, screenWidth}) => {
 export default Pagination;
 
 const useStyles = makeStyles((colors) => ({
-  paginationContainer: {
-    flexDirection: 'row',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dots: {
-    height: 10,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.inkMuted,
-    marginHorizontal: 10,
-    borderRadius: 5,
-  },
-}));
+  paginationContainer: { flexDirection: "row", height: 40, justifyContent: "center", alignItems: "center" },
+  // DS dots: active one stretches (width animated above)
+  dots: { height: 8, backgroundColor: colors.ink, marginHorizontal: 4, borderRadius: 4 },
+}))

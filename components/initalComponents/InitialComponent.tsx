@@ -70,9 +70,9 @@ const InitialComponent = () => {
       );
       return {
         opacity: opacityAnimation,
-        width: SCREEN_WIDTH * 1.1,
+        width: SCREEN_WIDTH - 32,
         height: SCREEN_WIDTH * 0.9,
-        borderRadius: 50,
+        borderRadius: 24,
         transform: [{ translateY: translateYAnimation }],
       };
     });
@@ -110,8 +110,8 @@ const InitialComponent = () => {
           style={imageAnimationStyle}
         />
         <Animated.View style={textAnimationStyle}>
-          <AppText variant="displayMd" style={styles.itemTitle}>{item.title}</AppText>
-          <AppText variant="bodySm" style={styles.itemText}>{item.text}</AppText>
+          <AppText variant="displayLg" style={styles.itemTitle}>{item.title}</AppText>
+          <AppText variant="body" color="inkMuted" style={styles.itemText}>{item.text}</AppText>
         </Animated.View>
       </View>
     );
@@ -171,8 +171,7 @@ const useStyles = makeStyles((colors) => ({
   },
   itemText: {
     textAlign: "center",
-    marginHorizontal: 35,
-    lineHeight: 20,
+    marginHorizontal: 32,
   },
   bottomContainer: {
     flexDirection: "row",
