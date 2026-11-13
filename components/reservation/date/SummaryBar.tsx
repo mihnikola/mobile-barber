@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, sheetShadow } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 type Props = {
@@ -52,6 +52,7 @@ const useStyles = makeStyles((colors) => ({
     backgroundColor: colors.surface,
     borderTopWidth: 1,
     borderTopColor: colors.line,
+    ...sheetShadow(colors),
   },
   info: { flex: 1 },
   hint: { flex: 1, fontFamily: fonts.sans, fontSize: 14, color: colors.inkMuted },

@@ -1,7 +1,7 @@
 import React from "react";
 import InfoContainerFuture from "./InfoContainerFuture";
 import DateFormatComponent from "./DateFormatComponent";
-import { makeStyles } from "@/theme";
+import { cardShadow, makeStyles } from "@/theme";
 import { Pressable } from "@/components/ui";
 
 const CardReservationRejected = ({ redirectScreen, item }) => {
@@ -27,6 +27,7 @@ const useStyles = makeStyles((colors) => ({
     marginHorizontal: 16,
     marginVertical: 6,
     borderRadius: 16,
+    ...cardShadow(colors),
   },
 }));
 

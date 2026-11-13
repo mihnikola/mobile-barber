@@ -1,7 +1,7 @@
 import { Children, Fragment, isValidElement, type ReactNode } from "react";
 import { type StyleProp, Text, View, type ViewStyle } from "react-native";
 
-import { fonts, makeStyles } from "@/theme";
+import { cardShadow, fonts, makeStyles } from "@/theme";
 
 import { Icon, type IconName } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -11,13 +11,16 @@ export function ListGroup({ children, style }: { children: ReactNode; style?: St
   const s = useStyles();
   const rows = Children.toArray(children).filter(isValidElement);
   return (
+    // outer view carries the shadow (iOS clips shadows on overflow:hidden), inner one clips the corners
     <View style={[s.group, style]}>
-      {rows.map((row, i) => (
-        <Fragment key={row.key ?? i}>
-          {i > 0 && <View style={s.divider} />}
-          {row}
-        </Fragment>
-      ))}
+      <View style={s.clip}>
+        {rows.map((row, i) => (
+          <Fragment key={row.key ?? i}>
+            {i > 0 && <View style={s.divider} />}
+            {row}
+          </Fragment>
+        ))}
+      </View>
     </View>
   );
 }
@@ -51,10 +54,11 @@ const useStyles = makeStyles((colors) => ({
   group: {
     backgroundColor: colors.surface,
     borderRadius: 16,
-    overflow: "hidden",
     marginHorizontal: 16,
     marginVertical: 8,
+    ...cardShadow(colors),
   },
+  clip: { borderRadius: 16, overflow: "hidden" },
   divider: { height: 1, backgroundColor: colors.line, marginLeft: 16 },
   row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 56, paddingHorizontal: 16 },
   label: { flex: 1, fontFamily: fonts.sans, fontSize: 16, color: colors.ink },

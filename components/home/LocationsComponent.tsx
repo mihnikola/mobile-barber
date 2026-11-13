@@ -40,7 +40,7 @@ function LocationsComponent({ locations, modalVisible, setModalVisible, handleLo
 const useStyles = makeStyles((colors) => ({
   list: { maxHeight: 300 },
   // inside the dialog panel: no side margins, sits on the bg tone
-  group: { marginHorizontal: 0, marginVertical: 0, backgroundColor: colors.bg },
+  group: { marginHorizontal: 0, marginVertical: 0, backgroundColor: colors.bg, shadowOpacity: 0, elevation: 0 },
 }));
 
 export default LocationsComponent;

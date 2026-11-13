@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { type StyleProp, StyleSheet, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { type ColorToken, fonts, makeStyles, useTheme } from "@/theme";
+import { cardShadow, type ColorToken, fonts, makeStyles, useTheme } from "@/theme";
 
 import { Icon, type IconName } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -102,12 +102,7 @@ const useCardColors = makeStyles((colors) => ({
     padding: 16,
     marginVertical: 6,
     marginHorizontal: 16,
-    shadowColor: "#141414",
-    shadowOffset: { width: 0, height: 1 },
-    // light: 0 1px 2px rgba(20,20,20,.06) · dark: none (detected by the palette's background)
-    shadowOpacity: colors.bg === "#F5F4F1" ? 0.06 : 0,
-    shadowRadius: 2,
-    elevation: colors.bg === "#F5F4F1" ? 1 : 0,
+    ...cardShadow(colors),
   },
   title: { fontSize: 16, lineHeight: 22, fontFamily: fonts.sansSemiBold, color: colors.ink },
   metaText: { fontSize: 14, lineHeight: 20, color: colors.inkMuted, fontFamily: fonts.sans },
