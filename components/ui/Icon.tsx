@@ -62,7 +62,11 @@ export type IconName = keyof typeof REGISTRY;
 export const iconSize = { xs: 16, sm: 20, md: 24, lg: 28, xl: 32, xxl: 64 } as const;
 
 export type IconProps = {
-  name: IconName;
+  /**
+   * Falsy = empty placeholder of the same size (e.g. `name={selected && "check"}`), exactly like
+   * vector-icons render an empty glyph for a falsy name — keeps row layout stable.
+   */
+  name: IconName | false | null | undefined;
   size?: keyof typeof iconSize | number;
   /** Color token (default `text`). Use `rawColor` only for values outside the theme. */
   color?: ColorToken;
@@ -73,9 +77,9 @@ export type IconProps = {
 
 /** One icon component for the whole app (replaces direct use of 5 icon libraries). */
 export function Icon({ name, size = "md", color = "text", rawColor, style, testID }: IconProps) {
-  const [family, glyph] = REGISTRY[name];
+  const [family, glyph]: readonly [Family, string | undefined] = name ? REGISTRY[name] : ["FontAwesome", undefined];
   const Component = FAMILIES[family] as React.ComponentType<{
-    name: string;
+    name?: string;
     size: number;
     color: string;
     style?: StyleProp<TextStyle>;

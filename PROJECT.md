@@ -168,6 +168,7 @@ constants/               Colors + two cover image URLs
 | B24 | `convertDate` takes the weekday from local time but the day/month/year from UTC (`toISOString`) → around midnight (or for UTC− users) weekday and date can disagree | `lib/date` | ⏳ Kept 1:1 (documented); fix = use local date parts |
 | B25 | Reservation screen took `setError` from `useAppointment()`, but the provider never exposed it → dismissing a booking error message called `undefined(null)` → TypeError (found by the new context types) | `context/AppointmentContext.tsx` | ✅ Phase 4c: `setError` added to the context value |
 | B26 | `removeTokenData` sets `isToken` to null only if `removeStorage()` resolves truthy, but it always resolves `undefined` → state never cleared. Function is unused today | `context/AuthContext.tsx` | ⏳ Documented in code; remove or fix when auth is split |
+| B27 | **Regression from Phase 2/5a (found by user on device):** language screen crashed — `name={selected && "check"}` passed `false` to `ui/Icon`, which indexed its registry with it. Old vector icon rendered an empty glyph for a falsy name | `components/ui/Icon.tsx` | ✅ `Icon` accepts a falsy name and renders the same empty, same-size glyph (only such usage in the app) |
 | B13 | Remaining React Compiler lint errors: `set-state-in-effect` (10), `refs` (8), `display-name` (7), `no-unescaped-entities` (1) | various | ⏳ Phase 3–4 (fetch hook / component rework) |
 
 ### 2.5 Dead code (candidates, verified by import search)
