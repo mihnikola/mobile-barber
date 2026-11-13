@@ -7,9 +7,9 @@ import { colors, fonts } from "@/theme";
 /**
  * @deprecated Use `<TextField>` from `@/components/ui`.
  * Old unused `stylePassword` / `dataDetectorTypes` branches removed (no caller used them).
- * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedInput = forwardRef<TextInputRef, any>(({ style, error, onFocus, onBlur, ...props }, ref) => (
+const SharedInput = forwardRef<TextInputRef, any>(({ style, error, ...props }, ref) => (
   <TextField
     {...props}
     ref={ref}

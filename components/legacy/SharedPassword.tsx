@@ -6,9 +6,9 @@ import { colors, fonts } from "@/theme";
 
 /**
  * @deprecated Use `<PasswordField>` from `@/components/ui`.
- * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedPassword = forwardRef<TextInputRef, any>(({ error, onFocus, onBlur, ...props }, ref) => (
+const SharedPassword = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => (
   <PasswordField
     {...props}
     ref={ref}

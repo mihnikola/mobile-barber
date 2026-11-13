@@ -1,9 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 
-// Node applies TZ changes at runtime; Belgrade is UTC+1/+2, where the old code showed the wrong date.
-process.env.TZ = "Europe/Belgrade";
-
 import { convertDate } from "..";
+
+// Node applies TZ changes at runtime (read on each Date call); Belgrade is UTC+1/+2,
+// where the old code showed the wrong date.
+process.env.TZ = "Europe/Belgrade";
 
 describe("convertDate around local midnight (B24)", () => {
   it("00:30 local on Sat 15 Mar 2025 stays Saturday the 15th", () => {

@@ -7,10 +7,10 @@ import { colors, fonts } from "@/theme";
 /**
  * @deprecated Use `<TextField>` from `@/components/ui`.
  * Scrolls the field above the keyboard on focus when `scrollRef` is given.
- * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, onBlur, ...props }, ref) => {
-  const handleFocus = () => {
+const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, ...props }, ref) => {
+  const handleFocus = (e) => {
     if (scrollRef && ref) {
       const node = findNodeHandle(ref.current);
       if (node) {
@@ -26,7 +26,10 @@ const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, onBlur, ...props
         ref={ref}
         unstyled
         value={props.value ?? ""}
-        onFocus={handleFocus}
+        onFocus={(e) => {
+          handleFocus(e);
+          onFocus?.(e);
+        }}
         styles={{ label: styles.label, input: style, inputFocused: styles.inputFocused, error: styles.error }}
       />
     </View>

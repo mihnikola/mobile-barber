@@ -6,9 +6,9 @@ import { colors, fonts } from "@/theme";
 
 /**
  * @deprecated Use `<PhoneField>` from `@/components/ui`.
- * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ * Caller onFocus/onBlur are forwarded (B20 fixed; they used to be dropped).
  */
-const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, onFocus, onBlur, ...props }, ref) => (
+const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, ...props }, ref) => (
   <PhoneField
     // old component never set a placeholder color -> keep the platform default
     placeholderTextColor={undefined}

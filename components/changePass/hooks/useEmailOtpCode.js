@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { isValidEmail } from "@/lib/validation";
@@ -48,7 +48,7 @@ const useEmailOtpCode = () => {
         setError(localization.SERVER_RESPONSE.error);
         setIsMessage(true);
       }
-    } catch (err) {
+    } catch {
       setError(localization.SERVER_RESPONSE.error);
       setIsMessage(true);
     } finally {
