@@ -18,7 +18,6 @@ export interface AuthContextValue {
   setLoading: Setter<AuthLoading>;
   isToken: string | null;
   getTokenData: () => Promise<void>;
-  removeTokenData: () => Promise<void>;
   userData: ApiRecord | null;
   fetchUserData: () => Promise<void>;
   error: ApiRecord | string | null;

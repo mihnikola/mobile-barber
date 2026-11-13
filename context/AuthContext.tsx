@@ -208,15 +208,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [isToken]);
 
-  const removeTokenData = async () => {
-    // NOTE (B26): removeStorage resolves to undefined, so setIsToken(null) below never runs. Unused today.
-    await removeStorage().then((res: unknown) => {
-      if (res) {
-        setIsToken(null);
-      }
-    });
-  };
-
   const logoutHandler = async () => {
     try {
       await AsyncStorage.removeItem("paramLogin");
@@ -402,7 +393,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{
         isLoading,
         getTokenData,
-        removeTokenData,
         isToken,
         logoutFirebase,
         logoutUnAuthorizedUser,
