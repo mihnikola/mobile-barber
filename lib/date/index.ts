@@ -54,6 +54,26 @@ export function convertToDay(dateString: string) {
   return dateString.split(".")[0];
 }
 
+/** List date "15.03.2025 9:5" (also "15. 03. 2025 9:5") → local Date; unparseable → null. */
+export function parseListDate(dateString?: string | null): Date | null {
+  if (!dateString) return null;
+  const [datePart, timePart = "0:0"] = String(dateString).trim().split(/\s+(?=\d{1,2}:\d{1,2}$)/);
+  const [day, month, year] = datePart.split(".").map((p) => Number(p.trim()));
+  const [hours, minutes] = timePart.split(":").map(Number);
+  const date = new Date(year, month - 1, day, hours || 0, minutes || 0);
+  return Number.isNaN(date.getTime()) || !year || !month || !day ? null : date;
+}
+
+/**
+ * Pending request whose time has passed (B28): the backend lists these under "rejected" but keeps
+ * status 2. Same rule as the details screen (expirationDate), falling back to the start time.
+ */
+export function isExpiredPending(item: { status?: unknown; expirationDate?: string; startDate?: string } | null | undefined, now = new Date()) {
+  if (Number(item?.status) !== 2) return false;
+  const limit = item?.expirationDate ? new Date(item.expirationDate) : parseListDate(item?.startDate);
+  return Boolean(limit && !Number.isNaN(limit.getTime()) && limit.getTime() < now.getTime());
+}
+
 /** "15.03.2025 9:5" → "09:05". */
 export function convertToDayTime(dateString: string) {
   const time = dateString.split(" ")[1];

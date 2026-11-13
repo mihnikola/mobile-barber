@@ -59,3 +59,19 @@ describe("format", () => {
     [null, undefined],
   ])("getInitialsName(%p) = %p", (input, out) => expect(getInitialsName(input as string)).toBe(out));
 });
+
+describe("expired pending requests (B28)", () => {
+  const { isExpiredPending, parseListDate } = require("..");
+  const now = new Date(2026, 10, 13, 12, 0);
+  it("parses list dates", () => {
+    expect(parseListDate("10.11.2026 21:10")?.getTime()).toBe(new Date(2026, 10, 10, 21, 10).getTime());
+    expect(parseListDate("15. 03. 2025 9:5")?.getTime()).toBe(new Date(2025, 2, 15, 9, 5).getTime());
+    expect(parseListDate("")).toBeNull();
+  });
+  it("pending in the past is expired, future or other statuses are not", () => {
+    expect(isExpiredPending({ status: 2, startDate: "10.11.2026 21:10" }, now)).toBe(true);
+    expect(isExpiredPending({ status: 2, startDate: "18.11.2026 11:40" }, now)).toBe(false);
+    expect(isExpiredPending({ status: 1, startDate: "10.11.2026 21:10" }, now)).toBe(false);
+    expect(isExpiredPending({ status: 2, expirationDate: "2026-11-14T10:00:00Z", startDate: "10.11.2026 21:10" }, now)).toBe(false);
+  });
+});

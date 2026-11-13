@@ -1,5 +1,5 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { convertToDayTime, formatTimeRange } from "@/lib/date";
+import { convertToDayTime, formatTimeRange, isExpiredPending } from "@/lib/date";
 import React from "react";
 import { View } from "react-native";
 import type { ApiRecord } from "@/context/types";
@@ -20,7 +20,9 @@ const InfoContainerFuture = ({ item }: { item: ApiRecord }) => {
     done: "",
     new: "",
   };
-  const badge = BADGE[item.status];
+  // pending request whose time has passed → "Isteklo" (neutral), not "Na čekanju" (B28)
+  const expired = isExpiredPending(item);
+  const badge: BadgeStatus | undefined = expired ? "done" : BADGE[item.status];
 
   return (
     <View style={styles.body}>
@@ -28,7 +30,7 @@ const InfoContainerFuture = ({ item }: { item: ApiRecord }) => {
         <AppText variant="bodyStrong" numberOfLines={2} ellipsizeMode="tail" style={styles.title}>
           {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus}
         </AppText>
-        {badge && <StatusBadge status={badge} label={labels[badge]} />}
+        {badge && <StatusBadge status={badge} label={expired ? localization.APPOINTMENTS.expired : labels[badge]} />}
       </View>
       <View style={styles.line}>
         <Icon name="clock" size="xs" color="inkMuted" />

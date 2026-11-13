@@ -121,6 +121,7 @@ export const SRB_LOCALIZATION = {
     pending: "Na čekanju",
     rejected: "Odbijeno",
     approved: "Odobreno",
+    expired: "Isteklo",
     noLogin: "Samo nekoliko klikova deli vas od vaših rezervacija",
     login: "Molimo vas prijavite se ovde",
     error: "Trenutno nemate nijednu rezervaciju",
