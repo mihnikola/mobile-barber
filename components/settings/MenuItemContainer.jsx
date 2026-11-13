@@ -1,15 +1,25 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { MenuItem } from "./MenuItem";
 import { useLocalization } from "@/context/LocalizationContext";
+import { useTheme } from "@/theme";
+
+/** System → Light → Dark → System … */
+const NEXT_MODE = { system: "light", light: "dark", dark: "system" };
 
 const MenuItemContainer = ({ onPress, isToken }) => {
   const { localization } = useLocalization();
+  const { mode, setMode } = useTheme();
   return (
     <ScrollView style={styles.menuContainer}>
       <MenuItem
         iconName="translate"
         title={localization.SETTINGS.changeLanguage.capture}
         onPress={() => onPress("2")}
+      />
+      <MenuItem
+        iconName="theme"
+        title={`${localization.SETTINGS.THEME.title}: ${localization.SETTINGS.THEME[mode]}`}
+        onPress={() => setMode(NEXT_MODE[mode])}
       />
       <MenuItem
         iconName="contacts"

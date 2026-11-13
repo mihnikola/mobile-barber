@@ -153,6 +153,12 @@ export const SRB_LOCALIZATION = {
   },
   SETTINGS: {
     clickHere: "Prijavite se ovde",
+    THEME: {
+      title: "Tema",
+      system: "Sistem",
+      light: "Svetla",
+      dark: "Tamna",
+    },
     changeLanguage: {
       capture: "Promena jezika",
       filterCapture: "Pretraga",

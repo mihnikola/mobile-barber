@@ -150,6 +150,12 @@ export const ENG_LOCALIZATION = {
   },
   SETTINGS: {
     clickHere: "Click here to Log in",
+    THEME: {
+      title: "Theme",
+      system: "System",
+      light: "Light",
+      dark: "Dark",
+    },
     changeLanguage: {
       capture: "Change language",
       filterCapture: "Search",

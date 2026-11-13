@@ -49,6 +49,7 @@ const REGISTRY = {
   wifiOff: ["Feather", "wifi-off"],
   // settings menu
   translate: ["Feather", "globe"],
+  theme: ["Feather", "moon"],
   contacts: ["Feather", "users"],
   support: ["Feather", "help-circle"],
   document: ["Feather", "file-text"],
