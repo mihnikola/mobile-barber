@@ -3,7 +3,7 @@ import useInternetGuard from "@/services/useInternetGuard";
 import NoInternetModal from "@/components/app/InternetModal";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import { fonts, ThemeProvider, useTheme } from "@/theme";
+import { fontAssets, ThemeProvider, useTheme } from "@/theme";
 
 /** Theme first: everything below (incl. the root stack) reads colors from it. */
 export default function RootLayout() {
@@ -17,11 +17,7 @@ export default function RootLayout() {
 function RootStack() {
   const { colors } = useTheme();
   const isConnected = useInternetGuard();
-  const [loaded, error] = useFonts({
-    [fonts.regular]: require("@/assets/fonts/BarlowCondensed-Regular.ttf"),
-    [fonts.bold]: require("@/assets/fonts/BarlowCondensed-Bold.ttf"),
-    [fonts.italic]: require("@/assets/fonts/BarlowCondensed-Italic.ttf"),
-  });
+  const [loaded, error] = useFonts(fontAssets);
 
   if (!loaded && !error) {
     return null;
