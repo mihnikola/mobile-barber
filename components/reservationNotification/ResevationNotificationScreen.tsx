@@ -1,5 +1,4 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
 import { Dimensions, ScrollView, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -13,7 +12,7 @@ import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, ConfirmDialog, Icon, Loader, MessageDialog, withScreen } from "@/components/ui";
+import { AppText, Button, ConfirmDialog, Icon, layout, Loader, MessageDialog, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -157,9 +156,9 @@ function ResevationNotificationScreen() {
     if (!reservationData?.rating && Number(reservationData?.status) !== 1) {
       return (
         <View style={styles.btnSubmitContainer}>
-          <SharedButtonDateReservation
+          <Button style={layout.buttonBlock}
             onPress={modalReservationHandler}
-            text={buttonLabel}
+            title={buttonLabel}
           />
         </View>
       );

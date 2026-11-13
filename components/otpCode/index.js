@@ -1,7 +1,6 @@
 import {
   View,
 } from "react-native";
-import SharedButton from "@/components/legacy/SharedButton";
 import OtpInput from "./OtpCodeInput";
 import { useEffect, useState } from "react";
 import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
@@ -13,7 +12,7 @@ import {
   removeOtpParamsStorage,
 } from "@/helpers/verificationOtpParams";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, Loader, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { AppText, Button, Icon, layout, Loader, MessageDialog, Pressable, Screen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const OtpCode = () => {
@@ -143,10 +142,10 @@ const OtpCode = () => {
           {/* <SharedImageForgotPass /> */}
         </View>
         <View style={styles.btnFooter}>
-          <SharedButton
+          <Button style={layout.buttonBlock}
             // disabled={code.join("").length < 6}
             onPress={handleVerify}
-            text={localization.SUBMIT.label}
+            title={localization.SUBMIT.label}
             loading={isLoading}
           />
         </View>

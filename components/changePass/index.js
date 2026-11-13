@@ -1,7 +1,6 @@
 import {
   View,
 } from "react-native";
-import SharedButton from "@/components/legacy/SharedButton";
 import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
 import { router, useLocalSearchParams } from "expo-router";
@@ -10,7 +9,7 @@ import SharedPassword from "@/components/legacy/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { makeStyles } from "@/theme";
-import { AppText, Icon, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const styles = useStyles();
@@ -86,9 +85,9 @@ const ChangePass = () => {
         </View>
       </View>
       <View style={styles.btnFooter}>
-        <SharedButton
+        <Button style={layout.buttonBlock}
           loading={isLoading}
-          text={localization.SUBMIT.label}
+          title={localization.SUBMIT.label}
           disabled={password.length > 0 && passwordError.length > 0}
           onPress={submitChanges}
         />

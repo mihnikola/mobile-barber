@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { Platform } from "react-native";
-import SharedButton from "@/components/legacy/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
 import SharedInput from "@/components/legacy/SharedInput";
 import { useEmailField } from "@/lib/hooks/useFormFields";
@@ -9,7 +8,7 @@ import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import { fonts, makeStyles } from "@/theme";
-import { AppText, Icon, MessageDialog, Pressable, Screen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable, Screen } from "@/components/ui";
 
 const ForgotPassword = () => {
   const styles = useStyles();
@@ -74,11 +73,11 @@ const ForgotPassword = () => {
       </View>
 
       <View style={{ marginBottom: 20 }}>
-        <SharedButton
+        <Button style={layout.buttonBlock}
           disabled={emailError.length > 0 && email.length > 0}
           onPress={navHandler}
           loading={isLoading}
-          text={localization.FORGOT_PASSWORD.submitBtn}
+          title={localization.FORGOT_PASSWORD.submitBtn}
         />
       </View>
 

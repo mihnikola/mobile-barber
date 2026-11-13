@@ -8,10 +8,9 @@ import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageConta
 import { coverImageAppointments } from "@/constants";
 import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelection";
 import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
-import SharedButton from "@/components/legacy/SharedButton";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { Loader } from "@/components/ui";
+import { Button, layout, Loader } from "@/components/ui";
 
 const MoreServiceComponent = () => {
   const styles = useStyles();
@@ -168,9 +167,9 @@ const handleSelectService = (categoryId, serviceDataVar) => {
         )}
       </View>
       <View style={{ paddingHorizontal: 15 }}>
-        <SharedButton
+        <Button style={layout.buttonBlock}
           onPress={submitHandler}
-          text={
+          title={
             hasSelectedServices
               ? localization.DATE.continue
               : localization.SERVICES.next

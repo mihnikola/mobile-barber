@@ -15,7 +15,6 @@ import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
 import SharedInput from "@/components/legacy/SharedInput";
 import { router } from "expo-router";
-import SharedButton from "@/components/legacy/SharedButton";
 import SharedPhoneNumber from "@/components/legacy/SharedPhoneNumber";
 import SharedNameEdit from "@/components/legacy/SharedNameEdit";
 import { useAuth } from "@/context/AuthContext";
@@ -23,7 +22,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, MessageDialog, Pressable, withScreen } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { colors } = useTheme();
@@ -205,11 +204,11 @@ const UserProfileScreen = () => {
           </View>
 
           <View style={{ marginTop: 50 }}>
-            <SharedButton
+            <Button style={layout.buttonBlock}
               disabled={!isValidated}
               onPress={submitChanges}
               loading={isLoadingChange}
-              text={localization.SETTINGS.PROFILE.btnText}
+              title={localization.SETTINGS.PROFILE.btnText}
             />
           </View>
         </View>

@@ -14,7 +14,6 @@ import { convertDayInitalValue } from "@/lib/date";
 import { getCalendarTheme } from "@/theme/calendar";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
-import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
 import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
@@ -22,7 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Loader } from "@/components/ui";
+import { AppText, Button, layout, Loader } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const DateComponent = () => {
@@ -155,12 +154,10 @@ const DateComponent = () => {
         </View>
         {selectedItem && (
           <View style={styles.buttonContainer}>
-            <SharedButtonDateReservation
-              loading={isLoading}
-              disabled={isLoading}
-              onPress={reportHandler}
-              text={localization.DATE.continue}
-            />
+            {/* hidden while loading, as before (old button was display:none when disabled) */}
+            {!isLoading && (
+              <Button style={layout.buttonBlock} onPress={reportHandler} title={localization.DATE.continue} />
+            )}
           </View>
         )}
       </ScrollView>

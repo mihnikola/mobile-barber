@@ -44,4 +44,6 @@ export const layout = StyleSheet.create({
   center: { alignItems: "center", justifyContent: "center" },
   fill: { flex: 1 },
   wrap: { flexWrap: "wrap" },
+  /** Vertical space around a screen's main action button (old SharedButton margins). */
+  buttonBlock: { marginTop: 20, marginBottom: 30 },
 });

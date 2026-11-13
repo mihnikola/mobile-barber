@@ -7,7 +7,6 @@ import React, { useRef, useState } from "react";
 import { useConfirmPasswordField, useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useRegisterForm from "./hooks/useRegisterForm";
 import SharedInput from "@/components/legacy/SharedInput";
-import SharedButton from "@/components/legacy/SharedButton";
 import SharedRedirect from "@/components/layout/SharedRedirect";
 import usePhoneNumber from "./hooks/usePhoneNumber";
 import { router, useLocalSearchParams } from "expo-router";
@@ -18,7 +17,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, MessageDialog, Pressable } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 const Register = () => {
   const { colors } = useTheme();
@@ -215,7 +214,7 @@ const Register = () => {
           />
         </View>
 
-        <SharedButton
+        <Button style={layout.buttonBlock}
           disabled={
             emailError.length > 0 ||
             passwordError.length > 0 ||
@@ -223,7 +222,7 @@ const Register = () => {
           }
           loading={loading}
           onPress={handleRegister}
-          text={localization.REGISTER.submitBtn}
+          title={localization.REGISTER.submitBtn}
         />
 
         <SharedRedirect

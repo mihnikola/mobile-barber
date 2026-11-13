@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { useEmailField, usePasswordField } from "@/lib/hooks/useFormFields";
 import SharedInput from "@/components/legacy/SharedInput";
-import SharedButton from "@/components/legacy/SharedButton";
 import SharedRedirect from "@/components/layout/SharedRedirect";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/components/legacy/SharedPassword";
@@ -18,14 +17,12 @@ import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/components/layout/SharedLogin";
 import { useCompany } from "@/context/CompanyContext";
-import CustomGoogleButton from "@/components/legacy/CustomGoogleButton";
-import CustomAppleButton from "@/components/legacy/CustomAppleButton";
 import { useEffect, useRef } from "react";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, MessageDialog, Pressable } from "@/components/ui";
+import { AppText, Button, Icon, layout, MessageDialog, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const { width } = Dimensions.get("window");
@@ -143,19 +140,19 @@ const LoginScreen = () => {
           <View style={{ flex: 1, justifyContent: "center" }}>
             {Platform.OS === "ios" ? (
               <View>
-                <CustomGoogleButton
+                <Button variant="socialDark" title={localization.GOOGLE_BTN.label} image={require("@/assets/images/googleg_64dp.png")} style={layout.buttonBlock}
                   onPress={signIn}
-                  isGoogleLoading={loading === "google"}
+                  loading={loading === "google"}
                 />
-                <CustomAppleButton
+                <Button variant="socialLight" title={localization.APPLE_BTN.label} image={require("@/assets/images/apple.png")}
                   onPress={onAppleButtonPress}
-                  isAppleLoading={loading === "ios"}
+                  loading={loading === "ios"}
                 />
               </View>
             ) : (
-              <CustomGoogleButton
+              <Button variant="socialDark" title={localization.GOOGLE_BTN.label} image={require("@/assets/images/googleg_64dp.png")} style={layout.buttonBlock}
                 onPress={signIn}
-                isGoogleLoading={loading === "google"}
+                loading={loading === "google"}
               />
             )}
           </View>
@@ -211,11 +208,11 @@ const LoginScreen = () => {
           </Text>
         </Pressable>
 
-        <SharedButton
+        <Button style={layout.buttonBlock}
           // loading={isLoadingLogin}
           loading={loading === "login"}
           onPress={handleLogin}
-          text={localization.LOGIN.submitBtn}
+          title={localization.LOGIN.submitBtn}
         />
 
         <SharedRedirect

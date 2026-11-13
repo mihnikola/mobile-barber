@@ -6,7 +6,6 @@ import {
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
 import Details from "@/components/booking/Details";
-import SharedButton from "@/components/legacy/SharedButton";
 import SharedInputTextArea from "@/components/legacy/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
@@ -16,7 +15,7 @@ import { routes } from "@/lib/navigation/routes";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { Icon, MessageDialog } from "@/components/ui";
+import { Button, Icon, layout, MessageDialog } from "@/components/ui";
 import { makeStyles } from "@/theme";
 
 const Reservation = () => {
@@ -84,10 +83,10 @@ const Reservation = () => {
             </View>
           </View>
           <View style={styles.btn}>
-            <SharedButton
+            <Button style={layout.buttonBlock}
               loading={isLoading}
               onPress={submitHandler}
-              text={localization.DATE.book}
+              title={localization.DATE.book}
             />
           </View>
           {IsError && (

@@ -1,7 +1,6 @@
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
-import SharedButton from "@/components/legacy/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
 import Note from "@/components/booking/Note";
 import { useLocalization } from "@/context/LocalizationContext";
@@ -9,7 +8,7 @@ import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
 import { fonts, makeStyles } from "@/theme";
-import { AppText } from "@/components/ui";
+import { AppText, Button, layout } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
 const ConfirmBookReservation = () => {
@@ -56,9 +55,9 @@ const ConfirmBookReservation = () => {
           <Note />
         </View>
         <View style={{ marginHorizontal: 30, marginVertical: 50 }}>
-          <SharedButton
+          <Button style={layout.buttonBlock}
             onPress={confirmSubmitReservation}
-            text={localization.BUTTONS.ok}
+            title={localization.BUTTONS.ok}
           />
         </View>
       </ScrollView>
