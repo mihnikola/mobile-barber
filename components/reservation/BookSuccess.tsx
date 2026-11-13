@@ -1,10 +1,11 @@
 import { addMinutesToTime, convertDate, formatTimeRange } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import type { ApiRecord } from "@/context/types";
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
+import BrandLogo from "@/components/layout/BrandLogo";
 
 /**
  * Booking success header (Phase 5.6): current logo (tinted like the login screen) + big time
@@ -12,7 +13,6 @@ import { AppText } from "@/components/ui";
  */
 function BookSuccess({ reservation }: { image?: unknown; reservation: ApiRecord }) {
   const styles = useStyles();
-  const { colors } = useTheme();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
     (acc: { totalPrice: number; totalDuration: number }, current: ApiRecord) => {
@@ -25,7 +25,9 @@ function BookSuccess({ reservation }: { image?: unknown; reservation: ApiRecord 
 
   return (
     <View style={styles.content}>
-      <Image source={require("@/assets/images/homeSplash.png")} style={[styles.logo, { tintColor: colors.ink }]} />
+      <View style={styles.logo}>
+        <BrandLogo height={72} />
+      </View>
       <AppText style={styles.time}>
         {formatTimeRange(
           reservation?.timeData?.value,
@@ -41,7 +43,7 @@ function BookSuccess({ reservation }: { image?: unknown; reservation: ApiRecord 
 
 const useStyles = makeStyles((colors) => ({
   content: { alignItems: "center", paddingHorizontal: 16, paddingTop: 48, gap: 4 },
-  logo: { height: 72, resizeMode: "contain", marginBottom: 24 },
+  logo: { marginBottom: 24 },
   time: { fontFamily: fonts.displaySemiBold, fontSize: 40, lineHeight: 44, color: colors.ink },
 }));
 

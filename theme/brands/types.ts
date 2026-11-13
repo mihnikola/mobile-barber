@@ -79,8 +79,17 @@ export type Typography = {
   buttonTracking: number;
 };
 
+/**
+ * Brand mark: a single-colour image (tinted with ink), or a typographic wordmark while the brand
+ * has no logo yet (design: Fraunces 500, second word italic).
+ */
+export type BrandLogo =
+  | { kind: "image"; source: number; aspectRatio: number }
+  | { kind: "wordmark"; words: [string, string] };
+
 /** Wording / icon details that differ per brand. */
 export type BrandDetails = {
+  logo: BrandLogo;
   /** Icon for "book" (tab bar, hero): scissors for barbers, sparkle for the salon. */
   bookIcon: "scissors" | "sparkle";
   /** Staff wording: "barbers" (Frizeri) or "team" (Tim). */

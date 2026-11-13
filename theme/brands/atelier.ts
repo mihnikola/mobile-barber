@@ -95,5 +95,10 @@ export const atelier: Brand = {
     buttonCase: "none",
     buttonTracking: 0,
   },
-  details: { bookIcon: "sparkle", staffWord: "team" },
+  details: {
+    // no mark yet → typographic wordmark "Atelier *Salon*" (working name, replace with the real one)
+    logo: { kind: "wordmark", words: ["Atelier", "Salon"] },
+    bookIcon: "sparkle",
+    staffWord: "team",
+  },
 };

@@ -94,5 +94,9 @@ export const gentleman: Brand = {
     buttonCase: "uppercase",
     buttonTracking: 0.06,
   },
-  details: { bookIcon: "scissors", staffWord: "barbers" },
+  details: {
+    logo: { kind: "image", source: require("../../assets/images/homeSplash.png"), aspectRatio: 756 / 698 },
+    bookIcon: "scissors",
+    staffWord: "barbers",
+  },
 };

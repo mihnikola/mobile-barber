@@ -13,4 +13,4 @@ export const brands: Record<BrandId, Brand> = { gentleman, atelier };
 const requested = Constants.expoConfig?.extra?.brand as string | undefined;
 export const brand: Brand = (requested && brands[requested as BrandId]) || gentleman;
 
-export type { Brand, BrandDetails, BrandId, DisplayStyle, Palette, Radii, Shadows, Typography } from "./types";
+export type { Brand, BrandDetails, BrandLogo, BrandId, DisplayStyle, Palette, Radii, Shadows, Typography } from "./types";

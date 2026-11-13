@@ -1,9 +1,10 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useCompany } from "@/context/CompanyContext";
 import { useTheme } from "@/theme";
+import BrandLogo from "@/components/layout/BrandLogo";
 
 const SplashScreen = () => {
   const { colors } = useTheme();
@@ -31,11 +32,8 @@ const SplashScreen = () => {
         justifyContent: "center",
       }}
     >
-      {/* white artwork tinted with the theme's ink (was invisible on light); 20% smaller than before (350 → 280) */}
-      <Image
-        source={require("./../assets/images/homeSplash.png")}
-        style={{ resizeMode: "contain", width: 280, height: 280 * (698 / 756), tintColor: colors.ink }}
-      />
+      {/* brand mark (gentleman: logo 280 px wide, tinted ink; atelier: typographic wordmark) */}
+      <BrandLogo height={Math.round(280 * (698 / 756))} />
     </View>
   );
 };
