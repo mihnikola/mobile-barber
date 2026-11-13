@@ -19,7 +19,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, Icon, layout, MessageDialog, PhoneField, Pressable, TextField, withScreen } from "@/components/ui";
+import { AppText, Button, Icon, MessageDialog, PhoneField, Pressable, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { colors } = useTheme();
@@ -132,11 +132,9 @@ const UserProfileScreen = () => {
           paddingBottom: 50,
         }}
       >
-        <View style={{ marginLeft: 20, marginTop: 15 }}>
-          <Pressable hitSlop={20} onPress={router.back}>
-            <Icon name="back" size={25} />
-          </Pressable>
-        </View>
+        <Pressable hitSlop={20} onPress={() => router.back()} style={styles.back}>
+          <Icon name="back" />
+        </Pressable>
         <View style={styles.imageContainer}>
           <View style={styles.imageContainerImage}>
             <ImageCompress
@@ -147,7 +145,7 @@ const UserProfileScreen = () => {
         </View>
         <View style={styles.userDataContainer}>
           <View>
-            <AppText variant="label" color="inkMuted" style={styles.inputLabel}>
+            <AppText variant="label" color="inkMuted" style={styles.label}>
               {localization.SETTINGS.PROFILE.email}
             </AppText>
             <TextInput
@@ -161,7 +159,6 @@ const UserProfileScreen = () => {
             <PhoneField
               label={localization.SETTINGS.PROFILE.phoneNumber}
               placeholder="6x xxx xxxx"
-              placeholderTextColor={colors.textOnLight}
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
               value={
@@ -203,8 +200,9 @@ const UserProfileScreen = () => {
             />
           </View>
 
-          <View style={{ marginTop: 50 }}>
-            <Button style={layout.buttonBlock}
+          <View>
+            <Button
+              style={styles.submit}
               disabled={!isValidated}
               onPress={submitChanges}
               loading={isLoadingChange}
@@ -218,7 +216,7 @@ const UserProfileScreen = () => {
             onClose={!errorChange ? messageHandler : messageHandler2}
             onConfirm={!errorChange ? messageHandler : messageHandler2}
             icon={
-              <Icon name={errorChange ? "close" : "check"} size={64} color="ink" />
+              <Icon name={errorChange ? "close" : "check"} size={32} />
             }
             title={
               message
@@ -228,126 +226,30 @@ const UserProfileScreen = () => {
             buttonText="Ok"
           />
         )}
-        {/* <StatusBar backgroundColor=colors.bg /> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
 
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-  },
-
-  inputLabel: {
-    marginBottom: 8,
-    marginTop: 15,
-  },
-  phoneNumberInputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.line,
-    paddingHorizontal: 10,
-  },
-  phoneNumberInput: {
-    backgroundColor: colors.white,
-    color: colors.ink,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.white,
-  },
-  buttonText: {
-    color: colors.ink,
-    fontSize: 16,
-    fontFamily: fonts.sansSemiBold,
-    padding: 10,
-    textAlign: "center",
-  },
-  input: {
-    backgroundColor: colors.white,
-    color: colors.textOnLight,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 18,
-    borderWidth: 2,
-    borderColor: colors.white,
-    fontFamily: fonts.sans,
-  },
+  back: { alignSelf: "flex-start", padding: 4, marginLeft: 16, marginTop: 16 },
+  imageContainer: { alignItems: "center", marginTop: 8 },
+  imageContainerImage: { alignItems: "center" },
+  userDataContainer: { paddingHorizontal: 16, paddingTop: 8 },
+  label: { marginTop: 16, marginBottom: 6 },
+  // read-only field: sunken, muted text, no focus
   inputDisabled: {
-    backgroundColor: colors.surfaceSunken,
-    color: colors.inkFaint,
-    fontFamily: fonts.sans,
-    padding: 15,
+    minHeight: 48,
+    paddingHorizontal: 16,
     borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.line,
+    backgroundColor: colors.surfaceSunken,
+    color: colors.inkMuted,
+    fontFamily: fonts.sans,
     fontSize: 16,
-    borderWidth: 1,
-    borderColor:colors.ink,
   },
-  unbutton: {
-    textAlign: "center",
-    marginVertical: 30,
-    backgroundColor: colors.bg,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: colors.inkFaint,
-  },
-  unButtonText: {
-    color: colors.inkFaint,
-    fontSize: 16,
-    padding: 10,
-    textAlign: "center",
-    backgroundColor: colors.bg,
-  },
-  button: {
-    padding: 5,
-    backgroundColor: colors.bg,
-    borderColor: colors.white,
-    borderWidth: 1,
-    textAlign: "center",
-    marginVertical: 60,
-  },
-
-  userDataContainer: {
-    flex: 2,
-    backgroundColor: colors.bg,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-  },
-  imageContainerImage: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  textInput: {
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    backgroundColor: colors.white,
-    padding: 10,
-  },
-  imageContainer: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: colors.bg,
-  },
-  containerInfo: {
-    marginTop: 20,
-    flexDirection: "column",
-    backgroundColor: colors.bg,
-    gap: 10,
-  },
-  headerImage: {
-    width: "100%",
-    height: 300,
-    opacity: 0.2,
-  },
-  icon: {
-    marginRight: 5,
-    alignSelf: "flex-end",
-  },
+  submit: { marginTop: 32 },
 }));
 
 export default withScreen(UserProfileScreen, "keyboard");
