@@ -34,14 +34,14 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <AppText variant="legacySubtitle">
+            <AppText variant="bodyStrong">
               {localization.SERVICES.totalDuration}
             </AppText>
           </View>
           <View>
-            {totalDuration && <AppText variant="legacyBody" size={18}>{totalDuration}{" min"}</AppText>}
+            {totalDuration && <AppText variant="body">{totalDuration}{" min"}</AppText>}
             {!totalDuration && (
-              <AppText variant="legacyBody" size={18}>
+              <AppText variant="body">
                 {totals.totalDuration + service?.serviceDuration ||
                   service?.duration}
                 {" min"}
@@ -56,14 +56,14 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <AppText variant="legacySubtitle">
+            <AppText variant="bodyStrong">
               {localization.SERVICES.totalPrice}
             </AppText>
           </View>
           <View>
-            {totalPrice && <AppText variant="legacyBody" size={18}>{totalPrice}{" rsd"}</AppText>}
+            {totalPrice && <AppText variant="body">{totalPrice}{" rsd"}</AppText>}
             {!totalPrice && (
-              <AppText variant="legacyBody" size={18}>
+              <AppText variant="body">
                 {totals.totalPrice + service?.servicePrice || service?.price}
                 {" rsd"}
               </AppText>
@@ -89,7 +89,7 @@ const useStyles = makeStyles((colors) => ({
     color: colors.ink,
     marginHorizontal: 10,
     fontSize: 15,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
 }));
 export default SummaryService;

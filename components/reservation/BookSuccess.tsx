@@ -26,7 +26,7 @@ function BookSuccess({ image, reservation }) {
       <SharedLogo />
 
       <View style={styles.coverContent}>
-        <AppText variant="legacyHeading" style={styles.timeData}>
+        <AppText variant="displayMd" style={styles.timeData}>
           {reservation?.timeData?.value} -{" "}
           {addMinutesToTime(
             reservation?.timeData?.value,
@@ -34,7 +34,7 @@ function BookSuccess({ image, reservation }) {
             totals?.totalDuration,
           )}
         </AppText>
-        <AppText variant="legacyTitle">
+        <AppText variant="title">
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,

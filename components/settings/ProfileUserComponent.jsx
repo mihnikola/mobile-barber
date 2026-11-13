@@ -9,8 +9,8 @@ const ProfileUserComponent = ({ data, onPress }) => {
       {/* no photo → nothing (B21, user decision D-022) */}
       {data?.image ? <Image source={{ uri: data?.image }} style={styles.profileImage} /> : null}
       <View style={styles.profileInfo}>
-        <AppText variant="legacyTitle" style={styles.profileName}>{data?.name}</AppText>
-        <AppText variant="legacyBody">{data?.email}</AppText>
+        <AppText variant="title" style={styles.profileName}>{data?.name}</AppText>
+        <AppText variant="bodySm">{data?.email}</AppText>
       </View>
       <Pressable style={styles.editButton} onPress={() => onPress("1")}>
         <Icon name="pencil" size={20} color="ink" />

@@ -146,7 +146,7 @@ const DateComponent = () => {
           )}
           {isSunday && (
             <View style={styles.notWorkingDays}>
-              <AppText variant="legacyBody" size={20} style={styles.notWorkingDaysContent}>
+              <AppText variant="bodyLg" style={styles.notWorkingDaysContent}>
                 {localization.DATE.holidaySunday}
               </AppText>
             </View>
@@ -178,12 +178,12 @@ const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     backgroundColor: colors.bg,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
   },
   calendarContainer: {
     marginTop: 10,
     backgroundColor: colors.bg,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
 
 
   },
@@ -192,7 +192,7 @@ const useStyles = makeStyles((colors) => ({
     backgroundColor: "transparent",
     color: colors.warning,
     width: "100%",
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
   },
 
   buttonContainer: {

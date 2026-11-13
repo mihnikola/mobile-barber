@@ -10,7 +10,7 @@ const LoginRedirect = ({ onPress, title }) => {
         <Icon name="personCircle" size={30} color="inkMuted" />
       </View>
       <Pressable onPress={onPress}>
-        <AppText variant="legacySubtitle">{title}</AppText>
+        <AppText variant="bodyStrong">{title}</AppText>
       </Pressable>
     </View>
   );

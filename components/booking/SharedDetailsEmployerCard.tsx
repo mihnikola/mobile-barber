@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/lib/format";
 import { AppText, Avatar, Card, cardStyles, Icon } from "@/components/ui";
@@ -33,20 +33,20 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
             }
           }
         >
-          <Text
+          <AppText
             style={[styles.name, otherServices?.length > 0 && styles.nameOther]}
           >
             {name}
-          </Text>
+          </AppText>
           <View style={styles.locationContainer}>
-            <Text
+            <AppText
               style={[
                 styles.locationText,
                 otherServices?.length > 0 && styles.seniorityOther,
               ]}
             >
               {seniority?.title || seniority}
-            </Text>
+            </AppText>
           </View>
         </View>
 
@@ -61,14 +61,14 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           >
             <View style={styles.ratingContainer}>
               <Icon name={"star"} size={16} color="star" />
-              <AppText variant="legacyTitle" size={12}>{`${roundValue(
+              <AppText variant="caption">{`${roundValue(
                 averageRating,
               )}/5`}</AppText>
             </View>
 
             <View style={styles.ratingContainer}>
               <Icon name={"person"} size={16} color="star" />
-              <AppText variant="legacyTitle" size={12}>{userCount || 0}</AppText>
+              <AppText variant="caption">{userCount || 0}</AppText>
             </View>
           </View>
         </View>
@@ -109,14 +109,14 @@ const useStyles = makeStyles((colors) => ({
   },
   name: {
     fontSize: 18,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color    marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
   },
   seniorityOther: {
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
   },
   locationContainer: {
     flexDirection: "row",
@@ -124,7 +124,7 @@ const useStyles = makeStyles((colors) => ({
   },
   locationText: {
     fontSize: 14,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color
   },
   ratingContainer: {

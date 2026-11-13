@@ -1,11 +1,12 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { fonts, useTheme } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const NotSummary = ({ text }) => {
   const { colors } = useTheme();
   return (
     <View style={{  backgroundColor:colors.bg }}>
-      <Text
+      <AppText
         style={{
           fontSize: 20,
           color: colors.ink,
@@ -13,11 +14,11 @@ const NotSummary = ({ text }) => {
           padding: 20,
           borderRadius: 20,
           backgroundColor:colors.bg,
-          fontFamily: fonts.regular,
+          fontFamily: fonts.sans,
         }}
       >
         {text}
-      </Text>
+      </AppText>
     </View>
   );
 };

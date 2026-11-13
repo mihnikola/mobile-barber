@@ -1,9 +1,6 @@
 import SharedReviewImage from "@/components/layout/SharedReviewImage";
 import React from "react";
-import {
-  Text,
-  View,
-} from "react-native";
+import { View } from "react-native";
 import { makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
@@ -16,8 +13,8 @@ const OnboardingItem = ({ item, itemWidth }) => {
       <View style={styles.reviewContentWrapper}>
         <SharedReviewImage style={styles.imageStyle} />
 
-        <Text style={styles.reviewText}>{item.description}</Text>
-        <AppText variant="legacyTitle" style={styles.reviewTitle}>{item.name}</AppText>
+        <AppText style={styles.reviewText}>{item.description}</AppText>
+        <AppText variant="title" style={styles.reviewTitle}>{item.name}</AppText>
       </View>
     </View>
   );

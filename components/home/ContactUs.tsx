@@ -7,10 +7,10 @@ const ContactUs = ({ workDays, workSaturday, holidays }) => {
   const { localization } = useLocalization();
   return (
     <View style={styles.content}>
-      <AppText variant="legacyTitle" size={29} style={styles.reviewCapture}>{localization.HOME.aboutUs}</AppText>
-      <AppText variant="legacyTitle" size={19} style={styles.text}>{workDays}</AppText>
-      <AppText variant="legacyTitle" size={19} style={styles.text}>{workSaturday}</AppText>
-      <AppText variant="legacyTitle" size={19} style={styles.text}>{holidays}</AppText>
+      <AppText variant="displayLg" style={styles.reviewCapture}>{localization.HOME.aboutUs}</AppText>
+      <AppText variant="bodyStrong" style={styles.text}>{workDays}</AppText>
+      <AppText variant="bodyStrong" style={styles.text}>{workSaturday}</AppText>
+      <AppText variant="bodyStrong" style={styles.text}>{holidays}</AppText>
     </View>
   );
 };

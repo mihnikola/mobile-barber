@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, Text } from "react-native";
+import { Modal, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { fonts, makeStyles } from "@/theme";
 import { AppText, Icon } from "@/components/ui";
@@ -18,8 +18,8 @@ export default function NoInternetModal({ visible }) {
       <View style={styles.overlay}>
         <View style={styles.box}>
           <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="inkFaint" />
-          <AppText variant="legacyTitle" size={24} style={styles.title}> {localization.INTERNET.title}</AppText>
-          <Text style={styles.sub}> {localization.INTERNET.error}</Text>
+          <AppText variant="displayMd" style={styles.title}> {localization.INTERNET.title}</AppText>
+          <AppText style={styles.sub}> {localization.INTERNET.error}</AppText>
         </View>
       </View>
     </Modal>
@@ -64,6 +64,6 @@ const useStyles = makeStyles((colors) => ({
   buttonText: {
     color: colors.ink,
     fontSize: 16,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
 }));

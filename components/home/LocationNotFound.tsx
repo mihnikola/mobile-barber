@@ -25,10 +25,10 @@ function LocationNotFound({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <AppText variant="legacyHeading" style={styles.modalTitle}>{title}</AppText>
+          <AppText variant="displayMd" style={styles.modalTitle}>{title}</AppText>
 
           <Pressable onPress={onConfirm} style={styles.actionButton}>
-            <AppText variant="legacyBody" size={22} style={styles.actionButtonText}>{buttonText}</AppText>
+            <AppText variant="displayMd" style={styles.actionButtonText}>{buttonText}</AppText>
           </Pressable>
         </View>
       </View>

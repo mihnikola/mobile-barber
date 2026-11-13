@@ -1,7 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/lib/date";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { makeStyles } from "@/theme";
 import { AppText, Icon } from "@/components/ui";
 
@@ -13,19 +13,19 @@ const InfoContainerFuture = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <AppText variant="legacySubtitle"
+          <AppText variant="bodyStrong"
             numberOfLines={2}
             ellipsizeMode="tail"
           >
             {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
           </AppText>
-          <AppText variant="legacyBody" size={18} style={styles.captureDateContent}>
+          <AppText variant="body" style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
             {convertToDayTime(item?.endDate)} 
           </AppText>
         </View>
         <View style={styles.addressContainer}>
-          <AppText variant="legacyBody" size={15}
+          <AppText variant="body"
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.captureDateLocation}
@@ -35,7 +35,7 @@ const InfoContainerFuture = ({ item }) => {
         </View>
       </View>
       <View>
-        <Text style={styles.rating}>
+        <AppText style={styles.rating}>
           {item.status === 2 && (
             <Icon name={"clock"} size={16} color="ink" />
           )}
@@ -46,7 +46,7 @@ const InfoContainerFuture = ({ item }) => {
           {item.status === 0 && (
             <Icon name={"check"} size={20} color="ink" />
           )}
-        </Text>
+        </AppText>
       </View>
     </View>
   );

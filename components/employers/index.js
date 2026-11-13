@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
 import { fonts, makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { Loader } from "@/components/ui";
+import { AppText, Loader } from "@/components/ui";
 
 const Employers = () => {
   const styles = useStyles();
@@ -82,7 +82,7 @@ const Employers = () => {
       )}
       {!isLoading && error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{localization.BARBERS.network}</Text>
+          <AppText style={styles.errorText}>{localization.BARBERS.network}</AppText>
         </View>
       )}
     </ScrollView>
@@ -116,7 +116,7 @@ const useStyles = makeStyles((colors) => ({
   capture: {
     fontSize: 32,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 140,
   },
 

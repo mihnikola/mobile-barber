@@ -1,5 +1,5 @@
 
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
 import useFetchServices from "./hooks/useFetchServices";
 import { router, useLocalSearchParams } from "expo-router";
@@ -8,7 +8,7 @@ import SharedItemServiceCard from "@/components/booking/SharedItemServiceCard";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { makeStyles } from "@/theme";
-import { Loader } from "@/components/ui";
+import { AppText, Loader } from "@/components/ui";
 
 const MenuServices = () => {
   const styles = useStyles();
@@ -50,9 +50,9 @@ const MenuServices = () => {
       {serviceData.length === 0 && isLoading && <Loader />}
       {serviceData.length === 0 && !isLoading && (
         <View style={styles.notAvailableContainer}>
-          <Text style={styles.notAvailable}>
+          <AppText style={styles.notAvailable}>
             {localization.SERVICES.notAvailable}
-          </Text>
+          </AppText>
         </View>
       )}
 

@@ -147,7 +147,7 @@ const UserProfileScreen = () => {
         </View>
         <View style={styles.userDataContainer}>
           <View>
-            <AppText variant="legacyLabelSm" color="inkMuted" style={styles.inputLabel}>
+            <AppText variant="label" color="inkMuted" style={styles.inputLabel}>
               {localization.SETTINGS.PROFILE.email}
             </AppText>
             <TextInput
@@ -264,7 +264,7 @@ const useStyles = makeStyles((colors) => ({
   buttonText: {
     color: colors.ink,
     fontSize: 16,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     padding: 10,
     textAlign: "center",
   },
@@ -276,12 +276,12 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 18,
     borderWidth: 2,
     borderColor: colors.white,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
   },
   inputDisabled: {
     backgroundColor: colors.surfaceSunken,
     color: colors.inkFaint,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

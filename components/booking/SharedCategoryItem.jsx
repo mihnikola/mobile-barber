@@ -1,7 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { fonts, makeStyles } from "@/theme";
-import { Pressable } from "@/components/ui";
+import { AppText, Pressable } from "@/components/ui";
 
 const SharedCategoryItem = (props) => {
   const styles = useStyles();
@@ -17,7 +17,7 @@ const SharedCategoryItem = (props) => {
       style={[styles.card, isSelected._id === data?._id && styles.isSelected]}
     >
       <View>
-        <Text
+        <AppText
           style={[
             styles.name,
             isSelected._id === data?._id && styles.nameSelected,
@@ -25,7 +25,7 @@ const SharedCategoryItem = (props) => {
         >
           {localization.code === 'en' ? name?.nameEn : name?.nameLocal}
 
-        </Text>
+        </AppText>
       </View>
     </Pressable>
   );
@@ -47,7 +47,7 @@ const useStyles = makeStyles((colors) => ({
   },
   name: {
     fontSize: 18,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink,
   },
 }));

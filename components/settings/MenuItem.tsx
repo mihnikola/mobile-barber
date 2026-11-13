@@ -23,7 +23,7 @@ export const MenuItem = ({
     disabled={isToggle}
   >
     <Icon name={iconName as IconName} size={24} color="ink" style={styles.menuItemIcon} />
-    <AppText variant="legacyLabel" style={styles.menuItemText}>{title}</AppText>
+    <AppText variant="bodyStrong" style={styles.menuItemText}>{title}</AppText>
     {isToggle ? (
       <Switch
         trackColor={{ false: colors.lineStrong, true: colors.primary }}
@@ -79,7 +79,7 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 20,
     fontWeight: "600",
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
     marginBottom: 2,
   },
   profileEmail: {
@@ -116,7 +116,7 @@ const useStyles = makeStyles((colors) => ({
   },
   logoutText: {
     color: colors.ink,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
   menuItemArrow: {
     marginLeft: 10,

@@ -22,22 +22,22 @@ const AboutApplicationScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <AppText variant="legacyBodyLg" style={styles.label}>
+          <AppText variant="body" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.name}
           </AppText>
-          <AppText variant="legacyBodyLg" style={styles.value}>{appName}</AppText>
+          <AppText variant="body" style={styles.value}>{appName}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <AppText variant="legacyBodyLg" style={styles.label}>
+          <AppText variant="body" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.version}
           </AppText>
-          <AppText variant="legacyBodyLg" style={styles.value}>{appVersion}</AppText>
+          <AppText variant="body" style={styles.value}>{appVersion}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <AppText variant="legacyBodyLg" style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</AppText>
-          <AppText variant="legacyBodyLg" style={styles.value}>{developerName}</AppText>
+          <AppText variant="body" style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</AppText>
+          <AppText variant="body" style={styles.value}>{developerName}</AppText>
         </View>
       </View>
     </ScrollView>
@@ -50,7 +50,7 @@ const useStyles = makeStyles((colors) => ({
   },
   title: {
     fontSize: 28,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.displaySemiBold,
     color: colors.ink,
     marginBottom: 30,
     textAlign: "center",
@@ -62,7 +62,7 @@ const useStyles = makeStyles((colors) => ({
   capture: {
     fontSize: 25,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 130,
   },
   icon: {

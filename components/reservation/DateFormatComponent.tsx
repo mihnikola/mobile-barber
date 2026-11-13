@@ -1,7 +1,8 @@
 import { convertToDay, convertToDayTime, convertToMonthName } from "@/lib/date";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { fonts, makeStyles } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const DateFormatComponent = ({ item, rejected }) => {
   const styles = useStyles();
@@ -13,14 +14,14 @@ const DateFormatComponent = ({ item, rejected }) => {
           : styles.dateContainer
       }
     >
-      <Text
+      <AppText
         style={
           item?.past && !rejected ? styles.captureDatePast : styles.captureDate
         }
       >
         {convertToMonthName(item?.startDate)}
-      </Text>
-      <Text
+      </AppText>
+      <AppText
         style={
           item?.past && !rejected
             ? styles.captureDateBoldPast
@@ -28,14 +29,14 @@ const DateFormatComponent = ({ item, rejected }) => {
         }
       >
         {convertToDay(item?.startDate)}
-      </Text>
-      <Text
+      </AppText>
+      <AppText
         style={
           item?.past && !rejected ? styles.captureDatePast : styles.captureDate
         }
       >
         {convertToDayTime(item?.startDate)}
-      </Text>
+      </AppText>
     </View>
   );
 };
@@ -67,25 +68,25 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 18,
     color: colors.ink,
     textAlign: "center",
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
   },
 
   captureDatePast: {
     fontSize: 18,
     textAlign: "center",
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
     color: colors.inkMuted,
   },
 
   captureDateBold: {
     fontSize: 20,
     color: colors.ink,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
   captureDateBoldPast: {
     fontSize: 20,
     color: colors.inkMuted,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
 }));
 

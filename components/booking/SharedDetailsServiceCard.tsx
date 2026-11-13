@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { AppText, Card, cardStyles, Icon } from "@/components/ui";
@@ -23,7 +23,7 @@ const SharedDetailsServiceCard = (props: any) => {
         />
       )}
       <View style={styles.detailsContainer}>
-        <Text
+        <AppText
           style={[styles.name, otherServices?.length > 0 && styles.nameOther]}
         >
           {!name
@@ -31,7 +31,7 @@ const SharedDetailsServiceCard = (props: any) => {
               ? name?.nameEn
               : name?.nameLocal
             : name}
-        </Text>
+        </AppText>
         <View
           style={
             otherServices?.length > 0 && {
@@ -42,7 +42,7 @@ const SharedDetailsServiceCard = (props: any) => {
         >
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="ink" />
-            <AppText variant="legacyBody" style={styles.locationText}>
+            <AppText variant="bodySm" style={styles.locationText}>
               {`${localization.DETAILS.duration} ${
                 duration || data?.serviceDuration
               }`}
@@ -50,7 +50,7 @@ const SharedDetailsServiceCard = (props: any) => {
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="star" />
-            <AppText variant="legacyBody" style={styles.reviewText}>
+            <AppText variant="bodySm" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
             </AppText>
           </View>
@@ -103,13 +103,13 @@ const useStyles = makeStyles((colors) => ({
   },
   name: {
     fontSize: 18,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color
     marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color
     marginBottom: 4,
   },
@@ -128,7 +128,7 @@ const useStyles = makeStyles((colors) => ({
   },
   ratingText: {
     fontSize: 14,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color
     marginLeft: 5,
   },

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { fonts, useTheme } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 // StarRating component props
 interface StarRatingProps {
@@ -65,15 +65,15 @@ const StarRating: React.FC<StarRatingProps> = ({
         gap:10,
       }}
     >
-      <Text
+      <AppText
         style={{
           fontSize: 18,
-          fontFamily: fonts.bold,
+          fontFamily: fonts.sansSemiBold,
           color: colors.ink,
         }}
       >
         {localization.APPOINTMENTS.rateReservation.rateUs}
-      </Text>
+      </AppText>
 
       <View style={{  flexDirection: "row", marginBottom:5 }}>
         {renderStars()}

@@ -100,7 +100,7 @@ const useStyles = makeStyles((colors) => ({
   textButton: {
    color: colors.ink,
     fontSize: 18,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     position: "absolute",
   },
 }));

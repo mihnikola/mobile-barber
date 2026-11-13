@@ -49,12 +49,12 @@ function ResevationNotificationScreen() {
         <View style={styles.card}>
           <View style={styles.descContent}>
             <View>
-              <AppText variant="legacySubtitle" style={styles.descriptionLabel}>
+              <AppText variant="bodyStrong" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descReservation}
               </AppText>
             </View>
             <View>
-              <AppText variant="legacyBody">
+              <AppText variant="bodySm">
                 {reservationData?.description}
               </AppText>
             </View>
@@ -78,12 +78,12 @@ function ResevationNotificationScreen() {
           />
           <View style={styles.descContent}>
             <View>
-              <AppText variant="legacySubtitle" style={styles.descriptionLabel}>
+              <AppText variant="bodyStrong" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descRateReservation}
               </AppText>
             </View>
             <View>
-              <AppText variant="legacyBody">
+              <AppText variant="bodySm">
                 {reservationData?.rating?.description}
               </AppText>
             </View>
@@ -225,7 +225,7 @@ function ResevationNotificationScreen() {
   const renderRejectionTitle = () => {
     return (
       <View style={styles.missed}>
-        <AppText variant="legacyHeading" style={styles.textBoldRejected}>
+        <AppText variant="displayMd" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.rejectedMessage}
         </AppText>
       </View>
@@ -234,7 +234,7 @@ function ResevationNotificationScreen() {
   const renderExpirationTitle = () => {
     return (
       <View style={styles.missed}>
-        <AppText variant="legacyHeading" style={styles.textBoldRejected}>
+        <AppText variant="displayMd" style={styles.textBoldRejected}>
           {localization.APPOINTMENTS.cancelReservation.expiredMessage}
         </AppText>
       </View>
@@ -313,7 +313,7 @@ const useStyles = makeStyles((colors) => ({
   textBoldSuccess: {
     color: colors.ink,
 
-    fontFamily: fonts.bold,
+    fontFamily: fonts.displaySemiBold,
     fontSize: 24,
     textAlign: "center",
   },

@@ -1,8 +1,8 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { fonts, useTheme } from "@/theme";
-import { Icon } from "@/components/ui";
+import { AppText, Icon } from "@/components/ui";
 
 const myArray = [
   { arrx: "10000" },
@@ -24,18 +24,18 @@ function ReservationMarkComponent({ data }) {
           marginBottom: 5,
         }}
       >
-        <Text
+        <AppText
           style={{
             fontSize: 18,
-            fontFamily: fonts.bold,
+            fontFamily: fonts.sansSemiBold,
             color: colors.ink,
             marginBottom: 5,
           }}
         >
           {localization.APPOINTMENTS.rateReservation.rated}
-        </Text>
+        </AppText>
 
-        <Text style={{color: colors.ink, fontSize: 40 }}>
+        <AppText style={{color: colors.ink, fontSize: 40 }}>
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
@@ -43,7 +43,7 @@ function ReservationMarkComponent({ data }) {
               );
             }
           })}
-        </Text>
+        </AppText>
       </View>
     </View>
   );

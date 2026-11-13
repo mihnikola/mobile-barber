@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { Loader } from "@/components/ui";
+import { AppText, Loader } from "@/components/ui";
 
 const PlaceComponent = ({ locationsData }) => {
   const styles = useStyles();
@@ -44,7 +44,7 @@ const PlaceComponent = ({ locationsData }) => {
       )}
       {!isLoading && error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{localization.PLACES.network}</Text>
+          <AppText style={styles.errorText}>{localization.PLACES.network}</AppText>
         </View>
       )}
     </ScrollView>

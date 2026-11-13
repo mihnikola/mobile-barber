@@ -19,22 +19,22 @@ const PrivacyPolicyScreen = () => {
       />
 
       <View style={styles.sectionContainer}>
-        <AppText variant="legacyBodyLg" style={styles.paragraph}>
+        <AppText variant="body" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.paragraph}
         </AppText>
-        <AppText variant="legacyBody" size={25} style={styles.paragraphTitle}>
+        <AppText variant="displayMd" style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.policyTitle}
         </AppText>
-        <AppText variant="legacyBodyLg" style={styles.paragraph}>
+        <AppText variant="body" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.policy}
         </AppText>
-        <AppText variant="legacyBody" size={25} style={styles.paragraphTitle}>
+        <AppText variant="displayMd" style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.conditionTitle}
         </AppText>
-        <AppText variant="legacyBodyLg" style={styles.paragraph}>
+        <AppText variant="body" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.condition}
         </AppText>
-        <AppText variant="legacyBody" style={styles.copyright}>
+        <AppText variant="bodySm" style={styles.copyright}>
           {localization.SETTINGS.LEGAL.footerBottom} {developerName}
         </AppText>
       </View>
@@ -61,18 +61,18 @@ const useStyles = makeStyles((colors) => ({
   srbCapture: {
     fontSize: 25,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 130,
   },
   engCapture: {
     fontSize: 35,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 140,
   },
   text: {
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
 
     fontSize: 16,
     lineHeight: 24,

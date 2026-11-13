@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import useFetchService from "./hooks/useFetchService";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { coverImageAppointments } from "@/constants";
 import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelection";
 import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
-import { Button, layout, Loader } from "@/components/ui";
+import { AppText, Button, layout, Loader } from "@/components/ui";
 
 const MoreServiceComponent = () => {
   const styles = useStyles();
@@ -99,9 +99,9 @@ const handleSelectService = (categoryId, serviceDataVar) => {
         {categoriesServicesData.length === 0 && isLoading && <Loader />}
         {categoriesServicesData.length === 0 && !isLoading && (
           <View style={styles.notAvailableContainer}>
-            <Text style={styles.notAvailable}>
+            <AppText style={styles.notAvailable}>
               {localization.SERVICES.notAvailable}
-            </Text>
+            </AppText>
           </View>
         )}
 

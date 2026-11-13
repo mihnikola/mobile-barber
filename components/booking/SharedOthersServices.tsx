@@ -22,14 +22,14 @@ const SharedOthersServices = (props: any) => {
       )}
       <View style={styles.detailsContainer}>
         {data?.service ? (
-          <AppText variant="legacyBodyLg" style={styles.name}>
+          <AppText variant="body" style={styles.name}>
             {" "}
             {localization.code === "en"
               ? data?.service?.name?.nameEn
               : data?.service?.name?.nameLocal}{" "}
           </AppText>
         ) : (
-          <AppText variant="legacyBodyLg" style={styles.name}>
+          <AppText variant="body" style={styles.name}>
             {" "}
             {localization.code === "en" ? name?.nameEn : name?.nameLocal}{" "}
           </AppText>
@@ -38,18 +38,18 @@ const SharedOthersServices = (props: any) => {
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="ink" />
             {data?.service?.duration ? (
-              <AppText variant="legacyCaption" style={styles.locationText}>
+              <AppText variant="caption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${data?.service?.duration} `}
               </AppText>
             ) : (
-              <AppText variant="legacyCaption" style={styles.locationText}>
+              <AppText variant="caption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${duration} `}
               </AppText>
             )}
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="star" />
-            <AppText variant="legacyBody" style={styles.reviewText}>
+            <AppText variant="bodySm" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${data?.price}`}
             </AppText>
           </View>
@@ -64,7 +64,7 @@ const useStyles = makeStyles((colors) => ({
   },
   moreServices: {
     color: colors.ink,
-    fontFamily: fonts.italic,
+    fontFamily: fonts.sans,
     textDecorationLine: "underline",
   },
   row: {
@@ -129,7 +129,7 @@ const useStyles = makeStyles((colors) => ({
   },
   ratingText: {
     fontSize: 12,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink, // White text color
     marginLeft: 5,
   },

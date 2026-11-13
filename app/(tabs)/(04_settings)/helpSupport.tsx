@@ -31,17 +31,17 @@ const HelpSupportScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <AppText variant="legacyLabel">
+          <AppText variant="bodyStrong">
             {localization.SETTINGS.HELP.company}
           </AppText>
-          <AppText variant="legacyBodyLg">{companyInfo.name}</AppText>
+          <AppText variant="body">{companyInfo.name}</AppText>
         </View>
         <Pressable onPress={handleEmailPress} style={styles.menuItem}>
           <Icon name="email" size={24} style={styles.menuItemIcon} color="ink" />
-          <AppText variant="legacyLabel" style={styles.menuItemText}>
+          <AppText variant="bodyStrong" style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
           </AppText>
-          <AppText variant="legacyBody">{companyInfo.email}</AppText>
+          <AppText variant="bodySm">{companyInfo.email}</AppText>
         </Pressable>
       </View>
     </ScrollView>
@@ -60,12 +60,12 @@ const useStyles = makeStyles((colors) => ({
   capture: {
     fontSize: 25,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 130,
   },
   sectionTitle: {
     fontSize: 20,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     color: colors.ink,
     marginBottom: 20,
   },

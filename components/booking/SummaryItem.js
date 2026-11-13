@@ -1,7 +1,7 @@
-import { Text } from "react-native";
+
 import React from "react";
 import { fonts, makeStyles } from "@/theme";
-import { Pressable } from "@/components/ui";
+import { AppText, Pressable } from "@/components/ui";
 
 const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
   const styles = useStyles();
@@ -19,14 +19,14 @@ const SummaryItem = ({ data, selectedItem, setSelectedItem }) => {
       key={value} 
       onPress={() => handlerPressDate(data)}
     >
-      <Text
+      <AppText
         style={[
           styles.time,
           selectedItem?.value === value && styles.selectedTime, // Apply selected style
         ]}
       >
         {value}
-      </Text>
+      </AppText>
     </Pressable>
   );
 };
@@ -50,7 +50,7 @@ const useStyles = makeStyles((colors) => ({
   time: {
     fontSize: 16,
     color: colors.ink,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
     borderColor: colors.primary,
   },
 }));

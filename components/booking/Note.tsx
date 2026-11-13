@@ -10,11 +10,11 @@ const Note = () => {
 
   return (
     <View style={styles.data}>
-      <AppText variant="legacyTitle" style={styles.title}>{localization.SALON.title}</AppText>
-      <AppText variant="legacyBody" style={styles.info}>
+      <AppText variant="title" style={styles.title}>{localization.SALON.title}</AppText>
+      <AppText variant="bodySm" style={styles.info}>
        {localization.SALON.first}
       </AppText>
-      <AppText variant="legacyBody" style={styles.info}>
+      <AppText variant="bodySm" style={styles.info}>
         {localization.SALON.second}
       </AppText>
     </View>
@@ -34,7 +34,7 @@ const useStyles = makeStyles((colors) => ({
   timeData: {
     fontSize: 20,
    color: colors.ink,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
   info: {
     display: "flex",
@@ -61,7 +61,7 @@ const useStyles = makeStyles((colors) => ({
   dateData: {
     fontSize: 20,
    color: colors.ink,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
   data: {
     display: "flex",
@@ -86,7 +86,7 @@ const useStyles = makeStyles((colors) => ({
   capture: {
     fontSize: 32,
     color: colors.inkFaint,
-    fontFamily: fonts.bold,
+    fontFamily: fonts.displaySemiBold,
     textAlign: "center",
     fontStyle: "italic",
     position: "absolute",

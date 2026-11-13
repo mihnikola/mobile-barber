@@ -84,7 +84,7 @@ const LanguageSupportScreen = () => {
                 }
               }}
             >
-              <AppText variant="legacyBody" size={18}>{item.label}</AppText>
+              <AppText variant="body">{item.label}</AppText>
               <Icon name={localization.code === item.code && "check"} size={28} color="ink" />
             </Pressable>
           )}
@@ -108,14 +108,14 @@ const useStyles = makeStyles((colors) => ({
   capture: {
     fontSize: 25,
     color: colors.ink,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.displaySemiBold,
     paddingVertical: 130,
   },
 
   search: {
     color: colors.onPrimary,
     backgroundColor: colors.primary,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.sans,
     borderColor: colors.inkMuted,
     borderWidth: 1,
     borderRadius: 8,

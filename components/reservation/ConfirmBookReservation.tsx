@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
 import { useLocalSearchParams, router } from "expo-router";
@@ -37,7 +37,7 @@ const ConfirmBookReservation = () => {
           reservation={reservation}
         />
         <View style={styles.infoContainer}>
-          <Text
+          <AppText
             style={[
               styles.message,
               params?.status === "0" && styles.messageApproved,
@@ -46,9 +46,9 @@ const ConfirmBookReservation = () => {
             {params?.status === "0"
               ? localization.SALON.success
               : localization.SALON.pendingTitle}
-          </Text>
+          </AppText>
           {params?.status !== "0" && (
-            <AppText variant="legacyBody" style={styles.pendingSubTitle}>
+            <AppText variant="bodySm" style={styles.pendingSubTitle}>
               {localization.SALON.pendingSubTitle}
             </AppText>
           )}
@@ -82,7 +82,7 @@ const useStyles = makeStyles((colors) => ({
     margin: 10,
    color: colors.ink,
     textAlign: "center",
-    fontFamily: fonts.bold,
+    fontFamily: fonts.sansSemiBold,
   },
   messageApproved: {
     fontSize: 30,

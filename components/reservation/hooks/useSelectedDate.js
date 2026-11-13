@@ -143,7 +143,7 @@ const useSelectedDate = (initialDate) => {
           },
           text: {
             color: colors.onPrimary,
-            fontFamily: fonts.bold,
+            fontFamily: fonts.sansSemiBold,
           },
         },
       };
