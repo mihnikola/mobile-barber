@@ -1,13 +1,16 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { forwardRef, useState } from "react";
-import { findNodeHandle, StyleSheet, Text, TextInput, View } from "react-native";
+import { forwardRef } from "react";
+import { findNodeHandle, StyleSheet, View } from "react-native";
+
+import { TextField } from "@/components/ui/TextField";
 import { colors, fonts } from "@/theme";
 
-const SharedNameEdit = forwardRef(({ scrollRef, ...props }, ref) => {
-  const [isFocused, setIsFocused] = useState(false);
-
+/**
+ * @deprecated Use `<TextField>` from `@/components/ui`.
+ * Scrolls the field above the keyboard on focus when `scrollRef` is given.
+ * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ */
+const SharedNameEdit = forwardRef(({ scrollRef, style, onFocus, onBlur, ...props }, ref) => {
   const handleFocus = () => {
-    setIsFocused(true);
     if (scrollRef && ref) {
       const node = findNodeHandle(ref.current);
       if (node) {
@@ -17,28 +20,24 @@ const SharedNameEdit = forwardRef(({ scrollRef, ...props }, ref) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.inputLabel}>{props.label}</Text>
-      <TextInput
+    <View style={styles.wrapper}>
+      <TextField
         {...props}
         ref={ref}
+        unstyled
         value={props.value ?? ""}
         onFocus={handleFocus}
-        onBlur={() => setIsFocused(false)}
-        onChangeText={props.onChangeText}
-        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
-        style={[props.style, isFocused && styles.focusedBorder]}
+        styles={{ label: styles.label, input: style, inputFocused: styles.inputFocused, error: styles.error }}
       />
-      {props.error && <Text style={styles.errorText}>{props.error}</Text>}
     </View>
   );
 });
 
 const styles = StyleSheet.create({
-  container: { marginBottom: 15 },
-  inputLabel: {color: ColorsBarber.dark.textColor, fontSize: 14,  marginTop: 15, marginBottom: 8, fontFamily:fonts.regular },
-  errorText: { color: colors.danger, marginTop: 5,  fontFamily:fonts.bold },
-  focusedBorder: { borderColor: ColorsBarber.dark.inActiveTextColor },
+  wrapper: { marginBottom: 15 },
+  label: { color: colors.text, fontSize: 14, marginTop: 15, marginBottom: 8, fontFamily: fonts.regular },
+  error: { color: colors.danger, marginTop: 5, fontFamily: fonts.bold },
+  inputFocused: { borderColor: colors.textInactive },
 });
 
 export default SharedNameEdit;

@@ -1,42 +1,25 @@
-import { Text, StyleSheet, ActivityIndicator } from "react-native";
-import React from "react";
-import { ColorsBarber } from "@/constants/Colors";
-import { TouchableOpacity } from "./TouchableOpacity";
-import { colors, fonts } from "@/theme";
+import { StyleSheet } from "react-native";
 
-const SharedButtonDateReservation = (props: any) => {
-  return (
-    <TouchableOpacity
-      style={[styles.btn, props.disabled && styles.btnDisabled]}
-      disabled={props.loading || props.disabled}
-      onPress={props.onPress}
-    >
-      {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.dark.textColor} />}
-    </TouchableOpacity>
-  );
-};
+import { Button } from "@/components/ui/Button";
+
+/**
+ * @deprecated Use `<Button>` from `@/components/ui`.
+ * Differences kept 1:1 from the old implementation: no minHeight / justifyContent,
+ * and the button is hidden (not greyed out) while disabled.
+ */
+const SharedButtonDateReservation = (props: any) => (
+  <Button
+    title={props.text}
+    onPress={props.onPress}
+    loading={props.loading}
+    disabled={props.disabled}
+    style={[styles.btn, props.disabled && styles.hidden]}
+  />
+);
 
 const styles = StyleSheet.create({
-  btnText: {
-   color: ColorsBarber.dark.textColor,
-    fontSize: 18,
-    fontFamily: fonts.bold,
-  },
-  btnDisabled: {
-    display: "none",
-    borderColor: colors.textMuted,
-    backgroundColor: colors.buttonDate,
-  },
-  btn: {
-    backgroundColor:  ColorsBarber.dark.btnBgColor,
-    paddingVertical: 15,
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: ColorsBarber.dark.borderColor,
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 30,
-  },
+  btn: { marginTop: 20, marginBottom: 30, minHeight: 0, justifyContent: "flex-start" },
+  hidden: { display: "none" },
 });
+
 export default SharedButtonDateReservation;

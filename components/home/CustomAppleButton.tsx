@@ -1,65 +1,18 @@
-import { ColorsBarber } from "@/constants/Colors";
+import { Button } from "@/components/ui/Button";
 import { useLocalization } from "@/context/LocalizationContext";
-import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
-import React from "react";
-import {
-  Text,
-  Image,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
-import { colors, fonts } from "@/theme";
 
-const CustomAppleButton = ({ onPress, isAppleLoading }) => {
+/** @deprecated Use `<Button variant="socialLight">` from `@/components/ui`. */
+const CustomAppleButton = ({ onPress, isAppleLoading }: { onPress?: () => void; isAppleLoading?: boolean }) => {
   const { localization } = useLocalization();
   return (
-    <>
-      {isAppleLoading && (
-        <TouchableOpacity style={styles.button}>
-          <ActivityIndicator size={22} color={ColorsBarber.dark.textColorInput} />
-        </TouchableOpacity>
-      )}
-      {!isAppleLoading && (
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Image
-            source={require("@/assets/images/apple.png")}
-            style={styles.icon}
-            resizeMode="contain"
-          />
-
-          <Text style={styles.buttonText}>{localization.APPLE_BTN.label}</Text>
-        </TouchableOpacity>
-      )}
-    </>
+    <Button
+      variant="socialLight"
+      title={localization.APPLE_BTN.label}
+      image={require("@/assets/images/apple.png")}
+      onPress={onPress}
+      loading={isAppleLoading}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.white,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 15,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    elevation: 3,
-    shadowColor: ColorsBarber.dark.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    minWidth: 220,
-  },
-  icon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
-  buttonText: {
-    color: colors.black,
-    fontSize: 16,
-    fontFamily: fonts.regular,
-  },
-});
 
 export default CustomAppleButton;

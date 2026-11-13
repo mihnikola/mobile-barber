@@ -1,66 +1,38 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { forwardRef, useState } from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { forwardRef } from "react";
+import { StyleSheet } from "react-native";
+
+import { PhoneField, type TextInputRef } from "@/components/ui/TextField";
 import { colors, fonts } from "@/theme";
 
-const SharedPhoneNumber = forwardRef((props: any, ref) => {
-  const [isFocused, setIsFocused] = useState(false);
+/**
+ * @deprecated Use `<PhoneField>` from `@/components/ui`.
+ * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ */
+const SharedPhoneNumber = forwardRef<TextInputRef, any>(({ error, onFocus, onBlur, ...props }, ref) => (
+  <PhoneField
+    // old component never set a placeholder color -> keep the platform default
+    placeholderTextColor={undefined}
+    {...props}
+    ref={ref}
+    unstyled
+    error={props.value && props.value?.length > 0 ? error : undefined}
+    styles={styles}
+  />
+));
 
-  return (
-    <>
-      <Text style={styles.inputLabel}>{props.label}</Text>
-
-      <View
-        style={[
-          styles.phoneNumberInputContainer,
-          isFocused && styles.textInputFocused,
-        ]}
-      >
-        <Image
-          source={require("../assets/images/serbiaFlag.png")}
-          style={styles.flagIcon}
-        />
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.prefixText}>+381</Text>
-
-          <TextInput
-            {...props}
-            ref={ref}
-            style={styles.phoneNumberInput}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-        </View>
-      </View>
-      {props.value && props.value?.length > 0 && props.error ? (
-        <Text style={styles.errorText}>{props.error}</Text>
-      ) : null}
-    </>
-  );
-});
 const styles = StyleSheet.create({
-  prefixText: {
-    color: ColorsBarber.dark.textColorInput,
-    fontFamily: fonts.regular,
-    fontSize: 16,
-  },
-  phoneNumberInputContainer: {
+  container: {
     flexDirection: "row",
     justifyContent: "flex-start",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: ColorsBarber.dark.inputColor,
+    backgroundColor: colors.white,
     borderRadius: 8,
   },
-  phoneNumberInput: {
-    backgroundColor: ColorsBarber.dark.inputColor,
-    color: ColorsBarber.dark.textColorInput,
+  containerFocused: { borderColor: colors.white, borderWidth: 2 },
+  input: {
+    backgroundColor: colors.white,
+    color: colors.textOnLight,
     paddingTop: 15,
     paddingBottom: 15,
     paddingRight: 15,
@@ -70,30 +42,8 @@ const styles = StyleSheet.create({
     width: "70%",
     fontFamily: fonts.regular,
   },
-  inputLabel: {
-    color: ColorsBarber.dark.textColor,
-    fontSize: 14,
-    marginBottom: 8,
-    fontFamily: fonts.bold,
-
-    marginTop: 15,
-  },
-  errorText: {
-    color: colors.danger,
-    fontFamily: fonts.regular,
-  },
-  textInputFocused: {
-    borderColor: ColorsBarber.dark.textColor,
-    borderWidth: 2,
-  },
-
-  flagIcon: {
-    width: 24, // Adjust size as needed
-    height: 18, // Adjust size as needed, maintain aspect ratio
-    marginRight: 8,
-    marginLeft: 12,
-    borderRadius: 2, // Slightly rounded corners for the flag
-  },
+  label: { color: colors.text, fontSize: 14, marginBottom: 8, fontFamily: fonts.bold, marginTop: 15 },
+  error: { color: colors.danger, fontFamily: fonts.regular },
 });
 
 export default SharedPhoneNumber;

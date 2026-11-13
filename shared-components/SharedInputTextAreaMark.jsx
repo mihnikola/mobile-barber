@@ -1,66 +1,20 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { StyleSheet, View, Text, TextInput } from "react-native";
-import { colors, fonts } from "@/theme";
+import { StyleSheet } from "react-native";
 
-const SharedInputTextAreaMark = ({
-  description,
-  setDescription,
-  placeholderText,
-}) => {
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={setDescription}
-        value={description}
-        placeholder={placeholderText}
-        placeholderTextColor={ColorsBarber.dark.textColor}
-        multiline={true}
-        numberOfLines={4}
-        textAlignVertical="top"
-        maxLength={170}
-        scrollEnabled={false}
-      />
+import { TextArea } from "@/components/ui/TextField";
 
-      {description?.length > 150 && (
-        <View style={styles.previewContainer}>
-          <Text style={styles.previewText}>{description.length} / 170</Text>
-        </View>
-      )}
-    </View>
-  );
-};
+/** @deprecated Use `<TextArea>` from `@/components/ui`. Borderless variant (rating comment). */
+const SharedInputTextAreaMark = ({ description, setDescription, placeholderText }) => (
+  <TextArea
+    value={description}
+    onChangeText={setDescription}
+    placeholder={placeholderText}
+    styles={styles}
+  />
+);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-
-  textInput: {
-    width: "100%",
-    minHeight: 100,
-    fontSize: 14,
-    color: ColorsBarber.dark.textColor,
-    fontFamily: fonts.regular,
-
-  },
-  previewContainer: {
-    position: "absolute",
-    alignContent: "flex-end",
-    alignItems: "flex-end",
-    width: "100%",
-    bottom: 2,
-  },
-  previewText: {
-    fontSize: 9,
-    color: colors.danger,
-    opacity: 0.7,
-    fontFamily: fonts.regular,
-  },
+  container: { paddingTop: 15 },
+  input: { width: "100%", minHeight: 100 },
 });
 
 export default SharedInputTextAreaMark;

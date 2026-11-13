@@ -1,108 +1,29 @@
-import { ColorsBarber } from "@/constants/Colors";
-import { forwardRef, useState } from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { TouchableOpacity } from "./TouchableOpacity";
+import { forwardRef } from "react";
+import { StyleSheet } from "react-native";
+
+import { TextField, type TextInputRef } from "@/components/ui/TextField";
 import { colors, fonts } from "@/theme";
 
-const SharedInput = forwardRef((props: any, ref) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  return (
-    <>
-      {props.stylePassword && (
-        <Text style={styles.inputLabel}>{props.label}</Text>
-      )}
-      <View
-        style={[
-          props.stylePassword,
-          isFocused && props.stylePassword && styles.textInputFocused,
-        ]}
-      >
-        {!props.stylePassword && (
-          <Text style={styles.inputLabel}>{props.label}</Text>
-        )}
-        {props.dataDetectorTypes && (
-          <Image
-            source={require("../assets/images/serbiaFlag.png")}
-            style={styles.flagIcon}
-          />
-        )}
-        {props.dataDetectorTypes && <Text style={styles.prefixText}>+381</Text>}
-
-        <TextInput
-          {...props}
-          style={[
-            props.style,
-            !props.stylePassword && isFocused && styles.textInputFocused,
-          ]}
-          ref={ref}
-          value={props.value ?? ""}
-          onFocus={() => setIsFocused(true)}
-          onChangeText={props.onChangeText}
-          onBlur={() => setIsFocused(false)}
-          placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
-          secureTextEntry={props.stylePassword && !isPasswordVisible}
-        />
-        {props.stylePassword && !props.dataDetectorTypes && (
-          <TouchableOpacity
-            style={styles.passwordToggle}
-            onPress={togglePasswordVisibility}
-          >
-            <Text style={{ color: colors.placeholder }}>
-              {isPasswordVisible ? "Hide" : "Show"}
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-      {props.value?.length > 0 && props.error ? (
-        <Text style={styles.errorText}>{props.error}</Text>
-      ) : null}
-    </>
-  );
-});
+/**
+ * @deprecated Use `<TextField>` from `@/components/ui`.
+ * Old unused `stylePassword` / `dataDetectorTypes` branches removed (no caller used them).
+ * onFocus/onBlur from callers were always ignored here — kept that way (B20).
+ */
+const SharedInput = forwardRef<TextInputRef, any>(({ style, error, onFocus, onBlur, ...props }, ref) => (
+  <TextField
+    {...props}
+    ref={ref}
+    unstyled
+    value={props.value ?? ""}
+    error={props.value?.length > 0 ? error : undefined}
+    styles={{ label: styles.label, input: style, inputFocused: styles.inputFocused, error: styles.error }}
+  />
+));
 
 const styles = StyleSheet.create({
-  prefixText: {
-    color: ColorsBarber.dark.textColor,
-    fontSize: 16,
-    marginRight: 8,
-    fontWeight: "medium", // Make prefix stand out
-    fontFamily: fonts.bold,
-  },
-  inputLabel: {
-    color: ColorsBarber.dark.textColor,
-    fontSize: 14,
-    marginBottom: 8,
-    marginTop: 15,
-    fontFamily: fonts.bold,
-  },
-  errorText: {
-    color: colors.danger,
-    paddingTop: 10,
-    fontFamily: fonts.regular,
-  },
-  textInputFocused: {
-    borderColor: ColorsBarber.dark.textColor,
-  },
-  passwordToggle: {
-    padding: 10,
-  },
-  flagIcon: {
-    width: 24, // Adjust size as needed
-    height: 18, // Adjust size as needed, maintain aspect ratio
-    marginRight: 8,
-    borderRadius: 2, // Slightly rounded corners for the flag
-  },
+  label: { color: colors.text, fontSize: 14, marginBottom: 8, marginTop: 15, fontFamily: fonts.bold },
+  inputFocused: { borderColor: colors.white },
+  error: { color: colors.danger, paddingTop: 10, fontFamily: fonts.regular },
 });
 
 export default SharedInput;
