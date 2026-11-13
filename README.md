@@ -60,6 +60,27 @@ npx expo start              # start Metro, open the installed app → JS changes
 
 `prebuild --clean` deletes `android/` and throws away Gradle's incremental work — use it only when needed.
 
+### Brands (look of the app)
+
+One codebase, several looks. The brand is chosen **per build** with the `BRAND` env variable (default `gentleman`):
+
+| `BRAND` | Look | App name |
+|---|---|---|
+| *(not set)* / `gentleman` | barber — black & light, Barlow Condensed + Inter | Barber App |
+| `atelier` | salon — plum & rose, Fraunces + DM Sans, softer corners | Atelier Salon (working name) |
+
+```bash
+BRAND=atelier npx expo start --clear     # Git Bash / macOS; --clear when switching brands
+BRAND=atelier npx expo run:android       # native build (needed for app name + splash background)
+```
+
+PowerShell: `$env:BRAND = "atelier"; npx expo start --clear` (then `Remove-Item Env:BRAND` to go back).
+EAS: set `BRAND` in the build profile's `env` in `eas.json`.
+
+- Everything per brand lives in `theme/brands/` (palettes light/dark, corner radii, shadows, fonts, booking icon, wording). Components use tokens only — add a brand by adding a file there + its id in `theme/brands/types.ts` and `app.config.ts`.
+- Salon wording (`Tim`, `Izaberi stilistkinju`…) is in `helpers/brandWording.ts`.
+- Bundle id stays `fta.barber.app` unless `APP_ID` is set — the Firebase files are registered for that id, so a separate salon app needs its own Firebase app + files.
+
 ## 5. npm scripts
 
 | Script | What it does |
