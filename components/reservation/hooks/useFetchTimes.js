@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/helpers";
+import { getCurrentUTCOffset, getTimeForUTCOffset } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 
 const useFetchTimes = (date, reservation, isSunday) => {

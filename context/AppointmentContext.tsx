@@ -5,11 +5,7 @@ import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import {
-  addMinutesToTime,
-  convertNameAndDate,
-  convertToDayTime,
-} from "@/helpers";
+import { addMinutesToTime, convertNameAndDate, convertToDayTime } from "@/lib/date";
 import ReservationContext from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "./NavigationContext";

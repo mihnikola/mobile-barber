@@ -1,6 +1,6 @@
 import { Image, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
-import { getInitialsName } from "@/helpers";
+import { getInitialsName } from "@/lib/format";
 import { colors, fonts } from "@/theme";
 
 /** lg = list cards (90), md = profile (70), sm = compact details (40). */

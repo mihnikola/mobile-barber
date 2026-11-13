@@ -10,7 +10,8 @@ import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if n
 import Summary from "@/shared-components/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
-import { calendarTheme, convertDayInitalValue } from "@/helpers";
+import { convertDayInitalValue } from "@/lib/date";
+import { calendarTheme } from "@/theme/calendar";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
 import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";

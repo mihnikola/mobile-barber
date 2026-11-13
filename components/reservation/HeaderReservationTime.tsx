@@ -1,4 +1,4 @@
-import { convertDateDetails } from "@/helpers";
+import { convertDateDetails } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";

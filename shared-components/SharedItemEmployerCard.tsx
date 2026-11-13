@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import { Avatar } from "@/components/ui/Avatar";
 import { ListItem, MetaRow } from "@/components/ui/Card";
-import { roundValue } from "@/helpers";
+import { roundValue } from "@/lib/format";
 
 /** Employee row in the barbers list. Built from `ListItem` + `MetaRow` + `Avatar`. */
 const SharedItemEmployerCard = (props: any) => {

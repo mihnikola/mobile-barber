@@ -1,5 +1,5 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { addMinutesToTime, convertToDayTime } from "@/helpers";
+import { addMinutesToTime, convertToDayTime } from "@/lib/date";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { AppText } from "@/components/ui";
