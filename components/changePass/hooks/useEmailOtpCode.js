@@ -1,11 +1,9 @@
 import { useState, useCallback } from "react";
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { isEmailLike } from "@/lib/validation";
-import { routes } from "@/lib/navigation/routes";
 
 
 const useEmailOtpCode = () => {
@@ -42,7 +40,7 @@ const useEmailOtpCode = () => {
         if (response.success) {
           const verifyData = {email};
           await saveOtpParamsStorage(verifyData);
-          router.push(routes.auth.otpCode);
+          return true; // caller navigates to the OTP screen (Phase 4b)
         } else {
           setError(localization.EMAIL.errorFound);
           setIsMessage(true);

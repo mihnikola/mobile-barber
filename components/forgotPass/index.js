@@ -8,6 +8,7 @@ import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import { routes } from "@/lib/navigation/routes";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
@@ -24,8 +25,8 @@ const ForgotPassword = () => {
     isMessage,
     setIsMessage,
   } = useEmailOtpCode();
-  const navHandler = () => {
-    checkEmailValidation(email);
+  const navHandler = async () => {
+    if (await checkEmailValidation(email)) router.push(routes.auth.otpCode);
   };
 
   const confirmHandler2 = () => {
