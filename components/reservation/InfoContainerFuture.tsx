@@ -1,90 +1,57 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { addMinutesToTime, convertToDayTime } from "@/lib/date";
+import { convertToDayTime } from "@/lib/date";
 import React from "react";
 import { View } from "react-native";
+import type { ApiRecord } from "@/context/types";
 import { makeStyles } from "@/theme";
-import { AppText, Icon } from "@/components/ui";
+import { AppText, type BadgeStatus, Icon, StatusBadge } from "@/components/ui";
 
-const InfoContainerFuture = ({ item }) => {
+/** API status → badge (2 pending · 0 approved · 1 rejected). */
+const BADGE: Record<number, BadgeStatus> = { 2: "pending", 0: "confirmed", 1: "cancelled" };
+
+/** Body of an upcoming appointment card (design system `ds-appt__body`). */
+const InfoContainerFuture = ({ item }: { item: ApiRecord }) => {
   const styles = useStyles();
   const { localization } = useLocalization();
+  const labels: Record<BadgeStatus, string> = {
+    pending: localization.APPOINTMENTS.pending,
+    confirmed: localization.APPOINTMENTS.approved,
+    cancelled: localization.APPOINTMENTS.rejected,
+    done: "",
+    new: "",
+  };
+  const badge = BADGE[item.status];
 
   return (
-    <View style={styles.centerContainer}>
-      <View style={styles.columnContainer}>
-        <View style={styles.infoContainer}>
-          <AppText variant="bodyStrong"
-            numberOfLines={2}
-            ellipsizeMode="tail"
-          >
-            {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
-          </AppText>
-          <AppText variant="body" style={styles.captureDateContent}>
-            {convertToDayTime(item?.startDate)} -{" "}
-            {convertToDayTime(item?.endDate)} 
-          </AppText>
-        </View>
-        <View style={styles.addressContainer}>
-          <AppText variant="body"
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={styles.captureDateLocation}
-          >
-            {item?.place?.address}
-          </AppText>
-        </View>
+    <View style={styles.body}>
+      <View style={styles.top}>
+        <AppText variant="bodyStrong" numberOfLines={2} ellipsizeMode="tail" style={styles.title}>
+          {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus}
+        </AppText>
+        {badge && <StatusBadge status={badge} label={labels[badge]} />}
       </View>
-      <View>
-        <AppText style={styles.rating}>
-          {item.status === 2 && (
-            <Icon name={"clock"} size={16} color="ink" />
-          )}
-
-          {item.status === 1 && (
-            <Icon name={"windowClose"} size={16} color="ink" />
-          )}
-          {item.status === 0 && (
-            <Icon name={"check"} size={20} color="ink" />
-          )}
+      <View style={styles.line}>
+        <Icon name="clock" size="xs" color="inkMuted" />
+        <AppText variant="bodySm" color="inkMuted">
+          {convertToDayTime(item?.startDate)} – {convertToDayTime(item?.endDate)}
+        </AppText>
+      </View>
+      <View style={styles.line}>
+        <Icon name="locationDot" size="xs" color="inkMuted" />
+        <AppText variant="bodySm" color="inkMuted" numberOfLines={1} ellipsizeMode="tail" style={styles.flex}>
+          {item?.place?.address}
         </AppText>
       </View>
     </View>
   );
 };
 
-const useStyles = makeStyles((colors) => ({
-  addressContainer: {
-    flexDirection: "row",
-  },
-  rating: {
-    color: colors.inkFaint,
-  },
-  columnContainer: {
-    flex: 1,
-  },
-  centerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    flex: 1,
-  },
-
-  captureDateContent: {
-    textAlign: "center",
-  },
-  fade: {
-    color: colors.inkFaint,
-  },
-  captureDateLocation: {
-
-    flex: 2,
-  },
-
-
-  infoContainer: {
-    flex: 1,
-    alignItems: "flex-start",
-    gap: 12,
-  },
+const useStyles = makeStyles(() => ({
+  body: { flex: 1, minWidth: 0 },
+  top: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", gap: 8 },
+  title: { flex: 1 },
+  line: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6 },
+  flex: { flex: 1 },
 }));
 
 export default InfoContainerFuture;

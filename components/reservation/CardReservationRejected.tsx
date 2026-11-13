@@ -21,14 +21,12 @@ const CardReservationRejected = ({ redirectScreen, item }) => {
 const useStyles = makeStyles((colors) => ({
   cardReservation: {
     backgroundColor: colors.surface,
-    display: "flex",
     flexDirection: "row",
-    marginHorizontal: 10,
-    marginVertical: 10,
-    borderRadius: 20,
-    padding: 10,
-    gap: 12,
-    height: 120,
+    gap: 16,
+    padding: 16,
+    marginHorizontal: 16,
+    marginVertical: 6,
+    borderRadius: 16,
   },
 }));
 

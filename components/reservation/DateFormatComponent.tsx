@@ -1,40 +1,21 @@
 import { convertToDay, convertToDayTime, convertToMonthName } from "@/lib/date";
 import React from "react";
 import { View } from "react-native";
+import type { ApiRecord } from "@/context/types";
 import { fonts, makeStyles } from "@/theme";
 import { AppText } from "@/components/ui";
 
-const DateFormatComponent = ({ item, rejected }) => {
+/** Date tile of an appointment card (design system `ds-appt__date`): month, big day, time. */
+const DateFormatComponent = ({ item, rejected }: { item: ApiRecord; rejected?: number }) => {
   const styles = useStyles();
+  const muted = item?.past && !rejected;
   return (
-    <View
-      style={
-        item?.past && !rejected
-          ? styles.dateContainerPast
-          : styles.dateContainer
-      }
-    >
-      <AppText
-        style={
-          item?.past && !rejected ? styles.captureDatePast : styles.captureDate
-        }
-      >
+    <View style={styles.tile}>
+      <AppText variant="caption" color="inkMuted" style={styles.month}>
         {convertToMonthName(item?.startDate)}
       </AppText>
-      <AppText
-        style={
-          item?.past && !rejected
-            ? styles.captureDateBoldPast
-            : styles.captureDateBold
-        }
-      >
-        {convertToDay(item?.startDate)}
-      </AppText>
-      <AppText
-        style={
-          item?.past && !rejected ? styles.captureDatePast : styles.captureDate
-        }
-      >
+      <AppText style={[styles.day, muted && styles.muted]}>{convertToDay(item?.startDate)}</AppText>
+      <AppText variant="caption" color="inkMuted">
         {convertToDayTime(item?.startDate)}
       </AppText>
     </View>
@@ -42,52 +23,17 @@ const DateFormatComponent = ({ item, rejected }) => {
 };
 
 const useStyles = makeStyles((colors) => ({
-  dateContainerPast: {
-    borderWidth: 1,
-    borderColor: colors.inkMuted,
-    borderLeftWidth: 1,
-    borderRadius: 20,
-
-    display: "flex",
-    justifyContent: "center",
+  tile: {
+    width: 60,
+    alignSelf: "flex-start",
     alignItems: "center",
-    padding: 10,
+    paddingVertical: 8,
+    borderRadius: 12,
+    backgroundColor: colors.surfaceSunken,
   },
-
-  dateContainer: {
-    borderWidth: 1,
-    borderColor: colors.inkMuted,
-    borderLeftWidth: 1,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 20,
-  },
-  captureDate: {
-    fontSize: 18,
-    color: colors.ink,
-    textAlign: "center",
-    fontFamily: fonts.sans,
-  },
-
-  captureDatePast: {
-    fontSize: 18,
-    textAlign: "center",
-    fontFamily: fonts.sans,
-    color: colors.inkMuted,
-  },
-
-  captureDateBold: {
-    fontSize: 20,
-    color: colors.ink,
-    fontFamily: fonts.sansSemiBold,
-  },
-  captureDateBoldPast: {
-    fontSize: 20,
-    color: colors.inkMuted,
-    fontFamily: fonts.sansSemiBold,
-  },
+  month: { fontFamily: fonts.sansSemiBold, textTransform: "uppercase", letterSpacing: 0.72 },
+  day: { fontFamily: fonts.displaySemiBold, fontSize: 28, lineHeight: 32, color: colors.ink },
+  muted: { color: colors.inkMuted },
 }));
 
 export default DateFormatComponent;
