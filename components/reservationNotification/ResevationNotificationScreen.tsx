@@ -1,22 +1,17 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { Dimensions, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import SharedDetailsReservation from "@/components/booking/SharedDetailsReservation";
 import StarRating from "@/components/reservation/StarRateComponent";
 import ReservationMarkComponent from "@/components/reservation/ReservationMarkComponent";
-import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Button, ConfirmDialog, Icon, layout, Loader, MessageDialog, TextArea, withScreen } from "@/components/ui";
-
-const { height: windowHeight } = Dimensions.get("window");
+import { makeStyles } from "@/theme";
+import { AppText, Button, Card, ConfirmDialog, EmptyState, Icon, layout, Loader, MessageDialog, TextArea, withScreen } from "@/components/ui";
 
 function ResevationNotificationScreen() {
-  const { colors } = useTheme();
   const styles = useStyles();
   const { localization } = useLocalization();
   const {
@@ -46,20 +41,14 @@ function ResevationNotificationScreen() {
   const renderDescription = () => {
     if (reservationData?.description) {
       return (
-        <View style={styles.card}>
-          <View style={styles.descContent}>
-            <View>
-              <AppText variant="bodyStrong" style={styles.descriptionLabel}>
-                {localization.APPOINTMENTS.rateReservation.descReservation}
-              </AppText>
-            </View>
-            <View>
-              <AppText variant="bodySm">
-                {reservationData?.description}
-              </AppText>
-            </View>
-          </View>
-        </View>
+        <Card>
+          <AppText variant="bodyStrong" style={styles.descriptionLabel}>
+            {localization.APPOINTMENTS.rateReservation.descReservation}
+          </AppText>
+          <AppText variant="bodySm" color="inkMuted">
+            {reservationData?.description}
+          </AppText>
+        </Card>
       );
     }
   };
@@ -67,27 +56,13 @@ function ResevationNotificationScreen() {
     if (reservationData?.rating?.description) {
       return (
         <>
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: colors.ink,
-              width: "100%",
-              marginTop: 2,
-              marginBottom: 5,
-            }}
-          />
-          <View style={styles.descContent}>
-            <View>
-              <AppText variant="bodyStrong" style={styles.descriptionLabel}>
-                {localization.APPOINTMENTS.rateReservation.descRateReservation}
-              </AppText>
-            </View>
-            <View>
-              <AppText variant="bodySm">
-                {reservationData?.rating?.description}
-              </AppText>
-            </View>
-          </View>
+          <View style={styles.divider} />
+          <AppText variant="bodyStrong" style={styles.descriptionLabel}>
+            {localization.APPOINTMENTS.rateReservation.descRateReservation}
+          </AppText>
+          <AppText variant="bodySm" color="inkMuted">
+            {reservationData?.rating?.description}
+          </AppText>
         </>
       );
     }
@@ -99,14 +74,7 @@ function ResevationNotificationScreen() {
     )
       return (
         <>
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: colors.line,
-              width: "100%",
-              marginTop: 2,
-            }}
-          />
+          <View style={styles.divider} />
           <TextArea variant="plain"
             placeholder={
               localization.APPOINTMENTS.rateReservation.rateExplanation
@@ -154,8 +122,9 @@ function ResevationNotificationScreen() {
 
     if (!reservationData?.rating && Number(reservationData?.status) !== 1) {
       return (
-        <View style={styles.btnSubmitContainer}>
+        <View style={styles.actionBar}>
           <Button style={layout.buttonBlock}
+            variant={past ? "primary" : "danger"}
             onPress={modalReservationHandler}
             title={buttonLabel}
           />
@@ -224,20 +193,12 @@ function ResevationNotificationScreen() {
   }
   const renderRejectionTitle = () => {
     return (
-      <View style={styles.missed}>
-        <AppText variant="displayMd" style={styles.textBoldRejected}>
-          {localization.APPOINTMENTS.cancelReservation.rejectedMessage}
-        </AppText>
-      </View>
+      <EmptyState icon="close" title={localization.APPOINTMENTS.cancelReservation.rejectedMessage} />
     );
   };
   const renderExpirationTitle = () => {
     return (
-      <View style={styles.missed}>
-        <AppText variant="displayMd" style={styles.textBoldRejected}>
-          {localization.APPOINTMENTS.cancelReservation.expiredMessage}
-        </AppText>
-      </View>
+      <EmptyState icon="clock" title={localization.APPOINTMENTS.cancelReservation.expiredMessage} />
     );
   };
   return (
@@ -260,10 +221,10 @@ function ResevationNotificationScreen() {
               {renderDescription()}
               {past &&
                 (status !== "1" || Number(reservationData?.status) !== 1) && (
-                  <View style={styles.card}>
+                  <Card style={styles.rateCard}>
                     {renderStarComponent()}
                     {renderRateDescription()}
-                  </View>
+                  </Card>
                 )}
             </View>
             {(status === "1" || Number(reservationData?.status) === 1) &&
@@ -299,62 +260,19 @@ function ResevationNotificationScreen() {
 }
 
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  descriptionLabel: {
-    marginBottom: 5,
-  },
-  textBoldRejected: {
-    fontSize: windowHeight < 667 ? 18 : 22, // Prilagođen font za manje/veće ekrane
-    textAlign: "center",
-  },
-  textBoldSuccess: {
-    color: colors.ink,
-
-    fontFamily: fonts.displaySemiBold,
-    fontSize: 24,
-    textAlign: "center",
-  },
-  missed: {
-    minHeight: windowHeight * 0.4, // Zauzima 40% visine ekrana
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
-  containerWrapper: {
-    marginTop: 10,
-  },
-
-  btnSubmitContainer: {
-    marginVertical: 20,
-    marginHorizontal: 20,
-  },
-  containerCancel: {
-    marginTop: 10,
-  },
-  description: {
-    color: colors.ink,
-  },
-  card: {
-    flexDirection: "column",
+  container: { flex: 1, backgroundColor: colors.bg },
+  containerCancel: { marginTop: 8, paddingBottom: 16 },
+  descriptionLabel: { marginBottom: 4 },
+  rateCard: { alignItems: "stretch" },
+  divider: { height: 1, backgroundColor: colors.line, marginVertical: 12 },
+  // sticky bottom action bar (as on the services screen)
+  actionBar: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 16,
     backgroundColor: colors.surface,
-    borderRadius: 12,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    padding: 12,
-    alignItems: "flex-start",
-    shadowColor: colors.bg,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
   },
-  descContent: {
-    marginVertical: 1,
-    alignItems: "flex-start",
-  },
-}));
+}))
 export default withScreen(ResevationNotificationScreen, "keyboard");

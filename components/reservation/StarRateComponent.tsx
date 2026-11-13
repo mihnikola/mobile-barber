@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, useTheme } from "@/theme";
+import { useTheme } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 // StarRating component props
@@ -17,7 +17,7 @@ interface StarRatingProps {
 const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
-  starSize = 23,
+  starSize = 32,
   filledColor, // default: colors.star
   emptyColor, // default: colors.inkMuted
   onRatingChange,
@@ -47,7 +47,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           <Icon
             name={i <= currentRating ? "starSolid" : "starOutline"} // filled / outlined
             size={starSize}
-            rawColor={i <= currentRating ? (filledColor ?? colors.star) : (emptyColor ?? colors.inkMuted)}
+            rawColor={i <= currentRating ? (filledColor ?? colors.star) : (emptyColor ?? colors.inkFaint)}
           />
         </Pressable>,
       );
@@ -56,28 +56,9 @@ const StarRating: React.FC<StarRatingProps> = ({
   };
 
   return (
-    <View
-      style={{
-        display: "flex",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        gap:10,
-      }}
-    >
-      <AppText
-        style={{
-          fontSize: 18,
-          fontFamily: fonts.sansSemiBold,
-          color: colors.ink,
-        }}
-      >
-        {localization.APPOINTMENTS.rateReservation.rateUs}
-      </AppText>
-
-      <View style={{  flexDirection: "row", marginBottom:5 }}>
-        {renderStars()}
-      </View>
+    <View style={{ width: "100%", gap: 8 }}>
+      <AppText variant="bodyStrong">{localization.APPOINTMENTS.rateReservation.rateUs}</AppText>
+      <View style={{ flexDirection: "row", gap: 4 }}>{renderStars()}</View>
     </View>
   );
 };
