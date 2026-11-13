@@ -15,9 +15,9 @@ Every change and every decision is recorded here. Newest entries go on top of th
 
 _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/metrics), §5 (decisions), §6 (change log)._
 
-**Where we are (2026-11-13):** Phases 0–4 ✅ (device-checked) · open decisions resolved (D-022, D-023) · **Phase 5 (visual redesign, D-024) in progress — see §4.2**: 5.1 themes infra ✅ (no visible change; dark stays default).
+**Where we are (2026-11-13):** Phases 0–4 ✅ (device-checked) · open decisions resolved (D-022, D-023) · **Phase 5 (visual redesign, D-024) implemented — 5.1–5.7 all committed**; 5.1–5.5 device-checked, **5.6 + 5.7 waiting for the user's device check** (checklist in §4.2). Default theme is now `system`.
 **Last commit on `claude`:** see `git log --oneline b4f71be..claude`. Not pushed to `origin` yet (D-017).
-**Metrics now:** TS 136 (baseline 305) · lint 22 errors / 135 warnings (baseline 65 / 231) · tests 49 passing (`npm run test:once`) · JS files 57 / TS 148 · bundle OK.
+**Metrics now:** TS 62 (baseline 305) · lint 3 errors (all pre-existing `react-hooks` rules in untouched files) · tests 53 passing (`npm run test:once`) · JS files 56 / TS 144 · bundle OK.
 
 **What Phase 0 did, in one glance**
 | Area | Change |
@@ -41,7 +41,7 @@ _Updated at the end of every session. Details are in §2.4 (bugs), §4 (roadmap/
 - [ ] **Device check of Phases 2–4** (JS only, `npx expo start`): all screens look identical; login (email/Google/Apple), register → OTP, forgot/change password (validation messages, also after switching language — B3), booking flow (location → service → more services → barber → date/time → success), appointments list + details (cancel/rate), settings (language, profile edit, logout), 404 screen.
 - [x] Open product/behaviour items decided (D-022).
 
-**Next step:** Phase 5.2 (Inter font) → 5.3 (Feather icons) → 5.4 (track B) → 5.5 (restyle ui, user check) → 5.6 (screens + theme switch, user check) → 5.7 (formats).
+**Next step:** user device check of 5.6 + 5.7 (both themes) → fixes from that check → push to `origin/claude` only when the user says so (D-017). Product features from the design (multi-select services, "anyone free", review step, new bottom nav, first free slot) are out of scope for now (D-024).
 
 **Rules to remember:** only `claude` branch (D-007) · no visual change until Phase 5 (D-002) · keep file line endings, check `git diff --stat` (D-009) · no mass formatting (D-010) · verify with typecheck + lint + bundle export after every step.
 
@@ -261,7 +261,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | ✅ Track A done (library; icons, colors, wrappers migrated; 112 AppText). Track B (17 delegates, 22 system-font/conditional texts, B20, B21) deferred to Phase 5 (D-020). User device check pending |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | ✅ Done 2026-11-13 (device check pending) |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | ✅ Done 2026-11-13: routes, nav out of contexts/hooks, typed TS contexts (B12), domain API services, folder split (device check pending) |
-| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | 🔄 5.1–5.5 done and device-checked; 5.6 (screens) in progress; plan in §4.2 |
+| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | ✅ 5.1–5.7 committed; 5.1–5.5 device-checked, 5.6–5.7 waiting for user check; plan in §4.2 |
 
 All work is committed on the `claude` branch only (small commits per step). Merging into `dev` is done by the user via PR.
 
@@ -317,8 +317,18 @@ Source: design system artifact „Gentleman Barber — Design System“ (claude.
 | 5.3 | Icons → Feather in `ui/Icon` registry (names unchanged) | ✅ `d1c7bca` |
 | 5.4 | Track B: replace the 17 `components/legacy` wrappers with `ui/` directly; remaining 22 raw `<Text>` → `AppText`; system-font texts get the right font (D-022) | ✅ `7901297` `65b6c24` `be98c93` + initials; `components/legacy` gone. Remaining raw `<Text>` (incl. system-font ones) are converted with their screens in 5.6 |
 | 5.5 | Restyle `components/ui` to DS specs (Button, TextField, Card/ListItem, Dialog, EmptyState, Loader, Avatar) + visual-only new ones (StatusBadge, SegmentedTabs, ListRow, ScreenHeader); palettes switch from legacy role names to DS tokens (bg, surface, ink, accent …) | ✅ `3c080af` (DS tokens) `a5923d6` (AppText DS variants, legacy* kept) `54982e8` (ui restyle + StatusBadge/SegmentedTabs/ListRow) + temporary Settings → Tema toggle — ✅ checked on device by user |
-| 5.6 | Screens one by one per Ekran refs (auth → home → booking → appointments → profile); add Profile → Theme (System/Light/Dark); then `DEFAULT_THEME_MODE = "system"` | ⏳ — **user check** |
-| 5.7 | Display formats & copy: `30 min`, `1.200 RSD`, `16:00 – 16:50`, Serbian statuses, no `NaN` | ⏳ |
+| 5.6 | Screens one by one per Ekran refs (auth → home → booking → appointments → profile); add Profile → Theme (System/Light/Dark); then `DEFAULT_THEME_MODE = "system"` | ✅ `830b4a9` … `8198e8b` (see §6) — **user check pending** |
+| 5.7 | Display formats & copy: `30 min`, `1.200 RSD`, `16:00 – 16:50`, Serbian statuses, no `NaN` | ✅ `d9e83a0` — **user check pending** |
+
+**Device check for 5.6 + 5.7** (`cd /c/dev && npx expo start`; do it once in Light and once in Dark via Profile → Tema; also try "System" and switch the phone's mode):
+- [ ] First start: onboarding slides, dots, primary next button; then home.
+- [ ] Auth: login, register, forgot/change password, OTP — fields, buttons, social buttons, logo.
+- [ ] Home: hero + list, location picker dialog, "no locations" dialog, About us (header, text card, contact + hours groups).
+- [ ] Booking: places → services (+ more services chips/action bar) → barbers → date (calendar card, 4-column time slots, "no slots"/Sunday empty states) → summary (big time range, cards, totals, note field) → success (logo, time range, message, salon note card).
+- [ ] Formats everywhere: `30 min`, `1.200 RSD`, `16:00 – 16:50`, rating `4.3/5` (no `NaN`; barber without ratings shows `–/5`).
+- [ ] Appointments: tabs, cards (date tile, status badge), details (header, cards, description card, rating stars input / given rating, red cancel bar, rejected / expired empty states, dialogs).
+- [ ] Profile: settings list, theme screen, language, edit profile, about app, help (mail opens), privacy, logout dialog.
+- [ ] No-internet dialog (airplane mode), 404 screen.
 
 ## 5. Decision log
 
@@ -354,6 +364,8 @@ Format: `D-<n> | date | status | decision — reason`. Status: Proposed / Accept
 ## 6. Change log
 
 ### 2026-11-13
+- **Phase 5.6 finished + 5.7.** Booking details: detail cards / extra services / totals (`ad6bd93`), time slots as a 4-column `ds-slot` grid, salon note card, no-slots empty state (`4d45952`), date picker in a surface card + Sunday empty state, booking summary padding, success header with the current logo tinted + big time range (`479a25b`), appointment details: Card blocks, star input/display (`colors.star` / `inkFaint`), cancel = danger button in a bottom action bar, rejected / expired → EmptyState (`6a1f6e1`). Info screens: About us (header + text card + contact/hours ListGroups, new `components/home/SectionLabel`), about app / help → ListGroup rows, privacy typography (`2c69256`). No-internet / location dialogs on `ui/Dialog` (`44171cc`). Onboarding button/dots/slides, "no locations" → EmptyState, 404; unused `SharedCoverImage`/`SharedLogo` deleted (`b30223e`). `DEFAULT_THEME_MODE = "system"` (`8198e8b`). 5.7 `d9e83a0`: `formatDuration` / `formatPrice` (sr `1.200 RSD`, en `1,200 RSD`) / `formatRating` in `lib/format`, `formatTimeRange` in `lib/date`, `addMinutesToTime` returns `""` instead of `NaN:NaN`; meta rows now show just the value next to the icon (no "Trajanje"/"Cena" prefix); +4 tests. Still unused (not deleted): `components/home/OnboardingComponent`, `OnboardingItem`, `WhoAreWeCoverImage`, `Paginator`. TS 89 → 62, tests 53 ✓, bundle OK.
+- **Phase 5.2–5.6 (earlier today).** 5.2 `f55bbc2` Inter + type scale; 5.3 `d1c7bca` Feather icons; 5.4 `7901297` `65b6c24` `be98c93` `287cb3d` legacy wrappers gone; 5.5 `3c080af` `a5923d6` `54982e8` ui restyle (device-checked); 5.6 auth `830b4a9`, home `c6fad48`, tab bar `85c4f4e`, headers `f73f652`, colour roles `1256e44`, type scale `6968b9b`, profile + theme screen `ef1001c`, palettes `125befe`, booking lists `9242ec1`, appointment cards `18f1d65`.
 - **Phase 5.1 — themes** `1aa6ce2`: light/dark palettes, ThemeProvider (persisted mode), `makeStyles`/`useTheme`; codemod converted 72 files (StyleSheet with colors → `makeStyles`, inline colors → `useTheme`), `components/ui` by hand; navigation theme, status bar and calendar follow the scheme. Default mode `dark` → no visible change. TS 135 (=), lint 22 / 127 (−6), tests 49 ✓, bundle OK.
 - **Decisions D-022 applied.** B23 `21a8ae7` (one validation rule per field, localized confirm messages, corrected EN/SR password text), B24 `eff1ece` (local date parts + TZ test that fails on the old code), B26 `e0c79ff` (dead `removeTokenData` removed), B20 (legacy inputs forward onFocus/onBlur → register confirm-password scroll works). B27 `73d5401` (language screen crash from the icon codemod, found on device). B21 won't fix. Device check of Phases 2–4 by user: OK.
 - **Phase 4 completed.** 4b `bfb8170` + `9643d68`: navigation out of contexts/hooks (settings menu → `SettingsComponent`, login redirect + OTP → login screen, booking success / details / calendar refresh → screens, forgot-password OTP → screen). 4c/4d `c65ad88`: `context/types.ts`; Auth/Company/GlobalError/Localization/Navigation/Reservation → `.tsx`; `AppointmentContext` value type derived from `useAppointmentState()`; **B25 fixed** (missing `setError` → crash), B26 documented, SR locale key added; TS 153 → 136. 4e `f0ccb17`: `lib/api/services.ts` (authApi/usersApi/catalogApi/availabilitiesApi), 29 calls in 16 files; nothing outside `lib/api` touches the HTTP client. 4a `529d8a9`: 44 files moved (`git mv`), 113 imports rewritten, `shared-components/` gone, README structure updated.
