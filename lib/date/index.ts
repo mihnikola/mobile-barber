@@ -98,13 +98,11 @@ export function convertDateDetails(dateStr: string, code: string) {
   return `${weekdaysFor(code)[dateObj.getDay()]} ${formatDayMonthYear(day, month, year, code)}`;
 }
 
-/**
- * ISO/date value → "Subota 15. Mart 2025."
- * Note (B24): weekday comes from local time, the date part from UTC (`toISOString`) — can disagree
- * around midnight. Kept as before.
- */
+/** ISO/date value → "Subota 15. Mart 2025." (weekday and date both in local time — B24 fixed). */
 export function convertDate(item: string | number | Date, code: string) {
   const date = new Date(item);
-  const [year, month, day] = date.toISOString().split("T")[0].split("-").map((s) => s.trim());
+  const year = String(date.getFullYear());
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${weekdaysFor(code)[date.getDay()]} ${formatDayMonthYear(day, month, year, code)}`;
 }
