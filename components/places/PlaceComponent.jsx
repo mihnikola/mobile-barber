@@ -63,13 +63,13 @@ const useStyles = makeStyles((colors) => ({
 
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     alignSelf: "center",
     alignContent: "center",
     height: 500,
@@ -78,6 +78,6 @@ const useStyles = makeStyles((colors) => ({
     marginhorizontal: 40,
     fontSize: 16,
     textAlign: "center",
-    color: colors.textMuted,
+    color: colors.inkFaint,
   },
 }));

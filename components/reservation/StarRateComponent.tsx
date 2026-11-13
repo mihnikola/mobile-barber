@@ -18,8 +18,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 5,
   starSize = 23,
-  filledColor, // default: colors.gold
-  emptyColor, // default: colors.textInactive
+  filledColor, // default: colors.star
+  emptyColor, // default: colors.inkMuted
   onRatingChange,
 }) => {
   const { colors } = useTheme();
@@ -47,7 +47,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           <Icon
             name={i <= currentRating ? "starSolid" : "starOutline"} // filled / outlined
             size={starSize}
-            rawColor={i <= currentRating ? (filledColor ?? colors.gold) : (emptyColor ?? colors.textInactive)}
+            rawColor={i <= currentRating ? (filledColor ?? colors.star) : (emptyColor ?? colors.inkMuted)}
           />
         </Pressable>,
       );
@@ -69,7 +69,7 @@ const StarRating: React.FC<StarRatingProps> = ({
         style={{
           fontSize: 18,
           fontFamily: fonts.bold,
-          color: colors.text,
+          color: colors.ink,
         }}
       >
         {localization.APPOINTMENTS.rateReservation.rateUs}

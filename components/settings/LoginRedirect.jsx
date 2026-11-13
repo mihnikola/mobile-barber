@@ -7,7 +7,7 @@ const LoginRedirect = ({ onPress, title }) => {
   return (
     <View style={styles.profileSection}>
       <View style={styles.profileInfoIcon}>
-        <Icon name="personCircle" size={30} color="textInactive" />
+        <Icon name="personCircle" size={30} color="inkMuted" />
       </View>
       <Pressable onPress={onPress}>
         <AppText variant="legacySubtitle">{title}</AppText>
@@ -22,7 +22,7 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
   },
   profileInfoIcon: {
     paddingHorizontal: 15,

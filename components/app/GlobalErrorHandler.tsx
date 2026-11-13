@@ -40,7 +40,7 @@ const GlobalErrorHandler = () => {
       isOpen={!!error}
       title={error.title}
       buttonText="OK"
-      icon={<Icon name={"close"} size={64} color="text" />}
+      icon={<Icon name={"close"} size={64} color="ink" />}
       onClose={hideError}
       onConfirm={logoutConfirm}
     />

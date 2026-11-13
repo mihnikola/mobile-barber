@@ -64,6 +64,6 @@ export default AppointmentsComponent;
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 }));

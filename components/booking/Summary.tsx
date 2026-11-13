@@ -26,7 +26,7 @@ const useStyles = makeStyles((colors) => ({
     gap: 20,
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 }));
 

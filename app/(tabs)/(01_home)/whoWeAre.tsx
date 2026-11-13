@@ -52,7 +52,7 @@ const AboutUsScreen = () => {
 const useStyles = makeStyles((colors) => ({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   contentContainer: {
     paddingHorizontal: 10,

@@ -60,14 +60,14 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
             }
           >
             <View style={styles.ratingContainer}>
-              <Icon name={"star"} size={16} color="gold" />
+              <Icon name={"star"} size={16} color="star" />
               <AppText variant="legacyTitle" size={12}>{`${roundValue(
                 averageRating,
               )}/5`}</AppText>
             </View>
 
             <View style={styles.ratingContainer}>
-              <Icon name={"person"} size={16} color="gold" />
+              <Icon name={"person"} size={16} color="star" />
               <AppText variant="legacyTitle" size={12}>{userCount || 0}</AppText>
             </View>
           </View>
@@ -94,14 +94,14 @@ const useStyles = makeStyles((colors) => ({
     height: 90,
     borderRadius: 30,
     marginRight: 15,
-    borderColor: colors.divider,
+    borderColor: colors.line,
   },
   profileImageOther: {
     width: 45,
     height: 45,
     borderRadius: 15,
     marginRight: 15,
-    borderColor: colors.divider,
+    borderColor: colors.line,
   },
   detailsContainer: {
     flex: 1,
@@ -110,7 +110,7 @@ const useStyles = makeStyles((colors) => ({
   name: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color    marginBottom: 4,
+    color: colors.ink, // White text color    marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
@@ -125,7 +125,7 @@ const useStyles = makeStyles((colors) => ({
   locationText: {
     fontSize: 14,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color
+    color: colors.ink, // White text color
   },
   ratingContainer: {
     gap: 5,

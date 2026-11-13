@@ -21,13 +21,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
       {!selectedImageUri && (
         <View>
-          <Icon name="personCircle" size={280} color="text" />
+          <Icon name="personCircle" size={280} color="ink" />
           <Pressable
             style={styles.buttonPlaceholder}
             onPress={pickImage}
             disabled={uploading}
           >
-            <Icon name="photo" size={45} color="text" />
+            <Icon name="photo" size={45} color="ink" />
           </Pressable>
         </View>
       )}
@@ -42,7 +42,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
           onPress={pickImage}
           disabled={uploading}
         >
-          <Icon name="photo" size={45} color="text" />
+          <Icon name="photo" size={45} color="ink" />
         </Pressable>
       )}
     </View>
@@ -53,7 +53,7 @@ const useStyles = makeStyles((colors) => ({
   defaultImgAvatar: {
     width: 200,
     height: 200,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   container: {
     flex: 1,

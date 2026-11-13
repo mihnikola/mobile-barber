@@ -157,13 +157,13 @@ export default InitialComponent;
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   itemContainer: {
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   itemTitle: {
     textAlign: "center",

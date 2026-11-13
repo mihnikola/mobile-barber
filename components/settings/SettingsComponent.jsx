@@ -99,7 +99,7 @@ const SettingsComponent = () => {
           onClose={() => setIsLogout(false)}
           onConfirm={logoutConfirm}
           icon={
-            <Icon name="question" size={64} color="text" />
+            <Icon name="question" size={64} color="ink" />
           }
           title={localization.SETTINGS.LOGOUT.question}
           confirmText={localization.SETTINGS.LOGOUT.title}
@@ -115,7 +115,7 @@ const SettingsComponent = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     paddingTop: 20,
   },
 }));

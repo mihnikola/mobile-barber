@@ -212,7 +212,7 @@ const useStyles = makeStyles((colors) => ({
     paddingVertical: 8,
   },
   notAvailable: {
-    color: colors.text,
+    color: colors.ink,
     fontSize: 20,
     textAlign: "center",
   },
@@ -225,7 +225,7 @@ const useStyles = makeStyles((colors) => ({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 }));
 

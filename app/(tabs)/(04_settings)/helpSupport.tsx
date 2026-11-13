@@ -37,7 +37,7 @@ const HelpSupportScreen = () => {
           <AppText variant="legacyBodyLg">{companyInfo.name}</AppText>
         </View>
         <Pressable onPress={handleEmailPress} style={styles.menuItem}>
-          <Icon name="email" size={24} style={styles.menuItemIcon} color="text" />
+          <Icon name="email" size={24} style={styles.menuItemIcon} color="ink" />
           <AppText variant="legacyLabel" style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
           </AppText>
@@ -51,7 +51,7 @@ const HelpSupportScreen = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor:  colors.background,
+    backgroundColor:  colors.bg,
   },
 
   sectionContainer: {
@@ -59,28 +59,28 @@ const useStyles = makeStyles((colors) => ({
   },
   capture: {
     fontSize: 25,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
   sectionTitle: {
     fontSize: 20,
     fontFamily: fonts.bold,
-    color: colors.text,
+    color: colors.ink,
     marginBottom: 20,
   },
   infoRow: {
     justifyContent: "space-between",
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
     marginBottom: 20,
   },
 
   menuItem: {
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
   },
   menuItemIcon: {
     marginRight: 15,

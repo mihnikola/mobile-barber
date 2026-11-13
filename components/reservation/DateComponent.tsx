@@ -177,12 +177,12 @@ const useStyles = makeStyles((colors) => ({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     fontFamily: fonts.regular,
   },
   calendarContainer: {
     marginTop: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     fontFamily: fonts.regular,
 
 
@@ -190,7 +190,7 @@ const useStyles = makeStyles((colors) => ({
 
   calendar: {
     backgroundColor: "transparent",
-    color: colors.yellow,
+    color: colors.warning,
     width: "100%",
     fontFamily: fonts.regular,
   },

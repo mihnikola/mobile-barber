@@ -13,7 +13,7 @@ const ProfileUserComponent = ({ data, onPress }) => {
         <AppText variant="legacyBody">{data?.email}</AppText>
       </View>
       <Pressable style={styles.editButton} onPress={() => onPress("1")}>
-        <Icon name="pencil" size={20} color="text" />
+        <Icon name="pencil" size={20} color="ink" />
       </Pressable>
     </View>
   );
@@ -24,7 +24,7 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
     marginBottom: 10,
   },
   profileImage: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((colors) => ({
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: colors.borderIcon,
+    borderColor: colors.lineStrong,
   },
   profileInfo: {
     flex: 1,
@@ -42,7 +42,7 @@ const useStyles = makeStyles((colors) => ({
     marginBottom: 2,
   },
   editButton: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     borderRadius: 20,
     padding: 8,
     alignItems: "center",

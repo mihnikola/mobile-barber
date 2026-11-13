@@ -17,7 +17,7 @@ export default function AppInitialized(props) {
   const { colors, scheme } = useTheme();
   // navigation (headers, screen background) follows the app theme
   const base = scheme === "dark" ? DarkTheme : DefaultTheme;
-  const navigationTheme = { ...base, colors: { ...base.colors, background: colors.background } };
+  const navigationTheme = { ...base, colors: { ...base.colors, background: colors.bg } };
 
   return (
     <NavigationThemeProvider value={navigationTheme}>

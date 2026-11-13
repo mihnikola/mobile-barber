@@ -53,7 +53,7 @@ const LanguageSupportScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor=colors.background barStyle="dark-content" /> */}
+      {/* <StatusBar backgroundColor=colors.bg barStyle="dark-content" /> */}
       {/* <SharedBackButton onPress={router.back} />
 
      
@@ -67,7 +67,7 @@ const LanguageSupportScreen = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor={colors.textInactive}
+        placeholderTextColor={colors.inkMuted}
         value={search}
         onChangeText={handleSearch}
       />
@@ -85,7 +85,7 @@ const LanguageSupportScreen = () => {
               }}
             >
               <AppText variant="legacyBody" size={18}>{item.label}</AppText>
-              <Icon name={localization.code === item.code && "check"} size={28} color="text" />
+              <Icon name={localization.code === item.code && "check"} size={28} color="ink" />
             </Pressable>
           )}
         />
@@ -97,7 +97,7 @@ const LanguageSupportScreen = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 
   headerImage: {
@@ -107,16 +107,16 @@ const useStyles = makeStyles((colors) => ({
   },
   capture: {
     fontSize: 25,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
 
   search: {
-    color: colors.textOnLight,
-    backgroundColor: colors.white,
+    color: colors.onPrimary,
+    backgroundColor: colors.primary,
     fontFamily: fonts.regular,
-    borderColor: colors.textInactive,
+    borderColor: colors.inkMuted,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -132,9 +132,9 @@ const useStyles = makeStyles((colors) => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: colors.black,
+    backgroundColor: colors.bg,
     borderWidth: 1,
-    borderColor: colors.white,
+    borderColor: colors.primary,
   },
 }));
 

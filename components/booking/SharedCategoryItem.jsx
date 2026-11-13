@@ -33,14 +33,14 @@ const SharedCategoryItem = (props) => {
 
 const useStyles = makeStyles((colors) => ({
   isSelected: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.primary,
   },
   nameSelected: {
-    color: colors.textOnLight,
+    color: colors.onPrimary,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: colors.surfaceItem,
+    backgroundColor: colors.surface,
     borderRadius: 5,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -48,7 +48,7 @@ const useStyles = makeStyles((colors) => ({
   name: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: colors.text,
+    color: colors.ink,
   },
 }));
 

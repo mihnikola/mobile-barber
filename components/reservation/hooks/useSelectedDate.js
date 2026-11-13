@@ -26,15 +26,15 @@
 //     if (selectedDateString) {
 //       markedDates[selectedDateString] = {
 //         selected: true,
-//         selectedColor: colors.text,
+//         selectedColor: colors.ink,
 //         customStyles: {
 //           container: {
-//             backgroundColor:colors.white,
+//             backgroundColor:colors.primary,
 //             padding: 1,
 //             borderRadius: 8,
 //           },
 //           text: {
-//             color:  colors.textOnLight,
+//             color:  colors.onPrimary,
 //             fontFamily: fonts.bold,
 //           },
 //         },
@@ -134,15 +134,15 @@ const useSelectedDate = (initialDate) => {
     if (selectedDateString) {
       markedDates[selectedDateString] = {
         selected: true,
-        selectedColor: colors.text,
+        selectedColor: colors.ink,
         customStyles: {
           container: {
-            backgroundColor: colors.white,
+            backgroundColor: colors.primary,
             padding: 1,
             borderRadius: 8,
           },
           text: {
-            color: colors.textOnLight,
+            color: colors.onPrimary,
             fontFamily: fonts.bold,
           },
         },

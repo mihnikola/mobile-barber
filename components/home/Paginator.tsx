@@ -43,7 +43,7 @@ const useStyles = makeStyles((colors) => ({
   dot: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     marginHorizontal: 8,
   },
 }));

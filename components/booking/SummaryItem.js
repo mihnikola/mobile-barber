@@ -36,22 +36,22 @@ const useStyles = makeStyles((colors) => ({
     width: 100,
     height: 50,
     justifyContent: "center",
-    borderColor: colors.textInactive,
+    borderColor: colors.inkMuted,
     alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
   },
   selectedTime: {
-    color: colors.textOnLight,
+    color: colors.onPrimary,
   },
   selectedContent: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.primary,
   },
   time: {
     fontSize: 16,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.bold,
-    borderColor: colors.white,
+    borderColor: colors.primary,
   },
 }));
 

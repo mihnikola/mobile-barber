@@ -22,19 +22,19 @@ export const MenuItem = ({
     onPress={onPress}
     disabled={isToggle}
   >
-    <Icon name={iconName as IconName} size={24} color="text" style={styles.menuItemIcon} />
+    <Icon name={iconName as IconName} size={24} color="ink" style={styles.menuItemIcon} />
     <AppText variant="legacyLabel" style={styles.menuItemText}>{title}</AppText>
     {isToggle ? (
       <Switch
-        trackColor={{ false: colors.switchTrackOff, true: colors.switchTrackOn }}
-        thumbColor={toggleValue ? colors.switchThumbOn : colors.switchThumbOff}
-        ios_backgroundColor={colors.text}
+        trackColor={{ false: colors.lineStrong, true: colors.primary }}
+        thumbColor={toggleValue ? colors.surface : colors.surface}
+        ios_backgroundColor={colors.ink}
         onValueChange={onToggle}
         value={toggleValue}
         style={styles.menuItemToggle}
       />
     ) : (
-      <Icon name="chevronRightThin" size={24} style={styles.menuItemArrow} color="iconMuted" />
+      <Icon name="chevronRightThin" size={24} style={styles.menuItemArrow} color="inkMuted" />
     )}
   </Pressable>);
 };
@@ -42,26 +42,26 @@ export const MenuItem = ({
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.surfaceMenu, // Dark background as per image
+    backgroundColor: colors.surface, // Dark background as per image
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, // Adjust for Android status bar
   },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider, // Darker border for separation
+    borderBottomColor: colors.line, // Darker border for separation
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: "bold",
-    color: colors.text, // White text
+    color: colors.ink, // White text
   },
   profileSection: {
     flexDirection: "row",
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
     marginBottom: 10,
   },
   profileImage: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((colors) => ({
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: colors.borderIcon, // Subtle border around image
+    borderColor: colors.lineStrong, // Subtle border around image
   },
   profileInfo: {
     flex: 1,
@@ -78,16 +78,16 @@ const useStyles = makeStyles((colors) => ({
   profileName: {
     fontSize: 20,
     fontWeight: "600",
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     marginBottom: 2,
   },
   profileEmail: {
     fontSize: 14,
-    color: colors.textTertiary, // Light gray for email
+    color: colors.inkMuted, // Light gray for email
   },
   editButton: {
-    backgroundColor: colors.surfaceIcon, // Darker background for button
+    backgroundColor: colors.surfaceSunken, // Darker background for button
     borderRadius: 20,
     padding: 8,
     alignItems: "center",
@@ -103,7 +103,7 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
   },
   logoutMenuItem: {
     borderBottomWidth: 0, // No border for logout
@@ -115,7 +115,7 @@ const useStyles = makeStyles((colors) => ({
     flex: 1, // Allows text to take up available space
   },
   logoutText: {
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.bold,
   },
   menuItemArrow: {

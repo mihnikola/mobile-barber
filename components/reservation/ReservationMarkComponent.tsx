@@ -28,18 +28,18 @@ function ReservationMarkComponent({ data }) {
           style={{
             fontSize: 18,
             fontFamily: fonts.bold,
-            color: colors.text,
+            color: colors.ink,
             marginBottom: 5,
           }}
         >
           {localization.APPOINTMENTS.rateReservation.rated}
         </Text>
 
-        <Text style={{color: colors.text, fontSize: 40 }}>
+        <Text style={{color: colors.ink, fontSize: 40 }}>
           {myArray?.map((item, index) => {
             if (index < data?.rating?.rate) {
               return (
-                <Icon name="star" key={item.arrx} size={23} color="text" />
+                <Icon name="star" key={item.arrx} size={23} color="ink" />
               );
             }
           })}

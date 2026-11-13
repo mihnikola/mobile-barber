@@ -44,7 +44,7 @@ const PrivacyPolicyScreen = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 
   sectionContainer: {
@@ -60,18 +60,18 @@ const useStyles = makeStyles((colors) => ({
   },
   srbCapture: {
     fontSize: 25,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
   engCapture: {
     fontSize: 35,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 140,
   },
   text: {
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
 
     fontSize: 16,

@@ -46,12 +46,12 @@ const AboutApplicationScreen = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   title: {
     fontSize: 28,
     fontFamily: fonts.bold,
-    color: colors.text,
+    color: colors.ink,
     marginBottom: 30,
     textAlign: "center",
   },
@@ -61,7 +61,7 @@ const useStyles = makeStyles((colors) => ({
 
   capture: {
     fontSize: 25,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 130,
   },
@@ -73,7 +73,7 @@ const useStyles = makeStyles((colors) => ({
   },
   subTitle: {
     fontSize: 12,
-    color: colors.textTertiary,
+    color: colors.inkMuted,
     marginTop: 2,
   },
   section: {
@@ -86,7 +86,7 @@ const useStyles = makeStyles((colors) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
+    borderBottomColor: colors.line,
     marginBottom: 20,
   },
   label: {
@@ -99,7 +99,7 @@ const useStyles = makeStyles((colors) => ({
 
   copyright: {
     fontSize: 14,
-    color: colors.text,
+    color: colors.ink,
     textAlign: "center",
     marginTop: 20,
   },

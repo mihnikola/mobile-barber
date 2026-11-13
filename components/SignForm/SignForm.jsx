@@ -6,7 +6,7 @@ import { useTheme } from "@/theme";
 const SignForm = () => {
   const { colors } = useTheme();
   return (
-    <ScrollView style={{ backgroundColor: colors.black }}>
+    <ScrollView style={{ backgroundColor: colors.bg }}>
      <LoginScreen /> 
     </ScrollView>
   );

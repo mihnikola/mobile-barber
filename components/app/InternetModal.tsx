@@ -17,7 +17,7 @@ export default function NoInternetModal({ visible }) {
     >
       <View style={styles.overlay}>
         <View style={styles.box}>
-          <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="textMuted" />
+          <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="inkFaint" />
           <AppText variant="legacyTitle" size={24} style={styles.title}> {localization.INTERNET.title}</AppText>
           <Text style={styles.sub}> {localization.INTERNET.error}</Text>
         </View>
@@ -31,14 +31,14 @@ const useStyles = makeStyles((colors) => ({
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: colors.overlay,
+    backgroundColor: colors.scrim,
     justifyContent: "center",
     alignItems: "center",
   },
   box: {
     width: "85%",
     padding: 30,
-    backgroundColor: colors.surfaceModal,
+    backgroundColor: colors.surface,
     borderRadius: 16,
     alignItems: "center",
     shadowOpacity: 0.25,
@@ -51,18 +51,18 @@ const useStyles = makeStyles((colors) => ({
   },
   sub: {
     fontSize: 16,
-    color: colors.textLight,
+    color: colors.inkMuted,
     marginBottom: 25,
     textAlign: "center",
   },
   button: {
-    backgroundColor: colors.dangerBright,
+    backgroundColor: colors.danger,
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 8,
   },
   buttonText: {
-    color: colors.text,
+    color: colors.ink,
     fontSize: 16,
     fontFamily: fonts.bold,
   },

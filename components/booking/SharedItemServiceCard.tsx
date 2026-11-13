@@ -15,7 +15,7 @@ const SharedItemServiceCard = (props: any) => {
       title={name}
     >
       <MetaRow icon="clock" spaced>{`${localization.DETAILS.duration} ${duration}`}</MetaRow>
-      <MetaRow icon="price" iconColor="gold">{`${localization.DETAILS.price} ${price}`}</MetaRow>
+      <MetaRow icon="price" iconColor="star">{`${localization.DETAILS.price} ${price}`}</MetaRow>
     </ListItem>
   );
 };

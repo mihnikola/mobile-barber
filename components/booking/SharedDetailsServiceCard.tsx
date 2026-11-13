@@ -41,7 +41,7 @@ const SharedDetailsServiceCard = (props: any) => {
           }
         >
           <View style={styles.locationContainer}>
-            <Icon name={"clock"} size={16} color="text" />
+            <Icon name={"clock"} size={16} color="ink" />
             <AppText variant="legacyBody" style={styles.locationText}>
               {`${localization.DETAILS.duration} ${
                 duration || data?.serviceDuration
@@ -49,7 +49,7 @@ const SharedDetailsServiceCard = (props: any) => {
             </AppText>
           </View>
           <View style={styles.ratingContainer}>
-            <Icon name={"price"} size={16} color="gold" />
+            <Icon name={"price"} size={16} color="star" />
             <AppText variant="legacyBody" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
             </AppText>
@@ -72,13 +72,13 @@ const useStyles = makeStyles((colors) => ({
   },
   detailsCard: {
     flexDirection: "row",
-    backgroundColor: colors.surfaceCard, // Dark background from your image
+    backgroundColor: colors.surface, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: colors.background, // For a subtle shadow (iOS)
+    shadowColor: colors.bg, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -104,13 +104,13 @@ const useStyles = makeStyles((colors) => ({
   name: {
     fontSize: 18,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color
+    color: colors.ink, // White text color
     marginBottom: 4,
   },
   nameOther: {
     fontSize: 14,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color
+    color: colors.ink, // White text color
     marginBottom: 4,
   },
   locationContainer: {
@@ -129,7 +129,7 @@ const useStyles = makeStyles((colors) => ({
   ratingText: {
     fontSize: 14,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color
+    color: colors.ink, // White text color
     marginLeft: 5,
   },
   reviewText: {

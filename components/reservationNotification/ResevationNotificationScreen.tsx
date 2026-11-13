@@ -70,7 +70,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: colors.text,
+              borderTopColor: colors.ink,
               width: "100%",
               marginTop: 2,
               marginBottom: 5,
@@ -102,7 +102,7 @@ function ResevationNotificationScreen() {
           <View
             style={{
               borderTopWidth: 1,
-              borderTopColor: colors.dividerStrong,
+              borderTopColor: colors.line,
               width: "100%",
               marginTop: 2,
             }}
@@ -200,7 +200,7 @@ function ResevationNotificationScreen() {
         onClose={() => setIsModalQuestion(false)}
         onConfirm={submitAppointment}
         icon={
-          <Icon name="question" size={64} color="text" />
+          <Icon name="question" size={64} color="ink" />
         }
         title={titleQuestion}
         confirmText={questionButtonYes}
@@ -288,7 +288,7 @@ function ResevationNotificationScreen() {
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           icon={
-            <Icon name={error ? "close" : "check"} size={64} color="text" />
+            <Icon name={error ? "close" : "check"} size={64} color="ink" />
           }
           title={error || message}
           buttonText="Ok"
@@ -301,7 +301,7 @@ function ResevationNotificationScreen() {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   descriptionLabel: {
     marginBottom: 5,
@@ -311,7 +311,7 @@ const useStyles = makeStyles((colors) => ({
     textAlign: "center",
   },
   textBoldSuccess: {
-    color: colors.text,
+    color: colors.ink,
 
     fontFamily: fonts.bold,
     fontSize: 24,
@@ -336,17 +336,17 @@ const useStyles = makeStyles((colors) => ({
     marginTop: 10,
   },
   description: {
-    color: colors.text,
+    color: colors.ink,
   },
   card: {
     flexDirection: "column",
-    backgroundColor: colors.surfaceItem,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     marginVertical: 8,
     marginHorizontal: 15,
     padding: 12,
     alignItems: "flex-start",
-    shadowColor: colors.background,
+    shadowColor: colors.bg,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

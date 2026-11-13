@@ -54,7 +54,7 @@ export function AppText({ variant = "body", color, bold, size, align, style, ...
       {...rest}
       style={[
         base,
-        { color: colors[color ?? (legacy ? "text" : "ink")] },
+        { color: colors[color ?? "ink"] },
         bold !== undefined && {
           fontFamily: legacy ? (bold ? fonts.bold : fonts.regular) : bold ? fonts.sansSemiBold : fonts.sans,
         },

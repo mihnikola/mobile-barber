@@ -43,7 +43,7 @@ const DateFormatComponent = ({ item, rejected }) => {
 const useStyles = makeStyles((colors) => ({
   dateContainerPast: {
     borderWidth: 1,
-    borderColor: colors.textInactive,
+    borderColor: colors.inkMuted,
     borderLeftWidth: 1,
     borderRadius: 20,
 
@@ -55,7 +55,7 @@ const useStyles = makeStyles((colors) => ({
 
   dateContainer: {
     borderWidth: 1,
-    borderColor: colors.textInactive,
+    borderColor: colors.inkMuted,
     borderLeftWidth: 1,
     display: "flex",
     justifyContent: "center",
@@ -65,7 +65,7 @@ const useStyles = makeStyles((colors) => ({
   },
   captureDate: {
     fontSize: 18,
-    color: colors.text,
+    color: colors.ink,
     textAlign: "center",
     fontFamily: fonts.regular,
   },
@@ -74,17 +74,17 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 18,
     textAlign: "center",
     fontFamily: fonts.regular,
-    color: colors.textInactive,
+    color: colors.inkMuted,
   },
 
   captureDateBold: {
     fontSize: 20,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.bold,
   },
   captureDateBoldPast: {
     fontSize: 20,
-    color: colors.textInactive,
+    color: colors.inkMuted,
     fontFamily: fonts.bold,
   },
 }));

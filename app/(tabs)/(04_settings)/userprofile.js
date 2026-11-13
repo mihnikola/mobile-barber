@@ -120,7 +120,7 @@ const UserProfileScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: colors.background }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={insets.top}
     >
@@ -147,7 +147,7 @@ const UserProfileScreen = () => {
         </View>
         <View style={styles.userDataContainer}>
           <View>
-            <AppText variant="legacyLabelSm" color="textInactive" style={styles.inputLabel}>
+            <AppText variant="legacyLabelSm" color="inkMuted" style={styles.inputLabel}>
               {localization.SETTINGS.PROFILE.email}
             </AppText>
             <TextInput
@@ -218,7 +218,7 @@ const UserProfileScreen = () => {
             onClose={!errorChange ? messageHandler : messageHandler2}
             onConfirm={!errorChange ? messageHandler : messageHandler2}
             icon={
-              <Icon name={errorChange ? "close" : "check"} size={64} color="text" />
+              <Icon name={errorChange ? "close" : "check"} size={64} color="ink" />
             }
             title={
               message
@@ -228,7 +228,7 @@ const UserProfileScreen = () => {
             buttonText="Ok"
           />
         )}
-        {/* <StatusBar backgroundColor=colors.background /> */}
+        {/* <StatusBar backgroundColor=colors.bg /> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -249,12 +249,12 @@ const useStyles = makeStyles((colors) => ({
     backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: colors.divider,
+    borderColor: colors.line,
     paddingHorizontal: 10,
   },
   phoneNumberInput: {
     backgroundColor: colors.white,
-    color: colors.text,
+    color: colors.ink,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -262,7 +262,7 @@ const useStyles = makeStyles((colors) => ({
     borderColor: colors.white,
   },
   buttonText: {
-    color: colors.text,
+    color: colors.ink,
     fontSize: 16,
     fontFamily: fonts.bold,
     padding: 10,
@@ -279,33 +279,33 @@ const useStyles = makeStyles((colors) => ({
     fontFamily: fonts.regular,
   },
   inputDisabled: {
-    backgroundColor: colors.disabled,
-    color: colors.textDeactivated,
+    backgroundColor: colors.surfaceSunken,
+    color: colors.inkFaint,
     fontFamily: fonts.regular,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 1,
-    borderColor:colors.text,
+    borderColor:colors.ink,
   },
   unbutton: {
     textAlign: "center",
     marginVertical: 30,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     padding: 10,
     borderWidth: 1,
-    borderColor: colors.textMuted,
+    borderColor: colors.inkFaint,
   },
   unButtonText: {
-    color: colors.textMuted,
+    color: colors.inkFaint,
     fontSize: 16,
     padding: 10,
     textAlign: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   button: {
     padding: 5,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     borderColor: colors.white,
     borderWidth: 1,
     textAlign: "center",
@@ -314,7 +314,7 @@ const useStyles = makeStyles((colors) => ({
 
   userDataContainer: {
     flex: 2,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -331,12 +331,12 @@ const useStyles = makeStyles((colors) => ({
   imageContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   containerInfo: {
     marginTop: 20,
     flexDirection: "column",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     gap: 10,
   },
   headerImage: {

@@ -14,8 +14,8 @@ const SharedItemEmployerCard = (props: any) => {
       {/* seniority line had no font family in the old card -> system font kept (Phase 5 decides) */}
       <MetaRow icon="trophy" font="system" spaced>{`${seniority || seniority?.title}`}</MetaRow>
       <View style={{ gap: 5 }}>
-        <MetaRow icon="star" iconColor="gold" font="bold">{`${roundValue(averageRating)}/5`}</MetaRow>
-        <MetaRow icon="person" iconColor="gold" font="bold">
+        <MetaRow icon="star" iconColor="star" font="bold">{`${roundValue(averageRating)}/5`}</MetaRow>
+        <MetaRow icon="person" iconColor="star" font="bold">
           {userCount || 0}
         </MetaRow>
       </View>

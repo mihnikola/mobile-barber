@@ -25,7 +25,7 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: colors.bg,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",

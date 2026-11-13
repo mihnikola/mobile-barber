@@ -10,7 +10,7 @@ const ListAboutUs = ({ contact }) => {
     <View>
       <AppText variant="legacyTitle" size={29} style={styles.titleContant}>{localization.HOME.contact}</AppText>
       <View style={styles.contactItem}>
-        <Icon name="phone" size={30} color="text" />
+        <Icon name="phone" size={30} color="ink" />
         <AppText variant="legacyTitle">{contact}</AppText>
       </View>
     </View>

@@ -15,7 +15,7 @@ export default function NotFoundScreen() {
         <AppText variant="legacyTitle">This screen doesn&apos;t exist.</AppText>
 
         <Link href={routes.root} style={styles.link}>
-          <AppText variant="legacyBody" color="linkAlt">Go to home screen!</AppText>
+          <AppText variant="legacyBody" color="accent">Go to home screen!</AppText>
         </Link>
       </View>
     </>
@@ -28,7 +28,7 @@ const useStyles = makeStyles((colors) => ({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   link: {
     marginTop: 15,

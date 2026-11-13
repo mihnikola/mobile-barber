@@ -33,7 +33,7 @@ const useStyles = makeStyles((colors) => ({
   },
   timeData: {
     fontSize: 20,
-   color: colors.text,
+   color: colors.ink,
     fontFamily: fonts.bold,
   },
   info: {
@@ -47,7 +47,7 @@ const useStyles = makeStyles((colors) => ({
   },
   position: {
     fontSize: 16,
-    color: colors.textMuted,
+    color: colors.inkFaint,
     fontStyle: "italic",
     padding: 12,
   },
@@ -60,7 +60,7 @@ const useStyles = makeStyles((colors) => ({
   },
   dateData: {
     fontSize: 20,
-   color: colors.text,
+   color: colors.ink,
     fontFamily: fonts.bold,
   },
   data: {
@@ -85,7 +85,7 @@ const useStyles = makeStyles((colors) => ({
   },
   capture: {
     fontSize: 32,
-    color: colors.textMuted,
+    color: colors.inkFaint,
     fontFamily: fonts.bold,
     textAlign: "center",
     fontStyle: "italic",

@@ -20,7 +20,7 @@ const CardReservationRejected = ({ redirectScreen, item }) => {
 
 const useStyles = makeStyles((colors) => ({
   cardReservation: {
-    backgroundColor: colors.surfaceItem,
+    backgroundColor: colors.surface,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

@@ -84,9 +84,9 @@ export default CustomButton;
 
 const useStyles = makeStyles((colors) => ({
   container: {
-    backgroundColor: colors.surfaceItem,
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: colors.textInactive,
+    borderColor: colors.inkMuted,
     padding: 10,
     width: 200,
     borderRadius: 100,
@@ -98,7 +98,7 @@ const useStyles = makeStyles((colors) => ({
     position: "absolute",
   },
   textButton: {
-   color: colors.text,
+   color: colors.ink,
     fontSize: 18,
     fontFamily: fonts.bold,
     position: "absolute",

@@ -80,7 +80,7 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 21,
     padding: 10,
     margin: 10,
-   color: colors.text,
+   color: colors.ink,
     textAlign: "center",
     fontFamily: fonts.bold,
   },
@@ -91,6 +91,6 @@ const useStyles = makeStyles((colors) => ({
 
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 }));

@@ -36,7 +36,7 @@ const SharedOthersServices = (props: any) => {
         )}
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={styles.locationContainer}>
-            <Icon name={"clock"} size={16} color="text" />
+            <Icon name={"clock"} size={16} color="ink" />
             {data?.service?.duration ? (
               <AppText variant="legacyCaption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${data?.service?.duration} `}
@@ -48,7 +48,7 @@ const SharedOthersServices = (props: any) => {
             )}
           </View>
           <View style={styles.ratingContainer}>
-            <Icon name={"price"} size={16} color="gold" />
+            <Icon name={"price"} size={16} color="star" />
             <AppText variant="legacyBody" style={styles.reviewText}>
               {`${localization.DETAILS.price} ${data?.price}`}
             </AppText>
@@ -63,7 +63,7 @@ const useStyles = makeStyles((colors) => ({
     alignSelf: "flex-start",
   },
   moreServices: {
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.italic,
     textDecorationLine: "underline",
   },
@@ -81,7 +81,7 @@ const useStyles = makeStyles((colors) => ({
     marginVertical: 8,
     marginHorizontal: 15,
     alignItems: "center",
-    shadowColor: colors.background,
+    shadowColor: colors.bg,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -89,13 +89,13 @@ const useStyles = makeStyles((colors) => ({
   },
   detailsCard: {
     flexDirection: "row",
-    backgroundColor: colors.surfaceCard, // Dark background from your image
+    backgroundColor: colors.surface, // Dark background from your image
     borderRadius: 12,
     padding: 15,
     marginVertical: 8, // Spacing between cards
     marginHorizontal: 15, // Side padding for the list
     alignItems: "center",
-    shadowColor: colors.background, // For a subtle shadow (iOS)
+    shadowColor: colors.bg, // For a subtle shadow (iOS)
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -130,7 +130,7 @@ const useStyles = makeStyles((colors) => ({
   ratingText: {
     fontSize: 12,
     fontFamily: fonts.bold,
-    color: colors.text, // White text color
+    color: colors.ink, // White text color
     marginLeft: 5,
   },
   reviewText: {

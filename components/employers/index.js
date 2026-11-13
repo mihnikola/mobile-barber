@@ -95,7 +95,7 @@ const useStyles = makeStyles((colors) => ({
   heroHeader: {
     width: "100%",
     justifyContent: "flex-end", // Gura tekst na dno slike
-    backgroundColor: colors.surfaceMenu, // Rezervna tamna pozadina dok se slika učitava
+    backgroundColor: colors.surface, // Rezervna tamna pozadina dok se slika učitava
   },
   backgroundImage: {
     opacity: 0.2,
@@ -115,7 +115,7 @@ const useStyles = makeStyles((colors) => ({
 
   capture: {
     fontSize: 32,
-    color: colors.text,
+    color: colors.ink,
     fontFamily: fonts.regular,
     paddingVertical: 140,
   },
@@ -123,13 +123,13 @@ const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   errorContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     alignSelf: "center",
     alignContent: "center",
     height: 500,
@@ -138,6 +138,6 @@ const useStyles = makeStyles((colors) => ({
     marginhorizontal: 40,
     fontSize: 16,
     textAlign: "center",
-    color: colors.textMuted,
+    color: colors.inkFaint,
   },
 }));

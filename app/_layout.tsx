@@ -38,9 +38,9 @@ function RootStack() {
             title: "",
             headerShown: true,
             headerStyle: {
-              backgroundColor: colors.background,
+              backgroundColor: colors.bg,
             },
-            headerTintColor: colors.text,
+            headerTintColor: colors.ink,
           }}
         />
 

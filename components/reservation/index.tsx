@@ -93,7 +93,7 @@ const Reservation = () => {
               isOpen={IsError}
               onClose={confirmHandler}
               onConfirm={confirmHandler}
-              icon={<Icon name={"close"} size={64} color="text" />}
+              icon={<Icon name={"close"} size={64} color="ink" />}
               title={error}
               buttonText={localization.OK.label}
             />
@@ -103,7 +103,7 @@ const Reservation = () => {
               isOpen={distinctReservation?.length > 0}
               onClose={confirmDistinctHandler}
               onConfirm={confirmDistinctHandler}
-              icon={<Icon name={"close"} size={64} color="text" />}
+              icon={<Icon name={"close"} size={64} color="ink" />}
               title={distinctReservation}
               buttonText={localization.OK.label}
             />
@@ -117,7 +117,7 @@ const Reservation = () => {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 
   btn: {

@@ -44,11 +44,11 @@ function AppointmentsNonToken() {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
 
   card: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     display: "flex",
     flexDirection: "column",
     width: "100%",

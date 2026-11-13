@@ -3,16 +3,16 @@ import { fonts } from "./typography";
 
 /** Theme for react-native-calendars for the current palette (Phase 5.1: theme-aware). */
 export const getCalendarTheme = (colors: Palette) => ({
-  textDayFontFamily: fonts.bold,
-  textSectionTitleFontFamily: fonts.bold,
-  monthTextColor: colors.text,
-  backgroundColor: colors.background,
-  calendarBackground: colors.background,
-  textSectionTitleColor: colors.text,
-  selectedDayBackgroundColor: colors.text,
-  selectedDayTextColor: colors.text,
-  todayTextColor: colors.text,
-  dayTextColor: colors.text,
-  textMonthFontFamily: fonts.bold,
-  textDisabledColor: colors.textMuted,
+  textDayFontFamily: fonts.sansSemiBold,
+  textSectionTitleFontFamily: fonts.sansSemiBold,
+  monthTextColor: colors.ink,
+  backgroundColor: colors.bg,
+  calendarBackground: colors.bg,
+  textSectionTitleColor: colors.ink,
+  selectedDayBackgroundColor: colors.primary,
+  selectedDayTextColor: colors.onPrimary,
+  todayTextColor: colors.accent,
+  dayTextColor: colors.ink,
+  textMonthFontFamily: fonts.displaySemiBold,
+  textDisabledColor: colors.inkFaint,
 });

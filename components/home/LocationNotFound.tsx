@@ -38,15 +38,15 @@ function LocationNotFound({
 const useStyles = makeStyles((colors) => ({
   overlay: {
     flex: 1,
-    backgroundColor: colors.overlay,
+    backgroundColor: colors.scrim,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: colors.surfaceModal,
+    backgroundColor: colors.surface,
     borderRadius: 12,
-    shadowColor: colors.background,
+    shadowColor: colors.bg,
     padding: 32,
     width: "100%",
     maxHeight: "60%",
@@ -60,7 +60,7 @@ const useStyles = makeStyles((colors) => ({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-   color: colors.text,
+   color: colors.ink,
   },
 
   modalTitle: {
@@ -70,11 +70,11 @@ const useStyles = makeStyles((colors) => ({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: colors.background,
+    shadowColor: colors.bg,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

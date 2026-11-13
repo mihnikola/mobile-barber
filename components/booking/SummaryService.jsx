@@ -83,10 +83,10 @@ const useStyles = makeStyles((colors) => ({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: colors.surfaceRaised,
+    backgroundColor: colors.surfaceSunken,
   },
   dividerText: {
-    color: colors.text,
+    color: colors.ink,
     marginHorizontal: 10,
     fontSize: 15,
     fontFamily: fonts.bold,

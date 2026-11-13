@@ -50,7 +50,7 @@ const useStyles = makeStyles((colors) => ({
   reviewText: {
     fontStyle: "italic",
     fontSize: 16,
-   color: colors.text,
+   color: colors.ink,
     textAlign: "center",
     marginVertical: 40,
     marginHorizontal: 20

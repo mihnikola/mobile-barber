@@ -69,7 +69,7 @@ const useStyles = makeStyles((colors) => ({
   },
   position: {
     fontSize: 20,
-    color: colors.textMuted,
+    color: colors.inkFaint,
     fontStyle: "italic",
     padding: 12,
   },
@@ -85,7 +85,7 @@ const useStyles = makeStyles((colors) => ({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.bg,
   },
   coverImage: {
     width: "100%",
@@ -95,7 +95,7 @@ const useStyles = makeStyles((colors) => ({
   whiteLine: {
     width: "100%",
     height: 4, // Adjust the height for the thickness of the line
-    backgroundColor: colors.background, // Set the line color to white
+    backgroundColor: colors.bg, // Set the line color to white
     marginTop: -1, // Optional: You can adjust this to fine-tune the position
   },
 }));

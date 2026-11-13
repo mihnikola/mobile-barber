@@ -37,14 +37,14 @@ const InfoContainerFuture = ({ item }) => {
       <View>
         <Text style={styles.rating}>
           {item.status === 2 && (
-            <Icon name={"clock"} size={16} color="text" />
+            <Icon name={"clock"} size={16} color="ink" />
           )}
 
           {item.status === 1 && (
-            <Icon name={"windowClose"} size={16} color="text" />
+            <Icon name={"windowClose"} size={16} color="ink" />
           )}
           {item.status === 0 && (
-            <Icon name={"check"} size={20} color="text" />
+            <Icon name={"check"} size={20} color="ink" />
           )}
         </Text>
       </View>
@@ -57,7 +57,7 @@ const useStyles = makeStyles((colors) => ({
     flexDirection: "row",
   },
   rating: {
-    color: colors.textMuted,
+    color: colors.inkFaint,
   },
   columnContainer: {
     flex: 1,
@@ -72,7 +72,7 @@ const useStyles = makeStyles((colors) => ({
     textAlign: "center",
   },
   fade: {
-    color: colors.textSubtle,
+    color: colors.inkFaint,
   },
   captureDateLocation: {
 
