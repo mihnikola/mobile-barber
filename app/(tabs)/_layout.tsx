@@ -2,7 +2,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, View } from "react-native";
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles, radii, useTheme } from "@/theme";
 import { Icon, type IconName } from "@/components/ui";
 
 /** Tab icon in the design-system nav pill (`ds-nav__pill`): accent on accentSoft when active. */
@@ -85,6 +85,6 @@ const useStyles = makeStyles((colors) => ({
   },
   item: { paddingVertical: 2 },
   label: { fontFamily: fonts.sansMedium, fontSize: 12, marginTop: 4 },
-  pill: { width: 56, height: 30, borderRadius: 999, alignItems: "center", justifyContent: "center" },
+  pill: { width: 56, height: 30, borderRadius: radii.pill, alignItems: "center", justifyContent: "center" },
   pillActive: { backgroundColor: colors.accentSoft },
 }));

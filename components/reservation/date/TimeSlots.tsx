@@ -3,7 +3,7 @@ import { useWindowDimensions, View } from "react-native";
 
 import { useLocalization } from "@/context/LocalizationContext";
 import type { ApiRecord } from "@/context/types";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
 
 const COLUMNS = 5;
@@ -71,7 +71,7 @@ const useStyles = makeStyles((colors) => ({
     minHeight: 38,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
   },

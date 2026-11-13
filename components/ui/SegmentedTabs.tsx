@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import { cardShadow, fonts, makeStyles } from "@/theme";
+import { cardShadow, fonts, makeStyles, radii } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -41,11 +41,11 @@ export function SegmentedTabs<T extends string>({ options, value, onChange }: Se
 }
 
 const useStyles = makeStyles((colors) => ({
-  track: { flexDirection: "row", padding: 4, gap: 4, borderRadius: 12, backgroundColor: colors.surfaceSunken },
+  track: { flexDirection: "row", padding: 4, gap: 4, borderRadius: radii.md, backgroundColor: colors.surfaceSunken },
   tab: {
     flex: 1,
     minHeight: 40,
-    borderRadius: 8,
+    borderRadius: radii.md - 4, // inner = track radius − padding
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -63,6 +63,6 @@ const useStyles = makeStyles((colors) => ({
     color: colors.inkMuted,
   },
   labelSelected: { color: colors.ink },
-  count: { minWidth: 20, paddingHorizontal: 6, borderRadius: 999, backgroundColor: colors.primary, alignItems: "center" },
+  count: { minWidth: 20, paddingHorizontal: 6, borderRadius: radii.pill, backgroundColor: colors.primary, alignItems: "center" },
   countText: { fontFamily: fonts.sansSemiBold, fontSize: 12, color: colors.onPrimary },
 }));

@@ -1,7 +1,7 @@
 import { Children, Fragment, isValidElement, type ReactNode } from "react";
 import { type StyleProp, Text, View, type ViewStyle } from "react-native";
 
-import { cardShadow, fonts, makeStyles } from "@/theme";
+import { cardShadow, fonts, makeStyles, radii } from "@/theme";
 
 import { Icon, type IconName } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -53,12 +53,12 @@ export function ListRow({ label, icon, value, onPress, danger = false, right }: 
 const useStyles = makeStyles((colors) => ({
   group: {
     backgroundColor: colors.surface,
-    borderRadius: 16,
+    borderRadius: radii.lg,
     marginHorizontal: 16,
     marginVertical: 8,
     ...cardShadow(colors),
   },
-  clip: { borderRadius: 16, overflow: "hidden" },
+  clip: { borderRadius: radii.lg, overflow: "hidden" },
   divider: { height: 1, backgroundColor: colors.line, marginLeft: 16 },
   row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 56, paddingHorizontal: 16 },
   label: { flex: 1, fontFamily: fonts.sans, fontSize: 16, color: colors.ink },

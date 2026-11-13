@@ -14,7 +14,7 @@ import CardReservationPending from "@/components/reservation/CardReservationPend
 import useInternetGuard from "@/services/useInternetGuard";
 import { useAuth } from "@/context/AuthContext";
 import type { ApiRecord } from "@/context/types";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText, Avatar, Icon, ListGroup, ListRow, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
@@ -198,7 +198,7 @@ const useStyles = makeStyles((colors) => ({
   avatarEmpty: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: radii.avatar,
     backgroundColor: colors.surfaceSunken,
     alignItems: "center",
     justifyContent: "center",
@@ -209,7 +209,7 @@ const useStyles = makeStyles((colors) => ({
     marginHorizontal: 16,
     marginTop: 16,
     padding: 20,
-    borderRadius: 16,
+    borderRadius: radii.lg,
     backgroundColor: colors.primary,
     gap: 8,
   },
@@ -229,7 +229,7 @@ const useStyles = makeStyles((colors) => ({
     minHeight: 36,
     paddingHorizontal: 16,
     marginTop: 8,
-    borderRadius: 8,
+    borderRadius: radii.button,
     backgroundColor: colors.onPrimary,
   },
   heroButtonText: {

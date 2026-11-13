@@ -1,6 +1,6 @@
 import { ActivityIndicator, Modal, useWindowDimensions, View } from "react-native";
 
-import { makeStyles, useTheme } from "@/theme";
+import { makeStyles, radii, useTheme } from "@/theme";
 
 
 type LoaderProps =
@@ -55,7 +55,7 @@ const useStyles = makeStyles((colors) => ({
   overlayPanel: {
     width: 88,
     height: 88,
-    borderRadius: 16,
+    borderRadius: radii.lg,
     backgroundColor: colors.surface,
     alignItems: "center",
     justifyContent: "center",

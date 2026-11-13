@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ActivityIndicator, Image, type ImageSourcePropType, type StyleProp, Text, type ViewStyle } from "react-native";
 
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles, radii, useTheme } from "@/theme";
 
 import { Pressable } from "./Pressable";
 
@@ -77,7 +77,7 @@ const useStyles = makeStyles((colors) => ({
   base: {
     minHeight: 52,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: radii.button,
     borderWidth: 1.5,
     borderColor: "transparent",
     flexDirection: "row",

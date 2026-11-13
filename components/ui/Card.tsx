@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { type StyleProp, StyleSheet, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { cardShadow, type ColorToken, fonts, makeStyles, useTheme } from "@/theme";
+import { cardShadow, type ColorToken, fonts, makeStyles, radii, useTheme } from "@/theme";
 
 import { Icon, type IconName } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -98,7 +98,7 @@ export const cardStyles = StyleSheet.create({
 const useCardColors = makeStyles((colors) => ({
   surface: {
     backgroundColor: colors.surface,
-    borderRadius: 16,
+    borderRadius: radii.lg,
     padding: 16,
     marginVertical: 6,
     marginHorizontal: 16,

@@ -4,7 +4,7 @@ import { TextInput, View } from "react-native";
 import { useCompany } from "@/context/CompanyContext";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles, radii, useTheme } from "@/theme";
 import { ListGroup, ListRow, Loader, Radio, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
@@ -81,7 +81,7 @@ const useStyles = makeStyles((colors) => ({
     marginTop: 8,
     marginBottom: 8,
     paddingHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
     backgroundColor: colors.surface,

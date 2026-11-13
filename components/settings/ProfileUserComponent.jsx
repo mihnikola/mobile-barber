@@ -1,5 +1,5 @@
 import { Image, View } from "react-native";
-import { makeStyles } from "@/theme";
+import { makeStyles, radii } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 
 const ProfileUserComponent = ({ data, onPress }) => {
@@ -25,13 +25,13 @@ const ProfileUserComponent = ({ data, onPress }) => {
 
 const useStyles = makeStyles((colors) => ({
   profile: { flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
-  photo: { width: 72, height: 72, borderRadius: 12 },
+  photo: { width: 72, height: 72, borderRadius: radii.avatar },
   info: { flex: 1 },
   name: { fontSize: 24, lineHeight: 28 },
   edit: {
     width: 40,
     height: 40,
-    borderRadius: 999,
+    borderRadius: radii.pill,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
     alignItems: "center",

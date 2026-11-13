@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { router } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText, BackButton, Button, Icon, MessageDialog, PhoneField, TextField, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
@@ -226,7 +226,7 @@ const useStyles = makeStyles((colors) => ({
   inputDisabled: {
     minHeight: 48,
     paddingHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.line,
     backgroundColor: colors.surfaceSunken,

@@ -8,7 +8,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { makeStyles } from "@/theme";
+import { makeStyles, radii } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles((colors) => ({
     flexDirection: "column",
     width: "100%",
     marginTop: 20,
-    borderRadius: 20,
+    borderRadius: radii.lg,
     padding: 30,
     gap: 20,
     height: 100,

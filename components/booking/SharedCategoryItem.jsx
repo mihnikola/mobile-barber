@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
 
 const SharedCategoryItem = (props) => {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((colors) => ({
   card: {
     minHeight: 36,
     paddingHorizontal: 16,
-    borderRadius: 999,
+    borderRadius: radii.pill,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
     backgroundColor: "transparent",

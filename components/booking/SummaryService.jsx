@@ -2,7 +2,7 @@ import { formatDuration, formatPrice } from "@/lib/format";
 import React from "react";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { cardShadow, makeStyles } from "@/theme";
+import { cardShadow, makeStyles, radii } from "@/theme";
 import { AppText } from "@/components/ui";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
@@ -38,7 +38,7 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
 }
 
 const useStyles = makeStyles((colors) => ({
-  sum: { marginHorizontal: 16, marginVertical: 8, padding: 16, borderRadius: 16, backgroundColor: colors.surface, ...cardShadow(colors) },
+  sum: { marginHorizontal: 16, marginVertical: 8, padding: 16, borderRadius: radii.lg, backgroundColor: colors.surface, ...cardShadow(colors) },
   row: { flexDirection: "row", justifyContent: "space-between", gap: 12, paddingVertical: 6 },
   total: { borderTopWidth: 1, borderTopColor: colors.line, marginTop: 6, paddingTop: 12 },
 }));

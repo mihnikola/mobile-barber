@@ -2,7 +2,7 @@ import { convertToDay, convertToDayTime, convertToMonthName } from "@/lib/date";
 import React from "react";
 import { View } from "react-native";
 import type { ApiRecord } from "@/context/types";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText } from "@/components/ui";
 
 /** Date tile of an appointment card (design system `ds-appt__date`): month, big day, time. */
@@ -28,7 +28,7 @@ const useStyles = makeStyles((colors) => ({
     alignSelf: "flex-start",
     alignItems: "center",
     paddingVertical: 8,
-    borderRadius: 12,
+    borderRadius: radii.md,
     backgroundColor: colors.surfaceSunken,
   },
   month: { fontFamily: fonts.sansSemiBold, textTransform: "uppercase", letterSpacing: 0.72 },

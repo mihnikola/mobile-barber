@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Text, View } from "react-native";
 
-import { type ColorToken, fonts, makeStyles, useTheme } from "@/theme";
+import { type ColorToken, fonts, makeStyles, radii, useTheme } from "@/theme";
 
 export type BadgeStatus = "pending" | "confirmed" | "cancelled" | "done" | "new";
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     gap: 6,
     paddingVertical: 4,
     paddingHorizontal: 10,
-    borderRadius: 999,
+    borderRadius: radii.pill,
   },
   dot: { width: 6, height: 6, borderRadius: 3 },
   label: { fontFamily: fonts.sansSemiBold, fontSize: 12, lineHeight: 16 },

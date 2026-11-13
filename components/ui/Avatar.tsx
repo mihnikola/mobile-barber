@@ -1,7 +1,7 @@
 import { Image, type StyleProp, Text, View, type ViewStyle } from "react-native";
 
 import { getInitialsName } from "@/lib/format";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 
 /** lg = list cards (90), md = profile (70), sm = compact details (40). */
 export type AvatarSize = "lg" | "md" | "sm";
@@ -18,9 +18,9 @@ type AvatarProps = {
 
 /** Design system: list thumb 64, profile 72, compact 40 — all radius 12 (`radius-md`). */
 const SIZES = {
-  lg: { box: 64, radius: 12, text: 22 },
-  md: { box: 72, radius: 12, text: 26 },
-  sm: { box: 40, radius: 12, text: 15 },
+  lg: { box: 64, radius: radii.avatar, text: 22 },
+  md: { box: 72, radius: radii.avatar, text: 26 },
+  sm: { box: 40, radius: radii.avatar, text: 15 },
 } as const;
 
 /** Profile picture or initials badge. */

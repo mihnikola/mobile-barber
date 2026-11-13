@@ -9,7 +9,7 @@ import getStartedIcon from "@/assets/images/arrowImg.png";
 import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
 const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
@@ -88,7 +88,7 @@ const useStyles = makeStyles((colors) => ({
     backgroundColor: colors.primary,
     padding: 10,
     width: 200,
-    borderRadius: 100,
+    borderRadius: radii.pill,
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",

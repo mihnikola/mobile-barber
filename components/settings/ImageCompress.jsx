@@ -2,7 +2,7 @@ import { ActivityIndicator, Image, View } from "react-native";
 import { useEffect } from "react";
 import usePickImage from "@/components/infoapp/hooks/usePickImage";
 import { Icon, Pressable } from "@/components/ui";
-import { makeStyles, useTheme } from "@/theme";
+import { makeStyles, radii, useTheme } from "@/theme";
 
 /**
  * Profile photo picker (Phase 5.6 fix): 96px DS avatar (radius 12) with a small camera badge,
@@ -41,7 +41,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
 const useStyles = makeStyles((colors) => ({
   container: { width: 96, height: 96 },
-  image: { width: 96, height: 96, borderRadius: 12, resizeMode: "cover" },
+  image: { width: 96, height: 96, borderRadius: radii.avatar, resizeMode: "cover" },
   placeholder: { backgroundColor: colors.surfaceSunken, alignItems: "center", justifyContent: "center" },
   uploading: { position: "absolute", backgroundColor: colors.scrim, alignItems: "center", justifyContent: "center" },
   badge: {

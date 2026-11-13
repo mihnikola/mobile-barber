@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { type StyleProp, Text, type TextStyle, View } from "react-native";
 
-import { makeStyles, typeScale } from "@/theme";
+import { makeStyles, radii, typeScale } from "@/theme";
 
 import { Button } from "./Button";
 import { Icon, type IconName } from "./Icon";
@@ -38,7 +38,7 @@ const useStyles = makeStyles((colors) => ({
   mark: {
     width: 72,
     height: 72,
-    borderRadius: 12,
+    borderRadius: radii.avatar,
     backgroundColor: colors.surfaceSunken,
     alignItems: "center",
     justifyContent: "center",

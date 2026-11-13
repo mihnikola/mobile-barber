@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { View } from "react-native";
 
 import { useLocalization } from "@/context/LocalizationContext";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
 import { dayShort, fromDateString, monthName, toDateString } from "./dateUtils";
 
@@ -119,7 +119,7 @@ const useStyles = makeStyles((colors) => ({
     gap: 1,
     paddingTop: 6,
     paddingBottom: 6,
-    borderRadius: 12,
+    borderRadius: radii.md,
     backgroundColor: colors.surface,
   },
   dateSelected: { backgroundColor: colors.primary },

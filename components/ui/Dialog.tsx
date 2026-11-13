@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Modal, type StyleProp, Text, type TextStyle, View, type ViewStyle } from "react-native";
 
-import { makeStyles, sheetShadow, typeScale } from "@/theme";
+import { makeStyles, radii, sheetShadow, typeScale } from "@/theme";
 
 import { Button } from "./Button";
 
@@ -70,7 +70,7 @@ const useDialogStyles = makeStyles((colors) => ({
   },
   panel: {
     backgroundColor: colors.surface,
-    borderRadius: 16,
+    borderRadius: radii.lg,
     paddingTop: 24,
     paddingHorizontal: 20,
     paddingBottom: 20,
@@ -79,7 +79,7 @@ const useDialogStyles = makeStyles((colors) => ({
   iconTile: {
     width: 72,
     height: 72,
-    borderRadius: 12,
+    borderRadius: radii.avatar,
     backgroundColor: colors.surfaceSunken,
     alignItems: "center",
     justifyContent: "center",

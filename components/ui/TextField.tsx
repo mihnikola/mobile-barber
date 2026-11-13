@@ -10,7 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { fonts, makeStyles, useTheme } from "@/theme";
+import { fonts, makeStyles, radii, useTheme } from "@/theme";
 
 import { Icon } from "./Icon";
 import { Pressable } from "./Pressable";
@@ -202,7 +202,7 @@ const useDefaults = makeStyles((colors) => ({
     alignItems: "center",
     minHeight: 48,
     backgroundColor: colors.surface,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
   },
@@ -229,7 +229,7 @@ const usePhone = makeStyles((colors) => ({
 const useArea = makeStyles((colors) => ({
   container: {
     backgroundColor: colors.surface,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
     paddingVertical: 12,

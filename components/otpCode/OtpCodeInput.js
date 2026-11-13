@@ -1,7 +1,7 @@
 // components/OtpInput.js
 import React, { useRef } from "react";
 import { View, TextInput } from "react-native";
-import { fonts, makeStyles } from "@/theme";
+import { fonts, makeStyles, radii } from "@/theme";
 
 const OtpInput = ({ code, setCode, maxLength = 6 }) => {
   const styles = useStyles();
@@ -47,7 +47,7 @@ const useStyles = makeStyles((colors) => ({
   input: {
     width: 48,
     height: 56,
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1.5,
     borderColor: colors.lineStrong,
     backgroundColor: colors.surface,
