@@ -199,6 +199,7 @@ function useAppointmentState() {
       return;
     }
     let total;
+    // no extra services → no ids (was a crash on `undefined.map`, fixed in 282b5af)
     let serviceIds;
     if (otherServices?.length > 0) {
       total = otherServices?.reduce(
@@ -209,11 +210,8 @@ function useAppointmentState() {
         },
         { totalPrice: 0, totalDuration: 0 },
       );
-     serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
+      serviceIds = otherServices.map((serv: ApiRecord) => serv.id);
     }
-
-
-    
 
     try {
       const response = await availabilitiesApi.create({
