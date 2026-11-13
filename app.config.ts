@@ -19,6 +19,8 @@ const SPLASH_BG = {
  * salon app with its own id needs its own Firebase app + files (GOOGLE_SERVICES_JSON / ..._PLIST).
  */
 const APP_NAME = { gentleman: "Barber App", atelier: "Atelier Salon" }[BRAND];
+/** App icon per brand. icon-atelier.png is a placeholder ("A" in Fraunces on plum) until the salon's real artwork. */
+const APP_ICON = { gentleman: "./assets/images/adaptive-icon.png", atelier: "./assets/images/icon-atelier.png" }[BRAND];
 const APP_ID = process.env.APP_ID || "fta.barber.app";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
@@ -27,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     slug: "fta-barber-mob-app",
     version: APP_VERSION,
     orientation: "portrait",
-    icon: "./assets/images/adaptive-icon.png",
+    icon: APP_ICON,
     userInterfaceStyle: "automatic",
     scheme: "myapp",
     ios: {

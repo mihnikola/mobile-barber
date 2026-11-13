@@ -79,6 +79,7 @@ EAS: set `BRAND` in the build profile's `env` in `eas.json`.
 
 - Everything per brand lives in `theme/brands/` (palettes light/dark, corner radii, shadows, fonts, booking icon, wording). Components use tokens only — add a brand by adding a file there + its id in `theme/brands/types.ts` and `app.config.ts`.
 - Salon wording (`Tim`, `Izaberi stilistkinju`…) is in `helpers/brandWording.ts`.
+- Logo / app icon per brand: `theme/brands/*` → `details.logo` (splash, login, booking success) and `APP_ICON` in `app.config.ts`. Atelier uses placeholders until real artwork: wordmark "Atelier *Salon*" and `assets/images/icon-atelier.png`. App name and icon need a native build.
 - Bundle id stays `fta.barber.app` unless `APP_ID` is set — the Firebase files are registered for that id, so a separate salon app needs its own Firebase app + files.
 
 ## 5. npm scripts
