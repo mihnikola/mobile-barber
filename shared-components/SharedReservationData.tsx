@@ -2,9 +2,9 @@ import { addMinutesToTime, convertDate } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 function SharedReservationData({ reservation }) {
   const { localization } = useLocalization();
@@ -25,7 +25,7 @@ function SharedReservationData({ reservation }) {
         </Pressable>
       </View>
       <View>
-        <Text style={styles.timeData}>
+        <AppText variant="title">
           {reservation && reservation?.timeData?.value} -{" "}
           {reservation &&
             addMinutesToTime(
@@ -33,17 +33,17 @@ function SharedReservationData({ reservation }) {
               reservation?.service?.serviceDuration,
               totals?.totalDuration,
             )}
-        </Text>
-        <Text style={styles.dateData}>
+        </AppText>
+        <AppText variant="title">
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,
             localization.code,
           )}
-        </Text>
-        <Text style={styles.dateData}>
+        </AppText>
+        <AppText variant="title">
           {reservation?.location.address || reservation?.location[0].address}
-        </Text>
+        </AppText>
       </View>
     </View>
   );
@@ -66,11 +66,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  timeData: {
-    fontSize: 20,
-    color: colors.text,
-    fontFamily: fonts.bold,
-  },
   position: {
     fontSize: 16,
     color: colors.textMuted,
@@ -78,11 +73,6 @@ const styles = StyleSheet.create({
     padding: 12,
   },
 
-  dateData: {
-    fontSize: 20,
-    color: colors.text,
-    fontFamily: fonts.bold,
-  },
   data: {
     display: "flex",
     flexDirection: "column",

@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { AppText, Icon } from "@/components/ui";
 
 const SharedOthersServices = (props: any) => {
   const { redirectHandler, data } = props;
@@ -21,36 +21,36 @@ const SharedOthersServices = (props: any) => {
       )}
       <View style={styles.detailsContainer}>
         {data?.service ? (
-          <Text style={styles.name}>
+          <AppText variant="bodyLg" style={styles.name}>
             {" "}
             {localization.code === "en"
               ? data?.service?.name?.nameEn
               : data?.service?.name?.nameLocal}{" "}
-          </Text>
+          </AppText>
         ) : (
-          <Text style={styles.name}>
+          <AppText variant="bodyLg" style={styles.name}>
             {" "}
             {localization.code === "en" ? name?.nameEn : name?.nameLocal}{" "}
-          </Text>
+          </AppText>
         )}
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="text" />
             {data?.service?.duration ? (
-              <Text style={styles.locationText}>
+              <AppText variant="caption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${data?.service?.duration} `}
-              </Text>
+              </AppText>
             ) : (
-              <Text style={styles.locationText}>
+              <AppText variant="caption" style={styles.locationText}>
                 {`${localization.DETAILS.duration} ${duration} `}
-              </Text>
+              </AppText>
             )}
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="gold" />
-            <Text style={styles.reviewText}>
+            <AppText style={styles.reviewText}>
               {`${localization.DETAILS.price} ${data?.price}`}
-            </Text>
+            </AppText>
           </View>
         </View>
       </View>
@@ -111,9 +111,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   name: {
-    fontSize: 16,
-    fontFamily: fonts.regular,
-    color: colors.text, // White text color
     marginBottom: 4,
   },
   locationContainer: {
@@ -122,9 +119,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   locationText: {
-    fontSize: 12,
-    color: colors.text, // White text color
-    fontFamily: fonts.regular,
 
     marginLeft: 5,
   },
@@ -139,10 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   reviewText: {
-    fontSize: 14,
-    color: colors.text, // White text color
     marginLeft: 5,
-    fontFamily: fonts.regular,
   },
 });
 

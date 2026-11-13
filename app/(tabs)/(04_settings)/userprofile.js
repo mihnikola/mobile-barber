@@ -2,7 +2,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Text,
   StatusBar,
   ScrollView,
   findNodeHandle,
@@ -26,7 +25,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable, withScreen } from "@/components/ui";
+import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 const UserProfileScreen = () => {
   const { isLoading, userData, fetchUserData } = useAuth();
@@ -152,9 +151,9 @@ const UserProfileScreen = () => {
         </View>
         <View style={styles.userDataContainer}>
           <View>
-            <Text style={styles.inputLabel}>
+            <AppText variant="labelSm" color="textInactive" style={styles.inputLabel}>
               {localization.SETTINGS.PROFILE.email}
-            </Text>
+            </AppText>
             <TextInput
               style={styles.inputDisabled}
               defaultValue={userData?.email}
@@ -242,11 +241,8 @@ const styles = StyleSheet.create({
   },
 
   inputLabel: {
-    color: colors.textInactive,
-    fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
-    fontFamily: fonts.bold,
   },
   phoneNumberInputContainer: {
     flexDirection: "row",

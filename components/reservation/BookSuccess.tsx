@@ -3,8 +3,9 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedLogo from "@/shared-components/SharedLogo";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { StyleSheet, View } from "react-native";
+import { colors } from "@/theme";
+import { AppText } from "@/components/ui";
 
 function BookSuccess({ image, reservation }) {
   const { localization } = useLocalization();
@@ -24,21 +25,21 @@ function BookSuccess({ image, reservation }) {
       <SharedLogo />
 
       <View style={styles.coverContent}>
-        <Text style={styles.timeData}>
+        <AppText variant="heading" style={styles.timeData}>
           {reservation?.timeData?.value} -{" "}
           {addMinutesToTime(
             reservation?.timeData?.value,
             reservation?.service?.serviceDuration,
             totals?.totalDuration,
           )}
-        </Text>
-        <Text style={styles.dateData}>
+        </AppText>
+        <AppText variant="title">
           {convertDate(
             reservation?.dateReservation?.dateString ||
               reservation?.dateReservation,
             localization.code,
           )}
-        </Text>
+        </AppText>
       </View>
     </>
   );
@@ -61,10 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   timeData: {
-    fontSize: 22,
 
-    color: colors.text,
-    fontFamily: fonts.bold,
     display: "flex",
     justifyContent: "center",
   },
@@ -79,11 +77,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10, // Add padding to make the space visible from the edges
-  },
-  dateData: {
-    fontSize: 20,
-    color: colors.text,
-    fontFamily: fonts.bold,
   },
   data: {
     display: "flex",

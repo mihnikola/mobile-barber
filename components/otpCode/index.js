@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
 } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
@@ -17,7 +16,7 @@ import {
 } from "@/helpers/verificationOtpParams";
 import Loader from "../Loader";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable, Screen } from "@/components/ui";
+import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
 const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -129,17 +128,17 @@ const OtpCode = () => {
 
         <View style={{ flex: 1 }}>
           <View>
-            <Text style={styles.mainTitle}>
+            <AppText variant="heading" style={styles.mainTitle}>
               {localization.OTP_CODE.mainTitle}
-            </Text>
+            </AppText>
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text style={styles.subtitle}>
+            <AppText size={13} color="textInactive">
               {localization.OTP_CODE.subtitlePrimary} {verifyData?.email}.
-            </Text>
-            <Text style={styles.subtitle}>
+            </AppText>
+            <AppText size={13} color="textInactive">
               {localization.OTP_CODE.subtitleSecondary}
-            </Text>
+            </AppText>
           </View>
           <OtpInput code={code} setCode={setCode} />
           <ResendOtpCodeTimer resendHandler={handleResendCodeHandler} />
@@ -218,16 +217,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   mainTitle: {
-    fontSize: 22,
-    fontFamily: fonts.bold,
-    color: colors.text,
     marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 13,
-    color: colors.textInactive,
-    fontFamily:fonts.regular,
-
   },
   socialButtonsContainer: {
     flexDirection: "row",

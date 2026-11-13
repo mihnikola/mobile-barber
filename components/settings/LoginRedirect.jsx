@@ -1,7 +1,7 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { View } from "react-native";
-import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 const LoginRedirect = ({ onPress, title }) => {
   return (
@@ -10,7 +10,7 @@ const LoginRedirect = ({ onPress, title }) => {
         <Icon name="personCircle" size={30} color="textInactive" />
       </View>
       <Pressable onPress={onPress}>
-        <Text style={styles.profileName}>{title}</Text>
+        <AppText variant="subtitle">{title}</AppText>
       </Pressable>
     </View>
   );
@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
   },
   profileInfoIcon: {
     paddingHorizontal: 15,
-  },
-  profileName: {
-    fontSize: 18,
-    fontFamily: fonts.bold,
-    color: colors.text,
   },
 });
 export default LoginRedirect;

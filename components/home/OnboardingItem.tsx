@@ -5,7 +5,8 @@ import {
   Text,
   View,
 } from "react-native";
-import { colors, fonts } from "@/theme";
+import { colors } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const OnboardingItem = ({ item, itemWidth }) => {
   return (
@@ -16,7 +17,7 @@ const OnboardingItem = ({ item, itemWidth }) => {
         <SharedReviewImage style={styles.imageStyle} />
 
         <Text style={styles.reviewText}>{item.description}</Text>
-        <Text style={styles.reviewTitle}>{item.name}</Text>
+        <AppText variant="title" style={styles.reviewTitle}>{item.name}</AppText>
       </View>
     </View>
   );
@@ -42,9 +43,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   reviewTitle: {
-    fontSize: 20,
-    fontFamily: fonts.bold,
-   color: colors.text,
     marginBottom: 10,
     marginTop: 10,
     textAlign: "center",

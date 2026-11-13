@@ -2,7 +2,6 @@
 import React from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Linking,
   ScrollView,
@@ -11,7 +10,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable, withScreen } from "@/components/ui";
+import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 const companyInfo = {
   name: "FusionTechAgency Ltd",
@@ -32,17 +31,17 @@ const HelpSupportScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>
+          <AppText variant="label">
             {localization.SETTINGS.HELP.company}
-          </Text>
-          <Text style={styles.infoValue}>{companyInfo.name}</Text>
+          </AppText>
+          <AppText variant="bodyLg">{companyInfo.name}</AppText>
         </View>
         <Pressable onPress={handleEmailPress} style={styles.menuItem}>
           <Icon name="email" size={24} style={styles.menuItemIcon} color="text" />
-          <Text style={styles.menuItemText}>
+          <AppText variant="label" style={styles.menuItemText}>
             {localization.SETTINGS.HELP.support}
-          </Text>
-          <Text style={styles.menuItemSubText}>{companyInfo.email}</Text>
+          </AppText>
+          <AppText>{companyInfo.email}</AppText>
         </Pressable>
       </View>
     </ScrollView>
@@ -78,16 +77,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  infoLabel: {
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.bold,
-  },
-  infoValue: {
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.regular,
-  },
   menuItem: {
     paddingVertical: 15,
     borderBottomWidth: 1,
@@ -98,14 +87,6 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     flex: 1,
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.bold,
-  },
-  menuItemSubText: {
-    fontSize: 14,
-    color: colors.text,
-    fontFamily: fonts.regular,
   },
 });
 

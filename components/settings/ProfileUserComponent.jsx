@@ -1,8 +1,8 @@
 import SharedImageInitials from "@/shared-components/SharedInitialsName";
 import { StyleSheet } from "react-native";
-import { Image, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { Image, View } from "react-native";
+import { colors } from "@/theme";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 const ProfileUserComponent = ({ data, onPress }) => {
   return (
@@ -13,8 +13,8 @@ const ProfileUserComponent = ({ data, onPress }) => {
         <SharedImageInitials name={data?.name} profile />
       )}
       <View style={styles.profileInfo}>
-        <Text style={styles.profileName}>{data?.name}</Text>
-        <Text style={styles.profileEmail}>{data?.email}</Text>
+        <AppText variant="title" style={styles.profileName}>{data?.name}</AppText>
+        <AppText>{data?.email}</AppText>
       </View>
       <Pressable style={styles.editButton} onPress={() => onPress("1")}>
         <Icon name="pencil" size={20} color="text" />
@@ -43,15 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profileName: {
-    fontSize: 20,
-    fontFamily: fonts.bold,
-    color: colors.text,
     marginBottom: 2,
-  },
-  profileEmail: {
-    fontSize: 14,
-    fontFamily: fonts.regular,
-    color: colors.text,
   },
   editButton: {
     backgroundColor: colors.background,

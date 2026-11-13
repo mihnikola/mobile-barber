@@ -9,6 +9,7 @@ import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
 import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -46,9 +47,9 @@ const ConfirmBookReservation = () => {
               : localization.SALON.pendingTitle}
           </Text>
           {params?.status !== "0" && (
-            <Text style={styles.pendingSubTitle}>
+            <AppText style={styles.pendingSubTitle}>
               {localization.SALON.pendingSubTitle}
-            </Text>
+            </AppText>
           )}
           <Note />
         </View>
@@ -71,9 +72,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   pendingSubTitle: {
-   color: colors.text,
     textAlign: "center",
-    fontFamily: fonts.regular,
     margin: 10,
   },
   message: {

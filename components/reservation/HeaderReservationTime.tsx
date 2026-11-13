@@ -1,9 +1,9 @@
 import { convertDateDetails } from "@/helpers";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { StyleSheet, Text,  View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 const HeaderReservationTime = ({ data }) => {
   const { localization } = useLocalization();
@@ -17,13 +17,13 @@ const HeaderReservationTime = ({ data }) => {
         </Pressable>
       </View>
       <View>
-        <Text style={styles.timeData}>
+        <AppText variant="title">
           {data?.startDateTime} - {data?.finishedTime}
-        </Text>
-        <Text style={styles.dateData}>
+        </AppText>
+        <AppText variant="title">
           {convertDateDetails(data?.startDate, localization.code)}
-        </Text>
-        <Text style={styles.dateData}>{data?.place}</Text>
+        </AppText>
+        <AppText variant="title">{data?.place}</AppText>
       </View>
     </View>
   );
@@ -36,16 +36,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 20,
     paddingHorizontal: 15,
-  },
-  timeData: {
-    fontSize: 20,
-   color: colors.text,
-    fontFamily: fonts.bold,
-  },
-  dateData: {
-    fontSize: 20,
-   color: colors.text,
-    fontFamily: fonts.bold,
   },
   locationData: {
    color: colors.text,

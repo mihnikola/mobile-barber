@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  Text,
 } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
 import ReservationContext from "@/context/ReservationContext"; // Adjust the path if needed
@@ -24,6 +23,7 @@ import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import LoaderDate from "../LoaderDate";
 import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const DateComponent = () => {
 
@@ -145,9 +145,9 @@ const DateComponent = () => {
           )}
           {isSunday && (
             <View style={styles.notWorkingDays}>
-              <Text style={styles.notWorkingDaysContent}>
+              <AppText size={20} style={styles.notWorkingDaysContent}>
                 {localization.DATE.holidaySunday}
-              </Text>
+              </AppText>
             </View>
           )}
         </View>
@@ -174,9 +174,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   notWorkingDaysContent: {
-    fontSize: 20,
-    color: colors.text,
-    fontFamily: fonts.regular,
     padding: 20,
   },
   container: {

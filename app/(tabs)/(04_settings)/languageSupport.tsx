@@ -2,7 +2,6 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { useEffect, useState } from "react";
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   StatusBar,
@@ -19,7 +18,7 @@ import Loader from "@/components/Loader";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable, withScreen } from "@/components/ui";
+import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
   const { changeLocalization, localization, isLoading } = useLocalization();
@@ -86,7 +85,7 @@ const LanguageSupportScreen = () => {
                 }
               }}
             >
-              <Text style={styles.languageText}>{item.label}</Text>
+              <AppText size={18}>{item.label}</AppText>
               <Icon name={localization.code === item.code && "check"} size={28} color="text" />
             </Pressable>
           )}
@@ -137,11 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black,
     borderWidth: 1,
     borderColor: colors.white,
-  },
-  languageText: {
-    fontSize: 18,
-    fontFamily: fonts.regular,
-    color: colors.text,
   },
 });
 

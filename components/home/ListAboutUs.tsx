@@ -1,18 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { AppText, Icon } from "@/components/ui";
 
 const ListAboutUs = ({ contact }) => {
   const { localization } = useLocalization();
 
   return (
     <View>
-      <Text style={styles.titleContant}>{localization.HOME.contact}</Text>
+      <AppText variant="title" size={29} style={styles.titleContant}>{localization.HOME.contact}</AppText>
       <View style={styles.contactItem}>
         <Icon name="phone" size={30} color="text" />
-        <Text style={styles.title}>{contact}</Text>
+        <AppText variant="title">{contact}</AppText>
       </View>
     </View>
   );
@@ -23,9 +22,6 @@ const styles = StyleSheet.create({
     padding: 20, // optional padding around the content
   },
   titleContant: {
-    fontFamily: fonts.bold,
-   color: colors.text,
-    fontSize: 29,
     textAlign: "center",
   },
   contactItem: {
@@ -34,13 +30,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 25,
-  },
-  title: {
-    fontSize: 20,
-       color: colors.text,
-    fontFamily: fonts.bold,
-
-
   },
   image: {
     width: 40,

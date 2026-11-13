@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { StyleSheet, View, useWindowDimensions } from "react-native";
 import React, { useEffect } from "react";
 import Animated, {
   useSharedValue,
@@ -13,7 +13,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Pagination from "../Pagination/Pagination";
 import CustomButton from "../custom/Custom";
 import useInitialData from "./useInitialData";
-import { colors, fonts } from "@/theme";
+import { colors } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const InitialComponent = () => {
   const { getInitialData, initialData } = useInitialData();
@@ -108,8 +109,8 @@ const InitialComponent = () => {
           style={imageAnimationStyle}
         />
         <Animated.View style={textAnimationStyle}>
-          <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemText}>{item.text}</Text>
+          <AppText variant="heading" style={styles.itemTitle}>{item.title}</AppText>
+          <AppText style={styles.itemText}>{item.text}</AppText>
         </Animated.View>
       </View>
     );
@@ -165,17 +166,12 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     textAlign: "center",
-    fontSize: 22,
-    fontFamily: fonts.bold,
     marginBottom: 10,
-    color: colors.text,
   },
   itemText: {
     textAlign: "center",
     marginHorizontal: 35,
-    color: colors.text,
     lineHeight: 20,
-    fontFamily: fonts.regular,
   },
   bottomContainer: {
     flexDirection: "row",

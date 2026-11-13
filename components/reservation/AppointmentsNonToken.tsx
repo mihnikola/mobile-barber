@@ -7,11 +7,10 @@ import React from "react";
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
-import { colors, fonts } from "@/theme";
-import { Pressable } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Pressable } from "@/components/ui";
 
 function AppointmentsNonToken() {
   const { localization } = useLocalization();
@@ -31,12 +30,12 @@ function AppointmentsNonToken() {
         hidden
       />
       <View style={styles.card}>
-        <Text style={styles.description}>
+        <AppText variant="bodyLg" style={styles.description}>
           {localization.APPOINTMENTS.noLogin}
-        </Text>
+        </AppText>
       </View>
       <Pressable onPress={routeHandler}>
-        <Text style={styles.capture}> {localization.APPOINTMENTS.login}</Text>
+        <AppText variant="title" style={styles.capture}> {localization.APPOINTMENTS.login}</AppText>
       </Pressable>
     </ScrollView>
   );
@@ -59,16 +58,10 @@ const styles = StyleSheet.create({
     height: 100,
   },
   capture: {
-    fontSize: 20,
     textAlign: "center",
     padding: 0,
-    fontFamily: fonts.bold,
-   color: colors.text,
   },
   description: {
-    fontSize: 16,
-   color: colors.text,
-    fontFamily: fonts.regular,
 
     textAlign: "center",
   },

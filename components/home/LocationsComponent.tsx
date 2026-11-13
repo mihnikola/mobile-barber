@@ -2,11 +2,10 @@ import {
   Modal,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
-import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 function LocationsComponent({
   locations,
@@ -29,7 +28,7 @@ function LocationsComponent({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>{title}</Text>
+          <AppText variant="heading" style={styles.modalTitle}>{title}</AppText>
           <ScrollView style={{ maxHeight: 300 }}>
             {locations?.map((locationItem: any) => {
               return (
@@ -39,19 +38,19 @@ function LocationsComponent({
                   onPress={() => handleLocationSelect(locationItem)}
                 >
                   <Icon name="locationDot" size={20} color="danger" />
-                  <Text
+                  <AppText variant="label"
                     ellipsizeMode="tail"
                     numberOfLines={1}
                     style={styles.itemSubtitle}
                   >
                     {locationItem.address}
-                  </Text>
+                  </AppText>
                 </Pressable>
               );
             })}
           </ScrollView>
           <Pressable onPress={onConfirm} style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>{buttonText}</Text>
+            <AppText size={22} style={styles.actionButtonText}>{buttonText}</AppText>
           </Pressable>
         </View>
       </View>
@@ -81,15 +80,9 @@ const styles = StyleSheet.create({
   },
   itemSubtitle: {
     flex: 2,
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.bold,
   },
 
   modalTitle: {
-    color: colors.text,
-    fontSize: 22,
-    fontFamily: fonts.bold,
     textAlign: "center",
     lineHeight: 36,
     marginBottom: 10,
@@ -109,9 +102,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   actionButtonText: {
-    color: colors.text,
-    fontSize: 22,
-    fontFamily: fonts.regular,
     textAlign: "center",
   },
 });

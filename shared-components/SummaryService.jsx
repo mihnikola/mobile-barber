@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Text } from "react-native";
 import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 function SummaryService({ service, data, totalDuration, totalPrice }) {
   const totals = data?.reduce(
@@ -34,18 +34,18 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <Text style={styles.textLabel}>
+            <AppText variant="subtitle">
               {localization.SERVICES.totalDuration}
-            </Text>
+            </AppText>
           </View>
           <View>
-            {totalDuration && <Text style={styles.text}>{totalDuration}{" min"}</Text>}
+            {totalDuration && <AppText size={18}>{totalDuration}{" min"}</AppText>}
             {!totalDuration && (
-              <Text style={styles.text}>
+              <AppText size={18}>
                 {totals.totalDuration + service?.serviceDuration ||
                   service?.duration}
                 {" min"}
-              </Text>
+              </AppText>
             )}
           </View>
         </View>
@@ -56,17 +56,17 @@ function SummaryService({ service, data, totalDuration, totalPrice }) {
           }}
         >
           <View>
-            <Text style={styles.textLabel}>
+            <AppText variant="subtitle">
               {localization.SERVICES.totalPrice}
-            </Text>
+            </AppText>
           </View>
           <View>
-            {totalPrice && <Text style={styles.text}>{totalPrice}{" rsd"}</Text>}
+            {totalPrice && <AppText size={18}>{totalPrice}{" rsd"}</AppText>}
             {!totalPrice && (
-              <Text style={styles.text}>
+              <AppText size={18}>
                 {totals.totalPrice + service?.servicePrice || service?.price}
                 {" rsd"}
-              </Text>
+              </AppText>
             )}
           </View>
         </View>
@@ -89,16 +89,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginHorizontal: 10,
     fontSize: 15,
-    fontFamily: fonts.bold,
-  },
-  text: {
-    color: colors.text,
-    fontSize: 18,
-    fontFamily: fonts.regular,
-  },
-  textLabel: {
-    color: colors.text,
-    fontSize: 18,
     fontFamily: fonts.bold,
   },
 });

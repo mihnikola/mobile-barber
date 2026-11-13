@@ -1,14 +1,13 @@
-import { View, Text,  StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
-import { colors, fonts } from "@/theme";
-import { Pressable } from "@/components/ui";
+import { AppText, Pressable } from "@/components/ui";
 
 const SharedRedirect = (props: any) => {
   return (
     <View style={styles.registerContainer}>
-      <Text style={styles.registerText}>{props.question} </Text>
+      <AppText color="textInactive">{props.question} </AppText>
       <Pressable onPress={props.onPress}>
-        <Text style={styles.registerLink}>{props.text}</Text>
+        <AppText color="textInactive">{props.text}</AppText>
       </Pressable>
     </View>
   );
@@ -21,16 +20,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // marginTop: "auto", // Pushes to the bottom
     // marginBottom: 20,
-  },
-  registerText: {
-    color: colors.textInactive,
-    fontSize: 14,
-    fontFamily: fonts.regular,
-  },
-  registerLink: {
-    color: colors.textInactive,
-    fontSize: 14,
-    fontFamily: fonts.regular,
   },
 });
 

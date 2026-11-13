@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { useEffect, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const RESEND_TIME = 50;
 const ResendOtpCodeTimer = ({ resendHandler }) => {
@@ -31,32 +31,16 @@ const ResendOtpCodeTimer = ({ resendHandler }) => {
   return (
     <View>
       {canResend ? (
-        <Text style={styles.resendText} onPress={handleResendCodeHandler}>
+        <AppText variant="label" color="link" onPress={handleResendCodeHandler}>
           {localization.OTP_CODE.codeResendCapture}
-        </Text>
+        </AppText>
       ) : (
-        <Text style={styles.timerText}>
+        <AppText color="textInactive">
           {localization.OTP_CODE.codeResend} {timer}
-        </Text>
+        </AppText>
       )}
       
     </View>
   );
 };
-const styles = StyleSheet.create({
-  resendContainer: {
-    alignItems: "center",
-  },
-  resendText: {
-    color: colors.link,
-    fontSize: 16,
-    fontFamily: fonts.bold,
-  },
-  timerText: {
-    color: colors.textInactive,
-    fontFamily:fonts.regular,
-
-    fontSize: 14,
-  },
-});
 export default ResendOtpCodeTimer;

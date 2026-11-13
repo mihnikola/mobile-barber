@@ -1,9 +1,9 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { withScreen } from "@/components/ui";
+import { AppText, withScreen } from "@/components/ui";
 
 const PrivacyPolicyScreen = () => {
   const developerName = "FusionTech Agency";
@@ -18,24 +18,24 @@ const PrivacyPolicyScreen = () => {
       />
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.paragraph}>
+        <AppText variant="bodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.paragraph}
-        </Text>
-        <Text style={styles.paragraphTitle}>
+        </AppText>
+        <AppText size={25} style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.policyTitle}
-        </Text>
-        <Text style={styles.paragraph}>
+        </AppText>
+        <AppText variant="bodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.policy}
-        </Text>
-        <Text style={styles.paragraphTitle}>
+        </AppText>
+        <AppText size={25} style={styles.paragraphTitle}>
           {localization.SETTINGS.LEGAL.conditionTitle}
-        </Text>
-        <Text style={styles.paragraph}>
+        </AppText>
+        <AppText variant="bodyLg" style={styles.paragraph}>
           {localization.SETTINGS.LEGAL.condition}
-        </Text>
-        <Text style={styles.copyright}>
+        </AppText>
+        <AppText style={styles.copyright}>
           {localization.SETTINGS.LEGAL.footerBottom} {developerName}
-        </Text>
+        </AppText>
       </View>
     </ScrollView>
   );
@@ -77,27 +77,18 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   paragraphTitle: {
-    fontSize: 25,
-    color: colors.text,
-    fontFamily: fonts.regular,
 
     padding: 10,
   },
 
   paragraph: {
-    fontSize: 16,
     lineHeight: 24,
-    color: colors.text,
-    fontFamily: fonts.regular,
 
     textAlign: "justify",
   },
   copyright: {
     marginBottom: 50,
     marginTop: 20,
-    fontSize: 14,
-    color: colors.text,
-    fontFamily: fonts.regular,
 
     textAlign: "center",
   },

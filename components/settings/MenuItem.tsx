@@ -1,10 +1,9 @@
-import { Icon, type IconName, Pressable } from "@/components/ui";
+import { AppText, Icon, type IconName, Pressable } from "@/components/ui";
 import {
   Platform,
   StatusBar,
   StyleSheet,
   Switch,
-  Text,
 } from "react-native";
 import { colors, fonts } from "@/theme";
 
@@ -23,7 +22,7 @@ export const MenuItem = ({
     disabled={isToggle}
   >
     <Icon name={iconName as IconName} size={24} color="text" style={styles.menuItemIcon} />
-    <Text style={styles.menuItemText}>{title}</Text>
+    <AppText variant="label" style={styles.menuItemText}>{title}</AppText>
     {isToggle ? (
       <Switch
         trackColor={{ false: colors.switchTrackOff, true: colors.switchTrackOn }}
@@ -113,9 +112,6 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     flex: 1, // Allows text to take up available space
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.bold,
   },
   logoutText: {
     color: colors.text,

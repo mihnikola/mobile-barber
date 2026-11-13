@@ -1,10 +1,10 @@
 import { useLocalization } from "@/context/LocalizationContext";
-import { View, Text, ScrollView, StyleSheet, Platform } from "react-native";
+import { View, ScrollView, StyleSheet, Platform } from "react-native";
 import { coverSettingsImage } from "@/constants";
 import * as Application from "expo-application";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { withScreen } from "@/components/ui";
+import { AppText, withScreen } from "@/components/ui";
 
 const AboutApplicationScreen = () => {
   const appName = "Book Hair";
@@ -21,22 +21,22 @@ const AboutApplicationScreen = () => {
       />
       <View style={styles.sectionContainer}>
         <View style={styles.infoRow}>
-          <Text style={styles.label}>
+          <AppText variant="bodyLg" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.name}
-          </Text>
-          <Text style={styles.value}>{appName}</Text>
+          </AppText>
+          <AppText variant="bodyLg" style={styles.value}>{appName}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>
+          <AppText variant="bodyLg" style={styles.label}>
             {localization.SETTINGS.ABOUTAPP.version}
-          </Text>
-          <Text style={styles.value}>{appVersion}</Text>
+          </AppText>
+          <AppText variant="bodyLg" style={styles.value}>{appVersion}</AppText>
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</Text>
-          <Text style={styles.value}>{developerName}</Text>
+          <AppText variant="bodyLg" style={styles.label}>{localization.SETTINGS.ABOUTAPP.dev}</AppText>
+          <AppText variant="bodyLg" style={styles.value}>{developerName}</AppText>
         </View>
       </View>
     </ScrollView>
@@ -89,15 +89,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    fontSize: 16,
-    fontFamily: fonts.regular,
-    color: colors.text,
     marginBottom: 5,
   },
   value: {
-    fontSize: 16,
-    color: colors.text,
-    fontFamily: fonts.regular,
 
     lineHeight: 24,
   },

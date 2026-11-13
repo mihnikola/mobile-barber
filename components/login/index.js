@@ -29,7 +29,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmail();
@@ -126,8 +126,8 @@ const LoginScreen = () => {
           <SharedLogin />
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
-          <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
+          <AppText variant="heading" style={styles.mainTitle}>{localization.LOGIN.title}</AppText>
+          <AppText variant="title" size={13} color="textInactive" style={styles.subtitle}>{localization.LOGIN.description}</AppText>
         </View>
 
         <View style={styles.socialButtonsContainer}>
@@ -154,7 +154,7 @@ const LoginScreen = () => {
 
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
-          <Text style={styles.dividerText}>{localization.LOGIN.or}</Text>
+          <AppText variant="title" size={15} style={styles.dividerText}>{localization.LOGIN.or}</AppText>
           <View style={styles.dividerLine} />
         </View>
 
@@ -274,16 +274,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   mainTitle: {
-    fontSize: 22,
-    fontFamily: fonts.bold,
-    color: colors.text,
     marginBottom: 5,
   },
   subtitle: {
-    fontSize: 13,
-    color: colors.textInactive,
     marginBottom: 30,
-    fontFamily: fonts.bold,
   },
   socialButtonsContainer: {
     flexDirection: "row",
@@ -325,10 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceRaised,
   },
   dividerText: {
-    color: colors.text,
     marginHorizontal: 10,
-    fontSize: 15,
-    fontFamily: fonts.bold,
   },
   input: {
     backgroundColor: colors.white,

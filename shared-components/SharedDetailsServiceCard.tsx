@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { Card, cardStyles, Icon } from "@/components/ui";
+import { AppText, Card, cardStyles, Icon } from "@/components/ui";
 import { colors, fonts } from "@/theme";
 
 const SharedDetailsServiceCard = (props: any) => {
@@ -41,17 +41,17 @@ const SharedDetailsServiceCard = (props: any) => {
         >
           <View style={styles.locationContainer}>
             <Icon name={"clock"} size={16} color="text" />
-            <Text style={styles.locationText}>
+            <AppText style={styles.locationText}>
               {`${localization.DETAILS.duration} ${
                 duration || data?.serviceDuration
               }`}
-            </Text>
+            </AppText>
           </View>
           <View style={styles.ratingContainer}>
             <Icon name={"price"} size={16} color="gold" />
-            <Text style={styles.reviewText}>
+            <AppText style={styles.reviewText}>
               {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
-            </Text>
+            </AppText>
           </View>
         </View>
       </View>
@@ -118,9 +118,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   locationText: {
-    fontSize: 14,
-    color: colors.text, // White text color
-    fontFamily: fonts.regular,
 
     marginLeft: 5,
   },
@@ -135,10 +132,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   reviewText: {
-    fontSize: 14,
-    color: colors.text, // White text color
     marginLeft: 5,
-    fontFamily: fonts.regular,
   },
 });
 

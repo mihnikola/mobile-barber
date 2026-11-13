@@ -16,7 +16,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { coverImageAppointments } from "@/constants";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
-import { Icon, withScreen } from "@/components/ui";
+import { AppText, Icon, withScreen } from "@/components/ui";
 
 const { height: windowHeight } = Dimensions.get("window");
 
@@ -52,14 +52,14 @@ function ResevationNotificationScreen() {
         <View style={styles.card}>
           <View style={styles.descContent}>
             <View>
-              <Text style={styles.descriptionLabel}>
+              <AppText variant="subtitle" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descReservation}
-              </Text>
+              </AppText>
             </View>
             <View>
-              <Text style={styles.descriptionValue}>
+              <AppText>
                 {reservationData?.description}
-              </Text>
+              </AppText>
             </View>
           </View>
         </View>
@@ -81,14 +81,14 @@ function ResevationNotificationScreen() {
           />
           <View style={styles.descContent}>
             <View>
-              <Text style={styles.descriptionLabel}>
+              <AppText variant="subtitle" style={styles.descriptionLabel}>
                 {localization.APPOINTMENTS.rateReservation.descRateReservation}
-              </Text>
+              </AppText>
             </View>
             <View>
-              <Text style={styles.descriptionValue}>
+              <AppText>
                 {reservationData?.rating?.description}
-              </Text>
+              </AppText>
             </View>
           </View>
         </>
@@ -309,9 +309,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   descriptionLabel: {
-    fontSize: 18,
-    fontFamily: fonts.bold,
-    color: colors.text,
     marginBottom: 5,
   },
   textBoldRejected: {
@@ -333,11 +330,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-  },
-  descriptionValue: {
-    fontSize: 14,
-    color: colors.text,
-    fontFamily: fonts.regular,
   },
   containerWrapper: {
     marginTop: 10,

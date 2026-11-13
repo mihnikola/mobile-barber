@@ -1,8 +1,8 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { StyleSheet, View } from "react-native";
+import { AppText } from "@/components/ui";
 
 const InfoContainerPast = ({ item }) => {
   const { localization } = useLocalization();
@@ -11,37 +11,37 @@ const InfoContainerPast = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <Text
+          <AppText variant="subtitle" color="textInactive"
             style={styles.captureDateBoldPast}
             numberOfLines={2}
             ellipsizeMode="tail"
           >
             {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
-          </Text>
-          <Text style={styles.captureDatePast}>
+          </AppText>
+          <AppText size={18} color="textInactive" style={styles.captureDatePast}>
             {convertToDayTime(item?.startDate)} -{" "}
             {addMinutesToTime(
               convertToDayTime(item?.startDate),
               item?.service?.duration
             )}
-          </Text>
+          </AppText>
         </View>
         <View style={styles.addressContainer}>
-          <Text
+          <AppText size={15} color="textInactive"
             style={styles.captureDateLocation}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
             {item?.place?.address}
-          </Text>
+          </AppText>
         </View>
       </View>
       <View>
-        <Text style={styles.rating}>
+        <AppText color="textInactive">
           {item.rating
             ? localization.APPOINTMENTS.rateReservation.rated
             : localization.APPOINTMENTS.rateReservation.rateUs}
-        </Text>
+        </AppText>
       </View>
     </View>
   );
@@ -49,9 +49,6 @@ const InfoContainerPast = ({ item }) => {
 
 const styles = StyleSheet.create({
   captureDateBoldPast: {
-    fontSize: 18,
-    color: colors.textInactive,
-    fontFamily: fonts.bold,
     marginRight: 10,
   },
 
@@ -67,24 +64,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  rating: {
-    color: colors.textInactive,
-    fontFamily: fonts.regular,
-
-  },
 
   captureDateLocation: {
-    color: colors.textInactive,
     flex: 2,
-    fontSize: 15,
-        fontFamily: fonts.regular,
 
   },
   captureDatePast: {
-    fontSize: 18,
-    color: colors.textInactive,
     textAlign: "center",
-    fontFamily: fonts.regular,
   },
 
   infoContainer: {

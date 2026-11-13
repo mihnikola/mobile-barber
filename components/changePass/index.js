@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
 } from "react-native";
 import SharedButton from "@/shared-components/SharedButton";
@@ -13,8 +12,8 @@ import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import SharedPassword from "@/shared-components/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import { colors, fonts } from "@/theme";
-import { Icon, Pressable, Screen } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Icon, Pressable, Screen } from "@/components/ui";
 
 const ChangePass = () => {
   const { data } = useLocalSearchParams();
@@ -62,9 +61,9 @@ const ChangePass = () => {
       </Pressable>
       <View style={{ flex: 1 }}>
         <View>
-          <Text style={styles.mainTitle}>
+          <AppText variant="heading">
             {localization.CHANGE_PASS.mainTitle}
-          </Text>
+          </AppText>
         </View>
 
         <View style={styles.textinputContainer}>
@@ -173,11 +172,6 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: "cover",
-  },
-  mainTitle: {
-    fontSize: 22,
-    fontFamily: fonts.bold,
-   color: colors.text,
   },
   subtitle: {
     fontSize: 13,

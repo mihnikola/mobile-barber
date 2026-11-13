@@ -2,8 +2,8 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { addMinutesToTime, convertToDayTime } from "@/helpers";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Icon } from "@/components/ui";
 
 const InfoContainerFuture = ({ item }) => {
   const { localization } = useLocalization();
@@ -12,26 +12,25 @@ const InfoContainerFuture = ({ item }) => {
     <View style={styles.centerContainer}>
       <View style={styles.columnContainer}>
         <View style={styles.infoContainer}>
-          <Text
-            style={styles.captureDateBold}
+          <AppText variant="subtitle"
             numberOfLines={2}
             ellipsizeMode="tail"
           >
             {item.service?.name} {item?.otherServices?.length > 0 && "+ " + localization.SERVICES.plus }
-          </Text>
-          <Text style={styles.captureDateContent}>
+          </AppText>
+          <AppText size={18} style={styles.captureDateContent}>
             {convertToDayTime(item?.startDate)} -{" "}
             {convertToDayTime(item?.endDate)} 
-          </Text>
+          </AppText>
         </View>
         <View style={styles.addressContainer}>
-          <Text
+          <AppText size={15}
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.captureDateLocation}
           >
             {item?.place?.address}
-          </Text>
+          </AppText>
         </View>
       </View>
       <View>
@@ -69,27 +68,16 @@ const styles = StyleSheet.create({
   },
 
   captureDateContent: {
-    fontSize: 18,
-   color: colors.text,
     textAlign: "center",
-    fontFamily: fonts.regular,
   },
   fade: {
     color: colors.textSubtle,
   },
   captureDateLocation: {
-    color: colors.text,
-    fontFamily: fonts.regular,
 
     flex: 2,
-    fontSize: 15,
   },
 
-  captureDateBold: {
-    fontSize: 18,
-   color: colors.text,
-    fontFamily: fonts.bold,
-  },
 
   infoContainer: {
     flex: 1,

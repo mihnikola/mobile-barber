@@ -1,8 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
-import { colors, fonts } from "@/theme";
+import { colors } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const NotFoundLocations = () => {
   const { company } = useCompany();
@@ -15,7 +16,7 @@ const NotFoundLocations = () => {
 
       <SharedCoverImage />
       <View style={styles.contentContainer}>
-        <Text style={styles.capture}>{localization.PLACES.noFound}</Text>
+        <AppText size={22} style={styles.capture}>{localization.PLACES.noFound}</AppText>
       </View>
     </ScrollView>
   );
@@ -29,9 +30,6 @@ const styles = StyleSheet.create({
   },
 
   capture: {
-    fontSize: 22,
-   color: colors.text,
-    fontFamily: fonts.regular,
     alignContent: "center",
     alignSelf: "center",
   },

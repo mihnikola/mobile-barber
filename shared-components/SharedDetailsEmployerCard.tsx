@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
-import { Card, cardStyles, Icon } from "@/components/ui";
+import { AppText, Card, cardStyles, Icon } from "@/components/ui";
 import { colors, fonts } from "@/theme";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
@@ -61,14 +61,14 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           >
             <View style={styles.ratingContainer}>
               <Icon name={"star"} size={16} color="gold" />
-              <Text style={styles.reviewText}>{`${roundValue(
+              <AppText variant="title" size={12}>{`${roundValue(
                 averageRating,
-              )}/5`}</Text>
+              )}/5`}</AppText>
             </View>
 
             <View style={styles.ratingContainer}>
               <Icon name={"person"} size={16} color="gold" />
-              <Text style={styles.reviewText}>{userCount || 0}</Text>
+              <AppText variant="title" size={12}>{userCount || 0}</AppText>
             </View>
           </View>
         </View>
@@ -133,11 +133,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  reviewText: {
-    fontSize: 12,
-    fontFamily: fonts.bold,
-    color: colors.text, // White text color
-  },
 });
 
 export default SharedDetailsEmployerCard;

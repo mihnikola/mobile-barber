@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
   Animated,
   View,
   Platform,
@@ -19,8 +18,8 @@ import LocationsComponent from "@/components/home/LocationsComponent";
 import useInternetGuard from "@/services/useInternetGuard";
 import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
-import { colors, fonts } from "@/theme";
-import { Icon, Pressable, withScreen } from "@/components/ui";
+import { colors } from "@/theme";
+import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -127,12 +126,12 @@ function App() {
           <Icon name="calendar" size={28} color="text" />
 
           <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
+            <AppText variant="heading" style={styles.titleLocation}>
               {localization.HOME.bookingBtn}
-            </Text>
-            <Text style={styles.address}>
+            </AppText>
+            <AppText size={15} color="textDeactivated">
               {localization.HOME.bookingBtnDesc}
-            </Text>
+            </AppText>
           </View>
 
           <Icon name="chevronRight" size={28} color="iconMuted" />
@@ -143,12 +142,12 @@ function App() {
         >
           <Icon name="home" size={28} color="text" />
           <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
+            <AppText variant="heading" style={styles.titleLocation}>
               {localization.HOME.aboutUsBtn}
-            </Text>
-            <Text style={styles.address}>
+            </AppText>
+            <AppText size={15} color="textDeactivated">
               {localization.HOME.aboutUsBtnDesc}
-            </Text>
+            </AppText>
           </View>
           <Icon name="chevronRight" size={28} color="iconMuted" />
         </Pressable>
@@ -159,12 +158,12 @@ function App() {
         >
           <Icon name="locationArrow" size={28} color="text" />
           <View style={styles.locationContent}>
-            <Text style={styles.titleLocation}>
+            <AppText variant="heading" style={styles.titleLocation}>
               {localization.HOME.locationBtn}
-            </Text>
-            <Text style={styles.address}>
+            </AppText>
+            <AppText size={15} color="textDeactivated">
               {localization.HOME.locationBtnDesc}
-            </Text>
+            </AppText>
           </View>
           <Icon name="chevronRight" size={28} color="iconMuted" />
         </Pressable>
@@ -216,16 +215,8 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
 
-  address: {
-    fontSize: 15,
-    color: colors.textDeactivated,
-    fontFamily: fonts.regular
-  },
   titleLocation: {
-    fontSize: 22,
-    color: colors.text,
     textAlign: "center",
-    fontFamily: fonts.bold
 
   },
   btnContent: {

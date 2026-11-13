@@ -2,7 +2,6 @@ import {
   Animated,
   FlatList,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -10,7 +9,7 @@ import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import { useRef, useState } from "react";
 import { useLocalization } from "@/context/LocalizationContext";
-import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const OnboardingComponent = ({ reviews }) => {
   const { localization } = useLocalization();
@@ -30,7 +29,7 @@ const OnboardingComponent = ({ reviews }) => {
 
   return (
     <View style={styles.onboardingSection}>
-      <Text style={styles.reviewSectionTitle}>{localization.HOME.reviews}</Text>
+      <AppText variant="title" size={29} style={styles.reviewSectionTitle}>{localization.HOME.reviews}</AppText>
       {/* FlatList sada ima fiksnu širinu ekrana. */}
       <FlatList
         data={reviews}
@@ -66,9 +65,6 @@ const styles = StyleSheet.create({
   reviewSectionTitle: {
     marginTop: 20,
     marginBottom: 15,
-    fontFamily: fonts.bold,
-    fontSize: 29,
-   color: colors.text,
     paddingHorizontal: 20,
     textAlign: "center",
   },

@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   findNodeHandle,
@@ -23,7 +22,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { colors, fonts } from "@/theme";
-import { Icon, Pressable } from "@/components/ui";
+import { AppText, Icon, Pressable } from "@/components/ui";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -104,10 +103,10 @@ const Register = () => {
           <SharedLogin />
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <Text style={styles.mainTitle}>{localization.REGISTER.title}</Text>
-          <Text style={styles.subtitle}>
+          <AppText variant="heading">{localization.REGISTER.title}</AppText>
+          <AppText size={13} color="textInactive">
             {localization.REGISTER.description}
-          </Text>
+          </AppText>
         </View>
 
         <SharedInput
@@ -267,17 +266,6 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: "contain",
     backgroundColor: colors.background,
-  },
-  mainTitle: {
-    fontSize: 22,
-    fontFamily: fonts.bold,
-   color: colors.text,
-  },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: fonts.regular,
-
-   color: colors.textInactive,
   },
 
   input: {

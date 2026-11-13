@@ -1,20 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
 import { colors, fonts } from "@/theme";
+import { AppText } from "@/components/ui";
 
 const Note = () => {
   const {localization} = useLocalization();
 
   return (
     <View style={styles.data}>
-      <Text style={styles.title}>{localization.SALON.title}</Text>
-      <Text style={styles.info}>
+      <AppText variant="title" style={styles.title}>{localization.SALON.title}</AppText>
+      <AppText style={styles.info}>
        {localization.SALON.first}
-      </Text>
-      <Text style={styles.info}>
+      </AppText>
+      <AppText style={styles.info}>
         {localization.SALON.second}
-      </Text>
+      </AppText>
     </View>
   );
 };
@@ -38,15 +39,10 @@ const styles = StyleSheet.create({
     display: "flex",
     paddingLeft: 12,
     paddingBottom: 8,
-   color: colors.text,
-        fontFamily:fonts.regular
 
   },
   title: {
-    fontSize: 20,
-   color: colors.text,
     padding: 12,
-    fontFamily:fonts.bold
   },
   position: {
     fontSize: 16,

@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "@/theme";
+import { StyleSheet, View } from "react-native";
+import { AppText } from "@/components/ui";
 
 const AboutUsInfo = ({ title, text, textThree, textTwo }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.text}>{text}</Text>
-      <Text style={styles.text}>{textTwo}</Text>
-      <Text style={styles.text}>{textThree}</Text>
+      <AppText variant="title" size={40} style={styles.title}>{title}</AppText>
+      <AppText variant="label" style={styles.text}>{text}</AppText>
+      <AppText variant="label" style={styles.text}>{textTwo}</AppText>
+      <AppText variant="label" style={styles.text}>{textThree}</AppText>
     </View>
   );
 };
@@ -18,16 +18,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    color: colors.text,
-    fontSize: 40,
-    fontFamily: fonts.bold,
     textAlign: "center",
   },
   text: {
-    fontSize: 16,
     lineHeight: 24,
-    color: colors.text,
-    fontFamily: fonts.bold,
     textAlign: "center",
     padding: 10,
   },

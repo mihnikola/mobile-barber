@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
+import { AppText, Icon } from "@/components/ui";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
@@ -17,7 +17,7 @@ export default function NoInternetModal({ visible }) {
       <View style={styles.overlay}>
         <View style={styles.box}>
           <Icon name="wifiOff" size={80} style={{ marginBottom: 20 }} color="textMuted" />
-          <Text style={styles.title}> {localization.INTERNET.title}</Text>
+          <AppText variant="title" size={24} style={styles.title}> {localization.INTERNET.title}</AppText>
           <Text style={styles.sub}> {localization.INTERNET.error}</Text>
         </View>
       </View>
@@ -45,9 +45,6 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   title: {
-    fontSize: 24,
-    fontFamily: fonts.bold,
-    color: colors.text,
     marginBottom: 10,
     textAlign: "center",
   },
