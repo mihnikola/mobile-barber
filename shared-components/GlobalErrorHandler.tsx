@@ -18,9 +18,7 @@ const GlobalErrorHandler = () => {
         // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
         await logoutUnAuthorizedUser();
 
-        console.log("logoutFirebase je završen, sada gasim loader...");
-      } catch (error) {
-        console.log("Greška tokom logout procesa:", error);
+      } catch {
       } finally {
         // 3. TEK OVDE gasimo loader (unutar finally bloka, što garantuje
         // da će se izvršiti čak i ako server baci grešku)

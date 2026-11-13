@@ -19,7 +19,6 @@ import {
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
-import { Alert, unstable_batchedUpdates } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { routes } from "@/lib/navigation/routes";
 export const AuthContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
@@ -120,7 +119,6 @@ export const AuthProvider = ({ children }) => {
           await loginViaGoogle(response.data);
         }
       } catch (error) {
-        console.log("Google Sign-In error:", error.code, error.message);
         if (isErrorWithCode(error)) {
           switch (error.code) {
             case statusCodes.IN_PROGRESS:
@@ -180,8 +178,7 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
-    } catch (error) {
-      console.log("Greška:", error);
+    } catch {
     }
   };
 
@@ -231,7 +228,6 @@ export const AuthProvider = ({ children }) => {
 
   const logoutHandler = async () => {
     try {
-      console.log("1. Pokrećem logout...");
       await AsyncStorage.removeItem("paramLogin");
 
       // KLJUČ: Prvo i jedino menjamo token da navigacija odmah prebaci korisnika na Login
@@ -247,9 +243,7 @@ export const AuthProvider = ({ children }) => {
           setStatus(null);
           setSuccess(null);
 
-          console.log("3. Svi podaci iz memorije uspešno očišćeni.");
-        } catch (e) {
-          console.log("Greška unutar setTimeout u logoutHandleru:", e);
+        } catch {
         }
       }, 150); // 150ms je dovoljno da iOS završi navigacionu animaciju
     } catch (error) {
@@ -317,7 +311,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 404) {
           setError(response.message);
         }
-      } catch (err) {
+      } catch {
         setError(localization.SERVER_RESPONSE.error);
       } finally {
         setIsLoading(false);
@@ -422,7 +416,6 @@ export const AuthProvider = ({ children }) => {
         setError(localization.SERVER_RESPONSE.error);
       }
     } catch (err) {
-      console.log("err", err);
 
       setIsMessage(true);
 

@@ -36,7 +36,6 @@ const useUserChange = () => {
 
 
 
-    console.log("userData?.image", userData?.image);
 
     if (userData?.image) {
       const imageUri = await getFileUri(userData.image);

@@ -101,7 +101,6 @@ const OtpCode = () => {
       verifyData?.password &&
       verifyData?.confirmPassword
     ) {
-      console.log("2");
 
       await removeOtpParamsStorage();
 

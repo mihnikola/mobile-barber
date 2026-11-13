@@ -50,7 +50,6 @@ export default function useNotifications() {
     if (!isRouterReady) return;
 
     const onClick = (data: any) => {
-      console.log("🔥 Notification Click Payload:", data);
 
       if (isNavigating.current) return;
 

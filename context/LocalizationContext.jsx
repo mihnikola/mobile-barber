@@ -23,8 +23,7 @@ export const LocalizationProvider = ({ children }) => {
       const token = await getStorage();
       if (!token) return;
       await put(endpoints.users.changeLanguage(token), { langData });
-    } catch (error) {
-      console.log("LocalizationContext error", error);
+    } catch {
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +43,7 @@ export const LocalizationProvider = ({ children }) => {
       const code = await getLanguageValue();
       if (code) changeLocalization({ code });
       else setLocalization(SRB_LOCALIZATION);
-    } catch (error) {
+    } catch {
       setLocalization(SRB_LOCALIZATION);
     } finally {
       setLoading(false);

@@ -24,7 +24,6 @@ const Employers = () => {
 
   useEffect(() => {
     if (redirectValue) {
-      console.log("redirectValue", redirectValue);
       setRedirectValue(null);
       router.push(pathName);
     }

@@ -1,7 +1,6 @@
 // /app/contexts/ReservationContext.tsx
 import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import { router } from "expo-router";
 import { createContext, useContext, useState } from "react";
 import { routes } from "@/lib/navigation/routes";
 
@@ -40,8 +39,7 @@ export const ReservationProvider = ({ children }) => {
           return result;
         }
       }
-    } catch (err) {
-      console.log("err", err);
+    } catch {
       // setError(localization.SERVICES.errorFetch);
     } finally {
       // setIsLoading(false);

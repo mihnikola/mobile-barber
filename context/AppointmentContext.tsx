@@ -5,7 +5,7 @@ import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
-import { addMinutesToTime, convertNameAndDate, convertToDayTime } from "@/lib/date";
+import { convertNameAndDate, convertToDayTime } from "@/lib/date";
 import { useReservation } from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "./NavigationContext";
@@ -80,7 +80,7 @@ export const AppointmentProvider = ({ children }) => {
         });
         setMessage(localization.APPOINTMENTS.rateReservation.confirmMessage);
         await getReservationsData();
-      } catch (err) {
+      } catch {
         setError(localization.APPOINTMENTS.rateReservation.errorMessage);
       } finally {
         setLoading(null);
@@ -108,12 +108,12 @@ export const AppointmentProvider = ({ children }) => {
       setIsModal(true);
 
       try {
-        const response = await put(endpoints.availabilities.byId(reservationId), {
+        await put(endpoints.availabilities.byId(reservationId), {
           status: 1,
         });
         setMessage(localization.APPOINTMENTS.cancelReservation.confirmMessage);
         await getReservationsData();
-      } catch (err) {
+      } catch {
         setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
       } finally {
         setLoading(null);
@@ -153,12 +153,11 @@ export const AppointmentProvider = ({ children }) => {
             };
             const statusValue = STATUS_DATA[data?.status];
             setActive(statusValue);
-            console.log("notification", notification);
 
             await getReservationsData(statusValue);
           }
         }
-      } catch (err) {
+      } catch {
         setError(localization.APPOINTMENTS.errorFetchId);
       } finally {
         setLoading(null);
@@ -191,7 +190,7 @@ export const AppointmentProvider = ({ children }) => {
       if (response.status === 200) {
         setReservations(response.data);
       }
-    } catch (err) {
+    } catch {
       setError(localization.APPOINTMENTS.errorFetch);
     } finally {
       setIsLoading(false);
@@ -256,7 +255,6 @@ export const AppointmentProvider = ({ children }) => {
           0: "approved",
         };
         setActive(STATUS_DATA[statusValue]);
-        console.log("statusValue", statusValue);
         await getReservationsData(statusValue);
         setResponseData(response);
         router.dismissAll();
@@ -287,8 +285,7 @@ export const AppointmentProvider = ({ children }) => {
 
         setError(localization.APPOINTMENTS.errorYearlyLimit);
       }
-    } catch (err) {
-      console.log("setError", err);
+    } catch {
       setIsError(true);
       setError(localization.APPOINTMENTS.postError);
     } finally {
@@ -304,7 +301,7 @@ export const AppointmentProvider = ({ children }) => {
       } else {
         setError(localization.LOGIN.missingToken);
       }
-    } catch (error) {
+    } catch {
       setError(localization.LOGIN.missingToken);
     }
   };

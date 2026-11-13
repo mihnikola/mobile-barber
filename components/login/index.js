@@ -94,7 +94,6 @@ const LoginScreen = () => {
 
   const confirmHandler = async () => {
     const paramLogin = await AsyncStorage.getItem("paramLogin");
-    console.log("paramsLogin", paramLogin);
     if (status === 606) {
       verificationOTPCode();
     } else {

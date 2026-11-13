@@ -55,7 +55,6 @@ export class NotificationService {
       if (apnsToken) return true;
       await sleep(500);
     }
-    console.log("❌ APNs token not available — FCM token would be invalid");
     return false;
   }
   async getFCMToken(): Promise<string> {
@@ -80,15 +79,12 @@ export class NotificationService {
         const token = await getToken(messaging);
         if (token) {
           this.deviceToken = token;
-          console.log("🔥 FCM TOKEN:", token);
           return token;
         }
-      } catch (err) {
-        console.log(`getToken attempt ${attempt} failed:`, err);
+      } catch {
       }
       await sleep(1000 * attempt);
     }
-    console.log("❌ Could not obtain a valid FCM token");
     return "";
   }
   /**
@@ -100,8 +96,7 @@ export class NotificationService {
     const messaging = getMessaging();
     try {
       await deleteToken(messaging);
-    } catch (err) {
-      console.log("deleteToken failed (safe on first run):", err);
+    } catch {
     }
     this.deviceToken = "";
     await sleep(500); // let FCM propagate the invalidation
@@ -115,7 +110,6 @@ export class NotificationService {
     if (this.tokenRefreshStarted) return;
     this.tokenRefreshStarted = true;
     const unsub = onTokenRefresh(getMessaging(), (token) => {
-      console.log("🔁 FCM token refreshed:", token);
       this.deviceToken = token;
       // If you later add a backend: POST the new token to it HERE,
       // so the server never keeps a stale token.
@@ -128,7 +122,6 @@ export class NotificationService {
   // FOREGROUND
   listenToForegroundMessages() {
     const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-      console.log("📩 Foreground FCM:", remoteMessage);
       // ⚡ iOS DUPLICATE FIX: on iOS, expo-notifications is the
       // UNUserNotificationCenter delegate and our handler returns
       // shouldShowBanner: true — so the SYSTEM already displays this
@@ -165,7 +158,6 @@ export class NotificationService {
     if (this.hasHandledInitial) return;
     const initial = await getInitialNotification(getMessaging());
     if (initial?.data && initial.data.url) {
-      console.log("🚀 App opened from KILLED with valid data:", initial.data);
       this.hasHandledInitial = true;
       callback(initial.data);
     } else {
@@ -177,7 +169,6 @@ export class NotificationService {
     const unsub = onNotificationOpenedApp(getMessaging(), (msg) => {
       if (!msg?.data || !msg.data.url) return;
       // Firebase guarantees: fires ONLY from BACKGROUND
-      console.log("📨 App opened from BACKGROUND:", msg.data);
       callback(msg.data);
     });
     this.subscriptions.push(unsub);
@@ -188,16 +179,13 @@ export class NotificationService {
     // 1) Permission
     const permissionGranted = await this.requestPermission();
     if (!permissionGranted) {
-      console.log("❌ Notification permission denied");
       return;
     }
     // 2) Valid FCM token (APNs-ready on iOS, retried, NO delete)
     const token = await this.getFCMToken();
     if (!token) {
-      console.log("❌ FCM token not obtained");
       return;
     }
-    console.log("🔥 FCM token:", token);
     // 3) KILLED state
     await this.handleKilledState(onClick);
     // 4) BACKGROUND state (never mixed with killed!)
@@ -209,7 +197,6 @@ export class NotificationService {
       (response) => {
         if (!this.hasReceivedForeground) return;
         const data = response.notification.request.content.data;
-        console.log("👉 Foreground notification clicked:", data);
         onClick(data);
         this.hasReceivedForeground = false;
       },

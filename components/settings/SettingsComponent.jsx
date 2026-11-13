@@ -29,7 +29,6 @@ const SettingsComponent = () => {
     getTokenData,
     setLoading,
     isToken,
-    setError,
     logoutHandler,
   } = useAuth();
 
@@ -47,9 +46,7 @@ const SettingsComponent = () => {
         // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
         await logoutFirebase();
 
-        console.log("logoutFirebase je završen, sada gasim loader...");
-      } catch (error) {
-        console.log("Greška tokom logout procesa:", error);
+      } catch {
       } finally {
         // 3. TEK OVDE gasimo loader (unutar finally bloka, što garantuje
         // da će se izvršiti čak i ako server baci grešku)
