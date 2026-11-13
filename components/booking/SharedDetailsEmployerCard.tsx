@@ -37,7 +37,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }: { data: ApiRecord; o
 
 const useStyles = makeStyles(() => ({
   // embedded in the "with extra services" list: flat, tighter
-  compact: { backgroundColor: "transparent", marginVertical: 0, paddingVertical: 10, shadowOpacity: 0, elevation: 0 },
+  compact: { backgroundColor: "transparent", marginVertical: 0, paddingVertical: 10, boxShadow: [], borderWidth: 0 },
   meta: { flexDirection: "row", gap: 16 },
 }));
 

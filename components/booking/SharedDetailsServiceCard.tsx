@@ -33,7 +33,7 @@ const SharedDetailsServiceCard = ({ data, otherServices }: { data: ApiRecord; ot
 };
 
 const useStyles = makeStyles(() => ({
-  compact: { backgroundColor: "transparent", marginVertical: 0, paddingVertical: 10, shadowOpacity: 0, elevation: 0 },
+  compact: { backgroundColor: "transparent", marginVertical: 0, paddingVertical: 10, boxShadow: [], borderWidth: 0 },
   meta: { flexDirection: "row", flexWrap: "wrap", columnGap: 16 },
 }));
 
