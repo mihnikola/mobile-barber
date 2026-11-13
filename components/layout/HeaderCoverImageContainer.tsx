@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
   Image,
 } from "react-native";
-import SharedReservationData from "./SharedReservationData";
+import SharedReservationData from "@/components/booking/SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
@@ -38,7 +38,7 @@ function HeaderCoverImageContainer({
       {/* Background Image (Rendered only if nextBtn is false) */}
       {!nextBtn && (
         <Image
-          source={require("./../assets/images/tabImage.png")}
+          source={require("@/assets/images/tabImage.png")}
           style={[StyleSheet.absoluteFill, styles.backgroundImage]}
           resizeMode="cover"
         />

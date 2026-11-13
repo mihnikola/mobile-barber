@@ -1,12 +1,12 @@
 import { View, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
-import Loader from "@/components/Loader";
+import Loader from "@/components/legacy/Loader";
 import CardNoReservation from "@/components/reservation/CardNoReservation";
 import CardReservation from "./CardReservation";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { colors } from "@/theme";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";

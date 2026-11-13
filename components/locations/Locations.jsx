@@ -3,8 +3,8 @@ import PlaceComponent from "../places/PlaceComponent";
 import MenuServices from "../services";
 import { useEffect } from "react";
 import NotFoundLocations from "./../notFound/index";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import Loader from "../Loader";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
+import Loader from "@/components/legacy/Loader";
 
 const Locations = () => {
   const { locationsData, isLoading, error, fetchLocations } =

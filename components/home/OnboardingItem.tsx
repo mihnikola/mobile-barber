@@ -1,4 +1,4 @@
-import SharedReviewImage from "@/shared-components/SharedReviewImage";
+import SharedReviewImage from "@/components/layout/SharedReviewImage";
 import React from "react";
 import {
   StyleSheet,

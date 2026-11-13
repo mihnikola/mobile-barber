@@ -9,20 +9,20 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import ImageCompress from "@/shared-components/ImageCompress";
+import ImageCompress from "@/components/settings/ImageCompress";
 import useUserChange from "@/components/infoapp/hooks/useUserChange";
 import usePhoneNumber from "@/components/infoapp/hooks/usePhoneNumber";
 import useName from "@/components/infoapp/hooks/useName";
 import { useEffect, useRef, useState } from "react";
-import SharedInput from "@/shared-components/SharedInput";
-import { SharedMessage } from "@/shared-components/SharedMessage";
+import SharedInput from "@/components/legacy/SharedInput";
+import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router } from "expo-router";
-import SharedButton from "@/shared-components/SharedButton";
-import SharedPhoneNumber from "@/shared-components/SharedPhoneNumber";
-import SharedNameEdit from "@/shared-components/SharedNameEdit";
+import SharedButton from "@/components/legacy/SharedButton";
+import SharedPhoneNumber from "@/components/legacy/SharedPhoneNumber";
+import SharedNameEdit from "@/components/legacy/SharedNameEdit";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedBackButton from "@/components/layout/SharedBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";

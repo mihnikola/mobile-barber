@@ -4,7 +4,7 @@ import { Image, StyleSheet } from "react-native";
 function SharedCoverImage({ topInset = 0 }) {
   return (
     <Image
-      source={require("./../assets/images/tabImage.png")}
+      source={require("@/assets/images/tabImage.png")}
       style={[
         styles.coverImage,
         {

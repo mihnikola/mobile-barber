@@ -113,11 +113,20 @@ npx eas-cli build -p android --profile development
 
 ```
 app/                 screens & routes (expo-router, file-based)
-components/          feature components + feature hooks
-shared-components/   shared UI (being consolidated into components/ui — see PROJECT.md §3.1)
-context/             React contexts (auth, localization, reservation, …)
-api/                 axios client
-helpers/             utilities, locales (en / sr)
+components/
+  ui/                design-system primitives: AppText, Button, TextField, Card, Dialog, Icon, Screen …
+  booking/           booking domain cards (services, barbers, locations, reservation summary)
+  layout/            headers, cover images, titles, back button, logo
+  app/               app-level overlays (global error, no internet)
+  legacy/            deprecated wrappers kept 1:1 until the redesign (PROJECT.md D-020)
+  <feature>/         screen containers + feature hooks (login, register, reservation, settings, …)
+context/             React contexts (typed, values in context/types.ts)
+lib/
+  api/               HTTP client, endpoints, domain services (authApi, usersApi, catalogApi, availabilitiesApi)
+  hooks/             useAsync, form field hooks
+  validation/ date/ format/ navigation/ config.ts   pure helpers (unit tested: npm run test:once)
+theme/               design tokens: colors, typography, spacing, calendar theme
+helpers/             locales (en / sr), storage helpers, error bus
 services/            notifications, internet guard
-constants/           colors, image URLs
+constants/           image URLs
 ```

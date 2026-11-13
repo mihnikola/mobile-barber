@@ -4,7 +4,7 @@ import { Image, StyleSheet } from "react-native";
 function SharedLogo() {
   return (
     <Image
-      source={require("./../assets/images/mainLogo.png")}
+      source={require("@/assets/images/mainLogo.png")}
       style={styles.coverLogo}
     />
   );

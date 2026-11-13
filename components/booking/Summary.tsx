@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import SummaryItem from "./SummaryItem";
+import SummaryItem from "@/components/booking/SummaryItem";
 import { colors } from "@/theme";
 const Summary = ({ data, selectedItem, setSelectedItem }) => {
   return (

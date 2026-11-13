@@ -1,7 +1,7 @@
-import { SharedMessage } from "./SharedMessage";
-import { useGlobalError } from "./../context/GlobalErrorContext";
+import { SharedMessage } from "@/components/legacy/SharedMessage";
+import { useGlobalError } from "@/context/GlobalErrorContext";
 import { useAuth } from "@/context/AuthContext";
-import { SharedLoader } from "./SharedLoader";
+import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { useState } from "react";
 import { Icon } from "@/components/ui";
 

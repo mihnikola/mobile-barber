@@ -2,13 +2,13 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import SharedButton from "@/shared-components/SharedButton";
+import SharedButton from "@/components/legacy/SharedButton";
 import { useConfirmPasswordField, usePasswordField } from "@/lib/hooks/useFormFields";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
-import { SharedMessage } from "@/shared-components/SharedMessage";
+import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
-import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
-import SharedPassword from "@/shared-components/SharedPassword";
+import SharedConfirmPassword from "@/components/legacy/SharedConfirmPassword";
+import SharedPassword from "@/components/legacy/SharedPassword";
 import { useLocalization } from "@/context/LocalizationContext";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { colors } from "@/theme";

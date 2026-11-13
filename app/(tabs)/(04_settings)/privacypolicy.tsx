@@ -1,7 +1,7 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { coverSettingsImage } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
 import { AppText, withScreen } from "@/components/ui";
 

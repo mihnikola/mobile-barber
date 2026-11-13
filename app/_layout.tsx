@@ -1,6 +1,6 @@
 import AppInitialized from "@/components/wrapper/AppInitialized";
 import useInternetGuard from "@/services/useInternetGuard";
-import NoInternetModal from "@/shared-components/InternetModal";
+import NoInternetModal from "@/components/app/InternetModal";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { colors, fonts } from "@/theme";

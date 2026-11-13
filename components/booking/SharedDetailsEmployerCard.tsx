@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/lib/format";
-import SharedImageInitials from "./SharedInitialsName";
+import SharedImageInitials from "@/components/legacy/SharedInitialsName";
 import { AppText, Card, cardStyles, Icon } from "@/components/ui";
 import { colors, fonts } from "@/theme";
 

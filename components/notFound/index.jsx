@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedCoverImage from "@/components/layout/SharedCoverImage";
 import { useCompany } from "@/context/CompanyContext";
 import { colors } from "@/theme";
 import { AppText } from "@/components/ui";

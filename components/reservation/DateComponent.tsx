@@ -7,23 +7,23 @@ import {
 } from "react-native";
 import { CalendarList, LocaleConfig } from "react-native-calendars";
 import { useReservation } from "@/context/ReservationContext";
-import NotSummary from "@/shared-components/NotSummary"; // Adjust the path if needed
-import Summary from "@/shared-components/Summary"; // Adjust the path
+import NotSummary from "@/components/booking/NotSummary"; // Adjust the path if needed
+import Summary from "@/components/booking/Summary"; // Adjust the path
 import useFetchTimes from "./hooks/useFetchTimes";
 import useSelectedDate from "./hooks/useSelectedDate";
 import { convertDayInitalValue } from "@/lib/date";
 import { calendarTheme } from "@/theme/calendar";
 import { calendarLocales } from "@/helpers/calendarLocales";
 
-import SharedButtonDateReservation from "@/shared-components/SharedButtonDateReservation";
+import SharedButtonDateReservation from "@/components/legacy/SharedButtonDateReservation";
 import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { SharedLoader } from "@/shared-components/SharedLoader";
+import { SharedLoader } from "@/components/legacy/SharedLoader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { coverImageAppointments } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
-import LoaderDate from "../LoaderDate";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
+import LoaderDate from "@/components/legacy/LoaderDate";
 import { colors, fonts } from "@/theme";
 import { AppText } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";

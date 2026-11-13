@@ -1,13 +1,13 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native";
 import { useReservation } from "@/context/ReservationContext";
-import Loader from "@/components/Loader";
+import Loader from "@/components/legacy/Loader";
 import useFetchLocations from "./useFetchLocations";
-import SharedItemLocation from "@/shared-components/SharedItemLocation";
+import SharedItemLocation from "@/components/booking/SharedItemLocation";
 
 import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { colors } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 

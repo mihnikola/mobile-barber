@@ -6,18 +6,18 @@ import {
 } from "react-native";
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
-import Details from "@/shared-components/Details";
-import SharedButton from "@/shared-components/SharedButton";
-import SharedInputTextArea from "@/shared-components/SharedInputTextArea";
+import Details from "@/components/booking/Details";
+import SharedButton from "@/components/legacy/SharedButton";
+import SharedInputTextArea from "@/components/legacy/SharedInputTextArea";
 import { useLocalization } from "@/context/LocalizationContext";
 import { useCompany } from "@/context/CompanyContext";
-import { SharedMessage } from "@/shared-components/SharedMessage";
+import { SharedMessage } from "@/components/legacy/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 import { routes } from "@/lib/navigation/routes";
 import { useAppointment } from "@/context/AppointmentContext";
 import { coverImageAppointments } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { Icon } from "@/components/ui";
 import { colors } from "@/theme";
 

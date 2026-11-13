@@ -4,12 +4,12 @@ import useFetchService from "./hooks/useFetchService";
 import { router, useLocalSearchParams } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { coverImageAppointments } from "@/constants";
-import Loader from "../Loader";
-import SharedItemMultiSelection from "@/shared-components/SharedItemMultiSelection";
-import SharedCategoryItem from "@/shared-components/SharedCategoryItem";
-import SharedButton from "@/shared-components/SharedButton";
+import Loader from "@/components/legacy/Loader";
+import SharedItemMultiSelection from "@/components/booking/SharedItemMultiSelection";
+import SharedCategoryItem from "@/components/booking/SharedCategoryItem";
+import SharedButton from "@/components/legacy/SharedButton";
 import { colors } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 

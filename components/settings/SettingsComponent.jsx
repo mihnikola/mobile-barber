@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { SharedQuestion } from "@/components/legacy/SharedQuestion";
 import MenuItemContainer from "./MenuItemContainer";
 import ProfileUserComponent from "./ProfileUserComponent";
 import LoginRedirect from "./LoginRedirect";
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import { router } from "expo-router";
-import { SharedLoader } from "@/shared-components/SharedLoader";
+import { SharedLoader } from "@/components/legacy/SharedLoader";
 import { useEffect } from "react";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 

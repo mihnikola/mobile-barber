@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { useCompany } from "@/context/CompanyContext";
 import { router } from "expo-router";
-import SharedBackButton from "@/shared-components/SharedBackButton";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedTitle from "@/shared-components/SharedTitle";
-import { SharedLoader } from "@/shared-components/SharedLoader";
-import Loader from "@/components/Loader";
+import SharedBackButton from "@/components/layout/SharedBackButton";
+import SharedCoverImage from "@/components/layout/SharedCoverImage";
+import SharedTitle from "@/components/layout/SharedTitle";
+import { SharedLoader } from "@/components/legacy/SharedLoader";
+import Loader from "@/components/legacy/Loader";
 import { coverSettingsImage } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 

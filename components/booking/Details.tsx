@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import SharedDetailsEmployerCard from "./SharedDetailsEmployerCard";
-import SharedDetailsServiceCard from "./SharedDetailsServiceCard";
-import SharedOthersServices from "./SharedOthersServices";
-import SummaryService from "./SummaryService";
+import SharedDetailsEmployerCard from "@/components/booking/SharedDetailsEmployerCard";
+import SharedDetailsServiceCard from "@/components/booking/SharedDetailsServiceCard";
+import SharedOthersServices from "@/components/booking/SharedOthersServices";
+import SummaryService from "@/components/booking/SummaryService";
 
 const Details = ({ data }) => {
   const { employer, service, otherServices } = data;

@@ -7,7 +7,7 @@ import { CompanyProvider } from "@/context/CompanyContext";
 // } from "@react-navigation/native";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalErrorProvider } from "@/context/GlobalErrorContext";
-import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
+import GlobalErrorHandler from "@/components/app/GlobalErrorHandler";
 import { InternetProvider } from "@/context/InternetContext";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/context/AppointmentContext";

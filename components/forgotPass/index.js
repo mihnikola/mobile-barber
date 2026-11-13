@@ -1,12 +1,12 @@
 import { View, StyleSheet } from "react-native";
 import { Platform } from "react-native";
-import SharedButton from "@/shared-components/SharedButton";
+import SharedButton from "@/components/legacy/SharedButton";
 import useEmailOtpCode from "../changePass/hooks/useEmailOtpCode";
-import { SharedMessage } from "@/shared-components/SharedMessage";
-import SharedInput from "@/shared-components/SharedInput";
+import { SharedMessage } from "@/components/legacy/SharedMessage";
+import SharedInput from "@/components/legacy/SharedInput";
 import { useEmailField } from "@/lib/hooks/useFormFields";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedBackButton from "@/components/layout/SharedBackButton";
 import { router } from "expo-router";
 import { routes } from "@/lib/navigation/routes";
 import { colors, fonts } from "@/theme";

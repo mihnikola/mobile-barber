@@ -1,7 +1,7 @@
 import { addMinutesToTime, convertDate } from "@/lib/date";
 import { useLocalization } from "@/context/LocalizationContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
-import SharedLogo from "@/shared-components/SharedLogo";
+import SharedCoverImage from "@/components/layout/SharedCoverImage";
+import SharedLogo from "@/components/layout/SharedLogo";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { colors } from "@/theme";

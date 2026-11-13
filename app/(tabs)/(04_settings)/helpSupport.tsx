@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
 import { coverSettingsImage } from "@/constants";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
 

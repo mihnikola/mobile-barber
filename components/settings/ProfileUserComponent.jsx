@@ -1,4 +1,4 @@
-import SharedImageInitials from "@/shared-components/SharedInitialsName";
+import SharedImageInitials from "@/components/legacy/SharedInitialsName";
 import { StyleSheet } from "react-native";
 import { Image, View } from "react-native";
 import { colors } from "@/theme";

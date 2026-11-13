@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { useReservation } from "@/context/ReservationContext";
-import SharedButton from "@/shared-components/SharedButton";
+import SharedButton from "@/components/legacy/SharedButton";
 import { useLocalSearchParams, router } from "expo-router";
-import Note from "@/shared-components/Note";
+import Note from "@/components/booking/Note";
 import { useLocalization } from "@/context/LocalizationContext";
 import BookSuccess from "./BookSuccess";
 import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";

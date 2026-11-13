@@ -1,6 +1,6 @@
 import { coverImageAppointments } from "@/constants";
 import { useLocalization } from "@/context/LocalizationContext";
-import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
+import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React from "react";
