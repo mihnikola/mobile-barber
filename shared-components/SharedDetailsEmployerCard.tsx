@@ -2,16 +2,14 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { roundValue } from "@/helpers";
 import SharedImageInitials from "./SharedInitialsName";
+import { Card, cardStyles, Icon } from "@/components/ui";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
 
 const SharedDetailsEmployerCard = ({ data, otherServices }) => {
-  const { _id, image, name, averageRating, userCount, seniority } = data;
+  const { image, name, averageRating, userCount, seniority } = data;
 
   return (
-    <View
-      key={_id}
-      style={[styles.card, otherServices?.length > 0 && styles.paddingSection]}
+    <Card style={[cardStyles.row, otherServices?.length > 0 && styles.paddingSection]}
     >
       {image ? (
         <Image
@@ -75,7 +73,7 @@ const SharedDetailsEmployerCard = ({ data, otherServices }) => {
           </View>
         </View>
       </View>
-    </View>
+    </Card>
   );
 };
 
@@ -85,20 +83,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor:"transparent",
     margin: 0
-  },
-  card: {
-    flexDirection: "row",
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    alignItems: "center",
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
 
   dataContainer: {

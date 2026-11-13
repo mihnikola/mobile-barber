@@ -1,18 +1,16 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationContext";
+import { Card, cardStyles, Icon } from "@/components/ui";
 import { colors, fonts } from "@/theme";
-import { Icon } from "@/components/ui";
 
 const SharedDetailsServiceCard = (props: any) => {
   const { redirectHandler, data, otherServices } = props;
-  const { id, image, name, duration, price } = data;
+  const { image, name, duration, price } = data;
   const { localization } = useLocalization();
   const rateEmployerHandler = () => {};
   return (
-    <View
-      key={id}
-      style={[styles.card, otherServices?.length > 0 && styles.paddingSection]}
+    <Card style={[cardStyles.row, otherServices?.length > 0 && styles.paddingSection]}
     >
       {image && (
         <Image
@@ -57,27 +55,13 @@ const SharedDetailsServiceCard = (props: any) => {
           </View>
         </View>
       </View>
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   containerReview: {
     alignSelf: "flex-start",
-  },
-  card: {
-    flexDirection: "row",
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8,
-    marginHorizontal: 15,
-    alignItems: "center",
-    shadowColor: colors.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   paddingSection: {
     paddingHorizontal: 15,
