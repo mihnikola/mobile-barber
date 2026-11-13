@@ -1,10 +1,11 @@
 import { View } from "react-native";
+import { useLocalization } from "@/context/LocalizationContext";
 import SharedReservationData from "@/components/booking/SharedReservationData";
 import AppointmentsStatuses from "@/components/reservation/AppointmentsStatuses";
 import { useAppointment } from "@/context/AppointmentContext";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
 import { makeStyles } from "@/theme";
-import { AppText, BackButton } from "@/components/ui";
+import { AppText, BackButton, StepHeader } from "@/components/ui";
 
 /**
  * Screen header (design system `ds-appbar` + `ds-h1`, Phase 5.6).
@@ -13,6 +14,8 @@ import { AppText, BackButton } from "@/components/ui";
  * (booking summary / appointment time), `status` (title + status tabs).
  * `image` / `nextBtn` / `skip` / `routerHandler` are accepted for existing callers.
  */
+const BOOKING_STEPS = 4;
+
 function HeaderCoverImageContainer({
   title,
   image: _image,
@@ -20,6 +23,7 @@ function HeaderCoverImageContainer({
   reservation = null,
   reservationData = null,
   status = false,
+  step,
   nextBtn: _nextBtn,
   skip: _skip,
   routerHandler: _routerHandler,
@@ -30,12 +34,35 @@ function HeaderCoverImageContainer({
   reservation?: unknown;
   reservationData?: unknown;
   status?: boolean;
+  /** Booking flow step 1–4 (Usluge → Frizer → Datum i vreme → Pregled): DS StepHeader with progress bar. */
+  step?: number;
   nextBtn?: unknown;
   skip?: unknown;
   routerHandler?: unknown;
 }) {
   const styles = useStyles();
   const { active, handleStatus } = useAppointment();
+  const { localization } = useLocalization();
+
+  if (step) {
+    const stepLabel = localization.BOOKING.step.replace("{step}", String(step)).replace("{total}", String(BOOKING_STEPS));
+    return (
+      <View style={styles.header}>
+        <StepHeader
+          step={step}
+          total={BOOKING_STEPS}
+          stepLabel={stepLabel}
+          title={(reservation ? localization.BOOKING.review : title) ?? ""}
+          hideBack={hidden}
+        />
+        {reservation ? (
+          <View style={styles.stepSummary}>
+            <SharedReservationData reservation={reservation} hideBack />
+          </View>
+        ) : null}
+      </View>
+    );
+  }
 
   return (
     <View style={styles.header}>
@@ -71,6 +98,7 @@ const useStyles = makeStyles((colors) => ({
   back: { alignSelf: "flex-start", marginBottom: 12 },
   title: { fontSize: 30, lineHeight: 33 },
   status: { gap: 16 },
+  stepSummary: { marginTop: 20 },
 }));
 
 export default HeaderCoverImageContainer;

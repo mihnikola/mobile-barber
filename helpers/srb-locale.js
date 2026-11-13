@@ -91,6 +91,10 @@ export const SRB_LOCALIZATION = {
       "Radnik i usluga moraju biti odabrani pre preuzimanja podataka o slobodnim terminima.",
     errorFetch: "Podaci o slobodnim terminima trenutno nisu dostupni",
   },
+  BOOKING: {
+    step: "Korak {step} od {total}",
+    review: "Pregled",
+  },
   DETAILS: {
     price: "Cena",
     duration: "Trajanje",

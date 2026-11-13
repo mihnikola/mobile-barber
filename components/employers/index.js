@@ -61,7 +61,7 @@ const Employers = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderCoverImageContainer title={localization.BARBERS.title} />
+      <HeaderCoverImageContainer title={localization.BARBERS.title} step={2} />
 
       {isLoading && <Loader />}
       {!isLoading && (

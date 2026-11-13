@@ -69,6 +69,7 @@ const Reservation = () => {
             title={localization.DATE.title}
             image={coverImageAppointments}
             reservation={reservation}
+            step={4}
           />
 
           <View style={styles.containerData}>

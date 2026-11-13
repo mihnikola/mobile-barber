@@ -43,6 +43,7 @@ const MenuServices = () => {
     <ScrollView style={styles.container}>
       <HeaderCoverImageContainer
         title={localization.SERVICES.title}
+        step={1}
         image={coverImageAppointments}
         hidden={!backButton}
       />

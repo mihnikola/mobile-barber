@@ -99,6 +99,7 @@ const DateComponent = () => {
         <HeaderCoverImageContainer
           title={localization.DATE.title}
           image={coverImageAppointments}
+          step={3}
         />
 
         <View style={styles.calendarContainer}>

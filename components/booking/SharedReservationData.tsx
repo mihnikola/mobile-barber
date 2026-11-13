@@ -7,7 +7,7 @@ import { fonts, makeStyles } from "@/theme";
 import { AppText, BackButton, Icon } from "@/components/ui";
 
 /** Booking summary header (design system `ds-big-when`): date, big time range, address. */
-function SharedReservationData({ reservation }: { reservation: ApiRecord | null }) {
+function SharedReservationData({ reservation, hideBack = false }: { reservation: ApiRecord | null; hideBack?: boolean }) {
   const styles = useStyles();
   const { localization } = useLocalization();
   const totals = reservation?.otherServices?.reduce(
@@ -21,7 +21,7 @@ function SharedReservationData({ reservation }: { reservation: ApiRecord | null 
 
   return (
     <View>
-      <BackButton style={styles.back} />
+      {!hideBack && <BackButton style={styles.back} />}
       <AppText variant="body" color="inkMuted">
         {convertDate(reservation?.dateReservation?.dateString || reservation?.dateReservation, localization.code)}
       </AppText>

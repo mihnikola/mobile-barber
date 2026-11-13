@@ -91,6 +91,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
       <View style={styles.container}>
         <HeaderCoverImageContainer
           title={localization.SERVICES.moreServices}
+          step={1}
           image={coverImageAppointments}
           routerHandler={routerHandler}
           nextBtn

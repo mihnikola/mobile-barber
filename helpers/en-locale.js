@@ -82,6 +82,10 @@ export const ENG_LOCALIZATION = {
     notAvailable:
       "Appointments cannot currently be scheduled at the selected location.",
   },
+  BOOKING: {
+    step: "Step {step} of {total}",
+    review: "Review",
+  },
   DETAILS: {
     price: "Price",
     duration: "Duration",

@@ -13,15 +13,17 @@ type StepHeaderProps = {
   stepLabel: string;
   title: string;
   onBack?: () => void;
+  /** No back button (first screen of the booking tab). */
+  hideBack?: boolean;
 };
 
 /** Booking flow header (design system `ds-steph` + `ds-progress`): back, step count, title, progress bar. */
-export function StepHeader({ step, total, stepLabel, title, onBack }: StepHeaderProps) {
+export function StepHeader({ step, total, stepLabel, title, onBack, hideBack = false }: StepHeaderProps) {
   const s = useStyles();
   return (
     <View>
       <View style={s.row}>
-        <BackButton onPress={onBack} />
+        {!hideBack && <BackButton onPress={onBack} />}
         <View style={s.text}>
           <AppText style={s.step}>{stepLabel}</AppText>
           <AppText variant="displayLg" style={s.title} numberOfLines={1}>
