@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 8,
   },
-  containerFocused: { borderColor: colors.white, borderWidth: 2 },
+  containerFocused: { borderColor: colors.white, borderWidth: 2, margin: -2 }, // -2: border drawn outward, no layout jump
   input: {
     backgroundColor: colors.white,
     color: colors.textOnLight,

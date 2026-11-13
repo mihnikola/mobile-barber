@@ -192,7 +192,7 @@ const defaults = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 8,
   },
-  containerFocused: { borderWidth: 2, borderColor: colors.white },
+  containerFocused: { borderWidth: 2, borderColor: colors.white, margin: -2 }, // -2: border drawn outward, no layout jump
   input: {
     flex: 1,
     color: colors.textOnLight,
