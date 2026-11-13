@@ -53,7 +53,7 @@ const useStyles = makeStyles((colors) => ({
   input: {
     borderWidth: 1,
     borderColor: colors.text,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     color: colors.text,
     fontFamily:fonts.bold,
     borderRadius: 10,

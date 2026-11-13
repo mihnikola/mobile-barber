@@ -84,7 +84,7 @@ export default CustomButton;
 
 const useStyles = makeStyles((colors) => ({
   container: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     borderWidth: 1,
     borderColor: colors.textInactive,
     padding: 10,

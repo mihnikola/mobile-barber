@@ -51,7 +51,7 @@ const useStyles = makeStyles((colors) => ({
   },
   dots: {
     height: 10,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     borderWidth: 1,
     borderColor: colors.textInactive,
     marginHorizontal: 10,

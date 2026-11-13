@@ -1,7 +1,10 @@
 /**
  * Color palettes (Phase 5.1: light + dark, D-024).
  *
- * Keys are the Phase 1 role names (one per distinct legacy value). During the redesign:
+ * Two kinds of keys:
+ *  - design-system tokens (bg, surface, ink, accent …) — use these in restyled code
+ *  - Phase 1 role names (legacy, one per old value) — still used by screens not yet restyled
+ * During the redesign:
  *  - `darkPalette` = exactly today's colors (the app looks unchanged in dark mode)
  *  - `lightPalette` = the same roles mapped onto the design system's light tokens
  *    (Gentleman Barber DS: bg #f5f4f1, surface #ffffff, ink #141414, accent #b42318 …)
@@ -23,7 +26,7 @@ export const darkPalette = {
   surfaceInput: "#1C1C1E",
   surfaceCard: "#1E1E1E",
   surfaceHome: "#222224",
-  surface: "#232126",
+  surfaceItem: "#232126",
   surfaceAvatar: "#242424",
   surfaceRaised: "#333333",
   surfaceIcon: "#3A3A3A",
@@ -65,9 +68,8 @@ export const darkPalette = {
   gold: "#FFD700",
   /** RN named color "yellow" */
   yellow: "#FFFF00",
-  /** RN named color "red" */
-  danger: "#FF0000",
-  dangerSoft: "#FF3B30",
+  danger: "#F0705F", // design token (was #FF0000)
+  dangerBright: "#FF3B30",
   link: "#00AEEF",
   linkAlt: "#2E78B7",
   brandBlue: "#4285A0",
@@ -78,6 +80,28 @@ export const darkPalette = {
   switchTrackOn: "#81B0FF",
   switchThumbOn: "#F5DD4B",
   switchThumbOff: "#F4F3F4",
+
+  // ── Design system tokens (Gentleman Barber DS, dark) ──
+  bg: "#0F0F0F",
+  surface: "#1A1A1A",
+  surfaceSunken: "#242424",
+  line: "#2E2E2E",
+  lineStrong: "#6B6862",
+  ink: "#F2F0EB",
+  inkMuted: "#A8A49C",
+  inkFaint: "#8A867E",
+  primary: "#F2F0EB",
+  onPrimary: "#141414",
+  accent: "#F0705F",
+  accentSoft: "#3A1612",
+  star: "#F2F0EB",
+  success: "#6FCF97",
+  successSoft: "#12301E",
+  warning: "#F2B85C",
+  warningSoft: "#33240A",
+  dangerSoft: "#3A1612",
+  focus: "#F0705F",
+  scrim: "#000000B3",
 };
 
 export type Palette = { [K in keyof typeof darkPalette]: string };
@@ -95,7 +119,7 @@ export const lightPalette: Palette = {
   surfaceInput: "#FFFFFF",
   surfaceCard: "#FFFFFF",
   surfaceHome: "#FFFFFF",
-  surface: "#FFFFFF",
+  surfaceItem: "#FFFFFF",
   surfaceAvatar: "#EBE9E4",
   surfaceRaised: "#EBE9E4",
   surfaceIcon: "#EBE9E4",
@@ -129,7 +153,7 @@ export const lightPalette: Palette = {
   gold: "#B42318", // accent (design: one accent colour)
   yellow: "#8A5300", // warning
   danger: "#B42318",
-  dangerSoft: "#B42318",
+  dangerBright: "#B42318",
   link: "#B42318",
   linkAlt: "#B42318",
   brandBlue: "#141414",
@@ -139,6 +163,28 @@ export const lightPalette: Palette = {
   switchTrackOn: "#141414",
   switchThumbOn: "#FFFFFF",
   switchThumbOff: "#FFFFFF",
+
+  // ── Design system tokens (Gentleman Barber DS, light) ──
+  bg: "#F5F4F1",
+  surface: "#FFFFFF",
+  surfaceSunken: "#EBE9E4",
+  line: "#DCD9D2",
+  lineStrong: "#8C887F",
+  ink: "#141414",
+  inkMuted: "#5C5952",
+  inkFaint: "#7A766E",
+  primary: "#141414",
+  onPrimary: "#FFFFFF",
+  accent: "#B42318",
+  accentSoft: "#FBE9E6",
+  star: "#141414",
+  success: "#1E6B3A",
+  successSoft: "#E3F2E8",
+  warning: "#8A5300",
+  warningSoft: "#FCEFD7",
+  dangerSoft: "#FBE9E6",
+  focus: "#B42318",
+  scrim: "#14141499",
 };
 
 export const palettes = { dark: darkPalette, light: lightPalette } as const;

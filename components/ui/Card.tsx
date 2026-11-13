@@ -92,7 +92,7 @@ export const cardStyles = StyleSheet.create({
 /** Themed card styles (internal). */
 const useCardColors = makeStyles((colors) => ({
   surface: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,

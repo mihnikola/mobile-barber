@@ -205,7 +205,7 @@ const useStyles = makeStyles((colors) => ({
   },
   btnLocationContent: {
     width: "90%",
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",

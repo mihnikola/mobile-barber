@@ -56,7 +56,7 @@ const useStyles = makeStyles((colors) => ({
     textAlign: "center",
   },
   button: {
-    backgroundColor: colors.dangerSoft,
+    backgroundColor: colors.dangerBright,
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 8,

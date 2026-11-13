@@ -26,7 +26,7 @@ const CardReservationItem = ({ redirectScreen, item }) => {
 
 const useStyles = makeStyles((colors) => ({
   cardReservationCurrent: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     display: "flex",
     flexDirection: "row",
     marginHorizontal: 10,

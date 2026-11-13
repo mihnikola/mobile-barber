@@ -340,7 +340,7 @@ const useStyles = makeStyles((colors) => ({
   },
   card: {
     flexDirection: "column",
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceItem,
     borderRadius: 12,
     marginVertical: 8,
     marginHorizontal: 15,
