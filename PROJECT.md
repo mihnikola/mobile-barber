@@ -261,7 +261,7 @@ Evidence: 111 files have their own `StyleSheet`; **77 identical style blocks** a
 | 2 | Full reusable component library in `components/ui/` per §3.1 (layout, text, buttons, icons, forms, cards/list items, modals, loaders, empty states) + migrate **every** screen so screens keep layout-only styles | No | ✅ Track A done (library; icons, colors, wrappers migrated; 112 AppText). Track B (17 delegates, 22 system-font/conditional texts, B20, B21) deferred to Phase 5 (D-020). User device check pending |
 | 3 | Shared logic: API endpoints + typed services, `useAsync` fetch hook, unified form/validation hooks, pure date utils | No | ✅ Done 2026-11-13 (device check pending) |
 | 4 | Feature restructure: domain components, move nav out of data hooks, JS→TS conversion per touched file, slim contexts | No | ✅ Done 2026-11-13: routes, nav out of contexts/hooks, typed TS contexts (B12), domain API services, folder split (device check pending) |
-| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | 🔄 5.1–5.5 done (user check of 5.5 pending); plan in §4.2 |
+| 5 | New styling: new tokens + restyled primitives, screen-by-screen polish | **Yes** | 🔄 5.1–5.5 done and device-checked; 5.6 (screens) in progress; plan in §4.2 |
 
 All work is committed on the `claude` branch only (small commits per step). Merging into `dev` is done by the user via PR.
 
@@ -316,7 +316,7 @@ Source: design system artifact „Gentleman Barber — Design System“ (claude.
 | 5.2 | Font Inter (`@expo-google-fonts/inter`, JS only) + DS type scale (display-xl 44 … caption 12); Barlow Condensed stays for display | ✅ `f55bbc2` |
 | 5.3 | Icons → Feather in `ui/Icon` registry (names unchanged) | ✅ `d1c7bca` |
 | 5.4 | Track B: replace the 17 `components/legacy` wrappers with `ui/` directly; remaining 22 raw `<Text>` → `AppText`; system-font texts get the right font (D-022) | ✅ `7901297` `65b6c24` `be98c93` + initials; `components/legacy` gone. Remaining raw `<Text>` (incl. system-font ones) are converted with their screens in 5.6 |
-| 5.5 | Restyle `components/ui` to DS specs (Button, TextField, Card/ListItem, Dialog, EmptyState, Loader, Avatar) + visual-only new ones (StatusBadge, SegmentedTabs, ListRow, ScreenHeader); palettes switch from legacy role names to DS tokens (bg, surface, ink, accent …) | ✅ `3c080af` (DS tokens) `a5923d6` (AppText DS variants, legacy* kept) `54982e8` (ui restyle + StatusBadge/SegmentedTabs/ListRow) + temporary Settings → Tema toggle — **awaiting user check** |
+| 5.5 | Restyle `components/ui` to DS specs (Button, TextField, Card/ListItem, Dialog, EmptyState, Loader, Avatar) + visual-only new ones (StatusBadge, SegmentedTabs, ListRow, ScreenHeader); palettes switch from legacy role names to DS tokens (bg, surface, ink, accent …) | ✅ `3c080af` (DS tokens) `a5923d6` (AppText DS variants, legacy* kept) `54982e8` (ui restyle + StatusBadge/SegmentedTabs/ListRow) + temporary Settings → Tema toggle — ✅ checked on device by user |
 | 5.6 | Screens one by one per Ekran refs (auth → home → booking → appointments → profile); add Profile → Theme (System/Light/Dark); then `DEFAULT_THEME_MODE = "system"` | ⏳ — **user check** |
 | 5.7 | Display formats & copy: `30 min`, `1.200 RSD`, `16:00 – 16:50`, Serbian statuses, no `NaN` | ⏳ |
 
