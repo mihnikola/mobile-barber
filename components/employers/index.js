@@ -13,11 +13,12 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
 import { colors, fonts } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 const Employers = () => {
   const { reservation, updateReservation } = useContext(ReservationContext);
   const { fetchAllEmployees, emplData, isLoading, error } = useFetchEmployers();
-  const pathName = "/(tabs)/(02_barbers)/calendar";
+  const pathName = routes.booking.calendar;
   const { location, service } = reservation;
   const { setRedirectValue, redirectValue } = useAuth();
 
@@ -45,7 +46,7 @@ const Employers = () => {
       } else {
         await AsyncStorage.setItem("paramLogin", "calendar");
         router.push({
-          pathname: "/(z_auth)/",
+          pathname: routes.auth.login,
           params: { data: "calendar" },
         });
       }

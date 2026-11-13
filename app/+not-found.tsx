@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { AppText } from "@/components/ui";
 import { colors } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 /** 404 route. Was crashing before (B17: `components/Themed` imported a non-existent default export). */
 export default function NotFoundScreen() {
@@ -12,7 +13,7 @@ export default function NotFoundScreen() {
       <View style={styles.container}>
         <AppText variant="title">This screen doesn&apos;t exist.</AppText>
 
-        <Link href="/" style={styles.link}>
+        <Link href={routes.root} style={styles.link}>
           <AppText color="linkAlt">Go to home screen!</AppText>
         </Link>
       </View>

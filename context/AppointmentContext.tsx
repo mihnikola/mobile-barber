@@ -9,6 +9,7 @@ import { addMinutesToTime, convertNameAndDate, convertToDayTime } from "@/lib/da
 import ReservationContext from "./ReservationContext";
 import { getStorage } from "@/helpers/token";
 import { useLastPathNavigation } from "./NavigationContext";
+import { routes } from "@/lib/navigation/routes";
 
 const AppointmentContext = createContext<any>(null); // TODO(phase4): real type
 export const useAppointment = () => {
@@ -43,7 +44,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const detailsReservation = (item) => {
     router.push({
-      pathname: "/(reservation_notification)/",
+      pathname: routes.appointments.details,
       params: {
         itemId: item._id,
         past: item?.past,
@@ -90,7 +91,7 @@ export const AppointmentProvider = ({ children }) => {
   const refreshCalendarReservation = async () => {
     router.back();
     router.replace({
-      pathname: "/(tabs)/(02_barbers)/calendar",
+      pathname: routes.booking.calendar,
     });
   };
 
@@ -261,7 +262,7 @@ export const AppointmentProvider = ({ children }) => {
         router.dismissAll();
         saveLastTab(null);
         router.push({
-          pathname: "/(tabs)/(02_barbers)/reservationSuccess",
+          pathname: routes.booking.success,
           params: {
             status: response.data.status,
           },

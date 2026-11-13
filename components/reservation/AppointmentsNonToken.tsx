@@ -11,12 +11,13 @@ import {
 } from "react-native";
 import { colors } from "@/theme";
 import { AppText, Pressable } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 
 function AppointmentsNonToken() {
   const { localization } = useLocalization();
   const routeHandler = () => {
     router.push({
-      pathname: "/(z_auth)/",
+      pathname: routes.auth.login,
       params: { data: "appointments" },
     });
     AsyncStorage.setItem("paramLogin", "appointments");

@@ -16,7 +16,6 @@ import SharedRedirect from "@/shared-components/SharedRedirect";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import SharedPassword from "@/shared-components/SharedPassword";
-const { width } = Dimensions.get("window");
 import { useAuth } from "@/context/AuthContext";
 import { useLocalization } from "@/context/LocalizationContext";
 import SharedLogin from "@/shared-components/SharedLogin";
@@ -29,6 +28,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
+
+const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
   const { email, handleEmailChange } = useEmailField({ validate: false });
@@ -81,7 +83,7 @@ const LoginScreen = () => {
 
   const navigateToRegister = () => {
     router.push({
-      pathname: "(z_auth)/register",
+      pathname: routes.auth.register,
       params: { image: company?.media?.logo },
     });
   };
@@ -104,7 +106,7 @@ const LoginScreen = () => {
     }
   };
   const forgotHandler = () => {
-    router.push("/(z_auth)/forgotPass");
+    router.push(routes.auth.forgotPassword);
   };
   const passwordLayoutY = useRef(0);
 

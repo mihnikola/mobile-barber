@@ -10,6 +10,7 @@ import { useLocalization } from "@/context/LocalizationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { colors, fonts } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
   const { localization } = useLocalization();
@@ -61,7 +62,7 @@ const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
           flatListRef.current.scrollToIndex({ index: flatListIndex.value + 1 });
         } else {
           AsyncStorage.setItem("initialToken", "true");
-          router.replace("(tabs)");
+          router.replace(routes.tabsGroup);
         }
       }}
     >

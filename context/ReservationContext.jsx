@@ -3,6 +3,7 @@ import { getData } from "@/lib/api/client";
 import { endpoints } from "@/lib/api/endpoints";
 import { router } from "expo-router";
 import { createContext, useState } from "react";
+import { routes } from "@/lib/navigation/routes";
 
 // Create the context with a default value of null
 const ReservationContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
@@ -29,12 +30,12 @@ export const ReservationProvider = ({ children }) => {
 
       if (status === 200) {
         if (type === "barbers") {
-          const pathName = "/(tabs)/(02_barbers)/employers";
+          const pathName = routes.booking.employees;
           const result = { pathName, type };
           return result;
         }
         if (response.type === "services") {
-          const pathName = "/(tabs)/(02_barbers)/moreServices";
+          const pathName = routes.booking.moreServices;
           const result = { pathName, type, categoryId };
           return result;
         }

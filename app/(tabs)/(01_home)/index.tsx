@@ -20,6 +20,7 @@ import { useAuth } from "@/context/AuthContext";
 import LocationNotFound from "@/components/home/LocationNotFound";
 import { colors } from "@/theme";
 import { AppText, Icon, Pressable, withScreen } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 
 function App() {
   const { getTokenData } = useAuth();
@@ -48,11 +49,11 @@ function App() {
 
   const { localization } = useLocalization();
   const nextPage = () => {
-    router.push({ pathname: "(02_barbers)" });
+    router.push({ pathname: routes.booking.tab });
   };
 
   const onAboutUs = () => {
-    router.push("/(tabs)/(01_home)/whoWeAre");
+    router.push(routes.home.whoWeAre);
   };
   const handleLocationSelect = (locationData: any) => {
     setModalVisible(false);

@@ -25,6 +25,7 @@ import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageConta
 import LoaderDate from "../LoaderDate";
 import { colors, fonts } from "@/theme";
 import { AppText } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 
 const DateComponent = () => {
 
@@ -37,12 +38,12 @@ const DateComponent = () => {
         setCheck(true);
       } else {
         router.push({
-          pathname: "/(z_auth)/",
+          pathname: routes.auth.login,
           params: { data: "calendar" },
         });
       }
     } catch (error) {
-      router.push("/(z_auth)/");
+      router.push(routes.auth.login);
     }
   };
 
@@ -61,7 +62,7 @@ const DateComponent = () => {
   const { localization } = useLocalization();
   const { company } = useCompany();
 
-  const pathName = "/(tabs)/(02_barbers)/reservation";
+  const pathName = routes.booking.reservation;
 
   const { reservation, updateReservation } = useContext(ReservationContext)!;
   const [selectedItem, setSelectedItem] = useState(null);

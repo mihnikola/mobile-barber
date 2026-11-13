@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { isEmailLike } from "@/lib/validation";
+import { routes } from "@/lib/navigation/routes";
 
 
 const useEmailOtpCode = () => {
@@ -43,7 +44,7 @@ const useEmailOtpCode = () => {
         if (response.success) {
           const verifyData = {email};
           await saveOtpParamsStorage(verifyData);
-          router.push("/(z_auth)/otpCode");
+          router.push(routes.auth.otpCode);
         } else {
           setError(localization.EMAIL.errorFound);
           setIsMessage(true);

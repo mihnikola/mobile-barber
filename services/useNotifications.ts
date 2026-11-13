@@ -14,12 +14,12 @@
 //     const onClick = (data) => {
 //       console.log("data", data);
 //       if (!data || data.url === null || data.url === undefined) {
-//         router.push("/(tabs)/");
+//         router.push(routes.tabs);
 //         return;
 //       }
 
 //       router.push({
-//         pathname: "/(reservation_notification)/",
+//         pathname: routes.appointments.details,
 //         params: {
 //           itemId: data.url,
 //           notification: 1,
@@ -37,6 +37,7 @@
 import { useEffect, useRef } from "react";
 import NotificationService from "./NotificationService";
 import { useRouter, useSegments } from "expo-router";
+import { routes } from "@/lib/navigation/routes";
 
 export default function useNotifications() {
   const router = useRouter();
@@ -71,7 +72,7 @@ export default function useNotifications() {
             }
 
             router.push({
-              pathname: "/(reservation_notification)/",
+              pathname: routes.appointments.details,
               params: {
                 itemId: String(targetId),
                 notification: "1",

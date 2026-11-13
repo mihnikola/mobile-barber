@@ -13,6 +13,7 @@ import { useLastPathNavigation } from "@/context/NavigationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Icon, withScreen } from "@/components/ui";
 import { colors } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 const SettingsComponent = () => {
   const { localization } = useLocalization();
@@ -63,7 +64,7 @@ const SettingsComponent = () => {
 
   const redirectToLogin = () => {
     router.push({
-      pathname: "/(z_auth)/",
+      pathname: routes.auth.login,
     });
     AsyncStorage.setItem("paramLogin", "settings");
   };

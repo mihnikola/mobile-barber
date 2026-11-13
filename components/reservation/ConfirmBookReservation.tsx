@@ -10,6 +10,7 @@ import { useDismissOnUnauthorizedFocus } from "@/hooks/useRouterTest";
 import { coverImageAppointments } from "@/constants";
 import { colors, fonts } from "@/theme";
 import { AppText } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 
 const ConfirmBookReservation = () => {
   const { localization } = useLocalization();
@@ -22,7 +23,7 @@ const ConfirmBookReservation = () => {
   const confirmSubmitReservation = async () => {
     try {
       router.back();
-      router.replace("/(tabs)/(03_calendar)");
+      router.replace(routes.appointments.root);
     } catch (error) {
       console.error(error);
     }

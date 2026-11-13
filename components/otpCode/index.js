@@ -17,6 +17,7 @@ import {
 import Loader from "../Loader";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable, Screen } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 
 const OtpCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -83,7 +84,7 @@ const OtpCode = () => {
     // changePassword
     if (verifyData?.email && !verifyData?.password) {
       router.push({
-        pathname: "/(z_auth)/changePassword",
+        pathname: routes.auth.changePassword,
         params: { data: verifyData?.email },
       });
     }
@@ -104,7 +105,7 @@ const OtpCode = () => {
 
       await removeOtpParamsStorage();
 
-      router.replace("/(z_auth)/");
+      router.replace(routes.auth.login);
     }
   };
 

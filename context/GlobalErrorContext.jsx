@@ -4,6 +4,7 @@ import { registerGlobalHandler } from "@/helpers/error-handler";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { router } from "expo-router";
+import { routes } from "@/lib/navigation/routes";
 
 const GlobalErrorContext = createContext(/** @type {any} TODO(phase4): real type */ (undefined));
 
@@ -14,7 +15,7 @@ export const GlobalErrorProvider = ({ children }) => {
   const { localization } = useLocalization();
 
   const hideError = () => {
-    router.replace("/(tabs)/(01_home)/");
+    router.replace(routes.home.root);
     setError(null);
   };
 

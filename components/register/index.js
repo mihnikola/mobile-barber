@@ -21,6 +21,7 @@ import SharedLogin from "@/shared-components/SharedLogin";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import { colors, fonts } from "@/theme";
 import { AppText, Icon, Pressable } from "@/components/ui";
+import { routes } from "@/lib/navigation/routes";
 const Register = () => {
   const refName = useRef(null);
   const [name, setName] = useState("");
@@ -76,7 +77,7 @@ const Register = () => {
     setIsMessage(false);
     const verifyData = { email, password, confirmPassword };
     await saveOtpParamsStorage(verifyData);
-    router.push("/(z_auth)/otpCode");
+    router.push(routes.auth.otpCode);
   };
 
   const confirmHandler2 = () => {

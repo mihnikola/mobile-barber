@@ -11,6 +11,7 @@ import SharedItemMultiSelection from "@/shared-components/SharedItemMultiSelecti
 import SharedCategoryItem from "@/shared-components/SharedCategoryItem";
 import SharedButton from "@/shared-components/SharedButton";
 import { colors } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 const MoreServiceComponent = () => {
   const { updateReservation, reservation } = useContext(ReservationContext);
@@ -69,7 +70,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
 };
   const submitHandler = () => {
     updateReservation({ ...reservation, otherServices: selectedServices });
-    const pathName = "/(tabs)/(02_barbers)/employers";
+    const pathName = routes.booking.employees;
 
     router.push(pathName);
   };
@@ -81,7 +82,7 @@ const handleSelectService = (categoryId, serviceDataVar) => {
     setSelectedServices([]);
     updateReservation({ ...reservation, otherServices: [] });
 
-    router.push("/(tabs)/(02_barbers)/employers");
+    router.push(routes.booking.employees);
   };
 
 

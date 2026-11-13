@@ -9,6 +9,7 @@ import { router } from "expo-router";
 import { useLocalization } from "@/context/LocalizationContext";
 import HeaderCoverImageContainer from "@/shared-components/HeaderCoverImageContainer";
 import { colors } from "@/theme";
+import { routes } from "@/lib/navigation/routes";
 
 const PlaceComponent = ({ locationsData }) => {
   const { reservation, updateReservation } = useContext(ReservationContext);
@@ -17,7 +18,7 @@ const PlaceComponent = ({ locationsData }) => {
 
   const redirectHandler = (location) => {
     updateReservation({ ...reservation, location });
-    const pathName = "/(tabs)/(02_barbers)/services";
+    const pathName = routes.booking.services;
     router.push({
       pathname: pathName,
       params: { backButton: true },

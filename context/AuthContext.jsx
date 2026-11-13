@@ -21,6 +21,7 @@ import { getLanguageValue } from "@/helpers/language";
 import NotificationService from "@/services/NotificationService";
 import { Alert, unstable_batchedUpdates } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { routes } from "@/lib/navigation/routes";
 export const AuthContext = createContext(/** @type {any} TODO(phase4): real type */ (null));
 
 export const useAuth = () => {
@@ -88,14 +89,14 @@ export const AuthProvider = ({ children }) => {
     setIsMessage(false);
     if (data === "settings") {
       router.back();
-      router.replace("/(tabs)/(04_settings)/");
+      router.replace(routes.settings.root);
       return;
     }
     if (data === "appointments") {
       router.back();
 
 
-      router.replace("/(tabs)/(03_calendar)/");
+      router.replace(routes.appointments.root);
       return;
     }
     if (data === "calendar") {
@@ -278,19 +279,19 @@ export const AuthProvider = ({ children }) => {
 
   const onPressHandler = (data) => {
     if (data === "1") {
-      router.push("/(tabs)/(04_settings)/userprofile");
+      router.push(routes.settings.userProfile);
     }
     if (data === "2") {
-      router.push("/(tabs)/(04_settings)/languageSupport");
+      router.push(routes.settings.languageSupport);
     }
     if (data === "100") {
-      router.push("/(tabs)/(04_settings)/aboutapplication");
+      router.push(routes.settings.aboutApplication);
     }
     if (data === "200") {
-      router.push("/(tabs)/(04_settings)/privacypolicy");
+      router.push(routes.settings.privacyPolicy);
     }
     if (data === "900") {
-      router.push("/(tabs)/(04_settings)/helpSupport");
+      router.push(routes.settings.helpSupport);
     }
     if (data === "6") {
       setIsLogout(true);
@@ -308,7 +309,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 200) {
           await saveOtpParamsStorage(verificationData);
           setIsMessage(false);
-          router.push("/(z_auth)/otpCode");
+          router.push(routes.auth.otpCode);
         }
         if (response.status === 500) {
           setError(response.message);
