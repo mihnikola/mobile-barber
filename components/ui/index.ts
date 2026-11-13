@@ -1,6 +1,8 @@
 // Design-system primitives (Phase 2, D-014). No business logic in this folder.
 export { AppText, textStyles, type AppTextProps, type TextVariant } from "./AppText";
+export { Avatar, type AvatarSize } from "./Avatar";
 export { Button, type ButtonProps, type ButtonVariant } from "./Button";
+export { Card, cardStyles, ListItem, MetaRow } from "./Card";
 export {
   PasswordField,
   PhoneField,

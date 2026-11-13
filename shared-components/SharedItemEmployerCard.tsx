@@ -1,110 +1,26 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { roundValue } from "@/helpers";
-import SharedImageInitials from "./SharedInitialsName";
-import { ColorsBarber } from "@/constants/Colors";
-import { TouchableOpacity } from "./TouchableOpacity";
-import { fonts } from "@/theme";
+import { View } from "react-native";
 
+import { Avatar } from "@/components/ui/Avatar";
+import { ListItem, MetaRow } from "@/components/ui/Card";
+import { roundValue } from "@/helpers";
+
+/** Employee row in the barbers list. Built from `ListItem` + `MetaRow` + `Avatar`. */
 const SharedItemEmployerCard = (props: any) => {
-  const { redirectHandler, data, otherServices } = props;
-  const { id, image, name, seniority, averageRating, userCount } = data;
+  const { redirectHandler, data } = props;
+  const { image, name, seniority, averageRating, userCount } = data;
 
   return (
-    <TouchableOpacity
-      key={id}
-      onPress={() => redirectHandler(data)}
-      style={styles.card}
-    >
-      {image ? (
-        <Image source={{ uri: image }} style={styles.profileImage} />
-      ) : (
-        <SharedImageInitials name={name} otherServices={otherServices} listEmployers />
-      )}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <View style={styles.locationContainer}>
-          <FontAwesome name={"trophy"} size={16} color={ColorsBarber.dark.textColor} />
-          <Text style={styles.locationText}>
-            {`${seniority || seniority?.title}`}
-          </Text>
-        </View>
-        <View style={styles.dataContainer}>
-          <View style={styles.ratingContainer}>
-            <MaterialIcons name={"star"} size={16} color={ColorsBarber.dark.starColor} />
-            <Text style={styles.reviewText}>{`${roundValue(
-              averageRating,
-            )}/5`}</Text>
-          </View>
-
-          <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color={ColorsBarber.dark.personIcon} />
-            <Text style={styles.reviewText}>{userCount || 0}</Text>
-          </View>
-        </View>
+    <ListItem onPress={() => redirectHandler(data)} leading={<Avatar uri={image} name={name} />} title={name}>
+      {/* seniority line had no font family in the old card -> system font kept (Phase 5 decides) */}
+      <MetaRow icon="trophy" font="system" spaced>{`${seniority || seniority?.title}`}</MetaRow>
+      <View style={{ gap: 5 }}>
+        <MetaRow icon="star" iconColor="gold" font="bold">{`${roundValue(averageRating)}/5`}</MetaRow>
+        <MetaRow icon="person" iconColor="gold" font="bold">
+          {userCount || 0}
+        </MetaRow>
       </View>
-      <FontAwesome name={"chevron-right"} size={32} color={ColorsBarber.dark.arrowIcon} />
-    </TouchableOpacity>
+    </ListItem>
   );
 };
 
-const styles = StyleSheet.create({
-  dataContainer: {
-    gap: 5,
-  },
-  locationText: {
-    fontSize: 14,
-    color: ColorsBarber.dark.textColor, // Lighter grey for location
-    marginLeft: 5,
-  },
-  card: {
-    flexDirection: "row",
-    backgroundColor: ColorsBarber.dark.item, // Dark background from your image
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8, // Spacing between cards
-    marginHorizontal: 15, // Side padding for the list
-    alignItems: "center",
-    shadowColor: ColorsBarber.dark.background, // For a subtle shadow (iOS)
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
-  },
-  profileImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 30, // Makes it circular
-    marginRight: 15,
-    color: ColorsBarber.dark.textColor, // Lighter grey for location
-  },
-  detailsContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  name: {
-    fontSize: 18,
-    fontFamily: fonts.bold,
-    color: ColorsBarber.dark.textColor, // Lighter grey for location
-    marginBottom: 4,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 4,
-  },
-  ratingContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  reviewText: {
-    fontSize: 14,
-    fontFamily: fonts.bold,
-
-    color: ColorsBarber.dark.textColor, // Lighter grey for location
-    marginLeft: 5,
-  },
-});
 export default SharedItemEmployerCard;
