@@ -5,48 +5,38 @@ import { AppText, Icon, Pressable } from "@/components/ui";
 const ProfileUserComponent = ({ data, onPress }) => {
   const styles = useStyles();
   return (
-    <View style={styles.profileSection}>
+    <View style={styles.profile}>
       {/* no photo → nothing (B21, user decision D-022) */}
-      {data?.image ? <Image source={{ uri: data?.image }} style={styles.profileImage} /> : null}
-      <View style={styles.profileInfo}>
-        <AppText variant="title" style={styles.profileName}>{data?.name}</AppText>
-        <AppText variant="bodySm">{data?.email}</AppText>
+      {data?.image ? <Image source={{ uri: data?.image }} style={styles.photo} /> : null}
+      <View style={styles.info}>
+        <AppText variant="displayMd" style={styles.name}>
+          {data?.name}
+        </AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {data?.email}
+        </AppText>
       </View>
-      <Pressable style={styles.editButton} onPress={() => onPress("1")}>
-        <Icon name="pencil" size={20} color="ink" />
+      <Pressable style={styles.edit} onPress={() => onPress("1")} hitSlop={8}>
+        <Icon name="pencil" size="sm" />
       </Pressable>
     </View>
   );
 };
+
 const useStyles = makeStyles((colors) => ({
-  profileSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
-    marginBottom: 10,
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginRight: 15,
-    borderWidth: 2,
+  profile: { flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
+  photo: { width: 72, height: 72, borderRadius: 12 },
+  info: { flex: 1 },
+  name: { fontSize: 24, lineHeight: 28 },
+  edit: {
+    width: 40,
+    height: 40,
+    borderRadius: 999,
+    borderWidth: 1.5,
     borderColor: colors.lineStrong,
-  },
-  profileInfo: {
-    flex: 1,
-  },
-  profileName: {
-    marginBottom: 2,
-  },
-  editButton: {
-    backgroundColor: colors.bg,
-    borderRadius: 20,
-    padding: 8,
     alignItems: "center",
     justifyContent: "center",
   },
 }));
+
 export default ProfileUserComponent;

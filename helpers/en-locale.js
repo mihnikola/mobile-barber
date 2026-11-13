@@ -155,6 +155,7 @@ export const ENG_LOCALIZATION = {
       system: "System",
       light: "Light",
       dark: "Dark",
+      hint: "System follows the light or dark setting of your phone.",
     },
     changeLanguage: {
       capture: "Change language",

@@ -21,6 +21,7 @@ export {
 export { Icon, iconSize, type IconName, type IconProps } from "./Icon";
 export { Row, Stack, layout } from "./Layout";
 export { Pressable, PRESS_LOCK_MS, type PressableProps } from "./Pressable";
+export { Radio } from "./Radio";
 export { Screen, type ScreenMode, withScreen } from "./Screen";
 export { SegmentedTabs, type SegmentedOption } from "./SegmentedTabs";
 export { type BadgeStatus, StatusBadge } from "./StatusBadge";

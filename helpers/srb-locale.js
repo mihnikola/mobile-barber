@@ -158,6 +158,7 @@ export const SRB_LOCALIZATION = {
       system: "Sistem",
       light: "Svetla",
       dark: "Tamna",
+      hint: "Sistem prati svetlu ili tamnu temu telefona.",
     },
     changeLanguage: {
       capture: "Promena jezika",

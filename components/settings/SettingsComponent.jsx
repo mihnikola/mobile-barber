@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useLastPathNavigation } from "@/context/NavigationContext";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ConfirmDialog, Icon, Loader, withScreen } from "@/components/ui";
+import { AppText, ConfirmDialog, Loader, withScreen } from "@/components/ui";
 import { makeStyles } from "@/theme";
 import { routes } from "@/lib/navigation/routes";
 
@@ -20,6 +20,7 @@ const MENU_ROUTES = {
   100: routes.settings.aboutApplication,
   200: routes.settings.privacyPolicy,
   900: routes.settings.helpSupport,
+  300: routes.settings.theme,
 };
 
 const SettingsComponent = () => {
@@ -83,7 +84,10 @@ const SettingsComponent = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <AppText variant="displayLg" style={styles.title}>
+        {localization.TABS.SETTINGS}
+      </AppText>
       {isToken ? (
         <ProfileUserComponent data={userData} onPress={onPressHandler} />
       ) : (
@@ -98,9 +102,6 @@ const SettingsComponent = () => {
           isOpen={isLogout}
           onClose={() => setIsLogout(false)}
           onConfirm={logoutConfirm}
-          icon={
-            <Icon name="question" size={64} color="ink" />
-          }
           title={localization.SETTINGS.LOGOUT.question}
           confirmText={localization.SETTINGS.LOGOUT.title}
           cancelText={localization.SETTINGS.LOGOUT.cancel}
@@ -113,11 +114,9 @@ const SettingsComponent = () => {
   );
 };
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-    paddingTop: 20,
-  },
+  container: { flex: 1, backgroundColor: colors.bg },
+  content: { paddingTop: 16, paddingBottom: 32 },
+  title: { fontSize: 30, lineHeight: 33, marginHorizontal: 16, marginBottom: 8 },
 }));
 
 export default withScreen(SettingsComponent);

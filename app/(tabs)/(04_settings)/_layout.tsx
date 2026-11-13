@@ -18,6 +18,7 @@ export default function RootLayoutSettings() {
           headerShown: false
         }}
       />
+      <Stack.Screen name="theme" options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="languageSupport"
         options={{

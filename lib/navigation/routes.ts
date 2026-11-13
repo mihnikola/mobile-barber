@@ -39,5 +39,6 @@ export const routes = {
     languageSupport: "/(tabs)/(04_settings)/languageSupport",
     helpSupport: "/(tabs)/(04_settings)/helpSupport",
     aboutApplication: "/(tabs)/(04_settings)/aboutapplication",
+    theme: "/(tabs)/(04_settings)/theme",
   },
 } as const;

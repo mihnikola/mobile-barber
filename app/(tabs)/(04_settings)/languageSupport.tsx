@@ -1,31 +1,21 @@
 import { useLocalization } from "@/context/LocalizationContext";
 import { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  StatusBar,
-  TextInput,
-  FlatList,
-} from "react-native";
+import { TextInput, View } from "react-native";
 import { useCompany } from "@/context/CompanyContext";
-import { router } from "expo-router";
-import SharedBackButton from "@/components/layout/SharedBackButton";
-import SharedCoverImage from "@/components/layout/SharedCoverImage";
-import SharedTitle from "@/components/layout/SharedTitle";
 import { coverSettingsImage } from "@/constants";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { fonts, makeStyles, useTheme } from "@/theme";
-import { AppText, Icon, Loader, Pressable, withScreen } from "@/components/ui";
+import { ListGroup, ListRow, Loader, Radio, withScreen } from "@/components/ui";
 
 const LanguageSupportScreen = () => {
   const { colors } = useTheme();
   const styles = useStyles();
   const { changeLocalization, localization, isLoading } = useLocalization();
   const [search, setSearch] = useState("");
-  const [filteredLanguages, setFilteredLanguages] = useState([]);
+  const [filteredLanguages, setFilteredLanguages] = useState<{ code: string; label: string }[]>([]);
   const { company } = useCompany();
 
-  const languageLabels = {
+  const languageLabels: Record<string, { en: string; sr: string }> = {
     sr: {
       en: "Engleski",
       sr: "Srpski",
@@ -39,7 +29,7 @@ const LanguageSupportScreen = () => {
     { code: "en", label: languageLabels[localization.code]?.en || "English" },
     { code: "sr", label: languageLabels[localization.code]?.sr || "Serbian" },
   ];
-  const handleSearch = (text) => {
+  const handleSearch = (text: string) => {
     setSearch(text);
     const filtered = LANGUAGES.filter((lang) =>
       lang.label.toLowerCase().includes(text.toLowerCase()),
@@ -53,88 +43,51 @@ const LanguageSupportScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor=colors.bg barStyle="dark-content" /> */}
-      {/* <SharedBackButton onPress={router.back} />
-
-     
-      <SharedCoverImage image={coverSettingsImage} />
-      <SharedTitle title={localization.SETTINGS.changeLanguage.capture} /> */}
-
-      <HeaderCoverImageContainer
-        title={localization.SETTINGS.changeLanguage.capture}
-        image={coverSettingsImage}
-      />
+      <HeaderCoverImageContainer title={localization.SETTINGS.changeLanguage.capture} image={coverSettingsImage} />
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor={colors.inkMuted}
+        placeholderTextColor={colors.inkFaint}
         value={search}
         onChangeText={handleSearch}
       />
       {!isLoading && (
-        <FlatList
-          data={filteredLanguages}
-          keyExtractor={(item) => item.code}
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.languageItem}
+        <ListGroup>
+          {filteredLanguages.map((item) => (
+            <ListRow
+              key={item.code}
+              label={item.label}
               onPress={() => {
                 if (localization.code !== item.code) {
                   changeLocalization(item);
                 }
               }}
-            >
-              <AppText variant="body">{item.label}</AppText>
-              <Icon name={localization.code === item.code && "check"} size={28} color="ink" />
-            </Pressable>
-          )}
-        />
+              right={<Radio selected={localization.code === item.code} />}
+            />
+          ))}
+        </ListGroup>
       )}
       {isLoading && <Loader />}
     </View>
   );
 };
+
 const useStyles = makeStyles((colors) => ({
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-
-  headerImage: {
-    width: "100%",
-    height: 180,
-    opacity: 0.2,
-  },
-  capture: {
-    fontSize: 25,
-    color: colors.ink,
-    fontFamily: fonts.displaySemiBold,
-    paddingVertical: 130,
-  },
-
+  container: { flex: 1, backgroundColor: colors.bg },
+  // ds-input
   search: {
-    color: colors.onPrimary,
-    backgroundColor: colors.primary,
-    fontFamily: fonts.sans,
-    borderColor: colors.inkMuted,
-    borderWidth: 1,
+    minHeight: 48,
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 8,
+    paddingHorizontal: 16,
     borderRadius: 8,
-    padding: 10,
-    margin: 20,
-    fontSize: 20,
-  },
-
-  languageItem: {
-    padding: 15,
-    marginHorizontal: 20,
-    marginVertical: 7,
-    borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: colors.bg,
-    borderWidth: 1,
-    borderColor: colors.primary,
+    borderWidth: 1.5,
+    borderColor: colors.lineStrong,
+    backgroundColor: colors.surface,
+    color: colors.ink,
+    fontFamily: fonts.sans,
+    fontSize: 16,
   },
 }));
 

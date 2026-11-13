@@ -1,58 +1,35 @@
-import { ScrollView, StyleSheet } from "react-native";
-import { MenuItem } from "./MenuItem";
+import { View } from "react-native";
 import { useLocalization } from "@/context/LocalizationContext";
+import { ListGroup, ListRow } from "@/components/ui";
 import { useTheme } from "@/theme";
 
-/** System → Light → Dark → System … */
-const NEXT_MODE = { system: "light", light: "dark", dark: "system" };
-
+/** Profile menu (design system `ds-list` groups, Ekran12). Ids are handled by SettingsComponent. */
 const MenuItemContainer = ({ onPress, isToken }) => {
   const { localization } = useLocalization();
-  const { mode, setMode } = useTheme();
+  const { mode } = useTheme();
   return (
-    <ScrollView style={styles.menuContainer}>
-      <MenuItem
-        iconName="translate"
-        title={localization.SETTINGS.changeLanguage.capture}
-        onPress={() => onPress("2")}
-      />
-      <MenuItem
-        iconName="theme"
-        title={`${localization.SETTINGS.THEME.title}: ${localization.SETTINGS.THEME[mode]}`}
-        onPress={() => setMode(NEXT_MODE[mode])}
-      />
-      <MenuItem
-        iconName="contacts"
-        title={localization.SETTINGS.ABOUTAPP.title}
-        onPress={() => onPress("100")}
-      />
-
-      <MenuItem
-        iconName="support"
-        title={localization.SETTINGS.HELP.title}
-        onPress={() => onPress("900")}
-      />
-      <MenuItem
-        iconName="document"
-        title={localization.SETTINGS.LEGAL.title}
-        onPress={() => onPress("200")}
-      />
-      {isToken &&
-        <MenuItem
-          iconName="logout"
-          title={localization.SETTINGS.LOGOUT.title}
-          onPress={() => onPress("6")}
-          isLogout
-
+    <View>
+      <ListGroup>
+        <ListRow icon="translate" label={localization.SETTINGS.changeLanguage.capture} onPress={() => onPress("2")} />
+        <ListRow
+          icon="theme"
+          label={localization.SETTINGS.THEME.title}
+          value={localization.SETTINGS.THEME[mode]}
+          onPress={() => onPress("300")}
         />
-      }
-    </ScrollView>
+      </ListGroup>
+      <ListGroup>
+        <ListRow icon="contacts" label={localization.SETTINGS.ABOUTAPP.title} onPress={() => onPress("100")} />
+        <ListRow icon="support" label={localization.SETTINGS.HELP.title} onPress={() => onPress("900")} />
+        <ListRow icon="document" label={localization.SETTINGS.LEGAL.title} onPress={() => onPress("200")} />
+      </ListGroup>
+      {isToken && (
+        <ListGroup>
+          <ListRow icon="logout" label={localization.SETTINGS.LOGOUT.title} onPress={() => onPress("6")} danger />
+        </ListGroup>
+      )}
+    </View>
   );
 };
-const styles = StyleSheet.create({
-  menuContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-});
+
 export default MenuItemContainer;
