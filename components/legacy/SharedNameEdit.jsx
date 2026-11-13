@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
   wrapper: { marginBottom: 15 },
   label: { color: colors.text, fontSize: 14, marginTop: 15, marginBottom: 8, fontFamily: fonts.regular },
   error: { color: colors.danger, marginTop: 5, fontFamily: fonts.bold },
-  inputFocused: { borderColor: colors.textInactive },
+  // same focus look as every other field (was a grey border; user decision 2026-11-13)
+  inputFocused: { borderColor: colors.white, borderWidth: 4, margin: -2 },
 });
 
 export default SharedNameEdit;

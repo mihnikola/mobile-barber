@@ -22,7 +22,8 @@ const SharedInput = forwardRef<TextInputRef, any>(({ style, error, ...props }, r
 
 const styles = StyleSheet.create({
   label: { color: colors.text, fontSize: 14, marginBottom: 8, marginTop: 15, fontFamily: fonts.bold },
-  inputFocused: { borderColor: colors.white },
+  // fields already have a 2px white border: grow it to 4px outward on focus (same look as password, no layout jump)
+  inputFocused: { borderColor: colors.white, borderWidth: 4, margin: -2 },
   error: { color: colors.danger, paddingTop: 10, fontFamily: fonts.regular },
 });
 
