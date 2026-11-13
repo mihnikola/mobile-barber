@@ -78,6 +78,14 @@ function App() {
   };
 
   const firstName = String(userData?.name ?? "").trim().split(/\s+/)[0];
+  // time-of-day greeting in place of the brand name: 05–12 jutro, 12–18 dan, otherwise veče
+  const hour = new Date().getHours();
+  const timeGreeting =
+    hour >= 5 && hour < 12
+      ? localization.HOME.goodMorning
+      : hour >= 12 && hour < 18
+        ? localization.HOME.goodDay
+        : localization.HOME.goodEvening;
   // one salon → show its address (design shows the place); several → the generic hint
   const locations = (locationsData ?? []) as ApiRecord[];
   const locationValue =
@@ -109,13 +117,15 @@ function App() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      {/* ds-home-top: brand mark + wordmark, avatar → profile */}
+      {/* ds-home-top: brand mark + time-of-day greeting, avatar → profile */}
       <View style={styles.top}>
         <View style={styles.brandRow}>
           <View style={styles.logoSlot}>
             <AppText style={styles.logoMark}>{brand.mark}</AppText>
           </View>
-          <AppText style={styles.wordmark}>{brand.name}</AppText>
+          <AppText style={styles.wordmark} numberOfLines={1} adjustsFontSizeToFit>
+            {timeGreeting}
+          </AppText>
         </View>
         <Pressable hitSlop={8} onPress={() => router.navigate(routes.settings.root)}>
           {userData?.image ? (
@@ -180,7 +190,7 @@ const useStyles = makeStyles((colors) => ({
   screen: { flex: 1, backgroundColor: colors.bg },
   content: { paddingTop: 8, paddingBottom: 24 },
   top: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 16 },
-  brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  brandRow: { flexDirection: "row", alignItems: "center", gap: 8, flex: 1, marginRight: 12 },
   logoSlot: {
     width: 40,
     height: 40,
