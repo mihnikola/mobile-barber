@@ -28,7 +28,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     plugins: [
         "@react-native-firebase/app",
-        "@react-native-firebase/messaging",
+        ["@react-native-firebase/messaging", { "installationIdEnabled": true }],
         "expo-router",
         [
             "expo-splash-screen",
