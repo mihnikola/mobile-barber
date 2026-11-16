@@ -25,6 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     android: {
         package: "fta.barber.app",
         googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./firebase/google-services.json",
+        allowBackup: false,
     },
     plugins: [
         "@react-native-firebase/app",
@@ -40,6 +41,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                     "backgroundColor": "#000000"
                 },
                 "imageWidth": 200
+            }
+        ],
+        [
+            "expo-notifications",
+            {
+                icon: "./assets/images/notification-icon.png",
             }
         ],
         [

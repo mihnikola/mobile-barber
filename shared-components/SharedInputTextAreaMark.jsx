@@ -10,7 +10,9 @@ const SharedInputTextAreaMark = ({
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
-        onChangeText={setDescription}
+        onChangeText={(text) => {
+          setDescription(text.replace(/^\s+/, ''));
+        }}
         value={description}
         placeholder={placeholderText}
         placeholderTextColor={ColorsBarber.dark.textColor}

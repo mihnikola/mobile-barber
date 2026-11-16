@@ -31,7 +31,7 @@ import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const userprofile = () => {
-  const { isLoading, userData, fetchUserData } = useAuth();
+  const { isLoading, userData, fetchUserData, isToken } = useAuth();
   const { localization } = useLocalization();
   const scrollRef = useRef(null);
   const scrollRef2 = useRef(null);
@@ -97,7 +97,9 @@ const userprofile = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    fetchUserData();
+    if (isToken) {
+      fetchUserData();
+    }
     router.back();
   };
 
@@ -105,9 +107,9 @@ const userprofile = () => {
     const data = {
       phoneNumber:
         phoneNumber !== userData?.phoneNumber?.slice(4) &&
-        phoneNumber !== userData?.phoneNumber &&
-        phoneNumber !== null &&
-        phoneNumber !== "null"
+          phoneNumber !== userData?.phoneNumber &&
+          phoneNumber !== null &&
+          phoneNumber !== "null"
           ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
@@ -301,7 +303,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 1,
-    borderColor:ColorsBarber.dark.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
   unbutton: {
     textAlign: "center",
