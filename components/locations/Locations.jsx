@@ -5,14 +5,17 @@ import { useEffect } from "react";
 import NotFoundLocations from "./../notFound/index";
 import HeaderCoverImageContainer from "@/components/layout/HeaderCoverImageContainer";
 import { Loader } from "@/components/ui";
+import { useLocationsRefresh } from "@/lib/locationsRefresh";
 
 const Locations = () => {
   const { locationsData, isLoading, error, fetchLocations } =
     useFetchLocations();
 
+  // live data: fetched on first open and again on every "Rezerviši" press (never reused)
+  const refresh = useLocationsRefresh();
   useEffect(() => {
     fetchLocations();
-  }, []);
+  }, [refresh]);
 
   if (isLoading) {
     return <PlaceholderComponent isLoading={isLoading} />;
