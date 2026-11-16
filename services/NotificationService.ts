@@ -14,6 +14,10 @@ import {
 } from "@react-native-firebase/messaging";
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+/** Debug logs (incl. the FID) only in development builds — silent in release. */
+const devLog = (...args: unknown[]) => {
+  if (__DEV__) console.log(...args);
+};
 const ANDROID_CHANNEL_ID = "default";
 
 type TokenHandler = (fid: string) => void | Promise<void>;
@@ -66,7 +70,7 @@ export class NotificationService {
       if (await getAPNSToken(messaging)) return true;
       await sleep(500);
     }
-    console.log("❌ APNs token not available (simulator / missing push capability?)");
+    devLog("❌ APNs token not available (simulator / missing push capability?)");
     return false;
   }
 
@@ -92,11 +96,11 @@ export class NotificationService {
         for (let i = 0; i < 10 && !this.deviceToken; i++) await sleep(300);
         if (this.deviceToken) return this.deviceToken;
       } catch (err) {
-        console.log(`register attempt ${attempt} failed:`, err);
+        devLog(`register attempt ${attempt} failed:`, err);
       }
       await sleep(1000 * attempt);
     }
-    console.log("❌ Could not register device with FCM");
+    devLog("❌ Could not register device with FCM");
     return "";
   }
 
@@ -107,16 +111,16 @@ export class NotificationService {
     try {
       await this.onToken(fid);
       this.lastSentToken = fid;
-      console.log("✅ FID synced to backend:", fid);
+      devLog("✅ FID synced to backend:", fid);
     } catch (err) {
-      console.log("❌ Failed to sync FID to backend:", err);
+      devLog("❌ Failed to sync FID to backend:", err);
     }
   }
 
   /** Replaces onTokenRefresh. Also replays the cached FID immediately if already registered. */
   private listenToRegistration() {
     const unsub = onRegistered(getMessaging(), (fid) => {
-      console.log("🔁 FCM registered (FID):", fid);
+      devLog("🔁 FCM registered (FID):", fid);
       void this.saveToken(fid);
     });
     this.subscriptions.push(unsub);
@@ -127,7 +131,7 @@ export class NotificationService {
     try {
       await unregister(getMessaging());
     } catch (err) {
-      console.log("unregister failed:", err);
+      devLog("unregister failed:", err);
     }
     this.deviceToken = "";
     this.lastSentToken = "";
@@ -203,11 +207,11 @@ export class NotificationService {
 
     // 3) Permission + FID registration
     if (!(await this.requestPermission())) {
-      console.log("❌ Notification permission denied");
+      devLog("❌ Notification permission denied");
       return;
     }
     const fid = await this.getFCMToken();
-    if (!fid) console.log("❌ FCM registration failed");
+    if (!fid) devLog("❌ FCM registration failed");
   }
 
   cleanup() {
