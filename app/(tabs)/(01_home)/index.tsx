@@ -5,7 +5,6 @@ import {
   Animated,
   View,
   Platform,
-  useWindowDimensions,
   Image,
 } from "react-native";
 import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
@@ -30,7 +29,6 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
-  const { height, width } = useWindowDimensions();
 
   // 🔒 Guards to prevent re-fetch on reset remount
   // const hasFetchedCompany = useRef(false);

@@ -15,7 +15,9 @@ const SharedInputTextArea = ({
       {/* The core multiline TextInput component */}
       <TextInput
         style={styles.textInput}
-        onChangeText={setDescription}
+        onChangeText={(text) => {
+          setDescription(text.replace(/^\s+/, '')); 
+        }}
         value={description}
         placeholder={placeholderText}
         placeholderTextColor={ColorsBarber.dark.textColor}
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
-    borderColor:ColorsBarber.dark.borderColor,
+    borderColor: ColorsBarber.dark.borderColor,
     borderRadius: 12,
     padding: 5,
     marginVertical: 8,
