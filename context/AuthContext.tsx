@@ -197,6 +197,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setIsToken(res);
       } else {
         setIsToken(null);
+      // stop push for this device until the next login (new FID then); not awaited — never blocks logout
+      void NotificationService.unregisterDevice();
       }
       setIsLoading(false);
     });
