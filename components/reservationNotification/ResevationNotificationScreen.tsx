@@ -29,7 +29,7 @@ function ResevationNotificationScreen() {
     setDescription,
     description,
   } = useAppointment();
-  
+
   const [isExpired, setIsExpired] = useState(false);
   const { itemId, past, rating, status, notification } = useLocalSearchParams();
   useEffect(() => {
@@ -80,7 +80,9 @@ function ResevationNotificationScreen() {
               localization.APPOINTMENTS.rateReservation.rateExplanation
             }
             value={description}
-            onChangeText={setDescription}
+            onChangeText={(text) => {
+              setDescription(text.replace(/^\s+/, ''));
+            }}
           />
         </>
       );
@@ -185,10 +187,10 @@ function ResevationNotificationScreen() {
   ) {
     return (
       <Loader variant="overlay" visible={
-          loading === "rating" ||
-          loading === "cancelling" ||
-          loading === "fetchById"
-        } />
+        loading === "rating" ||
+        loading === "cancelling" ||
+        loading === "fetchById"
+      } />
     );
   }
   const renderRejectionTitle = () => {

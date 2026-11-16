@@ -78,7 +78,9 @@ const Reservation = () => {
               <TextArea variant="card"
                 placeholder={localization.DATE.detailsReservation}
                 value={description}
-                onChangeText={setDescription}
+                onChangeText={(text) => {
+                  setDescription(text.replace(/^\s+/, ''));
+                }}
               />
             </View>
           </View>

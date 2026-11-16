@@ -12,7 +12,7 @@ import { AppText, BackButton, Button, Icon, MessageDialog, PhoneField, TextField
 
 const UserProfileScreen = () => {
   const styles = useStyles();
-  const { isLoading, userData, fetchUserData } = useAuth();
+  const { isLoading, userData, fetchUserData, isToken } = useAuth();
   const { localization } = useLocalization();
   const scrollRef = useRef(null);
   const scrollRef2 = useRef(null);
@@ -77,7 +77,10 @@ const UserProfileScreen = () => {
 
   const messageHandler = () => {
     setIsMessage(false);
-    fetchUserData();
+    // fetchUserData();
+    if (isToken) {
+      fetchUserData();
+    }
     router.back();
   };
 
@@ -85,9 +88,9 @@ const UserProfileScreen = () => {
     const data = {
       phoneNumber:
         phoneNumber !== userData?.phoneNumber?.slice(4) &&
-        phoneNumber !== userData?.phoneNumber &&
-        phoneNumber !== null &&
-        phoneNumber !== "null"
+          phoneNumber !== userData?.phoneNumber &&
+          phoneNumber !== null &&
+          phoneNumber !== "null"
           ? "+381" + phoneNumber
           : null,
       name: name !== userData?.name ? name : null,
@@ -108,106 +111,106 @@ const UserProfileScreen = () => {
   return (
     // keyboard handling comes from withScreen(..., "keyboard"); top inset from Screen
     <ScrollView
-        ref={scrollRef}
-        style={styles.screen}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.scrollContent}
-      >
-        <BackButton style={styles.back} />
-        <View style={styles.profileRow}>
-          <ImageCompress handlePickImage={selectedImgHandler} imageValue={userData?.image} />
-          <View style={styles.profileText}>
-            <AppText style={styles.profileName} numberOfLines={2}>
-              {userData?.name}
-            </AppText>
-            <AppText variant="bodySm" color="inkMuted" numberOfLines={1}>
-              {userData?.email}
-            </AppText>
-          </View>
+      ref={scrollRef}
+      style={styles.screen}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={styles.scrollContent}
+    >
+      <BackButton style={styles.back} />
+      <View style={styles.profileRow}>
+        <ImageCompress handlePickImage={selectedImgHandler} imageValue={userData?.image} />
+        <View style={styles.profileText}>
+          <AppText style={styles.profileName} numberOfLines={2}>
+            {userData?.name}
+          </AppText>
+          <AppText variant="bodySm" color="inkMuted" numberOfLines={1}>
+            {userData?.email}
+          </AppText>
         </View>
-        <View style={styles.userDataContainer}>
-          <View>
-            <AppText variant="label" color="inkMuted" style={styles.label}>
-              {localization.SETTINGS.PROFILE.email}
-            </AppText>
-            <TextInput
-              style={styles.inputDisabled}
-              defaultValue={userData?.email}
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </View>
-          <View>
-            <PhoneField
-              label={localization.SETTINGS.PROFILE.phoneNumber}
-              placeholder="6x xxx xxxx"
-              keyboardType="phone-pad"
-              dataDetectorTypes="phoneNumber"
-              value={
-                phoneNumber !== null
-                  ? phoneNumber
-                  : userData?.phoneNumber === null
-                    ? ""
-                    : userData?.phoneNumber?.slice(4)
-              }
-              onChangeText={handlePhoneNumberChange}
-              autoComplete="tel"
-              error={errorPhoneNumber}
-              returnKeyType="next"
-              onSubmitEditing={() => {
-                const node = findNodeHandle(nameRef.current);
-                if (node) {
-                  scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
-                    node,
-                    200,
-                    true,
-                  );
-                }
-                nameRef.current?.focus();
-              }}
-            />
-          </View>
-          <View>
-            <TextField alwaysShowError
-              label={localization.SETTINGS.PROFILE.name}
-              value={name}
-              ref={nameRef}
-              onChangeText={handleNameChange}
-              placeholder={localization.SETTINGS.PROFILE.placeholderName}
-              onFocus={() => {
-                // keep the field above the keyboard (was inside SharedNameEdit)
-                const node = findNodeHandle(nameRef.current);
-                if (node) scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(node, 120, true);
-              }}
-            />
-          </View>
-
-          <View>
-            <Button
-              style={styles.submit}
-              disabled={!isValidated}
-              onPress={submitChanges}
-              loading={isLoadingChange}
-              title={localization.SETTINGS.PROFILE.btnText}
-            />
-          </View>
-        </View>
-        {isMessage && (
-          <MessageDialog
-            isOpen={isMessage}
-            onClose={!errorChange ? messageHandler : messageHandler2}
-            onConfirm={!errorChange ? messageHandler : messageHandler2}
-            icon={
-              <Icon name={errorChange ? "close" : "check"} size={32} />
-            }
-            title={
-              message
-                ? localization.SETTINGS.PROFILE.messageConfirm
-                : errorChange
-            }
-            buttonText="Ok"
+      </View>
+      <View style={styles.userDataContainer}>
+        <View>
+          <AppText variant="label" color="inkMuted" style={styles.label}>
+            {localization.SETTINGS.PROFILE.email}
+          </AppText>
+          <TextInput
+            style={styles.inputDisabled}
+            defaultValue={userData?.email}
+            editable={false}
+            selectTextOnFocus={false}
           />
-        )}
+        </View>
+        <View>
+          <PhoneField
+            label={localization.SETTINGS.PROFILE.phoneNumber}
+            placeholder="6x xxx xxxx"
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            value={
+              phoneNumber !== null
+                ? phoneNumber
+                : userData?.phoneNumber === null
+                  ? ""
+                  : userData?.phoneNumber?.slice(4)
+            }
+            onChangeText={handlePhoneNumberChange}
+            autoComplete="tel"
+            error={errorPhoneNumber}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              const node = findNodeHandle(nameRef.current);
+              if (node) {
+                scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                  node,
+                  200,
+                  true,
+                );
+              }
+              nameRef.current?.focus();
+            }}
+          />
+        </View>
+        <View>
+          <TextField alwaysShowError
+            label={localization.SETTINGS.PROFILE.name}
+            value={name}
+            ref={nameRef}
+            onChangeText={handleNameChange}
+            placeholder={localization.SETTINGS.PROFILE.placeholderName}
+            onFocus={() => {
+              // keep the field above the keyboard (was inside SharedNameEdit)
+              const node = findNodeHandle(nameRef.current);
+              if (node) scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(node, 120, true);
+            }}
+          />
+        </View>
+
+        <View>
+          <Button
+            style={styles.submit}
+            disabled={!isValidated}
+            onPress={submitChanges}
+            loading={isLoadingChange}
+            title={localization.SETTINGS.PROFILE.btnText}
+          />
+        </View>
+      </View>
+      {isMessage && (
+        <MessageDialog
+          isOpen={isMessage}
+          onClose={!errorChange ? messageHandler : messageHandler2}
+          onConfirm={!errorChange ? messageHandler : messageHandler2}
+          icon={
+            <Icon name={errorChange ? "close" : "check"} size={32} />
+          }
+          title={
+            message
+              ? localization.SETTINGS.PROFILE.messageConfirm
+              : errorChange
+          }
+          buttonText="Ok"
+        />
+      )}
     </ScrollView>
   );
 };

@@ -46,10 +46,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     android: {
         package: APP_ID,
         googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./firebase/google-services.json",
+        allowBackup: false,
     },
     plugins: [
         "@react-native-firebase/app",
-        "@react-native-firebase/messaging",
+        ["@react-native-firebase/messaging", { "installationIdEnabled": true }],
         "expo-router",
         [
             "expo-splash-screen",
@@ -63,6 +64,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                     "backgroundColor": SPLASH_BG.dark
                 },
                 "imageWidth": 200
+            }
+        ],
+        [
+            "expo-notifications",
+            {
+                icon: "./assets/images/notification-icon.png",
             }
         ],
         [

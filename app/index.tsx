@@ -12,14 +12,11 @@ const SplashScreen = () => {
 
   const getInitialTokenData = async () => {
     const result = await AsyncStorage.getItem("initialToken");
-    setTimeout(() => {
-      router.replace(result === "true" ? "/(tabs)/(01_home)" : "introScreen");
-    }, 3000);
+    router.replace(result === "1" ? "/(tabs)/(01_home)" : "introScreen");
   };
 
   useEffect(() => {
     getCompany();
-
     getInitialTokenData();
   }, []);
 
