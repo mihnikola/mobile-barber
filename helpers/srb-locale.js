@@ -43,8 +43,6 @@ export const SRB_LOCALIZATION = {
     heroDesc: "Izaberi uslugu, frizera i vreme koje ti odgovara.",
     nextAppointment: "Sledeći termin",
     allAppointments: "Svi termini",
-    contactBtn: "Kontakt",
-    contactBtnDesc: "Pozovi salon",
   },
   COMPANY: {
     error: "Podaci o salonu trenutno nisu dostupni",

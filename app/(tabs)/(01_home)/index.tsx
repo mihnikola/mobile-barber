@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Linking, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { router } from "expo-router";
 import { useOpenGoogleMaps } from "@/components/location/hooks/useOpenGoogleMaps";
 import { useLocalization } from "@/context/LocalizationContext";
-import { useCompany } from "@/context/CompanyContext";
 import useFetchLocations from "@/components/places/useFetchLocations";
 import LocationsComponent from "@/components/home/LocationsComponent";
 import LocationNotFound from "@/components/home/LocationNotFound";
@@ -17,16 +16,16 @@ import type { ApiRecord } from "@/context/types";
 import { buttonText, displayText, fonts, makeStyles, radii } from "@/theme";
 import { AppText, Avatar, Icon, ListGroup, ListRow, Pressable, withScreen } from "@/components/ui";
 import { routes } from "@/lib/navigation/routes";
+import { requestLocationsRefresh } from "@/lib/locationsRefresh";
 
 /**
  * Home (design Ekran01c "Početna · jednostavna"): brand row + avatar, greeting, one booking hero,
- * next appointment (only when there is one), About us / Location / Contact list.
+ * next appointment (only when there is one), About us / Location list (contact is in About us).
  * Same actions as before; "next appointment" and "contact" only reuse existing data/endpoints.
  */
 function App() {
   const styles = useStyles();
   const { getTokenData, isToken, userData } = useAuth();
-  const { company } = useCompany();
   const [modalVisible, setModalVisible] = useState(false);
   const { openGoogleMapsRoute } = useOpenGoogleMaps();
   const isConnected = useInternetGuard();
@@ -42,6 +41,7 @@ function App() {
   }, [isConnected]);
 
   const nextPage = () => {
+    requestLocationsRefresh(); // locations are live data → load them fresh on every Book press
     router.push({ pathname: routes.booking.tab });
   };
 
@@ -62,11 +62,6 @@ function App() {
     } else {
       setModalVisible(true);
     }
-  };
-
-  const callSalon = () => {
-    const phone = String(company?.contact ?? "").replace(/[^\d+]/g, "");
-    if (phone) Linking.openURL(`tel:${phone}`);
   };
 
   const openAppointment = (item: ApiRecord) => {
@@ -174,9 +169,6 @@ function App() {
       <ListGroup style={styles.list}>
         <ListRow icon="info" label={localization.HOME.aboutUsBtn} value={localization.HOME.aboutUsBtnDesc} onPress={onAboutUs} />
         <ListRow icon="locationDot" label={localization.HOME.locationBtn} value={locationValue} onPress={openLocationHandler} />
-        {company?.contact ? (
-          <ListRow icon="phone" label={localization.HOME.contactBtn} value={localization.HOME.contactBtnDesc} onPress={callSalon} />
-        ) : null}
       </ListGroup>
     </ScrollView>
   );

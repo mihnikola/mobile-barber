@@ -32,8 +32,6 @@ export const ENG_LOCALIZATION = {
     heroDesc: "Pick a service, a barber and a time that suits you.",
     nextAppointment: "Next appointment",
     allAppointments: "All appointments",
-    contactBtn: "Contact",
-    contactBtnDesc: "Call the salon",
   },
   GOOGLE_BTN: {
     label: "Sign in with Google",
