@@ -2,8 +2,18 @@ import { useLocalization } from "@/context/LocalizationContext";
 import { SplashScreen, Tabs } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { brand, fonts, makeStyles, radii, useTheme } from "@/theme";
 import { Icon, type IconName } from "@/components/ui";
+
+/**
+ * Content height above the bottom safe area.
+ * 2pt item padding + 5pt tab padding + 28pt icon slot + 4pt gap + 16pt label + 5pt tab padding + 2pt
+ * item padding = 62, plus 2pt so the line box is not flush with the bar. React Navigation's default
+ * content height is 49pt, so the label overflows. Devices with a home indicator were painting that
+ * overflow into the inset; iPhone SE has no bottom inset, so the screen edge clips the labels.
+ */
+const TAB_BAR_CONTENT_HEIGHT = 64;
 
 /** Tab icon in the design-system nav pill (`ds-nav__pill`): accent on accentSoft when active. */
 function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
@@ -18,6 +28,7 @@ function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
 export default function TabLayout() {
   const { colors } = useTheme();
   const styles = useStyles();
+  const insets = useSafeAreaInsets();
   const { localization } = useLocalization();
   useEffect(() => {
     SplashScreen.hideAsync();
@@ -29,7 +40,10 @@ export default function TabLayout() {
           headerShown: false,
           tabBarActiveTintColor: colors.ink,
           tabBarInactiveTintColor: colors.inkMuted,
-          tabBarStyle: styles.bar,
+          tabBarStyle: [
+            styles.bar,
+            { height: TAB_BAR_CONTENT_HEIGHT + insets.bottom, paddingBottom: insets.bottom },
+          ],
           tabBarItemStyle: styles.item,
           tabBarLabelStyle: styles.label,
           // short cross-fade between tabs
@@ -76,15 +90,14 @@ export default function TabLayout() {
 
 const useStyles = makeStyles((colors) => ({
   container: { flex: 1, backgroundColor: colors.bg },
-  // ds-nav: surface, hairline on top
+  // ds-nav: surface, hairline on top. Height (including the bottom inset) is set in TabLayout.
   bar: {
     backgroundColor: colors.surface,
     borderTopColor: colors.line,
     borderTopWidth: 1,
-    // height/padding left to React Navigation so the bottom safe-area inset is kept
   },
   item: { paddingVertical: 2 },
-  label: { fontFamily: fonts.sansMedium, fontSize: 12, marginTop: 4 },
+  label: { fontFamily: fonts.sansMedium, fontSize: 12, lineHeight: 16, marginTop: 4 },
   pill: { width: 56, height: 30, borderRadius: radii.pill, alignItems: "center", justifyContent: "center" },
   pillActive: { backgroundColor: colors.accentSoft },
 }));
