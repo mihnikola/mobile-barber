@@ -101,7 +101,7 @@ function FormScreen({ children }: { children: ReactNode }) {
       <ScrollView
         style={styles.formScroll}
         contentContainerStyle={styles.formContent}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
         {children}
       </ScrollView>

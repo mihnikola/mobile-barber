@@ -111,7 +111,7 @@ const LoginScreen = () => {
       keyboardDismissMode="interactive"
       style={styles.screen}
       contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="always"
+      keyboardShouldPersistTaps="handled"
     >
       <BackButton style={styles.back} />
 

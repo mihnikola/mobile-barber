@@ -84,7 +84,7 @@ const Register = () => {
       keyboardDismissMode="interactive"
       style={styles.screen}
       contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="always"
+      keyboardShouldPersistTaps="handled"
     >
       <View style={styles.container}>
         <BackButton style={styles.back} />
