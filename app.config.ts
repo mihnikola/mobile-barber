@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
-const APP_VERSION = '1.2.3';
+const APP_VERSION = '2.0';
 
 /**
  * Brand (look) of this build: `BRAND=atelier npx expo start` / EAS env. Default gentleman.
